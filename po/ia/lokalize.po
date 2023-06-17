@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-14 00:49+0000\n"
+"POT-Creation-Date: 2023-06-17 00:50+0000\n"
 "PO-Revision-Date: 2023-06-14 12:41+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -231,82 +231,82 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Usa file fonte"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "Omne files supportate (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:45
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr "Omne files supportate (*.po  *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:48
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:51
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "New"
 msgstr "Nove"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs translation"
 msgstr "Necessita traduction"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs full localization"
 msgstr "Necessita localisation complete"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Necessita adaptation"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Translated"
 msgstr "Traducite"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs translation review"
 msgstr "Necessita review de traduction"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Necessita review de localisation complete"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Necessita review de adaptation"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Final"
 msgstr "Final"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Signed-off"
 msgstr "Claudite"
@@ -728,49 +728,49 @@ msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "variante: un del formas alternative de un termino"
 
-#: src/catalog/cmd.cpp:81
+#: src/catalog/cmd.cpp:80
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "Insertion"
 
-#: src/catalog/cmd.cpp:124
+#: src/catalog/cmd.cpp:123
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "Deletion"
 
-#: src/catalog/cmd.cpp:177
+#: src/catalog/cmd.cpp:176
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "Commutar de approvation"
 
-#: src/catalog/cmd.cpp:196
+#: src/catalog/cmd.cpp:194
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "Insertion de marcation"
 
-#: src/catalog/cmd.cpp:218
+#: src/catalog/cmd.cpp:216
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "Deletion de marcation"
 
-#: src/catalog/cmd.cpp:239
+#: src/catalog/cmd.cpp:237
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "Preferentia de nota"
 
-#: src/catalog/cmd.cpp:275
+#: src/catalog/cmd.cpp:270
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "Actualisa/adde phase de fluxo de travalio"
 
-#: src/catalog/cmd.cpp:296
+#: src/catalog/cmd.cpp:291
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
@@ -778,24 +778,24 @@ msgstr ""
 "Arrangiamento de Equivalentia de Traduction (in anglese Translation "
 "Equivalence Setting)"
 
-#: src/catalog/cmd.cpp:365
+#: src/catalog/cmd.cpp:360
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Remove texto con marcation"
 
-#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:665
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:665
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Inserta texto con marcation"
 
-#: src/catalog/gettext/gettextstorage.cpp:120
+#: src/catalog/gettext/gettextstorage.cpp:115
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "separator per alternativas de catena de longitude differente"
 
-#: src/catalog/gettext/gettextstorage.cpp:282
+#: src/catalog/gettext/gettextstorage.cpp:277
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -804,24 +804,24 @@ msgstr ""
 "Previe valor de fonte, salveguardate per Gettext durante le transition a un "
 "patrono de POT plus nove"
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Nomine de autor mancante"
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgid "Your name:"
 msgstr "Tu nomine:"
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "E-posta de autor mancante"
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgid "Your email:"
 msgstr "Tu adresse de E-posta:"
@@ -3550,10 +3550,13 @@ msgstr "Torno de parolas:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
+#| "value '-1' to disable the word wrap."
 msgid ""
-"Width used for the automatic msgfmt-like word wrap. Use the negative value "
-"'-1' to disable the word wrap."
+"Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+"disable the word wrap."
 msgstr ""
 "Largessa usate per le automatic torno de parola de typo msgfmt. Usa le valor "
 "negative '-1' per deactivar le torno de parola. "

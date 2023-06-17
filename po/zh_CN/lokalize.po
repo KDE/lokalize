@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-14 00:49+0000\n"
+"POT-Creation-Date: 2023-06-17 00:50+0000\n"
 "PO-Revision-Date: 2023-05-22 14:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -226,83 +226,83 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "使用源文件"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "所有支持的文件 (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:45
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:47
 #, fuzzy, kde-format
 #| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr "所有支持的文件 (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:48
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:51
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "New"
 msgstr "新翻译"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs translation"
 msgstr "需要翻译"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs full localization"
 msgstr "需要完全本地化"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "需要改进"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Translated"
 msgstr "已翻译"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs translation review"
 msgstr "需要翻译审核"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs full localization review"
 msgstr "需要全面本地化审核"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "需要改写审核"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Final"
 msgstr "最终版"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Signed-off"
 msgstr "签署"
@@ -664,96 +664,96 @@ msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "变体：某术语的一种备选形式"
 
-#: src/catalog/cmd.cpp:81
+#: src/catalog/cmd.cpp:80
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "插入"
 
-#: src/catalog/cmd.cpp:124
+#: src/catalog/cmd.cpp:123
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "删除"
 
-#: src/catalog/cmd.cpp:177
+#: src/catalog/cmd.cpp:176
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "切换审核状态"
 
-#: src/catalog/cmd.cpp:196
+#: src/catalog/cmd.cpp:194
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "插入标记"
 
-#: src/catalog/cmd.cpp:218
+#: src/catalog/cmd.cpp:216
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "删除标记"
 
-#: src/catalog/cmd.cpp:239
+#: src/catalog/cmd.cpp:237
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "备注设置"
 
-#: src/catalog/cmd.cpp:275
+#: src/catalog/cmd.cpp:270
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "更新/添加工作流程阶段"
 
-#: src/catalog/cmd.cpp:296
+#: src/catalog/cmd.cpp:291
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "翻译等价设置"
 
-#: src/catalog/cmd.cpp:365
+#: src/catalog/cmd.cpp:360
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "删除带标记的文本"
 
-#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:665
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:665
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "插入带标记的文本"
 
-#: src/catalog/gettext/gettextstorage.cpp:120
+#: src/catalog/gettext/gettextstorage.cpp:115
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr ""
 
-#: src/catalog/gettext/gettextstorage.cpp:282
+#: src/catalog/gettext/gettextstorage.cpp:277
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "缺少作者姓名"
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgid "Your name:"
 msgstr "您的姓名："
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "缺少作者电子邮件"
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgid "Your email:"
 msgstr "您的电子邮件："
@@ -3406,8 +3406,8 @@ msgstr "自动换行："
 #: src/project/prefs_project_advanced.ui:75
 #, kde-format
 msgid ""
-"Width used for the automatic msgfmt-like word wrap. Use the negative value "
-"'-1' to disable the word wrap."
+"Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+"disable the word wrap."
 msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)

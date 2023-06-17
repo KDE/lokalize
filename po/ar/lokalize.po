@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-14 00:49+0000\n"
+"POT-Creation-Date: 2023-06-17 00:50+0000\n"
 "PO-Revision-Date: 2023-06-15 09:33+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -236,82 +236,82 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "استخدم الملفّ المصدر"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "كلّ الملفّات المدعومة (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:45
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "غَت‌تكست (‎*.po *.pot)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr "كلّ الملفّات المدعومة (*.po *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:48
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "غَت‌تكست (‎*.po)"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "ملفّات XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:51
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "اللغويّ (*.ts)"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "New"
 msgstr "جديدة"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs translation"
 msgstr "تحتاج إلى ترجمة"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs full localization"
 msgstr "تحتاج إلى توطين كامل"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "تحتاج إلى ملاءمة"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Translated"
 msgstr "مترجمة"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs translation review"
 msgstr "تحتاج إلى مراجعة الترجمة"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs full localization review"
 msgstr "تحتاج إلى مراجعة التّوطين كاملًا"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "تحتاج إلى مراجعة الملاءمة"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Final"
 msgstr "منتهية"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Signed-off"
 msgstr "موقّعة"
@@ -710,96 +710,96 @@ msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "بديل: أحد الأشكال البديلة لمصطلح"
 
-#: src/catalog/cmd.cpp:81
+#: src/catalog/cmd.cpp:80
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "الإدراج"
 
-#: src/catalog/cmd.cpp:124
+#: src/catalog/cmd.cpp:123
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "الحذف"
 
-#: src/catalog/cmd.cpp:177
+#: src/catalog/cmd.cpp:176
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "تبديل الموافقة"
 
-#: src/catalog/cmd.cpp:196
+#: src/catalog/cmd.cpp:194
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "إدراج الرّقْم"
 
-#: src/catalog/cmd.cpp:218
+#: src/catalog/cmd.cpp:216
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "حذف الرّقْم"
 
-#: src/catalog/cmd.cpp:239
+#: src/catalog/cmd.cpp:237
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "ضبط الملاحظة"
 
-#: src/catalog/cmd.cpp:275
+#: src/catalog/cmd.cpp:270
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "تحديث/إضافة طور سير العمل"
 
-#: src/catalog/cmd.cpp:296
+#: src/catalog/cmd.cpp:291
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "إعداد ترادف الترجمة"
 
-#: src/catalog/cmd.cpp:365
+#: src/catalog/cmd.cpp:360
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "إزالة النّصّ الذي بداخله رقْم"
 
-#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:665
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:665
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "إدرّاج النّصّ الذي بداخله رقْم"
 
-#: src/catalog/gettext/gettextstorage.cpp:120
+#: src/catalog/gettext/gettextstorage.cpp:115
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "فاصل لتنويعات السّلاسل مختلفة الطّول"
 
-#: src/catalog/gettext/gettextstorage.cpp:282
+#: src/catalog/gettext/gettextstorage.cpp:277
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
 msgstr "قيمة المصدر السّابقة، حفظتها «غَت‌تكست» أثناء النّقل إلى قالب POT جديد"
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "اسم المؤلّف ناقص"
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgid "Your name:"
 msgstr "اسمك:"
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "بريد المؤلف ناقص"
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgid "Your email:"
 msgstr "بريدك الإلكتروني:"
@@ -3484,10 +3484,13 @@ msgstr "لفّ الكلمات:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
+#| "value '-1' to disable the word wrap."
 msgid ""
-"Width used for the automatic msgfmt-like word wrap. Use the negative value "
-"'-1' to disable the word wrap."
+"Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+"disable the word wrap."
 msgstr ""
 "العَرض المستخدم للفّ الكلمات آلي الشبيه بـ msgfmt. استخدم القيمة السالبة ’-1‘ "
 "لتعطيل لفّ الكلمات."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-14 00:49+0000\n"
+"POT-Creation-Date: 2023-06-17 00:50+0000\n"
 "PO-Revision-Date: 2021-09-20 14:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -234,83 +234,83 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Forrásfájl használata"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "Minden támogatott fájl (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:45
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:47
 #, fuzzy, kde-format
 #| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr "Minden támogatott fájl (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:48
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:51
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "New"
 msgstr "Új"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs translation"
 msgstr "Fordítást igényel"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs full localization"
 msgstr "Teljes honosítást igényel"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Adaptálást igényel"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Translated"
 msgstr "Lefordítva"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs translation review"
 msgstr "Fordítási lektorálást igényel"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Teljes honosítási lektorálást igényel"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Adaptálási lektorálást igényel"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Final"
 msgstr "Végleges"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Signed-off"
 msgstr "Láttamozva"
@@ -729,72 +729,72 @@ msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "változat: a kifejezés egy alternatív alakja"
 
-#: src/catalog/cmd.cpp:81
+#: src/catalog/cmd.cpp:80
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "Beszúrás"
 
-#: src/catalog/cmd.cpp:124
+#: src/catalog/cmd.cpp:123
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "Törlés"
 
-#: src/catalog/cmd.cpp:177
+#: src/catalog/cmd.cpp:176
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "Jóváhagyás ki-be"
 
-#: src/catalog/cmd.cpp:196
+#: src/catalog/cmd.cpp:194
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "Jelölés beszúrása"
 
-#: src/catalog/cmd.cpp:218
+#: src/catalog/cmd.cpp:216
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "Jelölés törlése"
 
-#: src/catalog/cmd.cpp:239
+#: src/catalog/cmd.cpp:237
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "Jegyzetbeállítás"
 
-#: src/catalog/cmd.cpp:275
+#: src/catalog/cmd.cpp:270
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "Munkafolyamat-fázis frissítése vagy hozzáadása"
 
-#: src/catalog/cmd.cpp:296
+#: src/catalog/cmd.cpp:291
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "Fordítás-egyenlőségi beállítás"
 
-#: src/catalog/cmd.cpp:365
+#: src/catalog/cmd.cpp:360
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Jelölőkódos szöveg eltávolítása"
 
-#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:665
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:665
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Jelölőkódos szöveg beszúrása"
 
-#: src/catalog/gettext/gettextstorage.cpp:120
+#: src/catalog/gettext/gettextstorage.cpp:115
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "elválasztó a különböző hosszúságú karakterlánc-alternatívákhoz"
 
-#: src/catalog/gettext/gettextstorage.cpp:282
+#: src/catalog/gettext/gettextstorage.cpp:277
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -803,24 +803,24 @@ msgstr ""
 "Előző forrásérték, amelyet a Gettext egy újabb POT-sablonra való áttérés "
 "során mentett el"
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "A szerző neve hiányzik"
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgid "Your name:"
 msgstr "Kiszel Kristóf,Krutki Tamás,Szántó Tamás,Úr Balázs"
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "A szerző e-mail-címe hiányzik"
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgid "Your email:"
 msgstr ""
@@ -3565,10 +3565,13 @@ msgstr "Szavak tördelése:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
+#| "value '-1' to disable the word wrap."
 msgid ""
-"Width used for the automatic msgfmt-like word wrap. Use the negative value "
-"'-1' to disable the word wrap."
+"Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+"disable the word wrap."
 msgstr ""
 "Az automatikus msgfmt-szerű szótördeléshez használt szélesség. Használjon "
 "negatív „-1” értéket a szavak tördelésének letiltásához."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-14 00:49+0000\n"
+"POT-Creation-Date: 2023-06-17 00:50+0000\n"
 "PO-Revision-Date: 2022-04-16 23:10+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -227,83 +227,83 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "원본 파일 사용"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "모든 지원하는 파일 (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:45
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:47
 #, fuzzy, kde-format
 #| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr "모든 지원하는 파일 (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:48
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:51
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "New"
 msgstr "새 항목"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs translation"
 msgstr "번역이 필요함"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs full localization"
 msgstr "완전한 지역화가 필요함"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "문맥에 맞춰야 함"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Translated"
 msgstr "번역됨"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs translation review"
 msgstr "번역 검토 필요함"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs full localization review"
 msgstr "완전한 지역화 검토 필요함"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "문맥 검토 필요함"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Final"
 msgstr "최종"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Signed-off"
 msgstr "확인됨"
@@ -684,96 +684,96 @@ msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "variant: 한 단어의 다른 형태"
 
-#: src/catalog/cmd.cpp:81
+#: src/catalog/cmd.cpp:80
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "삽입"
 
-#: src/catalog/cmd.cpp:124
+#: src/catalog/cmd.cpp:123
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "삭제"
 
-#: src/catalog/cmd.cpp:177
+#: src/catalog/cmd.cpp:176
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "검증 전환"
 
-#: src/catalog/cmd.cpp:196
+#: src/catalog/cmd.cpp:194
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "마크업 삽입"
 
-#: src/catalog/cmd.cpp:218
+#: src/catalog/cmd.cpp:216
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "마크업 삭제"
 
-#: src/catalog/cmd.cpp:239
+#: src/catalog/cmd.cpp:237
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "주석 설정"
 
-#: src/catalog/cmd.cpp:275
+#: src/catalog/cmd.cpp:270
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "작업 과정 단계 추가/업데이트"
 
-#: src/catalog/cmd.cpp:296
+#: src/catalog/cmd.cpp:291
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "번역 동등성 설정"
 
-#: src/catalog/cmd.cpp:365
+#: src/catalog/cmd.cpp:360
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "마크업이 있는 텍스트 삭제"
 
-#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:665
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:665
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "마크업이 있는 텍스트 삽입"
 
-#: src/catalog/gettext/gettextstorage.cpp:120
+#: src/catalog/gettext/gettextstorage.cpp:115
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "다른 길이 대체 문자열 구분자"
 
-#: src/catalog/gettext/gettextstorage.cpp:282
+#: src/catalog/gettext/gettextstorage.cpp:277
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
 msgstr "새 POT 템플릿으로 전환할 때 Gettext에서 저장한 이전 원본 값"
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "번역자 이름 없음"
 
-#: src/catalog/gettextheader.cpp:661
+#: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgid "Your name:"
 msgstr "내 이름:"
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "번역자 이메일 없음"
 
-#: src/catalog/gettextheader.cpp:671
+#: src/catalog/gettextheader.cpp:592
 #, kde-format
 msgid "Your email:"
 msgstr "내 이메일:"
@@ -3466,10 +3466,13 @@ msgstr "자동 줄 바꿈:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
+#| "value '-1' to disable the word wrap."
 msgid ""
-"Width used for the automatic msgfmt-like word wrap. Use the negative value "
-"'-1' to disable the word wrap."
+"Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+"disable the word wrap."
 msgstr ""
 "자동 msgfmt 형식 줄 바꿈을 적용할 너비입니다. -1을 지정하면 줄을 바꾸지 않습"
 "니다."
