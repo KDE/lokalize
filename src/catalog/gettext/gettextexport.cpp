@@ -60,7 +60,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         writeKeyword(stream, QStringLiteral("msgstr"), catalog->m_header.msgstr(), false);
     }
 
-    for (auto && entry : std::as_const(catalog->m_entries)) {
+    for (const auto & entry : std::as_const(catalog->m_entries)) {
         stream << '\n';
 
         const CatalogItem& catalogItem = entry;
@@ -88,7 +88,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         }
     }
 
-    for (auto && data : std::as_const(catalog->m_catalogExtraData)) {
+    for (const auto & data : std::as_const(catalog->m_catalogExtraData)) {
         stream << '\n' << data << '\n';
     }
 
@@ -164,7 +164,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
 
         stream << keyword << QStringLiteral(" ");
 
-        for (auto && item : std::as_const(list)) {
+        for (const auto & item : std::as_const(list)) {
             stream << QStringLiteral("\"") << item << QStringLiteral("\"\n");
         }
 
@@ -228,7 +228,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
 
     stream << keyword << QStringLiteral(" ");
 
-    for (auto && item: std::as_const(list)) {
+    for (const auto & item: std::as_const(list)) {
         stream << QStringLiteral("\"") << item << QStringLiteral("\"\n");
     }
 }
