@@ -62,14 +62,10 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         writeKeyword(stream, QStringLiteral("msgstr"), catalog->m_header.msgstr(), false);
     }
 
-
-    const QVector<CatalogItem>& catalogEntries = catalog->m_entries;
-    int limit = catalog->numberOfEntries();
-    QStringList list;
-    for (int counter = 0; counter < limit; counter++) {
+    for (auto && entry : std::as_const(catalog->m_entries)) {
         stream << '\n';
 
-        const CatalogItem& catalogItem = catalogEntries.at(counter);
+        const CatalogItem& catalogItem = entry;
         // write entry
         writeComment(stream, catalogItem.comment());
 
@@ -88,26 +84,19 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
             //TODO check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
             for (int i = 0; i < forms; ++i) {
-                QString keyword = QStringLiteral("msgstr[") + QString::number(i) + QLatin1Char(']');
+                const QString keyword = QStringLiteral("msgstr[") + QString::number(i) + QLatin1Char(']');
                 writeKeyword(stream, keyword, catalogItem.msgstr(i), true, catalogItem.prependEmptyForMsgstr());
             }
         }
     }
 
-    {
-        const QStringList& _obsolete = catalog->m_catalogExtraData;
-        QList<QString>::const_iterator oit = _obsolete.constBegin();
-        if (oit != _obsolete.constEnd()) {
-            stream << "\n" << (*oit);
-            while ((++oit) != _obsolete.constEnd())
-                stream << "\n\n" << (*oit);
-            stream << '\n';
-        }
+    for (auto && data : std::as_const(catalog->m_catalogExtraData)) {
+        stream << '\n' << data << '\n';
     }
 
-    int i = m_trailingNewLines;
-    while (--i >= 0)
+    for (short i = 0; i <= m_trailingNewLines; ++i) {
         stream << '\n';
+    }
 
     return OK;
 }
@@ -176,9 +165,10 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
             list.prepend(QString());
 
         stream << keyword << QStringLiteral(" ");
-        QStringList::const_iterator it;
-        for (it = list.constBegin(); it != list.constEnd(); ++it)
-            stream << QStringLiteral("\"") << (*it) << QStringLiteral("\"\n");
+
+        for (auto && item : std::as_const(list)) {
+            stream << QStringLiteral("\"") << item << QStringLiteral("\"\n");
+        }
 
         return;
     }
@@ -240,6 +230,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
 
     stream << keyword << QStringLiteral(" ");
 
-    for (auto it: list)
-        stream << QStringLiteral("\"") << it << QStringLiteral("\"\n");
+    for (auto && item: std::as_const(list)) {
+        stream << QStringLiteral("\"") << item << QStringLiteral("\"\n");
+    }
 }
