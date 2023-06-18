@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-17 00:50+0000\n"
-"PO-Revision-Date: 2023-05-22 14:01\n"
+"PO-Revision-Date: 2023-06-17 04:11\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -134,11 +134,10 @@ msgstr ""
 "您想要在该视图中显示这些数据吗？"
 
 #: src/alttransview.cpp:160
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "备选翻译"
+msgstr ""
 
 #: src/alttransview.cpp:161
 #, kde-format
@@ -237,10 +236,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "所有支持的文件 (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr ""
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -1594,26 +1592,22 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:1573
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "查找源文件"
 
 #: src/editortab.cpp:1574
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "本地"
+msgstr ""
 
 #: src/editortab.cpp:1575 src/editortab.cpp:1628
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr ""
 
 #: src/editortab.cpp:1578 src/editortab.cpp:1631 src/editortab.cpp:1660
 #, kde-format
@@ -1640,12 +1634,10 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:1627
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Subject Field"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "主题字段"
+msgstr ""
 
 #: src/editortab.cpp:1652
 #, kde-format
@@ -2793,27 +2785,22 @@ msgstr ""
 "是想要打开一个已有项目？"
 
 #: src/prefs/prefs.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "项目概况"
+msgstr ""
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "项目"
+msgstr ""
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
-msgstr "打开项目"
+msgstr ""
 
 #: src/prefs/prefs.cpp:185
 #, kde-format
@@ -4201,18 +4188,16 @@ msgid "TM"
 msgstr "翻译记忆"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "原文："
+msgstr ""
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "译文："
+msgstr ""
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
@@ -4501,15 +4486,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation complete"
-#~ msgstr "批量翻译完成"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation"
-#~ msgstr "批量翻译"
-
-#~ msgctxt "Button label"
-#~ msgid "Remove"
-#~ msgstr "删除"

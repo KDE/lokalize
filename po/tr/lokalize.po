@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-17 00:50+0000\n"
-"PO-Revision-Date: 2023-06-14 13:20+0300\n"
+"PO-Revision-Date: 2023-06-17 13:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3527,16 +3527,13 @@ msgstr "Sözcük kaydırma:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
-#| "value '-1' to disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap."
 msgstr ""
 "Otomatik msgfmt benzeri sözcük kaydırma için kullanılan genişlik. Sözcük "
-"kaydırmayı devre dışı bırakmak için negatif '-1' değerini kullanın."
+"kaydırmayı devre dışı bırakmak için '0' değerini kullanın."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
