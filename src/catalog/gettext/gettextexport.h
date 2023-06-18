@@ -45,7 +45,12 @@ private:
      * Write a PO keyword (msgctxt, msgid, msgstr, msgstr_plural, msgstr[0]) and the corresponding text.
      * This includes wrapping the text.
      */
-    void writeKeyword(QTextStream& stream, const QString& keyword, QString text, bool containsHtml = true, bool startedWithEmptyLine = false) const;
+    void writeKeyword(QTextStream& stream, const QString& keyword, QString text, bool startedWithEmptyLine = false) const;
+
+    /**
+     * Tokenize text into list of tokens and delimiters. List may contain empty tokens.
+     */
+    static QStringList tokenize(const QString &text);
 
 public:
     /**

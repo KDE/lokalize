@@ -20,8 +20,8 @@
 #include <QTextCodec>
 #include <QList>
 #include <QTextStream>
-#include <QEventLoop>
 #include <QStringBuilder>
+#include <QTextBoundaryFinder>
 
 
 using namespace GettextCatalog;
@@ -71,19 +71,19 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         if (! msgctxt.isEmpty() || catalogItem.keepEmptyMsgCtxt())
             writeKeyword(stream, QStringLiteral("msgctxt"), msgctxt);
 
-        writeKeyword(stream, QStringLiteral("msgid"), catalogItem.msgid(), true, catalogItem.prependEmptyForMsgid());
+        writeKeyword(stream, QStringLiteral("msgid"), catalogItem.msgid(), catalogItem.prependEmptyForMsgid());
         if (catalogItem.isPlural())
-            writeKeyword(stream, QStringLiteral("msgid_plural"), catalogItem.msgid(1), true, catalogItem.prependEmptyForMsgid());
+            writeKeyword(stream, QStringLiteral("msgid_plural"), catalogItem.msgid(1), catalogItem.prependEmptyForMsgid());
 
         if (!catalogItem.isPlural())
-            writeKeyword(stream, QStringLiteral("msgstr"), catalogItem.msgstr(), true, catalogItem.prependEmptyForMsgstr());
+            writeKeyword(stream, QStringLiteral("msgstr"), catalogItem.msgstr(), catalogItem.prependEmptyForMsgstr());
         else {
             qCDebug(LOKALIZE_LOG) << "Saving gettext plural form";
             //TODO check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
             for (int i = 0; i < forms; ++i) {
                 const QString keyword = QStringLiteral("msgstr[") + QString::number(i) + QLatin1Char(']');
-                writeKeyword(stream, keyword, catalogItem.msgstr(i), true, catalogItem.prependEmptyForMsgstr());
+                writeKeyword(stream, keyword, catalogItem.msgstr(i), catalogItem.prependEmptyForMsgstr());
             }
         }
     }
@@ -97,6 +97,24 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
     }
 
     return OK;
+}
+
+QStringList GettextExportPlugin::tokenize(const QString &text) {
+    QStringList tokens;
+    int lastpos = 0;
+
+    auto finder = new QTextBoundaryFinder(QTextBoundaryFinder::Line, text);
+    while (finder->toNextBoundary() != -1) {
+        QString token = text.mid(lastpos, finder->position() - lastpos);
+        // Hack to mocking gettext's write-po.c wrapping algorithm:
+        // "Don't break immediately before the "\n" at the end."
+        if (token.indexOf(QStringLiteral("\\n")) == 0 && !tokens.isEmpty()) {
+            token = tokens.takeLast() + token;
+        }
+        tokens << token;
+        lastpos = finder->position();
+    }
+    return(tokens);
 }
 
 void GettextExportPlugin::writeComment(QTextStream& stream, const QString& comment) const
@@ -139,7 +157,7 @@ void GettextExportPlugin::writeComment(QTextStream& stream, const QString& comme
     }
 }
 
-void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keyword, QString text, bool containsHtml, bool startedWithEmptyLine) const
+void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keyword, QString text, bool startedWithEmptyLine) const
 {
     if (text.isEmpty()) {
         // Whatever the wrapping mode, an empty line is an empty line
@@ -171,60 +189,34 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
         return;
     }
 
-    // lazy wrapping
-    QStringList list = text.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
-
-    if (text.startsWith(QLatin1Char('\n')))
-        list.prepend(QString());
-
-    if (list.isEmpty())
-        list.append(QString());
-
-    const QRegExp breakStopRe = containsHtml
-                              ? QRegExp(QStringLiteral("[ >%]"), Qt::CaseSensitive, QRegExp::Wildcard)
-                              : QRegExp(QStringLiteral("[ &%]"), Qt::CaseSensitive, QRegExp::Wildcard);
-
     int max = m_wrapWidth - 2;
-    bool prependedEmptyLine = false;
-    for (auto itm = list.begin(); itm != list.end(); ++itm) {
-        if (list.count() == 1 && keyword.length() + 1 + itm->length() >= max) {
-            prependedEmptyLine = true;
-            itm = list.insert(itm, QString());
-        }
+    // Remove newlines and re-add them where they needed
+    text.remove(QStringLiteral("\n"));
+    text.replace(QStringLiteral("\\n"), QStringLiteral("\\n\n"));
+    QStringList list = text.split(QStringLiteral("\n"));
+    QStringList wrapped_list;
 
-        if (itm->length() > max) {
-            int pos = itm->lastIndexOf(breakStopRe, max - 1);
-            if (pos > (max / 2)) {
-                int pos2 = itm->indexOf(QLatin1Char('<'), pos);
-                if (pos2 > 0 && pos2 < max - 1) {
-                    pos = itm->indexOf(QLatin1Char('<'), pos);
-                    ++pos;
-                }
-            } else {
-                if (itm->at(max - 1) == QLatin1Char('\\')) {
-                    do {
-                        --max;
-                    } while (max >= 2 && itm->at(max - 1) == QLatin1Char('\\'));
-                }
-                pos = max;
-                //Restore the max variable to the m_wordWrap - 2 value
-                max = m_wrapWidth - 2;
+    // Iterate each newline string
+    for (const QString& it : list) {
+        QStringList words = tokenize(it);
+        QString wrapped_string;
+
+        for (const QString& word : words) {
+            if (wrapped_string.length() + word.length() < max) {
+                wrapped_string += word;
+                wrapped_list.append(wrapped_string);
+                wrapped_string = word;
+
             }
-            //itm=list.insert(itm,itm->left(pos));
-            QString t = *itm;
-            itm = list.insert(itm, t);
-            ++itm;
-            if (itm != list.end()) {
-                (*itm) = itm->remove(0, pos);
-                --itm;
-                if (itm != list.end())
-                    itm->truncate(pos);
-            }
+        }
+        if (!wrapped_string.isEmpty()) {
+            wrapped_list.append(wrapped_string);
         }
     }
 
-    if (!prependedEmptyLine && list.count() > 1)
-        list.prepend(QString());
+    if (wrapped_list.count() > 1 || keyword.length() + 1 + wrapped_list.first().length() >= max) {
+        wrapped_list.prepend(QString());
+    }
 
     stream << keyword << QStringLiteral(" ");
 
