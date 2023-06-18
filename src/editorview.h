@@ -72,17 +72,16 @@ public Q_SLOTS:
         void dropEvent(QDropEvent*);
     */
 private:
-    Catalog* m_catalog;
+    Catalog* m_catalog{};
 
-    TranslationUnitTextEdit * m_sourceTextEdit;
-    TranslationUnitTextEdit * m_targetTextEdit
-    ;
+    TranslationUnitTextEdit * m_sourceTextEdit{};
+    TranslationUnitTextEdit * m_targetTextEdit{};
 
-    QTabBar* m_pluralTabBar;
-    LedsWidget* m_leds;
+    QTabBar* m_pluralTabBar{};
+    LedsWidget* m_leds{};
 
 public:
-    bool m_modifiedAfterFind;//for F3-search reset
+    bool m_modifiedAfterFind{}; //for F3-search reset
 
 Q_SIGNALS:
     void signalEquivTranslatedEntryDisplayed(bool);

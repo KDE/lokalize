@@ -58,8 +58,8 @@ private:
     Catalog* m_catalog;
     QString m_normTitle;
     QString m_hasInfoTitle;
-    bool m_hasInfo;
-    bool m_everShown;
+    bool m_hasInfo{};
+    bool m_everShown{};
     DocPos m_entry;
     DocPos m_prevEntry;
 

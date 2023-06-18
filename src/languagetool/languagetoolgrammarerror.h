@@ -13,8 +13,9 @@
 class LanguageToolGrammarError
 {
 public:
-    LanguageToolGrammarError();
-    ~LanguageToolGrammarError();
+    LanguageToolGrammarError() = default;
+    ~LanguageToolGrammarError() = default;
+
     QString parse(const QJsonObject &obj, const QString &text);
     void setTesting(bool b);
 private:

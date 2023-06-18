@@ -30,35 +30,6 @@
 
 using namespace GettextCatalog;
 
-// GettextImportPlugin::GettextImportPlugin(ExtraDataSaver* extraDataSaver)
-//    : CatalogImportPlugin()
-//    , _extraDataSaver(extraDataSaver)
-GettextImportPlugin::GettextImportPlugin()
-    : CatalogImportPlugin()
-    , _rxMsgCtxt(QStringLiteral("^msgctxt\\s*\".*\"$"))
-    , _rxMsgId(QStringLiteral("^msgid\\s*\".*\"$"))
-    , _rxMsgIdPlural(QStringLiteral("^msgid_plural\\s*\".*\"$"))
-    , _rxMsgIdPluralBorked(QStringLiteral("^msgid_plural\\s*\"?.*\"?$"))
-    , _rxMsgIdBorked(QStringLiteral("^msgid\\s*\"?.*\"?$"))
-    , _rxMsgIdRemQuotes(QStringLiteral("^msgid\\s*\""))
-    , _rxMsgLineRemEndQuote(QStringLiteral("\"$"))
-    , _rxMsgLineRemStartQuote(QStringLiteral("^\""))
-    , _rxMsgLine(QStringLiteral("^\".*\\n?\"$"))
-    , _rxMsgLineBorked(QStringLiteral("^\"?.+\\n?\"?$"))
-    , _rxMsgStr(QStringLiteral("^msgstr\\s*\".*\\n?\"$"))
-    , _rxMsgStrOther(QStringLiteral("^msgstr\\s*\"?.*\\n?\"?$"))
-    , _rxMsgStrPluralStart(QStringLiteral("^msgstr\\[0\\]\\s*\".*\\n?\"$"))
-    , _rxMsgStrPluralStartBorked(QStringLiteral("^msgstr\\[0\\]\\s*\"?.*\\n?\"?$"))
-    , _rxMsgStrPlural(QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$"))
-    , _rxMsgStrPluralBorked(QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$"))
-    , _rxMsgStrRemQuotes(QStringLiteral("^msgstr\\s*\"?"))
-//    , _rxMsgId   (QStringLiteral("^msgid\\s*\"?.*\"?$"))
-    , _obsoleteStart(QStringLiteral("#~"))
-    , _msgctxtStart(QStringLiteral("msgctxt"))
-
-{
-}
-
 ConversionStatus GettextImportPlugin::load(QIODevice* device)
 {
     _testBorked = false;

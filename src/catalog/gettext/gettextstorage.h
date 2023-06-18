@@ -27,7 +27,7 @@ namespace GettextCatalog
 class GettextStorage: public CatalogStorage
 {
 public:
-    GettextStorage();
+    GettextStorage() = default;
     ~GettextStorage() override = default;
 
     int capabilities() const override

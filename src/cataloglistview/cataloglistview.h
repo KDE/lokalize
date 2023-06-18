@@ -30,7 +30,7 @@ class CatalogView: public QDockWidget
 
 public:
     explicit CatalogView(QWidget*, Catalog*);
-    ~CatalogView();
+    ~CatalogView() override;
 
     void setEntryFilteredOut(int entry, bool filteredOut);
 

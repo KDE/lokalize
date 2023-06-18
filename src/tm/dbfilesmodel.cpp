@@ -51,7 +51,6 @@ DBFilesModel* DBFilesModel::instance()
 
 DBFilesModel::DBFilesModel()
     : QSortFilterProxyModel()
-    , projectDB(nullptr)
     , m_fileSystemModel(new QFileSystemModel(this))
     , m_tmRootPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation))
 {

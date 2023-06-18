@@ -55,11 +55,6 @@ static QString unprotect(const QString & str)
     return p;
 }
 
-TsStorage::TsStorage()
-    : CatalogStorage()
-{
-}
-
 int TsStorage::capabilities() const
 {
     return 0;//MultipleNotes;

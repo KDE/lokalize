@@ -57,7 +57,7 @@ private:
     };
     mutable QCache<int, QStaticText> cache;
 
-    KColorScheme activeScheme;
+    KColorScheme activeScheme{QPalette::Active, KColorScheme::View};
 };
 #endif // FASTSIZEHINTITEMDELEGATE_H
 

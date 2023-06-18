@@ -64,6 +64,7 @@ public:
     CatalogImportPlugin();
     virtual ~CatalogImportPlugin();
 
+    Q_DISABLE_COPY(CatalogImportPlugin)
     /**
      * Load the file and fill the corresponding catalog. The file
      * is considered to be of @p mimetype MIME type.

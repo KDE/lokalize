@@ -98,8 +98,7 @@ Project* Project::instance()
 }
 
 Project::Project()
-    : ProjectBase()
-    , m_localConfig(new ProjectLocal())
+    : m_localConfig(new ProjectLocal())
     , m_glossary(new GlossaryNS::Glossary(this))
 {
     setDefaults();

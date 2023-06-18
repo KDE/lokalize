@@ -23,7 +23,7 @@ class TermLabel: public QLabel//QPushButton
 {
     Q_OBJECT
 public:
-    explicit TermLabel(QAction* a = nullptr): m_capFirst(false), m_action(a) {}
+    explicit TermLabel(QAction* a = nullptr): m_action(a) {}
     ~TermLabel() override = default;
 
     /**
@@ -42,8 +42,8 @@ Q_SIGNALS:
 
 private:
     QByteArray m_entryId;
-    bool m_capFirst;
-    QAction* m_action; //used only for shortcut purposes
+    bool m_capFirst{false};
+    QAction* m_action{}; //used only for shortcut purposes
 };
 
 }

@@ -17,7 +17,8 @@ class LanguageToolManager : public QObject
     Q_OBJECT
 public:
     explicit LanguageToolManager(QObject *parent = nullptr);
-    ~LanguageToolManager();
+    ~LanguageToolManager() override = default;
+
     static LanguageToolManager *self();
 
     QNetworkAccessManager *networkAccessManager() const;

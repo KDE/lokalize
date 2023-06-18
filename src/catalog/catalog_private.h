@@ -11,8 +11,8 @@
   SPDX-License-Identifier: GPL-2.0-or-later WITH LicenseRef-Qt-Commercial-exception-1.0
 */
 
-#ifndef CATALOGPRIVATE_H
-#define CATALOGPRIVATE_H
+#ifndef CATALOG_PRIVATE_H
+#define CATALOG_PRIVATE_H
 
 #include "projectlocal.h"
 #include "state.h"
@@ -38,7 +38,6 @@ class CatalogPrivate
 {
 
 public:
-
     /** url of the po-file, that belongs to this catalog */
     QString _filePath;
     QString _packageName;
@@ -47,18 +46,18 @@ public:
     /** identification string for used import filter*/
     QString _importID;
 
-    QTextCodec *fileCodec;
+    QTextCodec *fileCodec{};
 
-    int _numberOfPluralForms;
+    int _numberOfPluralForms{-1};
 
     QTimer _autoSaveTimer;
-    KAutoSaveFile* _autoSave;
-    bool _autoSaveDirty;
-    bool _autoSaveRecovered;
+    KAutoSaveFile* _autoSave{};
+    bool _autoSaveDirty{true};
+    bool _autoSaveRecovered{false};
 
-    bool _readOnly;
+    bool _readOnly{false};
     //for wrapping
-    short _maxLineLength;
+    short _maxLineLength{80};
 
     std::list<int> _nonApprovedIndex;
     std::list<int> _nonApprovedNonEmptyIndex;
@@ -67,30 +66,22 @@ public:
 
     std::list<int> _bookmarkIndex;
 
-    QVector< std::list<int> > _statesIndex;
-
+    QVector<std::list<int>> _statesIndex;
 
     std::list<Catalog*> _altTransCatalogs;
     QMap<int, AltTrans> _altTranslations;
 
     //for undo/redo
     //keeps pos of the entry that was last modified
-    DocPosition _lastModifiedPos;
+    DocPosition _lastModifiedPos{};
 
     QSet<DocPos> _modifiedEntries;//just for the nice gui
 
     QString _phase;
-    ProjectLocal::PersonRole _phaseRole;
+    ProjectLocal::PersonRole _phaseRole{ProjectLocal::Undefined};
 
     explicit CatalogPrivate(QObject* parent)
-        : fileCodec(nullptr)
-        , _numberOfPluralForms(-1)
-        , _autoSave(new KAutoSaveFile(parent))
-        , _autoSaveDirty(true)
-        , _autoSaveRecovered(false)
-        , _readOnly(false)
-        , _maxLineLength(80)
-        , _phaseRole(ProjectLocal::Undefined)
+        : _autoSave(new KAutoSaveFile(parent))
     {
         Q_UNUSED(parent)
         _statesIndex.resize(StateCount);
@@ -101,4 +92,4 @@ public:
 };
 
 
-#endif //CatalogPrivate_H
+#endif // CATALOG_PRIVATE_H

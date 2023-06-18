@@ -47,7 +47,6 @@ QList<QByteArray> Glossary::idsForLangWord(const QString& lang, const QString& w
 
 Glossary::Glossary(QObject* parent)
     : QObject(parent)
-    , m_clean(true)
 {
 }
 

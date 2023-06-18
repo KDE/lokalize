@@ -12,14 +12,6 @@
 
 #include <QJsonArray>
 
-LanguageToolGrammarError::LanguageToolGrammarError()
-{
-}
-
-LanguageToolGrammarError::~LanguageToolGrammarError()
-{
-}
-
 QString LanguageToolGrammarError::parse(const QJsonObject &obj, const QString &text)
 {
 

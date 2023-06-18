@@ -27,10 +27,6 @@ static const QString noyes[] = {QStringLiteral("no"), QStringLiteral("yes")};
 static const QString bintargettarget[] = {QStringLiteral("bin-target"), QStringLiteral("target")};
 static const QString binsourcesource[] = {QStringLiteral("bin-source"), QStringLiteral("source")};
 static const QString NOTE = QStringLiteral("note");
-XliffStorage::XliffStorage()
-    : CatalogStorage()
-{
-}
 
 int XliffStorage::capabilities() const
 {

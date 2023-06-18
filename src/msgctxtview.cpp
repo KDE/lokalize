@@ -36,14 +36,7 @@
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     : QDockWidget(i18nc("@title toolview name", "Unit metadata"), parent)
     , m_browser(new QTextBrowser(this))
-    , m_editor(nullptr)
     , m_catalog(catalog)
-    , m_selection(0)
-    , m_offset(0)
-    , m_hasInfo(false)
-    , m_hasErrorNotes(false)
-    , m_pologyProcessInProgress(0)
-    , m_pologyStartedReceivingOutput(false)
 {
     setObjectName(QStringLiteral("msgCtxtView"));
     QWidget* main = new QWidget(this);

@@ -36,9 +36,9 @@ private Q_SLOTS:
     void fileLoaded();
 
 private:
-    Catalog* m_catalog;
-    BinUnitsModel* m_model;
-    MyTreeView* m_view;
+    Catalog* m_catalog{};
+    BinUnitsModel* m_model{};
+    MyTreeView* m_view{};
 };
 
 

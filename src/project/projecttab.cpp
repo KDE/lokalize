@@ -46,9 +46,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_browser(new ProjectWidget(this))
     , m_filterEdit(new QLineEdit(this))
-    , m_pologyProcessInProgress(false)
-    , m_legacyUnitsCount(-1)
-    , m_currentUnitsCount(0)
 
 {
     setWindowTitle(i18nc("@title:window", "Project Overview")); //setCaption(i18nc("@title:window","Project"),false);

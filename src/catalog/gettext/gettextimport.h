@@ -25,8 +25,9 @@ namespace GettextCatalog
 class ExtraDataSaver
 {
 public:
-    ExtraDataSaver() {}
-    virtual ~ExtraDataSaver() {}
+    ExtraDataSaver() = default;
+    virtual ~ExtraDataSaver() =default;
+
     void operator()(const QString& comment)
     {
         extraData.append(comment);
@@ -37,7 +38,9 @@ public:
 class ExtraDataSkipSaver: public ExtraDataSaver
 {
 public:
-    ExtraDataSkipSaver() {}
+    ExtraDataSkipSaver() = default;
+    ~ExtraDataSkipSaver() override = default;
+
     void operator()(const QString&) {}
 };
 
@@ -46,13 +49,12 @@ public:
  * As an extra information, it stores the list of all obsolete entries.
  * @short Gettext PO parser
  */
-
 class GettextImportPlugin: public CatalogImportPlugin
 {
 public:
-    GettextImportPlugin();
-    //GettextImportPlugin(ExtraDataSaver* extraDataSaver);
-    //~GettextImportPlugin(){delete _extraDataSaver;}
+    GettextImportPlugin() = default;
+    ~GettextImportPlugin() override = default;
+
     ConversionStatus load(QIODevice*) override;
     const QString id()
     {
@@ -76,28 +78,26 @@ private:
     bool _obsolete{false};
     bool _msgctxtPresent{false};
 
-    //ExtraDataSaver* _extraDataSaver;
+    QRegExp _rxMsgCtxt{QStringLiteral("^msgctxt\\s*\".*\"$")};
+    QRegExp _rxMsgId{QStringLiteral("^msgid\\s*\".*\"$")};
+    QRegExp _rxMsgIdPlural{QStringLiteral("^msgid_plural\\s*\".*\"$")};
+    QRegExp _rxMsgIdPluralBorked{QStringLiteral("^msgid_plural\\s*\"?.*\"?$")};
+    QRegExp _rxMsgIdBorked{QStringLiteral("^msgid\\s*\"?.*\"?$")};
+    QRegExp _rxMsgIdRemQuotes{QStringLiteral("^msgid\\s*\"")};
+    QRegExp _rxMsgLineRemEndQuote{QStringLiteral("\"$")};
+    QRegExp _rxMsgLineRemStartQuote{QStringLiteral("^\"")};
+    QRegExp _rxMsgLine{QStringLiteral("^\".*\\n?\"$")};
+    QRegExp _rxMsgLineBorked{QStringLiteral("^\"?.+\\n?\"?$")};
+    QRegExp _rxMsgStr{QStringLiteral("^msgstr\\s*\".*\\n?\"$")};
+    QRegExp _rxMsgStrOther{QStringLiteral("^msgstr\\s*\"?.*\\n?\"?$")};
+    QRegExp _rxMsgStrPluralStart{QStringLiteral("^msgstr\\[0\\]\\s*\".*\\n?\"$")};
+    QRegExp _rxMsgStrPluralStartBorked{QStringLiteral("^msgstr\\[0\\]\\s*\"?.*\\n?\"?$")};
+    QRegExp _rxMsgStrPlural{QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$")};
+    QRegExp _rxMsgStrPluralBorked{QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$")};
+    QRegExp _rxMsgStrRemQuotes{QStringLiteral("^msgstr\\s*\"?")};
 
-    QRegExp _rxMsgCtxt;
-    QRegExp _rxMsgId;
-    QRegExp _rxMsgIdPlural;
-    QRegExp _rxMsgIdPluralBorked;
-    QRegExp _rxMsgIdBorked;
-    QRegExp _rxMsgIdRemQuotes;
-    QRegExp _rxMsgLineRemEndQuote;
-    QRegExp _rxMsgLineRemStartQuote;
-    QRegExp _rxMsgLine;
-    QRegExp _rxMsgLineBorked;
-    QRegExp _rxMsgStr;
-    QRegExp _rxMsgStrOther;
-    QRegExp _rxMsgStrPluralStart;
-    QRegExp _rxMsgStrPluralStartBorked;
-    QRegExp _rxMsgStrPlural;
-    QRegExp _rxMsgStrPluralBorked;
-    QRegExp _rxMsgStrRemQuotes;
-
-    QString _obsoleteStart;
-    QString _msgctxtStart;
+    QString _obsoleteStart{QStringLiteral("#~")};
+    QString _msgctxtStart{QStringLiteral("msgctxt")};
     QString _bufferedLine;
 };
 }

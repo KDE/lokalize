@@ -53,25 +53,25 @@ Q_SIGNALS:
     void escaped();
 
 private:
-    QTextBrowser* m_browser;
-    NoteEditor* m_editor;
-    QStackedLayout* m_stackedLayout;
+    QTextBrowser* m_browser{};
+    NoteEditor* m_editor{};
+    QStackedLayout* m_stackedLayout{};
 
-    Catalog* m_catalog;
+    Catalog* m_catalog{};
     QMap< DocPos, QPair<Note, int> > m_unfinishedNotes; //note and its index
     QMultiMap< int, QString > m_tempNotes;
     QMultiMap< int, QString > m_pologyNotes;
     QMultiMap< int, QString > m_languageToolNotes;
-    int  m_selection;
-    int  m_offset;
-    bool m_hasInfo;
-    bool m_hasErrorNotes;
-    DocPos m_entry;
-    DocPos m_prevEntry;
+    int  m_selection{};
+    int  m_offset{};
+    bool m_hasInfo{};
+    bool m_hasErrorNotes{};
+    DocPos m_entry{};
+    DocPos m_prevEntry{};
 
-    KProcess* m_pologyProcess;
-    int m_pologyProcessInProgress;
-    bool m_pologyStartedReceivingOutput;
+    KProcess* m_pologyProcess{};
+    int m_pologyProcessInProgress{};
+    bool m_pologyStartedReceivingOutput{};
     QString m_pologyData;
 
     static const QString BR;

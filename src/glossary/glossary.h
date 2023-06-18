@@ -168,7 +168,7 @@ private:
     QStringList changedIds_;
     QList<QByteArray> removedIds;
 
-    bool m_clean;
+    bool m_clean{true};
 };
 
 

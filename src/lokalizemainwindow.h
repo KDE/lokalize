@@ -142,23 +142,23 @@ Q_SIGNALS:
 
 private:
     LokalizeMdiArea* m_mdiArea;
-    QPointer<QMdiSubWindow> m_prevSubWindow;
-    QPointer<QMdiSubWindow> m_projectSubWindow;
-    QPointer<QMdiSubWindow> m_translationMemorySubWindow;
-    QPointer<QMdiSubWindow> m_fileSearchSubWindow;
-    QPointer<QMdiSubWindow> m_toBeActiveSubWindow;//used during session restore
+    QPointer<QMdiSubWindow> m_prevSubWindow{};
+    QPointer<QMdiSubWindow> m_projectSubWindow{};
+    QPointer<QMdiSubWindow> m_translationMemorySubWindow{};
+    QPointer<QMdiSubWindow> m_fileSearchSubWindow{};
+    QPointer<QMdiSubWindow> m_toBeActiveSubWindow{}; //used during session restore
 
-    QActionGroup* m_editorActions;
-    QActionGroup* m_managerActions;
-    KRecentFilesAction* m_openRecentFileAction;
-    KRecentFilesAction* m_openRecentProjectAction;
+    QActionGroup* m_editorActions{};
+    QActionGroup* m_managerActions{};
+    KRecentFilesAction* m_openRecentFileAction{};
+    KRecentFilesAction* m_openRecentProjectAction{};
     QVector<QLabel*> m_statusBarLabels;
 
     QByteArray m_lastEditorState;
 
     //used for kross API
-    EditorTab* m_spareEditor;
-    MultiEditorAdaptor* m_multiEditorAdaptor;
+    EditorTab* m_spareEditor{};
+    MultiEditorAdaptor* m_multiEditorAdaptor{};
 
     //using QPointer switches it.value() to 0 before we get to destroyed() handler
     //typedef QMap<QUrl, QPointer<QMdiSubWindow> > FileToEditor;
@@ -185,7 +185,7 @@ private Q_SLOTS:
 
 private:
     QVector<QString> m_urls;
-    LokalizeMainWindow* m_lmw;
+    LokalizeMainWindow* m_lmw{};
 };
 
 

@@ -100,15 +100,10 @@ TranslationUnitTextEdit::~TranslationUnitTextEdit()
 
 TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent)
     : KTextEdit(parent)
-    , m_currentUnicodeNumber(0)
-    , m_langUsesSpaces(true)
     , m_catalog(catalog)
     , m_part(part)
     , m_highlighter(new SyntaxHighlighter(this))
     , m_enabled(Settings::autoSpellcheck())
-    , m_completionBox(nullptr)
-    , m_cursorSelectionStart(0)
-    , m_cursorSelectionEnd(0)
     , m_languageToolTimer(new QTimer(this))
 {
     setReadOnly(part == DocPosition::Source);

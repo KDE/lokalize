@@ -38,8 +38,6 @@ AltTransView::AltTransView(QWidget* parent, Catalog* catalog, const QVector<QAct
     , m_catalog(catalog)
     , m_normTitle(i18nc("@title:window", "Alternate Translations"))
     , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
-    , m_hasInfo(false)
-    , m_everShown(false)
     , m_actions(actions)
 {
     setObjectName(QStringLiteral("msgIdDiff"));

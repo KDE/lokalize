@@ -57,7 +57,7 @@ class Catalog: public QUndoStack
 
 public:
     explicit Catalog(QObject* parent);
-    virtual ~Catalog();
+    virtual ~Catalog() override;
 
     QString msgid(const DocPosition&) const;
     virtual QString msgstr(const DocPosition&) const;
@@ -309,7 +309,7 @@ protected:
 
 protected:
     CatalogPrivate d;
-    CatalogStorage *m_storage;
+    CatalogStorage *m_storage{};
 
     friend class GettextCatalog::CatalogImportPlugin;
     friend class GettextCatalog::CatalogExportPlugin;

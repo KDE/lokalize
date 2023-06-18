@@ -139,27 +139,27 @@ Q_SIGNALS:
     void cursorPositionChanged(int column);
 
 private:
-    int m_currentUnicodeNumber; //alt+NUM thing
-    bool m_langUsesSpaces; //e.g. Chinese doesn't
+    int m_currentUnicodeNumber{}; //alt+NUM thing
+    bool m_langUsesSpaces{true}; //e.g. Chinese doesn't
 
-    Catalog* m_catalog;
-    DocPosition::Part m_part;
-    DocPosition m_currentPos;
-    SyntaxHighlighter* m_highlighter;
-    bool m_enabled;
+    Catalog* m_catalog{};
+    DocPosition::Part m_part{};
+    DocPosition m_currentPos{};
+    SyntaxHighlighter* m_highlighter{};
+    bool m_enabled{};
 
-    MyCompletionBox* m_completionBox;
+    MyCompletionBox* m_completionBox{};
 
     //for undo/redo tracking
     QString _oldMsgstr;
     QString _oldMsgstrAscii; //HACK to workaround #218246
 
     //For text move with mouse
-    int m_cursorSelectionStart;
-    int m_cursorSelectionEnd;
+    int m_cursorSelectionStart{};
+    int m_cursorSelectionEnd{};
 
     //For LanguageTool timer
-    QTimer* m_languageToolTimer;
+    QTimer* m_languageToolTimer{};
 };
 
 

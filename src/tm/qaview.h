@@ -39,8 +39,8 @@ Q_SIGNALS:
     void rulesChanged();
 
 private:
-    QTreeView* m_browser;
-    QaModel* m_qaModel;
+    QTreeView* m_browser{};
+    QaModel* m_qaModel{};
     QString m_filename;
 
     QVector<Rule> m_rules;

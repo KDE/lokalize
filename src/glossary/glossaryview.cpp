@@ -39,11 +39,8 @@ GlossaryView::GlossaryView(QWidget* parent, Catalog* catalog, const QVector<QAct
     , m_flowLayout(new FlowLayout(FlowLayout::glossary,/*who gets signals*/this, actions, 0, 10))
     , m_glossary(Project::instance()->glossary())
     , m_rxClean(Project::instance()->markup() + QLatin1Char('|') + Project::instance()->accel()) //cleaning regexp; NOTE isEmpty()?
-    , m_rxSplit(QStringLiteral("\\W|\\d"))//splitting regexp
-    , m_currentIndex(-1)
     , m_normTitle(i18nc("@title:window", "Glossary"))
     , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
-    , m_hasInfo(false)
 
 {
     setObjectName(QStringLiteral("glossaryView"));

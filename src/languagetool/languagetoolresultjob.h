@@ -16,7 +16,7 @@ class LanguageToolResultJob : public QObject
     Q_OBJECT
 public:
     explicit LanguageToolResultJob(QObject *parent = nullptr);
-    ~LanguageToolResultJob() = default;
+    ~LanguageToolResultJob() override = default;
 
     bool canStart() const;
     void start();

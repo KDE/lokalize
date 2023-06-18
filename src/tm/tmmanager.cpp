@@ -74,8 +74,7 @@ void TMManagerWin::addDir()
 
 
 DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
-    : QDialog(parent), Ui_DBParams()
-    , m_connectionOptionsValid(false)
+    : QDialog(parent)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
     setWindowTitle(dbName.isEmpty() ? i18nc("@title:window", "New Translation Memory") : i18nc("@title:window", "Translation Memory Properties"));

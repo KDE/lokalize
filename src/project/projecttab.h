@@ -109,16 +109,17 @@ private Q_SLOTS:
     void pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
-    ProjectWidget* m_browser;
-    QLineEdit* m_filterEdit;
-    QProgressBar* m_progressBar;
+    ProjectWidget* m_browser{};
+    QLineEdit* m_filterEdit{};
+    QProgressBar* m_progressBar{};
 
-    QStackedLayout *m_stackedLayout;
+    QStackedLayout *m_stackedLayout{};
 
-    KProcess* m_pologyProcess;
-    bool m_pologyProcessInProgress;
+    KProcess* m_pologyProcess{};
+    bool m_pologyProcessInProgress{};
 
-    int m_legacyUnitsCount, m_currentUnitsCount;
+    int m_legacyUnitsCount{-1};
+    int m_currentUnitsCount{0};
 };
 
 #endif

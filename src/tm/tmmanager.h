@@ -29,7 +29,8 @@ class TMManagerWin: public KMainWindow
     Q_OBJECT
 public:
     explicit TMManagerWin(QWidget *parent = nullptr);
-    ~TMManagerWin() {}
+    ~TMManagerWin() = default;
+
 private Q_SLOTS:
     void addDir();
     void addDB();
@@ -40,7 +41,7 @@ private Q_SLOTS:
     void initLater();
     void slotItemActivated(const QModelIndex&);
 private:
-    QTreeView* m_tmListWidget;
+    QTreeView* m_tmListWidget{};
 };
 
 class OpenDBJob;
@@ -60,7 +61,7 @@ private Q_SLOTS:
     void checkConnectionOptions();
     void feedbackRegardingAcceptable();
 private:
-    bool m_connectionOptionsValid;
+    bool m_connectionOptionsValid{};
     QTimer m_checkDelayer;
 };
 

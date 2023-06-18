@@ -19,24 +19,17 @@
 class KAutoSaveFile;
 
 struct MatchItem {
-    int mergeEntry: 32;
-    int baseEntry: 32;
-    short score: 16;
-    short translationIsDifferent: 16;
-    short translationIsEmpty: 16;
+    int32_t mergeEntry{0};
+    int32_t baseEntry{0};
+    int16_t score{0};
+    int16_t translationIsDifferent{false};
+    int16_t translationIsEmpty{false};
 
-    MatchItem()
-        : mergeEntry(0)
-        , baseEntry(0)
-        , score(0)
-        , translationIsDifferent(false)
-        , translationIsEmpty(false)
-    {}
+    MatchItem() = default;
 
     MatchItem(int m, int b, bool d, bool e)
         : mergeEntry(m)
         , baseEntry(b)
-        , score(0)
         , translationIsDifferent(d)
         , translationIsEmpty(e)
     {}

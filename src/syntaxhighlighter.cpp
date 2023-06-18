@@ -30,9 +30,6 @@
 
 SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
     : Sonnet::Highlighter(parent)
-    , tagBrush(KColorScheme::View, KColorScheme::VisitedText)
-    , m_approved(true)
-//     , fromDocbook(docbook)
 {
     highlightingRules.reserve(NUM_OF_RULES);
     HighlightingRule rule;

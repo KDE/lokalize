@@ -44,12 +44,12 @@ Q_SIGNALS:
     void rejected();
 
 private:
-    QComboBox* m_from;
-    QLabel* m_fromLabel;
-    QStringListModel* m_authors;
-    TextEdit* m_edit;
-    int m_idx;
-    Note m_note;
+    QComboBox* m_from{};
+    QLabel* m_fromLabel{};
+    QStringListModel* m_authors{};
+    TextEdit* m_edit{};
+    int m_idx{-1};
+    Note m_note{};
 };
 
 

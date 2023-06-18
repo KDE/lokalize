@@ -22,8 +22,7 @@
 
 //these are run in separate thread
 UpdateStatsJob::UpdateStatsJob(const QList<KFileItem> &files, QObject*)
-    : QRunnable()
-    , m_files(files)
+    : m_files(files)
 {
     setAutoDelete(false);
 }

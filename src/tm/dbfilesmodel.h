@@ -82,8 +82,8 @@ public Q_SLOTS:
     void updateProjectTmIndex();
 
 private:
-    mutable QPersistentModelIndex* projectDB;
-    QFileSystemModel* m_fileSystemModel;
+    mutable QPersistentModelIndex* projectDB{};
+    QFileSystemModel* m_fileSystemModel{};
     QString m_tmRootPath;
     QElapsedTimer m_timeSinceLastUpdate;
 

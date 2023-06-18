@@ -22,10 +22,6 @@ LanguageToolManager::LanguageToolManager(QObject *parent)
     mNetworkAccessManager->enableStrictTransportSecurityStore(true);
 }
 
-LanguageToolManager::~LanguageToolManager()
-{
-}
-
 LanguageToolManager *LanguageToolManager::self()
 {
     static LanguageToolManager s_self;

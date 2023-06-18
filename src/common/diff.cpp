@@ -62,7 +62,8 @@ public:
                const QStringList& s1Space_,
                const QStringList& s2Space_
               );
-    ~LCSprinter() {}
+    ~LCSprinter() = default;
+
     void printLCS(uint index);
     inline QStringList operator()();
 

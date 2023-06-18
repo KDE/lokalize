@@ -29,11 +29,6 @@ QMutex regExMutex;
 
 using namespace GettextCatalog;
 
-GettextStorage::GettextStorage()
-    : CatalogStorage()
-{
-}
-
 //BEGIN OPEN/SAVE
 
 int GettextStorage::load(QIODevice* device/*, bool readonly*/)

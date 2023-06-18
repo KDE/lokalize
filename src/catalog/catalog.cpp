@@ -87,7 +87,6 @@ bool Catalog::extIsSupported(const QString& path)
 Catalog::Catalog(QObject *parent)
     : QUndoStack(parent)
     , d(this)
-    , m_storage(nullptr)
 {
     //cause refresh events for files modified from lokalize itself aint delivered automatically
     connect(this, qOverload<const QString &>(&Catalog::signalFileSaved), Project::instance()->model(), qOverload<const QString &>(&ProjectModel::slotFileSaved), Qt::QueuedConnection);

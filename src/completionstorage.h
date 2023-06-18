@@ -16,8 +16,9 @@
 class CompletionStorage
 {
 private:
-    CompletionStorage(): rxSplit(QStringLiteral("\\W+|\\d+")) {}
-    ~CompletionStorage() {}
+    CompletionStorage() = default;
+    ~CompletionStorage() = default;
+
     static CompletionStorage* _instance;
     static void cleanupCompletionStorage();
 public:
@@ -27,7 +28,7 @@ public:
     QStringList makeCompletion(const QString&) const;
 
 public:
-    QRegExp rxSplit;
+    QRegExp rxSplit{QStringLiteral("\\W+|\\d+")};
 private:
     QMap<QString, int> m_words; //how many occurencies a word has
     //QSet save which files we scanned?

@@ -57,12 +57,12 @@ private:
     FlowLayout *m_flowLayout;
     Glossary* m_glossary;
     QRegExp m_rxClean;
-    QRegExp m_rxSplit;
-    int m_currentIndex;
+    QRegExp m_rxSplit{QStringLiteral("\\W|\\d")};
+    int m_currentIndex{-1};
 
     QString m_normTitle;
     QString m_hasInfoTitle;
-    bool m_hasInfo;
+    bool m_hasInfo{};
 
 };
 }

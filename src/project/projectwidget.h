@@ -27,7 +27,7 @@ class ProjectWidget: public QTreeView
     Q_OBJECT
 public:
     explicit ProjectWidget(QWidget* parent);
-    ~ProjectWidget();
+    ~ProjectWidget() override;
 
     bool setCurrentItem(const QString&);
     QString currentItem() const;

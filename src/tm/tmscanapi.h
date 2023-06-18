@@ -50,7 +50,7 @@ private:
     QString m_dbName;
     QElapsedTimer m_time;
     QVector<ScanJob*> m_jobs;
-    qulonglong m_destroyedJobs = 0;
+    qulonglong m_destroyedJobs{0};
 };
 }
 

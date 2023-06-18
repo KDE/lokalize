@@ -75,8 +75,6 @@ EditorView::EditorView(QWidget *parent, Catalog* catalog/*,keyEventHandler* kh*/
     , m_sourceTextEdit(new TranslationUnitTextEdit(catalog, DocPosition::Source, this))
     , m_targetTextEdit(new TranslationUnitTextEdit(catalog, DocPosition::Target, this))
     , m_pluralTabBar(new QTabBar(this))
-    , m_leds(nullptr)
-    , m_modifiedAfterFind(false)
 {
     m_pluralTabBar->hide();
     m_sourceTextEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"

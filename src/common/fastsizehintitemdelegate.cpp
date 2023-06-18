@@ -19,7 +19,6 @@ FastSizeHintItemDelegate::FastSizeHintItemDelegate(QObject *parent, const QVecto
     : QItemDelegate(parent)
     , singleLineColumns(slc)
     , richTextColumns(rtc)
-    , activeScheme(QPalette::Active, KColorScheme::View)
 {}
 
 void FastSizeHintItemDelegate::reset()

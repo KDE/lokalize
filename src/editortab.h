@@ -297,54 +297,53 @@ private:
     void replaceNext(const DocPosition&);
 
 private:
-    Project* m_project;
-    Catalog* m_catalog;
+    Project* m_project{};
+    Catalog* m_catalog{};
 
-    EditorView* m_view;
-    QAction* m_approveAndGoAction;
-    QAction* m_approveAction;
-    QAction* m_stateAction;
+    EditorView* m_view{};
+    QAction* m_approveAndGoAction{};
+    QAction* m_approveAction{};
+    QAction* m_stateAction{};
 
-    KProcess* m_pologyProcess;
-    bool m_pologyProcessInProgress;
+    KProcess* m_pologyProcess{};
+    bool m_pologyProcessInProgress{};
 
-    DocPosition m_currentPos;
-    DocPosition _searchingPos; //for find/replace
-    DocPosition _replacingPos;
-    DocPosition _spellcheckPos;
-    DocPosition _spellcheckStartPos;
+    DocPosition m_currentPos{};
+    DocPosition _searchingPos{}; //for find/replace
+    DocPosition _replacingPos{};
+    DocPosition _spellcheckPos{};
+    DocPosition _spellcheckStartPos{};
 
-    Sonnet::BackgroundChecker* m_sonnetChecker;
-    Sonnet::Dialog* m_sonnetDialog;
-    int m_spellcheckStartUndoIndex;
-    bool m_spellcheckStop: 1;
+    Sonnet::BackgroundChecker* m_sonnetChecker{};
+    Sonnet::Dialog* m_sonnetDialog{};
+    int m_spellcheckStartUndoIndex{};
+    bool m_spellcheckStop{};
 
-    bool m_currentIsApproved: 1; //for statusbar animation
-    bool m_currentIsUntr: 1; //for statusbar animation
+    bool m_currentIsApproved{true}; //for statusbar animation
+    bool m_currentIsUntr{true}; //for statusbar animation
 
-    bool m_fullPathShown: 1;
+    bool m_fullPathShown{};
 
-    bool m_doReplaceCalled: 1; //used to prevent non-clean catalog status
-    KFind* m_find;
-    KReplace* m_replace;
+    bool m_doReplaceCalled{}; //used to prevent non-clean catalog status
+    KFind* m_find{};
+    KReplace* m_replace{};
 
     //BEGIN views
-    MergeView* m_syncView;
-    MergeView* m_syncViewSecondary;
-    CatalogView* m_transUnitsView;
-    MsgCtxtView* m_notesView;
-    AltTransView* m_altTransView;
+    MergeView* m_syncView{};
+    MergeView* m_syncViewSecondary{};
+    CatalogView* m_transUnitsView{};
+    MsgCtxtView* m_notesView{};
+    AltTransView* m_altTransView{};
     //END views
-
 
     QString _captionPath;
 
-    bool m_srcFileOpenRequestAccepted;
+    bool m_srcFileOpenRequestAccepted{};
 
     //BEGIN dbus
-    bool m_valid;
-    QObject* m_adaptor;
-    int m_dbusId;
+    bool m_valid{};
+    QObject* m_adaptor{};
+    int m_dbusId{-1};
     static QList<int> ids;
     //END dbus
 
