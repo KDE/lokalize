@@ -40,7 +40,7 @@ public:
     virtual bool save(QIODevice* device, bool belongsToProject = false) = 0;
 
     virtual int size() const = 0;
-    int numberOfEntries()const
+    int numberOfEntries() const
     {
         return size();
     }

@@ -39,8 +39,6 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
     QTextStream stream(device);
     stream.setCodec(codec);
 
-    //if ( m_wrapWidth == -1 ) m_wrapWidth=80;
-
     // only save header if it is not empty
     const QString& headerComment(catalog->m_header.comment());
     // ### why is this useful to have a header with an empty msgstr?
@@ -161,7 +159,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
     } else if (m_wrapWidth <= 3) {
         // No change in wrapping
         QStringList list = text.split(QLatin1Char('\n'));
-        if (list.count() > 1 || startedWithEmptyLine /* || keyword.length()+3+text.length()>=80*/)
+        if (list.count() > 1 || startedWithEmptyLine)
             list.prepend(QString());
 
         stream << keyword << QStringLiteral(" ");
