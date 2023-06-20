@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-21 03:08+0000\n"
-"PO-Revision-Date: 2023-06-17 14:20+0200\n"
+"PO-Revision-Date: 2023-06-18 09:00+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -137,7 +137,7 @@ msgstr ""
 "orixinal actual e o texto orixinal da tradución dubidosa correspondente que "
 "msgmerge atopou ao actualizar o ficheiro PO a partir do modelo POT.\n"
 "\n"
-"Quere mostrar a vista cos datos?"
+"Quere amosar a vista cos datos?"
 
 #: src/alttransview.cpp:232
 #, kde-format
@@ -162,8 +162,7 @@ msgstr ""
 "e a vella de xeito que poida ver facilmente os cambios que se deben aplicar "
 "á tradución existente.</p> <p>Se fai duplo clic en calquera palabra deste "
 "panel, inseriraa na tradución.</p> <p>Solte un ficheiro de tradución sobre "
-"este panel para empregalo como fonte de traducións alternativas adicionais.</"
-"p>"
+"este panel para usalo como fonte de traducións alternativas adicionais.</p>"
 
 #: src/alttransview.cpp:253
 #, kde-format
@@ -175,7 +174,7 @@ msgstr "Orixinal: %1"
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
-msgstr "Empregar a tradución alternativa"
+msgstr "Usar a tradución alternativa"
 
 #: src/binunitsview.cpp:108
 #, kde-format
@@ -428,7 +427,7 @@ msgid ""
 "common name: a synonym for an international scientific term that is used in "
 "general discourse in a given language"
 msgstr ""
-"nome común: un sinónimo dun termo científico internacional que se emprega "
+"nome común: un sinónimo dun termo científico internacional que se usa "
 "popularmente nun certo idioma"
 
 #: src/catalog/catalogstring.cpp:125
@@ -1871,7 +1870,7 @@ msgid ""
 msgstr ""
 "<qt><p><b>Texto orixinal</b></p>\n"
 "<p>Esta parte da xanela mostra a mensaxe orixinal da\n"
-"entrada que se está a mostrar.</p></qt>"
+"entrada que se está a amosar.</p></qt>"
 
 #: src/editorview.cpp:180
 #, kde-format
@@ -2914,7 +2913,7 @@ msgstr "Escolla unha nova fonte para a área onde escribe os textos traducidos."
 #: src/prefs/prefs_appearance.ui:54
 #, kde-format
 msgid "Display LEDS for message status"
-msgstr "Mostrar varios LED para o estado da mensaxe"
+msgstr "Amosar varios LED para o estado da mensaxe"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:57
@@ -2924,7 +2923,7 @@ msgid ""
 "Untranslated or Error. If unchecked, no LEDs will be displayed."
 msgstr ""
 "Se marca esta opción mostraranse varios LED que indican o estado da mensaxe: "
-"Dubidosa, Non traducida ou Erro. Se non a marca, non se mostrarán os LED."
+"Dubidosa, Non traducida ou Erro. Se non a marca, non se amosarán os LED."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:60
@@ -3029,8 +3028,8 @@ msgid ""
 "the text of the current translation unit.</html>"
 msgstr ""
 "<html>Se activa esta opción a roda do rato empregarase para pasar entre as "
-"unidades de tradución. Pode empregar teclas modificadores para cambiar este "
-"comportamento. Empregue: <ul> <li><b>Maiús</b> para desprazase polo texto da "
+"unidades de tradución. Pode usar teclas modificadores para cambiar este "
+"comportamento. Use: <ul> <li><b>Maiús</b> para desprazase polo texto da "
 "unidade actual,</li><li><b>Ctrl+Maiús</b> para ir á anterior ou á seguinte "
 "unidade non lida,</li> <li><b>Ctrl</b> para ir á anterior ou seguinte "
 "unidade non rematada nin baleira,</li> <li><b>Alt</b> para is á anterior ou "
@@ -3048,7 +3047,7 @@ msgstr "Pasar a unidade de tradución coa roda do rato"
 #, kde-format
 msgid "Set 'approved' status automatically when editing started"
 msgstr ""
-"Estabelecer automaticamente o estado de «validada» cando se comece a edición"
+"Definir automaticamente o estado de «validada» cando se comece a edición"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
 #: src/prefs/prefs_editor.ui:65
@@ -3462,14 +3461,14 @@ msgid ""
 "It is only used for gettext PO files, as XLIFF format has its own way of "
 "specifying where markup is."
 msgstr ""
-"A expresión regular para as etiquetas. Emprégase nas buscas de coincidencias "
-"na memoria de tradución e para función de «Inserir unha etiqueta».\n"
+"A expresión regular para as etiquetas. Úsase nas buscas de coincidencias na "
+"memoria de tradución e para función de «Inserir unha etiqueta».\n"
 "\n"
 "O valor predeterminado (axeitado para os textos baseados en XML) é:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
-"Só se emprega nos ficheiros PO de gettext, dado que o formato XLIFF ten a "
-"súa propia maneira de indicar onde están as etiquetas."
+"Só se usa nos ficheiros PO de gettext, dado que o formato XLIFF ten a súa "
+"propia maneira de indicar onde están as etiquetas."
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/project/prefs_project_advanced.ui:65
@@ -3548,7 +3547,7 @@ msgid ""
 msgstr ""
 "Este parámetro é para o modo de Sincronización.\n"
 "\n"
-"O modo Sincronización pode empregarse para facer á vez cambios nas\n"
+"O modo Sincronización pode usarse para facer á vez cambios nas\n"
 "traducións de dúas gallas.\n"
 "\n"
 "Configure isto coa ruta que corresponde co cartafol raíz da galla\n"
@@ -3593,7 +3592,7 @@ msgstr ""
 "corresponda no directorio de traducións alternativas e,\n"
 "de atopalo, empregarase na vista de traducións alternativas.\n"
 "\n"
-"Posibelmente queira empregar traducións a outro idioma (por exemplo, outro "
+"Posibelmente queira usar traducións a outro idioma (por exemplo, outro "
 "subproxecto) próxima á súa.\n"
 "Tamén pode usar as traducións doutro subproxecto inmediatamente ou "
 "traducidas automaticamente ao seu idioma.\n"
@@ -3648,12 +3647,11 @@ msgid ""
 "For example, if you have several projects for translating KDE applications\n"
 "(e.g. they are in different repositories), use same ID for all of them."
 msgstr ""
-"O identificador do proxecto emprégase para distinguir as memorias de "
-"tradución de proxectos e idiomas distintos.\n"
+"O identificador do proxecto úsase para distinguir as memorias de tradución "
+"de proxectos e idiomas distintos.\n"
 "\n"
 "Por exemplo, se ten varios proxectos para traducir aplicacións de KDE\n"
-"(p.ex. se están en distintos repositorios), empregue a mesma ID para todas "
-"elas."
+"(p.ex. se están en distintos repositorios), use a mesma ID para todas elas."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:59
