@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-20 00:55+0000\n"
-"PO-Revision-Date: 2023-06-14 12:41+0200\n"
+"PO-Revision-Date: 2023-06-21 16:11+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -3550,16 +3550,13 @@ msgstr "Torno de parolas:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
-#| "value '-1' to disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap."
 msgstr ""
 "Largessa usate per le automatic torno de parola de typo msgfmt. Usa le valor "
-"negative '-1' per deactivar le torno de parola. "
+"'0' per deactivar le torno de parola. "
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
