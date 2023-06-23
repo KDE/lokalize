@@ -344,6 +344,7 @@ Action=Popup
 [Event/BatchTranslationCompleted]
 Name=Batch Translation Completed
 Name[ar]=اكتملت دفعة الترجمة
+Name[bg]=Автоматичният превод е завършен
 Name[ca]=S'ha completat la traducció del lot
 Name[ca@valencia]=S'ha completat la traducció del lot
 Name[cs]=Dávkový překlad byl dokončen
@@ -366,6 +367,7 @@ Action=Popup
 [Event/BatchTranslationScheduled]
 Name=Batch Translation Scheduled
 Name[ar]=جُدولت دفعة الترجمة
+Name[bg]=Автоматичният превод е плануван
 Name[ca]=S'ha programat la traducció d'un lot
 Name[ca@valencia]=S'ha programat la traducció d'un lot
 Name[cs]=Dávkový překlad byl naplánován
