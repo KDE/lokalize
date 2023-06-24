@@ -1741,7 +1741,7 @@ msgstr ""
 "Non se pode abrir o ficheiro de fontes: A ruta do ficheiro non é relativa ao "
 "ficheiro de tradución, e non ten scripts cargados para xestionar a apertura "
 "de ficheiros en rutas personalizadas. No manual de Lokalize hai exemplos de "
-"scripts e información para configuralos nos seus proxectos."
+"guións e información para configuralos nos seus proxectos."
 
 #: src/editortab.cpp:1688 src/project/project.cpp:473
 #: src/project/project.cpp:478
@@ -2977,7 +2977,7 @@ msgid ""
 "If checked, LEDS will be shown to display the message status: Fuzzy, "
 "Untranslated or Error. If unchecked, no LEDs will be displayed."
 msgstr ""
-"Se marca esta opción mostraranse varios LED que indican o estado da mensaxe: "
+"Se marca esta opción amosaranse varios LED que indican o estado da mensaxe: "
 "Dubidosa, Non traducida ou Erro. Se non a marca, non se amosarán os LED."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
