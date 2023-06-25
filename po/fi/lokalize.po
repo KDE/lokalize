@@ -1,6 +1,6 @@
 # Copyright © 2010, 2011, 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kdesdk package.
-# Tommi Nieminen <translator@legisign.org>, 2010, 2011, 2018, 2019, 2020, 2021.
+# Tommi Nieminen <translator@legisign.org>, 2010, 2011, 2018, 2019, 2020, 2021, 2023.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017.
 #
 # KDE Finnish translation sprint participants:
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-20 00:55+0000\n"
-"PO-Revision-Date: 2021-07-06 19:09+0300\n"
+"PO-Revision-Date: 2023-05-29 21:16+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:25:34+0000\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -139,17 +139,16 @@ msgstr ""
 "Haluatko, että tiedot sisältävä näkymä näytetään?"
 
 #: src/alttransview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Vaihtoehtoiset käännökset"
+msgstr "Vaihtoehtoisia käännöksiä saatavilla"
 
 #: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Näytä tietonäkymä"
 
 #: src/alttransview.cpp:244
 #, kde-format
@@ -841,12 +840,10 @@ msgstr "Pikahaku…"
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Hyväksyy säännölliset lausekkeet"
+msgstr "Aktivoituu Ctrl+L:llä. Hyväksyy säännölliset lausekkeet"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -1482,12 +1479,10 @@ msgid "This changes only empty entries"
 msgstr "Tämä muuttaa vain tyhjiä yksiköitä"
 
 #: src/editortab.cpp:743
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(palautettu)"
+msgstr " (palautettu)"
 
 #: src/editortab.cpp:787 src/editortab.cpp:804 src/editortab.cpp:975
 #: src/editortab.cpp:989
@@ -1683,26 +1678,22 @@ msgstr ""
 "Haluatko hakea lähdekooditiedostoa paikallisesti vai lxr.kde.org-palvelusta?"
 
 #: src/editortab.cpp:1560
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Lähdekooditiedoston haku"
 
 #: src/editortab.cpp:1561
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Paikallisesti"
+msgstr "Etsi paikallisesti"
 
 #: src/editortab.cpp:1562 src/editortab.cpp:1615
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Etsi lxr.kde.orgista"
 
 #: src/editortab.cpp:1565 src/editortab.cpp:1618 src/editortab.cpp:1647
 #, kde-format
@@ -1731,11 +1722,10 @@ msgstr ""
 "Haluatko vaihtaa lähdekoodikansiota?"
 
 #: src/editortab.cpp:1614
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Valitse kansio:"
+msgstr "Valitse kansio"
 
 #: src/editortab.cpp:1639
 #, kde-format
@@ -2907,24 +2897,19 @@ msgstr ""
 "projektin vai avata olemassa olevan?"
 
 #: src/prefs/prefs.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Projektin yleistiedot"
+msgstr "Projekti vaaditaan"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Luo uusi projekti"
+msgstr "Luo projekti"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Avaa projekti"
@@ -3976,14 +3961,12 @@ msgid "Translate OpenDocument"
 msgstr "Käännä OpenDocument-tiedostoa"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1 %"
+msgstr "%p %"
 
 #: src/project/projecttab.cpp:164
 #, kde-format
