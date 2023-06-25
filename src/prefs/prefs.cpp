@@ -31,6 +31,7 @@
 
 
 #include <kcoreaddons_version.h>
+#include <kio_version.h>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KEditListWidget>
@@ -262,7 +263,11 @@ void SettingsController::projectConfigure()
 
     ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setMode(KFile::File | KFile::LocalOnly);
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 108, 0)
+    ui_prefs_projectmain.glossaryTbx->setNameFilters({QStringLiteral("*.tbx"), QStringLiteral("*.xml")});
+#else
     ui_prefs_projectmain.glossaryTbx->setFilter(QStringLiteral("*.tbx\n*.xml"));
+#endif
     connect(ui_prefs_projectmain.poBaseDir, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_PoBaseDir, &RelPathSaver::setText);
     connect(ui_prefs_projectmain.glossaryTbx, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_GlossaryTbx, &RelPathSaver::setText);
     ui_prefs_projectmain.poBaseDir->setUrl(QUrl::fromLocalFile(p.poDir()));
