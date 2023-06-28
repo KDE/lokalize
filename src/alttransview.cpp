@@ -175,9 +175,19 @@ void AltTransView::process()
         QString html;
         html.reserve(1024);
         if (!entry.source.isEmpty()) {
+            QString prevMsgId = entry.source.string;
+            QString currentMsgId = contextWithNewline + source.string;
+
+            // Messages have arbitrary word wrapping, which should
+            // not affect the diff. So we remove any word wrapping
+            // newlines. (Note that this does not remove manual \n
+            // characters used in the messages.)
+            prevMsgId.replace(QStringLiteral("\n"), QString());
+            currentMsgId.replace(QStringLiteral("\n"), QString());
+
             html += QStringLiteral("<p>");
 
-            QString result = userVisibleWordDiff(entry.source.string, contextWithNewline + source.string, Project::instance()->accel(), Project::instance()->markup()).toHtmlEscaped();
+            QString result = userVisibleWordDiff(prevMsgId, currentMsgId, Project::instance()->accel(), Project::instance()->markup()).toHtmlEscaped();
             //result.replace("&","&amp;");
             //result.replace("<","&lt;");
             //result.replace(">","&gt;");
