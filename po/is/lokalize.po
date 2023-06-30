@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-21 03:08+0000\n"
+"POT-Creation-Date: 2023-06-30 02:41+0000\n"
 "PO-Revision-Date: 2022-08-02 14:39+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
@@ -133,7 +133,7 @@ msgstr ""
 "\n"
 "Viltu birta sýnina með þessum gögnum?"
 
-#: src/alttransview.cpp:232
+#: src/alttransview.cpp:242
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -149,13 +149,13 @@ msgid ""
 "source for additional alternate translations.</p>"
 msgstr ""
 
-#: src/alttransview.cpp:253
+#: src/alttransview.cpp:263
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Uppruni: %1"
 
-#: src/alttransview.cpp:276
+#: src/alttransview.cpp:286
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"

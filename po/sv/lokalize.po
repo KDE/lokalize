@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-21 03:08+0000\n"
+"POT-Creation-Date: 2023-06-30 02:41+0000\n"
 "PO-Revision-Date: 2020-09-11 16:57+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -135,7 +135,7 @@ msgstr ""
 "\n"
 "Vill du visa vyn med denna information?"
 
-#: src/alttransview.cpp:232
+#: src/alttransview.cpp:242
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -162,13 +162,13 @@ msgstr ""
 "för att använda den som en källa för ytterligare alternativa översättningar."
 "</p>"
 
-#: src/alttransview.cpp:253
+#: src/alttransview.cpp:263
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Original: %1"
 
-#: src/alttransview.cpp:276
+#: src/alttransview.cpp:286
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"

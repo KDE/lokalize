@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-21 03:08+0000\n"
+"POT-Creation-Date: 2023-06-30 02:41+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -131,7 +131,7 @@ msgid ""
 "Do you want to show the view with the data?"
 msgstr ""
 
-#: src/alttransview.cpp:232
+#: src/alttransview.cpp:242
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -147,13 +147,13 @@ msgid ""
 "source for additional alternate translations.</p>"
 msgstr ""
 
-#: src/alttransview.cpp:253
+#: src/alttransview.cpp:263
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr ""
 
-#: src/alttransview.cpp:276
+#: src/alttransview.cpp:286
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "Untranslated"

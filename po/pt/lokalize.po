@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-21 03:08+0000\n"
+"POT-Creation-Date: 2023-06-30 02:41+0000\n"
 "PO-Revision-Date: 2020-09-11 10:57+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -160,7 +160,7 @@ msgstr ""
 "\n"
 "Deseja ver a vista com os dados?"
 
-#: src/alttransview.cpp:232
+#: src/alttransview.cpp:242
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -187,13 +187,13 @@ msgstr ""
 "traduções nesta área de ferramentas para a usar como texto original para as "
 "traduções alternativas.</p>"
 
-#: src/alttransview.cpp:253
+#: src/alttransview.cpp:263
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Origem: %1"
 
-#: src/alttransview.cpp:276
+#: src/alttransview.cpp:286
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"

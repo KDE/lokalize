@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-21 03:08+0000\n"
+"POT-Creation-Date: 2023-06-30 02:41+0000\n"
 "PO-Revision-Date: 2023-05-13 17:42+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -142,7 +142,7 @@ msgstr ""
 "\n"
 "أتريد عرض هذا المنظور وفيه هذه البيانات؟"
 
-#: src/alttransview.cpp:232
+#: src/alttransview.cpp:242
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -166,13 +166,13 @@ msgstr ""
 "الأدوات يُدرجها في الترجمة.</p><p>أسقط ملفّ ترجمة في منظور الأدوات لاستخدامه "
 "مصدرًا لترجمات بديلة أخرى.</p>"
 
-#: src/alttransview.cpp:253
+#: src/alttransview.cpp:263
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "الأصل: %1"
 
-#: src/alttransview.cpp:276
+#: src/alttransview.cpp:286
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
