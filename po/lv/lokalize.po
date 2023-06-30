@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-20 00:55+0000\n"
+"POT-Creation-Date: 2023-06-30 00:50+0000\n"
 "PO-Revision-Date: 2012-06-08 19:52+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -146,7 +146,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr ""
 
-#: src/alttransview.cpp:244
+#: src/alttransview.cpp:254
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -171,13 +171,13 @@ msgstr ""
 "p><p>Nometiet tulkojuma failu uz šī rīkskata, lai izmantotu to kā avotu "
 "alternatīvajiem tulkojumiem.</p>"
 
-#: src/alttransview.cpp:265
+#: src/alttransview.cpp:275
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Avots: %1"
 
-#: src/alttransview.cpp:288
+#: src/alttransview.cpp:298
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"

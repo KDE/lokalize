@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-20 00:55+0000\n"
+"POT-Creation-Date: 2023-06-30 00:50+0000\n"
 "PO-Revision-Date: 2023-05-28 23:48+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -147,7 +147,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr "Mostra vista dei dati"
 
-#: src/alttransview.cpp:244
+#: src/alttransview.cpp:254
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -173,13 +173,13 @@ msgstr ""
 "inserirla nella traduzione.</p><p>Trascina un file di traduzioni su questa "
 "vista per usarlo come sorgente di traduzioni alternative aggiuntive.</p>"
 
-#: src/alttransview.cpp:265
+#: src/alttransview.cpp:275
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Origine: %1"
 
-#: src/alttransview.cpp:288
+#: src/alttransview.cpp:298
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
