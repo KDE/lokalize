@@ -704,3 +704,4 @@ QByteArray GlossaryModel::appendRow(const QString& _english, const QString& _tar
 
 //END EDITING
 
+#include "moc_glossary.cpp"

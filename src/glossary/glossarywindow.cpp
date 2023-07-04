@@ -562,4 +562,4 @@ void TermListView::rmTerms()
         model()->removeRow(row.row());
 }
 
-
+#include "moc_glossarywindow.cpp"

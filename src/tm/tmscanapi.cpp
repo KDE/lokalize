@@ -165,4 +165,4 @@ QString shorterFilePath(const QString path)
     return path;
 }
 
-
+#include "moc_tmscanapi.cpp"

@@ -137,3 +137,5 @@ void LanguageToolResultJob::setText(const QString &text)
 {
     mText = text;
 }
+
+#include "moc_languagetoolresultjob.cpp"

@@ -105,3 +105,5 @@ int findMatchingRule(const QVector<Rule>& rules, const QString& source, const QS
     }
     return -1;
 }
+
+#include "moc_qaview.cpp"

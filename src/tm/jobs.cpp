@@ -2123,4 +2123,4 @@ void ExecQueryJob::run()
     Q_EMIT done(this);
 }
 
-
+#include "moc_jobs.cpp"

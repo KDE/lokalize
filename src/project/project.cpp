@@ -505,4 +505,4 @@ void Project::projectOdfCreate()
     Q_EMIT fileOpenRequested(args.at(1), true);
 }
 
-
+#include "moc_project.cpp"

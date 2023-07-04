@@ -361,5 +361,4 @@ QByteArray readUiState(const char* elementName)
     return QByteArray::fromBase64(cg.readEntry(elementName, QByteArray()));
 }
 
-
-
+#include "moc_prefs.cpp"

@@ -912,4 +912,4 @@ bool FileSearchTab::findGuiTextPackage(QString text, [[maybe_unused]] QString pa
 }
 //END DBus interface
 
-
+#include "moc_filesearchtab.cpp"

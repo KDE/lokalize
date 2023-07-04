@@ -1260,3 +1260,5 @@ void ProjectModel::ProjectNode::resetMetaData()
     metaDataStatus = Status::NoStats;
     metaData = FileMetaData();
 }
+
+#include "moc_projectmodel.cpp"

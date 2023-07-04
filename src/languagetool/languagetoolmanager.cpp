@@ -40,3 +40,5 @@ QString LanguageToolManager::languageToolCheckPath() const
             QStringLiteral("https://languagetool.org/api/v2")
            ) + QStringLiteral("/check");
 }
+
+#include "moc_languagetoolmanager.cpp"

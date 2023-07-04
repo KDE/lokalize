@@ -1342,3 +1342,4 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         setTextCursor(cursor);
     }
 
+#include "moc_xlifftextedit.cpp"

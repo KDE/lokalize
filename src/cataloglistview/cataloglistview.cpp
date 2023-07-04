@@ -314,3 +314,4 @@ void CatalogView::setEntriesFilteredOut(bool filteredOut)
     refreshCurrentIndex();
 }
 
+#include "moc_cataloglistview.cpp"

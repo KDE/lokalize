@@ -332,4 +332,4 @@ void MsgCtxtView::removeErrorNotes()
     process();
 }
 
-
+#include "moc_msgctxtview.cpp"

@@ -1034,4 +1034,4 @@ void Catalog::setOriginalOdfFilePath(const QString& odfFilePath)
     m_storage->setOriginalOdfFilePath(odfFilePath);
 }
 
-
+#include "moc_catalog.cpp"

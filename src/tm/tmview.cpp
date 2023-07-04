@@ -1022,3 +1022,4 @@ void TMView::slotUseSuggestion(int i)
     Q_EMIT refreshRequested();
 }
 
+#include "moc_tmview.cpp"

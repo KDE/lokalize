@@ -912,7 +912,6 @@ void DelayedFileOpener::doOpen()
     deleteLater();
 }
 
-
+#include "moc_lokalizemainwindow.cpp"
 #include "moc_lokalizesubwindowbase.cpp"
 #include "moc_multieditoradaptor.cpp"
-

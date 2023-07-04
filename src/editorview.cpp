@@ -328,4 +328,4 @@ void EditorView::setEquivTrans(bool equivTrans)
     m_catalog->push(new SetEquivTransCmd(m_catalog, m_targetTextEdit->currentPos(), equivTrans));
 }
 
-
+#include "moc_editorview.cpp"

@@ -51,3 +51,5 @@ void WidgetTextCaptureConfig::writeConfig()
 
     konfig.sync();
 }
+
+#include "moc_widgettextcaptureconfig.cpp"

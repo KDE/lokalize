@@ -253,5 +253,4 @@ void TMManagerWin::slotItemActivated(const QModelIndex&)
         win->show();*/
 }
 
-
-
+#include "moc_tmmanager.cpp"

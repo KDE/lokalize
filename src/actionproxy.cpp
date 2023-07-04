@@ -101,3 +101,6 @@ void StatusBarProxy::registerStatusBar(QStatusBar* bar, const QVector<QLabel*>& 
     }
 }
 
+#if 0
+#include "moc_actionproxy.cpp"
+#endif

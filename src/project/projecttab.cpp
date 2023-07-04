@@ -532,3 +532,4 @@ void ProjectTab::setLegacyUnitsCount(int to)
 
 //bool ProjectTab::isShown() const {return isVisible();}
 
+#include "moc_projecttab.cpp"

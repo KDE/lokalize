@@ -231,3 +231,4 @@ QVariant DBFilesModel::data(const QModelIndex& index, int role) const
     return res;
 }
 
+#include "moc_dbfilesmodel.cpp"

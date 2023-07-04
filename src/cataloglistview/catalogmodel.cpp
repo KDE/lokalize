@@ -350,3 +350,5 @@ void CatalogTreeFilterModel::setMergeCatalogPointer(MergeCatalog* pointer)
 {
     m_mergeCatalog = pointer;
 }
+
+#include "moc_catalogmodel.cpp"

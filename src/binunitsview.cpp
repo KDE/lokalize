@@ -197,3 +197,5 @@ void BinUnitsView::mouseDoubleClicked(const QModelIndex& item)
     if (item.column() < BinUnitsModel::Approved)
         new KRun(QUrl::fromLocalFile(Project::instance()->absolutePath(item.data().toString())), this);
 }
+
+#include "moc_binunitsview.cpp"

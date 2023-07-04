@@ -136,3 +136,5 @@ void UpdateStatsJob::setStatus(int status)
 {
     m_status = status;
 }
+
+#include "moc_updatestatsjob.cpp"

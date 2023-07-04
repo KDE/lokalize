@@ -542,3 +542,4 @@ QSortFilterProxyModel* ProjectWidget::proxyModel()
     return m_proxyModel;
 }
 
+#include "moc_projectwidget.cpp"

@@ -359,3 +359,4 @@ bool MergeView::event(QEvent *event)
     return QDockWidget::event(event);
 }
 
+#include "moc_mergeview.cpp"

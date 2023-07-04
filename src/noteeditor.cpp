@@ -138,3 +138,4 @@ int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active
     return realOffset;
 }
 
+#include "moc_noteeditor.cpp"

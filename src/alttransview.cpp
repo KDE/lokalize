@@ -313,4 +313,4 @@ void AltTransView::slotUseSuggestion(int i)
     Q_EMIT refreshRequested();
 }
 
-
+#include "moc_alttransview.cpp"

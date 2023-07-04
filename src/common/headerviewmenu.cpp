@@ -40,3 +40,4 @@ void HeaderViewMenuHandler::headerMenuActionToggled(QAction* a)
     headerView->setSectionHidden(a->data().toInt(), !a->isChecked());
 }
 
+#include "moc_headerviewmenu.cpp"

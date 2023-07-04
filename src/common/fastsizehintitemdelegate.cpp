@@ -117,3 +117,4 @@ QString convertToHtml(QString str, bool italics)
     return str;
 }
 
+#include "moc_fastsizehintitemdelegate.cpp"

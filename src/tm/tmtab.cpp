@@ -783,3 +783,5 @@ bool TMTab::findGuiTextPackage(QString text, QString package)
     return true;
 }
 //END DBus interface
+
+#include "moc_tmtab.cpp"

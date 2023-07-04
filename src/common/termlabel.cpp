@@ -125,3 +125,4 @@ void QueryResultBtn::mousePressEvent(QMouseEvent*/* event*/)
 
 #endif
 
+#include "moc_termlabel.cpp"

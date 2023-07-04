@@ -251,6 +251,4 @@ void SyntaxHighlighter::unsetMisspelled(int start, int count)
     }
 }
 
-
-
-
+#include "moc_syntaxhighlighter.cpp"

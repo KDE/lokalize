@@ -323,3 +323,4 @@ void MergeCatalog::copyToBaseCatalog(int options)
     }
 }
 
+#include "moc_mergecatalog.cpp"
