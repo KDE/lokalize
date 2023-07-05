@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-30 00:50+0000\n"
+"POT-Creation-Date: 2023-07-05 01:03+0000\n"
 "PO-Revision-Date: 2008-09-24 02:55+0300\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@nospam.gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -2826,13 +2826,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr ""
 
-#: src/prefs/prefs.cpp:96
+#: src/prefs/prefs.cpp:97
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "Nasname"
 
-#: src/prefs/prefs.cpp:106
+#: src/prefs/prefs.cpp:107
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2840,13 +2840,13 @@ msgid ""
 "%2 - Line number"
 msgstr ""
 
-#: src/prefs/prefs.cpp:108 src/prefs/prefs.cpp:252
+#: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:253
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "Giştî"
 
-#: src/prefs/prefs.cpp:114
+#: src/prefs/prefs.cpp:115
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Edit term"
 #| msgid "Edit"
@@ -2854,13 +2854,13 @@ msgctxt "@title:tab"
 msgid "Editing"
 msgstr "Sererastkirin"
 
-#: src/prefs/prefs.cpp:120
+#: src/prefs/prefs.cpp:121
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Xuyanî"
 
-#: src/prefs/prefs.cpp:126
+#: src/prefs/prefs.cpp:127
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Translation"
@@ -2868,33 +2868,33 @@ msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "Werger"
 
-#: src/prefs/prefs.cpp:132
+#: src/prefs/prefs.cpp:133
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr ""
 
-#: src/prefs/prefs.cpp:138
+#: src/prefs/prefs.cpp:139
 #, fuzzy, kde-format
 #| msgid "Language"
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "Ziman"
 
-#: src/prefs/prefs.cpp:147
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@title:tab"
 msgid "Spellcheck"
 msgstr "Kontrola Rastnivîsê"
 
-#: src/prefs/prefs.cpp:174 src/prefs/prefs.cpp:184
+#: src/prefs/prefs.cpp:175 src/prefs/prefs.cpp:185
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
 "want to create a new project or open an existing project?"
 msgstr ""
 
-#: src/prefs/prefs.cpp:175
+#: src/prefs/prefs.cpp:176
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Project"
@@ -2902,7 +2902,7 @@ msgctxt "@title"
 msgid "Project Required"
 msgstr "Proje"
 
-#: src/prefs/prefs.cpp:176
+#: src/prefs/prefs.cpp:177
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Create new project"
@@ -2910,7 +2910,7 @@ msgctxt "@action"
 msgid "Create Project"
 msgstr "Projeya nû biafirîne"
 
-#: src/prefs/prefs.cpp:177
+#: src/prefs/prefs.cpp:178
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2918,13 +2918,13 @@ msgctxt "@action"
 msgid "Open Project"
 msgstr "Projeyê veke"
 
-#: src/prefs/prefs.cpp:185
+#: src/prefs/prefs.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "New"
 msgstr ""
 
-#: src/prefs/prefs.cpp:185
+#: src/prefs/prefs.cpp:186
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open"
@@ -2932,29 +2932,29 @@ msgctxt "@action"
 msgid "Open"
 msgstr "Vekirin"
 
-#: src/prefs/prefs.cpp:202 src/prefs/prefs.cpp:219
+#: src/prefs/prefs.cpp:203 src/prefs/prefs.cpp:220
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr ""
 
-#: src/prefs/prefs.cpp:219
+#: src/prefs/prefs.cpp:220
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr ""
 
-#: src/prefs/prefs.cpp:240
+#: src/prefs/prefs.cpp:241
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr ""
 
-#: src/prefs/prefs.cpp:296
+#: src/prefs/prefs.cpp:301
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr ""
 
-#: src/prefs/prefs.cpp:307
+#: src/prefs/prefs.cpp:312
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"

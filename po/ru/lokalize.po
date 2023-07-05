@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-30 00:50+0000\n"
+"POT-Creation-Date: 2023-07-05 01:03+0000\n"
 "PO-Revision-Date: 2022-01-19 10:14+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -2838,13 +2838,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr "Шрифт для сообщений"
 
-#: src/prefs/prefs.cpp:96
+#: src/prefs/prefs.cpp:97
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "Профиль"
 
-#: src/prefs/prefs.cpp:106
+#: src/prefs/prefs.cpp:107
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2855,49 +2855,49 @@ msgstr ""
 "%1— Путь к исходному файлу;\n"
 "%2 — Номер строки."
 
-#: src/prefs/prefs.cpp:108 src/prefs/prefs.cpp:252
+#: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:253
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "Основное"
 
-#: src/prefs/prefs.cpp:114
+#: src/prefs/prefs.cpp:115
 #, kde-format
 msgctxt "@title:tab"
 msgid "Editing"
 msgstr "Редактор"
 
-#: src/prefs/prefs.cpp:120
+#: src/prefs/prefs.cpp:121
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Внешний вид"
 
-#: src/prefs/prefs.cpp:126
+#: src/prefs/prefs.cpp:127
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "Память переводов"
 
-#: src/prefs/prefs.cpp:132
+#: src/prefs/prefs.cpp:133
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Программа Pology"
 
-#: src/prefs/prefs.cpp:138
+#: src/prefs/prefs.cpp:139
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:147
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@title:tab"
 msgid "Spellcheck"
 msgstr "Проверка правописания"
 
-#: src/prefs/prefs.cpp:174 src/prefs/prefs.cpp:184
+#: src/prefs/prefs.cpp:175 src/prefs/prefs.cpp:185
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2906,7 +2906,7 @@ msgstr ""
 "Вы воспользовались функцией программы, которая требует предварительного "
 "открытия проекта. Создать новый проект или открыть существующий?"
 
-#: src/prefs/prefs.cpp:175
+#: src/prefs/prefs.cpp:176
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Project overview"
@@ -2914,14 +2914,14 @@ msgctxt "@title"
 msgid "Project Required"
 msgstr "Обзор проекта"
 
-#: src/prefs/prefs.cpp:176
+#: src/prefs/prefs.cpp:177
 #, fuzzy, kde-format
 #| msgid "Create new project"
 msgctxt "@action"
 msgid "Create Project"
 msgstr "Создать новый проект"
 
-#: src/prefs/prefs.cpp:177
+#: src/prefs/prefs.cpp:178
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2929,43 +2929,43 @@ msgctxt "@action"
 msgid "Open Project"
 msgstr "Открыть проект..."
 
-#: src/prefs/prefs.cpp:185
+#: src/prefs/prefs.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "New"
 msgstr "Создать"
 
-#: src/prefs/prefs.cpp:185
+#: src/prefs/prefs.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "Open"
 msgstr "Открыть"
 
-#: src/prefs/prefs.cpp:202 src/prefs/prefs.cpp:219
+#: src/prefs/prefs.cpp:203 src/prefs/prefs.cpp:220
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Проекты Lokalize (*.lokalize)"
 
-#: src/prefs/prefs.cpp:219
+#: src/prefs/prefs.cpp:220
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "Выбор папки с файлами Gettext (.po) для перевода"
 
-#: src/prefs/prefs.cpp:240
+#: src/prefs/prefs.cpp:241
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr ""
 "Сначала создайте проект по переводу программного обеспечения или документа "
 "OpenDocument."
 
-#: src/prefs/prefs.cpp:296
+#: src/prefs/prefs.cpp:301
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Дополнительно"
 
-#: src/prefs/prefs.cpp:307
+#: src/prefs/prefs.cpp:312
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"

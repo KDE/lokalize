@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-30 00:50+0000\n"
+"POT-Creation-Date: 2023-07-05 01:03+0000\n"
 "PO-Revision-Date: 2023-04-30 20:57+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -2767,13 +2767,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr "訊息字型"
 
-#: src/prefs/prefs.cpp:96
+#: src/prefs/prefs.cpp:97
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "身份"
 
-#: src/prefs/prefs.cpp:106
+#: src/prefs/prefs.cpp:107
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2784,56 +2784,56 @@ msgstr ""
 "%1 - 來源檔案路徑\n"
 "%2 - 行號"
 
-#: src/prefs/prefs.cpp:108 src/prefs/prefs.cpp:252
+#: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:253
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "一般"
 
-#: src/prefs/prefs.cpp:114
+#: src/prefs/prefs.cpp:115
 #, kde-format
 msgctxt "@title:tab"
 msgid "Editing"
 msgstr "編輯"
 
-#: src/prefs/prefs.cpp:120
+#: src/prefs/prefs.cpp:121
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "外觀"
 
-#: src/prefs/prefs.cpp:126
+#: src/prefs/prefs.cpp:127
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "翻譯記憶體"
 
-#: src/prefs/prefs.cpp:132
+#: src/prefs/prefs.cpp:133
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:138
+#: src/prefs/prefs.cpp:139
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:147
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@title:tab"
 msgid "Spellcheck"
 msgstr "拼字檢查"
 
-#: src/prefs/prefs.cpp:174 src/prefs/prefs.cpp:184
+#: src/prefs/prefs.cpp:175 src/prefs/prefs.cpp:185
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
 "want to create a new project or open an existing project?"
 msgstr "您所操作的功能需要先載入一個專案。您要建立新專案，還是開啟現有的專案？"
 
-#: src/prefs/prefs.cpp:175
+#: src/prefs/prefs.cpp:176
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Project overview"
@@ -2841,14 +2841,14 @@ msgctxt "@title"
 msgid "Project Required"
 msgstr "專案概觀"
 
-#: src/prefs/prefs.cpp:176
+#: src/prefs/prefs.cpp:177
 #, fuzzy, kde-format
 #| msgid "Project"
 msgctxt "@action"
 msgid "Create Project"
 msgstr "專案"
 
-#: src/prefs/prefs.cpp:177
+#: src/prefs/prefs.cpp:178
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2856,41 +2856,41 @@ msgctxt "@action"
 msgid "Open Project"
 msgstr "開啟專案"
 
-#: src/prefs/prefs.cpp:185
+#: src/prefs/prefs.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "New"
 msgstr "新增"
 
-#: src/prefs/prefs.cpp:185
+#: src/prefs/prefs.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "Open"
 msgstr "開啟"
 
-#: src/prefs/prefs.cpp:202 src/prefs/prefs.cpp:219
+#: src/prefs/prefs.cpp:203 src/prefs/prefs.cpp:220
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Lokalize 翻譯專案（*.lokalize）"
 
-#: src/prefs/prefs.cpp:219
+#: src/prefs/prefs.cpp:220
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "選擇要翻譯的 Gettext .po 檔放置的資料夾"
 
-#: src/prefs/prefs.cpp:240
+#: src/prefs/prefs.cpp:241
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "請先建立軟體或 OpenDocument 翻譯專案。"
 
-#: src/prefs/prefs.cpp:296
+#: src/prefs/prefs.cpp:301
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "進階"
 
-#: src/prefs/prefs.cpp:307
+#: src/prefs/prefs.cpp:312
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
