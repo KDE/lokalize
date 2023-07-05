@@ -57,7 +57,7 @@ static const langPInfo langsWithPInfo[] = {
     { "eo", "nplurals=2; plural=(n != 1);" },
     { "es", "nplurals=2; plural=(n != 1);" },
     { "et", "nplurals=2; plural=(n != 1);" },
-    { "fa", "nplurals=1; plural=0;" },
+    { "fa", "nplurals=2; plural=(n > 1);" },
     { "fi", "nplurals=2; plural=(n != 1);" },
     { "fo", "nplurals=2; plural=(n != 1);" },
     { "fr", "nplurals=2; plural=(n > 1);" },
