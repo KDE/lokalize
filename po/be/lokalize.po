@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:03+0000\n"
+"POT-Creation-Date: 2023-07-09 01:05+0000\n"
 "PO-Revision-Date: 2008-09-26 14:57+0300\n"
 "Last-Translator: kom <me@komzpa.net>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -4600,32 +4600,32 @@ msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Запытаць памяць перакладу"
 
-#: src/tm/tmview.cpp:596
+#: src/tm/tmview.cpp:597
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr ""
 
-#: src/tm/tmview.cpp:598
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr ""
 
-#: src/tm/tmview.cpp:605
+#: src/tm/tmview.cpp:607
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:619 src/tm/tmview.cpp:625
+#: src/tm/tmview.cpp:621 src/tm/tmview.cpp:627
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
 
-#: src/tm/tmview.cpp:620 src/tm/tmview.cpp:626
+#: src/tm/tmview.cpp:622 src/tm/tmview.cpp:628
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Translation Memory Query"
@@ -4633,7 +4633,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Запытаць памяць перакладу"
 
-#: src/tm/tmview.cpp:1003
+#: src/tm/tmview.cpp:1005
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Query translation memory"

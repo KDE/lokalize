@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:03+0000\n"
+"POT-Creation-Date: 2023-07-09 01:05+0000\n"
 "PO-Revision-Date: 2022-11-01 00:32+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: kde-i18n-doc@kde.org\n"
@@ -4277,25 +4277,25 @@ msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Re-usage de traductiones (MT)"
 
-#: src/tm/tmview.cpp:596
+#: src/tm/tmview.cpp:597
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Remover ti element"
 
-#: src/tm/tmview.cpp:598
+#: src/tm/tmview.cpp:599
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Aperter in un nov carte"
 
-#: src/tm/tmview.cpp:605
+#: src/tm/tmview.cpp:607
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Plenar mancant traductiones ex li MT"
 
-#: src/tm/tmview.cpp:619 src/tm/tmview.cpp:625
+#: src/tm/tmview.cpp:621 src/tm/tmview.cpp:627
 #, fuzzy, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4304,13 +4304,13 @@ msgstr ""
 "<html>Esque vu vole remover ti element:<br/><i>%1</i><br/>ex li memorie de "
 "traductiones %2?</html>"
 
-#: src/tm/tmview.cpp:620 src/tm/tmview.cpp:626
+#: src/tm/tmview.cpp:622 src/tm/tmview.cpp:628
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr ""
 
-#: src/tm/tmview.cpp:1003
+#: src/tm/tmview.cpp:1005
 #, fuzzy, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

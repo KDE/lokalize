@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:03+0000\n"
+"POT-Creation-Date: 2023-07-09 01:05+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -4429,25 +4429,25 @@ msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Uklanjanje unosa iz prijevodne memorije"
 
-#: src/tm/tmview.cpp:596
+#: src/tm/tmview.cpp:597
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Ukloni ovaj unos"
 
-#: src/tm/tmview.cpp:598
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Otvori datoteku koja sadrži ovaj unos"
 
-#: src/tm/tmview.cpp:605
+#: src/tm/tmview.cpp:607
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:619 src/tm/tmview.cpp:625
+#: src/tm/tmview.cpp:621 src/tm/tmview.cpp:627
 #, fuzzy, kde-format
 #| msgid ""
 #| "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4459,7 +4459,7 @@ msgstr ""
 "<html>Želite li zaista ukloniti ovaj unos:<br/><i>%1</i><br/>iz prijevodne "
 "memorije %2?</html>"
 
-#: src/tm/tmview.cpp:620 src/tm/tmview.cpp:626
+#: src/tm/tmview.cpp:622 src/tm/tmview.cpp:628
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Translation Memory Entry Removal"
@@ -4467,7 +4467,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Uklanjanje unosa iz prijevodne memorije"
 
-#: src/tm/tmview.cpp:1003
+#: src/tm/tmview.cpp:1005
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
