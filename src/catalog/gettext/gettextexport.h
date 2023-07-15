@@ -30,7 +30,7 @@ class GettextStorage;
 class GettextExportPlugin
 {
 public:
-    explicit GettextExportPlugin(short wrapWidth = -1, short trailingNewLines = 1);
+    explicit GettextExportPlugin(short wrapWidth = 1, short trailingNewLines = 1);
     ConversionStatus save(QIODevice* device,
                           const GettextStorage* catalog,
                           QTextCodec* codec);
@@ -54,11 +54,12 @@ public:
      * This is the width of the wrap in characters (not bytes), including everything
      * (e.g. keyword, quote characters, spaces).
      *
-     * - A value of 0 means no wrap
-     * - Other negative values are reserved for future extensions (by default: no wrap)
+     * - A value of 0 means no wrap (existing wrapping is removed)
+     * - 1-3 means, wrapping is not changed
+     * - Negative values are reserved for future extensions
      * @note
      * - Gettext's default value is 78 characters
-     * - Too small values might not be correctly supported.
+     * - Very small values might not be correctly supported.
      */
     short m_wrapWidth;
     short m_trailingNewLines;
