@@ -18,134 +18,134 @@ void TestGetTextHeaderParser::updateLastTranslator()
     // for empty list, add translator
     {
         QStringList headerList{};
-        QString author = "Jane Doe";
-        QString mail = "foo@baa.org";
+        QString author = QStringLiteral("Jane Doe");
+        QString mail = QStringLiteral("foo@baa.org");
         GetTextHeaderParser::updateLastTranslator(headerList, author, mail);
         QCOMPARE(headerList.count(), 1);
-        QCOMPARE(headerList.at(0), "Last-Translator: Jane Doe <foo@baa.org>\\n");
+        QCOMPARE(headerList.at(0), QStringLiteral("Last-Translator: Jane Doe <foo@baa.org>\\n"));
     }
 
     // for empty list, add translator
     {
-        QStringList headerList{"Last-Translator: Joh Doe <foo2@baa.org>\\n"};
-        QString author = "Jane Doe";
-        QString mail = "foo@baa.org";
+        QStringList headerList{QStringLiteral("Last-Translator: Joh Doe <foo2@baa.org>\\n")};
+        QString author = QStringLiteral("Jane Doe");
+        QString mail = QStringLiteral("foo@baa.org");
         GetTextHeaderParser::updateLastTranslator(headerList, author, mail);
         QCOMPARE(headerList.count(), 1);
-        QCOMPARE(headerList.at(0), "Last-Translator: Jane Doe <foo@baa.org>\\n");
+        QCOMPARE(headerList.at(0), QStringLiteral("Last-Translator: Jane Doe <foo@baa.org>\\n"));
     }
 }
 
 void TestGetTextHeaderParser::updateGenericCopyrightYear()
 {
-    QFile example(":/faketemplate.pot");
+    QFile example(QStringLiteral(":/faketemplate.pot"));
     QVERIFY(example.open(QIODevice::ReadOnly));
-    QStringList header(QString(example.readAll()).split('\n', Qt::SkipEmptyParts));
+    QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
     GetTextHeaderParser::updateGeneralCopyrightYear(header);
-    QCOMPARE(header.at(1), "# Copyright (C) " + sCurrentYear + " This file is copyright:");
+    QCOMPARE(header.at(1), QStringLiteral("# Copyright (C) ") + sCurrentYear + QStringLiteral(" This file is copyright:"));
 }
 
 void TestGetTextHeaderParser::updateAuthors()
 {
     // test helper method fo updating year information
     {
-        const QString input = "# Jane Doe <foo@example.com>.";
-        const QString expected = "# SPDX-FileCopyrightText: " + sCurrentYear + " Jane Doe <foo@example.com>";
+        const QString input = QStringLiteral("# Jane Doe <foo@example.com>.");
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: ") + sCurrentYear + QStringLiteral(" Jane Doe <foo@example.com>");
         const QString output = GetTextHeaderParser::updateAuthorCopyrightLine(input);
         QCOMPARE(output, expected);
     }
     {
-        const QString input = "# Jane Doe <foo@example.com> 2010.";
-        const QString expected = "# SPDX-FileCopyrightText: 2010, " + sCurrentYear + " Jane Doe <foo@example.com>";
+        const QString input = QStringLiteral("# Jane Doe <foo@example.com> 2010.");
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: 2010, ") + sCurrentYear + QStringLiteral(" Jane Doe <foo@example.com>");
         const QString output = GetTextHeaderParser::updateAuthorCopyrightLine(input);
         QCOMPARE(output, expected);
     }
     {
-        const QString input = "# Jane Doe <foo@example.com> 2010-2012.";
-        const QString expected = "# SPDX-FileCopyrightText: 2010-2012, "+ sCurrentYear + " Jane Doe <foo@example.com>";
+        const QString input = QStringLiteral("# Jane Doe <foo@example.com> 2010-2012.");
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: 2010-2012, ") + sCurrentYear + QStringLiteral(" Jane Doe <foo@example.com>");
         const QString output = GetTextHeaderParser::updateAuthorCopyrightLine(input);
         QCOMPARE(output, expected);
     }
     {
-        const QString input = "# SPDX-FileCopyrightText: Jane Doe <foo@example.com>";
-        const QString expected = "# SPDX-FileCopyrightText: " + sCurrentYear + " Jane Doe <foo@example.com>";
+        const QString input = QStringLiteral("# SPDX-FileCopyrightText: Jane Doe <foo@example.com>");
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: ") + sCurrentYear + QStringLiteral(" Jane Doe <foo@example.com>");
         const QString output = GetTextHeaderParser::updateAuthorCopyrightLine(input);
         QCOMPARE(output, expected);
     }
     {
-        const QString input = "# SPDX-FileCopyrightText: 2010 Jane Doe <foo@example.com>";
-        const QString expected = "# SPDX-FileCopyrightText: 2010, " + sCurrentYear + " Jane Doe <foo@example.com>";
+        const QString input = QStringLiteral("# SPDX-FileCopyrightText: 2010 Jane Doe <foo@example.com>");
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: 2010, ") + sCurrentYear + QStringLiteral(" Jane Doe <foo@example.com>");
         const QString output = GetTextHeaderParser::updateAuthorCopyrightLine(input);
         QCOMPARE(output, expected);
     }
     {
-        const QString input = "# SPDX-FileCopyrightText: 2010-2012 Jane Doe <foo@example.com>";
-        const QString expected = "# SPDX-FileCopyrightText: 2010-2012, "+ sCurrentYear + " Jane Doe <foo@example.com>";
+        const QString input = QStringLiteral("# SPDX-FileCopyrightText: 2010-2012 Jane Doe <foo@example.com>");
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: 2010-2012, ") + sCurrentYear + QStringLiteral(" Jane Doe <foo@example.com>");
         const QString output = GetTextHeaderParser::updateAuthorCopyrightLine(input);
         QCOMPARE(output, expected);
     }
 
     // test initial copyright information addition for template file
     {
-        QFile example(":/faketemplate.pot");
+        QFile example(QStringLiteral(":/faketemplate.pot"));
         QVERIFY(example.open(QIODevice::ReadOnly));
-        QStringList header(QString(example.readAll()).split('\n', Qt::SkipEmptyParts));
+        QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
         header = header.mid(0, 5); // hard split header ot of example instead of recreating the complex logic here
 
-        const QString name{"Jane Doe"};
-        const QString email{"jane.doe@example.com"};
+        const QString name{QStringLiteral("Jane Doe")};
+        const QString email{QStringLiteral("jane.doe@example.com")};
         GetTextHeaderParser::updateAuthors(header, name, email);
         // new author is expected to replace "FIRST AUTHOR..." text
-        const QString expected = "# SPDX-FileCopyrightText: " + sCurrentYear + " Jane Doe <jane.doe@example.com>";
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: ") + sCurrentYear + QStringLiteral(" Jane Doe <jane.doe@example.com>");
         QCOMPARE(header.last(), expected);
     }
 
     // test addition of new copyright owner
     {
-        QFile example(":/fakeexample.po");
+        QFile example(QStringLiteral(":/fakeexample.po"));
         QVERIFY(example.open(QIODevice::ReadOnly));
-        QStringList header(QString(example.readAll()).split('\n', Qt::SkipEmptyParts));
+        QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
         header = header.mid(0, 5); // hard split header ot of example instead of recreating the complex logic here
 
-        const QString name{"Jane Doe"};
-        const QString email{"jane.doe@example.com"};
+        const QString name{QStringLiteral("Jane Doe")};
+        const QString email{QStringLiteral("jane.doe@example.com")};
         GetTextHeaderParser::updateAuthors(header, name, email);
         // new author is expected to be appended
-        const QString expected = "# SPDX-FileCopyrightText: " + sCurrentYear + " Jane Doe <jane.doe@example.com>";
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: ") + sCurrentYear + QStringLiteral(" Jane Doe <jane.doe@example.com>");
         QCOMPARE(header.last(), expected);
         auto john = std::find_if(header.begin(), header.end(), [](const QString &line){
-            return line.contains("John Doe");
+            return line.contains(QStringLiteral("John Doe"));
         });
         QVERIFY(john != header.end()); // check that no author was removed
     }
 
     // test modification of existing copyright owner
     {
-        QFile example(":/fakeexample.po");
+        QFile example(QStringLiteral(":/fakeexample.po"));
         QVERIFY(example.open(QIODevice::ReadOnly));
-        QStringList header(QString(example.readAll()).split('\n', Qt::SkipEmptyParts));
+        QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
         header = header.mid(0, 5); // hard split header ot of example instead of recreating the complex logic here
 
-        const QString name{"John Doe"};
-        const QString email{"john@example.com"};
+        const QString name{QStringLiteral("John Doe")};
+        const QString email{QStringLiteral("john@example.com")};
         GetTextHeaderParser::updateAuthors(header, name, email);
         // new author is expected to be appended
-        const QString expected = "# SPDX-FileCopyrightText: 2020, " + sCurrentYear + " John Doe <john@example.com>";
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: 2020, ") + sCurrentYear + QStringLiteral(" John Doe <john@example.com>");
         QCOMPARE(header.at(3), expected);
     }
 
     // check update of SPDX copyright text
     {
-        QFile example(":/fakeexample_spdxcopyright.po");
+        QFile example(QStringLiteral(":/fakeexample_spdxcopyright.po"));
         QVERIFY(example.open(QIODevice::ReadOnly));
-        QStringList header(QString(example.readAll()).split('\n', Qt::SkipEmptyParts));
+        QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
         header = header.mid(0, 5); // hard split header ot of example instead of recreating the complex logic here
 
-        const QString name{"John Doe"};
-        const QString email{"john@example.com"};
+        const QString name{QStringLiteral("John Doe")};
+        const QString email{QStringLiteral("john@example.com")};
         GetTextHeaderParser::updateAuthors(header, name, email);
         // new author is expected to be appended
-        const QString expected = "# SPDX-FileCopyrightText: 2020, " + sCurrentYear + " John Doe <john@example.com>";
+        const QString expected = QStringLiteral("# SPDX-FileCopyrightText: 2020, ") + sCurrentYear + QStringLiteral(" John Doe <john@example.com>");
         QCOMPARE(header.at(3), expected);
     }
 }
