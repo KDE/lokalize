@@ -258,8 +258,6 @@ void updateHeader(QString& header,
 //BEGIN header itself
     QStringList::Iterator it, ait;
     QString temp;
-    QString authorNameEmail;
-
     const QString BACKSLASH_N = QStringLiteral("\\n");
 
     // Unwrap header since the following code
@@ -456,101 +454,10 @@ void updateHeader(QString& header,
 //END header itself
 
 //BEGIN comment = description, copyrights
-    QLocale cLocale(QLocale::C);
-    // U+00A9 is the Copyright sign
-    QRegExp fsfc(QStringLiteral("^# *Copyright (\\(C\\)|\\x00a9).*Free Software Foundation, Inc"));
-    for (it = commentList.begin(), found = false; it != commentList.end() && !found; ++it) {
-        found = it->contains(fsfc) ;
-        if (found) {
-            it->replace(QStringLiteral("YEAR"), cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")));
-        }
-    }
+    GetTextHeaderParser::updateGeneralCopyrightYear(commentList);
+    // qCDebug(LOKALIZE_LOG) << "HEADER COMMENT: " << commentList;
 
-    QStringList foundAuthors;
-
-    temp = QStringLiteral("# ") + authorNameEmail + QStringLiteral(", ") + cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")) + QLatin1Char('.');
-
-    // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
-    QRegExp regexpAuthorYear(QStringLiteral("^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)"));
-    QRegExp regexpYearAlone(QStringLiteral("^# , \\d{4}.?\\s*$"));
-    QRegExp regexpFuzzy(QStringLiteral("#, *fuzzy"));
-    if (commentList.isEmpty()) {
-        commentList.append(temp);
-        commentList.append(QString());
-    } else {
-        it = commentList.begin();
-        while (it != commentList.end()) {
-            bool deleteItem = false;
-            if (it->indexOf(QLatin1String("copyright"), 0, Qt::CaseInsensitive) != -1) {
-                // We have a line with a copyright. It should not be moved.
-            } else if (regexpFuzzy.indexIn(*it) != -1)
-                deleteItem = true;
-            else if (regexpYearAlone.indexIn(*it) != -1) {
-                // We have found a year number that is preceded by a comma.
-                // That is typical of KBabel 1.10 (and earlier?) when there is neither an author name nor an email
-                // Remove the entry
-                deleteItem = true;
-            } else if (it->contains(QLatin1String("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.")))
-                deleteItem = true;
-            else if (it->contains(QLatin1String("# SOME DESCRIPTIVE TITLE")))
-                deleteItem = true;
-            else if (regexpAuthorYear.indexIn(*it) != -1) {   // email address followed by year
-                if (!foundAuthors.contains((*it))) {
-                    // The author line is new (and not a duplicate), so add it to the author line list
-                    foundAuthors.append((*it));
-                }
-                // Delete also non-duplicated entry, as now all what is needed will be processed in foundAuthors
-                deleteItem = true;
-            }
-
-            if (deleteItem)
-                it = commentList.erase(it);
-            else
-                ++it;
-        }
-
-        if (!foundAuthors.isEmpty()) {
-            found = false;
-            bool foundAuthor = false;
-
-            const QString cy = cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy"));
-
-            ait = foundAuthors.end();
-            for (it = foundAuthors.begin() ; it != foundAuthors.end(); ++it) {
-                if (it->contains(Settings::authorName()) || it->contains(Settings::authorEmail())) {
-                    foundAuthor = true;
-                    if (it->contains(cy))
-                        found = true;
-                    else
-                        ait = it;
-                }
-            }
-            if (!found) {
-                if (!foundAuthor)
-                    foundAuthors.append(temp);
-                else if (ait != foundAuthors.end()) {
-                    //update years
-                    QRegExp regExp(QStringLiteral("[\\d]+[\\d\\-, ]*"));
-                    const int index = regExp.lastIndexIn(*ait);
-                    if (index == -1)
-                        (*ait) += QStringLiteral(", ") + cy;
-                    else
-                        ait->insert(index + 1, QStringLiteral(", ") + cy);
-                } else
-                    qCDebug(LOKALIZE_LOG) << "INTERNAL ERROR: author found but iterator dangling!";
-            }
-
-        } else
-            foundAuthors.append(temp);
-
-
-        for (QString author : qAsConst(foundAuthors)) {
-            // ensure dot at the end of copyright
-            if (!author.endsWith(QLatin1Char('.'))) author += QLatin1Char('.');
-            commentList.append(author);
-        }
-    }
-
+    GetTextHeaderParser::updateAuthors(commentList, Settings::authorName(), Settings::authorEmail());
     //m_header.setComment( commentList.join( "\n" ) );
     comment = commentList.join(QStringLiteral("\n"));
 

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fakeexample.po</file>
+        <file>faketemplate.pot</file>
+    </qresource>
+</RCC>
