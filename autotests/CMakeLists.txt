@@ -8,6 +8,7 @@ include_directories(
 ecm_add_test(
     test_gettextheaderparser.cpp
     test_gettextheaderparser.h
+    testresources.qrc
     ${CMAKE_SOURCE_DIR}/src/catalog/gettextheaderparser.cpp
     LINK_LIBRARIES Qt::Core Qt::Test liblokalize
     TEST_NAME test_gettextheaderparser

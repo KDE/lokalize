@@ -14,5 +14,10 @@ class TestGetTextHeaderParser : public QObject
 
 private Q_SLOTS:
     void updateLastTranslator();
+    void updateGenericCopyrightYear();
+    void updateAuthors();
+
+private:
+    static const QString sCurrentYear;
 };
 #endif

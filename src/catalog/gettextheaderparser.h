@@ -17,7 +17,9 @@
 class GetTextHeaderParser {
 public:
     static void updateLastTranslator(QStringList &headerList, const QString &authorName, const QString &authorEmail);
-
+    static void updateGeneralCopyrightYear(QStringList &commentList);
+    static void updateAuthors(QStringList &commentList, const QString &authorName, const QString &authorEmail);
+    static QString joinAuthor(const QString &authorName, const QString &authorEmail);
 };
 
 #endif
