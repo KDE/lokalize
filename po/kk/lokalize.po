@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 01:05+0000\n"
+"POT-Creation-Date: 2023-07-18 08:36+0000\n"
 "PO-Revision-Date: 2013-06-27 04:19+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -772,26 +772,26 @@ msgid ""
 "template"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:477
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:477
 #, fuzzy, kde-format
 #| msgctxt "NAME OF TRANSLATORS"
 #| msgid "Your names"
 msgid "Your name:"
 msgstr "Сайран Киккарин"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:487
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:487
 #, fuzzy, kde-format
 #| msgctxt "EMAIL OF TRANSLATORS"
 #| msgid "Your emails"
