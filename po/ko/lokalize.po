@@ -1,14 +1,14 @@
 # Translation of kaider to Korean.
 # Copyright (C) 2007 This_file_is_part_of_KDE
 # This file is distributed under the same license as the extragear-sdk package.
-# Shinjo Park <kde@peremen.name>, 2007, 2008, 2009, 2010, 2011, 2014, 2015, 2017, 2019, 2020, 2021, 2022.
+# Shinjo Park <kde@peremen.name>, 2007, 2008, 2009, 2010, 2011, 2014, 2015, 2017, 2019, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-18 08:36+0000\n"
-"PO-Revision-Date: 2022-04-16 23:10+0200\n"
+"PO-Revision-Date: 2023-07-23 21:38+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.08.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -46,7 +46,7 @@ msgstr ".po 파일 컴파일"
 #: scripts/msgfmt.rc:4
 #, kde-format
 msgid "Compile .po and make it available to applications"
-msgstr ".po 파일을 프로그램에서 사용할 수 있도록 컴파일"
+msgstr ".po 파일을 앱에서 사용할 수 있도록 컴파일"
 
 #: scripts/msgmerge.py:33
 msgid "Gettext not found"
@@ -134,17 +134,16 @@ msgstr ""
 "해당 데이터를 보시겠습니까?"
 
 #: src/alttransview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "대체 번역"
+msgstr "대체 번역 사용 가능"
 
 #: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "데이터 보기 표시"
 
 #: src/alttransview.cpp:254
 #, kde-format
@@ -238,10 +237,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "모든 지원하는 파일 (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "모든 지원하는 파일 (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -797,12 +795,10 @@ msgstr "빠른 검색..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "정규 표현식 사용 가능"
+msgstr "Ctrl+L 키를 누르면 활성화됩니다. 정규 표현식을 사용할 수 있습니다"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -1307,7 +1303,7 @@ msgstr "다음 준비되지 않은 문자열"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
-msgstr "번역 단위 보기의 검색 줄에 초점 맞추기"
+msgstr "번역 단위 보기의 검색 줄에 포커스 맞추기"
 
 #: src/editortab.cpp:602
 #, kde-format
@@ -1424,9 +1420,7 @@ msgid "This changes only empty entries"
 msgstr "이 변경 사항은 항목만 비웁니다"
 
 #: src/editortab.cpp:743
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(복구됨)"
@@ -1624,26 +1618,22 @@ msgid ""
 msgstr "로컬에서 소스 파일을 검색하거나 lxr.kde.org에서 검색하시겠습니까?"
 
 #: src/editortab.cpp:1560
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "소스 파일 찾아보기"
 
 #: src/editortab.cpp:1561
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "로컬"
+msgstr "로컬에서 검색"
 
 #: src/editortab.cpp:1562 src/editortab.cpp:1615
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "lxr.kde.org에서 검색"
 
 #: src/editortab.cpp:1565 src/editortab.cpp:1618 src/editortab.cpp:1647
 #, kde-format
@@ -1672,11 +1662,10 @@ msgstr ""
 "소스 파일 폴더를 변경하시겠습니까?"
 
 #: src/editortab.cpp:1614
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "폴더 선택:"
+msgstr "폴더 선택"
 
 #: src/editortab.cpp:1639
 #, kde-format
@@ -1882,7 +1871,7 @@ msgid ""
 "Press Esc to stop the search."
 msgstr ""
 "원본 언어에서 검색할 표현식을 입력하십시오.\n"
-"Ctrl+L 키를 누르면 초점을 맞춥니다.\n"
+"Ctrl+L 키를 누르면 포커스를 맞춥니다.\n"
 "Enter 키를 누르면 검색을 시작합니다.\n"
 "Esc 키를 누르면 검색을 중단합니다."
 
@@ -2508,8 +2497,8 @@ msgid ""
 "Error opening the file <filename>%1</filename> for synchronization, error "
 "line: %2"
 msgstr ""
-"파일 <filename>%1</filename>와(과) 동기화하려고 여는 중 오류 발생. 오류가 발"
-"생한 줄: %2"
+"<filename>%1</filename>파일과 동기화하려고 여는 중 오류 발생. 오류가 발생한 "
+"줄: %2"
 
 #: src/mergemode/mergeview.cpp:353
 #, kde-format
@@ -2835,24 +2824,19 @@ msgstr ""
 "나 기존 프로젝트를 불러오시겠습니까?"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "프로젝트 개요"
+msgstr "프로젝트가 필요함"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "새 프로젝트 만들기"
+msgstr "프로젝트 만들기"
 
 #: src/prefs/prefs.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "프로젝트 열기"
@@ -3425,7 +3409,7 @@ msgstr "가속기 키:"
 #: src/project/prefs_project_advanced.ui:33
 #, kde-format
 msgid "Usually '&', but may also be '_' for GTK apps."
-msgstr "대개 '&'이지만 GTK 프로그램의 경우 '_'일 수도 있습니다."
+msgstr "대개 '&'이지만 GTK 앱의 경우 '_'일 수도 있습니다."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_project_advanced.ui:40
@@ -3466,15 +3450,12 @@ msgstr "자동 줄 바꿈:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
-#| "value '-1' to disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap."
 msgstr ""
-"자동 msgfmt 형식 줄 바꿈을 적용할 너비입니다. -1을 지정하면 줄을 바꾸지 않습"
+"자동 msgfmt 형식 줄 바꿈을 적용할 너비입니다. '0'을 지정하면 줄을 바꾸지 않습"
 "니다."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
@@ -3634,7 +3615,7 @@ msgstr ""
 "서로 다른 프로젝트와 언어의 번역 메모리를 구분하는 데 사용되는 프로젝트 ID입"
 "니다.\n"
 "\n"
-"예를 들어 KDE 프로그램을 번역하는 여러 프로젝트가 있다면\n"
+"예를 들어 KDE 앱을 번역하는 여러 프로젝트가 있다면\n"
 "(서로 다른 저장소에 나뉘어 있는 경우) 모든 프로젝트에 같은 ID를 사용하십시오."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
@@ -3684,7 +3665,7 @@ msgstr "자동"
 #: src/project/prefs_projectmain.ui:160
 #, kde-format
 msgid "Application"
-msgstr "프로그램"
+msgstr "앱"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:165
@@ -3877,14 +3858,12 @@ msgid "Translate OpenDocument"
 msgstr "OpenDocument 번역"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:164
 #, kde-format
@@ -4187,7 +4166,7 @@ msgid ""
 msgstr ""
 "원본 언어에서 검색할 표현식을 입력하십시오.\n"
 "Enter 키를 누르면 검색을 시작합니다.\n"
-"Ctrl+L 키를 누르면 초점을 맞춥니다."
+"Ctrl+L 키를 누르면 포커스를 맞춥니다."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4282,18 +4261,16 @@ msgid "TM"
 msgstr "번역 메모리"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "원본:"
+msgstr "원본: %1"
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "대상:"
+msgstr "대상: %1"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
