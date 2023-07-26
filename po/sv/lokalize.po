@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Stefan Asserhäll <stefan.asserhall@bredband.net>, 2007, 2008, 2009, 2010.
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-18 08:36+0000\n"
-"PO-Revision-Date: 2020-09-11 16:57+0200\n"
+"PO-Revision-Date: 2023-07-25 09:16+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 19.04.3\n"
+"X-Generator: Lokalize 20.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -136,17 +136,16 @@ msgstr ""
 "Vill du visa vyn med denna information?"
 
 #: src/alttransview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Alternativa översättningar"
+msgstr "Alternativa översättningar tillgängliga"
 
 #: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Visa datavy"
 
 #: src/alttransview.cpp:254
 #, kde-format
@@ -244,10 +243,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "Alla filer som stöds (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Alla filer som stöds (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -840,12 +838,10 @@ msgstr "Snabbsökning..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Accepterar reguljära uttryck"
+msgstr "Aktivera med Ctrl+L. Accepterar reguljära uttryck"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -1473,12 +1469,10 @@ msgid "This changes only empty entries"
 msgstr "Detta ändrar bara tomma poster"
 
 #: src/editortab.cpp:743
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(återställd)"
+msgstr " (återställd)"
 
 #: src/editortab.cpp:787 src/editortab.cpp:804 src/editortab.cpp:975
 #: src/editortab.cpp:989
@@ -1673,26 +1667,22 @@ msgid ""
 msgstr "Vill du söka efter källfiler lokalt eller via lxr.kde.org?"
 
 #: src/editortab.cpp:1560
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Uppslagning av källfil"
 
 #: src/editortab.cpp:1561
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Lokalt"
+msgstr "Sök lokalt"
 
 #: src/editortab.cpp:1562 src/editortab.cpp:1615
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Sök på lxr.kde.org"
 
 #: src/editortab.cpp:1565 src/editortab.cpp:1618 src/editortab.cpp:1647
 #, kde-format
@@ -1721,11 +1711,10 @@ msgstr ""
 "Vill du ändra källfilkatalog?"
 
 #: src/editortab.cpp:1614
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Välj en katalog:"
+msgstr "Välj katalog"
 
 #: src/editortab.cpp:1639
 #, kde-format
@@ -2890,24 +2879,19 @@ msgstr ""
 "Vill du skapa ett nytt projekt eller öppna ett befintligt projekt?"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Projektöversikt"
+msgstr "Projekt krävs"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Skapa nytt projekt"
+msgstr "Skapa projekt"
 
 #: src/prefs/prefs.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Öppna projekt"
@@ -3541,16 +3525,13 @@ msgstr "Radbrytning:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
-#| "value '-1' to disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap."
 msgstr ""
-"Bredd använd för den automatiska msgfmt-liknande radbrytningen. Använd det "
-"negativa värdet '-1' för att inaktivera radbrytning."
+"Bredd använd för den automatiska msgfmt-liknande radbrytningen. Använd "
+"värdet '0' för att inaktivera radbrytning."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3961,14 +3942,12 @@ msgid "Translate OpenDocument"
 msgstr "Översätt OpenDocument"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1 %"
+msgstr "%p %"
 
 #: src/project/projecttab.cpp:164
 #, kde-format
@@ -4369,18 +4348,16 @@ msgid "TM"
 msgstr "ÖM"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Källa:"
+msgstr "Källa: %1"
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Resultat:"
+msgstr "Mål: %1"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
