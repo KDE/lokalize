@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-18 08:36+0000\n"
-"PO-Revision-Date: 2023-05-29 21:16+0300\n"
+"PO-Revision-Date: 2023-07-25 13:39+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:25:34+0000\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -245,10 +245,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "Kaikki tuetut tiedostot (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Kaikki tuetut tiedostot (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -3538,16 +3537,13 @@ msgstr "Rivitys:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
-#| "value '-1' to disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap."
 msgstr ""
 "Automaattisen msgfmt-maisen rivityksen leveys. Poista rivitys käytöstä "
-"negatiivisella arvolla -1."
+"negatiivisella arvolla 0."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -4368,18 +4364,16 @@ msgid "TM"
 msgstr "KM"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Lähde:"
+msgstr "Lähde: %1"
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Kohde:"
+msgstr "Kohde: %1"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
