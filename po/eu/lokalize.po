@@ -1,24 +1,23 @@
 # Translation for lokalize.po to Euskara/Basque (eu).
-# Copyright (C) 2009-2018, Free Software Foundation.
-# Copyright (C) 2019-2021, This file is copyright:
+# Copyright (C) 2009-2023 This file is copyright:
 # This file is distributed under the same license as the lokalize package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2009, 2011, 2018, 2019, 2020, 2021, 2022.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2009, 2011, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-09 01:05+0000\n"
-"PO-Revision-Date: 2022-12-04 23:43+0100\n"
+"PO-Revision-Date: 2023-08-01 00:02+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 23.04.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -143,17 +142,16 @@ msgstr ""
 "Ikuspegia datuekin erakutsi nahi duzu?"
 
 #: src/alttransview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Ordezko itzulpenak"
+msgstr "Ordezko itzulpenak erabilgarri"
 
 #: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Erakutsi datu-ikuspegia"
 
 #: src/alttransview.cpp:254
 #, kde-format
@@ -250,10 +248,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "Onartutako fitxategi guztiak (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Onartutako fitxategi guztiak (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -855,12 +852,10 @@ msgstr "Bilaketa azkarra..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Adierazpen erregularrak onartzen ditu"
+msgstr "Ktrl+L bidez aktibatua. Adierazpen erregularrak onartzen ditu"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -1490,12 +1485,10 @@ msgid "This changes only empty entries"
 msgstr "Honek soilik hutsik dauden sarrerak aldatzen ditu"
 
 #: src/editortab.cpp:743
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(berreskuratua)"
+msgstr " (berreskuratua)"
 
 #: src/editortab.cpp:787 src/editortab.cpp:804 src/editortab.cpp:975
 #: src/editortab.cpp:989
@@ -1690,26 +1683,22 @@ msgid ""
 msgstr "Iturburu fitxategia lokalki bilatu nahi duzu edo lxr.kde.org bidez?"
 
 #: src/editortab.cpp:1560
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
-msgstr "Iturburu fitxategiak bilatzea"
+msgstr "Sorburu fitxategia bilatzea"
 
 #: src/editortab.cpp:1561
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Lokalki"
+msgstr "Bilatu lokalki"
 
 #: src/editortab.cpp:1562 src/editortab.cpp:1615
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Bilatu «lxr.kde.org»en"
 
 #: src/editortab.cpp:1565 src/editortab.cpp:1618 src/editortab.cpp:1647
 #, kde-format
@@ -1738,11 +1727,10 @@ msgstr ""
 "Iturburu fitxategien karpeta aldatu nahi duzu?"
 
 #: src/editortab.cpp:1614
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Hautatu karpeta bat:"
+msgstr "Hautatu karpeta"
 
 #: src/editortab.cpp:1639
 #, kde-format
@@ -2907,27 +2895,22 @@ msgstr ""
 "bat sortu edo dagoen bat ireki nahi duzu?"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Proiektuaren gainbegiratua"
+msgstr "Proiektua behar da"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Sortu proiektu berria"
+msgstr "Sortu proiektua"
 
 #: src/prefs/prefs.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
-msgstr "Proiektua ireki"
+msgstr "Ireki proiektua"
 
 #: src/prefs/prefs.cpp:186
 #, kde-format
@@ -3566,16 +3549,13 @@ msgstr "Itzulbiratzea:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
-#| "value '-1' to disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap."
 msgstr ""
-"«msgfmt» antzeko itzulbiratzerako erabilitako zabalera. Erabili «-1» balio "
-"negatiboa itzulbiratze ezgaitzeko."
+"«msgfmt» antzera itzulbiratzeko erabilitako zabalera. Erabili '0' balioa "
+"itzulbira ezgaitzeko."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3987,14 +3967,12 @@ msgid "Translate OpenDocument"
 msgstr "Itzuli OpenDocument"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%%1"
+msgstr "%%p"
 
 #: src/project/projecttab.cpp:164
 #, kde-format
@@ -4398,18 +4376,16 @@ msgid "TM"
 msgstr "IM"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Iturburua:"
+msgstr "Sorburua: %1"
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Jomuga:"
+msgstr "Jomuga: %1"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format

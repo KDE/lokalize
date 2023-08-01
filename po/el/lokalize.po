@@ -5,23 +5,24 @@
 # Spiros Georgaras <sng@hellug.gr>, 2007, 2008.
 # Toussis Manolis <manolis@koppermind.homelinux.org>, 2007, 2008, 2009.
 # George Pantsis <gpantsis@gmail.com>, 2008.
-# Petros <pvidalis@gmail.com>, 2009, 2016, 2018.
+# Petros <pvidalis@gmail.com>, 2009, 2016, 2018, 2023.
 # Famelis George <famelis@gmail.com>, 2010.
 # Dimitrios Glentadakis <dglent@gmail.com>, 2011, 2012, 2014.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2016.
+# George Stefanakis <george.stefanakis@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-09 01:05+0000\n"
-"PO-Revision-Date: 2018-10-18 16:00+0200\n"
-"Last-Translator: Long Run <pvidalis@gmail.com>\n"
-"Language-Team: Greek <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2023-07-31 17:34+0300\n"
+"Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
+"Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -29,14 +30,14 @@ msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 "Σπύρος Γεωργαράς, Τούσης Μανώλης, Γιώργος Πάντσης, Πέτρος Βιδάλης, Φαμέλης "
-"Γιώργος"
+"Γιώργος, Γιώργος Στεφανάκης"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 "sng@hellug.gr, manolis@koppermind.homelinux.org,  gpantsis@gmail.com, "
-"p_vidalis@hotmail.com, famelis@gmail.com"
+"p_vidalis@hotmail.com, famelis@gmail.com, george.stefanakis@gmail.com"
 
 #. i18n: tag collection attribute text
 #. i18n: tag collection attribute comment
@@ -145,17 +146,16 @@ msgstr ""
 "Θέλετε να το εμφανίζεται με τα δεδομένα;"
 
 #: src/alttransview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Εναλλακτικές μεταφράσεις"
+msgstr "Υπάρχουν διαθέσιμες εναλλακτικές μεταφράσεις"
 
 #: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Προβολή εμφάνισης δεδομένων"
 
 #: src/alttransview.cpp:254
 #, kde-format
@@ -252,10 +252,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "Όλα τα υποστηριζόμενα αρχεία (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Όλα τα υποστηριζόμενα αρχεία (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -548,12 +547,15 @@ msgid ""
 "mathematical or logical relations, such as statements of inequality, set "
 "relationships, Boolean operations, and the like"
 msgstr ""
+"λογική έκφραση: μια έκφραση που χρησιμοποιείται για την αναπαράσταση μιας "
+"έννοιας με βάση μαθηματικές ή λογικές σχέσεις, όπως δηλώσεις ανισότητας, "
+"σύνολο σχέσεις, πράξεις Boole και παρόμοια."
 
 #: src/catalog/catalogstring.cpp:134
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
-msgstr ""
+msgstr "μονάδα διαχείρισης υλικών: μια μονάδα παρακολούθησης αντικειμένων"
 
 #: src/catalog/catalogstring.cpp:135
 #, kde-format
@@ -569,6 +571,10 @@ msgid ""
 "another term in the same language, but for which interchangeability is "
 "limited to some contexts and inapplicable in others"
 msgstr ""
+"σχεδόν συνώνυμο: όρος που αντιπροσωπεύει την ίδια ή μια πολύ παρόμοια έννοια "
+"με άλλον όρο στην ίδια γλώσσα, αλλά για τον οποίο η "
+"εναλλαξιμότηταπεριορίζεται σε ορισμένα συμφραζόμενα και είναι ανεφάρμοστη σε "
+"άλλα."
 
 #: src/catalog/catalogstring.cpp:137
 #, kde-format
@@ -577,6 +583,8 @@ msgid ""
 "part number: a unique alphanumeric designation assigned to an object in a "
 "manufacturing system"
 msgstr ""
+"αριθμός εξαρτήματος: μια μοναδική αλφαριθμητική ονομασία που αποδίδεται σε "
+"ένα αντικείμενο σε ένα σύστημα παραγωγής"
 
 #: src/catalog/catalogstring.cpp:138
 #, kde-format
@@ -592,12 +600,15 @@ msgid ""
 "of which frequently cannot be deduced based on the combined sense of the "
 "words making up the phrase"
 msgstr ""
+"φρασεολογική: ομάδα δύο ή περισσότερων λέξεων που αποτελούν μια μονάδα, η "
+"έννοια της οποίας συχνά δεν μπορεί να εξηγηθεί με βάση το συνδυασμένο νόημα "
+"των λέξεων που συνθέτουν τη φράση"
 
 #: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
-msgstr ""
+msgstr "προστατευμένο: το σημειωμένο κείμενο δεν θα πρέπει να μεταφραστή"
 
 #: src/catalog/catalogstring.cpp:141
 #, kde-format
@@ -606,18 +617,20 @@ msgid ""
 "romanized form: a form of a term resulting from an operation whereby non-"
 "Latin writing systems are converted to the Latin alphabet"
 msgstr ""
+"λατινοποιημένη μορφή: η μορφή ενός όρου που προκύπτει από μια πράξη κατά την "
+"οποία μηλατινικά συστήματα γραφής μετατρέπεται στο λατινικό αλφάβητο."
 
 #: src/catalog/catalogstring.cpp:142
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
-msgstr ""
+msgstr "τμήμα: το σημειωμένο κείμενο αντιπροσωπεύει ένα τμήμα"
 
 #: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
-msgstr ""
+msgstr "καθορισμένη φράση: μια σταθερή, λεξικοποιημένη φράση"
 
 #: src/catalog/catalogstring.cpp:144
 #, kde-format
@@ -627,6 +640,10 @@ msgid ""
 "full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
+"σύντομη μορφή: παραλλαγή ενός πολυλεκτικού όρου που περιλαμβάνει λιγότερες "
+"λέξεις από τον πλήρη μορφή του όρου (π.χ. \"Ομάδα των Είκοσι Τεσσάρων\" για "
+"τη \"Διακυβερνητική Ομάδα των είκοσι τεσσάρων για τις διεθνείς νομισματικές "
+"υποθέσεις)"
 
 #: src/catalog/catalogstring.cpp:145
 #, kde-format
@@ -635,12 +652,15 @@ msgid ""
 "stock keeping unit: an inventory item identified by a unique alphanumeric "
 "designation assigned to an object in an inventory control system"
 msgstr ""
+"μονάδα τήρησης αποθέματος: ένα στοιχείο απογραφής που αναγνωρίζεται από ένα "
+"μοναδικό αλφαριθμητικό που αποδίδεται σε ένα αντικείμενο σε ένα σύστημα "
+"ελέγχου αποθεμάτων"
 
 #: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
-msgstr ""
+msgstr "τυποποιημένο κείμενο: ένα σταθερό τμήμα επαναλαμβανόμενου κειμένου"
 
 #: src/catalog/catalogstring.cpp:147
 #, kde-format
@@ -649,6 +669,8 @@ msgid ""
 "symbol: a designation of a concept by letters, numerals, pictograms or any "
 "combination thereof"
 msgstr ""
+"σύμβολο: ο προσδιορισμός μιας έννοιας με γράμματα, αριθμούς, εικονογράμματα "
+"ή οποιοδήποτε συνδυασμό τους"
 
 #: src/catalog/catalogstring.cpp:148
 #, kde-format
@@ -657,6 +679,8 @@ msgid ""
 "synonym: a term that represents the same or a very similar concept as the "
 "main entry term in a term entry"
 msgstr ""
+"συνώνυμο: ένας όρος που αντιπροσωπεύει την ίδια ή μια πολύ παρόμοια έννοια "
+"με τονκύριος όρο καταχώρησης σε μια καταχώρηση όρου"
 
 #: src/catalog/catalogstring.cpp:149
 #, kde-format
@@ -665,6 +689,8 @@ msgid ""
 "synonymous phrase: phraseological unit in a language that expresses the same "
 "semantic content as another phrase in that same language"
 msgstr ""
+"συνώνυμη φράση: φρασεολογική μονάδα σε μια γλώσσα που εκφράζει το ίδιο "
+"σημασιολογικό περιεχόμενο με μια άλλη φράση στην ίδια γλώσσα"
 
 #: src/catalog/catalogstring.cpp:150
 #, kde-format
@@ -681,6 +707,9 @@ msgid ""
 "writing system, taking into account the pronunciation of the characters "
 "converted"
 msgstr ""
+"μεταγραφική μορφή: η μορφή ενός όρου που προκύπτει από μια πράξη κατά την "
+"οποίαοι χαρακτήρες ενός συστήματος γραφής αναπαρίστανται με χαρακτήρες ενός "
+"άλλου συστήματος γραφής, λαμβάνοντας υπόψη την προφορά των χαρακτήρων. "
 
 #: src/catalog/catalogstring.cpp:152
 #, kde-format
@@ -690,6 +719,9 @@ msgid ""
 "the characters of an alphabetic writing system are represented by characters "
 "from another alphabetic writing system"
 msgstr ""
+"μεταγραμμένη μορφή: η μορφή ενός όρου που προκύπτει από μια πράξη κατά την "
+"οποία οι χαρακτήρες ενός αλφαβητικού συστήματος γραφής αναπαρίστανται με "
+"χαρακτήρες από άλλο αλφαβητικό σύστημα γραφής"
 
 #: src/catalog/catalogstring.cpp:153
 #, kde-format
@@ -698,6 +730,9 @@ msgid ""
 "truncated term: an abbreviated form of a term resulting from the omission of "
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
+"περικομμένος όρος: συντομευμένη μορφή ενός όρου που προκύπτει από την "
+"παράλειψη της ενός ή περισσοτέρων στοιχείων ή συλλαβών του όρου (π.χ. \"flu"
+"\" για \"influenza\")"
 
 #: src/catalog/catalogstring.cpp:154
 #, kde-format
@@ -768,7 +803,7 @@ msgstr "Εισαγωγή κειμένου με ετικέτες"
 #: src/catalog/gettext/gettextstorage.cpp:110
 #, kde-format
 msgid "separator for different-length string alternatives"
-msgstr ""
+msgstr "διαχωριστικό για εναλλακτικές συμβολοσειρές διαφορετικού μήκους"
 
 #: src/catalog/gettext/gettextstorage.cpp:272
 #, kde-format
@@ -776,12 +811,14 @@ msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
 msgstr ""
+"Προηγούμενη τιμή πηγής, αποθηκευμένη από το Gettext κατά τη μετάβαση σε ένα "
+"νεότερο POT πρότυπο"
 
 #: src/catalog/gettextheader.cpp:582
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
-msgstr ""
+msgstr "Το όνομα του συγγραφέα λείπει"
 
 #: src/catalog/gettextheader.cpp:582
 #, kde-format
@@ -794,7 +831,7 @@ msgstr ""
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
-msgstr ""
+msgstr "Το email του συγγραφέα λείπει"
 
 #: src/catalog/gettextheader.cpp:592
 #, kde-format
@@ -806,7 +843,7 @@ msgstr ""
 #: src/catalog/ts/tsstorage.cpp:424
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
-msgstr ""
+msgstr "Προηγούμενη τιμή πηγής, αποθηκευμένο από το εργαλείο lupdate"
 
 #: src/cataloglistview/cataloglistview.cpp:57
 #, kde-format
@@ -822,12 +859,10 @@ msgstr "Γρήγορη αναζήτηση..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Αποδοχή κανονικών εκφράσεων"
+msgstr "Ενεργοποιήθηκε με Ctrl+L. Δέχεται regular expressions"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -927,7 +962,7 @@ msgstr "Αναζητήσιμη στήλη"
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
-msgstr ""
+msgstr "Αναταξινόμηση και επαναφιλτράρισμα στην αλλαγή περιεχομένου"
 
 #: src/cataloglistview/cataloglistview.cpp:233
 #, kde-format
@@ -971,11 +1006,10 @@ msgid "Context"
 msgstr "Σχετικό περιεχόμενο μηνύματος"
 
 #: src/cataloglistview/catalogmodel.cpp:115
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Files"
-msgstr "Αρχείο"
+msgstr "Αρχεία"
 
 #: src/cataloglistview/catalogmodel.cpp:117
 #: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:67
@@ -985,20 +1019,16 @@ msgid "Translation Status"
 msgstr "Κατάσταση μετάφρασης"
 
 #: src/cataloglistview/catalogmodel.cpp:119
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source language"
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
-msgstr "Γλώσσα πηγής"
+msgstr "Μήκος Πηγής"
 
 #: src/cataloglistview/catalogmodel.cpp:121
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target language"
+#, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
-msgstr "Γλώσσα προορισμού"
+msgstr "Μήκος στόχου"
 
 #: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1101
 #: src/editortab.cpp:1304 src/tm/tmtab.cpp:234
@@ -1022,12 +1052,10 @@ msgid "Untranslated"
 msgstr "Αμετάφραστο"
 
 #: src/common/languagelistmodel.cpp:93
-#, fuzzy, kde-format
-#| msgctxt "@info:status message entries"
-#| msgid "Total: %1 (%2)"
+#, kde-format
 msgctxt "%1 is a language name, e.g. Irish, %2 is language code, e.g. ga"
 msgid "%1 (%2)"
-msgstr "Σύνολο: %1 (%2)"
+msgstr "%1 (%2)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/common/languagelistmodel.cpp:134 src/tm/dbparams.ui:146
@@ -1134,12 +1162,10 @@ msgid "Insert TM suggestion #%1"
 msgstr "Εισαγωγή πρότασης μεταφραστικής μνήμης #%1"
 
 #: src/editortab.cpp:284
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Insert TM suggestion #%1"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove TM suggestion #%1"
-msgstr "Εισαγωγή πρότασης μεταφραστικής μνήμης #%1"
+msgstr "Αφαίρεση πρότασης μεταφραστικής μνήμης #%1"
 
 #: src/editortab.cpp:333
 #, kde-format
@@ -1172,18 +1198,16 @@ msgid "Word count"
 msgstr "Καταμέτρηση λέξεων"
 
 #: src/editortab.cpp:423
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Manage translation memories"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
-msgstr "Διαχείριση μεταφραστικής μνήμης"
+msgstr "Εκκαθάριση όλων των μεταφρασμένων εγγραφών"
 
 #: src/editortab.cpp:426
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
-msgstr ""
+msgstr "Εκτέλεση της εντολής Pology σε αυτό το αρχείο"
 
 #: src/editortab.cpp:430
 #, kde-format
@@ -1245,7 +1269,7 @@ msgstr "Εισαγωγή ετικέτας"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
-msgstr ""
+msgstr "Έλεγχος αυτής της μονάδας με τη χρήση του LanguageTool"
 
 #: src/editortab.cpp:524
 #, kde-format
@@ -1466,12 +1490,10 @@ msgid "This changes only empty entries"
 msgstr "Αυτό τροποποιεί μόνο κενές καταχωρήσεις"
 
 #: src/editortab.cpp:743
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(ανάκτηση)"
+msgstr "(ανακτήθηκε)"
 
 #: src/editortab.cpp:787 src/editortab.cpp:804 src/editortab.cpp:975
 #: src/editortab.cpp:989
@@ -1599,14 +1621,14 @@ msgstr "Η καταχώρηση είναι πλήρως μεταφρασμένη
 #: src/editortab.cpp:1396 src/project/projecttab.cpp:358
 #, kde-format
 msgid "A Pology check is already in progress."
-msgstr ""
+msgstr "Ο έλεγχος Pology είναι ήδη σε εξέλιξη."
 
 #: src/editortab.cpp:1396 src/editortab.cpp:1404 src/editortab.cpp:1408
 #: src/project/projecttab.cpp:358 src/project/projecttab.cpp:366
 #: src/project/projecttab.cpp:370
 #, kde-format
 msgid "Pology error"
-msgstr ""
+msgstr "Σφάλμα Pology"
 
 #: src/editortab.cpp:1404 src/project/projecttab.cpp:366
 #, kde-format
@@ -1614,16 +1636,18 @@ msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
+"Ο έλεγχος Pology κατέρρευσε απροσδόκητα:\n"
+"%1"
 
 #: src/editortab.cpp:1406 src/project/projecttab.cpp:368
 #, kde-format
 msgid "Pology success"
-msgstr ""
+msgstr "Επιτυχία Pology"
 
 #: src/editortab.cpp:1406
 #, kde-format
 msgid "The Pology check has succeeded."
-msgstr ""
+msgstr "Ο έλεγχος Pology ήταν επιτυχής."
 
 #: src/editortab.cpp:1408 src/project/projecttab.cpp:370
 #, kde-format
@@ -1631,6 +1655,8 @@ msgid ""
 "The Pology check has returned an error:\n"
 "%1"
 msgstr ""
+"Ο έλεγχος Pology επέστρεψε ένα σφάλμα:\n"
+"%1"
 
 #: src/editortab.cpp:1419 src/editortab.cpp:1426
 #, kde-format
@@ -1639,6 +1665,8 @@ msgid ""
 "This will delete all the translations from the file.\n"
 "Do you really want to clear all translated entries?"
 msgstr ""
+"Αυτό θα διαγράψει όλες τις μεταφράσεις από το αρχείο.\n"
+"Θέλετε πραγματικά να διαγράψετε όλες τις μεταφρασμένες καταχωρήσεις;"
 
 #: src/editortab.cpp:1464
 #, kde-format
@@ -1658,33 +1686,30 @@ msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr ""
+"Θα θέλατε να αναζητήσετε το πηγαίο αρχείο τοπικά ή μέσω του lxr.kde.org;"
 
 #: src/editortab.cpp:1560
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
-msgstr "Χρήση πηγαίου αρχείου"
+msgstr "Αναζήτηση πηγαίου αρχείου"
 
 #: src/editortab.cpp:1561
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Τοπικά"
+msgstr "Αναζήτηση τοπικά"
 
 #: src/editortab.cpp:1562 src/editortab.cpp:1615
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Αναζήτηση στο lxr.kde.org"
 
 #: src/editortab.cpp:1565 src/editortab.cpp:1618 src/editortab.cpp:1647
 #, kde-format
 msgid "Select project's base folder for source file lookup"
-msgstr ""
+msgstr "Επιλέξτε το βασικό φάκελο του έργου για την αναζήτηση αρχείου πηγής"
 
 #: src/editortab.cpp:1574 src/editortab.cpp:1613 src/editortab.cpp:1638
 #, kde-format
@@ -1704,13 +1729,14 @@ msgid ""
 "Could not find source file in the folder specified.\n"
 "Do you want to change source files folder?"
 msgstr ""
+"Δεν μπόρεσε να βρεθεί το αρχείο πηγής στον καθορισμένο φάκελο.\n"
+"Θέλετε να αλλάξετε το φάκελο των αρχείων πηγής;"
 
 #: src/editortab.cpp:1614
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Επιλογή φακέλου:"
+msgstr "Επιλογή φακέλου"
 
 #: src/editortab.cpp:1639
 #, kde-format
@@ -1718,12 +1744,7 @@ msgid "lxr.kde.org"
 msgstr "lxr.kde.org"
 
 #: src/editortab.cpp:1674
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Cannot open source files: no scripts to do so are currently loaded. Refer "
-#| "to the Lokalize handbook for script examples and how to plug them into "
-#| "your project."
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Cannot open the target source file: The target source file is not relative "
@@ -1731,41 +1752,44 @@ msgid ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 msgstr ""
-"Δεν μπορούν να ανοιχτούν πηγαία αρχεία: δεν είναι φορτωμένο κανένα σενάριο "
-"που να μπορεί να το κάνει. Αναζητήστε στο εγχειρίδιο του Lokalize για "
-"παραδείγματα σεναρίων και πως θα τα συνδέσετε στο έργο σας."
+"Δεν μπορεί να ανοίξει το αρχείο πηγής που ορίσατε: Το αρχείο πηγής που "
+"ορίσατε δεν είναι σχετικό με το τρέχον αρχείο μετάφρασης και δεν υπάρχουν "
+"προς το παρόν φορτωμένα σενάρια για να χειριστούν το άνοιγμα αρχείων πηγής "
+"σε προσαρμοσμένες διαδρομές. Ανατρέξτε στο εγχειρίδιο του Lokalize για "
+"παραδείγματα σεναρίων και για το πώς να τα συνδέσετε στο έργο σας."
 
 #: src/editortab.cpp:1688 src/project/project.cpp:473
 #: src/project/project.cpp:478
 #, kde-format
 msgid "Install translate-toolkit package and retry"
-msgstr ""
+msgstr "Εγκαταστήστε το πακέτο translate-toolkit και ξανά προσπαθήστε "
 
 #: src/editortab.cpp:1694
 #, kde-format
 msgid "Install translate-toolkit package and retry."
-msgstr ""
+msgstr "Εγκαταστήστε το πακέτο translate-toolkit και ξανά προσπαθήστε ."
 
 #: src/editortab.cpp:1703
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
+"Επιλογή του αρχικού OpenDocument στο οποίο βασίζεται το τρέχον αρχείο XLIFF"
 
 #: src/editortab.cpp:1705 src/project/project.cpp:483
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
-msgstr ""
+msgstr "Αρχεία OpenDocument (*.odt *.ods)"
 
 #: src/editortab.cpp:1750
 #, kde-format
 msgid "Install python-uno package for additional functionality."
-msgstr ""
+msgstr "Εγκαταστήστε το πακέτο python-uno για πρόσθετη λειτουργικότητα."
 
 #: src/editortab.cpp:1874
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
-msgstr ""
+msgstr "Ορισμός κειμένου μονάδας"
 
 #: src/editortab_findreplace.cpp:464
 #, kde-format
@@ -1915,18 +1939,17 @@ msgstr "Ανάπτυξη"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Ctrl+L to go to this control.\n"
 "Press Enter to start the search.\n"
 "Press Esc to stop the search."
 msgstr ""
-"Έκφραση αναζήτησης για το τμήμα της πηγαίας γλώσσας.\n"
-" Πατήστε Enter για να ξεκινήσει η αναζήτηση."
+"Έκφραση αναζήτησης για τη γλώσσα προέλευσης.\n"
+"Πατήστε Ctrl+L για να μεταβείτε σε αυτό το στοιχείο ελέγχου.\n"
+"Πατήστε Enter για να ξεκινήσετε την αναζήτηση.\n"
+"Πατήστε Esc για να σταματήσετε την αναζήτηση."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1981,11 +2004,10 @@ msgid "&Search"
 msgstr "&Αναζήτηση"
 
 #: src/filesearch/filesearchtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "File mask:"
+#, kde-format
 msgctxt "@title:window"
 msgid "File List"
-msgstr "Μάσκα αρχείου:"
+msgstr "Λίστα αρχείου"
 
 #: src/filesearch/filesearchtab.cpp:78
 #, kde-format
@@ -2027,11 +2049,10 @@ msgid "Search and replace in files"
 msgstr "Εύρεση και αντικατάσταση σε αρχεία"
 
 #: src/filesearch/filesearchtab.cpp:792
-#, fuzzy, kde-format
-#| msgid "Replace"
+#, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"
-msgstr "Αντικατάσταση"
+msgstr "Μαζική αντικατάσταση"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/filesearch/massreplaceoptions.ui:17
@@ -2202,23 +2223,24 @@ msgstr "Συμπερίληψη σημειώσεων"
 #: src/languagetool/languagetoolgrammarerror.cpp:39
 #, kde-format
 msgid "Suggestions:"
-msgstr ""
+msgstr "Προτάσεις:"
 
 #: src/languagetool/languagetoolparser.cpp:28
 #, kde-format
 msgid "No errors"
-msgstr ""
+msgstr "Χωρίς λάθη"
 
 #: src/lokalizemainwindow.cpp:111
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
+"Δεν βρέθηκαν αρθρώματα Qt Sql. Η μεταφραστική μνήμη δεν θα λειτουργήσει."
 
 #: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
-msgstr ""
+msgstr "Η δυνατότητα μεταφραστικής μνήμης απαιτεί το άρθρωμα SQLite Qt."
 
 #: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
 #, kde-format
@@ -2248,10 +2270,9 @@ msgid "Previous tab"
 msgstr "Προηγούμενο"
 
 #: src/lokalizemainwindow.cpp:465
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previously active tab"
-msgstr "Προηγούμενο"
+msgstr "Προηγούμενη ενεργή καρτέλα"
 
 #: src/lokalizemainwindow.cpp:471
 #, kde-format
@@ -2302,12 +2323,10 @@ msgid "Open project..."
 msgstr "Άνοιγμα έργου..."
 
 #: src/lokalizemainwindow.cpp:500
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
-msgstr "Άνοιγμα έργου"
+msgstr "Κλείσιμο έργου"
 
 #: src/lokalizemainwindow.cpp:503
 #, kde-format
@@ -2371,18 +2390,15 @@ msgstr ""
 "Μη μεταφράζετε τα ήδη μεταφρασμένα."
 
 #: src/main.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid ""
-#| "(c) 2007-2013 Nick Shaforostoff\n"
-#| "(c) 1999-2006 The KBabel developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid ""
 "(c) 2018-2019 Simon Depiets\n"
 "(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 The KBabel developers"
 msgstr ""
-"(c) 2007-2013 Nick Shaforostoff\n"
+"(c) 2018-2019 Simon Depiets\n"
+"(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 The KBabel developers"
 
 #: src/main.cpp:60
@@ -2403,12 +2419,12 @@ msgstr "χορηγούμενη ανάπτυξη ως τμήμα του προγ�
 #: src/main.cpp:62
 #, kde-format
 msgid "NLNet Foundation"
-msgstr ""
+msgstr "Ίδρυμα NLNet"
 
 #: src/main.cpp:62
 #, kde-format
 msgid "sponsored XLIFF-related work"
-msgstr ""
+msgstr "χορηγούμενη εργασία που σχετίζεται με το XLIFF"
 
 #: src/main.cpp:63
 #, kde-format
@@ -2421,15 +2437,14 @@ msgid "provided excellent cross-format converting scripts"
 msgstr "προσφορά άριστων σεναρίων μετατροπής"
 
 #: src/main.cpp:64
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "LanguageTool"
-msgstr "Γλώσσα"
+msgstr "LanguageTool"
 
 #: src/main.cpp:64
 #, kde-format
 msgid "grammar, style and spell checker"
-msgstr ""
+msgstr "έλεγχος γραμματικής, ύφους και ορθογραφίας"
 
 #: src/main.cpp:65
 #, kde-format
@@ -2494,13 +2509,12 @@ msgstr "Βελτιώσεις XLIFF"
 #: src/main.cpp:72
 #, kde-format
 msgid "Simon Depiets"
-msgstr ""
+msgstr "Simon Depiets"
 
 #: src/main.cpp:72
-#, fuzzy, kde-format
-#| msgid "bug fixing patches"
+#, kde-format
 msgid "bug fixing and improvements"
-msgstr "διορθώσεις σφαλμάτων"
+msgstr "Διόρθωση σφαλμάτων και βελτιώσεις"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
 #: src/main.cpp:76
@@ -2547,14 +2561,14 @@ msgid "Secondary Sync"
 msgstr "Δευτερεύων συγχρονισμός"
 
 #: src/mergemode/mergeview.cpp:42
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Drop file to be merged into / synced with the current one here"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Drop file to be merged into / synced with the current one here, then see "
 "context menu options"
-msgstr "Ρίψη αρχείου για συγχώνευση σε / συγχρονισμό με το τρέχον"
+msgstr ""
+"Αφήστε εδώ το αρχείο που θα συγχωνευτεί / συγχρονιστεί με το τρέχον, και στη "
+"συνέχεια δείτε τιςεπιλογές του μενού περιβάλλοντος"
 
 #: src/mergemode/mergeview.cpp:229
 #, kde-format
@@ -2590,22 +2604,16 @@ msgid "<b>Temporary notes:</b>"
 msgstr "<b>Σημειώσεις:</b>"
 
 #: src/msgctxtview.cpp:104
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@info notes to translation unit which expire when the catalog is closed"
-#| msgid "<b>Temporary notes:</b>"
+#, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
-msgstr "<b>Σημειώσεις:</b>"
+msgstr "<b>Σημειώσεις Pology:</b>"
 
 #: src/msgctxtview.cpp:113
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@info notes to translation unit which expire when the catalog is closed"
-#| msgid "<b>Temporary notes:</b>"
+#, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
-msgstr "<b>Σημειώσεις:</b>"
+msgstr "<b>Σημειώσεις LanguageTool:</b>"
 
 #: src/msgctxtview.cpp:125
 #, kde-format
@@ -2626,11 +2634,10 @@ msgid "<br><b>Context:</b><br>"
 msgstr "<br><b>Σχετικό περιεχόμενο:</b><br>"
 
 #: src/msgctxtview.cpp:230
-#, fuzzy, kde-format
-#| msgid "Empty"
+#, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
-msgstr "Κενό"
+msgstr "(Κενό)"
 
 #: src/noteeditor.cpp:47
 #, kde-format
@@ -2733,7 +2740,7 @@ msgstr "Έγκριση"
 #, kde-format
 msgctxt "noun"
 msgid "Process (this will also change your role):"
-msgstr ""
+msgstr "Διαδικασία (αυτό θα αλλάξει και τον ρόλο σας):"
 
 #: src/phaseswindow.cpp:251
 #, kde-format
@@ -2769,27 +2776,25 @@ msgstr "Όνομα μεταφραστή στη γλώσσα προορισμού
 #: src/prefs/lokalize.kcfg:28
 #, kde-format
 msgid "Override Language Team"
-msgstr ""
+msgstr "παράκαμψη Ομάδας Γλώσσας"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:29
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
-msgstr ""
+msgstr "Χρήση ονόματος ομάδας που παρέχει ο χρήστης αντί να δημιουργηθεί"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:35
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "Language Team"
-msgstr "Γλώσσα"
+msgstr "Ομάδα Γλώσσας"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:36
-#, fuzzy, kde-format
-#| msgid "Translator's name"
+#, kde-format
 msgid "Translator team's name"
-msgstr "Όνομα μεταφραστή"
+msgstr "Όνομα ομάδας μεταφραστών"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:42
@@ -2843,6 +2848,9 @@ msgid ""
 "%1 - Path of the source file\n"
 "%2 - Line number"
 msgstr ""
+"Οι παρακάτω παράμετροι είναι διαθέσιμες\n"
+"%1 - Διαδρομή του αρχικού αρχείου\n"
+"%2 - Αριθμός γραμμής"
 
 #: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:253
 #, kde-format
@@ -2872,14 +2880,13 @@ msgstr "Μεταφραστική μνήμη"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
-msgstr ""
+msgstr "Pology"
 
 #: src/prefs/prefs.cpp:139
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
-msgstr "Γλώσσα"
+msgstr "LanguageTool"
 
 #: src/prefs/prefs.cpp:148
 #, kde-format
@@ -2893,26 +2900,24 @@ msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
 "want to create a new project or open an existing project?"
 msgstr ""
+"Έχετε αποκτήσει πρόσβαση σε μια λειτουργία που απαιτεί τη φόρτωση ενός "
+"έργου. Μήπως θέλετε να δημιουργήσετε ένα νέο έργο ή να ανοίξετε ένα υπάρχον "
+"έργο;"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Επισκόπηση έργου"
+msgstr "Απαιτείται έργο"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Δημιουργία νέου έργου"
+msgstr "Δημιουργία έργου"
 
 #: src/prefs/prefs.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Άνοιγμα έργου"
@@ -2932,13 +2937,13 @@ msgstr "Άνοιγμα"
 #: src/prefs/prefs.cpp:203 src/prefs/prefs.cpp:220
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
-msgstr ""
+msgstr "Έργο μετάφρασης Lokalize (*.lokalize)"
 
 #: src/prefs/prefs.cpp:220
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
-msgstr ""
+msgstr "Επιλογή φακέλου με αρχεία Gettext .po προς μετάφραση"
 
 #: src/prefs/prefs.cpp:241
 #, kde-format
@@ -3128,6 +3133,8 @@ msgstr "Σημείωση ως 'εγκεκριμένου' αυτόματα με �
 #, kde-format
 msgid "Visualize separators such as spaces, tabs and new lines in the editor"
 msgstr ""
+"Οπτικοποίηση διαχωριστικών όπως κενά, tabs και νέες γραμμές στον επεξεργαστή "
+"κειμένου"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
@@ -3152,43 +3159,48 @@ msgstr "Απενεργοποίηση της συμπλήρωσης λέξεων"
 #: src/prefs/prefs_editor.ui:105
 #, kde-format
 msgid "Automatically convert XML special characters in TS files"
-msgstr ""
+msgstr "Αυτόματη μετατροπή, ειδικών χαρακτήρων XML σε αρχεία TS"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreRecentFilesOnStartup)
 #: src/prefs/prefs_general.ui:45
 #, kde-format
 msgid "Restore the previously opened files when launching Lokalize"
 msgstr ""
+"Επαναφορά των προηγουμένων ανοιχτών αρχείων όταν γίνεται εκκίνηση του "
+"Lokalize"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:54
 #, kde-format
 msgid "Defines the behavior of the next/previous tab shortcuts"
 msgstr ""
+"Καθορίζει τη συμπεριφορά των συντομεύσεων επόμενης/προηγούμενης καρτέλας"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:57
 #, kde-format
 msgid "Next/previous tab shortcut behavior"
-msgstr ""
+msgstr "Συμπεριφορά συντομεύσεων επόμενης/προηγούμενης καρτέλας"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
 #: src/prefs/prefs_general.ui:68
 #, kde-format
 msgid "According to tab position"
-msgstr ""
+msgstr "Σύμφωνα με τη θέση της καρτέλας"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
 #: src/prefs/prefs_general.ui:73
 #, kde-format
 msgid "According to tab activation order"
-msgstr ""
+msgstr "Σύμφωνα με τη σειρά ενεργοποίησης καρτελών"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomEditorEnabled)
 #: src/prefs/prefs_general.ui:83
 #, kde-format
 msgid "Use a custom editor to open source files"
 msgstr ""
+"Χρησιμοποιήστε έναν προσαρμοσμένο επεξεργαστή για να ανοίξετε αρχεία πηγαίου "
+"κώδικα"
 
 #. i18n: ectx: property (whatsThis), widget (QWidget, prefs_identity)
 #: src/prefs/prefs_identity.ui:14
@@ -3210,21 +3222,17 @@ msgstr "Προκαθορισμένη γλώσσα:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/prefs/prefs_identity.ui:48
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Email:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Email:"
-msgstr "Ηλ. αλληλογραφία:"
+msgstr "&Email:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/prefs/prefs_identity.ui:61
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Name:"
-msgstr "Όνομα:"
+msgstr "Ό&νομα:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorName)
 #: src/prefs/prefs_identity.ui:74
@@ -3240,12 +3248,10 @@ msgstr "Παρακαλώ εισάγετε το όνομα και το επώνυ
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_identity.ui:84
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Default mailing list:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Default mailing list:"
-msgstr "Προκαθορισμένη λίστα αλληλογραφίας:"
+msgstr "Προκα&θορισμένη λίστα αλληλογραφίας:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
 #: src/prefs/prefs_identity.ui:94
@@ -3308,36 +3314,36 @@ msgstr "Όνομα στην τοπική γλώσσα:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_overrideLangTeam)
 #: src/prefs/prefs_identity.ui:164
-#, fuzzy, kde-format
-#| msgctxt "@label:chooser"
-#| msgid "Default language:"
+#, kde-format
 msgid "Default Language-Team:"
-msgstr "Προκαθορισμένη γλώσσα:"
+msgstr "Προκαθορισμένη Ομάδα-Γλώσσας:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
 #: src/prefs/prefs_languagetool.ui:21
 #, kde-format
 msgid "Use custom LanguageTool server"
-msgstr ""
+msgstr "Χρήση προσαρμοσμένου διακομιστή LanguageTool"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/prefs/prefs_languagetool.ui:31
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Server Path:"
-msgstr ""
+msgstr "Διαδρομή Διακομιστή:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:44
 #, kde-format
 msgid "The path of your custom Language Tool server"
-msgstr ""
+msgstr "Η διαδρομή του προσαρμοσμένου διακομιστή LanguageTool"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:47
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
 msgstr ""
+"Εισάγετε τη διαδρομή του προσαρμοσμένου διακομιστή Language Tool, εάν "
+"υπάρχει."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_languagetool.ui:58
@@ -3346,20 +3352,21 @@ msgid ""
 "Delay before automatic checking after you stop typing (in seconds, 0 to "
 "disable)"
 msgstr ""
+"Καθυστέρηση πριν από τον αυτόματο έλεγχο μετά τη διακοπή της πληκτρολόγησης "
+"(σε δευτερόλεπτα, 0 για απενεργοποίηση)"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
 #: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
-#, fuzzy, kde-format
-#| msgid "Set to 2 to disable word completion"
+#, kde-format
 msgid "Set to 0 to disable auto checking"
-msgstr "Θέστε το σε 2 για απενεργοποίηση της συμπλήρωσης λέξεων"
+msgstr "Θέστε στο 0 για απενεργοποίηση του αυτόματου ελέγχου"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
 #: src/prefs/prefs_pology.ui:21
 #, kde-format
 msgid "Enable Pology verification"
-msgstr ""
+msgstr "Ενεργοποίηση επαλήθευσης Pology"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3_0)
 #: src/prefs/prefs_pology.ui:28
@@ -3370,12 +3377,18 @@ msgid ""
 "following placeholders in order to set-up the commands: %u is the entry "
 "number, %f is the file name. For instance: posieve -u %u check-rules %f"
 msgstr ""
+"Η εντολή Pology που πρέπει να εκτελεστεί για να ελεγχθεί μια μεμονωμένη "
+"καταχώρηση. Χρησιμοποιήστε τους παρακάτω καταχωρητές για να ρυθμίσετε τις "
+"εντολές: %u είναι η καταχώρηση %f είναι το όνομα του αρχείου. Για "
+"παράδειγμα: posieve -u %u check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:44
 #, kde-format
 msgid "The Pology command to run in order to check a single entry."
 msgstr ""
+"Η εντολή Pology που πρέπει να εκτελεστεί για να ελεγχθεί μια μεμονωμένη "
+"καταχώρηση."
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:47
@@ -3384,6 +3397,8 @@ msgid ""
 "Please enter here the Pology command to be run in order to check a single "
 "entry"
 msgstr ""
+"Παρακαλούμε εισάγετε εδώ την εντολή Pology που πρέπει να εκτελεστεί για να "
+"ελεγχθεί μια μεμονωμένη καταχώρηση"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_0)
 #: src/prefs/prefs_pology.ui:54
@@ -3394,12 +3409,18 @@ msgid ""
 "should include \"-s lokalize\", placeholder %f is the file name. For "
 "instance: posieve -s lokalize check-rules %f"
 msgstr ""
+"Η εντολή Pology που πρέπει να εκτελεστεί για τον έλεγχο ολόκληρου του "
+"αρχείου. Αυτή η εντολή θα πρέπει να περιλαμβάνει την εντολή \"-s lokalize\", "
+"ενώ το %f είναι το όνομα του αρχείου. Για παράδειγμα: posieve -s lokalize "
+"check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:70
 #, kde-format
 msgid "The Pology command to run in order to check a whole file."
 msgstr ""
+"Η εντολή Pology που πρέπει να εκτελεστεί για τον έλεγχο ολόκληρου του "
+"αρχείου."
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:73
@@ -3407,6 +3428,8 @@ msgstr ""
 msgid ""
 "Please enter here the Pology command to be run in order to check a whole file"
 msgstr ""
+"Πληκτρολογήστε εδώ την εντολή Pology που πρέπει να εκτελεστεί για τον έλεγχο "
+"ολόκληρου του αρχείου"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:45
@@ -3444,37 +3467,33 @@ msgstr "Ορισμός του μέγιστου αριθμού προτάσεων
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggCount)
 #: src/prefs/prefs_tm.ui:73
-#, fuzzy, kde-format
-#| msgid "You can change the maximum number of suggestions, default is 10."
+#, kde-format
 msgid "You can change the maximum number of suggestions, default is 7."
 msgstr ""
 "Μπορείτε να τροποποιήσετε το μέγιστο αριθμό προτάσεων, προκαθορισμένα είναι "
-"10."
+"7."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_tm.ui:97
-#, fuzzy, kde-format
-#| msgid "Maximum number of suggestions:"
+#, kde-format
 msgid "Minimum score (0-100) of suggestions:"
-msgstr "Μέγιστος αριθμός προτάσεων:"
+msgstr "Ελάχιστη βαθμολογία (0-100) για προτάσεις:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:107
-#, fuzzy, kde-format
-#| msgid "Set the maximum number of suggestions"
+#, kde-format
 msgid "Set the minimum score (0-100) of suggestions"
-msgstr "Ορισμός του μέγιστου αριθμού προτάσεων"
+msgstr "Ορίστε την ελάχιστη βαθμολογία (0-100) για τις προτάσεις"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:110
-#, fuzzy, kde-format
-#| msgid "You can change the maximum number of suggestions, default is 10."
+#, kde-format
 msgid ""
 "You can change the minimum score (0-100) required for suggestions, default "
 "is 0."
 msgstr ""
-"Μπορείτε να τροποποιήσετε το μέγιστο αριθμό προτάσεων, προκαθορισμένα είναι "
-"10."
+"Μπορείτε να αλλάξετε την ελάχιστη βαθμολογία (0 -100) που απαιτείται για τις "
+"προτάσεις, προεπιλογή είναι το 0."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
 #: src/prefs/prefs_tm.ui:138
@@ -3495,6 +3514,8 @@ msgid ""
 "Delete missing files from translation memory on Rescan or when clicking a "
 "missing entry"
 msgstr ""
+"Διαγράψτε τα αρχεία που λείπουν από τη Μεταφραστική μνήμη κατά την "
+"Επανασάρωση ή όταν κάνετε κλικ σε μια εγγραφή που λείπει"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -3549,7 +3570,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Word wrap:"
-msgstr ""
+msgstr "Αναδίπλωση λέξεων:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
@@ -3558,6 +3579,8 @@ msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap."
 msgstr ""
+"Πλάτος που χρησιμοποιείται για την αυτόματη αναδίπλωση λέξεων τύπου msgfmt. "
+"Χρησιμοποιήστε την τιμή '0' για να να απενεργοποιήσετε την αναδίπλωση λέξεων."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3768,14 +3791,13 @@ msgstr "Ριζικός φάκελος:"
 #: src/project/prefs_projectmain.ui:155
 #, kde-format
 msgid "Automatic"
-msgstr ""
+msgstr "Αυτόματα"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:160
-#, fuzzy, kde-format
-#| msgid "Location:"
+#, kde-format
 msgid "Application"
-msgstr "Τοποθεσία:"
+msgstr "Εφαρμογή"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:165
@@ -3785,35 +3807,30 @@ msgstr "Έργο"
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_projectmain.ui:180
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Language:"
+#, kde-format
 msgid "Language-Team:"
-msgstr "Γλώσσα:"
+msgstr "Ομάδα Γλώσσας:"
 
 #: src/project/project.cpp:446
 #, kde-format
 msgid "Scanning folders with source files"
-msgstr ""
+msgstr "Σάρωση φακέλων με πηγαία αρχεία"
 
 #: src/project/project.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Edit term"
-#| msgid "Edit"
+#, kde-format
 msgid "Editor"
-msgstr "Επεξεργασία"
+msgstr "Επεξεργαστής"
 
 #: src/project/project.cpp:490
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
-msgstr "Μετάφραση"
+msgstr "%1 %2 Μετάφραση"
 
 #: src/project/projectbase.kcfg:11
 #, kde-format
 msgid "default"
-msgstr ""
+msgstr "προκαθορισμένο"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:18
@@ -3825,21 +3842,19 @@ msgstr "Γλώσσα"
 #: src/project/projectbase.kcfg:32
 #, kde-format
 msgid "User Language Team in Lokalize settings"
-msgstr ""
+msgstr "Ομάδα Γλώσσας Χρήστη στις ρυθμίσεις του Lokalize"
 
 #. i18n: ectx: label, entry (OverrideLangTeam), group (General)
 #: src/project/projectbase.kcfg:38
 #, kde-format
 msgid "Override Lokalize Language Team"
-msgstr ""
+msgstr "Παράκαμψη της ομάδας γλώσσας Lokalize"
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
 #: src/project/projectbase.kcfg:44
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target language"
+#, kde-format
 msgid "Project Language Team"
-msgstr "Γλώσσα προορισμού"
+msgstr "Έργο Ομάδας Γλώσσας"
 
 #. i18n: ectx: label, entry (PoBaseDir), group (General)
 #: src/project/projectbase.kcfg:59
@@ -3898,12 +3913,10 @@ msgid "Untranslated"
 msgstr "Αμετάφραστα"
 
 #: src/project/projectmodel.cpp:533
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Scanning complete"
+#, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
-msgstr "Η σάρωση ολοκληρώθηκε"
+msgstr "Μη ολοκληρωμένο"
 
 #: src/project/projectmodel.cpp:535
 #, kde-format
@@ -3915,7 +3928,7 @@ msgstr "Τελευταία μετάφραση"
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
-msgstr ""
+msgstr "Σχόλιο"
 
 #: src/project/projectmodel.cpp:539
 #, kde-format
@@ -3979,14 +3992,12 @@ msgid "Translate OpenDocument"
 msgstr "Μετάφραση OpenDocument"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "percentages in statusbar"
-#| msgid " (%1%)"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr " (%1%)"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:164
 #, kde-format
@@ -4016,20 +4027,19 @@ msgstr "Μόνο η επόμενη μετάφραση"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
-msgstr ""
+msgstr "Απόκρυψη ολοκληρωμένων αντικειμένων"
 
 #: src/project/projecttab.cpp:178
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
-msgstr ""
+msgstr "Απόκρυψη πλήρως μεταφρασμένων αρχείων και φακέλων"
 
 #: src/project/projecttab.cpp:242
-#, fuzzy, kde-format
-#| msgid "Select file:"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
-msgstr "Επιλογή αρχείου:"
+msgstr "Άνοιγμα επιλεγμένων αρχείων"
 
 #: src/project/projecttab.cpp:245
 #, kde-format
@@ -4056,18 +4066,16 @@ msgid "Search in files"
 msgstr "Αναζήτηση σε αρχεία"
 
 #: src/project/projecttab.cpp:257
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
-msgstr "Προσθήκη σημείωσης"
+msgstr "Προσθήκη σχολίου"
 
 #: src/project/projecttab.cpp:259
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
-msgstr ""
+msgstr "Εκτέλεση Pology σε αρχεία"
 
 #: src/project/projecttab.cpp:262
 #, kde-format
@@ -4078,24 +4086,24 @@ msgstr "Αναζήτηση σε αρχεία (και στα πρότυπα)"
 #: src/project/projecttab.cpp:296
 #, kde-format
 msgid "Project file comment"
-msgstr ""
+msgstr "Σχόλια αρχείου έργου"
 
 #: src/project/projecttab.cpp:296
 #, kde-format
 msgid "Input a comment for this project file:"
-msgstr ""
+msgstr "Εισαγωγή σχολίου για αυτό το αρχείο έργου:"
 
 #: src/project/projecttab.cpp:368
 #, kde-format
 msgid "The Pology check has succeeded"
-msgstr ""
+msgstr "Ο έλεγχος Pology ήταν επιτυχής"
 
 #: src/project/projecttab.cpp:387
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Πρόκειται να ανοίξετε το %1 αρχείο"
+msgstr[1] "Πρόκειται να ανοίξετε τα %1 αρχεία"
 
 #: src/project/projecttab.cpp:388
 #, kde-format
@@ -4103,19 +4111,20 @@ msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
+"Το άνοιγμα μεγάλου αριθμού αρχείων μπορεί, ορισμένες φορές, να κάνει το "
+"Lokalize να μην ανταποκρίνεται."
 
 #: src/project/projecttab.cpp:390
 #, kde-format
 msgid "Are you sure you want to open this many files?"
-msgstr ""
+msgstr "Θέλετε σίγουρα να ανοίξετε τόσα πολλά αρχεία;"
 
 #: src/project/projecttab.cpp:392
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
-msgstr[0] "Άνοιγμα αρχείου"
-msgstr[1] "Άνοιγμα αρχείου"
+msgstr[0] "&Άνοιγμα %1 αρχείου"
+msgstr[1] "&Άνοιγμα %1 αρχεία"
 
 #: src/tm/dbfilesmodel.cpp:98
 #, kde-format
@@ -4259,7 +4268,7 @@ msgstr "Αφαίρεση"
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
-msgstr ""
+msgstr "Ψευδόφιλες λέξεις"
 
 #: src/tm/qaview.cpp:23
 #, kde-format
@@ -4287,17 +4296,15 @@ msgstr "TM:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Enter to start the search.\n"
 "Press Ctrl+L to go to this control."
 msgstr ""
-"Έκφραση αναζήτησης για το τμήμα της πηγαίας γλώσσας.\n"
-" Πατήστε Enter για να ξεκινήσει η αναζήτηση."
+"Έκφραση αναζήτησης για τη γλώσσα προέλευσης.\n"
+"Πατήστε Enter για να ξεκινήσετε την αναζήτηση.\n"
+"Πατήστε Ctrl+L για να μεταβείτε σε αυτό το στοιχείο ελέγχου."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4375,7 +4382,7 @@ msgstr "Επιλέξτε αρχείο TMX για εισαγωγή στην επ�
 #: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:235
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
-msgstr ""
+msgstr "Αρχεία TMX (*.tmx *.xml)"
 
 #: src/tm/tmmanager.cpp:234
 #, kde-format
@@ -4394,18 +4401,16 @@ msgid "TM"
 msgstr "TM"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Πηγή:"
+msgstr "Προέλευση: %1"
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Προορισμός:"
+msgstr "Προορισμός: %1"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
@@ -4450,7 +4455,7 @@ msgstr "Σύνολο: %1 (%2)"
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
-msgstr ""
+msgstr "Το αρχείο %1 δεν υπάρχει, έχει αφαιρεθεί από την μεταφραστική μνήμη."
 
 #: src/tm/tmview.cpp:162 src/webquery/webqueryview.cpp:62
 #, kde-format
@@ -4483,20 +4488,18 @@ msgid "Batch translation has been scheduled."
 msgstr "Η ομαδική μετάφραση προγραμματίστηκε."
 
 #: src/tm/tmview.cpp:451
-#, fuzzy, kde-format
-#| msgctxt "percentages in statusbar"
-#| msgid " (%1%)"
+#, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
-msgstr " (%1%)"
+msgstr "%1%"
 
 #: src/tm/tmview.cpp:453
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
 msgid_plural "(%1 times)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(1 φορά)"
+msgstr[1] "(%1 φορές)"
 
 #: src/tm/tmview.cpp:534
 #, kde-format
@@ -4526,7 +4529,7 @@ msgstr "<br />Συγγραφέας τελευταίας αλλαγής: %1"
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
-msgstr ""
+msgstr "<br />TM: %1"
 
 #: src/tm/tmview.cpp:542
 #, kde-format
@@ -4565,27 +4568,22 @@ msgstr "Άνοιγμα αρχείου αυτής της καταχώρησης"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
-msgstr ""
+msgstr "Αφαίρεση αυτού του αρχείου που λείπει από την Μεταφραστική Μνήμη"
 
 #: src/tm/tmview.cpp:621 src/tm/tmview.cpp:627
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
-#| "translation memory %2?</html>"
+#, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
-"<html>Επιθυμείτε πραγματικά την αφαίρεση αυτής της καταχώρησης:<br/><i>%1</"
-"i> <br/> από τη μεταφραστική μνήμη %2;</html>"
+"<html>Επιθυμείτε πραγματικά την αφαίρεση αυτού του αρχείου που λείπει:<br/"
+"><i>%1</i> <br/> από τη μεταφραστική μνήμη %2;</html>"
 
 #: src/tm/tmview.cpp:622 src/tm/tmview.cpp:628
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Translation Memory Entry Removal"
+#, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
-msgstr "Αφαίρεση καταχώρησης μεταφραστικής μνήμης"
+msgstr "Αφαίρεση αρχείου που λείπει από τη μεταφραστική μνήμη"
 
 #: src/tm/tmview.cpp:1005
 #, kde-format
@@ -4702,7 +4700,7 @@ msgstr "χωρίς υποστήριξη ορθογραφικού ελέγχου"
 #: src/xlifftextedit.cpp:1140
 #, kde-format
 msgid "An error was reported: %1"
-msgstr ""
+msgstr "Αναφέρθηκε ένα σφάλμα: %1"
 
 #: src/xlifftextedit.cpp:1266
 #, kde-format
