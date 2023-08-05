@@ -288,15 +288,19 @@ void SettingsController::projectConfigure()
     ui_project_advanced.setupUi(w);
     ui_project_advanced.kcfg_PotBaseDir->hide();
     ui_project_advanced.kcfg_BranchDir->hide();
+    ui_project_advanced.kcfg_PotBranchDir->hide();
     ui_project_advanced.kcfg_AltDir->hide();
     ui_project_advanced.potBaseDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui_project_advanced.branchDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
+    ui_project_advanced.potBranchDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui_project_advanced.altDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     connect(ui_project_advanced.potBaseDir, &KUrlRequester::textChanged, ui_project_advanced.kcfg_PotBaseDir, &RelPathSaver::setText);
     connect(ui_project_advanced.branchDir, &KUrlRequester::textChanged,  ui_project_advanced.kcfg_BranchDir, &RelPathSaver::setText);
+    connect(ui_project_advanced.potBranchDir, &KUrlRequester::textChanged,  ui_project_advanced.kcfg_PotBranchDir, &RelPathSaver::setText);
     connect(ui_project_advanced.altDir, &KUrlRequester::textChanged,  ui_project_advanced.kcfg_AltDir, &RelPathSaver::setText);
     ui_project_advanced.potBaseDir->setUrl(QUrl::fromLocalFile(p.potDir()));
     ui_project_advanced.branchDir->setUrl(QUrl::fromLocalFile(p.branchDir()));
+    ui_project_advanced.potBranchDir->setUrl(QUrl::fromLocalFile(p.potBranchDir()));
     ui_project_advanced.altDir->setUrl(QUrl::fromLocalFile(p.altTransDir()));
     dialog->addPage(w, i18nc("@title:tab", "Advanced"), QStringLiteral("applications-development-translation"));
 
