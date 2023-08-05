@@ -200,7 +200,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
     QString saidMergeFilePath;
     if (!QFile::exists(mergeFilePath)) {
         saidMergeFilePath = mergeFilePath;
-        saidMergeFilePath.replace(Project::instance()->branchDir(), Project::instance()->branchPotDir());
+        saidMergeFilePath.replace(Project::instance()->branchDir(), Project::instance()->potBranchDir());
         saidMergeFilePath += QLatin1Char('t');
 
         if (QFile::exists(saidMergeFilePath))

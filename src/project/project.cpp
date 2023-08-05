@@ -329,14 +329,6 @@ ProjectModel* Project::model()
     return m_model;
 }
 
-QString Project::branchPotDir() const
-{
-    QDir poDir = Project::poDir();
-    QString potDirRelativelyToPoDir = poDir.relativeFilePath(Project::potDir());
-    QDir branchPotDir (Project::branchDir() + QLatin1Char('/') + potDirRelativelyToPoDir);
-    return absolutePath(branchPotDir.absolutePath());
-}
-
 void Project::setDefaults()
 {
     ProjectBase::setDefaults();

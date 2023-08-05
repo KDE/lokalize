@@ -87,7 +87,10 @@ public:
     {
         return absolutePath(ProjectBase::branchDir());
     }
-    QString branchPotDir()const;
+    QString potBranchDir()const
+    {
+        return absolutePath(ProjectBase::potBranchDir());
+    }
     QString glossaryPath()const
     {
         return absolutePath(glossaryTbx());

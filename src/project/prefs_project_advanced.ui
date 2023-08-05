@@ -165,6 +165,38 @@ See documentation for more details.</string>
       <item row="2" column="0">
        <widget class="QLabel" name="l5">
         <property name="text">
+         <string comment="@label:textbox">Branch template files folder:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="buddy">
+         <cstring>branchDir</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="KUrlRequester" name="potBranchDir" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string comment="this message contains text from documentation, so use its translation when you're translating docs">This setting is for Sync Mode.
+
+Sync Mode may be used to make changes to translation
+for two branches simultaneously.
+
+Set this to path that corresponds to root folder of the branch project templates folder,
+and Secondary Sync view will automatically create files from branch.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="l6">
+        <property name="text">
          <string comment="@label:textbox">Alternate translations folder:</string>
         </property>
         <property name="wordWrap">
@@ -175,7 +207,7 @@ See documentation for more details.</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="3" column="1">
        <widget class="KUrlRequester" name="altDir" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -204,6 +236,9 @@ See documentation for more details.</string>
    </item>
    <item>
     <widget class="RelPathSaver" name="kcfg_BranchDir"/>
+   </item>
+   <item>
+    <widget class="RelPathSaver" name="kcfg_PotBranchDir"/>
    </item>
    <item>
     <widget class="RelPathSaver" name="kcfg_AltDir"/>
