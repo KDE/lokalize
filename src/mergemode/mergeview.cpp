@@ -35,7 +35,6 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
                   i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync") :
                   i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"))
     , m_hasInfoTitle(m_normTitle + QLatin1String(" [*]"))
-    , m_primary(primary)
 {
     setObjectName(primary ? QStringLiteral("mergeView-primary") : QStringLiteral("mergeView-secondary"));
     setWidget(m_browser);

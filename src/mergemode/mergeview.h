@@ -79,7 +79,6 @@ private:
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo{false};
-    bool m_primary{false};
 
 };
 
