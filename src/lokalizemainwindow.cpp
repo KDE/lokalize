@@ -19,8 +19,6 @@
 #include "filesearchtab.h"
 #include "prefs_lokalize.h"
 
-// #define WEBQUERY_ENABLE
-
 #include "project.h"
 #include "projectmodel.h"
 #include "prefs.h"

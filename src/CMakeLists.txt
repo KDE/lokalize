@@ -23,7 +23,6 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
     ${CMAKE_CURRENT_SOURCE_DIR}/project
     ${CMAKE_CURRENT_SOURCE_DIR}/glossary
-    ${CMAKE_CURRENT_SOURCE_DIR}/webquery
     ${CMAKE_CURRENT_SOURCE_DIR}/tm
     ${CMAKE_CURRENT_SOURCE_DIR}/filesearch
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
@@ -83,9 +82,6 @@ set(liblokalize_SRCS
     metadata/xliffextractor.cpp
 
     prefs/prefs.cpp
-
-    webquery/webqueryview.cpp
-    webquery/webquerycontroller.cpp
 
     languagetool/languagetoolresultjob.cpp
     languagetool/languagetoolmanager.cpp
@@ -154,7 +150,6 @@ ki18n_wrap_ui(liblokalize_SRCS
     tm/managedatabases.ui
     tm/dbparams.ui
     kaider_findextension.ui
-    webquery/querycontrol.ui
     tools/widgettextcaptureconfig.ui
 )
 

@@ -92,22 +92,6 @@
         <Action name="glossary_insert_19"/>
         <Action name="glossary_insert_20"/>
     </Menu>
-    <!-- <Menu name="webquery"><text>&amp;WebQuery</text> -->
-        <!-- <Action name="webquery_do"/> -->
-        <!-- <Separator/> -->
-        <!-- <Action name="webquery_insert_0"/> -->
-        <!-- <Action name="webquery_insert_1"/> -->
-        <!-- <Action name="webquery_insert_2"/> -->
-        <!-- <Action name="webquery_insert_3"/> -->
-        <!-- <Action name="webquery_insert_4"/> -->
-        <!-- <Action name="webquery_insert_5"/> -->
-        <!-- <Action name="webquery_insert_6"/> -->
-        <!-- <Action name="webquery_insert_7"/> -->
-        <!-- <Action name="webquery_insert_8"/> -->
-        <!-- <Action name="webquery_insert_9"/> -->
-        <!-- <Action name="webquery_insert_10"/> -->
-        <!-- <Action name="webquery_insert_11"/> -->
-        <!-- <Action name="webquery_insert_12"/> -->
     <!-- </Menu> -->
     <Menu name="tmquery"><text>Translation &amp;Memory</text>
         <Action name="tmquery_do"/>
@@ -233,7 +217,6 @@
         <Action name="showmsgctxt_action" />
         <Action name="showcatalogtreeview_action" />
         <Action name="showglossaryview_action" />
-        <!-- <Action name="showwebqueryview_action" /> -->
         <Action name="showtmqueryview_action" />
         <Action name="showbinunitsview_action" />
     </Menu>

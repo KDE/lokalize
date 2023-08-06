@@ -36,7 +36,6 @@
 #include <QFileSystemWatcher>
 
 #include "projectmodel.h"
-#include "webquerycontroller.h"
 
 #include <knotification.h>
 

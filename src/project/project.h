@@ -17,8 +17,6 @@
 #include <QFileSystemWatcher>
 #include "projectbase.h"
 
-#define WEBQUERY_ENABLE
-
 class ProjectModel;
 class ProjectLocal;
 namespace GlossaryNS
@@ -44,7 +42,6 @@ class TMManagerWin;
  * @short Singleton object that represents project
  */
 
-///////// * Also provides list of web-query scripts
 class Project: public ProjectBase
 {
     Q_OBJECT

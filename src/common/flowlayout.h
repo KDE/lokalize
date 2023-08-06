@@ -27,7 +27,6 @@ public:
 
     enum User {
         glossary,
-        webquery,
         standard
     };
 
