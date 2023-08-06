@@ -246,7 +246,7 @@ void EditorTab::setupActions()
     connect(m_view, &EditorView::signalChanged, m_notesView, &MsgCtxtView::removeErrorNotes);
     connect(m_notesView, &MsgCtxtView::escaped, this, &EditorTab::setProperFocus);
 
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::languageToolChanged, m_notesView, &MsgCtxtView::languageTool);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::languageToolChanged, m_notesView, &MsgCtxtView::languageTool);
 
     action = edit->addAction(QStringLiteral("edit_addnote"), m_notesView, SLOT(addNoteUI()));
     //action->setShortcut(Qt::CTRL+glist[i]);
@@ -399,12 +399,12 @@ void EditorTab::setupActions()
 //Edit
     actionCategory = edit;
     action = edit->addAction(KStandardAction::Undo, this, SLOT(undo()));
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::undoRequested, this, &EditorTab::undo);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::undoRequested, this, &EditorTab::undo);
     connect(m_catalog, &Catalog::canUndoChanged, action, &QAction::setEnabled);
     action->setEnabled(false);
 
     action = edit->addAction(KStandardAction::Redo, this, SLOT(redo()));
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::redoRequested, this, &EditorTab::redo);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::redoRequested, this, &EditorTab::redo);
     connect(m_catalog, &Catalog::canRedoChanged, action, &QAction::setEnabled);
     action->setEnabled(false);
 
@@ -465,7 +465,7 @@ void EditorTab::setupActions()
     int copyShortcut = Qt::META + Qt::Key_Space;
 #endif
     ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr", i18nc("@action:inmenu", "Copy source to target"), copyShortcut, "msgid2msgstr")
-    connect(action, &QAction::triggered, (const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::source2target);
+    connect(action, &QAction::triggered, m_view->viewPort(), &TranslationUnitTextEdit::source2target);
 
     ADD_ACTION_SHORTCUT("edit_unwrap-target", i18nc("@action:inmenu", "Unwrap target"), Qt::CTRL + Qt::Key_I)
     connect(action, &QAction::triggered, m_view, qOverload<>(&EditorView::unwrap));
@@ -501,21 +501,21 @@ void EditorTab::setupActions()
     action = nav->addAction(KStandardAction::Next, this, SLOT(gotoNext()));
     action->setText(i18nc("@action:inmenu entry", "&Next"));
     connect(this, &EditorTab::signalLastDisplayed, action, &QAction::setDisabled);
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoNextRequested, this, &EditorTab::gotoNext);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextRequested, this, &EditorTab::gotoNext);
 
     action = nav->addAction(KStandardAction::Prior, this, SLOT(gotoPrev()));
     action->setText(i18nc("@action:inmenu entry", "&Previous"));
     connect(this, &EditorTab::signalFirstDisplayed, action, &QAction::setDisabled);
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevRequested, this, &EditorTab::gotoPrev);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevRequested, this, &EditorTab::gotoPrev);
 
     action = nav->addAction(KStandardAction::FirstPage, this, SLOT(gotoFirst()));
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoFirstRequested, this, &EditorTab::gotoFirst);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoFirstRequested, this, &EditorTab::gotoFirst);
     action->setText(i18nc("@action:inmenu", "&First Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_Home));
     connect(this, &EditorTab::signalFirstDisplayed, action, &QAction::setDisabled);
 
     action = nav->addAction(KStandardAction::LastPage, this, SLOT(gotoLast()));
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoLastRequested, this, &EditorTab::gotoLast);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoLastRequested, this, &EditorTab::gotoLast);
     action->setText(i18nc("@action:inmenu", "&Last Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_End));
     connect(this, &EditorTab::signalLastDisplayed, action, &QAction::setDisabled);
@@ -526,32 +526,32 @@ void EditorTab::setupActions()
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"), Qt::CTRL + Qt::Key_PageUp, "prevfuzzy")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzy);
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyRequested, this, &EditorTab::gotoPrevFuzzy);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyRequested, this, &EditorTab::gotoPrevFuzzy);
     connect(this, &EditorTab::signalPriorFuzzyAvailable, action, &QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next non-empty but not ready"), Qt::CTRL + Qt::Key_PageDown, "nextfuzzy")
     connect(action, &QAction::triggered, this, &EditorTab::gotoNextFuzzy);
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyRequested, this, &EditorTab::gotoNextFuzzy);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyRequested, this, &EditorTab::gotoNextFuzzy);
     connect(this, &EditorTab::signalNextFuzzyAvailable, action, &QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_untrans", i18nc("@action:inmenu", "Previous untranslated"), Qt::ALT + Qt::Key_PageUp, "prevuntranslated")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevUntranslated);
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevUntranslatedRequested, this, &EditorTab::gotoPrevUntranslated);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevUntranslatedRequested, this, &EditorTab::gotoPrevUntranslated);
     connect(this, &EditorTab::signalPriorUntranslatedAvailable, action, &QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_untrans", i18nc("@action:inmenu", "Next untranslated"), Qt::ALT + Qt::Key_PageDown, "nextuntranslated")
     connect(action, &QAction::triggered, this, &EditorTab::gotoNextUntranslated);
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoNextUntranslatedRequested, this, &EditorTab::gotoNextUntranslated);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextUntranslatedRequested, this, &EditorTab::gotoNextUntranslated);
     connect(this, &EditorTab::signalNextUntranslatedAvailable, action, &QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"), Qt::CTRL + Qt::SHIFT/*ALT*/ + Qt::Key_PageUp, "prevfuzzyuntrans")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzyUntr);
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyUntrRequested, this, &EditorTab::gotoPrevFuzzyUntr);
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyUntrRequested, this, &EditorTab::gotoPrevFuzzyUntr);
     connect(this, &EditorTab::signalPriorFuzzyOrUntrAvailable, action, &QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"), Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown, "nextfuzzyuntrans")
     connect(action, &QAction::triggered, this, qOverload<>(&EditorTab::gotoNextFuzzyUntr));
-    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyUntrRequested, this, qOverload<>(&EditorTab::gotoNextFuzzyUntr));
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyUntrRequested, this, qOverload<>(&EditorTab::gotoNextFuzzyUntr));
     connect(this, &EditorTab::signalNextFuzzyOrUntrAvailable, action, &QAction::setEnabled);
 
     action = nav->addAction(QStringLiteral("go_focus_earch_line"), m_transUnitsView, SLOT(setFocus()));

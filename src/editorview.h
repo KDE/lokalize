@@ -51,7 +51,7 @@ public:
     QString selectionInTarget() const;//for non-batch replace
     QString selectionInSource() const;
 
-    QObject* viewPort();
+    TranslationUnitTextEdit* viewPort();
     void setProperFocus();
 
 public Q_SLOTS:

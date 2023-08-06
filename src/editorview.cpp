@@ -289,7 +289,7 @@ void EditorView::setProperFocus()
 
 
 
-QObject* EditorView::viewPort()
+TranslationUnitTextEdit* EditorView::viewPort()
 {
     return m_targetTextEdit;
 }
