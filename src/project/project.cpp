@@ -53,6 +53,8 @@ QString getMailingList()
         return QLatin1String("kde-i18n-ca@kde.org");
     if (lang.startsWith(QLatin1String("de")))
         return QLatin1String("kde-i18n-de@kde.org");
+    if (lang.startsWith(QLatin1String("fr")))
+        return QLatin1String("kde-francophone@kde.org");
     if (lang.startsWith(QLatin1String("hu")))
         return QLatin1String("kde-l10n-hu@kde.org");
     if (lang.startsWith(QLatin1String("tr")))
