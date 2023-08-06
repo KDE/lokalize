@@ -83,7 +83,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         return iconCache.value(langCode);
 #endif
     } else if (role == Qt::DisplayRole) {
-        const QString& code = stringList().at(index.row());
+        QString code = stringList().at(index.row());
         if (code.isEmpty()) return code;
         //qCDebug(LOKALIZE_LOG)<<"languageCodeToName"<<code;
         static QVector<QString> displayNames(stringList().size());
