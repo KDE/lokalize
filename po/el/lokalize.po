@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 01:05+0000\n"
+"POT-Creation-Date: 2023-08-07 00:52+0000\n"
 "PO-Revision-Date: 2023-07-31 17:34+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1758,8 +1758,8 @@ msgstr ""
 "σε προσαρμοσμένες διαδρομές. Ανατρέξτε στο εγχειρίδιο του Lokalize για "
 "παραδείγματα σεναρίων και για το πώς να τα συνδέσετε στο έργο σας."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:475
+#: src/project/project.cpp:480
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Εγκαταστήστε το πακέτο translate-toolkit και ξανά προσπαθήστε "
@@ -1775,7 +1775,7 @@ msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "Επιλογή του αρχικού OpenDocument στο οποίο βασίζεται το τρέχον αρχείο XLIFF"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:485
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Αρχεία OpenDocument (*.odt *.ods)"
@@ -2237,12 +2237,12 @@ msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 "Δεν βρέθηκαν αρθρώματα Qt Sql. Η μεταφραστική μνήμη δεν θα λειτουργήσει."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Η δυνατότητα μεταφραστικής μνήμης απαιτεί το άρθρωμα SQLite Qt."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Δεν υπάρχει διαθέσιμο άρθρωμα SQLite"
@@ -3811,17 +3811,17 @@ msgstr "Έργο"
 msgid "Language-Team:"
 msgstr "Ομάδα Γλώσσας:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:448
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Σάρωση φακέλων με πηγαία αρχεία"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:449
 #, kde-format
 msgid "Editor"
 msgstr "Επεξεργαστής"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:492
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

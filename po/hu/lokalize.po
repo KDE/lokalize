@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 01:05+0000\n"
+"POT-Creation-Date: 2023-08-07 00:52+0000\n"
 "PO-Revision-Date: 2021-09-20 14:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1756,8 +1756,8 @@ msgstr ""
 "kezeléséhez. Nézze meg a parancsfájlpéldákat a Lokalize kézikönyvében, és "
 "hogy hogyan csatlakoztassa azokat a projektjéhez."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:475
+#: src/project/project.cpp:480
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Telepítse a translate-toolkit csomagot és próbálja újra"
@@ -1774,7 +1774,7 @@ msgstr ""
 "Válassza ki az eredeti OpenDocument-fájlt, amelyen a jelenlegi XLIFF-fájl "
 "alapul"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:485
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument-fájlok (*.odt *.ods)"
@@ -2234,12 +2234,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Nem találhatók Qt Sql modulok. A fordítási memória nem fog működni."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "A fordítási memória szolgáltatás az SQLite Qt modult igényli."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Nem érhető el SQLite modul"
@@ -3803,17 +3803,17 @@ msgstr "Projekt"
 msgid "Language-Team:"
 msgstr "Nyelvi csapat:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:448
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Forrásfájlokat tartalmazó mappák átnézése"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:449
 #, kde-format
 msgid "Editor"
 msgstr "Szerkesztő"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:492
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

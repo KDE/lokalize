@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 01:05+0000\n"
+"POT-Creation-Date: 2023-08-07 00:52+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1739,8 +1739,8 @@ msgstr ""
 "việc mở tệp nguồn ở các đường dẫn tuỳ ý. Hãy xem các kịch bản ví dụ và cách "
 "đưa chúng vào dự án của bạn trong sổ tay Lokalize."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:475
+#: src/project/project.cpp:480
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Cài đặt gói translate-toolkit và thử lại"
@@ -1755,7 +1755,7 @@ msgstr "Cài đặt gói translate-toolkit và thử lại."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Chọn OpenDocument ban đầu mà tệp XLIFF hiện tại dựa trên đó"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:485
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Tệp OpenDocument (*.odt *.ods)"
@@ -2214,12 +2214,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Không tìm thấy khối SQL Qt nào. Bộ nhớ lời dịch sẽ không hoạt động."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Bộ nhớ lời dịch cần có khối SQLite Qt."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Không có khối SQLite nào"
@@ -3766,17 +3766,17 @@ msgstr "Dự án"
 msgid "Language-Team:"
 msgstr "Đội ngôn ngữ:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:448
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Quét các thư mục với các tệp nguồn"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:449
 #, kde-format
 msgid "Editor"
 msgstr "Biên tập"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:492
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

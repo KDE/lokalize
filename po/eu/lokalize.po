@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 01:05+0000\n"
+"POT-Creation-Date: 2023-08-07 00:52+0000\n"
 "PO-Revision-Date: 2023-08-01 00:02+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1752,8 +1752,8 @@ msgstr ""
 "gidoirik. Kontsultatu Lokalize-ren eskuliburuan gidoien adibideak ikusi eta "
 "zure proiektuetan haiek nola konektatu jakiteko."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:475
+#: src/project/project.cpp:480
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instalatu «translate-toolkit» paketea eta saiatu berriro"
@@ -1768,7 +1768,7 @@ msgstr "Instalatu «translate-toolkit» paketea eta saiatu berriro."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Hautatu uneko XLIFF fitxategiaren oinarria den jatorrizko OpenDocument"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:485
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument fitxategiak (*.odt *.ods)"
@@ -2228,12 +2228,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Ez da Qt Sql modulurik aurkitu. Itzulpen memoria ez da ibiliko."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "TM funtzioak SQLite Qt modulua behar du."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Ez dago SQLite modulu erabilgarririk"
@@ -3787,17 +3787,17 @@ msgstr "Proiektua"
 msgid "Language-Team:"
 msgstr "Hizkuntza-taldea:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:448
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Iturburu fitxategiak dituzten karpetak aztertzen"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:449
 #, kde-format
 msgid "Editor"
 msgstr "Editorea"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:492
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

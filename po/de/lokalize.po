@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 01:05+0000\n"
+"POT-Creation-Date: 2023-08-07 00:52+0000\n"
 "PO-Revision-Date: 2023-06-18 23:38+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1743,8 +1743,8 @@ msgstr ""
 "Beispiel-Skripte und weitere Informationen zu deren Einbindung in Ihre "
 "Projekte."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:475
+#: src/project/project.cpp:480
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Paket „translate-toolkit“ installieren und erneut versuchen"
@@ -1760,7 +1760,7 @@ msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "Ursprüngliches OpenDocument auswählen, auf dem die aktuelle XLIFF-basiert"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:485
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument-Dateien (*.odt *.ods)"
@@ -2224,12 +2224,12 @@ msgstr ""
 "Es können keine Qt-SQL-Module gefunden werden. Die Übersetzungsdatenbank-"
 "Funktion wird nicht funktionieren."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Die Übersetzungsdatenbank-Funktion benötigt das SQLite-Modul für Qt."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Es ist kein SQLite-Modul verfügbar."
@@ -3795,17 +3795,17 @@ msgstr "Projekt"
 msgid "Language-Team:"
 msgstr "Sprachenteam:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:448
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Ordner mit Quelldateien wird durchsucht"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:449
 #, kde-format
 msgid "Editor"
 msgstr "Editor"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:492
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
