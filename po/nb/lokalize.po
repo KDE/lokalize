@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 01:05+0000\n"
+"POT-Creation-Date: 2023-08-07 00:52+0000\n"
 "PO-Revision-Date: 2014-03-22 21:58+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -1715,8 +1715,8 @@ msgid ""
 "handbook for script examples and how to plug them into your project."
 msgstr ""
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:475
+#: src/project/project.cpp:480
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr ""
@@ -1731,7 +1731,7 @@ msgstr ""
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:485
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr ""
@@ -2190,12 +2190,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Fant ingen Qt SQL-moduler. Oversettelsesminnet kan ikke virke."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Oversettelsesminne krever SQLite-modul i Qt."
 
-#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:290
+#: src/lokalizemainwindow.cpp:354 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Ingen SQLite-modul tilgjengelig"
@@ -3722,17 +3722,17 @@ msgstr ""
 msgid "Language-Team:"
 msgstr ""
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:448
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr ""
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:449
 #, kde-format
 msgid "Editor"
 msgstr ""
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:492
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
