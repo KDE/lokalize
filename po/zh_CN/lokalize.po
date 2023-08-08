@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-18 08:36+0000\n"
+"POT-Creation-Date: 2023-08-08 02:39+0000\n"
 "PO-Revision-Date: 2023-08-02 12:45\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1657,8 +1657,8 @@ msgstr ""
 "义源代码路径。参考 Lokalize 手册中的脚本示例以及如何将脚本应用于你的项目的说"
 "明。"
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:465
+#: src/project/project.cpp:470
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "安装 translate-toolkit 包并重试"
@@ -1673,7 +1673,7 @@ msgstr "安装翻译工具包之后再重试。"
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "选择当前 XLIFF 文件基于的原始 OpenDocument"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:475
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 文件 (*.odt *.ods)"
@@ -2830,13 +2830,13 @@ msgstr "选择要翻译的 .po 文件的目录"
 msgid "Create software or OpenDocument translation project first."
 msgstr "请先创建软件或 OpenDocument 翻译项目。"
 
-#: src/prefs/prefs.cpp:301
+#: src/prefs/prefs.cpp:305
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "高级"
 
-#: src/prefs/prefs.cpp:312
+#: src/prefs/prefs.cpp:316
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3469,13 +3469,67 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Template files folder:"
+msgctxt "@label:textbox"
+msgid "Branch template files folder:"
+msgstr "模板文件文件夹："
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
+#: src/project/prefs_project_advanced.ui:193
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "this message contains text from documentation, so use its translation "
+#| "when you're translating docs"
+#| msgid ""
+#| "This setting is for Sync Mode.\n"
+#| "\n"
+#| "Sync Mode may be used to make changes to translation\n"
+#| "for two branches simultaneously.\n"
+#| "\n"
+#| "Set this to path that corresponds to root folder of the branch project,\n"
+#| "and Secondary Sync view will automatically open files from branch.\n"
+#| "Then, each time you make changes in files of your main branch,\n"
+#| "they will automatically be replicated to the branch\n"
+#| "(of course, if it contains the same English string).\n"
+#| "\n"
+#| "See documentation for more details."
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project "
+"templates folder,\n"
+"and Secondary Sync view will automatically create files from branch."
+msgstr ""
+"此设置用于同步模式。\n"
+"\n"
+"同步模式可用来同时修改两个分支的翻译。\n"
+"\n"
+"将其设定为分支项目的基准目录相符的路径\n"
+"(例如，项目的“翻译目录”作为二级分支)，\n"
+"而二级同步视图将自动从分支中打开文件。\n"
+"这样，每次您在您的主分支作出修改时，\n"
+"它们会自动复制到各个分支中\n"
+"(当然，要在它包含相同英文字符串的时候)。\n"
+"\n"
+"参见文档获取更多详情。"
+
+#. i18n: ectx: property (text), widget (QLabel, l6)
+#: src/project/prefs_project_advanced.ui:200
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr "备选翻译文件夹："
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:195
+#: src/project/prefs_project_advanced.ui:227
 #, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
@@ -3609,17 +3663,17 @@ msgstr "项目"
 msgid "Language-Team:"
 msgstr ""
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "扫描保护源文件的文件夹"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:439
 #, kde-format
 msgid "Editor"
 msgstr "编辑"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:482
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3667,7 +3721,7 @@ msgid "The base directory for POT files (templates to be translated)"
 msgstr "POT 文件的基准目录(待翻译的模板)"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:73
+#: src/project/projectbase.kcfg:74
 #, kde-format
 msgid "Project's glossary"
 msgstr "项目词汇表"

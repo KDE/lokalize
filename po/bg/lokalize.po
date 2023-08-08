@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-18 08:36+0000\n"
+"POT-Creation-Date: 2023-08-08 02:39+0000\n"
 "PO-Revision-Date: 2023-06-22 20:55+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -1738,8 +1738,8 @@ msgstr ""
 "се към Lokalize наръчник за примери за скриптове и как да ги включите в "
 "проекта си."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:465
+#: src/project/project.cpp:470
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Инсталирайте пакета translate-toolkit и опитайте отново"
@@ -1754,7 +1754,7 @@ msgstr "Инсталирайте пакета translate-toolkit и опитай�
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Изберете оригинален OpenDocument, на който е базиран файла XLIFF"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:475
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Файлове OpenDocument (*.odt *.ods)"
@@ -2924,13 +2924,13 @@ msgstr "Изберете папка с Gettext .po файлове за прев�
 msgid "Create software or OpenDocument translation project first."
 msgstr "Първо създайте софтуерен или OpenDocument проект за превод."
 
-#: src/prefs/prefs.cpp:301
+#: src/prefs/prefs.cpp:305
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Разширени"
 
-#: src/prefs/prefs.cpp:312
+#: src/prefs/prefs.cpp:316
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3616,13 +3616,67 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Template files folder:"
+msgctxt "@label:textbox"
+msgid "Branch template files folder:"
+msgstr "Папка с файлове за шаблони:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
+#: src/project/prefs_project_advanced.ui:193
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "this message contains text from documentation, so use its translation "
+#| "when you're translating docs"
+#| msgid ""
+#| "This setting is for Sync Mode.\n"
+#| "\n"
+#| "Sync Mode may be used to make changes to translation\n"
+#| "for two branches simultaneously.\n"
+#| "\n"
+#| "Set this to path that corresponds to root folder of the branch project,\n"
+#| "and Secondary Sync view will automatically open files from branch.\n"
+#| "Then, each time you make changes in files of your main branch,\n"
+#| "they will automatically be replicated to the branch\n"
+#| "(of course, if it contains the same English string).\n"
+#| "\n"
+#| "See documentation for more details."
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project "
+"templates folder,\n"
+"and Secondary Sync view will automatically create files from branch."
+msgstr ""
+"Тази настройка е за режима на синхронизация.\n"
+"\n"
+"Режимът на синхронизация може да се използва за извършване на промени в "
+"превода за два клона едновременно.\n"
+"\n"
+"Задайте пътя, който съответства на основната папка на проекта на клона,\n"
+"и изгледът Втора синхронизация автоматично ще отваря файловете от клона.\n"
+"След това всеки път, когато правите промени във файловете на основния клон,\n"
+"те автоматично ще бъдат репликирани в клона\n"
+"(разбира се, ако съдържа същия английски низ).\n"
+"\n"
+"Вижте документацията за повече подробности."
+
+#. i18n: ectx: property (text), widget (QLabel, l6)
+#: src/project/prefs_project_advanced.ui:200
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr "Папка за други преводи:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:195
+#: src/project/prefs_project_advanced.ui:227
 #, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
@@ -3773,17 +3827,17 @@ msgstr "Проект"
 msgid "Language-Team:"
 msgstr "Преводачески екип:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Сканиране на папки с изходни файлове"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:439
 #, kde-format
 msgid "Editor"
 msgstr "Редактор"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:482
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3831,7 +3885,7 @@ msgid "The base directory for POT files (templates to be translated)"
 msgstr "Основната директория за РОТ файловете (шаблоните)"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:73
+#: src/project/projectbase.kcfg:74
 #, kde-format
 msgid "Project's glossary"
 msgstr "Кратък речник нa специалните думи на проекта"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-18 08:36+0000\n"
+"POT-Creation-Date: 2023-08-08 02:39+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1739,8 +1739,8 @@ msgstr ""
 "việc mở tệp nguồn ở các đường dẫn tuỳ ý. Hãy xem các kịch bản ví dụ và cách "
 "đưa chúng vào dự án của bạn trong sổ tay Lokalize."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:465
+#: src/project/project.cpp:470
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Cài đặt gói translate-toolkit và thử lại"
@@ -1755,7 +1755,7 @@ msgstr "Cài đặt gói translate-toolkit và thử lại."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Chọn OpenDocument ban đầu mà tệp XLIFF hiện tại dựa trên đó"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:475
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Tệp OpenDocument (*.odt *.ods)"
@@ -2931,13 +2931,13 @@ msgstr "Chọn thư mục có các tệp .po Gettext để dịch"
 msgid "Create software or OpenDocument translation project first."
 msgstr "Tạo dự án dịch phần mềm hoặc OpenDocument trước."
 
-#: src/prefs/prefs.cpp:301
+#: src/prefs/prefs.cpp:305
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Nâng cao"
 
-#: src/prefs/prefs.cpp:312
+#: src/prefs/prefs.cpp:316
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3611,13 +3611,67 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Template files folder:"
+msgctxt "@label:textbox"
+msgid "Branch template files folder:"
+msgstr "Thư mục tệp bản mẫu:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
+#: src/project/prefs_project_advanced.ui:193
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "this message contains text from documentation, so use its translation "
+#| "when you're translating docs"
+#| msgid ""
+#| "This setting is for Sync Mode.\n"
+#| "\n"
+#| "Sync Mode may be used to make changes to translation\n"
+#| "for two branches simultaneously.\n"
+#| "\n"
+#| "Set this to path that corresponds to root folder of the branch project,\n"
+#| "and Secondary Sync view will automatically open files from branch.\n"
+#| "Then, each time you make changes in files of your main branch,\n"
+#| "they will automatically be replicated to the branch\n"
+#| "(of course, if it contains the same English string).\n"
+#| "\n"
+#| "See documentation for more details."
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project "
+"templates folder,\n"
+"and Secondary Sync view will automatically create files from branch."
+msgstr ""
+"Thiết lập này dành cho chế độ đồng bộ.\n"
+"\n"
+"Chế độ đồng bộ có thể được dùng để thay đổi lời dịch đồng thời trên\n"
+"hai nhánh.\n"
+"\n"
+"Đặt vào trường này đường dẫn tương ứng với thư mục gốc của dự án\n"
+"nhánh, và khung xem \"Đồng bộ cấp hai\" sẽ tự động mở các tệp từ\n"
+"nhánh. Sau đó, mỗi lần bạn tạo ra thay đổi trong các tệp ở nhánh\n"
+"chính, các thay đổi sẽ tự động được sao chép vào nhánh đó\n"
+"(tất nhiên, nếu nó cũng chứa chuỗi tiếng Anh đó).\n"
+"\n"
+"Xem thêm chi tiết trong tài liệu."
+
+#. i18n: ectx: property (text), widget (QLabel, l6)
+#: src/project/prefs_project_advanced.ui:200
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr "Thư mục lời dịch thay thế:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:195
+#: src/project/prefs_project_advanced.ui:227
 #, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
@@ -3766,17 +3820,17 @@ msgstr "Dự án"
 msgid "Language-Team:"
 msgstr "Đội ngôn ngữ:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Quét các thư mục với các tệp nguồn"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:439
 #, kde-format
 msgid "Editor"
 msgstr "Biên tập"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:482
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3824,7 +3878,7 @@ msgid "The base directory for POT files (templates to be translated)"
 msgstr "Thư mục cơ sở cho các tệp POT (các bản mẫu để dịch)"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:73
+#: src/project/projectbase.kcfg:74
 #, kde-format
 msgid "Project's glossary"
 msgstr "Bảng ngữ của dự án"

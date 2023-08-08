@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-18 08:36+0000\n"
+"POT-Creation-Date: 2023-08-08 02:39+0000\n"
 "PO-Revision-Date: 2010-12-31 00:39+0700\n"
 "Last-Translator: Phuwanat Sakornsakolpat <narachai@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -1662,8 +1662,8 @@ msgid ""
 "handbook for script examples and how to plug them into your project."
 msgstr ""
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:465
+#: src/project/project.cpp:470
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr ""
@@ -1678,7 +1678,7 @@ msgstr ""
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:475
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr ""
@@ -2864,13 +2864,13 @@ msgstr ""
 msgid "Create software or OpenDocument translation project first."
 msgstr "เลือกตำแหน่งของโครงการแปลซอฟต์แวร์ของคุณ"
 
-#: src/prefs/prefs.cpp:301
+#: src/prefs/prefs.cpp:305
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "ขั้นสูง"
 
-#: src/prefs/prefs.cpp:312
+#: src/prefs/prefs.cpp:316
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3490,11 +3490,35 @@ msgstr ""
 #: src/project/prefs_project_advanced.ui:168
 #, kde-format
 msgctxt "@label:textbox"
+msgid "Branch template files folder:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
+#: src/project/prefs_project_advanced.ui:193
+#, kde-format
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project "
+"templates folder,\n"
+"and Secondary Sync view will automatically create files from branch."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, l6)
+#: src/project/prefs_project_advanced.ui:200
+#, kde-format
+msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:195
+#: src/project/prefs_project_advanced.ui:227
 #, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
@@ -3630,19 +3654,19 @@ msgstr "โครงการ"
 msgid "Language-Team:"
 msgstr "ภาษาต้นฉบับ"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr ""
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:439
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Edit term"
 #| msgid "Edit"
 msgid "Editor"
 msgstr "แก้ไข"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:482
 #, fuzzy, kde-format
 #| msgid "Translation"
 msgctxt "project folder name. %2 is targetLangCode"
@@ -3695,7 +3719,7 @@ msgid "The base directory for POT files (templates to be translated)"
 msgstr ""
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:73
+#: src/project/projectbase.kcfg:74
 #, kde-format
 msgid "Project's glossary"
 msgstr ""

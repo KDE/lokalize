@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-18 08:36+0000\n"
+"POT-Creation-Date: 2023-08-08 02:39+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -1756,8 +1756,8 @@ msgstr ""
 "petunjuk Lokalize untuk contoh-contoh skrip dan bagaimana mencolokkan mereka "
 "ke dalam proyek Anda."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:465
+#: src/project/project.cpp:470
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instal paket translate-toolkit dan coba lagi"
@@ -1772,7 +1772,7 @@ msgstr "Instal paket translate-toolkit dan coba lagi."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Pilih OpenDocument asli yang mana file XLIFF saat ini didasarkan"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:475
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "File-file OpenDocument (*.odt *.ods)"
@@ -2953,13 +2953,13 @@ msgstr "Pilih folder dengan file .po Gettext untuk menerjemahkan"
 msgid "Create software or OpenDocument translation project first."
 msgstr "Ciptakan proyek terjemahan perangkat lunak atau OpenDocument dulu."
 
-#: src/prefs/prefs.cpp:301
+#: src/prefs/prefs.cpp:305
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Tingkat-lanjut"
 
-#: src/prefs/prefs.cpp:312
+#: src/prefs/prefs.cpp:316
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3648,13 +3648,70 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Template files folder:"
+msgctxt "@label:textbox"
+msgid "Branch template files folder:"
+msgstr "Folder file template:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
+#: src/project/prefs_project_advanced.ui:193
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "this message contains text from documentation, so use its translation "
+#| "when you're translating docs"
+#| msgid ""
+#| "This setting is for Sync Mode.\n"
+#| "\n"
+#| "Sync Mode may be used to make changes to translation\n"
+#| "for two branches simultaneously.\n"
+#| "\n"
+#| "Set this to path that corresponds to root folder of the branch project,\n"
+#| "and Secondary Sync view will automatically open files from branch.\n"
+#| "Then, each time you make changes in files of your main branch,\n"
+#| "they will automatically be replicated to the branch\n"
+#| "(of course, if it contains the same English string).\n"
+#| "\n"
+#| "See documentation for more details."
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project "
+"templates folder,\n"
+"and Secondary Sync view will automatically create files from branch."
+msgstr ""
+"Setelan ini untuk Modus Sinkron.\n"
+"\n"
+"Modus sinkron mungkin digunakan untuk membuat perubahan-perubahan untuk "
+"menerjemahkan\n"
+"dua cabang secara terus-menerus.\n"
+"\n"
+"Set ini ke alur yang berhubungan dengan folder akar dari proyek cabang,\n"
+"dan tampilan Sinkron Sekunder akan secara otomatis membuka file dari "
+"cabang.\n"
+"Kemudian, setiap kali Anda membuat perubahan di  file pada cabang utama "
+"Anda,\n"
+"mereka secara otomatis direplikasikan ke cabang\n"
+"(tentu saja, jika terdapat string bahasa Inggris yang sama).\n"
+"\n"
+"Lihat dokumentasi untuk lebih jelasnya."
+
+#. i18n: ectx: property (text), widget (QLabel, l6)
+#: src/project/prefs_project_advanced.ui:200
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr "Folder terjemahan alternatif:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:195
+#: src/project/prefs_project_advanced.ui:227
 #, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
@@ -3805,17 +3862,17 @@ msgstr "proyek"
 msgid "Language-Team:"
 msgstr "Tim-Bahasa:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Memindai folder-folder dengan file sumber"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:439
 #, kde-format
 msgid "Editor"
 msgstr "Pengedit"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:482
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3863,7 +3920,7 @@ msgid "The base directory for POT files (templates to be translated)"
 msgstr "Direktori basis untuk file POT (template untuk diterjemahkan)"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:73
+#: src/project/projectbase.kcfg:74
 #, kde-format
 msgid "Project's glossary"
 msgstr "Glosarium proyek"

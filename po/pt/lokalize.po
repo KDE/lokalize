@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-18 08:36+0000\n"
+"POT-Creation-Date: 2023-08-08 02:39+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -1770,8 +1770,8 @@ msgstr ""
 "Lokalize para descobrir alguns exemplos de programas e como associá-los ao "
 "seu projecto."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:465
+#: src/project/project.cpp:470
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instalar o pacote 'translate-toolkit' e repetir"
@@ -1788,7 +1788,7 @@ msgstr ""
 "Seleccionar o OpenDocument original, no qual se baseia o ficheiro XLIFF "
 "actual"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:475
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Ficheiros em OpenDocument (*.odt *.ods)"
@@ -2965,13 +2965,13 @@ msgid "Create software or OpenDocument translation project first."
 msgstr ""
 "Cria primeiro um projecto de tradução de aplicações ou de OpenDocument."
 
-#: src/prefs/prefs.cpp:301
+#: src/prefs/prefs.cpp:305
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Avançado"
 
-#: src/prefs/prefs.cpp:312
+#: src/prefs/prefs.cpp:316
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3664,13 +3664,70 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Template files folder:"
+msgctxt "@label:textbox"
+msgid "Branch template files folder:"
+msgstr "Pasta dos ficheiros de modelos:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
+#: src/project/prefs_project_advanced.ui:193
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "this message contains text from documentation, so use its translation "
+#| "when you're translating docs"
+#| msgid ""
+#| "This setting is for Sync Mode.\n"
+#| "\n"
+#| "Sync Mode may be used to make changes to translation\n"
+#| "for two branches simultaneously.\n"
+#| "\n"
+#| "Set this to path that corresponds to root folder of the branch project,\n"
+#| "and Secondary Sync view will automatically open files from branch.\n"
+#| "Then, each time you make changes in files of your main branch,\n"
+#| "they will automatically be replicated to the branch\n"
+#| "(of course, if it contains the same English string).\n"
+#| "\n"
+#| "See documentation for more details."
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project "
+"templates folder,\n"
+"and Secondary Sync view will automatically create files from branch."
+msgstr ""
+"Esta opção serve para o Modo de Sincronização.\n"
+"\n"
+"O Modo de Sincronização pode ser usado para efectuar alterações nas "
+"traduções\n"
+"de duas ramificações em simultâneo. \n"
+"\n"
+"Defina esta opção como sendo a pasta de base da ramificação, para que a "
+"área\n"
+"de Sincronização Secundária abra automaticamente os ficheiros da "
+"ramificação.\n"
+"A partir daí, sempre que alterar os ficheiros na sua ramificação principal,\n"
+"estes serão automaticamente replicados na ramificação (obviamente, se esta\n"
+"conter o mesmo texto em Inglês).\n"
+"\n"
+"Veja a documentação para saber mais detalhes."
+
+#. i18n: ectx: property (text), widget (QLabel, l6)
+#: src/project/prefs_project_advanced.ui:200
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr "Pasta de traduções alternativas:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:195
+#: src/project/prefs_project_advanced.ui:227
 #, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
@@ -3819,17 +3876,17 @@ msgstr "Projecto"
 msgid "Language-Team:"
 msgstr "Equipa da Língua:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "A sondar as pastas com os ficheiros de origem"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:439
 #, kde-format
 msgid "Editor"
 msgstr "Editor"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:482
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3877,7 +3934,7 @@ msgid "The base directory for POT files (templates to be translated)"
 msgstr "A pasta de base dos ficheiros POT (modelos a traduzir)"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:73
+#: src/project/projectbase.kcfg:74
 #, kde-format
 msgid "Project's glossary"
 msgstr "Glossário do projecto"

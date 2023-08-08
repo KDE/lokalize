@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-18 08:36+0000\n"
+"POT-Creation-Date: 2023-08-08 02:39+0000\n"
 "PO-Revision-Date: 2023-07-23 21:38+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1686,8 +1686,8 @@ msgstr ""
 "오지 않았습니다. Lokalize 설명서를 참조하여 스크립트 예제 및 프로젝트에 적용"
 "하는 방법을 알아 보십시오."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:465
+#: src/project/project.cpp:470
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit 패키지를 설치하고 다시 시도하십시오"
@@ -1702,7 +1702,7 @@ msgstr "translate-toolkit 패키지를 설치하고 다시 시도하십시오."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "현재 XLIFF 파일의 기반 OpenDocument 파일 선택"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:475
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 파일 (*.odt *.ods)"
@@ -2869,13 +2869,13 @@ msgstr "번역할 Gettext .po 파일이 있는 폴더 선택"
 msgid "Create software or OpenDocument translation project first."
 msgstr "소프트웨어 및 OpenDocument 번역 프로젝트를 만드십시오."
 
-#: src/prefs/prefs.cpp:301
+#: src/prefs/prefs.cpp:305
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "고급"
 
-#: src/prefs/prefs.cpp:312
+#: src/prefs/prefs.cpp:316
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3528,13 +3528,65 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Template files folder:"
+msgctxt "@label:textbox"
+msgid "Branch template files folder:"
+msgstr "템플릿 파일 폴더:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
+#: src/project/prefs_project_advanced.ui:193
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "this message contains text from documentation, so use its translation "
+#| "when you're translating docs"
+#| msgid ""
+#| "This setting is for Sync Mode.\n"
+#| "\n"
+#| "Sync Mode may be used to make changes to translation\n"
+#| "for two branches simultaneously.\n"
+#| "\n"
+#| "Set this to path that corresponds to root folder of the branch project,\n"
+#| "and Secondary Sync view will automatically open files from branch.\n"
+#| "Then, each time you make changes in files of your main branch,\n"
+#| "they will automatically be replicated to the branch\n"
+#| "(of course, if it contains the same English string).\n"
+#| "\n"
+#| "See documentation for more details."
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project "
+"templates folder,\n"
+"and Secondary Sync view will automatically create files from branch."
+msgstr ""
+"이 설정은 동기화 모드에 사용됩니다.\n"
+"\n"
+"동기화 모드를 사용하면 번역 작업을 두 다른 브랜치에\n"
+"동시에 적용시킬 수 있습니다.\n"
+"\n"
+"이 경로를 브랜치의 기본 경로(두 번째 브랜치의 번역 폴더)로\n"
+"설정하면 두 번째 동기화 보기가 자동으로 열립니다.\n"
+"주 브랜치를 편집하면 부 브랜치에도 자동으로 변경 사항이 적용됩니다.\n"
+"(물론 원문이 같은 경우에 한하여) \n"
+"자세한 사항은 도움말을 참고하십시오."
+
+#. i18n: ectx: property (text), widget (QLabel, l6)
+#: src/project/prefs_project_advanced.ui:200
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr "대체 번역 폴더:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:195
+#: src/project/prefs_project_advanced.ui:227
 #, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
@@ -3679,17 +3731,17 @@ msgstr "프로젝트"
 msgid "Language-Team:"
 msgstr "언어 팀:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "원본 파일이 있는 폴더 검사 중"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:439
 #, kde-format
 msgid "Editor"
 msgstr "편집기"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:482
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3737,7 +3789,7 @@ msgid "The base directory for POT files (templates to be translated)"
 msgstr "POT 파일(번역한 것)의 기본 디렉터리"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:73
+#: src/project/projectbase.kcfg:74
 #, kde-format
 msgid "Project's glossary"
 msgstr "프로젝트 용어집"

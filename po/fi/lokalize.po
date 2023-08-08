@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-18 08:36+0000\n"
+"POT-Creation-Date: 2023-08-08 02:39+0000\n"
 "PO-Revision-Date: 2023-07-25 13:39+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1746,8 +1746,8 @@ msgstr ""
 "voit katsoa skriptiesimerkkejä ja ohjeita siitä, miten ne liitetään "
 "projektiin."
 
-#: src/editortab.cpp:1688 src/project/project.cpp:473
-#: src/project/project.cpp:478
+#: src/editortab.cpp:1688 src/project/project.cpp:465
+#: src/project/project.cpp:470
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Asenna translate-toolkit-paketti ja yritä uudelleen"
@@ -1764,7 +1764,7 @@ msgstr ""
 "Valitse alkuperäinen OpenDocument-tiedosto, johon nykyinen XLIFF-tiedosto "
 "perustuu"
 
-#: src/editortab.cpp:1705 src/project/project.cpp:483
+#: src/editortab.cpp:1705 src/project/project.cpp:475
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument-tiedostot (*.odt *.ods)"
@@ -2941,13 +2941,13 @@ msgstr "Valitse kansio, jossa on käännettävät Gettextin .po-tiedostot"
 msgid "Create software or OpenDocument translation project first."
 msgstr "Luo ensin ohjelmisto- tai OpenDocument-käännösprojekti."
 
-#: src/prefs/prefs.cpp:301
+#: src/prefs/prefs.cpp:305
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Lisäasetukset"
 
-#: src/prefs/prefs.cpp:312
+#: src/prefs/prefs.cpp:316
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3618,13 +3618,67 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Template files folder:"
+msgctxt "@label:textbox"
+msgid "Branch template files folder:"
+msgstr "Mallipohjien kansio:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
+#: src/project/prefs_project_advanced.ui:193
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "this message contains text from documentation, so use its translation "
+#| "when you're translating docs"
+#| msgid ""
+#| "This setting is for Sync Mode.\n"
+#| "\n"
+#| "Sync Mode may be used to make changes to translation\n"
+#| "for two branches simultaneously.\n"
+#| "\n"
+#| "Set this to path that corresponds to root folder of the branch project,\n"
+#| "and Secondary Sync view will automatically open files from branch.\n"
+#| "Then, each time you make changes in files of your main branch,\n"
+#| "they will automatically be replicated to the branch\n"
+#| "(of course, if it contains the same English string).\n"
+#| "\n"
+#| "See documentation for more details."
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project "
+"templates folder,\n"
+"and Secondary Sync view will automatically create files from branch."
+msgstr ""
+"Asetus on synkronointitilaa varten.\n"
+"\n"
+"Synkronointitilaa voidaan käyttää tekemään muutokset\n"
+"käännöksiin kahdessa haarassa yhtäaikaisesti.\n"
+"\n"
+"Aseta tähän sijainti, joka on projektihaara juurikansio, jolloin\n"
+"synkronoinnin toissijainen näkymä avaa automaattisesti haaran\n"
+"tiedostot. Tämän jälkeen joka kerran kun teet muutoksia päähaaraan,\n"
+"ne automaattisesti kopioidaan myös toiseen haaraan (tietenkin vain,\n"
+"jos sieltä löytyy sama lähdejono).\n"
+"\n"
+"Katso lisätietoa ohjeistuksesta."
+
+#. i18n: ectx: property (text), widget (QLabel, l6)
+#: src/project/prefs_project_advanced.ui:200
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr "Vaihtoehtoisten käännösten kansio:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:195
+#: src/project/prefs_project_advanced.ui:227
 #, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
@@ -3773,17 +3827,17 @@ msgstr "Projekti"
 msgid "Language-Team:"
 msgstr "Kääntäjäryhmä:"
 
-#: src/project/project.cpp:446
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Etsitään lähdekoodikansiosta"
 
-#: src/project/project.cpp:447
+#: src/project/project.cpp:439
 #, kde-format
 msgid "Editor"
 msgstr "Muokkain"
 
-#: src/project/project.cpp:490
+#: src/project/project.cpp:482
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3831,7 +3885,7 @@ msgid "The base directory for POT files (templates to be translated)"
 msgstr "POT-tiedostojen (käännettävien mallipohjien) peruskansio"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:73
+#: src/project/projectbase.kcfg:74
 #, kde-format
 msgid "Project's glossary"
 msgstr "Projektin sanasto"
