@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-08 02:39+0000\n"
-"PO-Revision-Date: 2023-06-17 08:49+0300\n"
+"PO-Revision-Date: 2023-08-08 09:35+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -3632,32 +3632,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "Тека файлів шаблонів:"
+msgstr "Тека файлів шаблонів гілки:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3678,12 +3660,7 @@ msgstr ""
 "\n"
 "Вкажіть для цього параметра значення, яке відповідає\n"
 "кореневому каталогу гілки, і Вторинна синхронізація автоматично\n"
-"відкриватиме файли з цієї гілки. Кожного разу, коли ви вноситимете\n"
-"зміни до файлів вашої основної гілки, відповідні зміни автоматично\n"
-"відбуватимуться і у вторинній гілці (звичайно ж, якщо у ній містяться\n"
-"ті самі рядки англійською).\n"
-"\n"
-"Докладніше про цю можливість можна довідатися з документації."
+"створюватиме файли на основі даних гілки."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
