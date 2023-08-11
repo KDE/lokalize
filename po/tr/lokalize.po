@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-08 02:39+0000\n"
-"PO-Revision-Date: 2023-08-07 17:55+0300\n"
+"PO-Revision-Date: 2023-08-10 22:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3610,32 +3610,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "Şablon dosyaları klasörü:"
+msgstr "Dal şablon dosyaları klasörü:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3654,14 +3636,9 @@ msgstr ""
 "Eşitleme kipi çevirilerde yapılan değişiklikleri bir projenin bir dalına\n"
 "otomatik olarak birleştirmek için kullanılır.\n"
 "\n"
-"Bu yolu dal projenin kök dizinine işaret eden dizine ayarlayın.\n"
+"Bu yolu dal projenin şablon klasörüne işaret eden klasöre ayarlayın.\n"
 "İkincil Eşitleme görünümü otomatik olarak dosyaları dal dizininden "
-"açacaktır.\n"
-"Ana dalda (trunk) her değişiklik yaptığınızda\n"
-"dal dizinindeki dosyalarda da aynı değişiklikler yapılacaktır.\n"
-"(tabii ki aynı İngilizce dizi dal dosyasında bulunuyorsa).\n"
-"\n"
-"Daha fazla bilgi için belgelendirmeye bakın."
+"oluşturacaktır."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
