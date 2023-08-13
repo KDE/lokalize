@@ -115,7 +115,7 @@ public:
         m_mergeDiffIndex.remove(index);
     }
     enum CopyFromBaseOptions {EvenIfNotInDiffIndex = 1};
-    void copyFromBaseCatalog(const DocPosition&, int options);
+    void copyFromBaseCatalog(const DocPosition& pos, int options);
     void copyFromBaseCatalog(const DocPosition& pos)
     {
         copyFromBaseCatalog(pos, EvenIfNotInDiffIndex);
