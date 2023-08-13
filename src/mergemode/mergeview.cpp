@@ -314,8 +314,11 @@ void MergeView::gotoNextChanged(bool approvedOnly)
 
 void MergeView::mergeBack()
 {
-    if (m_pos.entry == -1 || !m_mergeCatalog || m_baseCatalog->msgstr(m_pos).isEmpty())
+    if (m_pos.entry == -1
+        || m_mergeCatalog == nullptr
+        || (m_baseCatalog != nullptr && m_baseCatalog->msgstr(m_pos).isEmpty())) {
         return;
+    }
 
     m_mergeCatalog->copyFromBaseCatalog(m_pos);
 }
@@ -323,10 +326,10 @@ void MergeView::mergeBack()
 void MergeView::mergeAccept()
 {
     if (m_pos.entry == -1
-        || !m_mergeCatalog
-        //||m_baseCatalog->msgstr(m_pos)==m_mergeCatalog->msgstr(m_pos)
-        || m_mergeCatalog->msgstr(m_pos).isEmpty())
+        || m_mergeCatalog == nullptr
+        || m_mergeCatalog->msgstr(m_pos).isEmpty()) {
         return;
+    }
 
     m_mergeCatalog->copyToBaseCatalog(m_pos);
 
@@ -347,7 +350,7 @@ void MergeView::mergeAcceptAllForEmpty()
 
 bool MergeView::event(QEvent *event)
 {
-    if (event->type() == QEvent::ToolTip && m_mergeCatalog) {
+    if ((event->type() == QEvent::ToolTip) && m_mergeCatalog) {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
         QString text = QStringLiteral("<b>") + QDir::toNativeSeparators(filePath()) + QStringLiteral("</b>\n") + i18nc("@info:tooltip", "Different entries: %1\nUnmatched entries: %2",
                        m_mergeCatalog->differentEntries().size(), m_mergeCatalog->unmatchedCount());
