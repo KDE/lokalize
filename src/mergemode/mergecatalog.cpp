@@ -33,9 +33,9 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChang
 
 void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
 {
-    bool a = std::find(m_mergeDiffIndex.begin(), m_mergeDiffIndex.end(), pos.entry) != m_mergeDiffIndex.end();
-    bool b = std::find(m_mergeEmptyIndex.begin(), m_mergeEmptyIndex.end(), pos.entry) != m_mergeEmptyIndex.end();
-    if (options & EvenIfNotInDiffIndex || !a|| b) {
+    const bool a = std::find(m_mergeDiffIndex.begin(), m_mergeDiffIndex.end(), pos.entry) != m_mergeDiffIndex.end();
+    const bool b = std::find(m_mergeEmptyIndex.begin(), m_mergeEmptyIndex.end(), pos.entry) != m_mergeEmptyIndex.end();
+    if (options & EvenIfNotInDiffIndex || !a || b) {
         //sync changes
         DocPosition ourPos = pos;
         if ((ourPos.entry = m_map.at(ourPos.entry)) == -1)

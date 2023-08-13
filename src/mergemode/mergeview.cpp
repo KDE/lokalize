@@ -171,7 +171,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
         //for AutoSync
 
         QString path = mergeFilePath;
-        QString oldPath = path;
+        const QString oldPath = path;
         path.replace(Project::instance()->poDir(), Project::instance()->branchDir());
 
         if (oldPath == path) { //if file doesn't exist both are empty
@@ -208,7 +208,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
             saidMergeFilePath.clear();
     }
 
-    int errorLine = m_mergeCatalog->loadFromUrl(mergeFilePath, saidMergeFilePath);
+    const int errorLine = m_mergeCatalog->loadFromUrl(mergeFilePath, saidMergeFilePath);
     if (Q_LIKELY(errorLine == 0)) {
         if (m_pos.entry > 0)
             Q_EMIT signalPriorChangedAvailable(m_pos.entry > m_mergeCatalog->firstChangedIndex());
@@ -241,7 +241,7 @@ int MergeView::pluralFormsAvailableForward()
     if (Q_LIKELY(m_pos.entry == -1 || !m_mergeCatalog->isPlural(m_pos.entry)))
         return -1;
 
-    int formLimit = qMin(m_baseCatalog->numberOfPluralForms(), m_mergeCatalog->numberOfPluralForms()); //just sanity check
+    const int formLimit = qMin(m_baseCatalog->numberOfPluralForms(), m_mergeCatalog->numberOfPluralForms()); //just sanity check
     DocPosition pos = m_pos;
     while (++(pos.form) < formLimit) {
         if (m_baseCatalog->msgstr(pos) != m_mergeCatalog->msgstr(pos))
@@ -271,7 +271,7 @@ void MergeView::gotoPrevChanged()
     DocPosition pos;
 
     //first, check if there any plural forms waiting to be synced
-    int form = pluralFormsAvailableBackward();
+    const int form = pluralFormsAvailableBackward();
     if (Q_UNLIKELY(form != -1)) {
         pos = m_pos;
         pos.form = form;
@@ -297,7 +297,7 @@ void MergeView::gotoNextChanged(bool approvedOnly)
     DocPosition pos = m_pos;
 
     //first, check if there any plural forms waiting to be synced
-    int form = pluralFormsAvailableForward();
+    const int form = pluralFormsAvailableForward();
     if (Q_UNLIKELY(form != -1)) {
         pos = m_pos;
         pos.form = form;
@@ -337,9 +337,9 @@ void MergeView::mergeAcceptAllForEmpty()
 {
     if (Q_UNLIKELY(!m_mergeCatalog)) return;
 
-    bool containsBefore = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry) != m_mergeCatalog->differentEntries().end();
+    const bool containsBefore = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry) != m_mergeCatalog->differentEntries().end();
     m_mergeCatalog->copyToBaseCatalog(/*MergeCatalog::EmptyOnly*/MergeCatalog::HigherOnly);
-    bool containsAfter = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry) != m_mergeCatalog->differentEntries().end();
+    const bool containsAfter = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry) != m_mergeCatalog->differentEntries().end();
     if (containsBefore != containsAfter)
         Q_EMIT gotoEntry(m_pos, 0);
 }
