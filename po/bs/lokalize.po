@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 00:48+0000\n"
+"POT-Creation-Date: 2023-08-14 00:48+0000\n"
 "PO-Revision-Date: 2015-01-30 12:28+0100\n"
 "Last-Translator: Samir Ribic <samir.ribic@etf.unsa.ba>\n"
 "Language-Team: <bs@li.org>\n"
@@ -2542,7 +2542,7 @@ msgstr ""
 "Greška pri otvaranju datoteke <filename>%1</filename> za sinhronizaciju, "
 "greška u liniji: %2"
 
-#: src/mergemode/mergeview.cpp:352
+#: src/mergemode/mergeview.cpp:355
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""

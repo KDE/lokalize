@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 00:48+0000\n"
+"POT-Creation-Date: 2023-08-14 00:48+0000\n"
 "PO-Revision-Date: 2010-12-31 00:39+0700\n"
 "Last-Translator: Phuwanat Sakornsakolpat <narachai@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -2466,7 +2466,7 @@ msgid ""
 msgstr ""
 "มีข้อผิดพลาดขณะเปิดแฟ้ม <filename>%1</filename> เพื่อทำข้อมูลให้ตรงกัน ผิดพลาดที่บรรทัด: %2"
 
-#: src/mergemode/mergeview.cpp:352
+#: src/mergemode/mergeview.cpp:355
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""

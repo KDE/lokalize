@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 00:48+0000\n"
+"POT-Creation-Date: 2023-08-14 00:48+0000\n"
 "PO-Revision-Date: 2008-09-26 14:57+0300\n"
 "Last-Translator: kom <me@komzpa.net>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -2595,7 +2595,7 @@ msgid ""
 "line: %2"
 msgstr ""
 
-#: src/mergemode/mergeview.cpp:352
+#: src/mergemode/mergeview.cpp:355
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""

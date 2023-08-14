@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 00:48+0000\n"
+"POT-Creation-Date: 2023-08-14 00:48+0000\n"
 "PO-Revision-Date: 2022-11-01 00:32+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: kde-i18n-doc@kde.org\n"
@@ -2417,7 +2417,7 @@ msgid ""
 "line: %2"
 msgstr ""
 
-#: src/mergemode/mergeview.cpp:352
+#: src/mergemode/mergeview.cpp:355
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""

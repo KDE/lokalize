@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 00:48+0000\n"
+"POT-Creation-Date: 2023-08-14 00:48+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -2582,7 +2582,7 @@ msgstr ""
 "Erro ao aceder ao ficheiro <filename>%1</filename> para o sincronizar; linha "
 "do erro: %2"
 
-#: src/mergemode/mergeview.cpp:352
+#: src/mergemode/mergeview.cpp:355
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
