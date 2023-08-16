@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-14 00:48+0000\n"
-"PO-Revision-Date: 2023-06-17 05:56+0200\n"
+"PO-Revision-Date: 2023-08-15 18:36+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 23.04.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -3641,32 +3641,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "Carpeta de archivos de plantillas:"
+msgstr "Carpeta de archivos de plantillas de la rama:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3685,13 +3667,10 @@ msgstr ""
 "El modo de sincronización se puede usar para hacer cambios en\n"
 "la traducción de dos ramas simultáneamente.\n"
 "\n"
-"Indique aquí la ruta que corresponde a la carpeta raíz de la rama\n"
-"del proyecto, y la vista de sincronización secundaria abrirá archivos\n"
-"de esta rama automáticamente. Posteriormente, cada vez que haga\n"
-"cambios en los archivos de la rama principal, se replicarán automáticamente\n"
-"en la rama (por supuesto, si contiene el mismo texto en inglés).\n"
-"\n"
-"Consulte la documentación para más detalles."
+"Indique aquí la ruta que corresponde a la carpeta raíz de las plantillas de "
+"la rama del proyecto,\n"
+"y la vista de sincronización secundaria creará archivos de la rama "
+"automáticamente."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
