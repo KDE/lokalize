@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-08 02:39+0000\n"
-"PO-Revision-Date: 2023-06-22 09:23+0400\n"
+"PO-Revision-Date: 2023-08-19 22:37+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -3564,32 +3564,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "مجلّد ملفّات القوالب:"
+msgstr "مجلّد ملفّات القوالب للفرع:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3608,13 +3590,8 @@ msgstr ""
 "يمكن استخدام وضع المزامنة لإجراء تغييرات على الترجمة\n"
 "في فرعين معًا.\n"
 "\n"
-"اضبط هذا إلى المسار المقابِل لمجلّد الجذر للمشروع الفرع،\n"
-"وسيفتح عرض المزامنة الثانوية آليًّا الملفّات من الفرع.\n"
-"بعدها، في كلّ مرة تقوم فيها بتغييرات على ملفّات الفرع\n"
-"الرّئيسي، ستُكرّر ذات التّغييرات آليًّا إلى الفرع\n"
-"(بالطبع، إن كان في الملفّ نفس السّلسلة الإنجليزيّة).\n"
-"\n"
-"طالع التّوثيق لتفاصيل أكثر."
+"اضبط هذا إلى المسار الذي يحوي مجلد ًّالقوالب للمشروع الفرع،\n"
+"وسينشئ عرض المزامنة الثانوية الملفّات من الفرع آليا."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
