@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-14 00:48+0000\n"
-"PO-Revision-Date: 2023-06-10 10:07+0200\n"
+"PO-Revision-Date: 2023-08-20 10:43+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 ">\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.2\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "(n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -257,10 +257,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "Wszystkie obsługiwane pliki (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Wszystkie obsługiwane pliki (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -4420,14 +4419,14 @@ msgstr "TM"
 #| msgid "Source:"
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Ciąg do przetłumaczenia:"
+msgstr "Źródło"
 
 #: src/tm/tmtab.cpp:81
 #, fuzzy, kde-format
 #| msgid "Target:"
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Ciąg przetłumaczony:"
+msgstr "Cel"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
