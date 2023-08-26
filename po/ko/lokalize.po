@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-08 02:39+0000\n"
-"PO-Revision-Date: 2023-07-23 21:38+0200\n"
+"PO-Revision-Date: 2023-08-25 23:03+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -3528,32 +3528,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "템플릿 파일 폴더:"
+msgstr "브랜치 템플릿 파일 폴더:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3572,11 +3554,8 @@ msgstr ""
 "동기화 모드를 사용하면 번역 작업을 두 다른 브랜치에\n"
 "동시에 적용시킬 수 있습니다.\n"
 "\n"
-"이 경로를 브랜치의 기본 경로(두 번째 브랜치의 번역 폴더)로\n"
-"설정하면 두 번째 동기화 보기가 자동으로 열립니다.\n"
-"주 브랜치를 편집하면 부 브랜치에도 자동으로 변경 사항이 적용됩니다.\n"
-"(물론 원문이 같은 경우에 한하여) \n"
-"자세한 사항은 도움말을 참고하십시오."
+"이 경로를 브랜치의 프로젝트 템플릿 폴더의 루트 폴더로\n"
+"설정하면 두 번째 동기화 보기가 브랜치에서 파일을 자동으로 생성합니다."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
