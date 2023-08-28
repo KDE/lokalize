@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-14 00:48+0000\n"
-"PO-Revision-Date: 2023-08-09 18:06+0200\n"
+"PO-Revision-Date: 2023-08-27 10:52+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -4263,7 +4263,7 @@ msgstr "Ezabatu"
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
-msgstr "Lagun faltsua"
+msgstr "Sasiadiskidea"
 
 #: src/tm/qaview.cpp:23
 #, kde-format

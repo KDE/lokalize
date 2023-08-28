@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-14 00:48+0000\n"
-"PO-Revision-Date: 2023-08-02 12:40\n"
+"PO-Revision-Date: 2023-08-27 03:40\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -3457,32 +3457,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "模板文件文件夹："
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3496,18 +3478,6 @@ msgid ""
 "templates folder,\n"
 "and Secondary Sync view will automatically create files from branch."
 msgstr ""
-"此设置用于同步模式。\n"
-"\n"
-"同步模式可用来同时修改两个分支的翻译。\n"
-"\n"
-"将其设定为分支项目的基准目录相符的路径\n"
-"(例如，项目的“翻译目录”作为二级分支)，\n"
-"而二级同步视图将自动从分支中打开文件。\n"
-"这样，每次您在您的主分支作出修改时，\n"
-"它们会自动复制到各个分支中\n"
-"(当然，要在它包含相同英文字符串的时候)。\n"
-"\n"
-"参见文档获取更多详情。"
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
@@ -4499,25 +4469,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert WebQuery result #%1"
-#~ msgstr "插入网络查询结果 #%1"
-
-#~ msgid "&WebQuery"
-#~ msgstr "网络查询(&W)"
-
-#~ msgid "Query"
-#~ msgstr "查询"
-
-#~ msgid "Autoquery"
-#~ msgstr "自动查询"
-
-#~ msgid "Prefetch for the next untranslated"
-#~ msgstr "预读下一条未翻译项"
-
-#~ msgid "Prefetch"
-#~ msgstr "预读"
-
-#~ msgid "Web Queries"
-#~ msgstr "在线查询"
