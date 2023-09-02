@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3454,12 +3454,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "Složka se soubory šablon:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
@@ -4464,22 +4462,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Zkopírovat zdroj do cíle"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert WebQuery result #%1"
-#~ msgstr "Vložit výsledek dotazu na webu #%1"
-
-#~ msgid "&WebQuery"
-#~ msgstr "Dotaz na &webu"
-
-#~ msgid "Query"
-#~ msgstr "Dotaz"
-
-#~ msgid "Autoquery"
-#~ msgstr "Automaticky dotazovat"
-
-#~ msgid "Prefetch"
-#~ msgstr "Přednačítat"
-
-#~ msgid "Web Queries"
-#~ msgstr "Dotazy na webu"
