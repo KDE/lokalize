@@ -281,7 +281,7 @@ void MergeCatalog::copyToBaseCatalog(int options)
     DocPosition pos;
     pos.offset = 0;
     bool insHappened = false;
-    const std::list<int> &changed = differentEntries();
+    const std::list<int> changed = differentEntries();
     for (int entry : changed) {
         pos.entry = entry;
         if (options & EmptyOnly && !m_baseCatalog->isEmpty(entry))
