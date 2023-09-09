@@ -193,7 +193,11 @@ endif()
 
 
 ### Build Lokalize executable ###
-set(lokalize_SRCS main.cpp)
+set(lokalize_SRCS
+    main.cpp
+
+    lokalize.qrc
+)
 
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/global/*-apps-lokalize.png")
 ecm_add_app_icon(lokalize_SRCS ICONS ${ICONS_SRCS})
@@ -215,16 +219,6 @@ ecm_qt_install_logging_categories(
         FILE lokalize.categories
         DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
         )
-
-
-install( FILES
-        editorui.rc
-        lokalizemainwindowui.rc
-        scriptsui.rc
-        project/projectmanagerui.rc
-        tm/translationmemoryrui.rc
-        filesearch/filesearchtabui.rc
-        DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/lokalize )
 
 if(BUILD_TESTING)
     add_subdirectory(tests)

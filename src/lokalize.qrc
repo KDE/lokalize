@@ -1,0 +1,11 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/kxmlgui5/lokalize">
+        <file>editorui.rc</file>
+        <file>lokalizemainwindowui.rc</file>
+        <file>scriptsui.rc</file>
+        <file alias="projectmanagerui.rc">project/projectmanagerui.rc</file>
+        <file alias="translationmemoryrui.rc">tm/translationmemoryrui.rc</file>
+        <file alias="filesearchtabui.rc">filesearch/filesearchtabui.rc</file>
+    </qresource>
+</RCC>
