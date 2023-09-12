@@ -10,20 +10,20 @@
 # pan93412 <pan93412@gmail.com>, 2018, 2019, 2020.
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2007, 2008.
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2008, 2009, 2010.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
+# SPDX-FileCopyrightText: 2023 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-14 00:48+0000\n"
-"PO-Revision-Date: 2023-04-30 20:57+0900\n"
+"PO-Revision-Date: 2023-09-12 02:33+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.08.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -141,17 +141,16 @@ msgstr ""
 "您想要在檢視中顯示這份資料嗎？"
 
 #: src/alttransview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "其它翻譯"
+msgstr "有可用的其它翻譯"
 
 #: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "顯示資料檢視"
 
 #: src/alttransview.cpp:254
 #, kde-format
@@ -243,10 +242,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "所有支援的檔案 (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "所有支援的檔案 (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -805,12 +803,10 @@ msgstr "快速搜尋..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "接受正則表達式"
+msgstr "可用 Ctrl+L 觸發。接受正則表達式"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -1426,12 +1422,10 @@ msgid "This changes only empty entries"
 msgstr "這只會改變空的條目"
 
 #: src/editortab.cpp:706
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "（已修復）"
+msgstr "（已復原）"
 
 #: src/editortab.cpp:750 src/editortab.cpp:767 src/editortab.cpp:938
 #: src/editortab.cpp:952
@@ -1626,26 +1620,22 @@ msgid ""
 msgstr "您想要在本機搜尋來源檔案或是透過 lxr.kde.org 呢？"
 
 #: src/editortab.cpp:1523
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "查詢來源檔案"
 
 #: src/editortab.cpp:1524
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "本地端"
+msgstr "在本機搜尋"
 
 #: src/editortab.cpp:1525 src/editortab.cpp:1578
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "在 lxr.kde.org 搜尋"
 
 #: src/editortab.cpp:1528 src/editortab.cpp:1581 src/editortab.cpp:1610
 #, kde-format
@@ -1674,12 +1664,10 @@ msgstr ""
 "您想要變更來源檔案資料夾嗎？"
 
 #: src/editortab.cpp:1577
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Subject Field"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "主旨欄位"
+msgstr "選擇資料夾"
 
 #: src/editortab.cpp:1602
 #, kde-format
@@ -2822,24 +2810,19 @@ msgid ""
 msgstr "您所操作的功能需要先載入一個專案。您要建立新專案，還是開啟現有的專案？"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "專案概觀"
+msgstr "需要專案"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "專案"
+msgstr "建立專案"
 
 #: src/prefs/prefs.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "開啟專案"
@@ -3444,14 +3427,11 @@ msgstr "自動換行："
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
-#| "value '-1' to disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap."
-msgstr "用於對類 msgfmt 自動換行的寬度。使用負數數值 \"-1\" 停用自動換行。"
+msgstr "用於對類 msgfmt 自動換行的寬度。使用數值 '0' 來停用自動換行。"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3523,32 +3503,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "樣本檔目錄："
+msgstr "分支樣本檔資料夾："
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3562,16 +3524,12 @@ msgid ""
 "templates folder,\n"
 "and Secondary Sync view will automatically create files from branch."
 msgstr ""
-"這個設定是用於同步模式。\n"
+"這是同步模式的設定。\n"
 "\n"
-"同步模式可能用於同時改變兩個分支中的翻譯。\n"
+"同步模式可以用來同時改變兩個分支中的翻譯。\n"
 "\n"
-"將此路徑設定為相對於該分支的根目錄\n"
-"第二同步檢視就會自動從分支中開啟檔案。\n"
-"然後，每次您變更主分支中的檔案時，它會自動將\n"
-"分支中的檔案，有相同字串的地方一起做變更。\n"
-"\n"
-"詳情請參考文件說明。"
+"將此路徑設為對應分支專案樣本檔資料夾的根資料夾的路徑，\n"
+"第二同步檢視就會自動從分支中建立檔案。"
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
@@ -3900,14 +3858,12 @@ msgid "Translate OpenDocument"
 msgstr "翻譯 OpenDocument"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:164
 #, kde-format
@@ -4303,18 +4259,16 @@ msgid "TM"
 msgstr "翻譯記憶體"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "原文："
+msgstr "原文：%1"
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "譯文："
+msgstr "譯文：%1"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
