@@ -371,6 +371,7 @@ Name[ta]=மொத்த மொழிபெயர்ப்பு முடிவ
 Name[tr]=Toplu Çeviri Tamamlandı
 Name[uk]=Пакетний переклад завершено
 Name[x-test]=xxBatch Translation Completedxx
+Name[zh_TW]=批次翻譯已完成
 Action=Popup
 
 [Event/BatchTranslationScheduled]
@@ -403,5 +404,6 @@ Name[ta]=மொத்த மொழிபெயர்ப்பு திட்ட
 Name[tr]=Toplu Çeviri Zamanlandı
 Name[uk]=Заплановано пакетний переклад
 Name[x-test]=xxBatch Translation Scheduledxx
+Name[zh_TW]=已排定批次翻譯
 Action=Popup
 
