@@ -166,8 +166,8 @@ msgid ""
 msgstr ""
 "<p>A vegades, si el text original ha canviat, la seua traducció es torna "
 "obsoleta i es marca com que <emphasis>s'ha&nbsp;de&nbsp;revisar</emphasis> "
-"(p. ex. perd l'estat d'aprovada), o (només en cas de fitxers XLIFF) es mou a "
-"la secció de <emphasis>traduccions&nbsp;alternatives</emphasis> que "
+"(p. ex., perd l'estat d'aprovada), o (només en cas de fitxers XLIFF) es mou "
+"a la secció de <emphasis>traduccions&nbsp;alternatives</emphasis> que "
 "acompanya la unitat.</p><p>Esta vista d'eina també mostra les diferències "
 "entre la cadena actual original i l'anterior, de manera que vos resulte "
 "fàcil veure quins canvis s'han d'aplicar a la traducció existent per a "
@@ -398,7 +398,7 @@ msgid ""
 "omission of some of its letters (e.g. 'adj.' for 'adjective')"
 msgstr ""
 "abreviatura: una forma abreviada d'un terme senzill que resulta de l'omissió "
-"d'alguna de les seues lletres (p. ex. «adj» per a «adjectiu»)"
+"d'alguna de les seues lletres (p. ex., «adj» per a «adjectiu»)"
 
 #: src/catalog/catalogstring.cpp:121
 #, kde-format
@@ -410,7 +410,7 @@ msgid ""
 msgstr ""
 "acrònim: una forma abreviada d'un terme construïda per lletres de la forma "
 "completa d'un terme de diverses paraules encadenades a una seqüència que es "
-"llig a partir de les síl·labes (p. ex. «OTAN» per a «Organització del "
+"llig a partir de les síl·labes (p. ex., «OTAN» per a «Organització del "
 "Tractat de l'Atlàntic Nord»)"
 
 #: src/catalog/catalogstring.cpp:122
@@ -507,7 +507,7 @@ msgid ""
 msgstr ""
 "sigles: una forma abreviada d'un terme multiparaula que consistix d'algunes "
 "de les lletres inicials de les paraules que componen el terme quan estes "
-"lletres es pronuncien individualment (p. ex. «EEB» per a «Encefalopatia "
+"lletres es pronuncien individualment (p. ex., «EEB» per a «Encefalopatia "
 "Espongiforme Bovina»)"
 
 #: src/catalog/catalogstring.cpp:131
@@ -633,7 +633,7 @@ msgid ""
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
 "forma curta: una variant d'un terme multiparaula que inclou menys paraules "
-"que la forma completa del terme (p. ex. «grup dels vint-i-quatre» per a "
+"que la forma completa del terme (p. ex., «grup dels vint-i-quatre» per a "
 "«grup dels vint-i-quatre per a afers monetaris internacionals»)"
 
 #: src/catalog/catalogstring.cpp:145
@@ -723,7 +723,7 @@ msgid ""
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
 "terme truncat: una forma abreujada d'un terme resultant de l'omissió d'un o "
-"més elements o síl·labes del terme (p. ex. «flu» per a «influència»)"
+"més elements o síl·labes del terme (p. ex., «flu» per a «influència»)"
 
 #: src/catalog/catalogstring.cpp:154
 #, kde-format
@@ -3776,7 +3776,7 @@ msgstr ""
 "de projectes i idiomes completament diferents.\n"
 "\n"
 "Per exemple, si teniu diversos projectes per a traduir aplicacions de KDE\n"
-"(p. ex. que siguen a repositoris diferents), utilitzeu el mateix ID per a\n"
+"(p. ex., que siguen a repositoris diferents), utilitzeu el mateix ID per a\n"
 "tots ells."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
