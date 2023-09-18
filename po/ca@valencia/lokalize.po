@@ -849,7 +849,7 @@ msgstr "Busca ràpida..."
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "S'activa amb Ctrl+L. Accepta expressions regulars"
+msgstr "S'activa amb «Ctrl+L». Accepta expressions regulars"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -2160,7 +2160,7 @@ msgid ""
 "When adding a new item, press enter after you have typed its name for "
 "changes to take effect"
 msgstr ""
-"En afegir un element nou, premeu Retorn després d'escriure'n el nom per a "
+"En afegir un element nou, premeu «Retorn» després d'escriure'n el nom per a "
 "fer efectius els canvis"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
