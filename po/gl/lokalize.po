@@ -87,7 +87,7 @@ msgid ""
 "Could not find template file for the merge:\n"
 "%1"
 msgstr ""
-"Non se puido atopar o ficheiro de modelo da fusión:\n"
+"Non foi posíbel atopar o ficheiro de modelo da fusión:\n"
 "%1"
 
 #. i18n: tag collection attribute text
@@ -1548,7 +1548,7 @@ msgid ""
 "Could not perform file autosaving.\n"
 "The target file was %1."
 msgstr ""
-"Non se puido gardar automaticamente o ficheiro.\n"
+"Non foi posíbel gardar automaticamente o ficheiro.\n"
 "O ficheiro de destino era %1."
 
 #: src/editortab.cpp:1016
@@ -1715,7 +1715,7 @@ msgid ""
 "Could not find source file in the folder specified.\n"
 "Do you want to change source files folder?"
 msgstr ""
-"Non se puido atopar o ficheiro fonte no cartafol indicado.\n"
+"Non foi posíbel atopar o ficheiro fonte no cartafol indicado.\n"
 "Quere cambiar o cartafol dos ficheiros fonte?"
 
 #: src/editortab.cpp:1614
@@ -1738,10 +1738,10 @@ msgid ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 msgstr ""
-"Non se pode abrir o ficheiro de fontes: A ruta do ficheiro non é relativa ao "
-"ficheiro de tradución, e non ten guións cargados para xestionar a apertura "
-"de ficheiros en rutas personalizadas. No manual de Lokalize hai exemplos de "
-"guións e información para configuralos nos seus proxectos."
+"Non é posíbel abrir o ficheiro de fontes: A ruta do ficheiro non é relativa "
+"ao ficheiro de tradución, e non ten guións cargados para xestionar a "
+"apertura de ficheiros en rutas personalizadas. No manual de Lokalize hai "
+"exemplos de guións e información para configuralos nos seus proxectos."
 
 #: src/editortab.cpp:1688 src/project/project.cpp:465
 #: src/project/project.cpp:470
