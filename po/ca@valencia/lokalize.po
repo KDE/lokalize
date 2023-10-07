@@ -2406,8 +2406,8 @@ msgstr "Google Inc."
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr ""
-"Ha patrocinat el desenvolupament com a part del programa a Google Summer of "
-"Code"
+"Ha patrocinat el desenvolupament com a part del programa en la Google Summer "
+"of Code"
 
 #: src/main.cpp:62
 #, kde-format
