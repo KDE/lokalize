@@ -4698,21 +4698,3 @@ msgstr "エラーが発生しました: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "原文を翻訳にコピー"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation complete"
-#~ msgstr "一括翻訳完了"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation"
-#~ msgstr "一括翻訳"
-
-#, fuzzy
-#~| msgid "Remove"
-#~ msgctxt "Button label"
-#~ msgid "Remove"
-#~ msgstr "削除"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Activated by Ctrl+L."
-#~ msgstr "Ctrl+L でアクティブ化"
