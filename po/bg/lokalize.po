@@ -4698,23 +4698,3 @@ msgstr "Съобщение за грешка:%1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Копиране на оригинала в превода"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation complete"
-#~ msgstr "Автоматичният превод е завършен"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation"
-#~ msgstr "Автоматичен превод"
-
-#~ msgctxt "Button label"
-#~ msgid "Remove"
-#~ msgstr "Премахване"
-
-#~ msgctxt "Button label"
-#~ msgid "Cancel"
-#~ msgstr "Отказ"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Activated by Ctrl+L."
-#~ msgstr "Задействане с Ctrl+L."
