@@ -1505,13 +1505,13 @@ msgstr "Seleccione un ficheiro de tradución"
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
-msgstr "Ocorreu un erro ao abrir o ficheiro %1, liña: %2"
+msgstr "Produciuse un erro ao abrir o ficheiro %1, liña: %2"
 
 #: src/editortab.cpp:871
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
-msgstr "Ocorreu un erro ao abrir o ficheiro %1."
+msgstr "Produciuse un erro ao abrir o ficheiro %1."
 
 #: src/editortab.cpp:878
 #, kde-format
@@ -1526,7 +1526,7 @@ msgid ""
 "Error saving the file %1\n"
 "Do you want to save to another file or cancel?"
 msgstr ""
-"Ocorreu un erro ao gardar o ficheiro %1.\n"
+"Produciuse un erro ao gardar o ficheiro %1.\n"
 "Quere gardar noutro ficheiro ou cancelar?"
 
 #: src/editortab.cpp:905
