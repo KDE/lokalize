@@ -167,7 +167,7 @@ msgstr ""
 "<p>A vegades, si el text original ha canviat, la seua traducció es torna "
 "obsoleta i es marca com que <emphasis>s'ha&nbsp;de&nbsp;revisar</emphasis> "
 "(p. ex., perd l'estat d'aprovada), o (només en cas de fitxers XLIFF) es mou "
-"a la secció de <emphasis>traduccions&nbsp;alternatives</emphasis> que "
+"cap a la secció de <emphasis>traduccions&nbsp;alternatives</emphasis> que "
 "acompanya la unitat.</p><p>Esta vista d'eina també mostra les diferències "
 "entre la cadena actual original i l'anterior, de manera que vos resulte "
 "fàcil veure quins canvis s'han d'aplicar a la traducció existent per a "
@@ -1220,7 +1220,7 @@ msgstr "Aprovada"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and go to next"
-msgstr "Aprova i ves a la següent"
+msgstr "Aprova i ves fins a la següent"
 
 #: src/editortab.cpp:489
 #, kde-format
@@ -1556,7 +1556,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
-msgstr "Salta a l'entrada"
+msgstr "Salta fins a l'entrada"
 
 #: src/editortab.cpp:1017
 #, kde-format
@@ -3331,14 +3331,14 @@ msgstr "Camí del servidor:"
 #: src/prefs/prefs_languagetool.ui:44
 #, kde-format
 msgid "The path of your custom Language Tool server"
-msgstr "El camí al servidor personalitzat de LanguageTool"
+msgstr "El camí cap al servidor personalitzat de LanguageTool"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:47
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
 msgstr ""
-"Introduïu el camí al servidor personalitzat de LanguageTool, si n'hi ha"
+"Introduïu el camí cap al servidor personalitzat de LanguageTool, si n'hi ha"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_languagetool.ui:58
@@ -3707,7 +3707,7 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
-"Establiu açò a un camí a una carpeta amb estructura similar a la carpeta "
+"Establiu açò a un camí cap a una carpeta amb estructura similar a la carpeta "
 "arrel.\n"
 "\n"
 "Per a cada fitxer de traducció obert, es buscarà un fitxer corresponent al\n"
@@ -4407,7 +4407,7 @@ msgstr "Propietats de la memòria de traducció"
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr ""
-"Seleccioneu un fitxer TMX per a importar-lo cap a la base de dades "
+"Seleccioneu un fitxer TMX per a importar-lo cap a dins de la base de dades "
 "seleccionada"
 
 #: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:235
