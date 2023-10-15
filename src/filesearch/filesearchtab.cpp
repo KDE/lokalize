@@ -26,7 +26,6 @@
 
 #include <QApplication>
 #include <QElapsedTimer>
-#include <QDesktopWidget>
 #include <QTreeView>
 #include <QClipboard>
 #include <QShortcut>

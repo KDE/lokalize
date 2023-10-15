@@ -21,7 +21,6 @@
 #include "fastsizehintitemdelegate.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QTreeView>
 #include <QSqlQueryModel>
 #include <QSqlQuery>

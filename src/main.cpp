@@ -29,7 +29,6 @@
 #include <QString>
 #include <QFile>
 #include <QFileInfo>
-#include <QDesktopWidget>
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
