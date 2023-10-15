@@ -126,7 +126,10 @@ QSize FlowLayout::minimumSize() const
     for (QLayoutItem* item : itemList)
         size = size.expandedTo(item->minimumSize());
 
-    size += QSize(2 * margin(), 2 * margin());
+    int left, top, right, bottom;
+    getContentsMargins(&left, &top, &right, &bottom);
+
+    size += QSize(left + right, bottom + top);
     return size;
 }
 
@@ -157,7 +160,7 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
 void FlowLayout::clearTerms()
 {
     setEnabled(false);
-    for (QLayoutItem* item : qAsConst(itemList))
+    for (QLayoutItem* item : std::as_const(itemList))
         static_cast<TermLabel*>(item->widget())->hide();
     m_index = 0;
     setEnabled(true);

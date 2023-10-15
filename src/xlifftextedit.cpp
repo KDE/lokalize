@@ -443,12 +443,12 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         //qCWarning(LOKALIZE_LOG)<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
         QString target = m_catalog->targetWithTags(pos).string;
-        const QStringRef addedText = editText.midRef(offset, charsAdded);
+        const QString addedText = editText.mid(offset, charsAdded);
 
 //BEGIN XLIFF markup handling
         //protect from tag removal
         //TODO use midRef when Qt 4.8 is in distros
-        bool markupRemoved = charsRemoved && target.midRef(offset, charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
+        bool markupRemoved = charsRemoved && target.mid(offset, charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
         bool markupAdded = charsAdded && addedText.contains(TAGRANGE_IMAGE_SYMBOL);
         if (markupRemoved || markupAdded) {
             bool modified = false;
@@ -466,7 +466,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             } else if (!markupAdded) { //check if all { plus } tags were selected
                 modified = removeTargetSubstring(offset, charsRemoved, /*refresh*/false);
                 if (modified && charsAdded)
-                    m_catalog->push(new InsTextCmd(m_catalog, pos, addedText.toString()));
+                    m_catalog->push(new InsTextCmd(m_catalog, pos, addedText));
             }
 
             //qCWarning(LOKALIZE_LOG)<<"calling showPos";
@@ -485,7 +485,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             _oldMsgstrAscii = editTextAscii;
             //qCWarning(LOKALIZE_LOG)<<"char"<<editText[offset].unicode();
             if (charsAdded)
-                m_catalog->push(new InsTextCmd(m_catalog, pos, addedText.toString()));
+                m_catalog->push(new InsTextCmd(m_catalog, pos, addedText));
 
         }
 
@@ -605,7 +605,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             QByteArray a;
             QDataStream out(&a, QIODevice::WriteOnly);
             QVariant v;
-            v.setValue<CatalogString>(catalogString);
+            // TODO KF6 v.setValue<CatalogString>(catalogString);
             out << v;
             mimeData->setData(LOKALIZE_XLIFF_MIMETYPE, a);
         }
@@ -634,9 +634,9 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     void TranslationUnitTextEdit::dropEvent(QDropEvent * event) {
         //Ensure the cursor moves to the correct location
         if (m_part == DocPosition::Target) {
-            setTextCursor(cursorForPosition(event->pos()));
+            setTextCursor(cursorForPosition(event->position().toPoint()));
             //This is a copy modifier, disable the selection flags
-            if (event->keyboardModifiers() & Qt::ControlModifier) {
+            if (event->modifiers() & Qt::ControlModifier) {
                 m_cursorSelectionEnd = 0;
                 m_cursorSelectionStart = 0;
             }
@@ -818,7 +818,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                         && !isMasked(str, pos - 1))
                         ins = QLatin1Char('\\');
                     // if there is no new line at the end
-                    if (pos < 2 || str.midRef(pos - 2, 2) != QLatin1String("\\n"))
+                    if (pos < 2 || str.mid(pos - 2, 2) != QLatin1String("\\n"))
                         ins += QLatin1Char(' ');
                 } else if (str.isEmpty()) {
                     ins = QStringLiteral("\\n");
@@ -1060,7 +1060,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             else
                 Q_EMIT gotoNextUntranslatedRequested();
             break;
-        case Qt::ControlModifier + Qt::ShiftModifier:
+        case Qt::ControlModifier | Qt::ShiftModifier:
             if (event->angleDelta().y() > 0)
                 Q_EMIT gotoPrevFuzzyUntrRequested();
             else
@@ -1236,13 +1236,13 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         //TODO ask for the fillment if the first time.
         //BEGIN KDE specific part
         if (ctxt.startsWith(QLatin1String("NAME OF TRANSLATORS")) || text.startsWith(QLatin1String("_: NAME OF TRANSLATORS\\n"))) {
-            if (!document()->toPlainText().split(delimiter).contains(Settings::authorLocalizedName())) {
+            if (!delimiter.splitString(document()->toPlainText()).contains(Settings::authorLocalizedName())) {
                 if (!document()->isEmpty())
                     out = QLatin1String(", ");
                 out += Settings::authorLocalizedName();
             }
         } else if (ctxt.startsWith(QLatin1String("EMAIL OF TRANSLATORS")) || text.startsWith(QLatin1String("_: EMAIL OF TRANSLATORS\\n"))) {
-            if (!document()->toPlainText().split(delimiter).contains(Settings::authorEmail())) {
+            if (!delimiter.splitString(document()->toPlainText()).contains(Settings::authorEmail())) {
                 if (!document()->isEmpty())
                     out = QLatin1String(", ");
                 out += Settings::authorEmail();

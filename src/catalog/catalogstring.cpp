@@ -13,6 +13,7 @@
 
 #include <klocalizedstring.h>
 
+#include <QIODevice>
 
 const char* InlineTag::getElementName(InlineElement type)
 {
@@ -302,7 +303,7 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
     }
     //qCWarning(LOKALIZE_LOG) << "HERE 1" << target.string;
     //now walk through unmatched tags and properly remove them.
-    for (const InlineTag& tag : qAsConst(oldTags)) {
+    for (const InlineTag& tag : std::as_const(oldTags)) {
         if (tag.isPaired())
             target.remove(tag.end, 1);
         target.remove(tag.start, 1);

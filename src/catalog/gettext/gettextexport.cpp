@@ -37,7 +37,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         QTextCodec* codec)
 {
     QTextStream stream(device);
-    stream.setCodec(codec);
+    // TODO KF6 stream.setCodec(codec);
 
     // only save header if it is not empty
     const QString& headerComment(catalog->m_header.comment());

@@ -14,8 +14,10 @@
 #include <sonnet/highlighter.h>
 #include <sonnet/speller.h>
 #include <kcolorscheme.h>
+#include <KStatefulBrush>
 
 #include <QHash>
+#include <QRegExp>
 #include <QTextCharFormat>
 
 

@@ -51,7 +51,7 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
         QString string = catalog->targetWithTags(pos).string;
         string.remove(accel);
 
-        const QStringList words = string.toLower().split(rxSplit, Qt::SkipEmptyParts);
+        const QStringList words = rxSplit.splitString(string.toLower(), Qt::SkipEmptyParts);
         for (const QString& word : words) {
             if (word.length() < wordCompletionLength)
                 continue;

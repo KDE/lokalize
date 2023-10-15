@@ -23,6 +23,7 @@
 #include <QXmlStreamReader>
 #include <QBuffer>
 #include <QApplication>
+#include <QRegExp>
 
 #include <klocalizedstring.h>
 
@@ -141,7 +142,7 @@ void GlossarySortFilterProxyModel::setFilterRegExp(const QString& s)
         return;
 
     //static const QRegExp lettersOnly("^[a-z]");
-    QSortFilterProxyModel::setFilterRegExp(s);
+    // TODO KF6 QSortFilterProxyModel::setFilterRegExp(s);
 
     fetchMore(QModelIndex());
 }
@@ -264,7 +265,7 @@ QByteArray Glossary::generateNewId()
     QRegExp rx(QLatin1Char('^') + authorId + QStringLiteral("\\-([0-9]*)$"));
 
 
-    for (const QByteArray& id : qAsConst(m_idsForEntriesById)) {
+    for (const QByteArray& id : std::as_const(m_idsForEntriesById)) {
         if (rx.exactMatch(QString::fromLatin1(id)))
             busyIdNumbers.append(rx.cap(1).toInt());
     }
@@ -302,7 +303,7 @@ QByteArray Glossary::id(int index) const
 QStringList Glossary::terms(const QByteArray& id, const QString& language) const
 {
     QString minusLang = language; minusLang.replace(QLatin1Char('_'), QLatin1Char('-'));
-    QStringRef soleLang = language.leftRef(2);
+    const QString soleLang = language.left(2);
     QStringList result;
     QDomElement n = m_entriesById.value(id).firstChildElement(langSet);
     while (!n.isNull()) {
@@ -334,7 +335,7 @@ static void getElementsForTermLangIndex(QDomElement termEntry, QString& lang, in
                                         QDomElement& termElement)
 {
     QString minusLang = lang; minusLang.replace(QLatin1Char('_'), QLatin1Char('-'));
-    QStringRef soleLang = lang.leftRef(2);
+    const QString soleLang = lang.left(2);
 
     QDomElement n = termEntry.firstChildElement(langSet);
     QDomDocument document = n.ownerDocument();

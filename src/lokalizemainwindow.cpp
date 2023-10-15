@@ -105,7 +105,7 @@ void LokalizeMainWindow::initLater()
 
     if (!Project::instance()->isTmSupported()) {
         KNotification* notification = new KNotification(QStringLiteral("NoSqlModulesAvailable"));
-        notification->setWidget(this);
+        // TODO KF6 notification->setWidget(this);
         notification->setText(i18nc("@info", "No Qt Sql modules were found. Translation memory will not work."));
         notification->sendEvent();
     }
@@ -280,7 +280,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     connect(w, qOverload<const QString &, const QString &, const QString &, const bool>(&EditorTab::fileOpenRequested), this, qOverload<const QString &, const QString &, const QString &, const bool>(&LokalizeMainWindow::fileOpen));
     connect(w, qOverload<const QString &, const QString &>(&EditorTab::tmLookupRequested), this, qOverload<const QString &, const QString &>(&LokalizeMainWindow::lookupInTranslationMemory));
 
-    QStringRef fnSlashed = filePath.midRef(filePath.lastIndexOf(QLatin1Char('/')));
+    const QString fnSlashed = filePath.mid(filePath.lastIndexOf(QLatin1Char('/')));
     FileToEditor::const_iterator i = m_fileToEditor.constBegin();
     while (i != m_fileToEditor.constEnd()) {
         if (i.key().endsWith(fnSlashed)) {
@@ -471,19 +471,19 @@ void LokalizeMainWindow::setupActions()
     //KStandardAction::close(m_mdiArea, SLOT(closeActiveSubWindow()), ac);
 
     actionCategory = file;
-    ADD_ACTION_SHORTCUT("next-tab", i18n("Next tab"), Qt::ControlModifier + Qt::Key_Tab)
+    ADD_ACTION_SHORTCUT("next-tab", i18n("Next tab"), Qt::ControlModifier | Qt::Key_Tab)
     connect(action, &QAction::triggered, m_mdiArea, &LokalizeMdiArea::activateNextSubWindow);
 
-    ADD_ACTION_SHORTCUT("prev-tab", i18n("Previous tab"), Qt::ControlModifier + Qt::ShiftModifier + Qt::Key_Tab)
+    ADD_ACTION_SHORTCUT("prev-tab", i18n("Previous tab"), Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_Tab)
     connect(action, &QAction::triggered, m_mdiArea, &LokalizeMdiArea::activatePreviousSubWindow);
 
-    ADD_ACTION_SHORTCUT("prev-active-tab", i18n("Previously active tab"), Qt::ControlModifier + Qt::Key_BracketLeft)
+    ADD_ACTION_SHORTCUT("prev-active-tab", i18n("Previously active tab"), Qt::ControlModifier | Qt::Key_BracketLeft)
     connect(action, &QAction::triggered, m_mdiArea, &QMdiArea::activatePreviousSubWindow);
 
 //Tools
     actionCategory = glossary;
     Project* project = Project::instance();
-    ADD_ACTION_SHORTCUT("tools_glossary", i18nc("@action:inmenu", "Glossary"), Qt::ControlModifier + Qt::AltModifier + Qt::Key_G)
+    ADD_ACTION_SHORTCUT("tools_glossary", i18nc("@action:inmenu", "Glossary"), Qt::ControlModifier | Qt::AltModifier | Qt::Key_G)
     connect(action, &QAction::triggered, project, &Project::showGlossary);
 
     actionCategory = tm;
@@ -526,7 +526,7 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_filesearch", i18nc("@action:inmenu", "Search and replace in files"), Qt::Key_F6)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::showFileSearchAction);
 
-    ADD_ACTION_SHORTCUT("tools_filesearch_next", i18nc("@action:inmenu", "Find next in files"), Qt::META + Qt::Key_F3)
+    ADD_ACTION_SHORTCUT("tools_filesearch_next", i18nc("@action:inmenu", "Find next in files"), Qt::META | Qt::Key_F3)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::fileSearchNext);
 
     action = ac->addAction(QStringLiteral("tools_widgettextcapture"), this, SLOT(widgetTextCapture()));
@@ -706,7 +706,7 @@ void LokalizeMainWindow::projectLoaded()
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
         KNotification* notification = new KNotification(QStringLiteral("FilesOpenError"));
-        notification->setWidget(this);
+        // TODO KF6 notification->setWidget(this);
         notification->setText(i18nc("@info", "Error opening the following files:\n\n") + QStringLiteral("<filename>") + failedFiles.join(QLatin1String("</filename><br><filename>")) + QStringLiteral("</filename>"));
         notification->sendEvent();
     }

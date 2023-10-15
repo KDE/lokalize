@@ -27,6 +27,7 @@
 #include <kmessagebox.h>
 #include <knotification.h>
 
+#include <QRegExp>
 #include <QTime>
 #include <QDragEnterEvent>
 #include <QMimeData>
@@ -99,7 +100,7 @@ static DiffInfo getDiffInfo(const QString& diff)
         } else {
             if (state != '+') {
                 d.old.append(diff.at(pos));
-                d.old2DiffClean.append(d.diffIndex.count());
+                d.old2DiffClean.append(d.diffIndex.length());
             }
             d.diffIndex.append(state);
             d.diffClean.append(diff.at(pos));
@@ -140,7 +141,7 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
 
 TMView::~TMView()
 {
-    for (auto job : qAsConst(m_jobs)) {
+    for (auto job : std::as_const(m_jobs)) {
         [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
     }
 }
@@ -198,7 +199,7 @@ void TMView::slotFileLoaded(const QString& filePath)
         return;
 
     m_cache.clear();
-    for (auto job : qAsConst(m_jobs)) {
+    for (auto job : std::as_const(m_jobs)) {
         [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
     }
     m_jobs.clear();
@@ -286,7 +287,7 @@ void TMView::slotBatchSelectDone()
     }
 
     KNotification *notification = new KNotification(QStringLiteral("BatchTranslationCompleted"));
-    notification->setWidget(this);
+    // TODO KF6 notification->setWidget(this);
     notification->setText(msg);
     notification->sendEvent();
 }
@@ -301,7 +302,7 @@ void TMView::slotBatchTranslate()
         return slotBatchSelectDone();
 
     KNotification *notification = new KNotification(QStringLiteral("BatchTranslationScheduled"));
-    notification->setWidget(this);
+    // TODO KF6 notification->setWidget(this);
     notification->setText(i18nc("@info", "Batch translation has been scheduled."));
     notification->sendEvent();
 }
@@ -316,7 +317,7 @@ void TMView::slotBatchTranslateFuzzy()
         slotBatchSelectDone();
 
     KNotification *notification = new KNotification(QStringLiteral("BatchTranslationScheduled"));
-    notification->setWidget(this);
+    // TODO KF6 notification->setWidget(this);
     notification->setText(i18nc("@info", "Batch translation has been scheduled."));
     notification->sendEvent();
 }
@@ -331,7 +332,7 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     if (m_catalog->numberOfEntries() <= pos.entry)
         return;//because of Qt::QueuedConnection
 
-    for (auto job : qAsConst(m_jobs)) {
+    for (auto job : std::as_const(m_jobs)) {
         [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
     }
 

@@ -9,12 +9,11 @@ set (RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE
 
 project(lokalize VERSION ${RELEASE_SERVICE_VERSION})
 
-set(QT_MIN_VERSION "5.15.2")
-set(KF5_MIN_VERSION "5.90.0")
-set(KDE_COMPILERSETTINGS_LEVEL "5.85")
+set(QT_MIN_VERSION "6.5.0")
+set(KF_MIN_VERSION "5.240.0")
 
 # search packages used
-find_package(ECM ${KF5_MIN_VERSION} REQUIRED CONFIG)
+find_package(ECM ${KF_MIN_VERSION} REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
@@ -23,9 +22,9 @@ include(ECMAddAppIcon)
 include(ECMQtDeclareLoggingCategory)
 include(ECMAddTests)
 
-find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Sql Test)
+find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Sql Core5Compat)
 
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED I18n TextWidgets KIO XmlGui Notifications Config CoreAddons DocTools Sonnet DBusAddons Crash)
+find_package(KF6 ${KF_MIN_VERSION} REQUIRED I18n TextWidgets KIO XmlGui Notifications Config CoreAddons DocTools Sonnet DBusAddons Crash)
 
 find_package(HUNSPELL)
 set_package_properties(

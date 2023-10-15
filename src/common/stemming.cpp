@@ -40,10 +40,10 @@ struct SpellerAndCodec {
 SpellerAndCodec::SpellerAndCodec(const QString& langCode)
 {
 #ifdef Q_OS_MAC
-    QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") + langCode.leftRef(2) + QLatin1Char('/');
+    QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") + langCode.left(2) + QLatin1Char('/');
     if (langCode == QLatin1String("pl_PL")) dictPath = QStringLiteral("/System/Library/Spelling/");
 #elif defined(Q_OS_WIN)
-    QString dictPath = QStringLiteral("C:/Program Files (x86)/LibreOffice 5/share/extensions/dict-") + langCode.leftRef(2) + QLatin1Char('/');
+    QString dictPath = QStringLiteral("C:/Program Files (x86)/LibreOffice 5/share/extensions/dict-") + langCode.left(2) + QLatin1Char('/');
 #else
     QString dictPath = QStringLiteral("/usr/share/hunspell/");
     if (!QFileInfo::exists(dictPath))
@@ -95,7 +95,7 @@ QString stem(const QString& langCode, const QString& word)
 void cleanupSpellers()
 {
 #ifdef HAVE_HUNSPELL
-    for (const SpellerAndCodec& sc : qAsConst(hunspellers))
+    for (const SpellerAndCodec& sc : std::as_const(hunspellers))
         delete sc.speller;
 
 #endif

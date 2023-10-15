@@ -55,7 +55,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     QString dbName = QStringLiteral("metainfocache");
     if (!QSqlDatabase::contains(dbName)) {
         QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), dbName);
-        db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + dbName + QLatin1String(".sqlite"));
+        db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1Char('/') + dbName + QLatin1String(".sqlite"));
         if (Q_UNLIKELY(!db.open()))
             return FileMetaData::extract(file.localPath());
         initDataBase(db);
@@ -68,7 +68,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
 
     QSqlQuery queryCache(db);
     queryCache.prepare(QStringLiteral("SELECT * from metadata where filepath=?"));
-    queryCache.bindValue(0, qHash(file.localPath()));
+    // TODO KF6 queryCache.bindValue(0, qHash(file.localPath()));
     queryCache.exec();
     //not using file.time(KFileItem::ModificationTime) because it gives wrong result for files that have just been saved in editor
     if (queryCache.next() && QFileInfo(file.localPath()).lastModified() == queryCache.value(2).toDateTime()) {
@@ -91,7 +91,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
 
     query.prepare(QStringLiteral("INSERT INTO metadata (filepath, metadata, changedate) "
                                  "VALUES (?, ?, ?)"));
-    query.bindValue(0, qHash(file.localPath()));
+    // TODO KF6 query.bindValue(0, qHash(file.localPath()));
     query.bindValue(1, result);
     query.bindValue(2, QFileInfo(file.localPath()).lastModified());
     if (Q_UNLIKELY(!query.exec()))

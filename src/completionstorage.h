@@ -11,6 +11,7 @@
 #ifndef COMPLETIONSTORAGE_H
 #define COMPLETIONSTORAGE_H
 #include <QMap>
+#include <QRegExp>
 #include "catalog.h"
 
 class CompletionStorage

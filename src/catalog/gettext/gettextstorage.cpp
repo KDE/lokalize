@@ -240,7 +240,7 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos, bool stripNew
 QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 {
     static const QRegExp alt_trans_mark_re(QStringLiteral("^#\\|"));
-    QStringList prev = m_entries.at(pos.entry).comment().split(QLatin1Char('\n')).filter(alt_trans_mark_re);
+    QStringList prev = alt_trans_mark_re.filterList(m_entries.at(pos.entry).comment().split(QLatin1Char('\n')));
 
     QString oldSingular;
     QString oldPlural;
@@ -258,7 +258,7 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
             if (!cur->isEmpty())
                 (*cur) += QLatin1Char('\n');
             if (!(cur->isEmpty() && (end - start) == 0)) //for multiline msgs
-                (*cur) += it->midRef(start, end - start);
+                (*cur) += it->mid(start, end - start);
         }
         ++it;
     }
@@ -303,11 +303,11 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
     QVector<Note> result;
     QString content;
 
-    const QStringList note = m_entries.at(docPosition.entry).comment().split(QLatin1Char('\n')).filter(re);
+    const QStringList note = re.filterList(m_entries.at(docPosition.entry).comment().split(QLatin1Char('\n')));
 
     for (const QString &s : note) {
         if (s.size() >= preLen) {
-            content += s.midRef(preLen);
+            content += s.mid(preLen);
             content += QLatin1Char('\n');
         }
     }
@@ -340,24 +340,24 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     QStringList commentLines = m_entries.at(pos.entry).comment().split(QLatin1Char('\n'));
 
     static const QRegExp i18n_file_re(QStringLiteral("^#. i18n: file: "));
-    const auto uiLines = commentLines.filter(i18n_file_re);
+    const auto uiLines = i18n_file_re.filterList(commentLines);
     for (const QString &uiLine : uiLines) {
-        const auto fileRefs = uiLine.midRef(15).split(QLatin1Char(' '));
-        for (const QStringRef &fileRef : fileRefs) {
-            result << fileRef.toString();
+        const auto fileRefs = uiLine.mid(15).split(QLatin1Char(' '));
+        for (const QString &fileRef : fileRefs) {
+            result << fileRef;
         }
     }
 
     bool hasUi = !result.isEmpty();
     static const QRegExp cpp_re(QStringLiteral("^#: "));
-    const auto cppLines = commentLines.filter(cpp_re);
+    const auto cppLines = cpp_re.filterList(commentLines);
     for (const QString &cppLine : cppLines) {
-        const auto fileRefs = cppLine.midRef(3).split(QLatin1Char(' '));
-        for (const QStringRef &fileRef : fileRefs) {
+        const auto fileRefs = cppLine.mid(3).split(QLatin1Char(' '));
+        for (const QString &fileRef : fileRefs) {
             if (hasUi && fileRef.startsWith(QLatin1String("rc.cpp:"))) {
                 continue;
             }
-            result << fileRef.toString();
+            result << fileRef;
         }
     }
     return result;

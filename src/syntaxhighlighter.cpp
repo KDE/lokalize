@@ -140,7 +140,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         }
     }
 
-    for (const HighlightingRule &rule : qAsConst(highlightingRules)) {
+    for (const HighlightingRule &rule : std::as_const(highlightingRules)) {
         QRegExp expression(rule.pattern);
         int index = expression.indexIn(text);
         while (index >= 0) {
@@ -187,7 +187,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     const QString text = currentBlock().text();
     QString word = text.mid(start, count);
     if (m_sourceString.contains(word)
-        && project.targetLangCode().leftRef(2) != project.sourceLangCode().leftRef(2))
+        && project.targetLangCode().left(2) != project.sourceLangCode().left(2))
         return;
 
     const QString accel = project.accel();

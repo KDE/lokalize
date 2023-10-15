@@ -41,8 +41,8 @@ ProjectModel::ProjectModel(QObject *parent)
     m_potModel.dirLister()->setNameFilter(QStringLiteral("*.pot"));
 
 #if KCOREADDONS_VERSION < QT_VERSION_CHECK(6, 0, 0) // keep error handling disabled until it is removed
-    m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
-    m_potModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
+    // TODO KF6 m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
+    // TODO KF6 m_potModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
 #endif
 
     connect(&m_poModel, &KDirModel::dataChanged, this, &ProjectModel::po_dataChanged);

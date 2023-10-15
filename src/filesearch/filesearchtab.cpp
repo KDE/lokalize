@@ -189,7 +189,7 @@ void SearchJob::run()
                                && !searchParams.sourcePattern.pattern().contains(QLatin1Char('&'));
     bool removeAmpFromTarget = searchParams.targetPattern.patternSyntax() == QRegExp::FixedString
                                && !searchParams.targetPattern.pattern().contains(QLatin1Char('&'));
-    for (const QString& filePath : qAsConst(files)) {
+    for (const QString& filePath : std::as_const(files)) {
         Catalog catalog(nullptr);
         if (Q_UNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size, true) != 0))
             continue;
@@ -284,7 +284,7 @@ void MassReplaceJob::run()
             CatalogString s = catalog.targetWithTags(docPos);
             int pos = replaceWhat.indexIn(s.string);
             while (pos != -1) {
-                if (!s.string.midRef(pos, replaceWhat.matchedLength()).contains(TAGRANGE_IMAGE_SYMBOL)) {
+                if (!s.string.mid(pos, replaceWhat.matchedLength()).contains(TAGRANGE_IMAGE_SYMBOL)) {
                     docPos.offset = pos;
                     catalog.targetDelete(docPos, replaceWhat.matchedLength());
                     catalog.targetInsert(docPos, replaceWith);
@@ -367,7 +367,7 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
             const QString endBldTag = QStringLiteral("</b >");
 
             if (item.column() == FileSearchModel::Target && !m_replaceWhat.isEmpty()) {
-                result.replace(m_replaceWhat, m_replaceWith);
+                result = m_replaceWhat.replaceIn(result, m_replaceWith);
                 QString escaped = convertToHtml(result, !sr.isApproved);
                 escaped.replace(startBld, startBldTag);
                 escaped.replace(endBld, endBldTag);
@@ -427,7 +427,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     setCentralWidget(w);
 
 
-    QShortcut* sh = new QShortcut(Qt::ControlModifier + Qt::Key_L, this);
+    QShortcut* sh = new QShortcut(Qt::ControlModifier | Qt::Key_L, this);
     connect(sh, &QShortcut::activated, ui_fileSearchOptions->querySource, qOverload<>(&QLineEdit::setFocus));
     setFocusProxy(ui_fileSearchOptions->querySource);
 
@@ -453,13 +453,13 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QAction* a = new QAction(i18n("Copy source to clipboard"), view);
-    a->setShortcut(Qt::ControlModifier + Qt::Key_S);
+    a->setShortcut(Qt::ControlModifier | Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &FileSearchTab::copySourceToClipboard);
     view->addAction(a);
 
     a = new QAction(i18n("Copy target to clipboard"), view);
-    a->setShortcut(QKeySequence(Qt::ControlModifier + Qt::Key_Return));
+    a->setShortcut(QKeySequence(Qt::ControlModifier | Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &FileSearchTab::copyTargetToClipboard);
     view->addAction(a);
@@ -602,7 +602,7 @@ void FileSearchTab::performSearch()
 
 void FileSearchTab::stopSearch()
 {
-    for (auto job : qAsConst(m_runningJobs)) {
+    for (auto job : std::as_const(m_runningJobs)) {
         [[maybe_unused]] const bool result = QThreadPool::globalInstance()->tryTake(job);
     }
     m_runningJobs.clear();

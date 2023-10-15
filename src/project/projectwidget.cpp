@@ -334,8 +334,9 @@ void ProjectWidget::modelReloaded()
         if (setCurrentItem(m_currentItemPathBeforeReload))
             break;
     }
-    if (proxyModel()->filterRegExp().pattern().size() > 2)
-        expandItems();
+    // TODO KF6
+    // if (proxyModel()->filterRegExp().pattern().size() > 2)
+        // expandItems();
 }
 
 

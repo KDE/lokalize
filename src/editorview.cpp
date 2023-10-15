@@ -25,6 +25,7 @@
 #include <QDragEnterEvent>
 
 #include <QLabel>
+#include <QRegExp>
 #include <QHBoxLayout>
 #include <QTabBar>
 #include <QStringBuilder>
@@ -241,7 +242,7 @@ void EditorView::unwrap(TranslationUnitTextEdit* editor)
     if (!editor)
         editor = m_targetTextEdit;
 
-    QTextCursor t = editor->document()->find(QRegExp(QStringLiteral("[^(\\\\n)]$")));
+    QTextCursor t; // TODO KF6 = editor->document()->find(QRegExp(QStringLiteral("[^(\\\\n)]$")));
     if (t.isNull())
         return;
 
@@ -253,11 +254,12 @@ void EditorView::unwrap(TranslationUnitTextEdit* editor)
 
     QRegExp rx(QStringLiteral("[^(\\\\n)>]$"));
     //remove '\n's skipping "\\\\n"
-    while (!(t = editor->document()->find(rx, t)).isNull()) {
-        t.movePosition(QTextCursor::EndOfLine);
-        if (!t.atEnd())
-            t.deleteChar();
-    }
+     // TODO KF6
+    // while (!(t = editor->document()->find(rx, t)).isNull()) {
+        // t.movePosition(QTextCursor::EndOfLine);
+        // if (!t.atEnd())
+            // t.deleteChar();
+    // }
     if (editor == m_targetTextEdit)
         m_catalog->endMacro();
 }

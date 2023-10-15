@@ -14,6 +14,7 @@
 
 #include "catalogfileplugin.h"
 
+#include <QRegExp>
 #include <QStringList>
 #include <QTextStream>
 

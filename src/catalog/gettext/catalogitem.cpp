@@ -15,6 +15,7 @@
 #include "lokalize_debug.h"
 
 #include <QMutexLocker>
+#include <QRegExp>
 
 using namespace GettextCatalog;
 
@@ -92,13 +93,6 @@ void CatalogItem::setMsgid(const QStringList& msg, bool prependEmptyLine)
         it->squeeze();
 }
 
-void CatalogItem::setMsgid(const QVector<QString>& msg)
-{
-    d._msgidPlural = msg;
-    for (QVector<QString>::iterator it = d._msgidPlural.begin(); it != d._msgidPlural.end(); ++it)
-        it->squeeze();
-}
-
 void CatalogItem::setMsgstr(const QString& msg, const int form)
 {
     if (form >= d._msgstrPlural.size())
@@ -118,11 +112,6 @@ void CatalogItem::setMsgstr(const QStringList& msg, bool prependEmptyLine)
     d._msgstrPlural = msg.toVector();
 }
 
-void CatalogItem::setMsgstr(const QVector<QString>& msg)
-{
-    d._msgstrPlural = msg;
-}
-
 void CatalogItem::setComment(const QString& com)
 {
     {
@@ -130,7 +119,7 @@ void CatalogItem::setComment(const QString& com)
         //QMutexLocker reLock(&reMutex); //avoid crash #281033
         //now we have a bigger scale mutex in GettextStorage
         static QRegExp fuzzyRegExp(QStringLiteral("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy"));
-        d._fuzzyCached = com.contains(fuzzyRegExp);
+        d._fuzzyCached = fuzzyRegExp.indexIn(com) != -1;
     }
     d._comment = com;
     d._comment.squeeze();
@@ -284,13 +273,13 @@ void CatalogItem::unsetFuzzy()
     d._fuzzyCached = false;
 
     static const QRegExp rmFuzzyRe(QStringLiteral(",\\s*fuzzy"));
-    d._comment.remove(rmFuzzyRe);
+    rmFuzzyRe.removeIn(d._comment);
 
     // remove empty comment lines
-    d._comment.remove(QRegExp(QStringLiteral("\n#\\s*$")));
-    d._comment.remove(QRegExp(QStringLiteral("^#\\s*$")));
-    d._comment.remove(QRegExp(QStringLiteral("#\\s*\n")));
-    d._comment.remove(QRegExp(QStringLiteral("^#\\s*\n")));
+    QRegExp(QStringLiteral("\n#\\s*$")).removeIn(d._comment);
+    QRegExp(QStringLiteral("^#\\s*$")).removeIn(d._comment);
+    QRegExp(QStringLiteral("#\\s*\n")).removeIn(d._comment);
+    QRegExp(QStringLiteral("^#\\s*\n")).removeIn(d._comment);
 }
 
 

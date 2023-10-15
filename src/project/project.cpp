@@ -154,7 +154,7 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
 
     //cache:
     m_projectDir = QFileInfo(m_path).absolutePath();
-    m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID() + QStringLiteral(".local"), KConfig::NoGlobals, QStandardPaths::DataLocation));
+    m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID() + QStringLiteral(".local"), KConfig::NoGlobals, QStandardPaths::AppDataLocation));
     m_localConfig->load();
 
     if (!forcedTargetLangCode.isEmpty())

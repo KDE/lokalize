@@ -18,7 +18,6 @@
 #include <QFileDialog>
 
 #include <KLocalizedString>
-#include <KRun>
 #include <KDirWatch>
 
 //BEGIN BinUnitsModel
@@ -194,8 +193,9 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
 void BinUnitsView::mouseDoubleClicked(const QModelIndex& item)
 {
     //FIXME child processes don't notify us about changes ;(
-    if (item.column() < BinUnitsModel::Approved)
-        new KRun(QUrl::fromLocalFile(Project::instance()->absolutePath(item.data().toString())), this);
+    if (item.column() < BinUnitsModel::Approved) {
+        // TODO KF6 new KRun(QUrl::fromLocalFile(Project::instance()->absolutePath(item.data().toString())), this);
+    }
 }
 
 #include "moc_binunitsview.cpp"

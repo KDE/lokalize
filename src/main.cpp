@@ -54,8 +54,6 @@ int main(int argc, char **argv)
     TM::threadPool()->setMaxThreadCount(1);
     TM::threadPool()->setExpiryTimeout(-1);
     QThreadPool::globalInstance()->setMaxThreadCount(1);
-    // Fixes blurry icons with fractional scaling, see https://phabricator.kde.org/D29376
-    QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     QApplication app(argc, argv);
     KCrash::initialize();
     KLocalizedString::setApplicationDomain("lokalize");
@@ -91,8 +89,8 @@ int main(int argc, char **argv)
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPos>();
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<InlineTag>();
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<CatalogString>();
-    qRegisterMetaTypeStreamOperators<InlineTag>("InlineTag");
-    qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
+    // TODO KF6 qRegisterMetaTypeStreamOperators<InlineTag>("InlineTag");
+    // TODO KF6 qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
     qAddPostRoutine(&cleanupSpellers);
 
     const KDBusService dbusService(KDBusService::Multiple);
@@ -132,6 +130,7 @@ int main(int argc, char **argv)
 
         //Project::instance()->model()->setCompleteScan(parser.isSet("noprojectscan"));// TODO: negate check (and ensure nobody passes the no-op --noprojectscan argument)
     }
+
     int code = app.exec();
 
     QThreadPool::globalInstance()->clear();

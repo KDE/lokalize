@@ -9,6 +9,7 @@
 #ifndef GETTEXTSTORAGE_H
 #define GETTEXTSTORAGE_H
 
+#include <QRegExp>
 #include <QTextCodec>
 #include <QVector>
 #include "catalogitem.h"

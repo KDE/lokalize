@@ -178,7 +178,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
         const QList<int>& entries = mergeMap.values(key);
         QList<MatchItem> scores;
 
-        for (const auto entry : qAsConst(entries)) {
+        for (const auto entry : std::as_const(entries)) {
             scores << calcMatchItem(i, DocPosition(entry));
         }
 

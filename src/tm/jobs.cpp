@@ -74,10 +74,10 @@ static void doSplit(QString& cleanEn,
     static QRegExp rxSplit(QStringLiteral("\\W+|\\d+"));
 
     if (!rxClean1.pattern().isEmpty())
-        cleanEn.replace(rxClean1, QStringLiteral(" "));
+        cleanEn = rxClean1.replaceIn(cleanEn, QStringLiteral(" "));
     cleanEn.remove(accel);
 
-    words = cleanEn.toLower().split(rxSplit, Qt::SkipEmptyParts);
+    words = rxSplit.splitString(cleanEn.toLower(), Qt::SkipEmptyParts);
     if (words.size() > 4) {
         int i = 0;
         for (; i < words.size(); ++i) {
@@ -134,8 +134,19 @@ static qlonglong getFileId(const QString& path,
     return -1;
 }
 
+static inline QByteArray prependSpace(const QByteArray &ba)
+{
+    QByteArray r = ba;
+    r.prepend(' ');
+    return r;
+}
 
-
+static inline QByteArray appendSpace(const QByteArray &ba)
+{
+    QByteArray r = ba;
+    r.append(' ');
+    return r;
+}
 
 static void addToIndex(qlonglong sourceId, QString sourceString,
                        QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
@@ -148,7 +159,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
 
     QSqlQuery query1(db);
 
-    QByteArray sourceIdStr = QByteArray::number(sourceId, 36);
+    const QByteArray sourceIdStr = QByteArray::number(sourceId, 36);
 
     bool isShort = words.size() < 20;
     int j = words.size();
@@ -173,9 +184,18 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
             }
             query1.clear();
 
-            if (arr.contains(' ' + sourceIdStr + ' ')
-                || arr.startsWith(sourceIdStr + ' ')
-                || arr.endsWith(' ' + sourceIdStr)
+            QByteArray withSpaces = sourceIdStr;
+            withSpaces.prepend(' ').append(' ');
+
+            QByteArray spaceAtEnd = sourceIdStr;
+            spaceAtEnd.append(' ');
+
+            QByteArray spaceAtBeginning = sourceIdStr;
+            spaceAtBeginning.prepend(' ');
+
+            if (arr.contains(prependSpace(appendSpace(sourceIdStr)))
+                || arr.startsWith(appendSpace(sourceIdStr))
+                || arr.endsWith(prependSpace(sourceIdStr))
                 || arr == sourceIdStr)
                 return;//this string is already indexed
 
@@ -268,11 +288,12 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
         }
         query1.clear();
 
-        if (arr.contains(' ' + sourceIdStr + ' '))
-            arr.replace(' ' + sourceIdStr + ' ', " ");
-        else if (arr.startsWith(sourceIdStr + ' '))
+        const QByteArray withSpaces = prependSpace(appendSpace(sourceIdStr));
+        if (arr.contains(withSpaces))
+            arr.replace(withSpaces, " ");
+        else if (arr.startsWith(appendSpace(sourceIdStr)))
             arr.remove(0, sourceIdStr.size() + 1);
-        else if (arr.endsWith(' ' + sourceIdStr))
+        else if (arr.endsWith(prependSpace(sourceIdStr)))
             arr.chop(sourceIdStr.size() + 1);
         else if (arr == sourceIdStr)
             arr.clear();
@@ -972,7 +993,7 @@ void OpenDBJob::run()
 
         if (m_type == TM::Local) {
             QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connectionName);
-            QString dbFolder = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+            QString dbFolder = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
             QFileInfo fileInfo(dbFolder);
             if (!fileInfo.exists(dbFolder)) fileInfo.absoluteDir().mkpath(fileInfo.fileName());
             db.setDatabaseName(dbFolder + QLatin1Char('/') + m_dbName + QLatin1String(TM_DATABASE_EXTENSION));
@@ -1006,7 +1027,7 @@ void OpenDBJob::run()
             }
 
             if (!m_connParams.isFilled()) {
-                QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName + QLatin1String(REMOTETM_DATABASE_EXTENSION));
+                QFile rdb(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1Char('/') + m_dbName + QLatin1String(REMOTETM_DATABASE_EXTENSION));
                 if (!rdb.open(QIODevice::ReadOnly | QIODevice::Text)) {
                     Q_EMIT done(this);
                     return;
@@ -1118,7 +1139,7 @@ SelectJob::SelectJob(const CatalogString& source,
     //qCDebug(LOKALIZE_LOG)<<"selectjob"<<dbName<<m_source.string;
 }
 
-inline QMap<uint, qlonglong> invertMap(const QMap<qlonglong, uint>& source)
+inline QMultiMap<uint, qlonglong> invertMap(const QMap<qlonglong, uint>& source)
 {
     //uses the fact that map has its keys always sorted
     QMultiMap<uint, qlonglong> sortingMap;
@@ -1187,14 +1208,14 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     QString sourceClean(m_source.string);
     sourceClean.remove(c.accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
-    QStringList englishList(sourceClean.toLower().split(rxSplit, Qt::SkipEmptyParts));
+    const QStringList englishList = rxSplit.splitString(sourceClean.toLower(), Qt::SkipEmptyParts);
     static QRegExp delPart(QStringLiteral("<KBABELDEL>*</KBABELDEL>"), Qt::CaseSensitive, QRegExp::Wildcard);
     static QRegExp addPart(QStringLiteral("<KBABELADD>*</KBABELADD>"), Qt::CaseSensitive, QRegExp::Wildcard);
     delPart.setMinimal(true);
     addPart.setMinimal(true);
 
     //QList<uint> concordanceLevels=sortedUniqueValues(occurencies); //we start from entries with higher word-concordance level
-    QMap<uint, qlonglong> concordanceLevelToIds = invertMap(occurencies);
+    QMultiMap<uint, qlonglong> concordanceLevelToIds = invertMap(occurencies);
     if (concordanceLevelToIds.isEmpty())
         return false;
     bool seen85 = false;
@@ -1243,7 +1264,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 QString str = e.source.string;
                 str.remove(c.accel);
 
-                QStringList englishSuggList(str.toLower().split(rxSplit, Qt::SkipEmptyParts));
+                const QStringList englishSuggList = rxSplit.splitString(str.toLower(), Qt::SkipEmptyParts);
                 if (englishSuggList.size() > 10 * englishList.size())
                     continue;
                 //sugg is 'old' --translator has to adapt its translation to 'new'--current
@@ -1387,7 +1408,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 //eliminate same targets from different files
                 QHash<QString, int> hash;
                 int oldCount = m_entries.size();
-                QMap<TMEntry, bool>::const_iterator it = sortedEntryList.constEnd();
+                QMultiMap<TMEntry, bool>::const_iterator it = sortedEntryList.constEnd();
                 if (sortedEntryList.size()) while (true) {
                         --it;
                         const TMEntry& e = it.key();

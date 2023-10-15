@@ -40,7 +40,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
     QTextCodec* codec = codecForDevice(device/*, &hadCodec*/);
     QTextStream stream(device);
     stream.seek(0);
-    stream.setCodec(codec);
+    // TODO KF6 stream.setCodec(codec);
 
     //QIODevice *dev = stream.device();
     //int fileSize = dev->size();
@@ -191,50 +191,52 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
 
 QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCodec*/)
 {
-    QTextStream stream(device);
-    stream.seek(0);
-    _errorLine = 0;
-    stream.setCodec("UTF-8");
-    stream.setAutoDetectUnicode(true); //this way we can
-    QTextCodec* codec = stream.codec(); //detect UTF-16
-
-    ConversionStatus status = readEntry(stream);
-    if (Q_UNLIKELY(status != OK && status != RECOVERED_PARSE_ERROR)) {
-        qCDebug(LOKALIZE_LOG) << "wasn't able to read header";
-        return codec;
-    }
-
-    QRegExp regexp(QStringLiteral("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n"));
-    if (regexp.indexIn(_msgstr.first()) == -1) {
-        qCDebug(LOKALIZE_LOG) << "no charset entry found";
-        return codec;
-    }
-
-    const QString charset = regexp.cap(1);
-    if (charset != QLatin1String("UTF-8")) qCDebug(LOKALIZE_LOG) << "charset:" << charset;
-
-    if (charset.isEmpty()) {
-        qCWarning(LOKALIZE_LOG) << "No charset defined! Assuming UTF-8!";
-        return codec;
-    }
-
-    // "CHARSET" is the default charset entry in a template (pot).
-    // characters in a template should be either pure ascii or
-    // at least utf8, so utf8-codec can be used for both.
-    if (charset.contains(QLatin1String("CHARSET"))) {
-        qCDebug(LOKALIZE_LOG) << "file seems to be a template: using utf-8 encoding.";
-        return QTextCodec::codecForName("utf8");;
-    }
-
-    QTextCodec* t = nullptr;
-    t = QTextCodec::codecForName(charset.toLatin1());
-
-    if (t)
-        return t;
-    else
-        qCWarning(LOKALIZE_LOG) << "charset found, but no codec available, using UTF-8 instead";
-
-    return codec;//UTF-8
+    return nullptr;
+    // TODO KF6
+    // QTextStream stream(device);
+    // stream.seek(0);
+    // _errorLine = 0;
+    // stream.setCodec("UTF-8");
+    // stream.setAutoDetectUnicode(true); //this way we can
+    // QTextCodec* codec = stream.codec(); //detect UTF-16
+    //
+    // ConversionStatus status = readEntry(stream);
+    // if (Q_UNLIKELY(status != OK && status != RECOVERED_PARSE_ERROR)) {
+    //     qCDebug(LOKALIZE_LOG) << "wasn't able to read header";
+    //     return codec;
+    // }
+    //
+    // QRegExp regexp(QStringLiteral("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n"));
+    // if (regexp.indexIn(_msgstr.first()) == -1) {
+    //     qCDebug(LOKALIZE_LOG) << "no charset entry found";
+    //     return codec;
+    // }
+    //
+    // const QString charset = regexp.cap(1);
+    // if (charset != QLatin1String("UTF-8")) qCDebug(LOKALIZE_LOG) << "charset:" << charset;
+    //
+    // if (charset.isEmpty()) {
+    //     qCWarning(LOKALIZE_LOG) << "No charset defined! Assuming UTF-8!";
+    //     return codec;
+    // }
+    //
+    // // "CHARSET" is the default charset entry in a template (pot).
+    // // characters in a template should be either pure ascii or
+    // // at least utf8, so utf8-codec can be used for both.
+    // if (charset.contains(QLatin1String("CHARSET"))) {
+    //     qCDebug(LOKALIZE_LOG) << "file seems to be a template: using utf-8 encoding.";
+    //     return QTextCodec::codecForName("utf8");;
+    // }
+    //
+    // QTextCodec* t = nullptr;
+    // t = QTextCodec::codecForName(charset.toLatin1());
+    //
+    // if (t)
+    //     return t;
+    // else
+    //     qCWarning(LOKALIZE_LOG) << "charset found, but no codec available, using UTF-8 instead";
+    //
+    // return codec;//UTF-8
 }
 
 ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
@@ -314,33 +316,33 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             } else if (line.startsWith(QLatin1Char('#'))) {
                 part = Comment;
                 _comment = line;
-            } else if (line.startsWith(_msgctxtStart) && line.contains(_rxMsgCtxt)) {
+            } else if (line.startsWith(_msgctxtStart) && (_rxMsgCtxt.indexIn(line) != -1)) {
                 part = Msgctxt;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgctxt\\s*\"")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgctxt\\s*\"")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
                 _msgctxt = line;
                 _msgctxtPresent = true;
                 //seenMsgctxt=true;
-            } else if (line.contains(_rxMsgId)) {
+            } else if (_rxMsgId.indexIn(line) != -1) {
                 part = Msgid;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgIdRemQuotes);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgIdRemQuotes.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgidMultiline = line.isEmpty();
                 (*(_msgid).begin()) = line;
 
             }
             // one of the quotation marks is missing
-            else if (Q_UNLIKELY(/*_testBorked&&*/ line.contains(_rxMsgIdBorked))) {
+            else if (Q_UNLIKELY(/*_testBorked&&*/ _rxMsgIdBorked.indexIn(line) != -1)) {
                 part = Msgid;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid\\s*\"?")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgid\\s*\"?")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgidMultiline = line.isEmpty();
                 (*(_msgid).begin()) = line;
@@ -360,32 +362,32 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 _obsolete = true;
             } else if (line.startsWith(QLatin1Char('#'))) {
                 _comment += (QLatin1Char('\n') + line);
-            } else if (line.startsWith(_msgctxtStart) && line.contains(_rxMsgCtxt)) {
+            } else if (line.startsWith(_msgctxtStart) && (_rxMsgCtxt.indexIn(line) != -1)) {
                 part = Msgctxt;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgctxt\\s*\"")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgctxt\\s*\"")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
                 _msgctxt = line;
                 _msgctxtPresent = true;
                 //seenMsgctxt=true;
-            } else if (line.contains(_rxMsgId)) {
+            } else if (_rxMsgId.indexIn(line) != -1) {
                 part = Msgid;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgIdRemQuotes);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgIdRemQuotes.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgidMultiline = line.isEmpty();
                 (*(_msgid).begin()) = line;
             }
             // one of the quotation marks is missing
-            else if (Q_UNLIKELY(/*_testBorked&&*/line.contains(_rxMsgIdBorked))) {
+            else if (Q_UNLIKELY(/*_testBorked&&*/_rxMsgIdBorked.indexIn(line) != -1)) {
                 part = Msgid;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid\\s*\"?")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgid\\s*\"?")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgidMultiline = line.isEmpty();
                 (*(_msgid).begin()) = line;
@@ -400,10 +402,10 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
         } else if (part == Msgctxt) {
             if (!len)
                 continue;
-            else if (line.contains(_rxMsgLine)) {
+            else if (_rxMsgLine.indexIn(line) != -1) {
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgLineRemStartQuote);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgLineRemStartQuote.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 // add Msgctxt line to item
                 if (_msgctxt.isEmpty())
@@ -411,23 +413,23 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 else
                     _msgctxt += (QLatin1Char('\n') + line);
                 _msgctxtPresent = true;
-            } else if (line.contains(_rxMsgId)) {
+            } else if (_rxMsgId.indexIn(line) != -1) {
                 part = Msgid;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgIdRemQuotes);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgIdRemQuotes.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgidMultiline = line.isEmpty();
                 (*(_msgid).begin()) = line;
             }
             // one of the quotation marks is missing
-            else if (Q_UNLIKELY(/*_testBorked&&*/ line.contains(_rxMsgIdBorked))) {
+            else if (Q_UNLIKELY(/*_testBorked&&*/ _rxMsgIdBorked.indexIn(line) != -1)) {
                 part = Msgid;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid\\s*\"?")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgid\\s*\"?")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgidMultiline = line.isEmpty();
                 (*(_msgid).begin()) = line;
@@ -442,10 +444,10 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
         } else if (part == Msgid) {
             if (!len)
                 continue;
-            else if (line.contains(_rxMsgLine)) {
+            else if (_rxMsgLine.indexIn(line) != -1) {
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgLineRemStartQuote);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgLineRemStartQuote.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 QStringList::Iterator it;
                 if (_gettextPluralForm) {
@@ -459,65 +461,65 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                     (*it) = line;
                 else
                     (*it) += (QLatin1Char('\n') + line);
-            } else if (line.contains(_rxMsgIdPlural)) {
+            } else if (_rxMsgIdPlural.indexIn(line) != -1) {
                 part = Msgid;
                 _gettextPluralForm = true;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid_plural\\s*\"")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgid_plural\\s*\"")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgid.append(line);
             }
             // one of the quotation marks is missing
-            else if (Q_UNLIKELY(/*_testBorked&&*/ line.contains(_rxMsgIdPluralBorked))) {
+            else if (Q_UNLIKELY(/*_testBorked&&*/ _rxMsgIdPluralBorked.indexIn(line) != -1)) {
                 part = Msgid;
                 _gettextPluralForm = true;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid_plural\\s*\"?")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgid_plural\\s*\"?")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgid.append(line);
 
                 if (!line.isEmpty())
                     recoverableError = true;
-            } else if (!_gettextPluralForm && (line.contains(_rxMsgStr))) {
+            } else if (!_gettextPluralForm && (_rxMsgStr.indexIn(line) != -1)) {
                 part = Msgstr;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgStrRemQuotes);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgStrRemQuotes.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgstrMultiline = line.isEmpty();
                 (*msgstrIt) = line;
-            } else if (!_gettextPluralForm && (line.contains(_rxMsgStrOther))) {
+            } else if (!_gettextPluralForm && (_rxMsgStrOther.indexIn(line) != -1)) {
                 part = Msgstr;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgStrRemQuotes);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgStrRemQuotes.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgstrMultiline = line.isEmpty();
                 (*msgstrIt) = line;
 
                 if (!line.isEmpty())
                     recoverableError = true;
-            } else if (_gettextPluralForm && (line.contains(_rxMsgStrPluralStart))) {
+            } else if (_gettextPluralForm && (_rxMsgStrPluralStart.indexIn(line) != -1)) {
                 part = Msgstr;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgstr\\[0\\]\\s*\"?")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgstr\\[0\\]\\s*\"?")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgstrMultiline = line.isEmpty();
                 (*msgstrIt) = line;
-            } else if (Q_UNLIKELY(/*_testBorked&&*/ _gettextPluralForm &&  line.contains(_rxMsgStrPluralStartBorked))) {
+            } else if (Q_UNLIKELY(/*_testBorked&&*/ _gettextPluralForm &&  _rxMsgStrPluralStartBorked.indexIn(line) != -1)) {
                 part = Msgstr;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgstr\\[0\\]\\s*\"?")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgstr\\[0\\]\\s*\"?")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgstrMultiline = line.isEmpty();
                 (*msgstrIt) = line;
@@ -535,12 +537,12 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 break;
             }
             // a line of the msgid with a missing quotation mark
-            else if (Q_UNLIKELY(/*_testBorked&&*/line.contains(_rxMsgLineBorked))) {
+            else if (Q_UNLIKELY(/*_testBorked&&*/_rxMsgLineBorked.indexIn(line) != -1)) {
                 recoverableError = true;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgLineRemStartQuote);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgLineRemStartQuote.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 QStringList::Iterator it;
                 if (_gettextPluralForm) {
@@ -563,18 +565,18 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             if (!len)
                 break;
             // another line of the msgstr
-            else if (line.contains(_rxMsgLine)) {
+            else if (_rxMsgLine.indexIn(line) != -1) {
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgLineRemStartQuote);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgLineRemStartQuote.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 if (!(*msgstrIt).isEmpty())
                     (*msgstrIt) += QLatin1Char('\n');
                 (*msgstrIt) += line;
-            } else if (_gettextPluralForm && (line.contains(_rxMsgStrPlural))) {
+            } else if (_gettextPluralForm && (_rxMsgStrPlural.indexIn(line) != -1)) {
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\"?")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\"?")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgstr.append(line);
                 msgstrIt = _msgstr.end();
@@ -583,10 +585,10 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 _errorLine--;
                 _bufferedLine = line;
                 break;
-            } else if (Q_UNLIKELY(/*_testBorked&&*/ _gettextPluralForm && (line.contains(_rxMsgStrPluralBorked)))) {
+            } else if (Q_UNLIKELY(/*_testBorked&&*/ _gettextPluralForm && (_rxMsgStrPluralBorked.indexIn(line) != -1))) {
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?")));
-                line.remove(_rxMsgLineRemEndQuote);
+                QRegExp(QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?")).removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 _msgstr.append(line);
                 msgstrIt = _msgstr.end();
@@ -600,12 +602,12 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 break;
             }
             // another line of the msgstr with a missing quotation mark
-            else if (Q_UNLIKELY(/*_testBorked&&*/line.contains(_rxMsgLineBorked))) {
+            else if (Q_UNLIKELY(/*_testBorked&&*/_rxMsgLineBorked.indexIn(line) != -1)) {
                 recoverableError = true;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(_rxMsgLineRemStartQuote);
-                line.remove(_rxMsgLineRemEndQuote);
+                _rxMsgLineRemStartQuote.removeIn(line);
+                _rxMsgLineRemEndQuote.removeIn(line);
 
                 if (!(*msgstrIt).isEmpty())
                     (*msgstrIt) += QLatin1Char('\n');

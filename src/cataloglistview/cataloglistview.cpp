@@ -17,6 +17,7 @@
 #include "prefs.h"
 #include "headerviewmenu.h"
 
+#include <QActionGroup>
 #include <QLineEdit>
 #include <QTime>
 #include <QTreeView>
@@ -146,8 +147,9 @@ void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 void CatalogView::setFilterRegExp()
 {
     QString expr = m_lineEdit->text();
-    if (m_proxyModel->filterRegExp().pattern() != expr)
-        m_proxyModel->setFilterRegExp(m_proxyModel->filterOptions()&CatalogTreeFilterModel::IgnoreAccel ? expr.remove(Project::instance()->accel()) : expr);
+    // TODO KF6
+    // if (m_proxyModel->filterRegExp().pattern() != expr)
+    //     m_proxyModel->setFilterRegExp(m_proxyModel->filterOptions()&CatalogTreeFilterModel::IgnoreAccel ? expr.remove(Project::instance()->accel()) : expr);
     refreshCurrentIndex();
 }
 
@@ -184,7 +186,6 @@ void CatalogView::fillFilterOptionsMenu()
 
     if (m_proxyModel->individualRejectFilterEnabled())
         m_filterOptionsMenu->addAction(i18n("Reset individual filter"), this, SLOT(setEntriesFilteredOut()));
-
 
     bool extStates = m_model->catalog()->capabilities()&ExtendedStates;
 

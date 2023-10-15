@@ -106,7 +106,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     QString source = m_catalog->source(pos);
     QString sourceLowered = source.toLower();
     QString msg = sourceLowered;
-    msg.remove(m_rxClean);
+    msg = m_rxClean.removeIn(msg);
     QString msgStemmed;
 
 //     QRegExp accel(Project::instance()->accel());
@@ -120,7 +120,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
     QString sourceLangCode = Project::instance()->sourceLangCode();
     QList<QByteArray> termIds;
-    const auto ws = msg.split(m_rxSplit, Qt::SkipEmptyParts);
+    const auto ws = m_rxSplit.splitString(msg, Qt::SkipEmptyParts);
     for (const QString& w : ws) {
         QString word = stem(sourceLangCode, w);
         QList<QByteArray> indexes = glossary.idsForLangWord(sourceLangCode, word);
@@ -149,7 +149,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
             bool ok = msg.contains(enTerm); //,//Qt::CaseInsensitive  //we lowered terms on load
             if (!ok) {
                 QString enTermStemmed;
-                const auto words = enTerm.split(m_rxSplit, Qt::SkipEmptyParts);
+                const auto words = m_rxSplit.splitString(enTerm, Qt::SkipEmptyParts);
                 for (const QString& word : words)
                     enTermStemmed += stem(sourceLangCode, word) + QLatin1Char(' ');
                 ok = msgStemmed.contains(enTermStemmed);

@@ -17,6 +17,7 @@
 // #include "project.h"
 #include "prefs_lokalize.h"
 
+#include <QRegExp>
 #include <QVector>
 #include <QStringList>
 #include <QStringMatcher>
@@ -351,7 +352,7 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
         markup += QLatin1Char('|');
     QRegExp rxSplit(QLatin1Char('(') + markup + QLatin1String("\\W+|\\d+)+"));
 
-    main = str.split(rxSplit, Qt::SkipEmptyParts);
+    main = rxSplit.splitString(str, Qt::SkipEmptyParts);
     main.prepend(QStringLiteral("\t"));//little hack
 
 

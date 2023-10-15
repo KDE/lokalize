@@ -80,7 +80,7 @@ void TermLabel::mousePressEvent(QMouseEvent* event)
 
         menu.addAction(i18nc("@action:inmenu Edit term", "Edit"));
 
-        QAction* txt = menu.exec(event->globalPos());
+        QAction* txt = menu.exec(event->globalPosition().toPoint());
         if (txt) {
             GlossaryNS::GlossaryWindow* glossaryWindow = Project::instance()->showGlossary();
             if (glossaryWindow)

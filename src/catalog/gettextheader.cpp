@@ -27,6 +27,7 @@
 #include <QTextCodec>
 #include <QDateTime>
 #include <QTimeZone>
+#include <QRegExp>
 
 #include <klocalizedstring.h>
 
@@ -281,10 +282,28 @@ void updateHeader(QString& header,
     GetTextHeaderParser::updateLastTranslator(headerList, Settings::authorName(), Settings::authorEmail());
 
     bool found = false;
+<<<<<<< HEAD
+=======
+    authorNameEmail = Settings::authorName();
+    if (!Settings::authorEmail().isEmpty())
+        authorNameEmail += (QStringLiteral(" <") + Settings::authorEmail() + QLatin1Char('>'));
+    temp = QStringLiteral("Last-Translator: ") + authorNameEmail + BACKSLASH_N;
+
+    QRegExp lt(QStringLiteral("^ *Last-Translator:.*"));
+    for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
+        if (lt.indexIn(*it) != -1) {
+            if (forSaving) *it = temp;
+            found = true;
+        }
+    }
+    if (Q_UNLIKELY(!found))
+        headerList.append(temp);
+
+>>>>>>> 9465e2f5 (Port to KF6)
     temp = QStringLiteral("PO-Revision-Date: ") + formatGettextDate(QDateTime::currentDateTime()) + BACKSLASH_N;
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
-        found = it->contains(poRevDate);
+        found = (poRevDate.indexIn(*it) != -1);
         if (found && forSaving) *it = temp;
     }
     if (Q_UNLIKELY(!found))
@@ -294,7 +313,7 @@ void updateHeader(QString& header,
     //temp.replace( "@PACKAGE@", packageName());
     QRegExp projectIdVer(QStringLiteral("^ *Project-Id-Version:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
-        found = it->contains(projectIdVer);
+        found = (projectIdVer.indexIn(*it) != -1);
         if (found && it->contains(QLatin1String("PACKAGE VERSION")))
             *it = temp;
     }
@@ -315,7 +334,7 @@ void updateHeader(QString& header,
 
     static QRegExp langTeamRegExp(QStringLiteral("^ *Language-Team:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
-        found = it->contains(langTeamRegExp);
+        found = langTeamRegExp.indexIn(*it) != -1;
         if (found) {
             //really parse header
             QRegExp re(QStringLiteral("^ *Language-Team: *(.*) *<([^>]*)>"));
@@ -373,7 +392,7 @@ void updateHeader(QString& header,
     temp = QStringLiteral("Content-Type: text/plain; charset=") + QString::fromLatin1(codec->name()) + BACKSLASH_N;
     QRegExp ctRe(QStringLiteral("^ *Content-Type:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
-        found = it->contains(ctRe);
+        found = ctRe.indexIn(*it) != -1;
         if (found) *it = temp;
     }
     if (Q_UNLIKELY(!found))
@@ -383,7 +402,7 @@ void updateHeader(QString& header,
     temp = QStringLiteral("Content-Transfer-Encoding: 8bit\\n");
     QRegExp cteRe(QStringLiteral("^ *Content-Transfer-Encoding:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it)
-        found = it->contains(cteRe);
+        found = cteRe.indexIn(*it) != -1;
     if (!found)
         headerList.append(temp);
 
@@ -391,7 +410,7 @@ void updateHeader(QString& header,
     temp = QStringLiteral("MIME-Version: 1.0\\n");
     QRegExp mvRe(QStringLiteral("^ *MIME-Version:"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
-        found = it->contains(mvRe);
+        found = mvRe.indexIn(*it) != -1;
         if (found) *it = temp;
     }
     if (Q_UNLIKELY(!found))
@@ -402,7 +421,7 @@ void updateHeader(QString& header,
     // update plural form header
     QRegExp pfRe(QStringLiteral("^ *Plural-Forms:"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it)
-        found = it->contains(pfRe);
+        found = pfRe.indexIn(*it) != -1;
     if (found) {
         --it;
 
@@ -419,7 +438,7 @@ void updateHeader(QString& header,
                     static QRegExp pf(QStringLiteral("^ *Plural-Forms:\\s*nplurals.*\\\\n"));
                     pf.setMinimal(true);
                     temp = QStringLiteral("Plural-Forms: %1\\n").arg(t);
-                    it->replace(pf, temp);
+                    pf.replaceIn(*it, temp);
                     num = numberOfPluralFormsFromHeader(temp);
                 } else {
                     qCWarning(LOKALIZE_LOG) << "no... smth went wrong :(\ncheck your gettext install";
@@ -443,7 +462,7 @@ void updateHeader(QString& header,
     temp = QStringLiteral("X-Generator: Lokalize %1\\n").arg(QStringLiteral(LOKALIZE_VERSION));
     QRegExp xgRe(QStringLiteral("^ *X-Generator:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
-        found = it->contains(xgRe);
+        found = xgRe.indexIn(*it) != -1;
         if (found) *it = temp;
     }
     if (Q_UNLIKELY(!found))
@@ -457,6 +476,7 @@ void updateHeader(QString& header,
     // qCDebug(LOKALIZE_LOG) << "HEADER COMMENT: " << commentList;
 
     GetTextHeaderParser::updateAuthors(commentList, Settings::authorName(), Settings::authorEmail());
+
     comment = commentList.join(QStringLiteral("\n"));
 
 //END comment = description, copyrights
