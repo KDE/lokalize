@@ -454,19 +454,19 @@ void LokalizeMainWindow::setupActions()
     //KStandardAction::close(m_mdiArea, SLOT(closeActiveSubWindow()), ac);
 
     actionCategory = file;
-    ADD_ACTION_SHORTCUT("next-tab", i18n("Next tab"), Qt::CTRL + Qt::Key_Tab)
+    ADD_ACTION_SHORTCUT("next-tab", i18n("Next tab"), Qt::ControlModifier + Qt::Key_Tab)
     connect(action, &QAction::triggered, m_mdiArea, &LokalizeMdiArea::activateNextSubWindow);
 
-    ADD_ACTION_SHORTCUT("prev-tab", i18n("Previous tab"), Qt::CTRL + Qt::SHIFT + Qt::Key_Tab)
+    ADD_ACTION_SHORTCUT("prev-tab", i18n("Previous tab"), Qt::ControlModifier + Qt::ShiftModifier + Qt::Key_Tab)
     connect(action, &QAction::triggered, m_mdiArea, &LokalizeMdiArea::activatePreviousSubWindow);
 
-    ADD_ACTION_SHORTCUT("prev-active-tab", i18n("Previously active tab"), Qt::CTRL + Qt::Key_BracketLeft)
+    ADD_ACTION_SHORTCUT("prev-active-tab", i18n("Previously active tab"), Qt::ControlModifier + Qt::Key_BracketLeft)
     connect(action, &QAction::triggered, m_mdiArea, &QMdiArea::activatePreviousSubWindow);
 
 //Tools
     actionCategory = glossary;
     Project* project = Project::instance();
-    ADD_ACTION_SHORTCUT("tools_glossary", i18nc("@action:inmenu", "Glossary"), Qt::CTRL + Qt::ALT + Qt::Key_G)
+    ADD_ACTION_SHORTCUT("tools_glossary", i18nc("@action:inmenu", "Glossary"), Qt::ControlModifier + Qt::AltModifier + Qt::Key_G)
     connect(action, &QAction::triggered, project, &Project::showGlossary);
 
     actionCategory = tm;

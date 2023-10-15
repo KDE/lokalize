@@ -30,8 +30,8 @@ using namespace GlossaryNS;
 //     //, m_termTransl(termTransl)
 //     {
 // //         setFlat(true);
-// //         grabShortcut(Qt::ALT+Qt::CTRL+key);
-// //         qCWarning(LOKALIZE_LOG) << "dsds " << grabShortcut(Qt::ALT+key);
+// //         grabShortcut(Qt::AltModifier+Qt::ControlModifier+key);
+// //         qCWarning(LOKALIZE_LOG) << "dsds " << grabShortcut(Qt::AltModifier+key);
 //     }
 //     //~TermLabel(){}
 // // bool TermLabel::event(QEvent *event)

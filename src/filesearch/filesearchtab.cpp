@@ -427,7 +427,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     setCentralWidget(w);
 
 
-    QShortcut* sh = new QShortcut(Qt::CTRL + Qt::Key_L, this);
+    QShortcut* sh = new QShortcut(Qt::ControlModifier + Qt::Key_L, this);
     connect(sh, &QShortcut::activated, ui_fileSearchOptions->querySource, qOverload<>(&QLineEdit::setFocus));
     setFocusProxy(ui_fileSearchOptions->querySource);
 
@@ -453,13 +453,13 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QAction* a = new QAction(i18n("Copy source to clipboard"), view);
-    a->setShortcut(Qt::CTRL + Qt::Key_S);
+    a->setShortcut(Qt::ControlModifier + Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &FileSearchTab::copySourceToClipboard);
     view->addAction(a);
 
     a = new QAction(i18n("Copy target to clipboard"), view);
-    a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
+    a->setShortcut(QKeySequence(Qt::ControlModifier + Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &FileSearchTab::copyTargetToClipboard);
     view->addAction(a);

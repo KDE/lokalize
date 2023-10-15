@@ -47,7 +47,7 @@ FlowLayout::FlowLayout(User user,
 // //         Qt::Key key=Qt::Key_A;
 // //         for (;key<=Qt::Key_Z;++key)
 // //         {
-// //             if (KGlobalAccel::findActionNameSystemwide(Qt::ALT+key).isEmpty())
+// //             if (KGlobalAccel::findActionNameSystemwide(Qt::AltModifier+key).isEmpty())
 // //             {
 // //                 keys.append(key);
 // //             }
@@ -55,7 +55,7 @@ FlowLayout::FlowLayout(User user,
 //         int i=(int)Qt::Key_A;
 //         for (;i<=(int)Qt::Key_Z;++i)
 //         {
-//             if (KGlobalAccel::findActionNameSystemwide(Qt::ALT+Qt::CTRL+(Qt::Key)i).isEmpty())
+//             if (KGlobalAccel::findActionNameSystemwide(Qt::AltModifier+Qt::ControlModifier+(Qt::Key)i).isEmpty())
 //             {
 //                 m_keys.append((Qt::Key)i);
 //             }

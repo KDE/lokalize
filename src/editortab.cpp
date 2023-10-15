@@ -202,7 +202,7 @@ void EditorTab::setupActions()
     QAction* altaction;
     for (int i = 0; i < ALTTRANS_SHORTCUTS; ++i) {
         altaction = tm->addAction(QStringLiteral("alttrans_insert_%1").arg(i));
-        ac->setDefaultShortcut(altaction, QKeySequence(Qt::ALT + altlist[i]));
+        ac->setDefaultShortcut(altaction, QKeySequence(Qt::AltModifier + altlist[i]));
         altaction->setText(i18nc("@action:inmenu", "Insert alternate translation #%1", QString::number(i)));
         altactions[i] = altaction;
     }
@@ -249,7 +249,7 @@ void EditorTab::setupActions()
     connect(m_view->viewPort(), &TranslationUnitTextEdit::languageToolChanged, m_notesView, &MsgCtxtView::languageTool);
 
     action = edit->addAction(QStringLiteral("edit_addnote"), m_notesView, SLOT(addNoteUI()));
-    //action->setShortcut(Qt::CTRL+glist[i]);
+    //action->setShortcut(Qt::ControlModifier+glist[i]);
     action->setText(i18nc("@action:inmenu", "Add a note"));
 
     QVector<QAction*> tmactions_insert(TM_SHORTCUTS);
@@ -270,19 +270,19 @@ void EditorTab::setupActions()
     for (int i = 0; i < TM_SHORTCUTS; ++i) {
 //         action->setVisible(false);
         tmaction = tm->addAction(QStringLiteral("tmquery_insert_%1").arg(i));
-        ac->setDefaultShortcut(tmaction, QKeySequence(Qt::CTRL + tmlist[i]));
+        ac->setDefaultShortcut(tmaction, QKeySequence(Qt::ControlModifier + tmlist[i]));
         tmaction->setText(i18nc("@action:inmenu", "Insert TM suggestion #%1", i + 1));
         tmactions_insert[i] = tmaction;
 
         tmaction = tm->addAction(QStringLiteral("tmquery_remove_%1").arg(i));
-        ac->setDefaultShortcut(tmaction, QKeySequence(Qt::CTRL + Qt::ALT + tmlist[i]));
+        ac->setDefaultShortcut(tmaction, QKeySequence(Qt::ControlModifier + Qt::AltModifier + tmlist[i]));
         tmaction->setText(i18nc("@action:inmenu", "Remove TM suggestion #%1", i + 1));
         tmactions_remove[i] = tmaction;
     }
 #ifndef Q_OS_DARWIN
     if (systemLang == QLocale::Czech) {
-        ac->setDefaultShortcuts(tmactions_insert[0], QList<QKeySequence>() << QKeySequence(Qt::CTRL + tmlist[0]) << QKeySequence(Qt::CTRL + Qt::Key_Plus));
-        ac->setDefaultShortcuts(tmactions_remove[0], QList<QKeySequence>() << QKeySequence(Qt::CTRL + Qt::ALT + tmlist[0]) << QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_Plus));
+        ac->setDefaultShortcuts(tmactions_insert[0], QList<QKeySequence>() << QKeySequence(Qt::ControlModifier + tmlist[0]) << QKeySequence(Qt::ControlModifier + Qt::Key_Plus));
+        ac->setDefaultShortcuts(tmactions_remove[0], QList<QKeySequence>() << QKeySequence(Qt::ControlModifier + Qt::AltModifier + tmlist[0]) << QKeySequence(Qt::ControlModifier + Qt::AltModifier + Qt::Key_Plus));
     }
 #endif
     TM::TMView* _tmView = new TM::TMView(this, m_catalog, tmactions_insert, tmactions_remove);
@@ -324,7 +324,7 @@ void EditorTab::setupActions()
     for (int i = 0; i < GLOSSARY_SHORTCUTS; ++i) {
 //         action->setVisible(false);
         gaction = glossary->addAction(QStringLiteral("glossary_insert_%1").arg(i));
-        ac->setDefaultShortcut(gaction, QKeySequence(Qt::CTRL + glist[i]));
+        ac->setDefaultShortcut(gaction, QKeySequence(Qt::ControlModifier + glist[i]));
         gaction->setText(i18nc("@action:inmenu", "Insert term translation #%1", QString::number(i)));
         gactions[i] = gaction;
     }
@@ -380,17 +380,17 @@ void EditorTab::setupActions()
     action->setText(i18nc("@action:inmenu", "Phases..."));
     connect(action, &QAction::triggered, this, &EditorTab::openPhasesWindow);
 
-    ADD_ACTION_SHORTCUT("file_wordcount", i18nc("@action:inmenu", "Word count"), Qt::CTRL + Qt::ALT + Qt::Key_C)
+    ADD_ACTION_SHORTCUT("file_wordcount", i18nc("@action:inmenu", "Word count"), Qt::ControlModifier + Qt::AltModifier + Qt::Key_C)
     connect(action, &QAction::triggered, this, &EditorTab::displayWordCount);
 
-    ADD_ACTION_SHORTCUT("file_cleartarget", i18nc("@action:inmenu", "Clear all translated entries"), Qt::CTRL + Qt::ALT + Qt::Key_D)
+    ADD_ACTION_SHORTCUT("file_cleartarget", i18nc("@action:inmenu", "Clear all translated entries"), Qt::ControlModifier + Qt::AltModifier + Qt::Key_D)
     connect(action, &QAction::triggered, this, &EditorTab::clearTranslatedEntries);
 
-    ADD_ACTION_SHORTCUT("file_pology", i18nc("@action:inmenu", "Launch the Pology command on this file"), Qt::CTRL + Qt::ALT + Qt::Key_P)
+    ADD_ACTION_SHORTCUT("file_pology", i18nc("@action:inmenu", "Launch the Pology command on this file"), Qt::ControlModifier + Qt::AltModifier + Qt::Key_P)
     action->setEnabled(Settings::self()->pologyEnabled());
     connect(action, &QAction::triggered, this, &EditorTab::launchPology);
 
-    ADD_ACTION_SHORTCUT("file_xliff2odf", i18nc("@action:inmenu", "Merge translation into OpenDocument"), Qt::CTRL + Qt::Key_Backslash)
+    ADD_ACTION_SHORTCUT("file_xliff2odf", i18nc("@action:inmenu", "Merge translation into OpenDocument"), Qt::ControlModifier + Qt::Key_Backslash)
     connect(action, &QAction::triggered, this, &EditorTab::mergeIntoOpenDocument);
     connect(this, &EditorTab::xliffFileOpened, action, &QAction::setVisible);
     action->setVisible(false);
@@ -423,7 +423,7 @@ void EditorTab::setupActions()
     action = actionCategory->addAction(QStringLiteral("edit_approve"),
                                        new KToolBarPopupAction(QIcon::fromTheme(QStringLiteral("approved")),
                                                i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)", "Approved"), this));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_U));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::Key_U));
 
     action->setCheckable(true);
     connect(action, &QAction::triggered, m_view, &EditorView::toggleApprovement);
@@ -455,43 +455,43 @@ void EditorTab::setupActions()
 
 
 #ifndef Q_OS_DARWIN
-    int copyShortcut = Qt::CTRL + Qt::Key_Space;
+    int copyShortcut = Qt::ControlModifier + Qt::Key_Space;
     if (Q_UNLIKELY(systemLang == QLocale::Korean
                    || systemLang == QLocale::Japanese
                    || systemLang == QLocale::Chinese
                   ))
-        copyShortcut = Qt::ALT + Qt::Key_Space;
+        copyShortcut = Qt::AltModifier + Qt::Key_Space;
 #else
     int copyShortcut = Qt::META + Qt::Key_Space;
 #endif
     ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr", i18nc("@action:inmenu", "Copy source to target"), copyShortcut, "msgid2msgstr")
     connect(action, &QAction::triggered, m_view->viewPort(), &TranslationUnitTextEdit::source2target);
 
-    ADD_ACTION_SHORTCUT("edit_unwrap-target", i18nc("@action:inmenu", "Unwrap target"), Qt::CTRL + Qt::Key_I)
+    ADD_ACTION_SHORTCUT("edit_unwrap-target", i18nc("@action:inmenu", "Unwrap target"), Qt::ControlModifier + Qt::Key_I)
     connect(action, &QAction::triggered, m_view, qOverload<>(&EditorView::unwrap));
 
     action = edit->addAction(QStringLiteral("edit_clear-target"), m_view->viewPort(), SLOT(removeTargetSubstring()));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_D));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::Key_D));
     action->setText(i18nc("@action:inmenu", "Clear"));
 
     action = edit->addAction(QStringLiteral("edit_tagmenu"), m_view->viewPort(), SLOT(tagMenu()));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_T));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::Key_T));
     action->setText(i18nc("@action:inmenu", "Insert Tag"));
 
     action = edit->addAction(QStringLiteral("edit_languagetool"), m_view->viewPort(), SLOT(launchLanguageTool()));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_J));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::Key_J));
     action->setText(i18nc("@action:inmenu", "Check this unit using LanguageTool"));
 
     action = edit->addAction(QStringLiteral("edit_tagimmediate"), m_view->viewPort(), SLOT(tagImmediate()));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_M));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::Key_M));
     action->setText(i18nc("@action:inmenu", "Insert Next Tag"));
 
     action = edit->addAction(QStringLiteral("edit_completion"), m_view, SIGNAL(doExplicitCompletion()));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_Space));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::AltModifier + Qt::Key_Space));
     action->setText(i18nc("@action:inmenu", "Completion"));
 
     action = edit->addAction(QStringLiteral("edit_spellreplace"), m_view->viewPort(), SLOT(spellReplace()));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_Equal));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::Key_Equal));
     action->setText(i18nc("@action:inmenu", "Replace with best spellcheck suggestion"));
 //     action = ac->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
 //     action->setText(i18nc("@action:inmenu","Define new term"));
@@ -511,51 +511,51 @@ void EditorTab::setupActions()
     action = nav->addAction(KStandardAction::FirstPage, this, SLOT(gotoFirst()));
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoFirstRequested, this, &EditorTab::gotoFirst);
     action->setText(i18nc("@action:inmenu", "&First Entry"));
-    action->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_Home));
+    action->setShortcut(QKeySequence(Qt::ControlModifier + Qt::AltModifier + Qt::Key_Home));
     connect(this, &EditorTab::signalFirstDisplayed, action, &QAction::setDisabled);
 
     action = nav->addAction(KStandardAction::LastPage, this, SLOT(gotoLast()));
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoLastRequested, this, &EditorTab::gotoLast);
     action->setText(i18nc("@action:inmenu", "&Last Entry"));
-    action->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_End));
+    action->setShortcut(QKeySequence(Qt::ControlModifier + Qt::AltModifier + Qt::Key_End));
     connect(this, &EditorTab::signalLastDisplayed, action, &QAction::setDisabled);
 
     action = nav->addAction(KStandardAction::GotoPage, this, SLOT(gotoEntry()));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_G));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::Key_G));
     action->setText(i18nc("@action:inmenu", "Entry by number"));
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"), Qt::CTRL + Qt::Key_PageUp, "prevfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"), Qt::ControlModifier + Qt::Key_PageUp, "prevfuzzy")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzy);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyRequested, this, &EditorTab::gotoPrevFuzzy);
     connect(this, &EditorTab::signalPriorFuzzyAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next non-empty but not ready"), Qt::CTRL + Qt::Key_PageDown, "nextfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next non-empty but not ready"), Qt::ControlModifier + Qt::Key_PageDown, "nextfuzzy")
     connect(action, &QAction::triggered, this, &EditorTab::gotoNextFuzzy);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyRequested, this, &EditorTab::gotoNextFuzzy);
     connect(this, &EditorTab::signalNextFuzzyAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans", i18nc("@action:inmenu", "Previous untranslated"), Qt::ALT + Qt::Key_PageUp, "prevuntranslated")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans", i18nc("@action:inmenu", "Previous untranslated"), Qt::AltModifier + Qt::Key_PageUp, "prevuntranslated")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevUntranslated);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevUntranslatedRequested, this, &EditorTab::gotoPrevUntranslated);
     connect(this, &EditorTab::signalPriorUntranslatedAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_untrans", i18nc("@action:inmenu", "Next untranslated"), Qt::ALT + Qt::Key_PageDown, "nextuntranslated")
+    ADD_ACTION_SHORTCUT_ICON("go_next_untrans", i18nc("@action:inmenu", "Next untranslated"), Qt::AltModifier + Qt::Key_PageDown, "nextuntranslated")
     connect(action, &QAction::triggered, this, &EditorTab::gotoNextUntranslated);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextUntranslatedRequested, this, &EditorTab::gotoNextUntranslated);
     connect(this, &EditorTab::signalNextUntranslatedAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"), Qt::CTRL + Qt::SHIFT/*ALT*/ + Qt::Key_PageUp, "prevfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"), Qt::ControlModifier + Qt::ShiftModifier/*ALT*/ + Qt::Key_PageUp, "prevfuzzyuntrans")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzyUntr);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyUntrRequested, this, &EditorTab::gotoPrevFuzzyUntr);
     connect(this, &EditorTab::signalPriorFuzzyOrUntrAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"), Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown, "nextfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"), Qt::ControlModifier + Qt::ShiftModifier + Qt::Key_PageDown, "nextfuzzyuntrans")
     connect(action, &QAction::triggered, this, qOverload<>(&EditorTab::gotoNextFuzzyUntr));
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyUntrRequested, this, qOverload<>(&EditorTab::gotoNextFuzzyUntr));
     connect(this, &EditorTab::signalNextFuzzyOrUntrAvailable, action, &QAction::setEnabled);
 
     action = nav->addAction(QStringLiteral("go_focus_earch_line"), m_transUnitsView, SLOT(setFocus()));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_L));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::Key_L));
     action->setText(i18nc("@action:inmenu", "Focus the search line of Translation Units view"));
 
 
@@ -580,11 +580,11 @@ void EditorTab::setupActions()
 
     actionCategory = tm;
     // xgettext: no-c-format
-    ADD_ACTION_SHORTCUT("tools_tm_batch", i18nc("@action:inmenu", "Fill in all exact suggestions"), Qt::CTRL + Qt::ALT + Qt::Key_B)
+    ADD_ACTION_SHORTCUT("tools_tm_batch", i18nc("@action:inmenu", "Fill in all exact suggestions"), Qt::ControlModifier + Qt::AltModifier + Qt::Key_B)
     connect(action, &QAction::triggered, _tmView, &TM::TMView::slotBatchTranslate);
 
     // xgettext: no-c-format
-    ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy", i18nc("@action:inmenu", "Fill in all exact suggestions and mark as fuzzy"), Qt::CTRL + Qt::ALT + Qt::Key_N)
+    ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy", i18nc("@action:inmenu", "Fill in all exact suggestions and mark as fuzzy"), Qt::ControlModifier + Qt::AltModifier + Qt::Key_N)
     connect(action, &QAction::triggered, _tmView, &TM::TMView::slotBatchTranslateFuzzy);
 
 //MergeMode
@@ -600,7 +600,7 @@ void EditorTab::setupActions()
     action->setStatusTip(i18nc("@info:status", "Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-    ac->setDefaultShortcut(action, QKeySequence(Qt::ALT + Qt::Key_Up));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::AltModifier + Qt::Key_Up));
 
     connect(m_syncView, &MergeView::signalPriorChangedAvailable, action, &QAction::setEnabled);
     m_syncView->addAction(action);
@@ -610,20 +610,20 @@ void EditorTab::setupActions()
     action->setStatusTip(i18nc("@info:status", "Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-    ac->setDefaultShortcut(action, QKeySequence(Qt::ALT + Qt::Key_Down));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::AltModifier + Qt::Key_Down));
     connect(m_syncView, &MergeView::signalNextChangedAvailable, action, &QAction::setEnabled);
     m_syncView->addAction(action);
 
     action = sync1->addAction(QStringLiteral("merge_nextapproved"), m_syncView, SLOT(gotoNextChangedApproved()));
     action->setText(i18nc("@action:inmenu", "Next different approved"));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::ALT + Qt::META + Qt::Key_Down));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::AltModifier + Qt::META + Qt::Key_Down));
     connect(m_syncView, &MergeView::signalNextChangedAvailable, action, &QAction::setEnabled);
     m_syncView->addAction(action);
 
     action = sync1->addAction(QStringLiteral("merge_accept"), m_syncView, SLOT(mergeAccept()));
     action->setText(i18nc("@action:inmenu", "Copy from merging source"));
     action->setEnabled(false);
-    ac->setDefaultShortcut(action, QKeySequence(Qt::ALT + Qt::Key_Return));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::AltModifier + Qt::Key_Return));
     connect(m_syncView, &MergeView::signalEntryWithMergeDisplayed, action, &QAction::setEnabled);
     m_syncView->addAction(action);
 
@@ -632,15 +632,15 @@ void EditorTab::setupActions()
     action->setStatusTip(i18nc("@info:status", "This changes only empty and non-ready entries in base file"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_A));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::AltModifier + Qt::Key_A));
     connect(m_syncView, &MergeView::mergeCatalogAvailable, action, &QAction::setEnabled);
     m_syncView->addAction(action);
-    //action->setShortcut(Qt::ALT+Qt::Key_E);
+    //action->setShortcut(Qt::AltModifier+Qt::Key_E);
 
     action = sync1->addAction(QStringLiteral("merge_back"), m_syncView, SLOT(mergeBack()));
     action->setText(i18nc("@action:inmenu", "Copy to merging source"));
     connect(m_syncView, &MergeView::mergeCatalogAvailable, action, &QAction::setEnabled);
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_Return));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::AltModifier + Qt::Key_Return));
     m_syncView->addAction(action);
 
 

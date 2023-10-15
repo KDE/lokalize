@@ -395,7 +395,7 @@ TMTab::TMTab(QWidget *parent)
     connect(ui_queryOptions->doFind, &QPushButton::clicked, this, &TMTab::performQuery);
     connect(ui_queryOptions->doUpdateTM, &QPushButton::clicked, this, &TMTab::updateTM);
 
-    QShortcut* sh = new QShortcut(Qt::CTRL + Qt::Key_L, this);
+    QShortcut* sh = new QShortcut(Qt::ControlModifier + Qt::Key_L, this);
     connect(sh, &QShortcut::activated, ui_queryOptions->querySource, qOverload<>(&QLineEdit::setFocus));
     setFocusProxy(ui_queryOptions->querySource);
 
@@ -403,13 +403,13 @@ TMTab::TMTab(QWidget *parent)
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QAction* a = new QAction(i18n("Copy source to clipboard"), view);
-    a->setShortcut(Qt::CTRL + Qt::Key_S);
+    a->setShortcut(Qt::ControlModifier + Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &TMTab::copySource);
     view->addAction(a);
 
     a = new QAction(i18n("Copy target to clipboard"), view);
-    a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
+    a->setShortcut(QKeySequence(Qt::ControlModifier + Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &TMTab::copyTarget);
     view->addAction(a);
@@ -423,7 +423,7 @@ TMTab::TMTab(QWidget *parent)
 
     //view->addAction(KStandardAction::copy(this),this,SLOT(),this);
     //QKeySequence::Copy?
-    //QShortcut* shortcut = new QShortcut(Qt::CTRL + Qt::Key_P,view,0,0,Qt::WidgetWithChildrenShortcut);
+    //QShortcut* shortcut = new QShortcut(Qt::ControlModifier + Qt::Key_P,view,0,0,Qt::WidgetWithChildrenShortcut);
     //connect(shortcut,SIGNAL(activated()), this, SLOT(copyText()));
 
     m_model = new TMDBModel(this);
