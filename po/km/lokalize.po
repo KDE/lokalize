@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-14 00:48+0000\n"
+"POT-Creation-Date: 2023-10-16 00:44+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -828,7 +828,7 @@ msgstr "ជម្រើស"
 msgid "Reset individual filter"
 msgstr "កំណត់​តម្រងផ្ទាល់ខ្លួន​ឡើងវិញ​"
 
-#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:368
+#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:367
 #, kde-format
 msgid "Case insensitive"
 msgstr "មិនប្រកាន់តួអក្សរតូចធំ​"
@@ -933,16 +933,16 @@ msgstr "ធាតុ​​​"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:200
-#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63
+#: src/filesearch/filesearchtab.cpp:321 src/glossary/glossary.cpp:200
+#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:62
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "ប្រភព​"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:201
-#: src/tm/tmtab.cpp:64
+#: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:201
+#: src/tm/tmtab.cpp:63
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -954,7 +954,7 @@ msgctxt "@title:column"
 msgid "Notes"
 msgstr "ចំណាំ​"
 
-#: src/cataloglistview/catalogmodel.cpp:113 src/tm/tmtab.cpp:65
+#: src/cataloglistview/catalogmodel.cpp:113 src/tm/tmtab.cpp:64
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
@@ -968,7 +968,7 @@ msgid "Files"
 msgstr "ឯកសារ​"
 
 #: src/cataloglistview/catalogmodel.cpp:117
-#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:67
+#: src/filesearch/filesearchtab.cpp:325 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -989,21 +989,21 @@ msgid "Target length"
 msgstr "ភាសាគោលដៅ​"
 
 #: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1064
-#: src/editortab.cpp:1267 src/tm/tmtab.cpp:234
+#: src/editortab.cpp:1267 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "រួចហើយ​"
 
 #: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1065
-#: src/editortab.cpp:1262 src/tm/tmtab.cpp:235
+#: src/editortab.cpp:1262 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "តម្រូវ​​ឲ្យ​ពិនិត្យ​ឡើងវិញ​"
 
 #: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1063
-#: src/tm/tmtab.cpp:236
+#: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -1036,8 +1036,8 @@ msgid "Current: %1"
 msgstr "បច្ចុប្បន្ន​ ៖​ %1"
 
 #: src/editortab.cpp:128 src/editortab.cpp:821
-#: src/filesearch/filesearchtab.cpp:775 src/project/projecttab.cpp:510
-#: src/tm/tmtab.cpp:596
+#: src/filesearch/filesearchtab.cpp:774 src/project/projecttab.cpp:510
+#: src/tm/tmtab.cpp:595
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -1218,7 +1218,7 @@ msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "គោលដៅមិនរុំ"
 
-#: src/editortab.cpp:475 src/filesearch/filesearchtab.cpp:94
+#: src/editortab.cpp:475 src/filesearch/filesearchtab.cpp:93
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
@@ -1958,53 +1958,53 @@ msgstr ""
 msgid "&Search"
 msgstr "ស្វែងរក​"
 
-#: src/filesearch/filesearchtab.cpp:76
+#: src/filesearch/filesearchtab.cpp:75
 #, fuzzy, kde-format
 #| msgid "File mask:"
 msgctxt "@title:window"
 msgid "File List"
 msgstr "របាំង​ឯកសារ​ ៖"
 
-#: src/filesearch/filesearchtab.cpp:78
+#: src/filesearch/filesearchtab.cpp:77
 #, fuzzy, kde-format
 msgid "Drop translation files here..."
 msgstr "កុំវិភាគរកឯកសារ​របស់​គម្រោង​ ។"
 
 #. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:325 src/tm/tmtab.cpp:66
+#: src/filesearch/filesearchtab.cpp:324 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
 msgstr "ឯកសារ​"
 
-#: src/filesearch/filesearchtab.cpp:422
+#: src/filesearch/filesearchtab.cpp:421
 #, kde-format
 msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:456 src/tm/tmtab.cpp:406
+#: src/filesearch/filesearchtab.cpp:455 src/tm/tmtab.cpp:405
 #, fuzzy, kde-format
 msgid "Copy source to clipboard"
 msgstr "ចម្លង​ប្រភព​ទៅ​ក្តារតម្បៀតខ្ទាស់​"
 
-#: src/filesearch/filesearchtab.cpp:462 src/tm/tmtab.cpp:412
+#: src/filesearch/filesearchtab.cpp:461 src/tm/tmtab.cpp:411
 #, fuzzy, kde-format
 msgid "Copy target to clipboard"
 msgstr "ចម្លង​គោលដៅ​ទៅ​ក្តារតម្បៀតខ្ទាស់​"
 
-#: src/filesearch/filesearchtab.cpp:468 src/tm/tmtab.cpp:418
+#: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:417
 #, kde-format
 msgid "Open file"
 msgstr "បើកឯកសារ​"
 
-#: src/filesearch/filesearchtab.cpp:507
+#: src/filesearch/filesearchtab.cpp:506
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:792
+#: src/filesearch/filesearchtab.cpp:791
 #, fuzzy, kde-format
 #| msgctxt "@item Undo action item"
 #| msgid "Replace"
@@ -2205,7 +2205,7 @@ msgstr ""
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:429 src/tm/tmtab.cpp:494
+#: src/lokalizemainwindow.cpp:429 src/tm/tmtab.cpp:493
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2245,7 +2245,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "សតិ​​​បក​ប្រែ"
 
-#: src/lokalizemainwindow.cpp:477 src/tm/tmtab.cpp:497
+#: src/lokalizemainwindow.cpp:477 src/tm/tmtab.cpp:496
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -2337,13 +2337,13 @@ msgstr "គម្រោង​"
 msgid "&Scripts"
 msgstr "ស្គ្រីប​"
 
-#: src/main.cpp:56
+#: src/main.cpp:55
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
 msgstr "​Lokalize"
 
-#: src/main.cpp:57
+#: src/main.cpp:56
 #, fuzzy, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2352,7 +2352,7 @@ msgstr ""
 "ប្រព័ន្ធបកប្រែដែលជំនួយដោយ​កុំព្យូទ័រ​ ។​\n"
 "​​កុំបកប្រែអ្វី​ដែល​បាន​បកប្រែរួចហើយ ។"
 
-#: src/main.cpp:59
+#: src/main.cpp:58
 #, fuzzy, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2363,134 +2363,134 @@ msgstr ""
 "រក្សាសិទ្ធិឆ្នាំ ២០០៧-២០០៩ ដោយ​ Nick Shaforostoff\n"
 "រក្សាសិទ្ធិឆ្នាំ ១៩៩៩-២០០៦ ដោយ​អ្នក​អភិវឌ្ឍន៍​​​ KBabel "
 
-#: src/main.cpp:60
+#: src/main.cpp:59
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:61
+#: src/main.cpp:60
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc.​"
 
-#: src/main.cpp:61
+#: src/main.cpp:60
 #, fuzzy, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "អ្នក​អភិវឌ្ឍន៍​ដែលបាន​ជួយឧបត្ថម្ភ​ជាចំណែកនៃ​ Google Summer របស់កម្មវិធីកូដ​​"
 
-#: src/main.cpp:62
+#: src/main.cpp:61
 #, kde-format
 msgid "NLNet Foundation"
 msgstr ""
 
-#: src/main.cpp:62
+#: src/main.cpp:61
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr ""
 
-#: src/main.cpp:63
+#: src/main.cpp:62
 #, fuzzy, kde-format
 msgid "Translate-toolkit"
 msgstr "ប្រអប់ឧបករណ៍​បក​ប្រែ​​"
 
-#: src/main.cpp:63
+#: src/main.cpp:62
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "ការបម្លែង​ស្គ្រីប​ទ្រង់ទ្រាយឆ្លងកាត់​​​​​​"
 
-#: src/main.cpp:64
+#: src/main.cpp:63
 #, fuzzy, kde-format
 #| msgid "Language"
 msgid "LanguageTool"
 msgstr "ភាសា​"
 
-#: src/main.cpp:64
+#: src/main.cpp:63
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr ""
 
-#: src/main.cpp:65
+#: src/main.cpp:64
 #, fuzzy, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:65
+#: src/main.cpp:64
 #, fuzzy, kde-format
 msgid "project tree merging translation+templates"
 msgstr "ការបញ្ចូលចូលគ្នា​​មែកធាង​គម្រោងគឺ​ការបកប្រែ​​+​ពុម្ភ​​"
 
-#: src/main.cpp:66
+#: src/main.cpp:65
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach​"
 
-#: src/main.cpp:66 src/main.cpp:67 src/main.cpp:70
+#: src/main.cpp:65 src/main.cpp:66 src/main.cpp:69
 #, fuzzy, kde-format
 msgid "bug fixing patches"
 msgstr "កំហុសក្នុង​ការ​ជួសជុលបំណះ​​​"
 
-#: src/main.cpp:67
+#: src/main.cpp:66
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
-#: src/main.cpp:68
+#: src/main.cpp:67
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:68
+#: src/main.cpp:67
 #, fuzzy, kde-format
 msgid "testing and bug fixing"
 msgstr "កំហុស​​​ការជួសជុល​ និង​ការសាកល្បង​"
 
-#: src/main.cpp:69
+#: src/main.cpp:68
 #, fuzzy, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:69
+#: src/main.cpp:68
 #, kde-format
 msgid "patches"
 msgstr "បំណះ​"
 
-#: src/main.cpp:70
+#: src/main.cpp:69
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:71
+#: src/main.cpp:70
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr ""
 
-#: src/main.cpp:71
+#: src/main.cpp:70
 #, kde-format
 msgid "XLIFF improvements"
 msgstr ""
 
-#: src/main.cpp:72
+#: src/main.cpp:71
 #, kde-format
 msgid "Simon Depiets"
 msgstr ""
 
-#: src/main.cpp:72
+#: src/main.cpp:71
 #, fuzzy, kde-format
 msgid "bug fixing and improvements"
 msgstr "កំហុសក្នុង​ការ​ជួសជុលបំណះ​​​"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:76
+#: src/main.cpp:75
 #, fuzzy, kde-format
 msgid "Do not scan files of the project."
 msgstr "កុំវិភាគរកឯកសារ​របស់​គម្រោង​ ។"
 
-#: src/main.cpp:77
+#: src/main.cpp:76
 #, fuzzy, kde-format
 msgid "Load specified project."
 msgstr "ផ្ទុក​គម្រោង​ដែលបាន​បញ្ជាក់​ ។"
 
-#: src/main.cpp:78
+#: src/main.cpp:77
 #, kde-format
 msgid "Document to open"
 msgstr "ឯកសារ​ត្រូវ​បើក "
@@ -4363,59 +4363,59 @@ msgstr "ការបន្ថែម​ឯកសារ​ទៅកាន់សត
 msgid "TM"
 msgstr "TM"
 
-#: src/tm/tmtab.cpp:76
+#: src/tm/tmtab.cpp:75
 #, fuzzy, kde-format
 #| msgid "Source:"
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr "ប្រភព​ ៖"
 
-#: src/tm/tmtab.cpp:81
+#: src/tm/tmtab.cpp:80
 #, fuzzy, kde-format
 #| msgid "Target:"
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "គោលដៅ ៖"
 
-#: src/tm/tmtab.cpp:362
+#: src/tm/tmtab.cpp:361
 #, fuzzy, kde-format
 #| msgctxt "@option:radio"
 #| msgid "Substring"
 msgid "Substring"
 msgstr "ខ្សែអក្សររង"
 
-#: src/tm/tmtab.cpp:362
+#: src/tm/tmtab.cpp:361
 #, fuzzy, kde-format
 #| msgctxt "@option:radio"
 #| msgid "Google-like"
 msgid "Google-like"
 msgstr "Google-like"
 
-#: src/tm/tmtab.cpp:362
+#: src/tm/tmtab.cpp:361
 #, fuzzy, kde-format
 #| msgctxt "@option:radio"
 #| msgid "Wildcard"
 msgid "Wildcard"
 msgstr "Wildcard"
 
-#: src/tm/tmtab.cpp:369
+#: src/tm/tmtab.cpp:368
 #, fuzzy, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "ចន្លោះ​គឺជា​ការី​ ។​ មិនប្រកាន់​តួអក្សរតូចធំ​ ។"
 
-#: src/tm/tmtab.cpp:370
+#: src/tm/tmtab.cpp:369
 #, fuzzy, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "គោលសែល​ (* និង​ ?) ។ ប្រកាន់​តួអក្សរតូចធំ​ ។​"
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:384 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "សតិបកប្រែ​"
 
-#: src/tm/tmtab.cpp:598
+#: src/tm/tmtab.cpp:597
 #, fuzzy, kde-format
 #| msgctxt "@info:status message entries"
 #| msgid "Total: %1"
@@ -4423,7 +4423,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "សរុប​ ៖ %1​"
 
-#: src/tm/tmtab.cpp:627 src/tm/tmview.cpp:580
+#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:580
 #, kde-format
 msgctxt "@info"
 msgid ""
