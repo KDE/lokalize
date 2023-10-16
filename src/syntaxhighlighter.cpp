@@ -204,7 +204,8 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     //HACK. Needs Sonnet API redesign (KDE 5)
     if (smthPreceeding) {
         qCWarning(LOKALIZE_LOG) << "ampersand is in the way. word len:" << count;
-        int realStart = text.lastIndexOf(QRegExp(QStringLiteral("\\b")), start - 2);
+        QRegExp regExp(QStringLiteral("\\b"));
+        int realStart = regExp.lastIndexIn(text, start - 2);
         if (realStart == -1)
             realStart = 0;
         QString t = text.mid(realStart, count + start - realStart);
@@ -220,7 +221,8 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
                      );
     if (smthAfter) {
         qCWarning(LOKALIZE_LOG) << "smthAfter. ampersand is in the way. word len:" << count;
-        int realEnd = text.indexOf(QRegExp(QStringLiteral("\\b")), start + count + 2);
+        QRegExp regExp(QStringLiteral("\\b"));
+        int realEnd = regExp.indexIn(text, start + count + 2);
         if (realEnd == -1)
             realEnd = text.size();
         QString t = text.mid(start, realEnd - start);

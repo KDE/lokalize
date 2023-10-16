@@ -503,7 +503,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         // and for statusbar
         Q_EMIT contentsModified(m_currentPos);
         if (charsAdded == 1) {
-            int sp = target.lastIndexOf(CompletionStorage::instance()->rxSplit, offset - 1);
+            int sp = CompletionStorage::instance()->rxSplit.lastIndexIn(target, offset - 1);
             int len = (offset - sp);
             int wordCompletionLength = Settings::self()->wordCompletionLength();
             if (wordCompletionLength >= 3 && len >= wordCompletionLength)
@@ -1305,7 +1305,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
     void TranslationUnitTextEdit::doCompletion(int pos) {
         QString target = m_catalog->targetWithTags(m_currentPos).string;
-        int sp = target.lastIndexOf(CompletionStorage::instance()->rxSplit, pos - 1);
+        int sp = CompletionStorage::instance()->rxSplit.lastIndexIn(target, pos - 1);
         int len = (pos - sp) - 1;
 
         QStringList s = CompletionStorage::instance()->makeCompletion(QString::fromRawData(target.unicode() + sp + 1, len));

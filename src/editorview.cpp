@@ -212,11 +212,13 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
         QTextCursor t = m_targetTextEdit->textCursor();
         //what if msg starts with a tag?
         if (Q_UNLIKELY(targetString.startsWith(QLatin1Char('<')))) {
-            int offset = targetString.indexOf(QRegExp(QStringLiteral(">[^<]")));
+            QRegExp regExp(QStringLiteral(">[^<]"));
+            int offset = regExp.indexIn(targetString);
             if (offset != -1)
                 t.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, offset + 1);
         } else if (Q_UNLIKELY(targetString.startsWith(TAGRANGE_IMAGE_SYMBOL))) {
-            int offset = targetString.indexOf(QRegExp(QStringLiteral("[^") + QChar(TAGRANGE_IMAGE_SYMBOL) + QLatin1Char(']')));
+            QRegExp regExp(QStringLiteral("[^") + QChar(TAGRANGE_IMAGE_SYMBOL) + QLatin1Char(']'));
+            int offset = regExp.indexIn(targetString);
             if (offset != -1)
                 t.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, offset + 1);
         }

@@ -193,7 +193,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
         }
 
         if (itm->length() > max) {
-            int pos = itm->lastIndexOf(breakStopRe, max - 1);
+            int pos = breakStopRe.lastIndexIn(*itm, max - 1);
             if (pos > (max / 2)) {
                 int pos2 = itm->indexOf(QLatin1Char('<'), pos);
                 if (pos2 > 0 && pos2 < max - 1) {

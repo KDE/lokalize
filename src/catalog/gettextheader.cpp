@@ -485,6 +485,7 @@ void updateHeader(QString& header,
     // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
     QRegExp regexpAuthorYear(QStringLiteral("^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)"));
     QRegExp regexpYearAlone(QStringLiteral("^# , \\d{4}.?\\s*$"));
+    QRegExp regexpFuzzy(QStringLiteral("#, *fuzzy"));
     if (commentList.isEmpty()) {
         commentList.append(temp);
         commentList.append(QString());
@@ -494,9 +495,9 @@ void updateHeader(QString& header,
             bool deleteItem = false;
             if (it->indexOf(QLatin1String("copyright"), 0, Qt::CaseInsensitive) != -1) {
                 // We have a line with a copyright. It should not be moved.
-            } else if (it->contains(QRegExp(QStringLiteral("#, *fuzzy"))))
+            } else if (regexpFuzzy.indexIn(*it) != -1)
                 deleteItem = true;
-            else if (it->contains(regexpYearAlone)) {
+            else if (regexpYearAlone.indexIn(*it) != -1) {
                 // We have found a year number that is preceded by a comma.
                 // That is typical of KBabel 1.10 (and earlier?) when there is neither an author name nor an email
                 // Remove the entry
@@ -505,7 +506,7 @@ void updateHeader(QString& header,
                 deleteItem = true;
             else if (it->contains(QLatin1String("# SOME DESCRIPTIVE TITLE")))
                 deleteItem = true;
-            else if (it->contains(regexpAuthorYear)) {   // email address followed by year
+            else if (regexpAuthorYear.indexIn(*it) != -1) {   // email address followed by year
                 if (!foundAuthors.contains((*it))) {
                     // The author line is new (and not a duplicate), so add it to the author line list
                     foundAuthors.append((*it));
@@ -541,7 +542,8 @@ void updateHeader(QString& header,
                     foundAuthors.append(temp);
                 else if (ait != foundAuthors.end()) {
                     //update years
-                    const int index = (*ait).lastIndexOf(QRegExp(QStringLiteral("[\\d]+[\\d\\-, ]*")));
+                    QRegExp regExp(QStringLiteral("[\\d]+[\\d\\-, ]*"));
+                    const int index = regExp.lastIndexIn(*ait);
                     if (index == -1)
                         (*ait) += QStringLiteral(", ") + cy;
                     else
