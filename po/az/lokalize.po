@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-16 00:44+0000\n"
+"POT-Creation-Date: 2023-10-17 00:44+0000\n"
 "PO-Revision-Date: 2023-09-13 23:28+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -789,24 +789,24 @@ msgstr ""
 "Daha yeni POT şablonuna keçid zamanı Gettext tərəfindən saxlanılan əvvəlki "
 "mənbə fraqmenti"
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Müıllifin adı verilməyib"
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgid "Your name:"
 msgstr "Sizin adınız:"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Müəllifin e-poçtu verilməyib"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgid "Your email:"
 msgstr "Sizin e-poçtunuz:"
@@ -1887,7 +1887,7 @@ msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Cəm forması %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:249
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

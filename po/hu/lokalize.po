@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-16 00:44+0000\n"
+"POT-Creation-Date: 2023-10-17 00:44+0000\n"
 "PO-Revision-Date: 2021-09-20 14:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -803,24 +803,24 @@ msgstr ""
 "Előző forrásérték, amelyet a Gettext egy újabb POT-sablonra való áttérés "
 "során mentett el"
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "A szerző neve hiányzik"
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgid "Your name:"
 msgstr "Kiszel Kristóf,Krutki Tamás,Szántó Tamás,Úr Balázs"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "A szerző e-mail-címe hiányzik"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgid "Your email:"
 msgstr ""
@@ -1916,7 +1916,7 @@ msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Többes szám: %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:249
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

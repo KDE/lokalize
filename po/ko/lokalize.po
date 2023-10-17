@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-16 00:44+0000\n"
+"POT-Creation-Date: 2023-10-17 00:44+0000\n"
 "PO-Revision-Date: 2023-08-25 23:03+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -754,24 +754,24 @@ msgid ""
 "template"
 msgstr "새 POT 템플릿으로 전환할 때 Gettext에서 저장한 이전 원본 값"
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "번역자 이름 없음"
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgid "Your name:"
 msgstr "내 이름:"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "번역자 이메일 없음"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgid "Your email:"
 msgstr "내 이메일:"
@@ -1843,7 +1843,7 @@ msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "복수 형태 %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:249
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

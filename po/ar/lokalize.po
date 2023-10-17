@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-16 00:44+0000\n"
+"POT-Creation-Date: 2023-10-17 00:44+0000\n"
 "PO-Revision-Date: 2023-08-19 22:37+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -782,24 +782,24 @@ msgid ""
 "template"
 msgstr "قيمة المصدر السّابقة، حفظتها «غَت‌تكست» أثناء النّقل إلى قالب POT جديد"
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "اسم المؤلّف ناقص"
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgid "Your name:"
 msgstr "اسمك:"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "بريد المؤلف ناقص"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgid "Your email:"
 msgstr "بريدك الإلكتروني:"
@@ -1876,7 +1876,7 @@ msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "صيغة الجموع %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:249
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

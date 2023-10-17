@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-16 00:44+0000\n"
+"POT-Creation-Date: 2023-10-17 00:44+0000\n"
 "PO-Revision-Date: 2023-08-27 10:52+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -811,24 +811,24 @@ msgstr ""
 "Aurreko iturburu balioa, Gettext-ek gordea POT txantiloi berriago batera "
 "iragatean "
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Egilearen izena falta da"
 
-#: src/catalog/gettextheader.cpp:582
+#: src/catalog/gettextheader.cpp:584
 #, kde-format
 msgid "Your name:"
 msgstr "Zure izena:"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Egilearen e-posta falta da"
 
-#: src/catalog/gettextheader.cpp:592
+#: src/catalog/gettextheader.cpp:594
 #, kde-format
 msgid "Your email:"
 msgstr "Zure e-posta:"
@@ -1911,7 +1911,7 @@ msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Plurala %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:249
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
