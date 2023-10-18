@@ -188,23 +188,23 @@ void CatalogView::fillFilterOptionsMenu()
 
     bool extStates = m_model->catalog()->capabilities()&ExtendedStates;
 
-    const char* const basicTitles[] = {
-        I18N_NOOP("Case insensitive"),
-        I18N_NOOP("Ignore accelerator marks"),
-        I18N_NOOP("Ready"),
-        I18N_NOOP("Non-ready"),
-        I18N_NOOP("Non-empty"),
-        I18N_NOOP("Empty"),
-        I18N_NOOP("Changed since file open"),
-        I18N_NOOP("Unchanged since file open"),
-        I18N_NOOP("Same in sync file"),
-        I18N_NOOP("Different in sync file"),
-        I18N_NOOP("Not in sync file"),
-        I18N_NOOP("Plural"),
-        I18N_NOOP("Non-plural"),
+    const QStringList basicTitles = {
+        i18n("Case insensitive"),
+        i18n("Ignore accelerator marks"),
+        i18n("Ready"),
+        i18n("Non-ready"),
+        i18n("Non-empty"),
+        i18n("Empty"),
+        i18n("Changed since file open"),
+        i18n("Unchanged since file open"),
+        i18n("Same in sync file"),
+        i18n("Different in sync file"),
+        i18n("Not in sync file"),
+        i18n("Plural"),
+        i18n("Non-plural"),
     };
-    const char* const* extTitles = Catalog::states();
-    const char* const* alltitles[2] = {basicTitles, extTitles};
+    const QStringList extTitles = Catalog::translatedStates();
+    const QStringList alltitles[2] = {basicTitles, extTitles};
 
     QMenu* basicMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Basic"));
     QMenu* extMenu = extStates ? m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "States")) : nullptr;
@@ -220,7 +220,7 @@ void CatalogView::fillFilterOptionsMenu()
     for (int i = 0; (1 << i) < CatalogTreeFilterModel::MaxOption; ++i) {
         bool ext = (1 << i) >= CatalogTreeFilterModel::New;
         if (!extStates && ext) break;
-        txt = allmenus[ext]->addAction(i18n(alltitles[ext][i - ext * FIRSTSTATEPOSITION]));
+        txt = allmenus[ext]->addAction(alltitles[ext][i - ext * FIRSTSTATEPOSITION]);
         txt->setData(1 << i);
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filterOptions() & (1 << i));

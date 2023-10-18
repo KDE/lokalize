@@ -94,16 +94,16 @@ QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int 
     Q_UNUSED(orientation);
     if (role != Qt::DisplayRole) return QVariant();
 
-    const char* const columns[] = {
-        I18N_NOOP2("@title:column", "Name"),
-        I18N_NOOP2("@title:column", "Source language"),
-        I18N_NOOP2("@title:column", "Target language"),
-        I18N_NOOP2("@title:column", "Pairs"),
-        I18N_NOOP2("@title:column", "Unique original entries"),
-        I18N_NOOP2("@title:column", "Unique translations")
+    const QStringList columns = {
+        i18nc("@title:column", "Name"),
+        i18nc("@title:column", "Source language"),
+        i18nc("@title:column", "Target language"),
+        i18nc("@title:column", "Pairs"),
+        i18nc("@title:column", "Unique original entries"),
+        i18nc("@title:column", "Unique translations")
     };
 
-    return i18nc("@title:column", columns[section]);
+    return columns[section];
 }
 
 void DBFilesModel::openDB(const QString& name, DbType type, bool forceCurrentProjectConfig)

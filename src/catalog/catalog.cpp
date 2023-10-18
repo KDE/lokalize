@@ -55,14 +55,15 @@ QString Catalog::supportedFileTypes(bool includeTemplates)
 
 static const QString extensions[] = {QStringLiteral(".po"), QStringLiteral(".pot"), QStringLiteral(".xlf"), QStringLiteral(".xliff"), QStringLiteral(".ts")};
 
-static const char* const xliff_states[] = {
-    I18N_NOOP("New"), I18N_NOOP("Needs translation"), I18N_NOOP("Needs full localization"), I18N_NOOP("Needs adaptation"), I18N_NOOP("Translated"),
-    I18N_NOOP("Needs translation review"), I18N_NOOP("Needs full localization review"), I18N_NOOP("Needs adaptation review"), I18N_NOOP("Final"),
-    I18N_NOOP("Signed-off")
-};
 
-const char* const* Catalog::states()
+QStringList Catalog::translatedStates()
 {
+    static QStringList const xliff_states = {
+        i18n("New"), i18n("Needs translation"), i18n("Needs full localization"), i18n("Needs adaptation"), i18n("Translated"),
+        i18n("Needs translation review"), i18n("Needs full localization review"), i18n("Needs adaptation review"), i18n("Final"),
+        i18n("Signed-off")
+    };
+
     return xliff_states;
 }
 

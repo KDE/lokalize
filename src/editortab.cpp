@@ -1236,22 +1236,22 @@ void EditorTab::toggleApprovementGotoNextFuzzyUntr()
 
 void EditorTab::setApproveActionTitle()
 {
-    const char* const titles[] = {
-        I18N_NOOP2("@option:check trans-unit state", "Translated"),
-        I18N_NOOP2("@option:check trans-unit state", "Signed-off"),
-        I18N_NOOP2("@option:check trans-unit state", "Approved")
+    const QStringList titles = {
+        i18nc("@option:check trans-unit state", "Translated"),
+        i18nc("@option:check trans-unit state", "Signed-off"),
+        i18nc("@option:check trans-unit state", "Approved")
     };
-    const char* const helpText[] = {
-        I18N_NOOP2("@info:tooltip", "Translation is done (although still may need a review)"),
-        I18N_NOOP2("@info:tooltip", "Translation has received positive review"),
-        I18N_NOOP2("@info:tooltip", "Entry is fully localized (i.e. final)")
+    const QStringList helpText = {
+        i18nc("@info:tooltip", "Translation is done (although still may need a review)"),
+        i18nc("@info:tooltip", "Translation has received positive review"),
+        i18nc("@info:tooltip", "Entry is fully localized (i.e. final)")
     };
 
     int role = m_catalog->activePhaseRole();
     if (role == ProjectLocal::Undefined)
         role = Project::local()->role();
-    m_approveAction->setText(i18nc("@option:check trans-unit state", titles[role]));
-    m_approveAction->setToolTip(i18nc("@info:tooltip", helpText[role]));
+    m_approveAction->setText(titles[role]);
+    m_approveAction->setToolTip(helpText[role]);
     m_approveAndGoAction->setVisible(role == ProjectLocal::Approver);
 }
 
@@ -1274,9 +1274,9 @@ void EditorTab::showStatesMenu()
 
     TargetState state = m_catalog->state(m_currentPos);
 
-    const char* const* states = Catalog::states();
+    const QStringList states = Catalog::translatedStates();
     for (int i = 0; i < StateCount; ++i) {
-        QAction* a = m_stateAction->menu()->addAction(i18n(states[i]));
+        QAction* a = m_stateAction->menu()->addAction(states[i]);
         a->setData(QVariant(i));
         a->setCheckable(true);
         a->setChecked(state == i);

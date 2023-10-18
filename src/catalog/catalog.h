@@ -66,7 +66,7 @@ public:
 
     static QStringList supportedExtensions();
     static bool extIsSupported(const QString& path);
-    static const char* const* states();
+    static QStringList translatedStates();
 
     int capabilities() const;
 

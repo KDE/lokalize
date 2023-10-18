@@ -105,12 +105,12 @@ QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
     if (role != Qt::DisplayRole)
         return QVariant();
 
-    static const char* noyes[] = {I18N_NOOP("no"), I18N_NOOP("yes")};
+    static QStringList noyes = {i18n("no"), i18n("yes")};
     DocPosition pos(index.row() + m_catalog->numberOfEntries());
     switch (index.column()) {
     case SourceFilePath:    return m_catalog->source(pos);
     case TargetFilePath:    return m_catalog->target(pos);
-    case Approved:          return QString::fromLocal8Bit(noyes[m_catalog->isApproved(pos)]);
+    case Approved:          return noyes[m_catalog->isApproved(pos)];
     }
     return QVariant();
 }
