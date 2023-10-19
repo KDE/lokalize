@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-17 00:44+0000\n"
+"POT-Creation-Date: 2023-10-19 00:44+0000\n"
 "PO-Revision-Date: 2020-05-04 20:00-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -265,52 +265,52 @@ msgstr ""
 msgid "Linguist (*.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "New"
 msgstr "新規"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs translation"
 msgstr "翻訳が必要"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization"
 msgstr "全ローカル化が必要"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation"
 msgstr "適用が必要"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Translated"
 msgstr "翻訳済み"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs translation review"
 msgstr "翻訳レビューが必要"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs full localization review"
 msgstr "全ローカル化レビューが必要"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "適用レビューが必要"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Final"
 msgstr "最終版"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Signed-off"
 msgstr "サインオフ"

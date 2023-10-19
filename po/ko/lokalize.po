@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-17 00:44+0000\n"
+"POT-Creation-Date: 2023-10-19 00:44+0000\n"
 "PO-Revision-Date: 2023-08-25 23:03+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -256,52 +256,52 @@ msgstr "XLIFF (*.xlf *.xliff)"
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "New"
 msgstr "새 항목"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs translation"
 msgstr "번역이 필요함"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization"
 msgstr "완전한 지역화가 필요함"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation"
 msgstr "문맥에 맞춰야 함"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Translated"
 msgstr "번역됨"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs translation review"
 msgstr "번역 검토 필요함"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs full localization review"
 msgstr "완전한 지역화 검토 필요함"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "문맥 검토 필요함"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Final"
 msgstr "최종"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Signed-off"
 msgstr "확인됨"

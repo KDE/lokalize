@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-17 00:44+0000\n"
+"POT-Creation-Date: 2023-10-19 00:44+0000\n"
 "PO-Revision-Date: 2023-07-31 17:34+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -271,52 +271,52 @@ msgstr "XLIFF (*.xlf *.xliff)"
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "New"
 msgstr "Νέο"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs translation"
 msgstr "Απαιτείται μετάφραση"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization"
 msgstr "Απαιτείται πλήρη μετάφραση"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Απαιτείται προσαρμογή"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Translated"
 msgstr "Μεταφρασμένα"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs translation review"
 msgstr "Απαιτείται αναθεώρηση μετάφρασης"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Απαιτείται πλήρη αναθεώρηση μετάφρασης"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Απαιτείται αναθεώρηση προσαρμογής"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Final"
 msgstr "Τελικό"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Signed-off"
 msgstr "Υπογραμμένο"
