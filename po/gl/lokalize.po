@@ -4111,7 +4111,7 @@ msgstr ""
 #: src/project/projecttab.cpp:390
 #, kde-format
 msgid "Are you sure you want to open this many files?"
-msgstr "Está seguro de que quere abrir tantos ficheiros?"
+msgstr "Seguro que quere abrir tantos ficheiros?"
 
 #: src/project/projecttab.cpp:392
 #, kde-format
