@@ -1926,7 +1926,7 @@ msgid ""
 "Press Esc to stop the search."
 msgstr ""
 "Expressió de busca per a una «part» de l'idioma d'origen.\n"
-"Premeu «Ctrl+L» per a anar a este control\n"
+"Premeu «Ctrl+L» per a anar fins a este control\n"
 "Premeu «Retorn» per a iniciar la busca.\n"
 "Premeu «Esc» per a parar la busca."
 
@@ -3090,14 +3090,15 @@ msgid ""
 "the text of the current translation unit.</html>"
 msgstr ""
 "<html>Quan està activada esta opció, s'utilitza la roda del ratolí per a "
-"anar a l'anterior o següent unitat de traducció (sense tecles "
+"anar fins a l'anterior o següent unitat de traducció (sense tecles "
 "modificadores). Les tecles modificadores es poden utilitzar per a canviar "
 "este comportament. Ús: <ul><li><b>Maj</b> per a desplaçar-se dins del text "
-"de la unitat actual,</li><li><b>Ctrl+Maj</b> per a anar a la unitat anterior "
-"o a la següent no enllestida.</li><li><b>Ctrl</b> per a anar a la unitat "
-"anterior o a la següent que no estiga buida,</li><li><b>Alt</b> per a anar a "
-"la unitat sense traduir anterior o següent.</li></ul>Quan està desactivada, "
-"la roda del ratolí desplaça el text de la unitat de traducció actual.</html>"
+"de la unitat actual,</li><li><b>Ctrl+Maj</b> per a anar fins a la unitat "
+"anterior o fins a la següent no enllestida.</li><li><b>Ctrl</b> per a anar "
+"fins a la unitat anterior o fins a la següent que no estiga buida,</"
+"li><li><b>Alt</b> per a anar fins a la unitat sense traduir anterior o "
+"següent.</li></ul>Quan està desactivada, la roda del ratolí desplaça el text "
+"de la unitat de traducció actual.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -3155,13 +3156,13 @@ msgstr "Restaura els fitxers oberts prèviament en iniciar Lokalize"
 #, kde-format
 msgid "Defines the behavior of the next/previous tab shortcuts"
 msgstr ""
-"Definix el comportament de les dreceres de les pestanyes següent/anterior"
+"Definix el comportament de les dreceres de les pestanyes següent o anterior"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:57
 #, kde-format
 msgid "Next/previous tab shortcut behavior"
-msgstr "Comportament de la drecera de pestanya següent/anterior"
+msgstr "Comportament de la drecera de pestanya següent o anterior"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
 #: src/prefs/prefs_general.ui:68
@@ -4321,7 +4322,7 @@ msgid ""
 msgstr ""
 "Expressió de busca per a una «part» de l'idioma d'origen.\n"
 "Premeu «Retorn» per a començar a buscar.\n"
-"Premeu «Ctrl+L» per a anar a este control."
+"Premeu «Ctrl+L» per a anar fins a este control."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
