@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-17 00:44+0000\n"
+"POT-Creation-Date: 2023-10-19 00:44+0000\n"
 "PO-Revision-Date: 2023-08-10 18:39+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -262,53 +262,53 @@ msgstr "XLIFF (*.xlf *.xliff)"
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "New"
 msgstr "Ny"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs translation"
 msgstr "Treng omsetjing"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization"
 msgstr "Treng full omsetjing"
 
 # unreviewed-context
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Treng tilpassing"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Translated"
 msgstr "Omsett"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs translation review"
 msgstr "Treng korrektur av omsetjing"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Treng full korrektur av omsetjing"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Treng korrektur av tilpassing"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Final"
 msgstr "Endeleg"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Signed-off"
 msgstr "Endeleg godkjend"

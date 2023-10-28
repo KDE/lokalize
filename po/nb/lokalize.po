@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-17 00:44+0000\n"
+"POT-Creation-Date: 2023-10-19 00:44+0000\n"
 "PO-Revision-Date: 2014-03-22 21:58+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -257,52 +257,52 @@ msgstr ""
 msgid "Linguist (*.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "New"
 msgstr "Ny"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs translation"
 msgstr "Ikke oversatt"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization"
 msgstr "Ikke fullt lokalisert"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Ikke tilpasset"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Translated"
 msgstr "Oversatt"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs translation review"
 msgstr "Må vaskes"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Må ses over i flere henseende"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Tilpasningene må sjekkes"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Final"
 msgstr "Ferdig"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Signed-off"
 msgstr "Signert"
