@@ -2978,8 +2978,8 @@ msgid ""
 "If checked, LEDS will be shown to display the message status: Fuzzy, "
 "Untranslated or Error. If unchecked, no LEDs will be displayed."
 msgstr ""
-"Si està marcada, es visualitzaran els LED per a mostrar l'estat del "
-"missatge: inexacte, sense traduir o erroni. Si no està marcada, no es "
+"Si se selecciona, es visualitzaran els LED per a mostrar l'estat del "
+"missatge: inexacte, sense traduir o erroni. Si no se selecciona, no es "
 "visualitzaran."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
@@ -3057,7 +3057,7 @@ msgid ""
 "displaying it in the user interface, or when it gets concatenated with "
 "others)."
 msgstr ""
-"Marqueu-la per a mostrar si una cadena acaba amb un espai (sovint és "
+"Seleccioneu-la per a mostrar si una cadena acaba amb un espai (sovint és "
 "important en visualitzar-la en la interfície d'usuari o quan es concatena "
 "amb d'altres)."
 
@@ -3073,7 +3073,7 @@ msgstr "Ressalta els espais al final"
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
-"Si està activada, la roda del ratolí portarà a l'anterior o següent unitat "
+"Si se selecciona, la roda del ratolí portarà a l'anterior o següent unitat "
 "de traducció, en cas contrari desplaçarà el text"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
@@ -3089,7 +3089,7 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
-"<html>Quan està activada esta opció, s'utilitza la roda del ratolí per a "
+"<html>Quan se selecciona esta opció, s'utilitza la roda del ratolí per a "
 "anar fins a l'anterior o següent unitat de traducció (sense tecles "
 "modificadores). Les tecles modificadores es poden utilitzar per a canviar "
 "este comportament. Ús: <ul><li><b>Maj</b> per a desplaçar-se dins del text "
@@ -3097,8 +3097,8 @@ msgstr ""
 "anterior o fins a la següent no enllestida.</li><li><b>Ctrl</b> per a anar "
 "fins a la unitat anterior o fins a la següent que no estiga buida,</"
 "li><li><b>Alt</b> per a anar fins a la unitat sense traduir anterior o "
-"següent.</li></ul>Quan està desactivada, la roda del ratolí desplaça el text "
-"de la unitat de traducció actual.</html>"
+"següent.</li></ul>Quan no està seleccionada, la roda del ratolí desplaça el "
+"text de la unitat de traducció actual.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -3416,7 +3416,8 @@ msgstr ""
 #: src/prefs/prefs_tm.ui:45
 #, kde-format
 msgid "If checked, get translation memory suggestions "
-msgstr "Si està marcada, obtín el suggeriment des de la memòria de traducció "
+msgstr ""
+"Si se selecciona, obtindrà el suggeriment des de la memòria de traducció "
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:48
@@ -3425,8 +3426,8 @@ msgid ""
 "If this is checked, the program will fetch translation memories as soon as "
 "you open a file."
 msgstr ""
-"Si està marcada, el programa extrau la memòria de traducció tan prompte com "
-"s'òbriga un fitxer."
+"Si se selecciona, el programa extraurà la memòria de traducció tan prompte "
+"com s'òbriga un fitxer."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:51
@@ -4196,7 +4197,7 @@ msgstr "Nom de la base de dades:"
 #: src/tm/dbparams.ui:45
 #, kde-format
 msgid "Host:"
-msgstr "Màquina:"
+msgstr "Amfitrió:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: src/tm/dbparams.ui:62
@@ -4641,7 +4642,7 @@ msgstr ""
 "<p align=\"justify\">Per a facilitar la traducció de KDE, Lokalize pot "
 "capturar text des de les aplicacions de la interfície d'usuari i buscar els "
 "fitxers de traducció que continguen el text.</p>\n"
-"<p align=\"justify\">Quan està activada, la captura s'iniciarà en fer clic "
+"<p align=\"justify\">Quan se selecciona, la captura s'iniciarà en fer clic "
 "damunt d'un element no editable de la IGU (giny). Després d'açò canvieu a la "
 "finestra de Lokalize i trieu una entrada amb este text. Fins i tot donat el "
 "cas que diversos fitxers continguen la mateixa cadena, es triarà la correcta "
