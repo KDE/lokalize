@@ -54,7 +54,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     QVBoxLayout* wl = new QVBoxLayout(welcomeWidget);
     QLabel* about = new QLabel(i18n("<html>" //copied from kaboutkdedialog_p.cpp
                                     "You do not have to be a software developer to be a member of the "
-                                    "KDE team. You can join the national teams that translate "
+                                    "KDE team. You can join the language teams that translate "
                                     "program interfaces. You can provide graphics, themes, sounds, and "
                                     "improved documentation. You decide!"
                                     "<br /><br />"
