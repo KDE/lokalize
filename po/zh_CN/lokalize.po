@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-23 00:43+0000\n"
-"PO-Revision-Date: 2023-11-19 03:41\n"
+"PO-Revision-Date: 2023-11-25 02:29\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -25,9 +25,7 @@ msgstr "KDE 中国, Guo Yunhe, Henry Hu, Tyson Tan"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
-"kde-china@kde.org, i@guoyunhe.me, henry.hu.sh@gmail.com, tysontan@tysontan."
-"com"
+msgstr "kde-china@kde.org, i@guoyunhe.me, henry.hu.sh@gmail.com, tds00@qq.com"
 
 #. i18n: tag collection attribute text
 #. i18n: tag collection attribute comment
@@ -3759,15 +3757,7 @@ msgid "Project Overview"
 msgstr "项目概况"
 
 #: src/project/projecttab.cpp:55
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -3777,11 +3767,6 @@ msgid ""
 "documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
 "what you need.</html>"
 msgstr ""
-"<html>即使您不是软件开发人员，我们也欢迎您加入 KDE 的队伍！您可以加入各国语言"
-"的翻译团队来翻译软件的界面，您还可以制作图像、主题、音效，或者改进软件配套的"
-"文档……您的角色您来定！<br /><br />请访问 <a href=\"%1\">%1</a> 来物色您感兴趣"
-"的项目。<br /><br />如需了解更多相关信息和文档，请访问 <a href=\"%2\">%2</"
-"a> 。</html>"
 
 #: src/project/projecttab.cpp:76
 #, kde-format
