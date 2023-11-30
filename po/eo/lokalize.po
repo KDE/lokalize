@@ -1058,11 +1058,7 @@ msgid "Total: %1"
 msgstr "Sumo: %1"
 
 #: src/editortab.cpp:134 src/editortab.cpp:144
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@info:status message entries\n"
-#| "¦'fuzzy' in gettext terminology"
-#| msgid "Not ready: %1"
+#, kde-format
 msgctxt ""
 "@info:status message entries\n"
 "'fuzzy' in gettext terminology"
@@ -1300,11 +1296,7 @@ msgid "Entry by number"
 msgstr "Eniro per numero"
 
 #: src/editortab.cpp:564 src/project/projecttab.cpp:152
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "¦'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Previous non-empty but not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -1312,11 +1304,7 @@ msgid "Previous non-empty but not ready"
 msgstr "Antaŭa ne malplena sed ne preta"
 
 #: src/editortab.cpp:569 src/project/projecttab.cpp:155
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "¦'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Next non-empty but not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -1336,11 +1324,7 @@ msgid "Next untranslated"
 msgstr "Sekva netradukita"
 
 #: src/editortab.cpp:584 src/project/projecttab.cpp:146
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "¦'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Previous not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -1348,11 +1332,7 @@ msgid "Previous not ready"
 msgstr "Antaŭa ne preta"
 
 #: src/editortab.cpp:589 src/project/projecttab.cpp:149
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "¦'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Next not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -2535,11 +2515,7 @@ msgid "Accept all new translations"
 msgstr "Akcepti ĉiujn novajn tradukojn"
 
 #: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:35
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@title:window that displays difference between current file and 'merge "
-#| "¦source'"
-#| msgid "Primary Sync"
+#, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
 "source'"
@@ -2547,11 +2523,7 @@ msgid "Primary Sync"
 msgstr "Primara Sinkronigo"
 
 #: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@title:window that displays difference between current file and 'merge "
-#| "¦source'"
-#| msgid "Secondary Sync"
+#, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
 "source'"
@@ -3595,23 +3567,7 @@ msgstr "Branĉa dosierujo:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, branchDir)
 #: src/project/prefs_project_advanced.ui:161
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when ¦you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3653,19 +3609,7 @@ msgstr "Dosierujo de branĉaj ŝablonoj:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when ¦you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project "
-#| "templates folder,\n"
-#| "and Secondary Sync view will automatically create files from branch."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3697,23 +3641,7 @@ msgstr "Dosierujo de alternativa tradukado:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
 #: src/project/prefs_project_advanced.ui:227
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when ¦you're translating docs"
-#| msgid ""
-#| "Set this to path of a folder with structure similar to Root Folder.\n"
-#| "\n"
-#| "On each translation file open, a corresponding file in Alternate "
-#| "translations directory will be looked up and,\n"
-#| "if it is found, it will be used for Alternate Translations view.\n"
-#| "\n"
-#| "You will likely want to use translations of another target language (i.e. "
-#| "another subproject), which is close to yours.\n"
-#| "Also, you can use other subproject's translations either immediately, or "
-#| "have them pretranslated to your language by machine.\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3931,11 +3859,7 @@ msgid "Name"
 msgstr "Nomo"
 
 #: src/project/projectmodel.cpp:523
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
-#| "¦counts"
-#| msgid "Graph"
+#, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
 "counts"
@@ -4045,11 +3969,7 @@ msgid "Translate OpenDocument"
 msgstr "Traduki OpenDocument"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "Loading bar percentage indicator %p will be replaced by the actual "
-#| "¦percentage number, so make sure you include it in your translation"
-#| msgid "%p%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
