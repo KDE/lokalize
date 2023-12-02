@@ -43,6 +43,14 @@
 
 int main(int argc, char **argv)
 {
+    // TODO lokalize has weird bugs on pure wayland that are hard to fix
+    // (uses multiple qmainwindows) so force X11/XWayland for now
+    // https://bugs.kde.org/show_bug.cgi?id=424024
+    // https://bugs.kde.org/show_bug.cgi?id=477704
+#ifdef Q_OS_LINUX
+    qputenv("QT_QPA_PLATFORM", "xcb");
+#endif
+
     TM::threadPool()->setMaxThreadCount(1);
     TM::threadPool()->setExpiryTimeout(-1);
     QThreadPool::globalInstance()->setMaxThreadCount(1);
