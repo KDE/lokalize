@@ -1,6 +1,6 @@
 # translation of lokalize.po to Slovak
 # Richard Fric <Richard.Fric@kdemail.net>, 2007, 2009.
-# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2019, 2022.
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2019, 2022, 2023 Roman Paholík <wizzardsk@gmail.com>
 # Matej Mrenica <matejm98mthw@gmail.com>, 2019, 2020.
 # Dušan Kazik <prescott66@gmail.com>, 2020.
 msgid ""
@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-03 00:43+0000\n"
-"PO-Revision-Date: 2022-04-09 19:30+0200\n"
+"PO-Revision-Date: 2023-12-06 19:07+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -1462,12 +1462,10 @@ msgid "This changes only empty entries"
 msgstr "Toto zmení iba prázdne záznamy"
 
 #: src/editortab.cpp:706
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(obnovené)"
+msgstr " (obnovené)"
 
 #: src/editortab.cpp:750 src/editortab.cpp:767 src/editortab.cpp:938
 #: src/editortab.cpp:952
@@ -1662,9 +1660,7 @@ msgid ""
 msgstr "Chcete hľadať zdrojový súbor lokálne alebo vez lxr.kde.org?"
 
 #: src/editortab.cpp:1523
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Hľadanie zdrojového súboru"
@@ -1710,11 +1706,10 @@ msgstr ""
 "Chcete zmeniť priečinok so zdrojovými súbormi?"
 
 #: src/editortab.cpp:1577
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Vyberte priečinok:"
+msgstr "Vybrať priečinok"
 
 #: src/editortab.cpp:1602
 #, kde-format
@@ -2880,16 +2875,13 @@ msgid "Project Required"
 msgstr "Prehľad projektu"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Vytvoriť nový projekt"
+msgstr "Vytvoriť projekt"
 
 #: src/prefs/prefs.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Otvoriť projekt"
@@ -3951,15 +3943,7 @@ msgid "Project Overview"
 msgstr "Prehľad projektu"
 
 #: src/project/projecttab.cpp:55
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -4000,14 +3984,12 @@ msgid "Translate OpenDocument"
 msgstr "Preložiť OpenDocument"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:164
 #, kde-format
@@ -4411,18 +4393,16 @@ msgid "TM"
 msgstr "TM"
 
 #: src/tm/tmtab.cpp:75
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Zdroj:"
+msgstr "Zdroj: %1"
 
 #: src/tm/tmtab.cpp:80
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Cieľ:"
+msgstr "Cieľ: %1"
 
 #: src/tm/tmtab.cpp:361
 #, kde-format
