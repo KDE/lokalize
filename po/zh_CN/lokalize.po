@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-03 00:43+0000\n"
-"PO-Revision-Date: 2023-11-25 02:29\n"
+"PO-Revision-Date: 2023-12-09 09:27\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -2136,12 +2136,12 @@ msgstr "项目"
 #: src/lokalizemainwindow.cpp:457
 #, kde-format
 msgid "Next tab"
-msgstr "下一个标签"
+msgstr "下一个标签页"
 
 #: src/lokalizemainwindow.cpp:460
 #, kde-format
 msgid "Previous tab"
-msgstr "上一个标签"
+msgstr "上一个标签页"
 
 #: src/lokalizemainwindow.cpp:463
 #, kde-format
