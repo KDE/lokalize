@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the kdesdk package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
+# SPDX-FileCopyrightText: 2023 Agron Selimaj <as9902613@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-03 00:43+0000\n"
-"PO-Revision-Date: 2010-01-06 14:16+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Albanian <sq@li.org>\n"
+"POT-Creation-Date: 2023-12-14 00:43+0000\n"
+"PO-Revision-Date: 2023-12-13 17:40-0500\n"
+"Last-Translator: Agron Selimaj <as9902613@gmail.com>\n"
+"Language-Team: sq\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2011-04-22 02:10+0000\n"
-"X-Generator: Launchpad (build 12883)\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -27,7 +28,7 @@ msgstr "KDE Shqip, Launchpad Contributions: Vilson Gjeci"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "kde-shqip@yahoogroups.com,vilsongjeci@gmail.com"
+msgstr "kde-i18n-sq@kde.org,vilsongjeci@gmail.com"
 
 #. i18n: tag collection attribute text
 #. i18n: tag collection attribute comment
@@ -354,7 +355,7 @@ msgstr ""
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
-msgstr ""
+msgstr "shkurtimi"
 
 #: src/catalog/catalogstring.cpp:119
 #, kde-format
@@ -729,13 +730,11 @@ msgid "Author email missing"
 msgstr ""
 
 #: src/catalog/gettextheader.cpp:594
-#, fuzzy, kde-format
-#| msgctxt "EMAIL OF TRANSLATORS"
-#| msgid "Your emails"
+#, kde-format
 msgid "Your email:"
-msgstr "kde-shqip@yahoogroups.com,vilsongjeci@gmail.com"
+msgstr "kde-i18n-sq@kde.org,vilsongjeci@gmail.com"
 
-#: src/catalog/ts/tsstorage.cpp:424
+#: src/catalog/ts/tsstorage.cpp:425
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr ""
