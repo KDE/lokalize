@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 02:39+0000\n"
+"POT-Creation-Date: 2023-12-15 02:27+0000\n"
 "PO-Revision-Date: 2008-09-24 02:55+0300\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@nospam.gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -759,7 +759,7 @@ msgstr ""
 msgid "Your email:"
 msgstr ""
 
-#: src/catalog/ts/tsstorage.cpp:424
+#: src/catalog/ts/tsstorage.cpp:425
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr ""

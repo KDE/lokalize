@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 02:39+0000\n"
+"POT-Creation-Date: 2023-12-15 02:27+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -826,7 +826,7 @@ msgstr "Email penulis tidak ada"
 msgid "Your email:"
 msgstr "Emailmu:"
 
-#: src/catalog/ts/tsstorage.cpp:424
+#: src/catalog/ts/tsstorage.cpp:425
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Nilai sumber sebelumnya, disimpan oleh alat lpembaruan"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 02:39+0000\n"
+"POT-Creation-Date: 2023-12-15 02:27+0000\n"
 "PO-Revision-Date: 2021-09-20 14:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -826,7 +826,7 @@ msgid "Your email:"
 msgstr ""
 "ulysses@kubuntu.org,negusnyul@gmail.com,tszanto@interware.hu,ur.balazs@fsf.hu"
 
-#: src/catalog/ts/tsstorage.cpp:424
+#: src/catalog/ts/tsstorage.cpp:425
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Előző forrásérték, amelyet a lupdate mentett el"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 02:39+0000\n"
+"POT-Creation-Date: 2023-12-15 02:27+0000\n"
 "PO-Revision-Date: 2010-01-06 14:16+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Albanian <sq@li.org>\n"
@@ -735,7 +735,7 @@ msgstr ""
 msgid "Your email:"
 msgstr "kde-shqip@yahoogroups.com,vilsongjeci@gmail.com"
 
-#: src/catalog/ts/tsstorage.cpp:424
+#: src/catalog/ts/tsstorage.cpp:425
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr ""
