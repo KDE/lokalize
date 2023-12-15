@@ -3750,15 +3750,7 @@ msgid "Project Overview"
 msgstr "Přehled projektu"
 
 #: src/project/projecttab.cpp:55
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -3768,13 +3760,6 @@ msgid ""
 "documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
 "what you need.</html>"
 msgstr ""
-"<html>K tomu, abyste se stali členem KDE týmu, není zapotřebí být vývojářem "
-"softwaru. Můžete se připojit k národním týmům, které překládají programy. "
-"Můžete vytvářet grafiku, motivy, zvuky a lepší dokumentaci. Vy se rozhodněte."
-"<br /><br />Navštivte <a href=\"%1\">%1</a>, kde naleznete informace o "
-"některých projektech, kterých se můžete zúčastnit.<br /><br />Potřebujete-li "
-"více informací nebo dokumentace, pak návštěva na <a href=\"%2\">%2</a> vám "
-"poskytne, co potřebujete.</html>"
 
 #: src/project/projecttab.cpp:76
 #, kde-format
