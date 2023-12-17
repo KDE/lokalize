@@ -132,6 +132,7 @@ public Q_SLOTS:
     }
     TM::TMTab* showTM();
     FileSearchTab* showFileSearch(bool activate = true);
+    void showFileSearchAction();
     void fileSearchNext();
     void addFilesToSearch(const QStringList&);
 

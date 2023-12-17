@@ -390,6 +390,23 @@ FileSearchTab* LokalizeMainWindow::showFileSearch(bool activate)
     return static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget());
 }
 
+// Used for the menu action only.
+//
+// We will connect the menu action to run this function on the signal
+// QAction::triggered. This process passes as many parameters of the
+// signal as the function accepts to the function. QAction::triggered
+// has one parameter for whether the action is checked, which is always
+// false for menu actions, so it would end up passing false as
+// showFileSearch's `activate` argument if we connected showFileSearch
+// directly, causing it to not activate the window.
+//
+// TL;DR if we connected QAction::triggered to showFileSearch directly
+// it would not activate the tab if the tab is already open.
+void LokalizeMainWindow::showFileSearchAction()
+{
+    showFileSearch(true);
+}
+
 void LokalizeMainWindow::fileSearchNext()
 {
     FileSearchTab* w = showFileSearch(/*activate=*/false);
@@ -507,7 +524,7 @@ void LokalizeMainWindow::setupActions()
 
 
     ADD_ACTION_SHORTCUT("tools_filesearch", i18nc("@action:inmenu", "Search and replace in files"), Qt::Key_F6)
-    connect(action, &QAction::triggered, this, &LokalizeMainWindow::showFileSearch);
+    connect(action, &QAction::triggered, this, &LokalizeMainWindow::showFileSearchAction);
 
     ADD_ACTION_SHORTCUT("tools_filesearch_next", i18nc("@action:inmenu", "Find next in files"), Qt::META + Qt::Key_F3)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::fileSearchNext);
