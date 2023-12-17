@@ -1196,9 +1196,7 @@ msgid "Change searching direction"
 msgstr "Ŝanĝi serĉan direkton"
 
 #: src/editortab.cpp:462
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Approved"
+#, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
 "(depending on your role)"
@@ -4681,9 +4679,3 @@ msgstr "Eraro estis raportita: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopii fonton al celo"
-
-#~ msgctxt ""
-#~ "@option:check whether message is marked as translated/reviewed/approved "
-#~ "¦(depending on your role)"
-#~ msgid "Approved"
-#~ msgstr "Aprobita"
