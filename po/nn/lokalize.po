@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-08 02:39+0000\n"
+"POT-Creation-Date: 2023-12-15 02:27+0000\n"
 "PO-Revision-Date: 2023-08-10 18:39+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -812,7 +812,7 @@ msgstr "Manglar e-postadresse til forfattar"
 msgid "Your email:"
 msgstr "E-postadressa di:"
 
-#: src/catalog/ts/tsstorage.cpp:424
+#: src/catalog/ts/tsstorage.cpp:425
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Førre kjeldeverdi, lagra av lupdate-verktøyet"
