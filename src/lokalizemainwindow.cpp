@@ -396,7 +396,7 @@ FileSearchTab* LokalizeMainWindow::showFileSearch(bool activate)
 // QAction::triggered. This process passes as many parameters of the
 // signal as the function accepts to the function. QAction::triggered
 // has one parameter for whether the action is checked, which is always
-// false for menu actions, so it would end up passing false as
+// false when there is no checkbox, so it would end up passing false as
 // showFileSearch's `activate` argument if we connected showFileSearch
 // directly, causing it to not activate the window.
 //
