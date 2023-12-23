@@ -17,14 +17,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-22 00:42+0000\n"
-"PO-Revision-Date: 2023-12-22 04:34+0900\n"
+"PO-Revision-Date: 2023-12-22 19:32+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.01.80\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -749,7 +749,7 @@ msgstr "移除有標記的文字"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
-msgstr "在文字上插入標記"
+msgstr "插入有標記的文字"
 
 #: src/catalog/gettext/gettextstorage.cpp:110
 #, kde-format
@@ -1092,7 +1092,7 @@ msgstr "詞彙表"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
-msgstr "插入 #%1 其它翻譯"
+msgstr "插入第 %1 個其它翻譯"
 
 #: src/editortab.cpp:253
 #, kde-format
@@ -1104,7 +1104,7 @@ msgstr "新增備忘..."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert TM suggestion #%1"
-msgstr "插入翻譯記憶體建議 #%1"
+msgstr "插入第 %1 個翻譯記憶體建議"
 
 #: src/editortab.cpp:279
 #, kde-format
@@ -1116,7 +1116,7 @@ msgstr "移除翻譯記憶體建議 #%1"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
-msgstr "插入 #%1 其它翻譯"
+msgstr "插入第 %1 個字詞翻譯"
 
 #: src/editortab.cpp:339
 #, kde-format
@@ -1214,13 +1214,13 @@ msgstr "使用 LanguageTool 檢查此單元"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
-msgstr "插入「下一個」標籤"
+msgstr "插入下一個標籤"
 
 #: src/editortab.cpp:491
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
-msgstr "完成度"
+msgstr "補完"
 
 #: src/editortab.cpp:495
 #, kde-format
@@ -1256,7 +1256,7 @@ msgstr "最後一個條目(&L)"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
-msgstr "輸入編號"
+msgstr "條目編號"
 
 #: src/editortab.cpp:527 src/project/projecttab.cpp:152
 #, kde-format
@@ -1330,13 +1330,13 @@ msgstr "下一個書籤"
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
-msgstr "填入所有精確的翻譯建議"
+msgstr "填入所有完全相符的翻譯建議"
 
 #: src/editortab.cpp:587
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
-msgstr "填入所有精確的翻譯建議並標記為模糊翻譯"
+msgstr "填入所有完全相符的翻譯建議並標記為模糊翻譯"
 
 #: src/editortab.cpp:592
 #, kde-format
@@ -4338,7 +4338,7 @@ msgstr "批次翻譯已完成。"
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
-msgstr "找不到精確符合的建議。"
+msgstr "找不到完全相符的建議。"
 
 #: src/tm/tmview.cpp:305 src/tm/tmview.cpp:320
 #, kde-format
