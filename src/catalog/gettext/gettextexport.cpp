@@ -26,6 +26,48 @@
 
 using namespace GettextCatalog;
 
+QStringList getTagBrNormal()
+{
+   #define qL(x) QLatin1String(x)
+   return (QStringList()
+       << qL("blockquote")
+       << qL("calloutlist")
+       << qL("center")
+       << qL("dd")
+       << qL("dl")
+       << qL("dt")
+       << qL("glosslist")
+       << qL("h1")
+       << qL("h2")
+       << qL("h3")
+       << qL("h4")
+       << qL("h5")
+       << qL("h6")
+       << qL("item")
+       << qL("itemizedlist")
+       << qL("li")
+       << qL("list")
+       << qL("listitem")
+       << qL("ol")
+       << qL("orderedlist")
+       << qL("p")
+       << qL("para")
+       << qL("pre")
+       << qL("seglistitem")
+       << qL("segmentedlist")
+       << qL("simplelist")
+       << qL("subtitle")
+       << qL("table")
+       << qL("td")
+       << qL("th")
+       << qL("title")
+       << qL("tr")
+       << qL("ul")
+       << qL("variablelist")
+       << qL("varlistentry"));
+   #undef qL
+}
+
 GettextExportPlugin::GettextExportPlugin(short wrapWidth, short trailingNewLines)
     : m_wrapWidth(wrapWidth)
     , m_trailingNewLines(trailingNewLines)
@@ -156,7 +198,86 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
         realText.remove(QLatin1Char('\n'));
         stream << keyword << " \"" << realText << "\"\n";
         return;
-    } else if (m_wrapWidth <= 3) {
+    }
+
+    if (m_wrapWidth == -1) { // Special wrapping for KDE PO Summit (trunk/l10n-support/$(LANG)/summit)
+        QString realText(text);
+        realText.remove(QLatin1Char('\n'));
+        QRegExp rx(QLatin1String(R"(<[^<>]*>|\\n|\\\\n)"), Qt::CaseInsensitive);
+        QStringList list;
+        int pos = 0;
+        int startPos = 0;
+        bool closing = false;
+
+        QStringList tagBrNormal = getTagBrNormal();
+
+        while (true) {
+            int nextPos = realText.indexOf(rx, pos);
+            if (nextPos == -1) {
+                list << realText.mid(startPos);
+                break;
+            }
+            int len = rx.matchedLength();
+            pos = nextPos + len;
+            QString tag = realText.mid(nextPos, len);
+
+            if (tag == QLatin1String("\n") || tag == QLatin1String("\\n")) {
+                // break after
+                list << realText.mid(startPos, pos - startPos);
+                startPos = pos;
+            } else {
+                tag.remove(QLatin1Char(' '));
+                tag.remove(QLatin1Char('<'));
+                tag.remove(QLatin1Char('>'));
+                closing = false;
+
+                if (tag.contains(QLatin1Char('/'))) {
+                    tag.remove(QLatin1Char('/'));
+                    closing = true;
+                }
+
+                if (tag == QLatin1String("br") || tag == QLatin1String("hr") || tag == QLatin1String("nl")) {
+                    // break after
+                    list << realText.mid(startPos, pos - startPos);
+                    startPos = pos;
+                } else {
+                    for (const QString &item : tagBrNormal) {
+                        if (item == tag) {
+                            if (closing) {
+                                QString mid = realText.mid(startPos, pos - startPos);
+                                if (mid.length())
+                                    list << mid;
+                                startPos = pos;
+                            } else {
+                                QString mid = realText.mid(startPos, nextPos - startPos);
+                                if (mid.length())
+                                    list << mid;
+                                startPos = nextPos;
+                            }
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (list.last().isEmpty())
+            list.removeLast();
+
+        if (list.count() == 1)  {
+            stream << keyword << QStringLiteral(" \"") << list.first() << QStringLiteral("\"\n");
+            return;
+        }
+
+        stream << keyword << QLatin1String(" \"\"\n");
+
+        for (const auto & item: std::as_const(list)) {
+            stream << QStringLiteral("\"") << item << QStringLiteral("\"\n");
+        }
+        return;
+    }
+
+    if (m_wrapWidth < 4) {
         // No change in wrapping
         QStringList list = text.split(QLatin1Char('\n'));
         if (list.count() > 1 || startedWithEmptyLine)

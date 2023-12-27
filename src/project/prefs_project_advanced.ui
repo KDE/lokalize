@@ -72,10 +72,10 @@ It is only used for gettext PO files, as XLIFF format has its own way of specify
       <item row="2" column="1">
        <widget class="QSpinBox" name="kcfg_WordWrap">
         <property name="toolTip">
-         <string>Width used for the automatic msgfmt-like word wrap. Use the value '0' to disable the word wrap.</string>
+         <string>Width used for the automatic msgfmt-like word wrap. Use the value '0' to disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 doesn't change anything.</string>
         </property>
         <property name="minimum">
-         <number>0</number>
+         <number>-1</number>
         </property>
         <property name="maximum">
          <number>32767</number>
