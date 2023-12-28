@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-22 00:42+0000\n"
-"PO-Revision-Date: 2023-12-22 19:32+0900\n"
+"PO-Revision-Date: 2023-12-28 05:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -178,7 +178,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
-msgstr "原始：%1"
+msgstr "來源：%1"
 
 #: src/alttransview.cpp:298
 #, kde-format
