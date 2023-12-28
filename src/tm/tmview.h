@@ -77,6 +77,7 @@ private Q_SLOTS:
 private:
     bool event(QEvent *event) override;
     void deleteFile(const TMEntry& e, const bool showPopUp);
+    void runJobs();
 
 
 private:

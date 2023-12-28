@@ -208,7 +208,7 @@ void TMView::slotFileLoaded(const QString& filePath)
         if (!m_catalog->isEmpty(pos.entry)
             && m_catalog->isApproved(pos.entry))
             continue;
-        SelectJob* j = initSelectJob(m_catalog, pos, pID);
+        SelectJob* j = initSelectJob(m_catalog, pos, pID, NoEnqueue);
         connect(j, &SelectJob::done, this, &TMView::slotCacheSuggestions);
         m_jobs.append(j);
     }
@@ -216,8 +216,12 @@ void TMView::slotFileLoaded(const QString& filePath)
     //dummy job for the finish indication
     BatchSelectFinishedJob* m_seq = new BatchSelectFinishedJob(this);
     connect(m_seq, &BatchSelectFinishedJob::done, this, &TMView::slotBatchSelectDone);
-    TM::threadPool()->start(m_seq, BATCHSELECTFINISHED);
     m_jobs.append(m_seq);
+
+    /* A workaround for no QRunnables::run() called in the case
+     * of Settings::prefetchTM = true
+     * See the bug https://bugs.kde.org/show_bug.cgi?id=474685 */
+    QTimer::singleShot(0, this, &TMView::runJobs);
 }
 
 void TMView::slotCacheSuggestions(SelectJob* job)
@@ -228,6 +232,7 @@ void TMView::slotCacheSuggestions(SelectJob* job)
         slotSuggestionsCame(job);
 
     m_cache[DocPos(job->m_pos)] = job->m_entries.toVector();
+    job->deleteLater();
 }
 
 void TMView::slotBatchSelectDone()
@@ -580,6 +585,15 @@ void TMView::deleteFile(const TMEntry& e, const bool showPopUp)
             KMessageBox::information(this, i18nc("@info", "The file %1 does not exist, it has been removed from the translation memory.", e.file));
         }
         return;
+    }
+}
+
+void TMView::runJobs()
+{
+    for (const auto job : m_jobs) {
+        if (auto j = dynamic_cast<TM::Job * const>(job)) {
+            TM::threadPool()->start(job, j->priority());
+        }
     }
 }
 

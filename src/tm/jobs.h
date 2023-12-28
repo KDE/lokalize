@@ -61,8 +61,22 @@ struct TMConfig {
 
 void cancelAllJobs(); //HACK because threadweaver's dequeue is not workin'
 
+/**
+ * @brief Base class for QRunnable jobs
+ *
+ * Provides the priority() method for proper order of executing the jobs
+ * in a single thread when their start is deferred.
+ *
+ */
+class Job
+{
+public:
+    virtual ~Job() = default;
+    virtual int priority() const = 0;
+};
+
 //called on startup
-class OpenDBJob: public QObject, public QRunnable
+class OpenDBJob: public QObject, public QRunnable, public Job
 {
     Q_OBJECT
 public:
@@ -77,7 +91,7 @@ public:
     explicit OpenDBJob(const QString& dbName, DbType type = TM::Local, bool reconnect = false, const ConnectionParams& connParams = ConnectionParams());
     ~OpenDBJob() override = default;
 
-    int priority() const
+    int priority() const override
     {
         return OPENDB;
     }
@@ -109,14 +123,14 @@ public:
 };
 
 //called on startup
-class CloseDBJob: public QObject, public QRunnable
+class CloseDBJob: public QObject, public QRunnable, public Job
 {
     Q_OBJECT
 public:
     explicit CloseDBJob(const QString& dbName);
     ~CloseDBJob();
 
-    int priority() const
+    int priority() const override
     {
         return CLOSEDB;
     }
@@ -138,7 +152,7 @@ protected:
 
 
 
-class SelectJob: public QObject, public QRunnable
+class SelectJob: public QObject, public QRunnable, public Job
 {
     Q_OBJECT
 public:
@@ -149,7 +163,7 @@ public:
               const QString& dbName);
     ~SelectJob() = default;
 
-    int priority() const
+    int priority() const override
     {
         return SELECT;
     }
@@ -181,17 +195,17 @@ public:
     QString m_dbName;
 };
 
-enum {Enqueue = 1};
+enum {NoEnqueue = 0, Enqueue = 1};
 SelectJob* initSelectJob(Catalog*, DocPosition pos, QString db = QString(), int opt = Enqueue);
 
 
-class RemoveMissingFilesJob: public QObject, public QRunnable
+class RemoveMissingFilesJob: public QObject, public QRunnable, public Job
 {
     Q_OBJECT
 public:
     explicit RemoveMissingFilesJob(const QString& dbName);
     ~RemoveMissingFilesJob();
-    int priority() const
+    int priority() const override
     {
         return REMOVEMISSINGFILES;
     }
@@ -205,13 +219,13 @@ Q_SIGNALS:
     void done();
 };
 
-class RemoveFileJob: public QObject, public QRunnable
+class RemoveFileJob: public QObject, public QRunnable, public Job
 {
     Q_OBJECT
 public:
     explicit RemoveFileJob(const QString& filePath, const QString& dbName, QObject *parent = nullptr);
     ~RemoveFileJob();
-    int priority() const
+    int priority() const override
     {
         return REMOVEFILE;
     }
@@ -228,13 +242,13 @@ Q_SIGNALS:
 };
 
 
-class RemoveJob: public QObject, public QRunnable
+class RemoveJob: public QObject, public QRunnable, public Job
 {
     Q_OBJECT
 public:
     explicit RemoveJob(const TMEntry& entry);
     ~RemoveJob();
-    int priority() const
+    int priority() const override
     {
         return REMOVE;
     }
@@ -257,7 +271,7 @@ Q_SIGNALS:
 //TODO a mechanism to get rid of dead dups (use strigi?).
 //also, display usage of different translations and suggest user
 //to use only one of them (listview, checkboxes)
-class UpdateJob: public QRunnable
+class UpdateJob: public QRunnable, public Job
 {
 public:
     explicit UpdateJob(const QString& filePath,
@@ -271,7 +285,7 @@ public:
 
     ~UpdateJob() {}
 
-    int priority() const
+    int priority() const override
     {
         return UPDATE;
     }
@@ -290,13 +304,13 @@ private:
 };
 
 //scan one file
-class ScanJob: public QRunnable
+class ScanJob: public QRunnable, public Job
 {
 public:
     explicit ScanJob(const QString& filePath, const QString& dbName);
     ~ScanJob() override = default;
 
-    int priority() const
+    int priority() const override
     {
         return SCAN;
     }
@@ -339,7 +353,7 @@ Q_SIGNALS:
 };
 
 //helper
-class BatchSelectFinishedJob: public QObject, public QRunnable
+class BatchSelectFinishedJob: public QObject, public QRunnable, public Job
 {
     Q_OBJECT
 public:
@@ -349,7 +363,7 @@ public:
     {}
     ~BatchSelectFinishedJob() override = default;
 
-    int priority() const
+    int priority() const override
     {
         return BATCHSELECTFINISHED;
     }
@@ -397,14 +411,14 @@ public:
 
 
 
-class ImportTmxJob: public QRunnable
+class ImportTmxJob: public QRunnable, public Job
 {
 public:
     explicit ImportTmxJob(const QString& url,
                           const QString& dbName);
     ~ImportTmxJob();
 
-    int priority() const
+    int priority() const override
     {
         return IMPORT;
     }
@@ -422,14 +436,14 @@ public:
 
 // #if 0
 
-class ExportTmxJob: public QRunnable
+class ExportTmxJob: public QRunnable, public Job
 {
 public:
     explicit ExportTmxJob(const QString& url,
                           const QString& dbName);
     ~ExportTmxJob();
 
-    int priority() const
+    int priority() const override
     {
         return IMPORT;
     }
@@ -447,14 +461,14 @@ public:
 
 // #endif
 
-class ExecQueryJob: public QObject, public QRunnable
+class ExecQueryJob: public QObject, public QRunnable, public Job
 {
     Q_OBJECT
 public:
     explicit ExecQueryJob(const QString& queryString, const QString& dbName, QMutex *dbOperation);
     ~ExecQueryJob();
 
-    int priority() const
+    int priority() const override
     {
         return TMTABSELECT;
     }
