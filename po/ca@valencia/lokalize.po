@@ -2009,12 +2009,12 @@ msgstr "Busca i substitució en fitxers"
 #: src/filesearch/filesearchtab.cpp:455 src/tm/tmtab.cpp:405
 #, kde-format
 msgid "Copy source to clipboard"
-msgstr "Copia l'origen al porta-retalls"
+msgstr "Copia l'origen a dins del porta-retalls"
 
 #: src/filesearch/filesearchtab.cpp:461 src/tm/tmtab.cpp:411
 #, kde-format
 msgid "Copy target to clipboard"
-msgstr "Copia la destinació al porta-retalls"
+msgstr "Copia la destinació a dins del porta-retalls"
 
 #: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:417
 #, kde-format
@@ -4673,7 +4673,7 @@ msgstr "Busca el text d'un element de la IGU a la memòria de traducció"
 #: src/tools/widgettextcaptureconfig.ui:65
 #, kde-format
 msgid "Copy GUI element text to clipboard"
-msgstr "Copia el text d'un element de la IGU al porta-retalls"
+msgstr "Copia el text d'un element de la IGU a dins del porta-retalls"
 
 #: src/xlifftextedit.cpp:989
 #, kde-format
