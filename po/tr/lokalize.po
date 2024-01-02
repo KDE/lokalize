@@ -5,13 +5,13 @@
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # obsoleteman <tulliana@gmail.com>, 2008-2010,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014, 2015, 2017, 2020.
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-15 02:27+0000\n"
-"PO-Revision-Date: 2023-12-27 13:25+0300\n"
+"PO-Revision-Date: 2024-01-01 23:14+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3882,7 +3882,7 @@ msgstr "Toplam"
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
-msgstr "Çevrilmiş"
+msgstr "Çevrildi"
 
 #: src/project/projectmodel.cpp:529
 #, kde-format
@@ -3894,7 +3894,7 @@ msgstr "Hazır Değil"
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
-msgstr "Çevrilmemiş"
+msgstr "Çevrilmedi"
 
 #: src/project/projectmodel.cpp:533
 #, kde-format
