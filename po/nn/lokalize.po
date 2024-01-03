@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-14 00:43+0000\n"
+"POT-Creation-Date: 2023-12-22 00:42+0000\n"
 "PO-Revision-Date: 2023-08-10 18:39+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -790,24 +790,24 @@ msgid ""
 "template"
 msgstr "Førre kjeldeverdi, som gettext lagra ved overgang til ei nyare malfil"
 
-#: src/catalog/gettextheader.cpp:584
+#: src/catalog/gettextheader.cpp:477
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Manglar namn på forfattar"
 
-#: src/catalog/gettextheader.cpp:584
+#: src/catalog/gettextheader.cpp:477
 #, kde-format
 msgid "Your name:"
 msgstr "Namnet ditt:"
 
-#: src/catalog/gettextheader.cpp:594
+#: src/catalog/gettextheader.cpp:487
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Manglar e-postadresse til forfattar"
 
-#: src/catalog/gettextheader.cpp:594
+#: src/catalog/gettextheader.cpp:487
 #, kde-format
 msgid "Your email:"
 msgstr "E-postadressa di:"
@@ -1075,7 +1075,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1 %)"
 
-#: src/editortab.cpp:175 src/lokalizemainwindow.cpp:426
+#: src/editortab.cpp:175 src/lokalizemainwindow.cpp:443
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1109,7 +1109,7 @@ msgid "Translation Memory"
 msgstr "Omsetjingsminne"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:181 src/lokalizemainwindow.cpp:428
+#: src/editortab.cpp:181 src/lokalizemainwindow.cpp:445
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -2199,113 +2199,113 @@ msgstr "Omsetjingsminnet krev modulen SQLite Qt."
 msgid "No SQLite module available"
 msgstr "Ingen SQLite-modul tilgjengeleg"
 
-#: src/lokalizemainwindow.cpp:429 src/tm/tmtab.cpp:493
+#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:493
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Omsetjingsminne"
 
-#: src/lokalizemainwindow.cpp:430 src/project/projecttab.cpp:188
+#: src/lokalizemainwindow.cpp:447 src/project/projecttab.cpp:188
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Prosjekt"
 
-#: src/lokalizemainwindow.cpp:457
+#: src/lokalizemainwindow.cpp:474
 #, kde-format
 msgid "Next tab"
 msgstr "Neste fane"
 
-#: src/lokalizemainwindow.cpp:460
+#: src/lokalizemainwindow.cpp:477
 #, kde-format
 msgid "Previous tab"
 msgstr "Førre fane"
 
-#: src/lokalizemainwindow.cpp:463
+#: src/lokalizemainwindow.cpp:480
 #, kde-format
 msgid "Previously active tab"
 msgstr "Sist brukte fane"
 
-#: src/lokalizemainwindow.cpp:469
+#: src/lokalizemainwindow.cpp:486
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Ordliste"
 
 # Denne omsettinga passar betre enn ei «direkte» ei.
-#: src/lokalizemainwindow.cpp:473
+#: src/lokalizemainwindow.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Søk i omsetjingsminne"
 
-#: src/lokalizemainwindow.cpp:477 src/tm/tmtab.cpp:496
+#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:496
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Handsam omsetjingsminne"
 
-#: src/lokalizemainwindow.cpp:481
+#: src/lokalizemainwindow.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Prosjektoversikt"
 
-#: src/lokalizemainwindow.cpp:485
+#: src/lokalizemainwindow.cpp:502
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Set opp prosjekt …"
 
-#: src/lokalizemainwindow.cpp:488
+#: src/lokalizemainwindow.cpp:505
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Nytt prosjekt for programvare …"
 
-#: src/lokalizemainwindow.cpp:491
+#: src/lokalizemainwindow.cpp:508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "Nytt prosjekt for OpenDocument-filer …"
 
-#: src/lokalizemainwindow.cpp:494
+#: src/lokalizemainwindow.cpp:511
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Opna prosjekt …"
 
-#: src/lokalizemainwindow.cpp:498
+#: src/lokalizemainwindow.cpp:515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Lukk prosjekt"
 
-#: src/lokalizemainwindow.cpp:501
+#: src/lokalizemainwindow.cpp:518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Sist brukte prosjekt"
 
-#: src/lokalizemainwindow.cpp:509
+#: src/lokalizemainwindow.cpp:526
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Søk og byt ut i filer"
 
-#: src/lokalizemainwindow.cpp:512
+#: src/lokalizemainwindow.cpp:529
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Finn neste i filer"
 
-#: src/lokalizemainwindow.cpp:516
+#: src/lokalizemainwindow.cpp:533
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Hent tekst frå skjermelement"
 
-#: src/lokalizemainwindow.cpp:693
+#: src/lokalizemainwindow.cpp:710
 #, kde-format
 msgctxt "@info"
 msgid ""
