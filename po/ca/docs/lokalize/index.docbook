@@ -45,7 +45,7 @@
 
 <abstract>
 <para
->El &lokalize; és un sistema de traducció assistit per ordinador enfocat en assegurar la productivitat i la qualitat. Té components inclosos en eines de CAT com memòria de traducció, glossari i també una habilitat única per a la fusió de les traduccions (sincronització). Està enfocat a la traducció de programari i també integra eines de conversió externes per a la traducció de documents d'oficina. </para>
+>El &lokalize; és un sistema de traducció assistit per ordinador enfocat a assegurar la productivitat i la qualitat. Té components inclosos en eines de CAT com memòria de traducció, glossari i també una habilitat única per a la fusió de les traduccions (sincronització). Està enfocat a la traducció de programari i també integra eines de conversió externes per a la traducció de documents d'oficina. </para>
 </abstract>
 
 <keywordset>
@@ -156,9 +156,9 @@
 >Unitats de traducció</guilabel
 >. En aquest cas prémer <keycap
 >Av Pàg</keycap
-> realment us portarà a la següent unitat filtrada/ordenada de la llista d'aquesta vista d'eina. </para>
+> realment us portarà a la unitat filtrada/ordenada següent de la llista d'aquesta vista d'eina. </para>
 <para
->Per facilitar la traducció de les aplicacions de la consola on els espais en els missatges són importants, podeu marcar l'element <guilabel
+>Per a facilitar la traducció de les aplicacions de la consola on els espais en els missatges són importants, podeu marcar l'element <guilabel
 >Visualitza els separadors com espais, tabulacions i línies noves a l'editor</guilabel
 > a la pàgina <guilabel
 >Edició</guilabel
@@ -233,7 +233,7 @@
 <title
 >Dreceres de teclat</title>
 <para
->Utilitzant dreceres de teclat durant la traducció podreu estalviar temps. Per configurar les dreceres de teclat, utilitzeu <menuchoice
+>Utilitzant dreceres de teclat durant la traducció podreu estalviar temps. Per a configurar les dreceres de teclat, utilitzeu <menuchoice
 ><guimenu
 >Arranjament</guimenu
 ><guimenuitem
@@ -275,13 +275,13 @@
 
 <tip>
 <para
->Es recomana que utilitzeu les dreceres de teclat en lloc dels menús i les barres d'eines per incrementar la productivitat. Per exemple, empreu <keycombo
+>Es recomana que utilitzeu les dreceres de teclat en lloc dels menús i les barres d'eines per a incrementar la productivitat. Per exemple, empreu <keycombo
 >&Ctrl;<keycap
 >L</keycap
 ></keycombo
-> per enfocar la línia d'entrada de la <guilabel
+> per a enfocar la línia d'entrada de la <guilabel
 >Cerca ràpida</guilabel
-> per filtrar la llista de les unitats a la vista <guilabel
+> per a filtrar la llista de les unitats a la vista <guilabel
 >Unitats de traducció</guilabel
 >. Quan estigueu llestos, premeu <keycap
 >Av Pàg</keycap
@@ -349,7 +349,7 @@
 
 <note>
 <para
->Les memòries de traducció (a diferència dels fitxers de projecte, els glossaris i els scripts) no són compartides entre els membres de l'equip de traducció, ja que es creen i s'emmagatzemen a la carpeta d'inici de l'usuari, el qual significa que les memòries de traducció per a tots els projectes es desen a la mateixa carpeta i per tant es poden utilitzar quan s'obrin altres projectes. </para>
+>Les memòries de traducció (a diferència dels fitxers de projecte, els glossaris i els scripts) no són compartides entre els membres de l'equip de traducció, ja que es creen i s'emmagatzemen a la carpeta d'inici de l'usuari, el qual significa que les memòries de traducció per a tots els projectes es desen a la mateixa carpeta i, per tant, es poden utilitzar quan s'obrin altres projectes. </para>
 </note>
 </sect1>
 
@@ -361,13 +361,13 @@
 >Resum del projecte</guilabel
 >. El resum del projecte és una vista del gestor de fitxers, que us ajudarà a mantenir un resum dels vostres fitxers PO. La suite &lokalize;, us ajudarà a traduir ràpidament i també a mantenir coherents les traduccions. El flux de treball al &lokalize; implica que comenceu creant o obrint un projecte. </para>
 <para
->Per crear un projecte nou, utilitzeu <menuchoice
+>Per a crear un projecte nou, utilitzeu <menuchoice
 ><guimenu
 >Projecte</guimenu
 ><guimenuitem
 >Crea un projecte nou</guimenuitem
 ></menuchoice
->. Ja ens explica els passos del procés per crear un projecte nou. En el menú <guimenu
+>. Ja ens explica els passos del procés per a crear un projecte nou. En el menú <guimenu
 >Projecte</guimenu
 > també trobareu opcions que us agradaran com <guimenuitem
 >Resum del projecte</guimenuitem
@@ -421,7 +421,7 @@
 ><guimenuitem
 >Configura el &lokalize;...</guimenuitem
 ></menuchoice
-> del menú principal. Es pot emprar la mateixa pàgina per configurar el comportament del &lokalize; quan canvieu a la pestanya següent/anterior. És possible passar per la llista de pestanyes segons les posicions de la pestanya o segons el seu ordre d'activació. </para>
+> del menú principal. Es pot emprar la mateixa pàgina per a configurar el comportament del &lokalize; quan canvieu a la pestanya següent/anterior. És possible passar per la llista de pestanyes segons les posicions de la pestanya o segons el seu ordre d'activació. </para>
 </sect1>
 
 </chapter>
@@ -431,7 +431,7 @@
 >Glossari</title>
 
 <para
->Alguna vegada us heu cansat d'escriure la mateixa seqüència de text llarg diverses vegades perquè es necessitaria més temps per trobar la traducció, copiar-la i enganxar-la? Ara només heu de cercar les seqüències de paraules (freqüents) a la vista <guilabel
+>Alguna vegada us heu cansat d'escriure la mateixa seqüència de text llarg diverses vegades perquè es necessitaria més temps per a trobar la traducció, copiar-la i enganxar-la? Ara només heu de cercar les seqüències de paraules (freqüents) a la vista <guilabel
 >Glossari</guilabel
 >, i inserir-les prement una drecera. </para>
 
@@ -461,7 +461,7 @@
 <para
 >La vista <guilabel
 >Memòria de traducció</guilabel
-> permet arrossegar i deixar-hi anar una carpeta amb fitxers de traducció des de, per exemple, el &dolphin;, i a continuació, en uns pocs minuts, els suggeriments de traducció es mostraran automàticament en commutar d'unitat. Per inserir suggeriments de traducció en el fitxer utilitzeu <keycombo
+> permet arrossegar i deixar-hi anar una carpeta amb fitxers de traducció des de, per exemple, el &dolphin;, i a continuació, en uns pocs minuts, els suggeriments de traducció es mostraran automàticament en commutar d'unitat. Per a inserir suggeriments de traducció en el fitxer utilitzeu <keycombo
 >&Ctrl;<keycap
 >1</keycap
 ></keycombo
@@ -477,7 +477,7 @@
 ><guimenuitem
 >Gestiona les memòries de traducció</guimenuitem
 ></menuchoice
-> per afegir o gestionar els projectes a la vostra memòria de traducció. Aquí també podreu importar o exportar les dades des del format de fitxer <filename role="extension"
+> per a afegir o gestionar els projectes a la vostra memòria de traducció. Aquí també podreu importar o exportar les dades des del format de fitxer <filename role="extension"
 >tmx</filename
 >. </para>
 
@@ -532,7 +532,7 @@
 >Tradueix un lot:</term>
     <listitem>
       <para
->Per inserir automàticament el suggeriment que coincideix exactament des de la base de dades de la memòria de traducció, utilitzeu <menuchoice
+>Per a inserir automàticament el suggeriment que coincideix exactament des de la base de dades de la memòria de traducció, utilitzeu <menuchoice
 ><guimenu
 >Eines</guimenu
 ><guimenuitem
@@ -588,7 +588,7 @@
 >&Alt;<keysym
 >Fletxa amunt</keysym
 ></keycombo
-> (recordeu que les dreceres poden ser modificades en la forma habitual per a totes les aplicacions del &kde;) per desplaçar-vos per les entrades que són diferents. </para>
+> (recordeu que les dreceres poden ser modificades en la forma habitual per a totes les aplicacions del &kde;) per a desplaçar-vos per les entrades que són diferents. </para>
 <screenshot>
 <screeninfo
 >El &lokalize; utilitzat per a fusionar els canvis en la traducció</screeninfo>
@@ -611,7 +611,7 @@
 <para
 >El <guilabel
 >Mode de sincronització</guilabel
-> també es pot utilitzar per fer canvis a la traducció per a dues branques de forma simultània. Establiu el camí a la <guilabel
+> també es pot utilitzar per a fer canvis a la traducció per a dues branques de forma simultània. Establiu el camí a la <guilabel
 >Carpeta de la branca</guilabel
 > a les opcions del projecte, al camí que correspon a la carpeta de base de la branca, i la vista <guilabel
 >Sincronització secundària</guilabel
@@ -766,7 +766,7 @@
 ></menuchoice
 >. </para>
 <para
->Per utilitzar les capacitats de comprovació del <application
+>Per a utilitzar les capacitats de comprovació del <application
 >LanguageTool</application
 > utilitzeu l'element de menú <menuchoice
 ><guimenu
