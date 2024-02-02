@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 00:42+0000\n"
+"POT-Creation-Date: 2024-02-02 01:37+0000\n"
 "PO-Revision-Date: 2023-08-19 22:37+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -3472,10 +3472,14 @@ msgstr "لفّ الكلمات:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+#| "disable the word wrap."
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-"disable the word wrap."
+"disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
+"doesn't change anything."
 msgstr ""
 "العَرض المستخدم للفّ الكلمات آلياً الشبيه بـ msgfmt. استخدم القيمة ’0‘ لتعطيل "
 "لفّ الكلمات."

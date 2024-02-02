@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 00:42+0000\n"
+"POT-Creation-Date: 2024-02-02 01:37+0000\n"
 "PO-Revision-Date: 2023-12-28 05:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -3428,10 +3428,14 @@ msgstr "自動換行："
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+#| "disable the word wrap."
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-"disable the word wrap."
+"disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
+"doesn't change anything."
 msgstr "用於對類 msgfmt 自動換行的寬度。使用數值 '0' 來停用自動換行。"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)

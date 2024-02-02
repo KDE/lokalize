@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 00:42+0000\n"
+"POT-Creation-Date: 2024-02-02 01:37+0000\n"
 "PO-Revision-Date: 2023-11-23 11:49+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -3552,10 +3552,14 @@ msgstr "Ajust de les paraules:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+#| "disable the word wrap."
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-"disable the word wrap."
+"disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
+"doesn't change anything."
 msgstr ""
 "Amplada usada per l'ajust de paraules automàtic similar al «msgfmt». Useu el "
 "valor «0» per a desactivar l'ajust de paraules."

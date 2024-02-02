@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 00:42+0000\n"
+"POT-Creation-Date: 2024-02-02 01:37+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -3566,10 +3566,14 @@ msgstr "Mudança de linha:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+#| "disable the word wrap."
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-"disable the word wrap."
+"disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
+"doesn't change anything."
 msgstr ""
 "A largura usada para a mudança de linha automática semelhante ao 'msgfmt'. "
 "Use o valor '0' para desactivar a mudança de linha."
