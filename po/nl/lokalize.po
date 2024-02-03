@@ -6,27 +6,27 @@
 # Kristof Bal <kristof.bal@gmail.com>, 2008, 2009.
 # Antoon Tolboom <atolboo@casema.nl>, 2008.
 # Bram Schoenmakers <bramschoenmakers@kde.nl>, 2009.
-# SPDX-FileCopyrightText: 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2023 Freek de Kruijf <freekdekruijf@kde.nl>
+# SPDX-FileCopyrightText: 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2023, 2024 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-02 01:37+0000\n"
-"PO-Revision-Date: 2023-11-23 10:19+0100\n"
+"PO-Revision-Date: 2024-02-02 11:33+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
-"Rinse de Vries - 2008,Kristof Bal - 2008/2009,Freek de Kruijf - 2009 t/m 2023"
+"Rinse de Vries - 2008,Kristof Bal - 2008/2009,Freek de Kruijf - 2009 t/m 2024"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -3548,17 +3548,15 @@ msgstr "Regelafbreking:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-#| "disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
 "Breedte gebruikt voor de automatische msgfmt-achtige regelafbreking. "
-"Gebruikt de waarde '0' om de regelafbreking uit te schakelen."
+"Gebruikt de waarde '0' om de regelafbreking uit te schakelen. Gebruik -1 bij "
+"vertalen voor KDE PO Summit. 1 tot 3 verandert niets."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
