@@ -4658,25 +4658,3 @@ msgstr "Съобщение за грешка:%1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Копиране на оригинала в превода"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert WebQuery result #%1"
-#~ msgstr "Вмъкване на резултат от WebQuery #%1"
-
-#~ msgid "&WebQuery"
-#~ msgstr "&Търсене в Интернет"
-
-#~ msgid "Query"
-#~ msgstr "Справка"
-
-#~ msgid "Autoquery"
-#~ msgstr "Автоматична справка"
-
-#~ msgid "Prefetch for the next untranslated"
-#~ msgstr "Зареждане на следващ непреведен блок"
-
-#~ msgid "Prefetch"
-#~ msgstr "Зареждане"
-
-#~ msgid "Web Queries"
-#~ msgstr "Търсене в Интернет"
