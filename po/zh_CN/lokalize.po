@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-15 02:27+0000\n"
-"PO-Revision-Date: 2024-01-21 14:17\n"
+"PO-Revision-Date: 2024-02-05 11:44\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -2634,55 +2634,55 @@ msgstr "编辑阶段"
 #: src/prefs/lokalize.kcfg:14
 #, kde-format
 msgid "Translator's name"
-msgstr "翻译者姓名"
+msgstr "翻译者的姓名"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:15
 #, kde-format
 msgid "Translator's name in English"
-msgstr "翻译者英文名"
+msgstr "翻译者的英文姓名"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:21
 #, kde-format
 msgid "Localized name"
-msgstr "本地化姓名"
+msgstr "本地语言姓名"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:22
 #, kde-format
 msgid "Translator's name in target language"
-msgstr "翻译者目标语言姓名"
+msgstr "翻译者的目标语言姓名"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:28
 #, kde-format
 msgid "Override Language Team"
-msgstr ""
+msgstr "覆盖语言团队"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:29
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
-msgstr ""
+msgstr "使用用户提供的语言团队名称，而不是生成一个名称"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:35
 #, kde-format
 msgid "Language Team"
-msgstr ""
+msgstr "语言团队"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:36
 #, kde-format
 msgid "Translator team's name"
-msgstr ""
+msgstr "翻译者所在的团队的名称"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:42
 #, kde-format
 msgid "Translator's email"
-msgstr "翻译者电子邮件"
+msgstr "翻译者的电子邮件"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
@@ -2715,7 +2715,7 @@ msgstr ""
 #: src/prefs/lokalize.kcfg:81
 #, kde-format
 msgid "Font for Messages"
-msgstr "信息字体"
+msgstr "翻译内容使用的字体"
 
 #: src/prefs/prefs.cpp:97
 #, kde-format
@@ -2730,6 +2730,9 @@ msgid ""
 "%1 - Path of the source file\n"
 "%2 - Line number"
 msgstr ""
+"可以使用以下参数\n"
+"%1 - 源文件的路径\n"
+"%2 - 行号"
 
 #: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:253
 #, kde-format
@@ -2759,13 +2762,13 @@ msgstr "翻译记忆"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
-msgstr ""
+msgstr "Pology"
 
 #: src/prefs/prefs.cpp:139
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
-msgstr ""
+msgstr "LanguageTool"
 
 #: src/prefs/prefs.cpp:148
 #, kde-format
@@ -2779,26 +2782,26 @@ msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
 "want to create a new project or open an existing project?"
 msgstr ""
-"您使用了一个需要加载一个项目之后才能访问的功能。请问您是想要新建一个项目，还"
-"是想要打开一个已有项目？"
+"您访问的功能需要加载项目之后才能使用。您想要新建一个项目，还是打开一个已有项"
+"目？"
 
 #: src/prefs/prefs.cpp:176
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr ""
+msgstr "需要加载项目"
 
 #: src/prefs/prefs.cpp:177
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr ""
+msgstr "创建项目"
 
 #: src/prefs/prefs.cpp:178
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
-msgstr ""
+msgstr "打开项目"
 
 #: src/prefs/prefs.cpp:186
 #, kde-format
@@ -2821,12 +2824,12 @@ msgstr "Lokalize 翻译项目文件 (*.lokalize)"
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
-msgstr "选择要翻译的 .po 文件的目录"
+msgstr "选择要翻译的 Gettext .po 文件所在的目录"
 
 #: src/prefs/prefs.cpp:241
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
-msgstr "请先创建软件或 OpenDocument 翻译项目。"
+msgstr "请先创建软件或者 OpenDocument 翻译项目。"
 
 #: src/prefs/prefs.cpp:305
 #, kde-format
@@ -2856,13 +2859,13 @@ msgstr "更改编辑器的字体"
 #: src/prefs/prefs_appearance.ui:47
 #, kde-format
 msgid "Choose a new font for the area where you write the translated message."
-msgstr "为翻译信息的区域选择一个新字体。"
+msgstr "为您填写翻译内容的区域选择一种字体。"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:54
 #, kde-format
 msgid "Display LEDS for message status"
-msgstr "用信号灯显示信息状态"
+msgstr "显示翻译状态警告灯"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:57
@@ -2871,8 +2874,8 @@ msgid ""
 "If checked, LEDS will be shown to display the message status: Fuzzy, "
 "Untranslated or Error. If unchecked, no LEDs will be displayed."
 msgstr ""
-"如果选中，将显示一个表示信息状态的发光二极管：模糊、未翻译或 错误。如果不选"
-"中，则不显示状态指示灯。"
+"如果选中此项，程序将显示一组警告灯，它们会在翻译处于模糊、未翻译或者错误等状"
+"态时亮起。如果不选中，将不显示状态警告灯。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:60
@@ -2880,13 +2883,13 @@ msgstr ""
 msgid ""
 "LEDs to indicate Fuzzy and Untranslated status as well as cursor column "
 "number"
-msgstr "用信号灯显示模糊翻译、未翻译状态以及光标所在列数"
+msgstr "显示翻译状态警告灯 (模糊、未翻译) 和光标所在列数"
 
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
 #: src/prefs/prefs_appearance.ui:69
 #, kde-format
 msgid "Text colors for the changes in the message."
-msgstr "消息中所更改文本的颜色。"
+msgstr "翻译中被更改部分的文字颜色。"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/prefs/prefs_appearance.ui:72
@@ -2899,7 +2902,7 @@ msgstr "字符串匹配"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Text added in the newer string:"
-msgstr "在新字符串中添加的文本："
+msgstr "新字符串中新增的文本："
 
 #. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_AddColor)
 #: src/prefs/prefs_appearance.ui:88
@@ -2912,20 +2915,20 @@ msgstr "更改新增文本的颜色"
 #, kde-format
 msgid ""
 "You can set another color for viewing the text that was added to the string."
-msgstr "您可以设定另一种颜色以查看新添加入字符串的文本。"
+msgstr "您可以设定显示字符串中新增文本的显示颜色。"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/prefs/prefs_appearance.ui:101
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Text removed in the newer string:"
-msgstr "在新字符串中删除的文本："
+msgstr "新字符串中被删除的文本："
 
 #. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_DelColor)
 #: src/prefs/prefs_appearance.ui:111
 #, kde-format
 msgid "Change the color for the text removed"
-msgstr "更改已删除文本的颜色"
+msgstr "更改被删除文本的颜色"
 
 #. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_DelColor)
 #: src/prefs/prefs_appearance.ui:114
@@ -2933,7 +2936,7 @@ msgstr "更改已删除文本的颜色"
 msgid ""
 "You can set another color for viewing the text that was removed from the "
 "string."
-msgstr "您可以设定另一种颜色以查看从字符串中删除的文本。"
+msgstr "您可以设定字符串中被删除的文本的显示颜色。"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:140
@@ -2943,20 +2946,23 @@ msgid ""
 "displaying it in the user interface, or when it gets concatenated with "
 "others)."
 msgstr ""
-"检查字符串是否以空格结尾(经常在用户界面中显示或与其他字符串连接时很重要)。"
+"勾选此项后，字符串结尾的空格将被高亮显示 (这种空格往往具备某种用途，例如在用"
+"户界面中与其他字符串紧邻显示时作为区隔)。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:143
 #, kde-format
 msgid "Highlight spaces at the end"
-msgstr "突出显示末尾的空格"
+msgstr "高亮显示字符串末尾的空格"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:32
 #, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
-msgstr "如果选定，滚动鼠标滑轮将转到上个或下个单元，而不是滚动文本"
+msgstr ""
+"如果勾选此项，鼠标滚轮将用于跳转到上一条或者下一条字符串；如果不勾选，鼠标滚"
+"轮将滚动文本本身"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
