@@ -173,7 +173,7 @@ Name[tr]=Dosyalar Açılırken Hata
 Name[uk]=Помилка під час відкриття файлів
 Name[vi]=Lỗi mở tệp
 Name[x-test]=xxError opening filesxx
-Name[zh_CN]=打开文件出错
+Name[zh_CN]=打开文件时发生错误
 Name[zh_TW]=開啟檔案時發生錯誤
 Action=Popup
 
@@ -229,7 +229,7 @@ Name[tr]=Eşzamanlama için Dosyalar Açılırken Hata
 Name[uk]=Помилка під час відкриття файлів для синхронізації
 Name[vi]=Lỗi mở tệp để đồng bộ
 Name[x-test]=xxError opening files for synchronizationxx
-Name[zh_CN]=打开文件同步出错
+Name[zh_CN]=打开文件进行同步时发生错误
 Name[zh_TW]=開啟檔案同步時發生錯誤
 Action=Popup
 
@@ -286,7 +286,7 @@ Name[tr]=Qt SQL Modülü Bulunamadı
 Name[uk]=Не знайдено модулів SQL Qt
 Name[vi]=Không tìm thấy khối SQL Qt nào
 Name[x-test]=xxNo Qt Sql modules were foundxx
-Name[zh_CN]=未找到 Qt SQL 模块
+Name[zh_CN]=没有找到 Qt SQL 模块
 Name[zh_TW]=找不到 Qt Sql 模組
 Action=Popup
 
@@ -371,6 +371,7 @@ Name[ta]=மொத்த மொழிபெயர்ப்பு முடிவ
 Name[tr]=Toplu Çeviri Tamamlandı
 Name[uk]=Пакетний переклад завершено
 Name[x-test]=xxBatch Translation Completedxx
+Name[zh_CN]=批量翻译已完成
 Name[zh_TW]=批次翻譯已完成
 Action=Popup
 
@@ -404,6 +405,7 @@ Name[ta]=மொத்த மொழிபெயர்ப்பு திட்ட
 Name[tr]=Toplu Çeviri Zamanlandı
 Name[uk]=Заплановано пакетний переклад
 Name[x-test]=xxBatch Translation Scheduledxx
+Name[zh_CN]=批量翻译已计划
 Name[zh_TW]=已排定批次翻譯
 Action=Popup
 
