@@ -1,14 +1,14 @@
 # Translation of kaider to Korean.
 # Copyright (C) 2007 This_file_is_part_of_KDE
 # This file is distributed under the same license as the extragear-sdk package.
-# Shinjo Park <kde@peremen.name>, 2007, 2008, 2009, 2010, 2011, 2014, 2015, 2017, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2014, 2015, 2017, 2019, 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-02 01:37+0000\n"
-"PO-Revision-Date: 2023-08-25 23:03+0200\n"
+"PO-Revision-Date: 2024-02-06 00:43+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3438,17 +3438,15 @@ msgstr "자동 줄 바꿈:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-#| "disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
 "자동 msgfmt 형식 줄 바꿈을 적용할 너비입니다. '0'을 지정하면 줄을 바꾸지 않습"
-"니다."
+"니다. KDE PO Summit을 번역할 때에는 -1을 입력하십시오. 1부터 3까지의 값은 아"
+"무것도 변경하지 않습니다."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3840,15 +3838,7 @@ msgid "Project Overview"
 msgstr "프로젝트 개요"
 
 #: src/project/projecttab.cpp:55
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -3858,12 +3848,12 @@ msgid ""
 "documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
 "what you need.</html>"
 msgstr ""
-"<html>KDE 팀의 일부가 되려고 반드시 소프트웨어 개발자가 될 필요는 없습니다. "
-"각 국가별 팀에 합류하여 프로그램 인터페이스를 번역할 수 있습니다. 그래픽, 테"
-"마, 소리, 문서를 만들 수도 있습니다. 결정은 여러분의 자유입니다!<br /><br /"
-"><a href=\"%1\">%1</a> 사이트를 방문하여 참여할 수 있는 프로젝트를 알아 보십"
-"시오.<br /><br />더 많은 정보나 문서가 필요하면 <a href=\"%2\">%2</a> 사이트"
-"를 방문하여 알아보십시오.</html>"
+"<html>소프트웨어 개발자만이 KDE에 참가할 수 있는 것은 아닙니다. 프로그램 인터"
+"페이스를 번역하는 각 언어 번역팀을 도울 수도 있습니다. 또한 그래픽, 테마, 소"
+"리, 더 나은 문서 등을 기여할 수도 있습니다. 직접 결정하십시오!<br /><br /><a "
+"href=\"%1\">%1</a> 페이지를 방문하셔서 참여할 수 있는 프로젝트를 찾아 보십시"
+"오.<br /><br />만약 더 많은 정보나 문서가 필요하다면, <a href=\"%2\">%2</a> "
+"사이트를 방문하셔서 원하는 정보를 찾으십시오.</html>"
 
 #: src/project/projecttab.cpp:76
 #, kde-format
