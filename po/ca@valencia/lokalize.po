@@ -1,5 +1,5 @@
 # Translation of lokalize.po to Catalan (Valencian)
-# Copyright (C) 2009-2023 This_file_is_part_of_KDE
+# Copyright (C) 2009-2024 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2 or later.
 #
 # Orestes Mas <orestes@tsc.upc.edu>, 2009.
