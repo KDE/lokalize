@@ -1,23 +1,23 @@
 # Translation for lokalize.po to Euskara/Basque (eu).
-# Copyright (C) 2009-2023 This file is copyright:
+# Copyright (C) 2009-2024 This file is copyright:
 # This file is distributed under the same license as the lokalize package.
-# SPDX-FileCopyrightText: 2023 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2009, 2011, 2018, 2019, 2020, 2021, 2022, 2023.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2009, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-02 01:37+0000\n"
-"PO-Revision-Date: 2023-12-06 10:35+0100\n"
+"PO-Revision-Date: 2024-02-13 00:59+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -3537,17 +3537,15 @@ msgstr "Itzulbiratzea:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-#| "disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
 "«msgfmt» antzera itzulbiratzeko erabilitako zabalera. Erabili '0' balioa "
-"itzulbira ezgaitzeko."
+"itzulbira ezgaitzeko. Erabili '-1' KDE PO «Summit» itzultzerakoan. 1etik 3ra "
+"ez du ezer aldatzen."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
