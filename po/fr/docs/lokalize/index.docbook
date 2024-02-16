@@ -142,11 +142,11 @@
 <para
 >Les fichiers de traduction sont ouverts dans des onglets séparés, avec deux grandes zones d'édition multilignes ainsi qu'une pléiade de <emphasis
 >vues d'outils</emphasis
->. Ces vues peuvent être superposées (à l'instar d'onglets), affichées séparément ou cachées. Les fichiers de traduction sont composés de nombreuses paires anglais-langue_cible appelées <emphasis
+>. Ces vues peuvent être superposées (à l'instar d'onglets), affichées séparément ou cachées. Les fichiers de traduction sont composés de nombreuses paires « anglais-langue-cible » appelées <emphasis
 >unités</emphasis
 >. Une <emphasis
 >unité</emphasis
-> correspond généralement à une seule chaîne dans l'interface utilisateur ou à un paragraphe dans la documentation. Le but de la première zone d'édition multiligne est d'afficher la partie originale de la paire, celui de la seconde zone d'édition est de présenter la traduction. On peut naviguer parmi les <emphasis
+> correspond généralement à une seule chaîne dans l'interface utilisateur ou à un paragraphe dans la documentation. Le but de la première zone d'édition multi-ligne est d'afficher la partie originale de la paire, celui de la seconde zone d'édition est de présenter la traduction. On peut naviguer parmi les <emphasis
 >unités</emphasis
 > par le biais de la vue <guilabel
 >Unités de traduction</guilabel
@@ -179,10 +179,10 @@
 > vous amène en réalité à l'unité suivante dans la liste filtrée / triée de cette vue des outils. </para>
 <para
 >Pour faciliter la traduction des applications de console où les espaces dans les messages sont importants, vous pouvez vérifier l'élément <guilabel
->Visualiser les séparateurs commes les espaces, les tabulations et les retours à la ligne dans l'élément d'édition</guilabel
+>Visualiser les séparateurs comme les espaces, les tabulations et les retours à la ligne dans l'élément d'édition</guilabel
 > sur la page <guilabel
 >Édition</guilabel
-> de la fenetre de configuration, pouvant être ouverte par la sélection du menu principale <menuchoice
+> de la fenêtre de configuration, pouvant être ouverte par la sélection du menu principale <menuchoice
 ><guimenu
 >Configuration</guimenu
 ><guimenuitem
@@ -711,7 +711,7 @@
 
 <chapter id="scripting">
 <title
->Scriptage sous &lokalize;</title>
+>Écriture de scripts sous &lokalize;</title>
 
 <para
 >&lokalize; peut être étendu grâce à des scripts créés dans plusieurs langages interprétés, dont Python et JavaScript. Les scripts sont d'ordinaire intégrés dans l'interface graphique de &lokalize; sous la forme d'actions de menus (auxquelles vous pouvez affecter un raccourci clavier). L'emplacement et le nom de l'élément de menu du script sont définis dans son fichier d'accompagnement <quote

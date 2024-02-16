@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 00:42+0000\n"
+"POT-Creation-Date: 2024-02-16 01:41+0000\n"
 "PO-Revision-Date: 2023-07-31 17:34+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -3562,10 +3562,14 @@ msgstr "Αναδίπλωση λέξεων:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
+#| "disable the word wrap."
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-"disable the word wrap."
+"disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
+"doesn't change anything."
 msgstr ""
 "Πλάτος που χρησιμοποιείται για την αυτόματη αναδίπλωση λέξεων τύπου msgfmt. "
 "Χρησιμοποιήστε την τιμή '0' για να να απενεργοποιήσετε την αναδίπλωση λέξεων."
@@ -4500,7 +4504,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Σύνολο: %1 (%2)"
 
-#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:580
+#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:585
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4513,37 +4517,37 @@ msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Διπλό κλικ σε οποιαδήποτε λέξη για την εισαγωγή της στη μετάφραση"
 
-#: src/tm/tmview.cpp:276
+#: src/tm/tmview.cpp:281
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Ομαδική συμπλήρωση μεταφραστικής μνήμης"
 
-#: src/tm/tmview.cpp:279
+#: src/tm/tmview.cpp:284
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Η ομαδική μετάφραση ολοκληρώθηκε."
 
-#: src/tm/tmview.cpp:285
+#: src/tm/tmview.cpp:290
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Δε βρέθηκαν προτάσεις με ακριβή ταιριάσματα."
 
-#: src/tm/tmview.cpp:305 src/tm/tmview.cpp:320
+#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Η ομαδική μετάφραση προγραμματίστηκε."
 
-#: src/tm/tmview.cpp:451
+#: src/tm/tmview.cpp:456
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:453
+#: src/tm/tmview.cpp:458
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4551,43 +4555,43 @@ msgid_plural "(%1 times)"
 msgstr[0] "(1 φορά)"
 msgstr[1] "(%1 φορές)"
 
-#: src/tm/tmview.cpp:534
+#: src/tm/tmview.cpp:539
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "αυτό"
 
-#: src/tm/tmview.cpp:535
+#: src/tm/tmview.cpp:540
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Αρχείο: %1<br />Ημερομηνία προσθήκης: %2"
 
-#: src/tm/tmview.cpp:537
+#: src/tm/tmview.cpp:542
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Ημερομηνία τελευταίας αλλαγής: %1"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:544
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Συγγραφέας τελευταίας αλλαγής: %1"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:545
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />TM: %1"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:547
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Δεν βρίσκεται πλέον στο αρχείο"
 
-#: src/tm/tmview.cpp:555 src/tm/tmview.cpp:562
+#: src/tm/tmview.cpp:560 src/tm/tmview.cpp:567
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4596,31 +4600,31 @@ msgstr ""
 "<html>Επιθυμείτε πραγματικά την αφαίρεση αυτής της καταχώρησης:<br/><i>%1</"
 "i> <br/> από τη μεταφραστική μνήμη %2;</html>"
 
-#: src/tm/tmview.cpp:556 src/tm/tmview.cpp:563
+#: src/tm/tmview.cpp:561 src/tm/tmview.cpp:568
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Αφαίρεση καταχώρησης μεταφραστικής μνήμης"
 
-#: src/tm/tmview.cpp:597
+#: src/tm/tmview.cpp:611
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Αφαίρεση καταχώρησης"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:613
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Άνοιγμα αρχείου αυτής της καταχώρησης"
 
-#: src/tm/tmview.cpp:607
+#: src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Αφαίρεση αυτού του αρχείου που λείπει από την Μεταφραστική Μνήμη"
 
-#: src/tm/tmview.cpp:621 src/tm/tmview.cpp:627
+#: src/tm/tmview.cpp:635 src/tm/tmview.cpp:641
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4629,13 +4633,13 @@ msgstr ""
 "<html>Επιθυμείτε πραγματικά την αφαίρεση αυτού του αρχείου που λείπει:<br/"
 "><i>%1</i> <br/> από τη μεταφραστική μνήμη %2;</html>"
 
-#: src/tm/tmview.cpp:622 src/tm/tmview.cpp:628
+#: src/tm/tmview.cpp:636 src/tm/tmview.cpp:642
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Αφαίρεση αρχείου που λείπει από τη μεταφραστική μνήμη"
 
-#: src/tm/tmview.cpp:1005
+#: src/tm/tmview.cpp:1019
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

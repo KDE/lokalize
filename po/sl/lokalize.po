@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 00:42+0000\n"
-"PO-Revision-Date: 2023-11-23 09:52+0100\n"
+"POT-Creation-Date: 2024-02-16 01:41+0000\n"
+"PO-Revision-Date: 2024-02-02 06:44+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3480,7 +3480,7 @@ msgstr "Pospeševalnik:"
 #: src/project/prefs_project_advanced.ui:33
 #, kde-format
 msgid "Usually '&', but may also be '_' for GTK apps."
-msgstr "Običajno »&«, ampak je lahko tudi »_« za programe GTK."
+msgstr "Običajno '&', ampak je lahko tudi '_' za programe GTK."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_project_advanced.ui:40
@@ -3523,10 +3523,12 @@ msgstr "Zavijanje besed po vrstah:"
 #, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-"disable the word wrap."
+"disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
+"doesn't change anything."
 msgstr ""
-"Širina, uporabljena za samodejno zavijanje besed, podobno kot msgfmt. "
-"Uporabite negativno vrednost '0', da onemogočite zavijanje besed."
+"Širina uporabljena za samodejni prelom besed podobno kot msgfmt. Uporabite "
+"vrednost '0', da onemogočite prelom besed. Pri prevajanju za KDE PO Summit "
+"uporabite -1. 1 do 3 ne spremeni ničesar."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -4427,7 +4429,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Skupno: %1 (%2)"
 
-#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:580
+#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:585
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4440,37 +4442,37 @@ msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Dvokliknite na katerokoli besedo, da jo vstavite v prevod"
 
-#: src/tm/tmview.cpp:276
+#: src/tm/tmview.cpp:281
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Paketno izpolnjevanje iz pomnilnika s prevodi"
 
-#: src/tm/tmview.cpp:279
+#: src/tm/tmview.cpp:284
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Paketno prevajanje je bilo zaključeno."
 
-#: src/tm/tmview.cpp:285
+#: src/tm/tmview.cpp:290
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Ni bilo najdenih prevodov s točnim ujemanjem."
 
-#: src/tm/tmview.cpp:305 src/tm/tmview.cpp:320
+#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Paketno prevajanje je bilo razporejeno."
 
-#: src/tm/tmview.cpp:451
+#: src/tm/tmview.cpp:456
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:453
+#: src/tm/tmview.cpp:458
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4480,43 +4482,43 @@ msgstr[1] "(%1 krat)"
 msgstr[2] "(%1 krat)"
 msgstr[3] "(%1 krat)"
 
-#: src/tm/tmview.cpp:534
+#: src/tm/tmview.cpp:539
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "ta"
 
-#: src/tm/tmview.cpp:535
+#: src/tm/tmview.cpp:540
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Datoteka: %1<br />Datum dodatka: %2"
 
-#: src/tm/tmview.cpp:537
+#: src/tm/tmview.cpp:542
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Zadnji datum spremembe: %1"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:544
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Zadnji avtor spremembe: %1"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:545
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />PP: %1"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:547
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Ne obstaja več v datoteki"
 
-#: src/tm/tmview.cpp:555 src/tm/tmview.cpp:562
+#: src/tm/tmview.cpp:560 src/tm/tmview.cpp:567
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4525,31 +4527,31 @@ msgstr ""
 "<html>Ali resnično želite odstraniti vnos:<br/><i>%1</i><br/>iz pomnilnika "
 "prevodov %2?</html>"
 
-#: src/tm/tmview.cpp:556 src/tm/tmview.cpp:563
+#: src/tm/tmview.cpp:561 src/tm/tmview.cpp:568
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Odstranjevanje vnosa iz pomnilnika prevodov"
 
-#: src/tm/tmview.cpp:597
+#: src/tm/tmview.cpp:611
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Odstrani ta vnos"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:613
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Odpri datoteko, ki vsebuje ta vnos"
 
-#: src/tm/tmview.cpp:607
+#: src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Odstrani to manjkajočo datoteko iz TM"
 
-#: src/tm/tmview.cpp:621 src/tm/tmview.cpp:627
+#: src/tm/tmview.cpp:635 src/tm/tmview.cpp:641
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4558,13 +4560,13 @@ msgstr ""
 "<html>Ali resnično želite odstraniti to manjkajočo datoteko:<br/><i>%1</"
 "i><br/>iz pomnilnika prevodov %2?</html>"
 
-#: src/tm/tmview.cpp:622 src/tm/tmview.cpp:628
+#: src/tm/tmview.cpp:636 src/tm/tmview.cpp:642
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Odstranjevanje manjkajočih datotek iz pomnilnika prevodov"
 
-#: src/tm/tmview.cpp:1005
+#: src/tm/tmview.cpp:1019
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
