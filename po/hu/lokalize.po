@@ -6,20 +6,21 @@
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2011, 2012, 2019.
 # Tamás Krutki <negusnyul@gmail.com>, 2011.
 # Balázs Úr <ur.balazs@fsf.hu>, 2012, 2013, 2014, 2021.
+# SPDX-FileCopyrightText: 2024 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-16 01:41+0000\n"
-"PO-Revision-Date: 2021-09-20 14:35+0200\n"
-"Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
+"PO-Revision-Date: 2024-03-04 21:09+0100\n"
+"Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -30,7 +31,7 @@ msgstr "Kiszel Kristóf,Krutki Tamás,Szántó Tamás,Úr Balázs"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
-"ulysses@kubuntu.org,negusnyul@gmail.com,tszanto@interware.hu,ur.balazs@fsf.hu"
+"ulysses@fsf.hu,negusnyul@gmail.com,tszanto@interware.hu,ur.balazs@fsf.hu"
 
 #. i18n: tag collection attribute text
 #. i18n: tag collection attribute comment
@@ -138,17 +139,16 @@ msgstr ""
 "Szeretné megjeleníteni az adatokat tartalmazó nézetet?"
 
 #: src/alttransview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Alternatív fordítások"
+msgstr "Alternatív fordítások érhetők el"
 
 #: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Adatnézet megjelenítése"
 
 #: src/alttransview.cpp:254
 #, kde-format
@@ -245,10 +245,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "Minden támogatott fájl (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Minden támogatott fájl (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -812,7 +811,7 @@ msgstr "A szerző neve hiányzik"
 #: src/catalog/gettextheader.cpp:477
 #, kde-format
 msgid "Your name:"
-msgstr "Kiszel Kristóf,Krutki Tamás,Szántó Tamás,Úr Balázs"
+msgstr "Az Ön neve:"
 
 #: src/catalog/gettextheader.cpp:487
 #, kde-format
@@ -823,8 +822,7 @@ msgstr "A szerző e-mail-címe hiányzik"
 #: src/catalog/gettextheader.cpp:487
 #, kde-format
 msgid "Your email:"
-msgstr ""
-"ulysses@kubuntu.org,negusnyul@gmail.com,tszanto@interware.hu,ur.balazs@fsf.hu"
+msgstr "Az Ön e-mail címe:"
 
 #: src/catalog/ts/tsstorage.cpp:425
 #, kde-format
@@ -845,12 +843,10 @@ msgstr "Gyors keresés…"
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Elfogad reguláris kifejezéseket"
+msgstr "A Ctrl+L aktiválja. Elfogad reguláris kifejezéseket"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -1473,9 +1469,7 @@ msgid "This changes only empty entries"
 msgstr "Ez csak az üres bejegyzéseket változtatja meg"
 
 #: src/editortab.cpp:706
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(helyreállítva)"
@@ -1675,26 +1669,22 @@ msgstr ""
 "forrásfájlt?"
 
 #: src/editortab.cpp:1523
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Forrásfájl keresése"
 
 #: src/editortab.cpp:1524
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Helyileg"
 
 #: src/editortab.cpp:1525 src/editortab.cpp:1578
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Az lxr.kde.org-on"
 
 #: src/editortab.cpp:1528 src/editortab.cpp:1581 src/editortab.cpp:1610
 #, kde-format
@@ -1723,12 +1713,10 @@ msgstr ""
 "Szeretné megváltoztatni a forrásfájl mappáját?"
 
 #: src/editortab.cpp:1577
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Subject Field"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Tárgy mező"
+msgstr "Mappa kiválasztása"
 
 #: src/editortab.cpp:1602
 #, kde-format
@@ -2891,24 +2879,19 @@ msgstr ""
 "Szeretne új projektet létrehozni, vagy egy meglévő projektet megnyitni?"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Projektáttekintő"
+msgstr "Projekt szükséges"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Projekt"
+msgstr "Projekt létrehozása"
 
 #: src/prefs/prefs.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Projekt megnyitása"
@@ -3553,17 +3536,15 @@ msgstr "Szavak tördelése:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
-#| "value '-1' to disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
 "Az automatikus msgfmt-szerű szótördeléshez használt szélesség. Használjon "
-"negatív „-1” értéket a szavak tördelésének letiltásához."
+"„0” értéket a szavak tördelésének letiltásához. Használjon „-1”-et, ha a KDE "
+"PO Summittal fordít. Az 1-3 nem változtat semmit."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3638,32 +3619,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "Sablonfájlok mappája:"
+msgstr "Ág sablonfájljainak mappája:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3682,13 +3645,10 @@ msgstr ""
 "A szinkronizálási mód két ág fordításában való változtatások egyidejű\n"
 "elvégzéséhez használható.\n"
 "\n"
-"Állítsa be ezt az ágprojekt gyökérmappájának megfelelő elérési útra,\n"
-"és a másodlagos szinkronizálás nézet automatikusan megnyitja az ágból\n"
-"származó fájlokat. Ezután minden alkalommal, amikor a fő ág fájljaiban\n"
-"változtatásokat végez, azok automatikusan átmásolódnak az ágba\n"
-"(természetesen akkor, ha ugyanazt az angol karakterláncot tartalmazza).\n"
-"\n"
-"További részletekért nézze meg a dokumentációt."
+"Állítsa be ezt az ágprojekt sablonmappája gyökérmappájának megfelelő elérési "
+"útra,\n"
+"és a másodlagos szinkronizálás nézet automatikusan létrehozza az ágból\n"
+"származó fájlokat."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
@@ -3984,15 +3944,7 @@ msgid "Project Overview"
 msgstr "Projektáttekintő"
 
 #: src/project/projecttab.cpp:55
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -4003,7 +3955,7 @@ msgid ""
 "what you need.</html>"
 msgstr ""
 "<html>Nem kell szoftverfejlesztőnek lennie ahhoz, hogy a KDE csapat tagja "
-"lehessen. Csatlakozhat a nemzeti csapatokhoz, amelyek programfelületeket "
+"lehessen. Csatlakozhat a nyelvi csapatokhoz, amelyek programfelületeket "
 "fordítanak. Grafikákat, témákat, hangokat és javított dokumentációt is "
 "készíthet. Ön dönti el!<br /><br />Az egyes projektekkel és a részvételi "
 "lehetőségekkel kapcsolatos információkért látogassa meg a <a href=\"%1\">%1</"
@@ -4035,14 +3987,12 @@ msgid "Translate OpenDocument"
 msgstr "OpenDocument fordítása"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:164
 #, kde-format
@@ -4446,18 +4396,16 @@ msgid "TM"
 msgstr "FM"
 
 #: src/tm/tmtab.cpp:75
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Forrás:"
+msgstr "Forrás: %1"
 
 #: src/tm/tmtab.cpp:80
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Cél:"
+msgstr "Cél: %1"
 
 #: src/tm/tmtab.cpp:361
 #, kde-format
