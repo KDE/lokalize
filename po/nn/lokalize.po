@@ -1,6 +1,5 @@
 # Translation of lokalize to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2008, 2009, 2010, 2018, 2019, 2020, 2022, 2023.
 # Eirik U. Birkeland <eirbir@gmail.com>, 2008, 2009.
 # Øystein Steffensen-Alværvik <oysteins.omsetting@protonmail.com>, 2018, 2019, 2022.
 msgid ""
@@ -8,14 +7,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-16 01:41+0000\n"
-"PO-Revision-Date: 2023-08-10 18:39+0200\n"
+"PO-Revision-Date: 2024-03-23 12:53+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -3514,6 +3513,9 @@ msgid ""
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
+"Linjebreidd brukt for «msgfmt»-liknande tekstbryting. Bruk den verdien «0» "
+"for å slå av automatisk tekstbryting. Bruk -1 ved omsetjing til KDE PO-"
+"summit. Verdiane 1 til 3 endrar ikkje tekstbrytinga."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3922,6 +3924,12 @@ msgid ""
 "documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
 "what you need.</html>"
 msgstr ""
+"<html>Du treng ikkje vera programutviklar for å hjelpa til med KDE. Du kan "
+"arbeida med omsetjingar, laga grafikk, tema, lydar eller betre "
+"hjelpetekstar. Her er noko for alle!<br/><br/>På <a href=\"%1\">%1</a> finn "
+"du informasjon om nokre prosjekt du kan delta i.<br/><br/>Ønskjer du meir "
+"informasjon eller dokumentasjon, finn du det du treng på <a href=\"%2\">%2</"
+"a>.</html>"
 
 # Skal vera ellipse på slutten, sidan valet opna innstillingsvindauget.
 #: src/project/projecttab.cpp:76
