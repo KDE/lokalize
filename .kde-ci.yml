@@ -15,3 +15,6 @@ Dependencies:
     'frameworks/sonnet': '@stable'
     'frameworks/kdbusaddons': '@stable'
     'frameworks/kcrash': '@stable'
+
+Options:
+  require-passing-tests-on: ['Linux', 'FreeBSD']
