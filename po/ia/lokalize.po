@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-02 01:37+0000\n"
-"PO-Revision-Date: 2024-02-23 11:01+0100\n"
+"POT-Creation-Date: 2024-02-16 01:41+0000\n"
+"PO-Revision-Date: 2024-02-23 10:55+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -4452,7 +4452,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Total: %1 (%2)"
 
-#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:580
+#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:585
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4466,37 +4466,37 @@ msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Duple clicca ulle parola a insertar lo in traduction"
 
-#: src/tm/tmview.cpp:276
+#: src/tm/tmview.cpp:281
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Reimplimento non interactive de memoria de traduction"
 
-#: src/tm/tmview.cpp:279
+#: src/tm/tmview.cpp:284
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Traduction non interactive ha essite completate."
 
-#: src/tm/tmview.cpp:285
+#: src/tm/tmview.cpp:290
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Nulle suggestiones con correspondentias exacte esseva trovate"
 
-#: src/tm/tmview.cpp:305 src/tm/tmview.cpp:320
+#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Traduction non interactive ha essite planificate."
 
-#: src/tm/tmview.cpp:451
+#: src/tm/tmview.cpp:456
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:453
+#: src/tm/tmview.cpp:458
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4504,43 +4504,43 @@ msgid_plural "(%1 times)"
 msgstr[0] "(1 vice)"
 msgstr[1] "(%1 vices)"
 
-#: src/tm/tmview.cpp:534
+#: src/tm/tmview.cpp:539
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "isto"
 
-#: src/tm/tmview.cpp:535
+#: src/tm/tmview.cpp:540
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "File: %1<br />Data de Addition: %2"
 
-#: src/tm/tmview.cpp:537
+#: src/tm/tmview.cpp:542
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Ultime data de modification: %1"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:544
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Ultime autor de modification: %1"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:545
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br/>TM: %1"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:547
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br /> Non es plus presente in le file"
 
-#: src/tm/tmview.cpp:555 src/tm/tmview.cpp:562
+#: src/tm/tmview.cpp:560 src/tm/tmview.cpp:567
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4549,7 +4549,7 @@ msgstr ""
 "<html>Tu vermente vole remover iste entrata:<br/><i>%1</i><br/>ex memoria de "
 "traduction %2?</html>"
 
-#: src/tm/tmview.cpp:556 src/tm/tmview.cpp:563
+#: src/tm/tmview.cpp:561 src/tm/tmview.cpp:568
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
@@ -4557,25 +4557,25 @@ msgstr ""
 "Translation Memory Entry Removal (Remotion de entrata de memoria de "
 "traduction)"
 
-#: src/tm/tmview.cpp:597
+#: src/tm/tmview.cpp:611
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Remove iste entrata"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:613
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Aperi file continente iste entrata"
 
-#: src/tm/tmview.cpp:607
+#: src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Remove iste file mancante ex TM"
 
-#: src/tm/tmview.cpp:621 src/tm/tmview.cpp:627
+#: src/tm/tmview.cpp:635 src/tm/tmview.cpp:641
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4584,7 +4584,7 @@ msgstr ""
 "<html>Tu vermente vole remover iste file mancante: <br/><i>%1</i><br/>ex "
 "memoria de traduction %2?</html>"
 
-#: src/tm/tmview.cpp:622 src/tm/tmview.cpp:628
+#: src/tm/tmview.cpp:636 src/tm/tmview.cpp:642
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
@@ -4592,7 +4592,7 @@ msgstr ""
 "Translation Memory Missing File Removal (Remotion de file mancante de "
 "memoria de traduction)"
 
-#: src/tm/tmview.cpp:1005
+#: src/tm/tmview.cpp:1019
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

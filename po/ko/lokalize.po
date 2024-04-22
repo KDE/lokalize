@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-02 01:37+0000\n"
+"POT-Creation-Date: 2024-02-16 01:41+0000\n"
 "PO-Revision-Date: 2024-02-06 00:43+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -4331,7 +4331,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "합계: %1(%2)"
 
-#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:580
+#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:585
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4344,80 +4344,80 @@ msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "아무 단어나 두 번 클릭하면 번역에 삽입합니다"
 
-#: src/tm/tmview.cpp:276
+#: src/tm/tmview.cpp:281
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "일괄 번역 메모리 채우기"
 
-#: src/tm/tmview.cpp:279
+#: src/tm/tmview.cpp:284
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "일괄 번역이 완료되었습니다."
 
-#: src/tm/tmview.cpp:285
+#: src/tm/tmview.cpp:290
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "일치하는 항목이 없습니다."
 
-#: src/tm/tmview.cpp:305 src/tm/tmview.cpp:320
+#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "일괄 번역이 예약되었습니다."
 
-#: src/tm/tmview.cpp:451
+#: src/tm/tmview.cpp:456
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:453
+#: src/tm/tmview.cpp:458
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
 msgid_plural "(%1 times)"
 msgstr[0] "(%1회)"
 
-#: src/tm/tmview.cpp:534
+#: src/tm/tmview.cpp:539
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "현재"
 
-#: src/tm/tmview.cpp:535
+#: src/tm/tmview.cpp:540
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "파일: %1<br />추가한 날짜: %2"
 
-#: src/tm/tmview.cpp:537
+#: src/tm/tmview.cpp:542
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />마지막 변경 날짜: %1"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:544
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />마지막 변경자: %1"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:545
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />번역 메모리: %1"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:547
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />파일에 더 이상 없음"
 
-#: src/tm/tmview.cpp:555 src/tm/tmview.cpp:562
+#: src/tm/tmview.cpp:560 src/tm/tmview.cpp:567
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4425,31 +4425,31 @@ msgid ""
 msgstr ""
 "<html>번역 메모리 %2에서 다음 항목을 삭제하시겠습니까?<br/> <i>%1</i></html>"
 
-#: src/tm/tmview.cpp:556 src/tm/tmview.cpp:563
+#: src/tm/tmview.cpp:561 src/tm/tmview.cpp:568
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "번역 메모리 항목 삭제"
 
-#: src/tm/tmview.cpp:597
+#: src/tm/tmview.cpp:611
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "이 항목 삭제"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:613
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "이 파일이 들어 있는 항목 열기"
 
-#: src/tm/tmview.cpp:607
+#: src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "번역 메모리에서 이 없는 파일 삭제"
 
-#: src/tm/tmview.cpp:621 src/tm/tmview.cpp:627
+#: src/tm/tmview.cpp:635 src/tm/tmview.cpp:641
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4458,13 +4458,13 @@ msgstr ""
 "<html>번역 메모리 %2에서 다음 없는 파일을 삭제하시겠습니까?<br/> <i>%1</i></"
 "html>"
 
-#: src/tm/tmview.cpp:622 src/tm/tmview.cpp:628
+#: src/tm/tmview.cpp:636 src/tm/tmview.cpp:642
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "번역 메모리에서 없는 파일 삭제"
 
-#: src/tm/tmview.cpp:1005
+#: src/tm/tmview.cpp:1019
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
