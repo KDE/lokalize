@@ -303,7 +303,7 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     new HeaderViewMenuHandler(header());
 
     KConfig config;
-    KConfigGroup stateGroup(&config, "ProjectWindow");
+    KConfigGroup stateGroup(&config, QStringLiteral("ProjectWindow"));
     header()->restoreState(QByteArray::fromBase64(stateGroup.readEntry("ListHeaderState", QByteArray())));
     i = sizeof(widthDefaults) / sizeof(int);
     while (--i >= 0) {
@@ -317,7 +317,7 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
 ProjectWidget::~ProjectWidget()
 {
     KConfig config;
-    KConfigGroup stateGroup(&config, "ProjectWindow");
+    KConfigGroup stateGroup(&config, QStringLiteral("ProjectWindow"));
     stateGroup.writeEntry("ListHeaderState", header()->saveState().toBase64());
 }
 

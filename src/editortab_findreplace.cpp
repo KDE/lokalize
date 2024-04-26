@@ -82,7 +82,7 @@ EntryFindDialog::EntryFindDialog(QWidget* parent)
     setHasSelection(false);
 
     KConfig config;
-    KConfigGroup stateGroup(&config, "FindReplace");
+    KConfigGroup stateGroup(&config, QStringLiteral("FindReplace"));
     setOptions(stateGroup.readEntry("FindOptions", (qlonglong)0));
     setFindHistory(stateGroup.readEntry("FindHistory", QStringList()));
 }
@@ -90,7 +90,7 @@ EntryFindDialog::EntryFindDialog(QWidget* parent)
 EntryFindDialog::~EntryFindDialog()
 {
     KConfig config;
-    KConfigGroup stateGroup(&config, "FindReplace");
+    KConfigGroup stateGroup(&config, QStringLiteral("FindReplace"));
     stateGroup.writeEntry("FindOptions", (qlonglong)options());
     stateGroup.writeEntry("FindHistory", findHistory());
 
@@ -137,7 +137,7 @@ EntryReplaceDialog::EntryReplaceDialog(QWidget* parent)
     setHasSelection(false);
 
     KConfig config;
-    KConfigGroup stateGroup(&config, "FindReplace");
+    KConfigGroup stateGroup(&config, QStringLiteral("FindReplace"));
     setOptions(stateGroup.readEntry("ReplaceOptions", (qlonglong)0));
     setFindHistory(stateGroup.readEntry("ReplacePatternHistory", QStringList()));
     setReplacementHistory(stateGroup.readEntry("ReplacementHistory", QStringList()));
@@ -146,7 +146,7 @@ EntryReplaceDialog::EntryReplaceDialog(QWidget* parent)
 EntryReplaceDialog::~EntryReplaceDialog()
 {
     KConfig config;
-    KConfigGroup stateGroup(&config, "FindReplace");
+    KConfigGroup stateGroup(&config, QStringLiteral("FindReplace"));
     stateGroup.writeEntry("ReplaceOptions", (qlonglong)options());
     stateGroup.writeEntry("ReplacePatternHistory", findHistory());
     stateGroup.writeEntry("ReplacementHistory", replacementHistory());

@@ -54,7 +54,7 @@ void AltTransView::initLater()
     setAcceptDrops(true);
 
     KConfig config;
-    KConfigGroup group(&config, "AltTransView");
+    KConfigGroup group(&config, QStringLiteral("AltTransView"));
     m_everShown = group.readEntry("EverShown", false);
 
 
@@ -239,7 +239,7 @@ void AltTransView::process()
         show();
 
         KConfig config;
-        KConfigGroup group(&config, "AltTransView");
+        KConfigGroup group(&config, QStringLiteral("AltTransView"));
         group.writeEntry("EverShown", true);
     }
 }

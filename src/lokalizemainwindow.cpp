@@ -89,7 +89,7 @@ LokalizeMainWindow::LokalizeMainWindow()
 
     if (!qApp->isSessionRestored()) {
         KConfig config;
-        KConfigGroup stateGroup(&config, "State");
+        KConfigGroup stateGroup(&config, QStringLiteral("State"));
         readProperties(stateGroup);
     }
 
@@ -116,7 +116,7 @@ LokalizeMainWindow::~LokalizeMainWindow()
     TM::cancelAllJobs();
 
     KConfig config;
-    KConfigGroup stateGroup(&config, "State");
+    KConfigGroup stateGroup(&config, QStringLiteral("State"));
     if (!m_lastEditorState.isEmpty()) {
         stateGroup.writeEntry("DefaultDockWidgets", m_lastEditorState);
     }
@@ -635,13 +635,13 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     if (!nameSpecifier.isEmpty()) nameSpecifier.prepend(QLatin1Char('-'));
     KConfig* c = stateGroup.isValid() ? stateGroup.config() : &config;
     m_openRecentFileAction->saveEntries(KConfigGroup(c, QStringLiteral("RecentFiles") + nameSpecifier));
-    m_openRecentProjectAction->saveEntries(KConfigGroup(&config, "RecentProjects"));
+    m_openRecentProjectAction->saveEntries(KConfigGroup(&config, QStringLiteral("RecentProjects")));
 }
 
 void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
 {
     KConfig config;
-    m_openRecentProjectAction->loadEntries(KConfigGroup(&config, "RecentProjects"));
+    m_openRecentProjectAction->loadEntries(KConfigGroup(&config, QStringLiteral("RecentProjects")));
     QString path = stateGroup.readEntry("Project", QString());
     if (Project::instance()->isLoaded() || path.isEmpty()) {
         //1. we weren't existing yet when the signal was emitted
@@ -666,7 +666,7 @@ void LokalizeMainWindow::projectLoaded()
 
 
     //if project isn't loaded, still restore opened files from "State-"
-    KConfigGroup stateGroup(&config, "State");
+    KConfigGroup stateGroup(&config, QStringLiteral("State"));
     KConfigGroup projectStateGroup(&config, QLatin1String("State-") + projectPath);
 
     QStringList files;

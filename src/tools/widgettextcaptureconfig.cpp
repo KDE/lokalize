@@ -22,7 +22,7 @@ WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget* parent)
     ui->setupUi(this);
     setWindowTitle(i18nc("@title", "Widget Text Capture"));
 
-    KConfigGroup cg(KSharedConfig::openConfig(), "Development");
+    KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("Development"));
     bool copyWidgetText = cg.readEntry("CopyWidgetText", false);
     QString copyWidgetTextCommand = cg.readEntry("CopyWidgetTextCommand", QString());
     ui->none->setChecked(!copyWidgetText);
@@ -42,7 +42,7 @@ WidgetTextCaptureConfig::~WidgetTextCaptureConfig()
 void WidgetTextCaptureConfig::writeConfig()
 {
     KConfig konfig(QLatin1String("kdeglobals"), KConfig::NoGlobals);
-    KConfigGroup cg = konfig.group("Development");
+    KConfigGroup cg = konfig.group(QStringLiteral("Development"));
     cg.writeEntry("CopyWidgetText", !ui->none->isChecked());
     if (ui->clipboard->isChecked())
         cg.writeEntry("CopyWidgetTextCommand", QString());

@@ -82,7 +82,7 @@ void SettingsController::showSettingsDialog()
     ui_prefs_identity.setupUi(w);
 
 
-    KConfigGroup grp = Settings::self()->config()->group("Identity");
+    KConfigGroup grp = Settings::self()->config()->group(QStringLiteral("Identity"));
 
     ui_prefs_identity.DefaultLangCode->setModel(LanguageListModel::instance()->sortModel());
     ui_prefs_identity.DefaultLangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(grp.readEntry("DefaultLangCode",
@@ -354,14 +354,14 @@ void RelPathSaver::setText(const QString& txt)
 void writeUiState(const char* elementName, const QByteArray& state)
 {
     KConfig config;
-    KConfigGroup cg(&config, "MainWindow");
+    KConfigGroup cg(&config, QStringLiteral("MainWindow"));
     cg.writeEntry(elementName, state.toBase64());
 }
 
 QByteArray readUiState(const char* elementName)
 {
     KConfig config;
-    KConfigGroup cg(&config, "MainWindow");
+    KConfigGroup cg(&config, QStringLiteral("MainWindow"));
     return QByteArray::fromBase64(cg.readEntry(elementName, QByteArray()));
 }
 

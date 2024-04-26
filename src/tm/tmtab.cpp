@@ -505,14 +505,14 @@ TMTab::TMTab(QWidget *parent)
 
 
     KConfig config;
-    KConfigGroup cg(&config, "MainWindow");
+    KConfigGroup cg(&config, QStringLiteral("MainWindow"));
     view->header()->restoreState(QByteArray::fromBase64(cg.readEntry("TMSearchResultsHeaderState", QByteArray())));
 }
 
 TMTab::~TMTab()
 {
     KConfig config;
-    KConfigGroup cg(&config, "MainWindow");
+    KConfigGroup cg(&config, QStringLiteral("MainWindow"));
     cg.writeEntry("TMSearchResultsHeaderState", ui_queryOptions->treeView->header()->saveState().toBase64());
 
     ids.removeAll(m_dbusId);
