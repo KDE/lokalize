@@ -183,7 +183,7 @@ bool SettingsController::ensureProjectIsLoaded()
         return !projectOpen().isEmpty();
 #else
     int answer = KMessageBox::questionYesNoCancel(m_mainWindowPtr, i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
-                 QString(), KGuiItem(i18nc("@action", "New"), QIcon::fromTheme("document-new")), KGuiItem(i18nc("@action", "Open"), QIcon::fromTheme("project-open"))
+                 QString(), KGuiItem(i18nc("@action", "New"), QIcon::fromTheme(QStringLiteral("document-new"))), KGuiItem(i18nc("@action", "Open"), QIcon::fromTheme(QStringLiteral("project-open")))
                                                  );
 
     if (answer == KMessageBox::Yes)
