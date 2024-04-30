@@ -110,7 +110,7 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
     } else if (m_queryType == WordOrder) {
         /*escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
         escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");*/
-        QRegExp wre(QStringLiteral("\\W"));
+        const QRegularExpression wre(QStringLiteral("\\W"));
         QStringList sourceList = escapedSource.split(wre, Qt::SkipEmptyParts);
         QStringList targetList = escapedTarget.split(wre, Qt::SkipEmptyParts);
 

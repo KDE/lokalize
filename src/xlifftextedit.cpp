@@ -1231,7 +1231,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         QString text = sourceWithTags.string;
         QString out;
         QString ctxt = m_catalog->context(DocPosition(m_currentPos.entry)).first();
-        QRegExp delimiter(QStringLiteral("\\s*,\\s*"));
+        const QRegularExpression delimiter(QStringLiteral("\\s*,\\s*"));
 
         //TODO ask for the fillment if the first time.
         //BEGIN KDE specific part

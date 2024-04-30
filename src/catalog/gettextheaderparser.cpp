@@ -114,8 +114,8 @@ void GetTextHeaderParser::updateAuthors(QStringList &commentList, const QString 
     // cleanup template parameters and obsolete information
     commentList.erase(
         std::remove_if(commentList.begin(), commentList.end(), [](const QString &line){
-            const QRegExp regexpYearAlone(QStringLiteral("^# , \\d{4}.?\\s*$"));
-            if (line.contains(QRegExp(QStringLiteral("#, *fuzzy")))
+            const QRegularExpression regexpYearAlone(QStringLiteral("^# , \\d{4}.?\\s*$"));
+            if (line.contains(QRegularExpression(QStringLiteral("#, *fuzzy")))
                 // We have found a year number that is preceded by a comma.
                 // That is typical of KBabel 1.10 (and earlier?) when there is neither an author name nor an email
                 // Remove the entry

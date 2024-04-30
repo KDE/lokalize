@@ -20,7 +20,7 @@
 #include <QFile>
 #include <QTime>
 #include <QFileInfo>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTextCodec>
 #include <QList>
 #include <QTextStream>
@@ -204,13 +204,14 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
         return codec;
     }
 
-    QRegExp regexp(QStringLiteral("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n"));
-    if (regexp.indexIn(_msgstr.first()) == -1) {
+    const QRegularExpression regexp(QStringLiteral("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n"));
+    const auto match = regexp.match(_msgstr.first());
+    if (!match.hasMatch()) {
         qCDebug(LOKALIZE_LOG) << "no charset entry found";
         return codec;
     }
 
-    const QString charset = regexp.cap(1);
+    const QString charset = match.captured(1);
     if (charset != QLatin1String("UTF-8")) qCDebug(LOKALIZE_LOG) << "charset:" << charset;
 
     if (charset.isEmpty()) {
@@ -318,7 +319,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 part = Msgctxt;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgctxt\\s*\"")));
+                line.remove(QRegularExpression(QStringLiteral("^msgctxt\\s*\"")));
                 line.remove(_rxMsgLineRemEndQuote);
                 _msgctxt = line;
                 _msgctxtPresent = true;
@@ -339,7 +340,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 part = Msgid;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid\\s*\"?")));
+                line.remove(QRegularExpression(QStringLiteral("^msgid\\s*\"?")));
                 line.remove(_rxMsgLineRemEndQuote);
 
                 _msgidMultiline = line.isEmpty();
@@ -364,7 +365,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 part = Msgctxt;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgctxt\\s*\"")));
+                line.remove(QRegularExpression(QStringLiteral("^msgctxt\\s*\"")));
                 line.remove(_rxMsgLineRemEndQuote);
                 _msgctxt = line;
                 _msgctxtPresent = true;
@@ -384,7 +385,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 part = Msgid;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid\\s*\"?")));
+                line.remove(QRegularExpression(QStringLiteral("^msgid\\s*\"?")));
                 line.remove(_rxMsgLineRemEndQuote);
 
                 _msgidMultiline = line.isEmpty();
@@ -426,7 +427,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 part = Msgid;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid\\s*\"?")));
+                line.remove(QRegularExpression(QStringLiteral("^msgid\\s*\"?")));
                 line.remove(_rxMsgLineRemEndQuote);
 
                 _msgidMultiline = line.isEmpty();
@@ -464,7 +465,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 _gettextPluralForm = true;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid_plural\\s*\"")));
+                line.remove(QRegularExpression(QStringLiteral("^msgid_plural\\s*\"")));
                 line.remove(_rxMsgLineRemEndQuote);
 
                 _msgid.append(line);
@@ -475,7 +476,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 _gettextPluralForm = true;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgid_plural\\s*\"?")));
+                line.remove(QRegularExpression(QStringLiteral("^msgid_plural\\s*\"?")));
                 line.remove(_rxMsgLineRemEndQuote);
 
                 _msgid.append(line);
@@ -507,7 +508,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 part = Msgstr;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgstr\\[0\\]\\s*\"?")));
+                line.remove(QRegularExpression(QStringLiteral("^msgstr\\[0\\]\\s*\"?")));
                 line.remove(_rxMsgLineRemEndQuote);
 
                 _msgstrMultiline = line.isEmpty();
@@ -516,7 +517,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 part = Msgstr;
 
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgstr\\[0\\]\\s*\"?")));
+                line.remove(QRegularExpression(QStringLiteral("^msgstr\\[0\\]\\s*\"?")));
                 line.remove(_rxMsgLineRemEndQuote);
 
                 _msgstrMultiline = line.isEmpty();
@@ -573,7 +574,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 (*msgstrIt) += line;
             } else if (_gettextPluralForm && (line.contains(_rxMsgStrPlural))) {
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\"?")));
+                line.remove(QRegularExpression(QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\"?")));
                 line.remove(_rxMsgLineRemEndQuote);
 
                 _msgstr.append(line);
@@ -585,7 +586,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 break;
             } else if (Q_UNLIKELY(/*_testBorked&&*/ _gettextPluralForm && (line.contains(_rxMsgStrPluralBorked)))) {
                 // remove quotes at beginning and the end of the lines
-                line.remove(QRegExp(QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?")));
+                line.remove(QRegularExpression(QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?")));
                 line.remove(_rxMsgLineRemEndQuote);
 
                 _msgstr.append(line);

@@ -18,6 +18,7 @@
 
 #include <QMutex>
 #include <QMutexLocker>
+#include <QRegularExpression>
 #include <QString>
 #include <QMap>
 
@@ -239,7 +240,7 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos, bool stripNew
 
 QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 {
-    static const QRegExp alt_trans_mark_re(QStringLiteral("^#\\|"));
+    static const QRegularExpression alt_trans_mark_re(QStringLiteral("^#\\|"));
     QStringList prev = m_entries.at(pos.entry).comment().split(QLatin1Char('\n')).filter(alt_trans_mark_re);
 
     QString oldSingular;
@@ -298,7 +299,7 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
     return oldNote;
 }
 
-QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegExp& re, int preLen) const
+QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegularExpression& re, int preLen) const
 {
     QVector<Note> result;
     QString content;
@@ -324,13 +325,13 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
 
 QVector<Note> GettextStorage::notes(const DocPosition& docPosition) const
 {
-    static const QRegExp nre(QStringLiteral("^# "));
+    static const QRegularExpression nre(QStringLiteral("^# "));
     return notes(docPosition, nre, 2);
 }
 
 QVector<Note> GettextStorage::developerNotes(const DocPosition& docPosition) const
 {
-    static const QRegExp dnre(QStringLiteral("^#\\. (?!i18n: file:)"));
+    static const QRegularExpression dnre(QStringLiteral("^#\\. (?!i18n: file:)"));
     return notes(docPosition, dnre, 3);
 }
 
@@ -339,7 +340,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     QStringList result;
     QStringList commentLines = m_entries.at(pos.entry).comment().split(QLatin1Char('\n'));
 
-    static const QRegExp i18n_file_re(QStringLiteral("^#. i18n: file: "));
+    static const QRegularExpression i18n_file_re(QStringLiteral("^#. i18n: file: "));
     const auto uiLines = commentLines.filter(i18n_file_re);
     for (const QString &uiLine : uiLines) {
         const auto fileRefs = uiLine.midRef(15).split(QLatin1Char(' '));
@@ -349,7 +350,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     }
 
     bool hasUi = !result.isEmpty();
-    static const QRegExp cpp_re(QStringLiteral("^#: "));
+    static const QRegularExpression cpp_re(QStringLiteral("^#: "));
     const auto cppLines = commentLines.filter(cpp_re);
     for (const QString &cppLine : cppLines) {
         const auto fileRefs = cppLine.midRef(3).split(QLatin1Char(' '));

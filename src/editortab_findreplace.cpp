@@ -239,7 +239,6 @@ void EditorTab::findNext(const DocPosition& startingPos)
         _searchingPos.offset = 0;
 
 
-    QRegExp rx(QStringLiteral("[^(\\\\n)>]\n"));
     //_searchingPos.part=DocPosition::Source;
     bool ignoreaccels = m_find->options()&IGNOREACCELS;
     bool includenotes = m_find->options()&INCLUDENOTES;

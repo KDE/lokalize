@@ -22,6 +22,7 @@
 #include <QTextStream>
 #include <QEventLoop>
 #include <QStringBuilder>
+#include <QRegularExpression>
 
 
 using namespace GettextCatalog;
@@ -203,7 +204,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
     if (m_wrapWidth == -1) { // Special wrapping for KDE PO Summit (trunk/l10n-support/$(LANG)/summit)
         QString realText(text);
         realText.remove(QLatin1Char('\n'));
-        QRegExp rx(QLatin1String(R"(<[^<>]*>|\\n|\\\\n)"), Qt::CaseInsensitive);
+        const QRegularExpression rx(QLatin1String(R"(<[^<>]*>|\\n|\\\\n)"), QRegularExpression::CaseInsensitiveOption);
         QStringList list;
         int pos = 0;
         int startPos = 0;
@@ -212,12 +213,13 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
         QStringList tagBrNormal = getTagBrNormal();
 
         while (true) {
-            int nextPos = realText.indexOf(rx, pos);
+            const auto match = rx.match(realText, pos);
+            int nextPos = match.hasMatch() ? match.capturedStart() : -1;
             if (nextPos == -1) {
                 list << realText.mid(startPos);
                 break;
             }
-            int len = rx.matchedLength();
+            int len = match.capturedLength();
             pos = nextPos + len;
             QString tag = realText.mid(nextPos, len);
 

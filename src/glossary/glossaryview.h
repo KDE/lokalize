@@ -11,7 +11,7 @@
 #define GLOSSARYVIEW_H
 
 #include <pos.h>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QDockWidget>
 class Catalog;
 class FlowLayout;
@@ -56,8 +56,8 @@ private:
     Catalog* m_catalog;
     FlowLayout *m_flowLayout;
     Glossary* m_glossary;
-    QRegExp m_rxClean;
-    QRegExp m_rxSplit{QStringLiteral("\\W|\\d")};
+    const QRegularExpression m_rxClean;
+    const QRegularExpression m_rxSplit{QStringLiteral("\\W|\\d")};
     int m_currentIndex{-1};
 
     QString m_normTitle;

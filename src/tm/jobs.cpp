@@ -29,6 +29,7 @@
 #include <QFile>
 #include <QElapsedTimer>
 #include <QDir>
+#include <QRegularExpression>
 
 #include <iostream>
 
@@ -71,7 +72,7 @@ static void doSplit(QString& cleanEn,
                     const QString& accel
                    )
 {
-    static QRegExp rxSplit(QStringLiteral("\\W+|\\d+"));
+    static const QRegularExpression rxSplit(QStringLiteral("\\W+|\\d+"));
 
     if (!rxClean1.pattern().isEmpty())
         cleanEn.replace(rxClean1, QStringLiteral(" "));
@@ -1182,7 +1183,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     QString tmp = c.markup;
     if (!c.markup.isEmpty())
         tmp += QLatin1Char('|');
-    QRegExp rxSplit(QLatin1Char('(') + tmp + QStringLiteral("\\W+|\\d+)+"));
+    const QRegularExpression rxSplit(QLatin1Char('(') + tmp + QStringLiteral("\\W+|\\d+)+"));
 
     QString sourceClean(m_source.string);
     sourceClean.remove(c.accel);

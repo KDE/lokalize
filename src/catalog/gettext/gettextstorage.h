@@ -100,7 +100,7 @@ private:
         m_codec = codec;
     }
 
-    QVector<Note> notes(const DocPosition& pos, const QRegExp& re, int preLen) const;
+    QVector<Note> notes(const DocPosition& pos, const QRegularExpression& re, int preLen) const;
 
 private:
     QVector<CatalogItem> m_entries;

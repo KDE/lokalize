@@ -14,6 +14,7 @@
 
 #include "catalogfileplugin.h"
 
+#include <QRegularExpression>
 #include <QStringList>
 #include <QTextStream>
 
@@ -78,23 +79,23 @@ private:
     bool _obsolete{false};
     bool _msgctxtPresent{false};
 
-    QRegExp _rxMsgCtxt{QStringLiteral("^msgctxt\\s*\".*\"$")};
-    QRegExp _rxMsgId{QStringLiteral("^msgid\\s*\".*\"$")};
-    QRegExp _rxMsgIdPlural{QStringLiteral("^msgid_plural\\s*\".*\"$")};
-    QRegExp _rxMsgIdPluralBorked{QStringLiteral("^msgid_plural\\s*\"?.*\"?$")};
-    QRegExp _rxMsgIdBorked{QStringLiteral("^msgid\\s*\"?.*\"?$")};
-    QRegExp _rxMsgIdRemQuotes{QStringLiteral("^msgid\\s*\"")};
-    QRegExp _rxMsgLineRemEndQuote{QStringLiteral("\"$")};
-    QRegExp _rxMsgLineRemStartQuote{QStringLiteral("^\"")};
-    QRegExp _rxMsgLine{QStringLiteral("^\".*\\n?\"$")};
-    QRegExp _rxMsgLineBorked{QStringLiteral("^\"?.+\\n?\"?$")};
-    QRegExp _rxMsgStr{QStringLiteral("^msgstr\\s*\".*\\n?\"$")};
-    QRegExp _rxMsgStrOther{QStringLiteral("^msgstr\\s*\"?.*\\n?\"?$")};
-    QRegExp _rxMsgStrPluralStart{QStringLiteral("^msgstr\\[0\\]\\s*\".*\\n?\"$")};
-    QRegExp _rxMsgStrPluralStartBorked{QStringLiteral("^msgstr\\[0\\]\\s*\"?.*\\n?\"?$")};
-    QRegExp _rxMsgStrPlural{QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$")};
-    QRegExp _rxMsgStrPluralBorked{QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$")};
-    QRegExp _rxMsgStrRemQuotes{QStringLiteral("^msgstr\\s*\"?")};
+    const QRegularExpression _rxMsgCtxt{QStringLiteral("^msgctxt\\s*\".*\"$")};
+    const QRegularExpression _rxMsgId{QStringLiteral("^msgid\\s*\".*\"$")};
+    const QRegularExpression _rxMsgIdPlural{QStringLiteral("^msgid_plural\\s*\".*\"$")};
+    const QRegularExpression _rxMsgIdPluralBorked{QStringLiteral("^msgid_plural\\s*\"?.*\"?$")};
+    const QRegularExpression _rxMsgIdBorked{QStringLiteral("^msgid\\s*\"?.*\"?$")};
+    const QRegularExpression _rxMsgIdRemQuotes{QStringLiteral("^msgid\\s*\"")};
+    const QRegularExpression _rxMsgLineRemEndQuote{QStringLiteral("\"$")};
+    const QRegularExpression _rxMsgLineRemStartQuote{QStringLiteral("^\"")};
+    const QRegularExpression _rxMsgLine{QStringLiteral("^\".*\\n?\"$")};
+    const QRegularExpression _rxMsgLineBorked{QStringLiteral("^\"?.+\\n?\"?$")};
+    const QRegularExpression _rxMsgStr{QStringLiteral("^msgstr\\s*\".*\\n?\"$")};
+    const QRegularExpression _rxMsgStrOther{QStringLiteral("^msgstr\\s*\"?.*\\n?\"?$")};
+    const QRegularExpression _rxMsgStrPluralStart{QStringLiteral("^msgstr\\[0\\]\\s*\".*\\n?\"$")};
+    const QRegularExpression _rxMsgStrPluralStartBorked{QStringLiteral("^msgstr\\[0\\]\\s*\"?.*\\n?\"?$")};
+    const QRegularExpression _rxMsgStrPlural{QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$")};
+    const QRegularExpression _rxMsgStrPluralBorked{QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$")};
+    const QRegularExpression _rxMsgStrRemQuotes{QStringLiteral("^msgstr\\s*\"?")};
 
     QString _obsoleteStart{QStringLiteral("#~")};
     QString _msgctxtStart{QStringLiteral("msgctxt")};

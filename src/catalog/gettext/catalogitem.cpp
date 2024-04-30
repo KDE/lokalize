@@ -15,6 +15,7 @@
 #include "lokalize_debug.h"
 
 #include <QMutexLocker>
+#include <QRegularExpression>
 
 using namespace GettextCatalog;
 
@@ -129,7 +130,7 @@ void CatalogItem::setComment(const QString& com)
         //static QMutex reMutex;
         //QMutexLocker reLock(&reMutex); //avoid crash #281033
         //now we have a bigger scale mutex in GettextStorage
-        static QRegExp fuzzyRegExp(QStringLiteral("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy"));
+        static const QRegularExpression fuzzyRegExp(QStringLiteral("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy"));
         d._fuzzyCached = com.contains(fuzzyRegExp);
     }
     d._comment = com;
@@ -258,10 +259,9 @@ void CatalogItem::setFuzzy()
     }
 
     QString comment = d._comment;
-    static QRegExp a(QStringLiteral("\\#\\:[^\n]*\n"));
-    p = a.indexIn(comment);
-    if (p != -1) {
-        d._comment = comment.insert(p + a.matchedLength(), QLatin1String("#, fuzzy\n"));
+    static const QRegularExpression a(QStringLiteral("\\#\\:[^\n]*\n"));
+    if (const auto match = a.match(comment); match.hasMatch()) {
+        d._comment = comment.insert(match.capturedStart() + match.capturedLength(), QLatin1String("#, fuzzy\n"));
         return;
     }
     p = d._comment.indexOf(QLatin1String("\n#|"));
@@ -283,14 +283,14 @@ void CatalogItem::unsetFuzzy()
 {
     d._fuzzyCached = false;
 
-    static const QRegExp rmFuzzyRe(QStringLiteral(",\\s*fuzzy"));
+    static const QRegularExpression rmFuzzyRe(QStringLiteral(",\\s*fuzzy"));
     d._comment.remove(rmFuzzyRe);
 
     // remove empty comment lines
-    d._comment.remove(QRegExp(QStringLiteral("\n#\\s*$")));
-    d._comment.remove(QRegExp(QStringLiteral("^#\\s*$")));
-    d._comment.remove(QRegExp(QStringLiteral("#\\s*\n")));
-    d._comment.remove(QRegExp(QStringLiteral("^#\\s*\n")));
+    d._comment.remove(QRegularExpression(QStringLiteral("\n#\\s*$")));
+    d._comment.remove(QRegularExpression(QStringLiteral("^#\\s*$")));
+    d._comment.remove(QRegularExpression(QStringLiteral("#\\s*\n")));
+    d._comment.remove(QRegularExpression(QStringLiteral("^#\\s*\n")));
 }
 
 

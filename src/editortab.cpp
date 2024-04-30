@@ -1408,8 +1408,8 @@ void EditorTab::displayWordCount()
     //TODO in trans and fuzzy separately
     int sourceCount = 0;
     int targetCount = 0;
-    QRegExp rxClean(Project::instance()->markup() + QLatin1Char('|') + Project::instance()->accel()); //cleaning regexp; NOTE isEmpty()?
-    QRegExp rxSplit(QStringLiteral("\\W|\\d"));//splitting regexp
+    const QRegularExpression rxClean(Project::instance()->markup() + QLatin1Char('|') + Project::instance()->accel()); //cleaning regexp; NOTE isEmpty()?
+    const QRegularExpression rxSplit(QStringLiteral("\\W|\\d"));//splitting regexp
     DocPosition pos(0);
     do {
         QString msg = m_catalog->source(pos);

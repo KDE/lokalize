@@ -27,6 +27,7 @@
 #include <QTextCodec>
 #include <QDateTime>
 #include <QTimeZone>
+#include <QRegularExpression>
 
 #include <klocalizedstring.h>
 
@@ -119,11 +120,12 @@ static const size_t langsWithPInfoCount = sizeof(langsWithPInfo) / sizeof(langsW
 
 int numberOfPluralFormsFromHeader(const QString& header)
 {
-    QRegExp rxplural(QStringLiteral("Plural-Forms:\\s*nplurals=(.);"));
-    if (rxplural.indexIn(header) == -1)
+    const QRegularExpression rxplural(QStringLiteral("Plural-Forms:\\s*nplurals=(.);"));
+    const auto match = rxplural.match(header);
+    if (!match.hasMatch())
         return 0;
     bool ok{};
-    int result = rxplural.cap(1).toShort(&ok);
+    int result = match.capturedView(1).toShort(&ok);
     return ok ? result : 0;
 
 }
@@ -132,11 +134,12 @@ int numberOfPluralFormsForLangCode(const QString& langCode)
 {
     QString expr = GNUPluralForms(langCode);
 
-    QRegExp rxplural(QStringLiteral("nplurals=(.);"));
-    if (rxplural.indexIn(expr) == -1)
+    const QRegularExpression rxplural(QStringLiteral("nplurals=(.);"));
+    const auto match = rxplural.match(expr);
+    if (!match.hasMatch())
         return 0;
     bool ok;
-    int result = rxplural.cap(1).toShort(&ok);
+    int result = match.capturedView(1).toShort(&ok);
     return ok ? result : 0;
 
 }
@@ -282,7 +285,7 @@ void updateHeader(QString& header,
 
     bool found = false;
     temp = QStringLiteral("PO-Revision-Date: ") + formatGettextDate(QDateTime::currentDateTime()) + BACKSLASH_N;
-    QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
+    const QRegularExpression poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(poRevDate);
         if (found && forSaving) *it = temp;
@@ -292,7 +295,7 @@ void updateHeader(QString& header,
 
     temp = QStringLiteral("Project-Id-Version: ") + CatalogProjectId + BACKSLASH_N;
     //temp.replace( "@PACKAGE@", packageName());
-    QRegExp projectIdVer(QStringLiteral("^ *Project-Id-Version:.*"));
+    const QRegularExpression projectIdVer(QStringLiteral("^ *Project-Id-Version:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(projectIdVer);
         if (found && it->contains(QLatin1String("PACKAGE VERSION")))
@@ -313,16 +316,16 @@ void updateHeader(QString& header,
         for (int l = QLocale::Abkhazian; l <= QLocale::Akoose; ++l)
             langEnums[QLocale::languageToString((QLocale::Language)l)] = (QLocale::Language)l;
 
-    static QRegExp langTeamRegExp(QStringLiteral("^ *Language-Team:.*"));
+    static const QRegularExpression langTeamRegExp(QStringLiteral("^ *Language-Team:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(langTeamRegExp);
         if (found) {
             //really parse header
-            QRegExp re(QStringLiteral("^ *Language-Team: *(.*) *<([^>]*)>"));
-            if (re.indexIn(*it) != -1) {
-                if (langEnums.contains(re.cap(1).trimmed())) {
-                    language = re.cap(1).trimmed();
-                    mailingList = re.cap(2).trimmed();
+            const QRegularExpression re(QStringLiteral("^ *Language-Team: *(.*) *<([^>]*)>"));
+            if (const auto match = re.match(*it); match.hasMatch()) {
+                if (langEnums.contains(match.captured(1).trimmed())) {
+                    language = match.captured(1).trimmed();
+                    mailingList = match.captured(2).trimmed();
                     QList<QLocale> locales = QLocale::matchingLocales(langEnums.value(language), QLocale::AnyScript, QLocale::AnyCountry);
                     if (locales.size()) langCode = locales.first().name().left(2);
                 }
@@ -359,11 +362,12 @@ void updateHeader(QString& header,
     else
         headerList.append(temp);
 
-    static QRegExp langCodeRegExp(QStringLiteral("^ *Language: *([^ \\\\]*)"));
+    static const QRegularExpression langCodeRegExp(QStringLiteral("^ *Language: *([^ \\\\]*)"));
     temp = QStringLiteral("Language: ") + langCode + BACKSLASH_N;
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
-        found = (langCodeRegExp.indexIn(*it) != -1);
-        if (found && langCodeRegExp.cap(1).isEmpty())
+        const auto match = langCodeRegExp.match(*it);
+        found = match.hasMatch();
+        if (found && match.captured(1).isEmpty())
             *it = temp;
         //if (found) qCWarning(LOKALIZE_LOG)<<"got explicit lang code:"<<langCodeRegExp.cap(1);
     }
@@ -371,7 +375,7 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
     temp = QStringLiteral("Content-Type: text/plain; charset=") + QString::fromLatin1(codec->name()) + BACKSLASH_N;
-    QRegExp ctRe(QStringLiteral("^ *Content-Type:.*"));
+    const QRegularExpression ctRe(QStringLiteral("^ *Content-Type:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(ctRe);
         if (found) *it = temp;
@@ -381,7 +385,7 @@ void updateHeader(QString& header,
 
 
     temp = QStringLiteral("Content-Transfer-Encoding: 8bit\\n");
-    QRegExp cteRe(QStringLiteral("^ *Content-Transfer-Encoding:.*"));
+    const QRegularExpression cteRe(QStringLiteral("^ *Content-Transfer-Encoding:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it)
         found = it->contains(cteRe);
     if (!found)
@@ -389,7 +393,7 @@ void updateHeader(QString& header,
 
     // ensure MIME-Version header
     temp = QStringLiteral("MIME-Version: 1.0\\n");
-    QRegExp mvRe(QStringLiteral("^ *MIME-Version:"));
+    const QRegularExpression mvRe(QStringLiteral("^ *MIME-Version:"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(mvRe);
         if (found) *it = temp;
@@ -400,7 +404,7 @@ void updateHeader(QString& header,
 
     //qCDebug(LOKALIZE_LOG)<<"testing for GNUPluralForms";
     // update plural form header
-    QRegExp pfRe(QStringLiteral("^ *Plural-Forms:"));
+    const QRegularExpression pfRe(QStringLiteral("^ *Plural-Forms:"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it)
         found = it->contains(pfRe);
     if (found) {
@@ -416,8 +420,7 @@ void updateHeader(QString& header,
                 QString t = GNUPluralForms(langCode);
                 //qCWarning(LOKALIZE_LOG)<<"generated: " << t;
                 if (!t.isEmpty()) {
-                    static QRegExp pf(QStringLiteral("^ *Plural-Forms:\\s*nplurals.*\\\\n"));
-                    pf.setMinimal(true);
+                    static const QRegularExpression pf(QStringLiteral("^ *Plural-Forms:\\s*nplurals.*\\\\n"), QRegularExpression::InvertedGreedinessOption);
                     temp = QStringLiteral("Plural-Forms: %1\\n").arg(t);
                     it->replace(pf, temp);
                     num = numberOfPluralFormsFromHeader(temp);
@@ -441,7 +444,7 @@ void updateHeader(QString& header,
     }
 
     temp = QStringLiteral("X-Generator: Lokalize %1\\n").arg(QStringLiteral(LOKALIZE_VERSION));
-    QRegExp xgRe(QStringLiteral("^ *X-Generator:.*"));
+    const QRegularExpression xgRe(QStringLiteral("^ *X-Generator:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(xgRe);
         if (found) *it = temp;

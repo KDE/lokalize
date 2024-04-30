@@ -261,18 +261,18 @@ QByteArray Glossary::generateNewId()
 
     QString authorId(Settings::authorName().toLower());
     authorId.replace(QLatin1Char(' '), QLatin1Char('_'));
-    QRegExp rx(QLatin1Char('^') + authorId + QStringLiteral("\\-([0-9]*)$"));
+    const QRegularExpression rx(QRegularExpression::anchoredPattern(QLatin1Char('^') + authorId + QStringLiteral("\\-([0-9]*)$")));
 
 
     for (const QByteArray& id : qAsConst(m_idsForEntriesById)) {
-        if (rx.exactMatch(QString::fromLatin1(id)))
-            busyIdNumbers.append(rx.cap(1).toInt());
+        if (const auto match = rx.match(QString::fromLatin1(id)); match.hasMatch())
+            busyIdNumbers.append(match.capturedView(1).toInt());
     }
 
     int i = removedIds.size();
     while (--i >= 0) {
-        if (rx.exactMatch(QString::fromLatin1(removedIds.at(i))))
-            busyIdNumbers.append(rx.cap(1).toInt());
+        if (const auto match = rx.match(QString::fromLatin1(removedIds.at(i))); match.hasMatch())
+            busyIdNumbers.append(match.capturedView(1).toInt());
     }
 
     if (!busyIdNumbers.isEmpty()) {

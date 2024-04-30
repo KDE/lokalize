@@ -26,6 +26,7 @@
 
 #include <QLabel>
 #include <QHBoxLayout>
+#include <QRegularExpression>
 #include <QTabBar>
 #include <QStringBuilder>
 
@@ -212,15 +213,15 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
         QTextCursor t = m_targetTextEdit->textCursor();
         //what if msg starts with a tag?
         if (Q_UNLIKELY(targetString.startsWith(QLatin1Char('<')))) {
-            QRegExp regExp(QStringLiteral(">[^<]"));
-            int offset = regExp.indexIn(targetString);
-            if (offset != -1)
-                t.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, offset + 1);
+            const QRegularExpression regExp(QStringLiteral(">[^<]"));
+            const auto match = regExp.match(targetString);
+            if (match.hasMatch())
+                t.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, match.capturedStart() + 1);
         } else if (Q_UNLIKELY(targetString.startsWith(TAGRANGE_IMAGE_SYMBOL))) {
-            QRegExp regExp(QStringLiteral("[^") + QChar(TAGRANGE_IMAGE_SYMBOL) + QLatin1Char(']'));
-            int offset = regExp.indexIn(targetString);
-            if (offset != -1)
-                t.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, offset + 1);
+            const QRegularExpression regExp(QStringLiteral("[^") + QChar(TAGRANGE_IMAGE_SYMBOL) + QLatin1Char(']'));
+            const auto match = regExp.match(targetString);
+            if (match.hasMatch())
+                t.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, match.capturedStart() + 1);
         }
         m_targetTextEdit->setTextCursor(t);
     }
@@ -241,7 +242,7 @@ void EditorView::unwrap(TranslationUnitTextEdit* editor)
     if (!editor)
         editor = m_targetTextEdit;
 
-    QTextCursor t = editor->document()->find(QRegExp(QStringLiteral("[^(\\\\n)]$")));
+    QTextCursor t = editor->document()->find(QRegularExpression(QStringLiteral("[^(\\\\n)]$")));
     if (t.isNull())
         return;
 
@@ -251,7 +252,7 @@ void EditorView::unwrap(TranslationUnitTextEdit* editor)
     if (!t.atEnd())
         t.deleteChar();
 
-    QRegExp rx(QStringLiteral("[^(\\\\n)>]$"));
+    const QRegularExpression rx(QStringLiteral("[^(\\\\n)>]$"));
     //remove '\n's skipping "\\\\n"
     while (!(t = editor->document()->find(rx, t)).isNull()) {
         t.movePosition(QTextCursor::EndOfLine);

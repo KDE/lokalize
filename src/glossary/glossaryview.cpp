@@ -38,7 +38,7 @@ GlossaryView::GlossaryView(QWidget* parent, Catalog* catalog, const QVector<QAct
     , m_catalog(catalog)
     , m_flowLayout(new FlowLayout(FlowLayout::glossary,/*who gets signals*/this, actions, 0, 10))
     , m_glossary(Project::instance()->glossary())
-    , m_rxClean(Project::instance()->markup() + QLatin1Char('|') + Project::instance()->accel()) //cleaning regexp; NOTE isEmpty()?
+    , m_rxClean(Project::instance()->markup() + QLatin1Char('|') + Project::instance()->accel(), QRegularExpression::InvertedGreedinessOption) //cleaning regexp; NOTE isEmpty()?
     , m_normTitle(i18nc("@title:window", "Glossary"))
     , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
 
@@ -59,7 +59,6 @@ GlossaryView::GlossaryView(QWidget* parent, Catalog* catalog, const QVector<QAct
     m_browser->setAutoFillBackground(true);
     m_browser->setBackgroundRole(QPalette::Window);
 
-    m_rxClean.setMinimal(true);
     connect(m_glossary, &Glossary::changed, this, qOverload<>(&GlossaryView::slotNewEntryDisplayed), Qt::QueuedConnection);
 }
 
