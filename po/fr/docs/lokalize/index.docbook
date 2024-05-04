@@ -151,9 +151,9 @@
 > par le biais de la vue <guilabel
 >Unités de traduction</guilabel
 > ou à l'aide des touches <keycap
->Page suiv</keycap
+>Page suivante</keycap
 > et <keycap
->Page préc</keycap
+>Page précédente</keycap
 >. </para>
 <para
 >Une unité peut être <emphasis
@@ -175,7 +175,7 @@
 >. De plus, on peut utiliser la fonctionnalité de filtrage de la vue des outils <guilabel
 >Unités de traduction</guilabel
 >. Appuyer sur <keycap
->Page suiv</keycap
+>Page suivante</keycap
 > vous amène en réalité à l'unité suivante dans la liste filtrée / triée de cette vue des outils. </para>
 <para
 >Pour faciliter la traduction des applications de console où les espaces dans les messages sont importants, vous pouvez vérifier l'élément <guilabel
@@ -620,13 +620,13 @@
 ><keycap
 >&Alt;</keycap
 ><keycap
->Page suiv</keycap
+>Page suivante</keycap
 ></keycombo
 > ou <keycombo
 ><keycap
 >&Alt;</keycap
 > <keycap
->Page préc</keycap
+>Page précédente</keycap
 ></keycombo
 > (n'oubliez pas qu'il est possible de modifier les raccourcis de la manière habituelle pour les toutes les applications &kde;) pour naviguer parmi les éléments présentant des différences. </para>
 <screenshot>
