@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-16 01:41+0000\n"
+"POT-Creation-Date: 2024-05-08 01:52+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -790,12 +790,12 @@ msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Sisipkan teks dengan tanda baca"
 
-#: src/catalog/gettext/gettextstorage.cpp:110
+#: src/catalog/gettext/gettextstorage.cpp:111
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "pemisah untuk perbedaan panjang string alternatif"
 
-#: src/catalog/gettext/gettextstorage.cpp:272
+#: src/catalog/gettext/gettextstorage.cpp:273
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -804,24 +804,24 @@ msgstr ""
 "Nilai sumber sebelumnya, disimpan oleh Gettext selama transisi ke sebuah POT "
 "template yang baru"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Nama penulis tidak ada"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgid "Your name:"
 msgstr "Namamu:"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Email penulis tidak ada"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgid "Your email:"
 msgstr "Emailmu:"
@@ -1782,13 +1782,13 @@ msgctxt "@item Undo action item"
 msgid "Set unit text"
 msgstr "Set teks unit"
 
-#: src/editortab_findreplace.cpp:464
+#: src/editortab_findreplace.cpp:463
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "Ganti"
 
-#: src/editortab_findreplace.cpp:537 src/editortab_findreplace.cpp:544
+#: src/editortab_findreplace.cpp:536 src/editortab_findreplace.cpp:543
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
@@ -1796,14 +1796,14 @@ msgstr ""
 "Lokalize telah mencapai ujung dari dokumen. Apakah Anda ingin melanjutkan "
 "dari awal?"
 
-#: src/editortab_findreplace.cpp:538 src/editortab_findreplace.cpp:545
-#: src/editortab_findreplace.cpp:552
+#: src/editortab_findreplace.cpp:537 src/editortab_findreplace.cpp:544
+#: src/editortab_findreplace.cpp:551
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "Periksa ejaan"
 
-#: src/editortab_findreplace.cpp:552
+#: src/editortab_findreplace.cpp:551
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize telah selesai memeriksa ejaan"
@@ -1875,31 +1875,31 @@ msgstr "Tampilan &Alat"
 msgid "Main Toolbar"
 msgstr "Bilah Alat Utama"
 
-#: src/editorview.cpp:45
+#: src/editorview.cpp:46
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "Belum siap:"
 
-#: src/editorview.cpp:47
+#: src/editorview.cpp:48
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "Belum diterjemahkan:"
 
-#: src/editorview.cpp:58
+#: src/editorview.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "Sembunyikan"
 
-#: src/editorview.cpp:68
+#: src/editorview.cpp:69
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "Kolom: %1"
 
-#: src/editorview.cpp:80
+#: src/editorview.cpp:81
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1910,13 +1910,13 @@ msgstr ""
 "<p>Ini bagian dari jendela yang menunjukkan pesan asli\n"
 "pada entri yang baru saja ditampilkan.</p></qt>"
 
-#: src/editorview.cpp:178
+#: src/editorview.cpp:179
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Formulir Jamak %1"
 
-#: src/editorview.cpp:249
+#: src/editorview.cpp:250
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

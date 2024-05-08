@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-16 01:41+0000\n"
+"POT-Creation-Date: 2024-05-08 01:52+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -812,12 +812,12 @@ msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Inserir o texto com a formatação"
 
-#: src/catalog/gettext/gettextstorage.cpp:110
+#: src/catalog/gettext/gettextstorage.cpp:111
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "separador para as alternativas de diferentes tamanhos"
 
-#: src/catalog/gettext/gettextstorage.cpp:272
+#: src/catalog/gettext/gettextstorage.cpp:273
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -826,24 +826,24 @@ msgstr ""
 "O valor de origem anterior, gravado pelo Gettext durante a transição para um "
 "modelo POT mais recente"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Falta o nome do autor"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgid "Your name:"
 msgstr "O seu nome:"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Falta o e-mail do autor"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgid "Your email:"
 msgstr "O seu e-mail:"
@@ -1798,27 +1798,27 @@ msgctxt "@item Undo action item"
 msgid "Set unit text"
 msgstr "Mudar o texto da unidade"
 
-#: src/editortab_findreplace.cpp:464
+#: src/editortab_findreplace.cpp:463
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "Substituir"
 
-#: src/editortab_findreplace.cpp:537 src/editortab_findreplace.cpp:544
+#: src/editortab_findreplace.cpp:536 src/editortab_findreplace.cpp:543
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr ""
 "O Lokalize chegou ao fim do documento. Deseja continuar a partir do início?"
 
-#: src/editortab_findreplace.cpp:538 src/editortab_findreplace.cpp:545
-#: src/editortab_findreplace.cpp:552
+#: src/editortab_findreplace.cpp:537 src/editortab_findreplace.cpp:544
+#: src/editortab_findreplace.cpp:551
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "Verificação Ortográfica"
 
-#: src/editortab_findreplace.cpp:552
+#: src/editortab_findreplace.cpp:551
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "O Lokalize terminou a verificação ortográfica"
@@ -1890,31 +1890,31 @@ msgstr "Áreas de &ferramentas"
 msgid "Main Toolbar"
 msgstr "Barra Principal"
 
-#: src/editorview.cpp:45
+#: src/editorview.cpp:46
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "Não pronta:"
 
-#: src/editorview.cpp:47
+#: src/editorview.cpp:48
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "Não Traduzidas:"
 
-#: src/editorview.cpp:58
+#: src/editorview.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "Esconder"
 
-#: src/editorview.cpp:68
+#: src/editorview.cpp:69
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "Coluna: %1"
 
-#: src/editorview.cpp:80
+#: src/editorview.cpp:81
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1925,13 +1925,13 @@ msgstr ""
 "<p>Esta parte da janela mostra a mensagem original\n"
 "do item visível de momento.</p></qt>"
 
-#: src/editorview.cpp:178
+#: src/editorview.cpp:179
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Forma Plural %1"
 
-#: src/editorview.cpp:249
+#: src/editorview.cpp:250
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
