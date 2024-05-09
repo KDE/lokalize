@@ -13,7 +13,7 @@
 
 #include <QVector>
 #include <QString>
-#include <QRegExp>
+#include <QRegularExpression>
 
 struct StringRule {
     QVector<QString> sources;
@@ -22,9 +22,9 @@ struct StringRule {
 };
 
 struct Rule {
-    QVector<QRegExp> sources;
-    QVector<QRegExp> targets;
-    QVector<QRegExp> falseFriends;
+    QVector<QRegularExpression> sources;
+    QVector<QRegularExpression> targets;
+    QVector<QRegularExpression> falseFriends;
 };
 
 struct StartLen {

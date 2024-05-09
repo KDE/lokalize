@@ -314,16 +314,16 @@ QVariant TMResultsSortFilterProxyModel::data(const QModelIndex& index, int role)
     int source_row = mapToSource(index).row();
     QString string = result.toString();
 
-    const QVector<QRegExp> regExps =
+    const QVector<QRegularExpression> regExps =
         (index.column() == TMDBModel::Source) ?
             m_rules[m_matchingRulesForSourceRow[source_row]].sources
         :
             m_rules[m_matchingRulesForSourceRow[source_row]].falseFriends;
 
-    for (const QRegExp& re : regExps) {
-        int pos = re.indexIn(string);
-        if (pos != -1)
-            return string.replace(pos, re.matchedLength(), QStringLiteral("<b>") + re.cap(0) + QStringLiteral("</b>"));
+    for (const auto& re : regExps) {
+        const auto match = re.match(string);
+        if (match.hasMatch())
+            return string.replace(match.capturedStart(), match.capturedLength(), QStringLiteral("<b>") + match.capturedView(0) + QStringLiteral("</b>"));
     }
 
     //StartLen sl=m_highlightDataForSourceRow.value(source_row).at(index.column());

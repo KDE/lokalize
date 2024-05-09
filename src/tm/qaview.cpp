@@ -91,13 +91,13 @@ int findMatchingRule(const QVector<Rule>& rules, const QString& source, const QS
                      QVector<StartLen>& positions)
 {
     for (QVector<Rule>::const_iterator it = rules.constBegin(); it != rules.constEnd(); ++it) {
-        if (it->sources.first().indexIn(source) != -1) {
-            if (it->falseFriends.first().indexIn(target) != -1) {
+        if (const auto sourceMatch = it->sources.first().match(source); sourceMatch.hasMatch()) {
+            if (const auto friendMatch = it->falseFriends.first().match(target); friendMatch.hasMatch()) {
                 if (positions.size()) {
-                    positions[0].start = it->sources.first().pos();
-                    positions[0].len = it->sources.first().matchedLength();
-                    positions[1].start = it->falseFriends.first().pos();
-                    positions[1].len = it->falseFriends.first().matchedLength();
+                    positions[0].start = sourceMatch.capturedStart();
+                    positions[0].len = sourceMatch.capturedLength();
+                    positions[1].start = friendMatch.capturedStart();
+                    positions[1].len = friendMatch.capturedLength();
                 }
                 return it - rules.constBegin();
             }

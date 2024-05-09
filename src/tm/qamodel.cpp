@@ -27,16 +27,15 @@ static QStringList domListToStringList(const QDomNodeList& nodes)
     return result;
 }
 
-static QRegExp domNodeToRegExp(const QDomNode& node)
+static QRegularExpression domNodeToRegExp(const QDomNode& node)
 {
-    QRegExp re(node.toElement().text());
-    re.setMinimal(true);
+    QRegularExpression re(node.toElement().text(), QRegularExpression::InvertedGreedinessOption);
     return re;
 }
 
-static QVector<QRegExp> domListToRegExpVector(const QDomNodeList& nodes)
+static QVector<QRegularExpression> domListToRegExpVector(const QDomNodeList& nodes)
 {
-    QVector<QRegExp> result;
+    QVector<QRegularExpression> result;
     result.reserve(nodes.size());
     for (int i = 0; i < nodes.size(); i++)
         result.append(domNodeToRegExp(nodes.at(i)));

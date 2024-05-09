@@ -23,7 +23,6 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QStringBuilder>
-#include <QRegExp>
 #include <QMap>
 #include <QStandardPaths>
 #include <QFile>
@@ -68,7 +67,7 @@ static qlonglong reusedTMSourceEntryCount = 0;
 **/
 static void doSplit(QString& cleanEn,
                     QStringList& words,
-                    QRegExp& rxClean1,
+                    QRegularExpression& rxClean1,
                     const QString& accel
                    )
 {
@@ -139,7 +138,7 @@ static qlonglong getFileId(const QString& path,
 
 
 static void addToIndex(qlonglong sourceId, QString sourceString,
-                       QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
+                       QRegularExpression& rxClean1, const QString& accel, QSqlDatabase& db)
 {
     QStringList words;
     doSplit(sourceString, words, rxClean1, accel);
@@ -214,7 +213,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
  * 'good' entries using it but the entry specified with mainId
  */
 static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString sourceString,
-                            QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
+                            QRegularExpression& rxClean1, const QString& accel, QSqlDatabase& db)
 {
     QStringList words;
     doSplit(sourceString, words, rxClean1, accel);
@@ -289,7 +288,7 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
     }
 }
 
-static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
+static bool doRemoveEntry(qlonglong mainId, QRegularExpression& rxClean1, const QString& accel, QSqlDatabase& db)
 {
     QSqlQuery query1(db);
 
@@ -393,7 +392,7 @@ static bool doInsertEntry(CatalogString source,
                           bool approved,
                           qlonglong fileId,
                           QSqlDatabase& db,
-                          QRegExp& rxClean1,//cleaning regexps for word index update
+                          QRegularExpression& rxClean1,//cleaning regexps for word index update
                           const QString& accel,
                           qlonglong priorId,
                           qlonglong& mainId
@@ -1189,10 +1188,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     sourceClean.remove(c.accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
     QStringList englishList(sourceClean.toLower().split(rxSplit, Qt::SkipEmptyParts));
-    static QRegExp delPart(QStringLiteral("<KBABELDEL>*</KBABELDEL>"), Qt::CaseSensitive, QRegExp::Wildcard);
-    static QRegExp addPart(QStringLiteral("<KBABELADD>*</KBABELADD>"), Qt::CaseSensitive, QRegExp::Wildcard);
-    delPart.setMinimal(true);
-    addPart.setMinimal(true);
+    static const QRegularExpression delPart(QRegularExpression::wildcardToRegularExpression(QStringLiteral("<KBABELDEL>*</KBABELDEL>")), QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression addPart(QRegularExpression::wildcardToRegularExpression(QStringLiteral("<KBABELADD>*</KBABELADD>")), QRegularExpression::InvertedGreedinessOption);
 
     //QList<uint> concordanceLevels=sortedUniqueValues(occurencies); //we start from entries with higher word-concordance level
     QMap<uint, qlonglong> concordanceLevelToIds = invertMap(occurencies);
@@ -1254,19 +1251,29 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 int pos = 0;
                 int delSubStrCount = 0;
                 int delLen = 0;
-                while ((pos = delPart.indexIn(result, pos)) != -1) {
+                while (true) {
+                    const auto match = delPart.match(result, pos);
+                    if (!match.hasMatch()) {
+                        break;
+                    }
+                    pos = match.capturedStart();
                     //qCWarning(LOKALIZE_LOG) <<"SelectJob:  match del "<<delPart.cap(0);
-                    delLen += delPart.matchedLength() - 23;
+                    delLen += match.capturedLength() - 23;
                     ++delSubStrCount;
-                    pos += delPart.matchedLength();
+                    pos += match.capturedLength();
                 }
                 pos = 0;
                 int addSubStrCount = 0;
                 int addLen = 0;
-                while ((pos = addPart.indexIn(result, pos)) != -1) {
-                    addLen += addPart.matchedLength() - 23;
+                while (true) {
+                    const auto match = addPart.match(result, pos);
+                    if (!match.hasMatch()) {
+                        break;
+                    }
+                    pos = match.capturedStart();
+                    addLen += match.capturedLength() - 23;
                     ++addSubStrCount;
-                    pos += addPart.matchedLength();
+                    pos += match.capturedLength();
                 }
 
                 //allLen - length of suggestion
@@ -1434,7 +1441,7 @@ void SelectJob::run()
     //qCDebug(LOKALIZE_LOG)<<"select started 2"<<m_dbName<<m_source.string;
 
     TMConfig c = getConfig(db);
-    QRegExp rxClean1(c.markup); rxClean1.setMinimal(true);
+    QRegularExpression rxClean1(c.markup, QRegularExpression::InvertedGreedinessOption);
 
     QString cleanSource = m_source.string;
     QStringList words;
@@ -1509,7 +1516,7 @@ void ScanJob::run()
         return;
     //initSqliteDb(db);
     TMConfig c = getConfig(db, true);
-    QRegExp rxClean1(c.markup); rxClean1.setMinimal(true);
+    QRegularExpression rxClean1(c.markup, QRegularExpression::InvertedGreedinessOption);
 
     Catalog catalog(nullptr);
     if (Q_LIKELY(catalog.loadFromUrl(m_filePath, QString(), &m_size, /*no auto save*/true) == 0)) {
@@ -1645,7 +1652,7 @@ void RemoveJob::run()
 
     //cleaning regexps for word index update
     TMConfig c = getConfig(db);
-    QRegExp rxClean1(c.markup); rxClean1.setMinimal(true);
+    QRegularExpression rxClean1(c.markup, QRegularExpression::InvertedGreedinessOption);
 
     if (!doRemoveEntry(m_entry.id, rxClean1, c.accel, db))
         qCWarning(LOKALIZE_LOG) << "error removing entry" << m_entry.dbName << m_entry.source.string << m_entry.target.string;
@@ -1682,7 +1689,7 @@ void UpdateJob::run()
 
     //cleaning regexps for word index update
     TMConfig c = getConfig(db);
-    QRegExp rxClean1(c.markup); rxClean1.setMinimal(true);
+    QRegularExpression rxClean1(c.markup, QRegularExpression::InvertedGreedinessOption);
 
 
     qlonglong fileId = getFileId(m_filePath, db);
@@ -1736,7 +1743,7 @@ public:
 
 private:
     QSqlDatabase db;
-    QRegExp rxClean1;
+    QRegularExpression rxClean1;
     QString accel;
 
     int m_hits{0};
@@ -1765,7 +1772,8 @@ TmxParser::TmxParser(const QString& dbName)
     , m_dbLangCode(Project::instance()->langCode().toLower())
 {
     TMConfig c = getConfig(db);
-    rxClean1.setPattern(c.markup); rxClean1.setMinimal(true);
+    rxClean1.setPattern(c.markup);
+    rxClean1.setPatternOptions(QRegularExpression::InvertedGreedinessOption);
     accel = c.accel;
 }
 

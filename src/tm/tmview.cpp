@@ -652,15 +652,21 @@ void TMView::contextMenu(const QPoint& pos)
  */
 static int nextPlacableIn(const QString& old, int start, QString& cap)
 {
-    static QRegExp rxNum(QStringLiteral("[\\d\\.\\%]+"));
-    static QRegExp rxAbbr(QStringLiteral("\\w+"));
+    static const QRegularExpression rxNum(QStringLiteral("[\\d\\.\\%]+"));
+    static const QRegularExpression rxAbbr(QStringLiteral("\\w+"));
 
-    int numPos = rxNum.indexIn(old, start);
+    const auto numMatch = rxNum.match(old, start);
 //    int abbrPos=rxAbbr.indexIn(old,start);
+    QRegularExpressionMatch abbrMatch;
     int abbrPos = start;
     //qCWarning(LOKALIZE_LOG)<<"seeing"<<old.size()<<old;
-    while (((abbrPos = rxAbbr.indexIn(old, abbrPos)) != -1)) {
-        QString word = rxAbbr.cap(0);
+    while (true) {
+        abbrMatch = rxAbbr.match(old, abbrPos);
+        if (!abbrMatch.hasMatch()) {
+            break;
+        }
+        abbrPos = abbrMatch.capturedStart();
+        QString word = abbrMatch.captured(0);
         //check if tail contains uppoer case characters
         const QChar* c = word.unicode() + 1;
         int i = word.size() - 1;
@@ -668,19 +674,19 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
             if ((c++)->isUpper())
                 break;
         }
-        abbrPos += rxAbbr.matchedLength();
+        abbrPos += abbrMatch.capturedLength();
     }
 
-    int pos = qMin(numPos, abbrPos);
+    int pos = qMin(numMatch.capturedStart(), abbrPos);
     if (pos == -1)
-        pos = qMax(numPos, abbrPos);
+        pos = qMax(numMatch.capturedStart(), abbrPos);
 
-//     if (pos==numPos)
-//         cap=rxNum.cap(0);
+//     if (pos==numMatch.capturedStart())
+//         cap=numMatch.captured(0);
 //     else
 //         cap=rxAbbr.cap(0);
 
-    cap = (pos == numPos ? rxNum : rxAbbr).cap(0);
+    cap = pos == numMatch.capturedStart() ? numMatch.captured(0) : abbrMatch.captured(0);
     //qCWarning(LOKALIZE_LOG)<<cap;
 
     return pos;
@@ -705,18 +711,30 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     //QString english=entry.english;
 
 
-    QRegExp rxAdd(QLatin1String("<font style=\"background-color:[^>]*") + Settings::addColor().name() + QLatin1String("[^>]*\">([^>]*)</font>"));
-    QRegExp rxDel(QLatin1String("<font style=\"background-color:[^>]*") + Settings::delColor().name() + QLatin1String("[^>]*\">([^>]*)</font>"));
+    const QRegularExpression rxAdd(QLatin1String("<font style=\"background-color:[^>]*") + Settings::addColor().name() + QLatin1String("[^>]*\">([^>]*)</font>"));
+    const QRegularExpression rxDel(QLatin1String("<font style=\"background-color:[^>]*") + Settings::delColor().name() + QLatin1String("[^>]*\">([^>]*)</font>"));
     //rxAdd.setMinimal(true);
     //rxDel.setMinimal(true);
 
     //first things first
     int pos = 0;
-    while ((pos = rxDel.indexIn(diff, pos)) != -1)
-        diff.replace(pos, rxDel.matchedLength(), QStringLiteral("\tKBABELDEL\t") + rxDel.cap(1) + QStringLiteral("\t/KBABELDEL\t"));
+    while (true) {
+        const auto match = rxDel.match(diff, pos);
+        if (!match.hasMatch()) {
+            break;
+        }
+        pos = match.capturedStart();
+        diff.replace(pos, match.capturedLength(), QStringLiteral("\tKBABELDEL\t") + match.capturedView(1) + QStringLiteral("\t/KBABELDEL\t"));
+    }
     pos = 0;
-    while ((pos = rxAdd.indexIn(diff, pos)) != -1)
-        diff.replace(pos, rxAdd.matchedLength(), QStringLiteral("\tKBABELADD\t") + rxAdd.cap(1) + QStringLiteral("\t/KBABELADD\t"));
+    while (true) {
+        const auto match = rxAdd.match(diff, pos);
+        if (!match.hasMatch()) {
+            break;
+        }
+        pos = match.capturedStart();
+        diff.replace(pos, match.capturedLength(), QStringLiteral("\tKBABELADD\t") + match.capturedView(1) + QStringLiteral("\t/KBABELADD\t"));
+    }
 
     diff.replace(QStringLiteral("&lt;"), QStringLiteral("<"));
     diff.replace(QStringLiteral("&gt;"), QStringLiteral(">"));
@@ -740,14 +758,19 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     bool tryMarkup = !entry.target.tags.size() && sameMarkup;
     //search for changed markup
     if (tryMarkup) {
-        QRegExp rxMarkup(entry.markupExpr);
-        rxMarkup.setMinimal(true);
+        const QRegularExpression rxMarkup(entry.markupExpr, QRegularExpression::InvertedGreedinessOption);
         pos = 0;
         int replacingPos = 0;
-        while ((pos = rxMarkup.indexIn(d.old, pos)) != -1) {
+        while (true) {
+            const auto match = rxMarkup.match(d.old, pos);
+            if (!match.hasMatch()) {
+                break;
+            }
+            pos = match.capturedStart();
+
             //qCWarning(LOKALIZE_LOG)<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
             QByteArray diffIndexPart(d.diffIndex.mid(d.old2DiffClean.at(pos),
-                                     d.old2DiffClean.at(pos + rxMarkup.matchedLength() - 1) + 1 - d.old2DiffClean.at(pos)));
+                                     d.old2DiffClean.at(pos + match.capturedLength() - 1) + 1 - d.old2DiffClean.at(pos)));
             //qCWarning(LOKALIZE_LOG)<<"diffMPart"<<diffMPart;
             if (diffIndexPart.contains('-')
                 || diffIndexPart.contains('+')) {
@@ -761,30 +784,30 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                 }
 
                 //replace first ocurrence
-                int tmp = target.string.indexOf(rxMarkup.cap(0), replacingPos);
+                int tmp = target.string.indexOf(match.capturedView(0), replacingPos);
                 if (tmp != -1) {
                     target.replace(tmp,
-                                   rxMarkup.cap(0).size(),
+                                   match.capturedView(0).size(),
                                    newMarkup);
                     replacingPos = tmp;
                     //qCWarning(LOKALIZE_LOG)<<"d.old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
 
                     //avoid trying this part again
-                    tmp = d.old2DiffClean.at(pos + rxMarkup.matchedLength() - 1);
+                    tmp = d.old2DiffClean.at(pos + match.capturedLength() - 1);
                     while (--tmp >= d.old2DiffClean.at(pos))
                         d.diffIndex[tmp] = 'M';
                     //qCWarning(LOKALIZE_LOG)<<"M"<<diffM;
                 }
             }
 
-            pos += rxMarkup.matchedLength();
+            pos += match.capturedLength();
         }
     }
 
     //del, add only markup, punct, num
     //TODO further improvement: spaces, punct marked as 0
 //BEGIN BEGIN HANDLING
-    QRegExp rxNonTranslatable;
+    QRegularExpression rxNonTranslatable;
     if (tryMarkup)
         rxNonTranslatable.setPattern(QStringLiteral("^((") + entry.markupExpr + QStringLiteral(")|(\\W|\\d)+)+"));
     else
@@ -825,8 +848,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
         }
 
         //qCWarning(LOKALIZE_LOG)<<"old"<<oldMarkup;
-        rxNonTranslatable.indexIn(oldMarkup); //FIXME if it fails?
-        oldMarkup = rxNonTranslatable.cap(0);
+        oldMarkup = rxNonTranslatable.match(oldMarkup).captured(0); //FIXME if it fails?
         if (target.string.startsWith(oldMarkup)) {
 
             //form 'newMarkup'
@@ -838,8 +860,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                     newMarkup.append(d.diffClean.at(j));
             }
             //qCWarning(LOKALIZE_LOG)<<"new"<<newMarkup;
-            rxNonTranslatable.indexIn(newMarkup);
-            newMarkup = rxNonTranslatable.cap(0);
+            newMarkup = rxNonTranslatable.match(newMarkup).captured(0);
 
             //replace
             qCWarning(LOKALIZE_LOG) << "BEGIN HANDLING. replacing" << target.string.left(oldMarkup.size()) << "with" << newMarkup;
@@ -880,8 +901,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                 oldMarkup.append(d.diffClean.at(len + j));
         }
         //qCWarning(LOKALIZE_LOG)<<"old-"<<oldMarkup;
-        rxNonTranslatable.indexIn(oldMarkup);
-        oldMarkup = rxNonTranslatable.cap(0);
+        oldMarkup = rxNonTranslatable.match(oldMarkup).captured(0);
         if (target.string.endsWith(oldMarkup)) {
 
             //form newMarkup
@@ -893,8 +913,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                     newMarkup.append(d.diffClean.at(len + j));
             }
             //qCWarning(LOKALIZE_LOG)<<"new"<<newMarkup;
-            rxNonTranslatable.indexIn(newMarkup);
-            newMarkup = rxNonTranslatable.cap(0);
+            newMarkup = rxNonTranslatable.match(newMarkup).captured(0);
 
             //replace
             target.string.chop(oldMarkup.size());
