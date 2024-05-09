@@ -17,14 +17,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-08 01:52+0000\n"
-"PO-Revision-Date: 2024-02-07 04:40+0900\n"
+"PO-Revision-Date: 2024-05-09 06:26+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.04.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -1437,7 +1437,7 @@ msgid ""
 "Do you want to save your changes or discard them?"
 msgstr ""
 "文件中有未儲存的變更。\n"
-"您要儲存還是要丟棄？"
+"您要儲存還是要捨棄？"
 
 #: src/editortab.cpp:752 src/editortab.cpp:768 src/editortab.cpp:940
 #: src/editortab.cpp:953 src/editortab.cpp:1384 src/editortab.cpp:1390
@@ -2035,7 +2035,7 @@ msgstr "從磁碟裡回復"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
-msgstr "重新從磁碟中載入詞彙表，丟棄所有變更"
+msgstr "重新從磁碟中載入詞彙表，捨棄所有變更"
 
 #: src/glossary/glossarywindow.cpp:492 src/glossary/glossarywindow.cpp:507
 #, kde-format
@@ -2045,7 +2045,7 @@ msgid ""
 "Do you want to save your changes or discard them?"
 msgstr ""
 "詞彙表包含未儲存的變更。\n"
-"您要儲存還是丟棄？"
+"您要儲存還是捨棄？"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:19
