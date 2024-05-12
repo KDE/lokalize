@@ -62,7 +62,7 @@ msgstr "Instal·leu el paquet «gettext» perquè funcione esta característica"
 
 #: scripts/msgmerge.py:44
 msgid "Updating from templates..."
-msgstr "S'està actualitzant des de les plantilles..."
+msgstr "S'està actualitzant des de les plantilles…"
 
 #: scripts/msgmerge.py:71
 msgid "Merge has been completed"
@@ -741,7 +741,7 @@ msgstr "Inserció"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
-msgstr "Supressió"
+msgstr "Suprimiu"
 
 #: src/catalog/cmd.cpp:176
 #, kde-format
@@ -842,7 +842,7 @@ msgstr "Unitats de traducció"
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
-msgstr "Busca ràpida..."
+msgstr "Busca ràpida…"
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
@@ -1100,7 +1100,7 @@ msgstr "Fitxer"
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
-msgstr "Navegació"
+msgstr "Navegueu"
 
 #: src/editortab.cpp:177
 #, kde-format
@@ -1170,7 +1170,7 @@ msgstr "Definix un terme nou"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
-msgstr "Fases..."
+msgstr "Fases…"
 
 #: src/editortab.cpp:383
 #, kde-format
@@ -1991,7 +1991,7 @@ msgstr "Llista de fitxers"
 #: src/filesearch/filesearchtab.cpp:77
 #, kde-format
 msgid "Drop translation files here..."
-msgstr "Deixa anar ací els fitxers de traducció..."
+msgstr "Deixa anar ací els fitxers de traducció…"
 
 #. i18nc("@title:column","Context");
 #: src/filesearch/filesearchtab.cpp:324 src/tm/tmtab.cpp:65
@@ -2281,25 +2281,25 @@ msgstr "Resum del projecte"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
-msgstr "Configura el projecte..."
+msgstr "Configura el projecte…"
 
 #: src/lokalizemainwindow.cpp:505
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
-msgstr "Crea un projecte de traducció de programari..."
+msgstr "Crea un projecte de traducció de programari…"
 
 #: src/lokalizemainwindow.cpp:508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
-msgstr "Crea un projecte de traducció d'OpenDocument..."
+msgstr "Crea un projecte de traducció d'OpenDocument…"
 
 #: src/lokalizemainwindow.cpp:511
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
-msgstr "Obri un projecte..."
+msgstr "Obri un projecte…"
 
 #: src/lokalizemainwindow.cpp:515
 #, kde-format
@@ -2659,19 +2659,19 @@ msgstr "<b>Notes:</b>"
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit..."
-msgstr "edita..."
+msgstr "edita…"
 
 #: src/noteeditor.cpp:134
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add..."
-msgstr "Afig..."
+msgstr "Afig…"
 
 #: src/noteeditor.cpp:136
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add a note..."
-msgstr "Afig una nota..."
+msgstr "Afig una nota…"
 
 #: src/phaseswindow.cpp:139
 #, kde-format
@@ -2978,8 +2978,8 @@ msgid ""
 "If checked, LEDS will be shown to display the message status: Fuzzy, "
 "Untranslated or Error. If unchecked, no LEDs will be displayed."
 msgstr ""
-"Si se selecciona, es visualitzaran els LED per a mostrar l'estat del "
-"missatge: inexacte, sense traduir o erroni. Si no se selecciona, no es "
+"Si està marcada, es visualitzaran els LED per a mostrar l'estat del "
+"missatge: inexacte, sense traduir o erroni. Si no està marcada, no es "
 "visualitzaran."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
@@ -3057,7 +3057,7 @@ msgid ""
 "displaying it in the user interface, or when it gets concatenated with "
 "others)."
 msgstr ""
-"Seleccioneu-la per a mostrar si una cadena acaba amb un espai (sovint és "
+"Marqueu-la per a mostrar si una cadena acaba amb un espai (sovint és "
 "important en visualitzar-la en la interfície d'usuari o quan es concatena "
 "amb d'altres)."
 
@@ -3073,8 +3073,8 @@ msgstr "Ressalta els espais al final"
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
-"Si se selecciona, la roda del ratolí portarà a l'anterior o següent unitat "
-"de traducció, en cas contrari desplaçarà el text"
+"Si està marcada, la roda del ratolí portarà a l'anterior o següent unitat de "
+"traducció, en cas contrari desplaçarà el text"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
@@ -3089,16 +3089,16 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
-"<html>Quan se selecciona esta opció, s'utilitza la roda del ratolí per a "
-"anar fins a l'anterior o següent unitat de traducció (sense tecles "
+"<html>Quan es marca esta opció, s'utilitza la roda del ratolí per a anar "
+"fins a l'anterior o següent unitat de traducció (sense tecles "
 "modificadores). Les tecles modificadores es poden utilitzar per a canviar "
 "este comportament. Ús: <ul><li><b>Maj</b> per a desplaçar-se dins del text "
 "de la unitat actual,</li><li><b>Ctrl+Maj</b> per a anar fins a la unitat "
 "anterior o fins a la següent no enllestida.</li><li><b>Ctrl</b> per a anar "
 "fins a la unitat anterior o fins a la següent que no estiga buida,</"
 "li><li><b>Alt</b> per a anar fins a la unitat sense traduir anterior o "
-"següent.</li></ul>Quan no està seleccionada, la roda del ratolí desplaça el "
-"text de la unitat de traducció actual.</html>"
+"següent.</li></ul>Quan no està marcada, la roda del ratolí desplaça el text "
+"de la unitat de traducció actual.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -3417,7 +3417,7 @@ msgstr ""
 #, kde-format
 msgid "If checked, get translation memory suggestions "
 msgstr ""
-"Si se selecciona, obtindrà el suggeriment des de la memòria de traducció "
+"Si està marcada, obtindrà el suggeriment des de la memòria de traducció "
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:48
@@ -3426,7 +3426,7 @@ msgid ""
 "If this is checked, the program will fetch translation memories as soon as "
 "you open a file."
 msgstr ""
-"Si se selecciona, el programa extraurà la memòria de traducció tan prompte "
+"Si està marcada, el programa extraurà la memòria de traducció tan prompte "
 "com s'òbriga un fitxer."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PrefetchTM)
@@ -4576,7 +4576,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
-msgstr "Supressió d'una entrada de la memòria de traducció"
+msgstr "Suprimiu una entrada de la memòria de traducció"
 
 #: src/tm/tmview.cpp:611
 #, kde-format
@@ -4609,7 +4609,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
-msgstr "Supressió d'un fitxer que falta de la memòria de traducció"
+msgstr "Suprimiu un fitxer que falta de la memòria de traducció"
 
 #: src/tm/tmview.cpp:1019
 #, kde-format
@@ -4644,8 +4644,8 @@ msgstr ""
 "<p align=\"justify\">Per a facilitar la traducció de KDE, Lokalize pot "
 "capturar text des de les aplicacions de la interfície d'usuari i buscar els "
 "fitxers de traducció que continguen el text.</p>\n"
-"<p align=\"justify\">Quan se selecciona, la captura s'iniciarà en fer clic "
-"damunt d'un element no editable de la IGU (giny). Després d'açò canvieu a la "
+"<p align=\"justify\">Quan es marca, la captura s'iniciarà en fer clic damunt "
+"d'un element no editable de la IGU (giny). Després d'açò canvieu a la "
 "finestra de Lokalize i trieu una entrada amb este text. Fins i tot donat el "
 "cas que diversos fitxers continguen la mateixa cadena, es triarà la correcta "
 "en la majoria dels casos.</p>\n"
