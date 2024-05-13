@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-08 01:52+0000\n"
+"POT-Creation-Date: 2024-05-13 01:49+0000\n"
 "PO-Revision-Date: 2024-02-06 00:43+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -915,7 +915,7 @@ msgstr "항목"
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
 #: src/filesearch/filesearchtab.cpp:321 src/glossary/glossary.cpp:200
-#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:62
+#: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:62
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
@@ -4147,7 +4147,7 @@ msgstr "TMX로 내보내기"
 msgid "Remove"
 msgstr "삭제"
 
-#: src/tm/qamodel.cpp:94
+#: src/tm/qamodel.cpp:93
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4464,7 +4464,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "번역 메모리에서 없는 파일 삭제"
 
-#: src/tm/tmview.cpp:1019
+#: src/tm/tmview.cpp:1038
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

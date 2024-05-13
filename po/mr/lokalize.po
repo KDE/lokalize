@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-08 01:52+0000\n"
+"POT-Creation-Date: 2024-05-13 01:49+0000\n"
 "PO-Revision-Date: 2013-03-06 17:46+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -871,7 +871,7 @@ msgstr "नोंद :"
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
 #: src/filesearch/filesearchtab.cpp:321 src/glossary/glossary.cpp:200
-#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:62
+#: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:62
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
@@ -3995,7 +3995,7 @@ msgstr ""
 msgid "Remove"
 msgstr "काढून टाका"
 
-#: src/tm/qamodel.cpp:94
+#: src/tm/qamodel.cpp:93
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4305,7 +4305,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr ""
 
-#: src/tm/tmview.cpp:1019
+#: src/tm/tmview.cpp:1038
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

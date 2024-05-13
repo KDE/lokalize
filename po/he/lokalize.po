@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-08 01:52+0000\n"
+"POT-Creation-Date: 2024-05-13 01:49+0000\n"
 "PO-Revision-Date: 2017-05-16 07:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
@@ -869,7 +869,7 @@ msgstr "כניסה"
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
 #: src/filesearch/filesearchtab.cpp:321 src/glossary/glossary.cpp:200
-#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:62
+#: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:62
 #, fuzzy, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
@@ -4021,7 +4021,7 @@ msgstr "ייצא אל TMX"
 msgid "Remove"
 msgstr "שחזר"
 
-#: src/tm/qamodel.cpp:94
+#: src/tm/qamodel.cpp:93
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4337,7 +4337,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "תרגום זכרון"
 
-#: src/tm/tmview.cpp:1019
+#: src/tm/tmview.cpp:1038
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

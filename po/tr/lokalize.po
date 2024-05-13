@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-08 01:52+0000\n"
+"POT-Creation-Date: 2024-05-13 01:49+0000\n"
 "PO-Revision-Date: 2024-02-02 16:24+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -952,7 +952,7 @@ msgstr "Girdi"
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
 #: src/filesearch/filesearchtab.cpp:321 src/glossary/glossary.cpp:200
-#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:62
+#: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:62
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
@@ -4236,7 +4236,7 @@ msgstr "Verileri TMX'e Aktar"
 msgid "Remove"
 msgstr "Kaldır"
 
-#: src/tm/qamodel.cpp:94
+#: src/tm/qamodel.cpp:93
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4557,7 +4557,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Çeviri Belleği Eksik Dosya Kaldırma"
 
-#: src/tm/tmview.cpp:1019
+#: src/tm/tmview.cpp:1038
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
