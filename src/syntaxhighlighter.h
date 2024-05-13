@@ -16,6 +16,7 @@
 #include <kcolorscheme.h>
 
 #include <QHash>
+#include <QRegularExpression>
 #include <QTextCharFormat>
 
 
@@ -50,7 +51,7 @@ private Q_SLOTS:
 //    void setFormatRetainingUnderlines(int start, int count, QTextCharFormat format);
 private:
     struct HighlightingRule {
-        QRegExp pattern;
+        QRegularExpression pattern;
         QTextCharFormat format;
     };
     QVector<HighlightingRule> highlightingRules;

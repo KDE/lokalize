@@ -51,19 +51,19 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
     //entity
     rule.format.setForeground(Qt::darkMagenta);
-    rule.pattern = QRegExp(QStringLiteral("(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)"));
+    rule.pattern = QRegularExpression(QStringLiteral("(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)"));
     highlightingRules.append(rule);
 
     QString accel = Project::instance()->accel();
     if (!accel.isEmpty()) {
         rule.format.setForeground(Qt::darkMagenta);
-        rule.pattern = QRegExp(accel);
+        rule.pattern = QRegularExpression(accel);
         highlightingRules.append(rule);
     }
 
     //\n \t \"
     rule.format.setForeground(Qt::darkGreen);
-    rule.pattern = QRegExp(QStringLiteral("(\\\\[abfnrtv'\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)"));
+    rule.pattern = QRegularExpression(QStringLiteral("(\\\\[abfnrtv'\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)"));
     highlightingRules.append(rule);
 
     //spaces
@@ -74,7 +74,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
 void SyntaxHighlighter::settingsChanged()
 {
-    QRegExp re(QLatin1String(" +$|^ +|.?") + QChar(0x0000AD) + QLatin1String(".?")); //soft hyphen
+    const QRegularExpression re(QLatin1String(" +$|^ +|.?") + QChar(0x0000AD) + QLatin1String(".?")); //soft hyphen
     if (Settings::highlightSpaces() && highlightingRules.last().pattern != re) {
         HighlightingRule rule;
         rule.format.clearForeground();
@@ -85,7 +85,7 @@ void SyntaxHighlighter::settingsChanged()
         rule.format.setBackground(colorScheme.foreground(KColorScheme::InactiveText));
         rule.format.setFontLetterSpacing(200);
 
-        rule.pattern = QRegExp(QChar(0x00a0U), Qt::CaseSensitive, QRegExp::FixedString);
+        rule.pattern = QRegularExpression(QRegularExpression::escape(QChar(0x00a0U)));
         highlightingRules.append(rule);
 
         //usual spaces at the end
@@ -141,14 +141,14 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
     }
 
     for (const HighlightingRule &rule : qAsConst(highlightingRules)) {
-        QRegExp expression(rule.pattern);
-        int index = expression.indexIn(text);
-        while (index >= 0) {
-            int length = expression.matchedLength();
+        auto match = rule.pattern.match(text);
+        while (match.hasMatch()) {
+            const auto index = match.capturedStart();
+            int length = match.capturedLength();
             QTextCharFormat f = rule.format;
             f.setFontItalic(!m_approved);
             setFormat(index, length, f);
-            index = expression.indexIn(text, index + length);
+            match = rule.pattern.match(text, index + length);
         }
     }
 
@@ -204,8 +204,8 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     //HACK. Needs Sonnet API redesign (KDE 5)
     if (smthPreceeding) {
         qCWarning(LOKALIZE_LOG) << "ampersand is in the way. word len:" << count;
-        QRegExp regExp(QStringLiteral("\\b"));
-        int realStart = regExp.lastIndexIn(text, start - 2);
+        const QRegularExpression regExp(QStringLiteral("\\b"));
+        int realStart = text.lastIndexOf(regExp, start - 2);
         if (realStart == -1)
             realStart = 0;
         QString t = text.mid(realStart, count + start - realStart);
@@ -221,9 +221,11 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
                      );
     if (smthAfter) {
         qCWarning(LOKALIZE_LOG) << "smthAfter. ampersand is in the way. word len:" << count;
-        QRegExp regExp(QStringLiteral("\\b"));
-        int realEnd = regExp.indexIn(text, start + count + 2);
-        if (realEnd == -1)
+        const QRegularExpression regExp(QStringLiteral("\\b"));
+        int realEnd;
+        if (const auto match = regExp.match(text, start + count + 2); match.hasMatch())
+            realEnd = match.capturedStart();
+        else
             realEnd = text.size();
         QString t = text.mid(start, realEnd - start);
         t.remove(accel);
