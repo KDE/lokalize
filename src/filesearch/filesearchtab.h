@@ -78,7 +78,7 @@ public Q_SLOTS:
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
     void fileSearchNext();
     void stopSearch();
-    void massReplace(const QRegExp &what, const QString& with);
+    void massReplace(const QRegularExpression &what, const QString& with);
 
 private Q_SLOTS:
     void searchJobDone(SearchJob*);
@@ -186,11 +186,11 @@ public:
     void clear();
 
 public Q_SLOTS:
-    void setReplacePreview(const QRegExp&, const QString&);
+    void setReplacePreview(const QRegularExpression&, const QString&);
 
 private:
     SearchResults m_searchResults;
-    QRegExp m_replaceWhat;
+    QRegularExpression m_replaceWhat;
     QString m_replaceWith;
 };
 
@@ -234,8 +234,8 @@ public:
     void deactivatePreview();
 
 Q_SIGNALS:
-    void previewRequested(const QRegExp&, const QString&);
-    void replaceRequested(const QRegExp&, const QString&);
+    void previewRequested(const QRegularExpression&, const QString&);
+    void replaceRequested(const QRegularExpression&, const QString&);
 
 private Q_SLOTS:
     void requestPreview(bool enable);
@@ -249,7 +249,6 @@ private:
 struct SearchParams {
     QRegExp sourcePattern;
     QRegExp targetPattern;
-    QRegExp notesPattern;
 
     bool invertSource{false};
     bool invertTarget{false};
@@ -298,7 +297,7 @@ class MassReplaceJob: public QObject, public QRunnable
 public:
     explicit MassReplaceJob(const SearchResults& srs,
                             int pos,
-                            const QRegExp& s,
+                            const QRegularExpression& s,
                             const QString& r,
                             //int sn,
                             QObject* parent = nullptr);
@@ -312,7 +311,7 @@ protected:
 public:
     SearchResults searchResults;
     int globalPos{};
-    QRegExp replaceWhat;
+    QRegularExpression replaceWhat;
     QString replaceWith;
 };
 

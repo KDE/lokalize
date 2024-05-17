@@ -250,7 +250,7 @@ void SearchJob::run()
     Q_EMIT done(this);
 }
 
-MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegExp& s, const QString& r, QObject*)
+MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegularExpression& s, const QString& r, QObject*)
     : QRunnable()
     , searchResults(srs)
     , globalPos(pos)
@@ -282,23 +282,25 @@ void MassReplaceJob::run()
             }
 
             CatalogString s = catalog.targetWithTags(docPos);
-            int pos = replaceWhat.indexIn(s.string);
+            auto match = replaceWhat.match(s.string);
+            int pos = match.hasMatch() ? match.capturedStart() : -1;
             while (pos != -1) {
-                if (!s.string.midRef(pos, replaceWhat.matchedLength()).contains(TAGRANGE_IMAGE_SYMBOL)) {
+                if (!s.string.midRef(pos, match.capturedLength()).contains(TAGRANGE_IMAGE_SYMBOL)) {
                     docPos.offset = pos;
-                    catalog.targetDelete(docPos, replaceWhat.matchedLength());
+                    catalog.targetDelete(docPos, match.capturedLength());
                     catalog.targetInsert(docPos, replaceWith);
-                    s.string.replace(pos, replaceWhat.matchedLength(), replaceWith);
+                    s.string.replace(pos, match.capturedLength(), replaceWith);
                     pos += replaceWith.length();
                 } else {
-                    pos += replaceWhat.matchedLength();
+                    pos += match.capturedLength();
                     qCWarning(LOKALIZE_LOG) << "skipping replace because matched text contains markup" << s.string;
                 }
 
                 if (pos > s.string.length() || replaceWhat.pattern().startsWith(QLatin1Char('^')))
                     break;
 
-                pos = replaceWhat.indexIn(s.string, pos);
+                match = replaceWhat.match(s.string, pos);
+                pos = match.hasMatch() ? match.capturedStart() : -1;
             }
         }
 
@@ -366,7 +368,7 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
             const QString startBldTag = QStringLiteral("<b >");
             const QString endBldTag = QStringLiteral("</b >");
 
-            if (item.column() == FileSearchModel::Target && !m_replaceWhat.isEmpty()) {
+            if (item.column() == FileSearchModel::Target && !m_replaceWhat.pattern().isEmpty()) {
                 result.replace(m_replaceWhat, m_replaceWith);
                 QString escaped = convertToHtml(result, !sr.isApproved);
                 escaped.replace(startBld, startBldTag);
@@ -401,7 +403,7 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
     return QVariant();
 }
 
-void FileSearchModel::setReplacePreview(const QRegExp& s, const QString& r)
+void FileSearchModel::setReplacePreview(const QRegularExpression& s, const QString& r)
 {
     m_replaceWhat = s;
     m_replaceWith = QLatin1String("_ST_") + r + QLatin1String("_END_");
@@ -609,7 +611,7 @@ void FileSearchTab::stopSearch()
 }
 
 
-void FileSearchTab::massReplace(const QRegExp &what, const QString& with)
+void FileSearchTab::massReplace(const QRegularExpression &what, const QString& with)
 {
 #define BATCH_SIZE 20
 
@@ -824,10 +826,19 @@ MassReplaceView::~MassReplaceView()
     delete ui;
 }
 
-static QRegExp regExpFromUi(const QString& s, Ui_MassReplaceOptions* ui)
+static QRegularExpression regExpFromUi(const QString& s, Ui_MassReplaceOptions* ui)
 {
-    return QRegExp(s, ui->matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
-                   ui->useRegExps->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
+    QRegularExpression rx;
+    if (ui->useRegExps->isChecked()) {
+        rx.setPattern(s);
+    } else {
+        rx.setPattern(QRegularExpression::escape(s));
+    }
+    if (!ui->matchCase->isChecked()) {
+        rx.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
+    }
+
+    return rx;
 }
 
 void MassReplaceView::requestPreviewUpdate()
@@ -857,7 +868,7 @@ void MassReplaceView::requestPreview(bool enable)
         disconnect(ui->useRegExps, &QCheckBox::toggled, this, &MassReplaceView::requestPreviewUpdate);
         disconnect(ui->matchCase, &QCheckBox::toggled, this, &MassReplaceView::requestPreviewUpdate);
 
-        Q_EMIT previewRequested(QRegExp(), QString());
+        Q_EMIT previewRequested(QRegularExpression(), QString());
     }
 }
 
