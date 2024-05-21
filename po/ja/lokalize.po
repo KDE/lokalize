@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 01:49+0000\n"
+"POT-Creation-Date: 2024-05-21 01:53+0000\n"
 "PO-Revision-Date: 2020-05-04 20:00-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -901,7 +901,7 @@ msgstr "エントリ"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:321 src/glossary/glossary.cpp:200
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:200
 #: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:62
 #, kde-format
 msgctxt "@title:column Original text"
@@ -909,7 +909,7 @@ msgid "Source"
 msgstr "原文"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:201
+#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:201
 #: src/tm/tmtab.cpp:63
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -935,7 +935,7 @@ msgid "Files"
 msgstr "ファイル"
 
 #: src/cataloglistview/catalogmodel.cpp:117
-#: src/filesearch/filesearchtab.cpp:325 src/tm/tmtab.cpp:66
+#: src/filesearch/filesearchtab.cpp:327 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -1005,7 +1005,7 @@ msgid "Current: %1"
 msgstr "現在: %1"
 
 #: src/editortab.cpp:128 src/editortab.cpp:821
-#: src/filesearch/filesearchtab.cpp:774 src/project/projecttab.cpp:510
+#: src/filesearch/filesearchtab.cpp:776 src/project/projecttab.cpp:510
 #: src/tm/tmtab.cpp:595
 #, kde-format
 msgctxt "@info:status message entries"
@@ -1946,40 +1946,40 @@ msgid "Drop translation files here..."
 msgstr "プロジェクトのファイルをスキャンしない。"
 
 #. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:324 src/tm/tmtab.cpp:65
+#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
 msgstr "ファイル"
 
-#: src/filesearch/filesearchtab.cpp:421
+#: src/filesearch/filesearchtab.cpp:423
 #, kde-format
 msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:455 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:457 src/tm/tmtab.cpp:405
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "原文をクリップボードにコピー"
 
-#: src/filesearch/filesearchtab.cpp:461 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:463 src/tm/tmtab.cpp:411
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "翻訳をクリップボードにコピー"
 
-#: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:417
+#: src/filesearch/filesearchtab.cpp:469 src/tm/tmtab.cpp:417
 #, kde-format
 msgid "Open file"
 msgstr "ファイルを開く"
 
-#: src/filesearch/filesearchtab.cpp:506
+#: src/filesearch/filesearchtab.cpp:508
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:791
+#: src/filesearch/filesearchtab.cpp:793
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"
