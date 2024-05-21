@@ -247,8 +247,10 @@ private:
 };
 
 struct SearchParams {
-    QRegExp sourcePattern;
-    QRegExp targetPattern;
+    QString sourcePattern;
+    QString targetPattern;
+    QRegularExpression::PatternOptions regExOptions{};
+    bool isRegEx{false}; // indicates source/targetPattern are regular expressions
 
     bool invertSource{false};
     bool invertTarget{false};

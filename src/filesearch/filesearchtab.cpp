@@ -168,8 +168,8 @@ void SearchFileListView::scrollTo(const QString& file)
 
 bool SearchParams::isEmpty() const
 {
-    return sourcePattern.pattern().isEmpty()
-           && targetPattern.pattern().isEmpty();
+    return sourcePattern.isEmpty()
+           && targetPattern.isEmpty();
 }
 
 SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector<Rule>& r, int sn, QObject*)
@@ -185,10 +185,14 @@ SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector
 void SearchJob::run()
 {
     QElapsedTimer a; a.start();
-    bool removeAmpFromSource = searchParams.sourcePattern.patternSyntax() == QRegExp::FixedString
-                               && !searchParams.sourcePattern.pattern().contains(QLatin1Char('&'));
-    bool removeAmpFromTarget = searchParams.targetPattern.patternSyntax() == QRegExp::FixedString
-                               && !searchParams.targetPattern.pattern().contains(QLatin1Char('&'));
+    bool removeAmpFromSource = !searchParams.isRegEx
+                               && !searchParams.sourcePattern.contains(QLatin1Char('&'));
+    bool removeAmpFromTarget = !searchParams.isRegEx
+                               && !searchParams.targetPattern.contains(QLatin1Char('&'));
+
+    const auto sourceRegEx = QRegularExpression(searchParams.isRegEx ? searchParams.sourcePattern : QRegularExpression::escape(searchParams.sourcePattern), searchParams.regExOptions);
+    const auto targetRegEx = QRegularExpression(searchParams.isRegEx ? searchParams.targetPattern : QRegularExpression::escape(searchParams.targetPattern), searchParams.regExOptions);
+
     for (const QString& filePath : qAsConst(files)) {
         Catalog catalog(nullptr);
         if (Q_UNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size, true) != 0))
@@ -202,24 +206,24 @@ void SearchJob::run()
             //    return false;
             int lim = catalog.isPlural(pos.entry) ? catalog.numberOfPluralForms() : 1;
             for (pos.form = 0; pos.form < lim; pos.form++) {
-                int sp = 0;
-                int tp = 0;
+                QRegularExpressionMatch sourceMatch;
+                QRegularExpressionMatch targetMatch;
                 if (!searchParams.sourcePattern.isEmpty())
-                    sp = searchParams.sourcePattern.indexIn(removeAmpFromSource ? catalog.source(pos).remove(QLatin1Char('&')) : catalog.source(pos));
+                    sourceMatch = sourceRegEx.match(removeAmpFromSource ? catalog.source(pos).remove(QLatin1Char('&')) : catalog.source(pos));
                 if (!searchParams.targetPattern.isEmpty())
-                    tp = searchParams.targetPattern.indexIn(removeAmpFromTarget ? catalog.target(pos).remove(QLatin1Char('&')) : catalog.target(pos));
+                    targetMatch = targetRegEx.match(removeAmpFromTarget ? catalog.target(pos).remove(QLatin1Char('&')) : catalog.target(pos));
                 //int np=searchParams.notesPattern.indexIn(catalog.notes(pos));
 
-                if ((sp != -1) != searchParams.invertSource && (tp != -1) != searchParams.invertTarget) {
+                if (sourceMatch.hasMatch() != searchParams.invertSource && targetMatch.hasMatch() != searchParams.invertTarget) {
                     //TODO handle multiple results in same column
                     //FileSearchResult r;
                     SearchResult r;
                     r.filepath = filePath;
                     r.docPos = DocPos(pos);
                     if (!searchParams.sourcePattern.isEmpty() && !searchParams.invertSource)
-                        r.sourcePositions << StartLen(searchParams.sourcePattern.pos(), searchParams.sourcePattern.matchedLength());
+                        r.sourcePositions << StartLen(sourceMatch.capturedStart(), sourceMatch.capturedLength());
                     if (!searchParams.targetPattern.isEmpty() && !searchParams.invertTarget)
-                        r.targetPositions << StartLen(searchParams.targetPattern.pos(), searchParams.targetPattern.matchedLength());
+                        r.targetPositions << StartLen(targetMatch.capturedStart(), targetMatch.capturedLength());
                     r.source = catalog.source(pos);
                     r.target = catalog.target(pos);
                     r.state = catalog.state(pos);
@@ -559,8 +563,8 @@ void FileSearchTab::performSearch()
     m_lastSearchNumber++;
 
     SearchParams sp;
-    sp.sourcePattern.setPattern(ui_fileSearchOptions->querySource->text());
-    sp.targetPattern.setPattern(ui_fileSearchOptions->queryTarget->text());
+    sp.sourcePattern = ui_fileSearchOptions->querySource->text();
+    sp.targetPattern = ui_fileSearchOptions->queryTarget->text();
     sp.invertSource = ui_fileSearchOptions->invertSource->isChecked();
     sp.invertTarget = ui_fileSearchOptions->invertTarget->isChecked();
 
@@ -569,10 +573,7 @@ void FileSearchTab::performSearch()
     if (sp.isEmpty() && rules.isEmpty())
         return;
 
-    if (!ui_fileSearchOptions->regEx->isChecked()) {
-        sp.sourcePattern.setPatternSyntax(QRegExp::FixedString);
-        sp.targetPattern.setPatternSyntax(QRegExp::FixedString);
-    }
+    sp.isRegEx = ui_fileSearchOptions->regEx->isChecked();
     /*
         else
         {
@@ -581,8 +582,7 @@ void FileSearchTab::performSearch()
         }
     */
     if (!ui_fileSearchOptions->matchCase->isChecked()) {
-        sp.sourcePattern.setCaseSensitivity(Qt::CaseInsensitive);
-        sp.targetPattern.setCaseSensitivity(Qt::CaseInsensitive);
+        sp.regExOptions = QRegularExpression::CaseInsensitiveOption;
     }
     stopSearch();
 
