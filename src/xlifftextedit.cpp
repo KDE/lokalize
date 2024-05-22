@@ -1191,8 +1191,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 return;
 
             //QRegExp tag("(<[^>]*>)+|\\&\\w+\\;");
-            QRegExp tag(Project::instance()->markup());
-            tag.setMinimal(true);
+            const QRegularExpression tag(Project::instance()->markup(), QRegularExpression::InvertedGreedinessOption);
             QString en = m_catalog->sourceWithTags(m_currentPos).string;
             QString target(toPlainText());
             en.remove(QLatin1Char('\n'));
@@ -1200,20 +1199,25 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             int pos = 0;
             //tag.indexIn(en);
             int posInMsgStr = 0;
-            while ((pos = tag.indexIn(en, pos)) != -1) {
+            while (true) {
+                const auto match = tag.match(en, pos);
+                if (!match.hasMatch()) {
+                    break;
+                }
+                pos = match.capturedStart();
                 /*        QString str(tag.cap(0));
                         str.replace("&","&&");*/
-                txt = menu.addAction(tag.cap(0));
-                pos += tag.matchedLength();
+                txt = menu.addAction(match.captured(0));
+                pos += match.capturedLength();
 
-                if (posInMsgStr != -1 && (posInMsgStr = target.indexOf(tag.cap(0), posInMsgStr)) == -1) {
+                if (posInMsgStr != -1 && (posInMsgStr = target.indexOf(match.captured(0), posInMsgStr)) == -1) {
                     if (immediate) {
                         insertPlainTextWithCursorCheck(txt->text());
                         return;
                     }
                     menu.setActiveAction(txt);
                 } else if (posInMsgStr != -1)
-                    posInMsgStr += tag.matchedLength();
+                    posInMsgStr += match.capturedLength();
             }
             if (!txt || immediate)
                 return;

@@ -17,6 +17,7 @@
 // #include "project.h"
 #include "prefs_lokalize.h"
 
+#include <QRegularExpression>
 #include <QVector>
 #include <QStringList>
 #include <QStringMatcher>
@@ -349,7 +350,7 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
     //i tried that but it failed:
     if (!markup.isEmpty())
         markup += QLatin1Char('|');
-    QRegExp rxSplit(QLatin1Char('(') + markup + QLatin1String("\\W+|\\d+)+"));
+    const QRegularExpression rxSplit(QLatin1Char('(') + markup + QLatin1String("\\W+|\\d+)+"));
 
     main = str.split(rxSplit, Qt::SkipEmptyParts);
     main.prepend(QStringLiteral("\t"));//little hack
@@ -358,9 +359,14 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
     //ensure the string always begins with the space part
     str.prepend(QStringLiteral("\b"));
     pos = 0;
-    while ((pos = rxSplit.indexIn(str, pos)) != -1) {
-        space.append(rxSplit.cap(0));
-        pos += rxSplit.matchedLength();
+    while (true) {
+        const auto match = rxSplit.match(str, pos);
+        if (!match.hasMatch()) {
+            break;
+        }
+        pos = match.capturedStart();
+        space.append(match.captured(0));
+        pos += match.capturedLength();
     }
     space.append(QString());//so we don't have to worry about list boundaries
     space.append(QString());//so we don't have to worry about list boundaries
