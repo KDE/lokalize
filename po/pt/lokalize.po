@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-21 01:53+0000\n"
+"POT-Creation-Date: 2024-05-22 01:49+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -986,7 +986,7 @@ msgstr "Item"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:200
+#: src/filesearch/filesearchtab.cpp:327 src/glossary/glossary.cpp:200
 #: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:62
 #, kde-format
 msgctxt "@title:column Original text"
@@ -994,7 +994,7 @@ msgid "Source"
 msgstr "Origem"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:201
+#: src/filesearch/filesearchtab.cpp:328 src/glossary/glossary.cpp:201
 #: src/tm/tmtab.cpp:63
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -1020,7 +1020,7 @@ msgid "Files"
 msgstr "Ficheiros"
 
 #: src/cataloglistview/catalogmodel.cpp:117
-#: src/filesearch/filesearchtab.cpp:327 src/tm/tmtab.cpp:66
+#: src/filesearch/filesearchtab.cpp:331 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -2015,34 +2015,34 @@ msgid "Drop translation files here..."
 msgstr "Largue os ficheiros de traduções aqui..."
 
 #. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:65
+#: src/filesearch/filesearchtab.cpp:330 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
 msgstr "Ficheiro"
 
-#: src/filesearch/filesearchtab.cpp:423
+#: src/filesearch/filesearchtab.cpp:427
 #, kde-format
 msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr "Procurar e substituir nos ficheiros"
 
-#: src/filesearch/filesearchtab.cpp:457 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:461 src/tm/tmtab.cpp:405
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Copiar a origem para a área de transferência"
 
-#: src/filesearch/filesearchtab.cpp:463 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:411
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Copiar o destino para a área de transferência"
 
-#: src/filesearch/filesearchtab.cpp:469 src/tm/tmtab.cpp:417
+#: src/filesearch/filesearchtab.cpp:473 src/tm/tmtab.cpp:417
 #, kde-format
 msgid "Open file"
 msgstr "Abrir um ficheiro"
 
-#: src/filesearch/filesearchtab.cpp:508
+#: src/filesearch/filesearchtab.cpp:512
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search and replace in files"
