@@ -259,7 +259,7 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
             if (!cur->isEmpty())
                 (*cur) += QLatin1Char('\n');
             if (!(cur->isEmpty() && (end - start) == 0)) //for multiline msgs
-                (*cur) += it->midRef(start, end - start);
+                (*cur) += QStringView(*it).mid(start, end - start);
         }
         ++it;
     }
@@ -308,7 +308,7 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegul
 
     for (const QString &s : note) {
         if (s.size() >= preLen) {
-            content += s.midRef(preLen);
+            content += QStringView(s).mid(preLen);
             content += QLatin1Char('\n');
         }
     }
@@ -343,8 +343,8 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     static const QRegularExpression i18n_file_re(QStringLiteral("^#. i18n: file: "));
     const auto uiLines = commentLines.filter(i18n_file_re);
     for (const QString &uiLine : uiLines) {
-        const auto fileRefs = uiLine.midRef(15).split(QLatin1Char(' '));
-        for (const QStringRef &fileRef : fileRefs) {
+        const auto fileRefs = QStringView(uiLine).mid(15).split(QLatin1Char(' '));
+        for (const auto &fileRef : fileRefs) {
             result << fileRef.toString();
         }
     }
@@ -353,8 +353,8 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     static const QRegularExpression cpp_re(QStringLiteral("^#: "));
     const auto cppLines = commentLines.filter(cpp_re);
     for (const QString &cppLine : cppLines) {
-        const auto fileRefs = cppLine.midRef(3).split(QLatin1Char(' '));
-        for (const QStringRef &fileRef : fileRefs) {
+        const auto fileRefs = QStringView(cppLine).mid(3).split(QLatin1Char(' '));
+        for (const auto &fileRef : fileRefs) {
             if (hasUi && fileRef.startsWith(QLatin1String("rc.cpp:"))) {
                 continue;
             }

@@ -443,12 +443,12 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         //qCWarning(LOKALIZE_LOG)<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
         QString target = m_catalog->targetWithTags(pos).string;
-        const QStringRef addedText = editText.midRef(offset, charsAdded);
+        const auto addedText = QStringView(editText).mid(offset, charsAdded);
 
 //BEGIN XLIFF markup handling
         //protect from tag removal
         //TODO use midRef when Qt 4.8 is in distros
-        bool markupRemoved = charsRemoved && target.midRef(offset, charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
+        bool markupRemoved = charsRemoved && QStringView(target).mid(offset, charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
         bool markupAdded = charsAdded && addedText.contains(TAGRANGE_IMAGE_SYMBOL);
         if (markupRemoved || markupAdded) {
             bool modified = false;
@@ -818,7 +818,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                         && !isMasked(str, pos - 1))
                         ins = QLatin1Char('\\');
                     // if there is no new line at the end
-                    if (pos < 2 || str.midRef(pos - 2, 2) != QLatin1String("\\n"))
+                    if (pos < 2 || QStringView(str).mid(pos - 2, 2) != QLatin1String("\\n"))
                         ins += QLatin1Char(' ');
                 } else if (str.isEmpty()) {
                     ins = QStringLiteral("\\n");

@@ -879,7 +879,7 @@ bool EditorTab::saveFileAs(const QString& defaultPath)
                        QFileInfo(defaultPath.isEmpty() ? m_catalog->url() : defaultPath).absoluteFilePath(), m_catalog->fileType());
     if (filePath.isEmpty()) return false;
     if (!Catalog::extIsSupported(filePath) && m_catalog->url().contains(QLatin1Char('.')))
-        filePath += m_catalog->url().midRef(m_catalog->url().lastIndexOf(QLatin1Char('.')));
+        filePath += QStringView(m_catalog->url()).mid(m_catalog->url().lastIndexOf(QLatin1Char('.')));
 
     return saveFile(filePath);
 }
@@ -1555,7 +1555,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
                 return;
             }
             bool found = false;
-            QByteArray fn = srcFileRelPath.midRef(srcFileRelPath.lastIndexOf(QLatin1Char('/')) + 1).toUtf8();
+            QByteArray fn = QStringView(srcFileRelPath).mid(srcFileRelPath.lastIndexOf(QLatin1Char('/')) + 1).toUtf8();
             auto it = sourceFilePaths.constFind(fn);
             while (it != sourceFilePaths.constEnd() && it.key() == fn) {
                 const QString absFilePath = QString::fromUtf8(it.value() + '/' + fn);

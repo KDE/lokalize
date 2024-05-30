@@ -575,7 +575,7 @@ void EditorTab::spellcheckShow(const QString &word, int offset)
 
     QString source = m_catalog->source(_spellcheckPos);
     source.remove(accel);
-    if (source.contains(word) && project.targetLangCode().leftRef(2) != project.sourceLangCode().leftRef(2)) {
+    if (source.contains(word) && QStringView(project.targetLangCode()).left(2) != QStringView(project.sourceLangCode()).left(2)) {
         m_sonnetDialog->setUpdatesEnabled(false);
         m_sonnetChecker->continueChecking();
         return;

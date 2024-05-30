@@ -276,7 +276,7 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
         m_stackedLayout->setCurrentIndex(1);
     } else if (link.scheme() == QLatin1String("src")) {
         int pos = path.lastIndexOf(QLatin1Char(':'));
-        Q_EMIT srcFileOpenRequested(path.left(pos), path.midRef(pos + 1).toInt());
+        Q_EMIT srcFileOpenRequested(path.left(pos), QStringView(path).mid(pos + 1).toInt());
     } else if (link.scheme().contains(QLatin1String("tp")))
         QDesktopServices::openUrl(link);
 }

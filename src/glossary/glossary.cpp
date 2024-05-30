@@ -302,7 +302,7 @@ QByteArray Glossary::id(int index) const
 QStringList Glossary::terms(const QByteArray& id, const QString& language) const
 {
     QString minusLang = language; minusLang.replace(QLatin1Char('_'), QLatin1Char('-'));
-    QStringRef soleLang = language.leftRef(2);
+    const auto soleLang = QStringView(language).left(2);
     QStringList result;
     QDomElement n = m_entriesById.value(id).firstChildElement(langSet);
     while (!n.isNull()) {
@@ -334,7 +334,7 @@ static void getElementsForTermLangIndex(QDomElement termEntry, QString& lang, in
                                         QDomElement& termElement)
 {
     QString minusLang = lang; minusLang.replace(QLatin1Char('_'), QLatin1Char('-'));
-    QStringRef soleLang = lang.leftRef(2);
+    const auto soleLang = QStringView(lang).left(2);
 
     QDomElement n = termEntry.firstChildElement(langSet);
     QDomDocument document = n.ownerDocument();

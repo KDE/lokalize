@@ -187,7 +187,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     const QString text = currentBlock().text();
     QString word = text.mid(start, count);
     if (m_sourceString.contains(word)
-        && project.targetLangCode().leftRef(2) != project.sourceLangCode().leftRef(2))
+        && QStringView(project.targetLangCode()).left(2) != QStringView(project.sourceLangCode()).left(2))
         return;
 
     const QString accel = project.accel();

@@ -289,7 +289,7 @@ void MassReplaceJob::run()
             auto match = replaceWhat.match(s.string);
             int pos = match.hasMatch() ? match.capturedStart() : -1;
             while (pos != -1) {
-                if (!s.string.midRef(pos, match.capturedLength()).contains(TAGRANGE_IMAGE_SYMBOL)) {
+                if (!QStringView(s.string).mid(pos, match.capturedLength()).contains(TAGRANGE_IMAGE_SYMBOL)) {
                     docPos.offset = pos;
                     catalog.targetDelete(docPos, match.capturedLength());
                     catalog.targetInsert(docPos, replaceWith);

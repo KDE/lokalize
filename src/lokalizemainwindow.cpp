@@ -280,7 +280,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     connect(w, qOverload<const QString &, const QString &, const QString &, const bool>(&EditorTab::fileOpenRequested), this, qOverload<const QString &, const QString &, const QString &, const bool>(&LokalizeMainWindow::fileOpen));
     connect(w, qOverload<const QString &, const QString &>(&EditorTab::tmLookupRequested), this, qOverload<const QString &, const QString &>(&LokalizeMainWindow::lookupInTranslationMemory));
 
-    QStringRef fnSlashed = filePath.midRef(filePath.lastIndexOf(QLatin1Char('/')));
+    auto fnSlashed = QStringView(filePath).mid(filePath.lastIndexOf(QLatin1Char('/')));
     FileToEditor::const_iterator i = m_fileToEditor.constBegin();
     while (i != m_fileToEditor.constEnd()) {
         if (i.key().endsWith(fnSlashed)) {
