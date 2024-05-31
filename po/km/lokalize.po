@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 01:49+0000\n"
+"POT-Creation-Date: 2024-05-31 01:59+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -4645,7 +4645,7 @@ msgstr ""
 msgid "An error was reported: %1"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1266
+#: src/xlifftextedit.cpp:1270
 #, fuzzy, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
