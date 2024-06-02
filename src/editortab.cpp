@@ -1701,7 +1701,7 @@ void EditorTab::mergeIntoOpenDocument()
             return;
         }
         QProcess::startDetached(lowriter, QStringList(args.at(1)));
-        QString reloaderScript = QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("scripts/odf/xliff2odf-standalone.py"));
+        QString reloaderScript = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("scripts/odf/xliff2odf-standalone.py"));
         if (reloaderScript.length()) {
             QString python = QStandardPaths::findExecutable(QStringLiteral("python"));
             QStringList unoArgs(QStringLiteral("-c")); unoArgs.append(QStringLiteral("import uno"));

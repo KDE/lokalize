@@ -972,7 +972,7 @@ void OpenDBJob::run()
 
         if (m_type == TM::Local) {
             QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connectionName);
-            QString dbFolder = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+            QString dbFolder = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
             QFileInfo fileInfo(dbFolder);
             if (!fileInfo.exists(dbFolder)) fileInfo.absoluteDir().mkpath(fileInfo.fileName());
             db.setDatabaseName(dbFolder + QLatin1Char('/') + m_dbName + QLatin1String(TM_DATABASE_EXTENSION));
@@ -1006,7 +1006,7 @@ void OpenDBJob::run()
             }
 
             if (!m_connParams.isFilled()) {
-                QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName + QLatin1String(REMOTETM_DATABASE_EXTENSION));
+                QFile rdb(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1Char('/') + m_dbName + QLatin1String(REMOTETM_DATABASE_EXTENSION));
                 if (!rdb.open(QIODevice::ReadOnly | QIODevice::Text)) {
                     Q_EMIT done(this);
                     return;

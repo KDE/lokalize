@@ -55,7 +55,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     QString dbName = QStringLiteral("metainfocache");
     if (!QSqlDatabase::contains(dbName)) {
         QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), dbName);
-        db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + dbName + QLatin1String(".sqlite"));
+        db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1Char('/') + dbName + QLatin1String(".sqlite"));
         if (Q_UNLIKELY(!db.open()))
             return FileMetaData::extract(file.localPath());
         initDataBase(db);

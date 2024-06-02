@@ -52,11 +52,11 @@ DBFilesModel* DBFilesModel::instance()
 DBFilesModel::DBFilesModel()
     : QSortFilterProxyModel()
     , m_fileSystemModel(new QFileSystemModel(this))
-    , m_tmRootPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation))
+    , m_tmRootPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
 {
     m_fileSystemModel->setNameFilters(QStringList(QStringLiteral("*." TM_DATABASE_EXTENSION)));
     m_fileSystemModel->setFilter(QDir::Files);
-    m_fileSystemModel->setRootPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    m_fileSystemModel->setRootPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 
     setSourceModel(m_fileSystemModel);
     connect(this, &DBFilesModel::rowsInserted, this, &DBFilesModel::calcStats/*,Qt::QueuedConnection*/);
@@ -117,7 +117,7 @@ void DBFilesModel::openDB(const QString& name, DbType type, bool forceCurrentPro
     m_openingDbLock.unlock();
     if (type == TM::Undefined)
         type = QFileInfo::exists(
-                   QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + name + QStringLiteral(REMOTETM_DATABASE_EXTENSION)) ? TM::Remote : TM::Local;
+            QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1Char('/') + name + QStringLiteral(REMOTETM_DATABASE_EXTENSION)) ? TM::Remote : TM::Local;
     OpenDBJob* openDBJob = new OpenDBJob(name, type);
     if (forceCurrentProjectConfig) {
         openDBJob->m_setParams = true;
