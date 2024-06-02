@@ -1060,7 +1060,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             else
                 Q_EMIT gotoNextUntranslatedRequested();
             break;
-        case Qt::ControlModifier + Qt::ShiftModifier:
+        case Qt::ControlModifier | Qt::ShiftModifier:
             if (event->angleDelta().y() > 0)
                 Q_EMIT gotoPrevFuzzyUntrRequested();
             else

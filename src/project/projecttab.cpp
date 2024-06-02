@@ -113,7 +113,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L. Accepts regular expressions"));
     connect(m_filterEdit, &QLineEdit::textChanged, this, &ProjectTab::setFilterRegExp, Qt::QueuedConnection);
-    new QShortcut(Qt::ControlModifier + Qt::Key_L, this, SLOT(setFocus()), nullptr, Qt::WidgetWithChildrenShortcut);
+    new QShortcut(QKeySequence(Qt::ControlModifier | Qt::Key_L), this, SLOT(setFocus()), nullptr, Qt::WidgetWithChildrenShortcut);
 
     l->addWidget(m_filterEdit);
     l->addWidget(m_browser);
@@ -143,34 +143,34 @@ ProjectTab::ProjectTab(QWidget *parent)
     KActionCollection* ac = actionCollection();
     KActionCategory* nav = new KActionCategory(i18nc("@title actions category", "Navigation"), ac);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"), Qt::ControlModifier + Qt::ShiftModifier + Qt::Key_PageUp, QStringLiteral("prevfuzzyuntrans"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"), Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageUp, QStringLiteral("prevfuzzyuntrans"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevFuzzyUntr);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"), Qt::ControlModifier + Qt::ShiftModifier + Qt::Key_PageDown, QStringLiteral("nextfuzzyuntrans"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"), Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageDown, QStringLiteral("nextfuzzyuntrans"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextFuzzyUntr);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"), Qt::ControlModifier + Qt::Key_PageUp, QStringLiteral("prevfuzzy"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"), Qt::ControlModifier | Qt::Key_PageUp, QStringLiteral("prevfuzzy"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevFuzzy);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next non-empty but not ready"), Qt::ControlModifier + Qt::Key_PageDown, QStringLiteral("nextfuzzy"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next non-empty but not ready"), Qt::ControlModifier | Qt::Key_PageDown, QStringLiteral("nextfuzzy"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextFuzzy);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans", i18nc("@action:inmenu", "Previous untranslated"), Qt::AltModifier + Qt::Key_PageUp, QStringLiteral("prevuntranslated"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans", i18nc("@action:inmenu", "Previous untranslated"), Qt::AltModifier | Qt::Key_PageUp, QStringLiteral("prevuntranslated"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevUntranslated);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_untrans", i18nc("@action:inmenu", "Next untranslated"), Qt::AltModifier + Qt::Key_PageDown, QStringLiteral("nextuntranslated"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_untrans", i18nc("@action:inmenu", "Next untranslated"), Qt::AltModifier | Qt::Key_PageDown, QStringLiteral("nextuntranslated"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextUntranslated);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_templateOnly", i18nc("@action:inmenu", "Previous template only"), Qt::ControlModifier + Qt::Key_Up, QStringLiteral("prevtemplate"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_templateOnly", i18nc("@action:inmenu", "Previous template only"), Qt::ControlModifier | Qt::Key_Up, QStringLiteral("prevtemplate"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevTemplateOnly);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_templateOnly", i18nc("@action:inmenu", "Next template only"), Qt::ControlModifier + Qt::Key_Down, QStringLiteral("nexttemplate"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_templateOnly", i18nc("@action:inmenu", "Next template only"), Qt::ControlModifier | Qt::Key_Down, QStringLiteral("nexttemplate"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTemplateOnly);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_transOnly", i18nc("@action:inmenu", "Previous translation only"), Qt::AltModifier + Qt::Key_Up, QStringLiteral("prevpo"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_transOnly", i18nc("@action:inmenu", "Previous translation only"), Qt::AltModifier | Qt::Key_Up, QStringLiteral("prevpo"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevTransOnly);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_transOnly", i18nc("@action:inmenu", "Next translation only"), Qt::AltModifier + Qt::Key_Down, QStringLiteral("nextpo"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_transOnly", i18nc("@action:inmenu", "Next translation only"), Qt::AltModifier | Qt::Key_Down, QStringLiteral("nextpo"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTransOnly);
 
     action = nav->addAction(QStringLiteral("toggle_translated_files"));
@@ -178,7 +178,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     action->setToolTip(i18nc("@action:inmenu", "Hide fully translated files and folders"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("hide_table_row")));
     action->setCheckable(true);
-    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier + Qt::Key_T));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_T));
     connect(action, &QAction::triggered, this, &ProjectTab::toggleTranslatedFiles);
 
     //    ADD_ACTION_SHORTCUT_ICON("edit_find",i18nc("@action:inmenu","Find in files"),Qt::AltModifier+Qt::Key_Down,"nextpo")
