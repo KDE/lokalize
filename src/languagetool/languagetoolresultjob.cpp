@@ -16,7 +16,7 @@ LanguageToolResultJob::LanguageToolResultJob(QObject *parent)
 
 static bool containsOnlySpaceChars(const QString &text)
 {
-    return !text.trimmed().isEmpty();
+    return text.trimmed().isEmpty();
 }
 
 bool LanguageToolResultJob::canStart() const
