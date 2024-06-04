@@ -1118,7 +1118,7 @@ SelectJob::SelectJob(const CatalogString& source,
     //qCDebug(LOKALIZE_LOG)<<"selectjob"<<dbName<<m_source.string;
 }
 
-inline QMap<uint, qlonglong> invertMap(const QMap<qlonglong, uint>& source)
+inline QMultiMap<uint, qlonglong> invertMap(const QMap<qlonglong, uint>& source)
 {
     //uses the fact that map has its keys always sorted
     QMultiMap<uint, qlonglong> sortingMap;
@@ -1192,7 +1192,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     static const QRegularExpression addPart(QRegularExpression::wildcardToRegularExpression(QStringLiteral("<KBABELADD>*</KBABELADD>")), QRegularExpression::InvertedGreedinessOption);
 
     //QList<uint> concordanceLevels=sortedUniqueValues(occurencies); //we start from entries with higher word-concordance level
-    QMap<uint, qlonglong> concordanceLevelToIds = invertMap(occurencies);
+    QMultiMap<uint, qlonglong> concordanceLevelToIds = invertMap(occurencies);
     if (concordanceLevelToIds.isEmpty())
         return false;
     bool seen85 = false;
@@ -1395,7 +1395,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 //eliminate same targets from different files
                 QHash<QString, int> hash;
                 int oldCount = m_entries.size();
-                QMap<TMEntry, bool>::const_iterator it = sortedEntryList.constEnd();
+                auto it = sortedEntryList.constEnd();
                 if (sortedEntryList.size()) while (true) {
                         --it;
                         const TMEntry& e = it.key();
