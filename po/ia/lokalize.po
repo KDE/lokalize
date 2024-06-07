@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-16 01:41+0000\n"
-"PO-Revision-Date: 2024-05-29 15:20+0200\n"
+"PO-Revision-Date: 2024-06-06 10:37+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1597,7 +1597,7 @@ msgstr "Traduction ha recipite revision positive"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
-msgstr "Entrata es plenemente localisate (i.e. final)"
+msgstr "Entrata es plenmente localisate (i.e. final)"
 
 #: src/editortab.cpp:1359 src/project/projecttab.cpp:358
 #, kde-format
