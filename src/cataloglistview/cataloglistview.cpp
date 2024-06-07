@@ -17,6 +17,7 @@
 #include "prefs.h"
 #include "headerviewmenu.h"
 
+#include <QActionGroup>
 #include <QLineEdit>
 #include <QTime>
 #include <QTreeView>

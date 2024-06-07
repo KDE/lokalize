@@ -13,7 +13,6 @@
 #include <QTextCodec>
 class QIODevice;
 class QString;
-class QStringList;
 
 namespace GettextCatalog
 {

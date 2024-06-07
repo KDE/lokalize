@@ -42,6 +42,7 @@
 #include <kio/global.h>
 #include <kjob.h>
 #include <kjobtrackerinterface.h>
+#include <KIO/JobTracker>
 
 #include <QDBusArgument>
 

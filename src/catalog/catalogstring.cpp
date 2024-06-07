@@ -13,6 +13,8 @@
 
 #include <klocalizedstring.h>
 
+#include <QIODevice>
+
 
 const char* InlineTag::getElementName(InlineElement type)
 {
