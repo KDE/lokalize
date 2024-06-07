@@ -173,9 +173,9 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
             }
             query1.clear();
 
-            if (arr.contains(' ' + sourceIdStr + ' ')
-                || arr.startsWith(sourceIdStr + ' ')
-                || arr.endsWith(' ' + sourceIdStr)
+            if (arr.contains(QByteArray(' ' + sourceIdStr + ' '))
+                || arr.startsWith(QByteArray(sourceIdStr + ' '))
+                || arr.endsWith(QByteArray(' ' + sourceIdStr))
                 || arr == sourceIdStr)
                 return;//this string is already indexed
 
@@ -268,11 +268,11 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
         }
         query1.clear();
 
-        if (arr.contains(' ' + sourceIdStr + ' '))
-            arr.replace(' ' + sourceIdStr + ' ', " ");
-        else if (arr.startsWith(sourceIdStr + ' '))
+        if (arr.contains(QByteArray(' ' + sourceIdStr + ' ')))
+            arr.replace(QByteArray(' ' + sourceIdStr + ' '), " ");
+        else if (arr.startsWith(QByteArray(sourceIdStr + ' ')))
             arr.remove(0, sourceIdStr.size() + 1);
-        else if (arr.endsWith(' ' + sourceIdStr))
+        else if (arr.endsWith(QByteArray(' ' + sourceIdStr)))
             arr.chop(sourceIdStr.size() + 1);
         else if (arr == sourceIdStr)
             arr.clear();
