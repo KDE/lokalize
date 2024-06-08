@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-31 01:59+0000\n"
+"POT-Creation-Date: 2024-06-08 01:50+0000\n"
 "PO-Revision-Date: 2023-08-19 22:37+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -315,73 +315,73 @@ msgstr "منتهية"
 msgid "Signed-off"
 msgstr "موقّعة"
 
-#: src/catalog/catalogstring.cpp:60
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "بداية وسم مزدوج"
 
-#: src/catalog/catalogstring.cpp:61
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "نهاية وسم مزدوج"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:64
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "وسم مفرد"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "وسم معزول"
 
-#: src/catalog/catalogstring.cpp:65
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "واسِم"
 
-#: src/catalog/catalogstring.cpp:66
+#: src/catalog/catalogstring.cpp:68
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "ماسك مكان مجموعة عامّ"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:69
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "تدفّق فرعيّ"
 
-#: src/catalog/catalogstring.cpp:69
+#: src/catalog/catalogstring.cpp:71
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "ماسك مكان عامّ"
 
-#: src/catalog/catalogstring.cpp:70
+#: src/catalog/catalogstring.cpp:72
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "بداية ماسك مكان مزدوج"
 
-#: src/catalog/catalogstring.cpp:71
+#: src/catalog/catalogstring.cpp:73
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "نهاية ماسك مكان مزدوج"
 
-#: src/catalog/catalogstring.cpp:118
+#: src/catalog/catalogstring.cpp:120
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "اختصار"
 
-#: src/catalog/catalogstring.cpp:119
+#: src/catalog/catalogstring.cpp:121
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -390,7 +390,7 @@ msgid ""
 msgstr ""
 "صيغة مختصرة: مصطلح ينتج عن إزالة أيّ جزء من المصطلح كاملًا مع إبقاء نفس المعنى"
 
-#: src/catalog/catalogstring.cpp:120
+#: src/catalog/catalogstring.cpp:122
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -400,7 +400,7 @@ msgstr ""
 "اختصار: صيغة مختصرة لمصطلح بسيط ينتج عن إزالة بعض أحرفه (مثل ’adj.‎‘ بدل "
 "’adjective‘. بالعربيّة: ”صفة“)"
 
-#: src/catalog/catalogstring.cpp:121
+#: src/catalog/catalogstring.cpp:123
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -412,7 +412,7 @@ msgstr ""
 "الأصليّة وجُمعت لتكوّن لفظة تُنطق مقطعيًّا (مثل ’radar‘ اختصارًا لِ‍ ’radio detecting "
 "and ranging‘. بالعربيّة: ”الاكتشاف الرّاديويّ ومجاله“)"
 
-#: src/catalog/catalogstring.cpp:122
+#: src/catalog/catalogstring.cpp:124
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -420,7 +420,7 @@ msgid ""
 "proper entity"
 msgstr "تسمية لقبيّة: مصطلح لاسم معرفة (مثل اسم وكالة أو أيّ كيان آخر)"
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:125
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -433,7 +433,7 @@ msgstr ""
 "تظهر خلال الحديث أو مجموعة الأحاديث، حتّى أنّ ليس ضروريًّا أن تكون قرب بعضها "
 "البعض تمامًا"
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:126
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -443,13 +443,13 @@ msgstr ""
 "اسم شائع: تسمية بالأحرف الأولى لمصطلح علميّ عالميّ يُستخدم في النّقاشات العامّة "
 "بلغة ما"
 
-#: src/catalog/catalogstring.cpp:125
+#: src/catalog/catalogstring.cpp:127
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "تاريخ و/أو وقت"
 
-#: src/catalog/catalogstring.cpp:126
+#: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -460,7 +460,7 @@ msgstr ""
 "معادلة: تعبير يُستخدم للتّعبير عن عبارة فيها تعبيرين رياضيّين (مثلًا) متعادلين "
 "حسب علامة المساواة (=)، أو مُسندة لأخرى بإشارة مشابهة"
 
-#: src/catalog/catalogstring.cpp:127
+#: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -468,7 +468,7 @@ msgid ""
 "abbreviated form"
 msgstr "صيغة موسّعة: التّعبير الكامل للصّيغ التي لها صيغة مختصرة"
 
-#: src/catalog/catalogstring.cpp:128
+#: src/catalog/catalogstring.cpp:130
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -478,7 +478,7 @@ msgstr ""
 "صيغة: أشكال أو رموز أو ما يشابهها للتّعبير عن معنّى ما بشكل مختصر، مثل "
 "المعادلات الرّياضيّة أو الكيميائيّة"
 
-#: src/catalog/catalogstring.cpp:129
+#: src/catalog/catalogstring.cpp:131
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -486,7 +486,7 @@ msgid ""
 "terminological record"
 msgstr "صيغة رئيسة: تسمية معنًى اختيرت كأساسٍ لسجلّ إصطلاحيّ"
 
-#: src/catalog/catalogstring.cpp:130
+#: src/catalog/catalogstring.cpp:132
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -500,7 +500,7 @@ msgstr ""
 "عند نطق الأحرف منفصلة (مثلًا ’BSE‘ لِ‍ ’bovine spongiform encephalopathy‘. "
 "بالعربيّة: ”التهاب الدماغ الإسفنجي البقري“)"
 
-#: src/catalog/catalogstring.cpp:131
+#: src/catalog/catalogstring.cpp:133
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -510,7 +510,7 @@ msgstr ""
 "مصطلح علميّ عالميّ: عبارة عن مصطلح هو جزء من تسمية علميّة عالميّة تبنّتها هيئة "
 "علميّة"
 
-#: src/catalog/catalogstring.cpp:132
+#: src/catalog/catalogstring.cpp:134
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -520,7 +520,7 @@ msgstr ""
 "الدّوليّة: مصطلح له نفس الصّيغة الهجائيّة أو الصّوتيّة أو ما يقارب ذلك في العديد "
 "من اللغات"
 
-#: src/catalog/catalogstring.cpp:133
+#: src/catalog/catalogstring.cpp:135
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -531,19 +531,19 @@ msgstr ""
 "تعبير منطقيّ: تعبير يُستخدم للتّعبير عن معنى قائمة على علاقات رياضيّة أو منطقيّة، "
 "مثل إفادات عدم المساواة، ومجموعات العلاقات، والعمليّات المنطقيّة وغير ذلك"
 
-#: src/catalog/catalogstring.cpp:134
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr "وحدة لإدارة الخامات: وحدة لتعقّب شيء ما"
 
-#: src/catalog/catalogstring.cpp:135
+#: src/catalog/catalogstring.cpp:137
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "اسم"
 
-#: src/catalog/catalogstring.cpp:136
+#: src/catalog/catalogstring.cpp:138
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -554,7 +554,7 @@ msgstr ""
 "شبه التّرادف: مصطلح يمثّل معنًى بمصطلح آخر في نفس اللغة أو يشابهه جدًّا، ولكن "
 "تبادل المصطلحين محدود في سياقات محدّدة وغير ملائمة لغيرها"
 
-#: src/catalog/catalogstring.cpp:137
+#: src/catalog/catalogstring.cpp:139
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -562,13 +562,13 @@ msgid ""
 "manufacturing system"
 msgstr "عدد جزئيّ: تسمية أبجديّة رقميّة فريدة على شيء ما في نظام تصنيعيّ"
 
-#: src/catalog/catalogstring.cpp:138
+#: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "phrase"
 msgstr "عبارة"
 
-#: src/catalog/catalogstring.cpp:139
+#: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -579,13 +579,13 @@ msgstr ""
 "صياغة بعبارات رسميّة: مجموعة من كلمتين فأكثر تكوّنان وحدة، حيث أنّه لا يمكن "
 "استخلاص المعنى من الكلمات المكوّنة لتلك العبارة مجتزأة منها"
 
-#: src/catalog/catalogstring.cpp:140
+#: src/catalog/catalogstring.cpp:142
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr "محميّ: يجّب ألّا يُترجم النّصّ المعلّم"
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -595,20 +595,20 @@ msgstr ""
 "صيغة رومانيّة: صيغة لمصطلح نتجت من عمليّة تحويل لأنظمة كتابة غير لاتينيّة إلى "
 "الأبجديّة اللاتينيّة"
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:144
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr "جزء: يمثّل النّصّ المعلّم جزءًا"
 
-#: src/catalog/catalogstring.cpp:143
+#: src/catalog/catalogstring.cpp:145
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr "عبارة معيّنة: عبارة معجميّة ثابتة"
 
 # الترجمة العربية للمصطلح المعاق
-#: src/catalog/catalogstring.cpp:144
+#: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -621,7 +621,7 @@ msgstr ""
 "on International Monetary Affairs‘. بالعربيّة: ”المجموعة الحكوميّة الدّوليّة "
 "الأربع والعشرين للشّؤون النّقديّة الدّوليّة“)"
 
-#: src/catalog/catalogstring.cpp:145
+#: src/catalog/catalogstring.cpp:147
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -631,13 +631,13 @@ msgstr ""
 "وحدة احتفاظ للمخزون: عنصر مخزون عُرّف بتسمية أبجديّة رقميّة فريدة لشيء ما في "
 "نظام تحكّم بالمخزون"
 
-#: src/catalog/catalogstring.cpp:146
+#: src/catalog/catalogstring.cpp:148
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
 msgstr "نصّ قياسيّ: نصّ عاديّ"
 
-#: src/catalog/catalogstring.cpp:147
+#: src/catalog/catalogstring.cpp:149
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -645,7 +645,7 @@ msgid ""
 "combination thereof"
 msgstr "رمز: تسمية لمعنًى بالأحرف، أو الأرقام، أو المصوّرات أو أيّة تجميعة منها"
 
-#: src/catalog/catalogstring.cpp:148
+#: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -654,7 +654,7 @@ msgid ""
 msgstr ""
 "مرادف: مصطلح يمثّل نفس أو شبه مفهوم مصطلح المُدخَلة الرئيسة في مُدخَلة مصطلح ما"
 
-#: src/catalog/catalogstring.cpp:149
+#: src/catalog/catalogstring.cpp:151
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -664,13 +664,13 @@ msgstr ""
 "عبارة مرادفة: وحدة مُصاغة بعبارات رسميّة بلغة تمثّل نفس المحتوى اللفظيّ بعبارة "
 "أخرى بنفس اللغة"
 
-#: src/catalog/catalogstring.cpp:150
+#: src/catalog/catalogstring.cpp:152
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "term"
 msgstr "مصطلح"
 
-#: src/catalog/catalogstring.cpp:151
+#: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -682,7 +682,7 @@ msgstr ""
 "صيغة منسوخة: صيغة لمصطلح ناتجة عن عمليّة مُثّلت فيها محارف أحد أنظمة الكتابة من "
 "نظام كتابة مختلف، آخذة بالنّظر طريقة نطق المحارف المحوّلة"
 
-#: src/catalog/catalogstring.cpp:152
+#: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -693,7 +693,7 @@ msgstr ""
 "صيغة منقحرة: صيغة لمصطلح ناتجة عن عمليّة مُثّلت فيها محارف أبجديّة أحد أنظمة "
 "الكتابة من نظام كتابة مختلف"
 
-#: src/catalog/catalogstring.cpp:153
+#: src/catalog/catalogstring.cpp:155
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -703,7 +703,7 @@ msgstr ""
 "صيغة مقتطعة: صيغة مختصرة لمصطلح ناتجة من إزالة حرفين/مقطعين صوتيّين أو أكثر "
 "(مثلًا ’flu‘ لِ‍ ’influenza‘. بالعربيّة: ”نزلة برد“)"
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:156
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
@@ -808,126 +808,126 @@ msgstr "بريدك الإلكتروني:"
 msgid "Previous source value, saved by lupdate tool"
 msgstr "قيمة المصدر السّابقة، حفظتها أداة lupdate"
 
-#: src/cataloglistview/cataloglistview.cpp:57
+#: src/cataloglistview/cataloglistview.cpp:58
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "وحدات الترجمة"
 
-#: src/cataloglistview/cataloglistview.cpp:74
+#: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
 msgstr "بحث سريع..."
 
-#: src/cataloglistview/cataloglistview.cpp:75
+#: src/cataloglistview/cataloglistview.cpp:76
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "يفعل عن طريق Ctrl+L. يقبل التّعابير النّمطيّة"
 
-#: src/cataloglistview/cataloglistview.cpp:84
+#: src/cataloglistview/cataloglistview.cpp:85
 #, kde-format
 msgid "options"
 msgstr "خيارات"
 
-#: src/cataloglistview/cataloglistview.cpp:186
+#: src/cataloglistview/cataloglistview.cpp:187
 #, kde-format
 msgid "Reset individual filter"
 msgstr "صفّر المرشّح المفرد"
 
-#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:367
+#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:367
 #, kde-format
 msgid "Case insensitive"
 msgstr "غير حسّاس للحالة"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:193 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:194 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "تجاهل علامات المسرّعات"
 
-#: src/cataloglistview/cataloglistview.cpp:194
+#: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
 msgid "Ready"
 msgstr "جاهزة"
 
-#: src/cataloglistview/cataloglistview.cpp:195
+#: src/cataloglistview/cataloglistview.cpp:196
 #, kde-format
 msgid "Non-ready"
 msgstr "غير جاهزة"
 
-#: src/cataloglistview/cataloglistview.cpp:196
+#: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
 msgid "Non-empty"
 msgstr "غير فارغة"
 
-#: src/cataloglistview/cataloglistview.cpp:197
+#: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Empty"
 msgstr "فارغة"
 
-#: src/cataloglistview/cataloglistview.cpp:198
+#: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Changed since file open"
 msgstr "تغيّرت منذ فتح الملفّ"
 
-#: src/cataloglistview/cataloglistview.cpp:199
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "لم تتغيّر منذ فتح الملفّ"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Same in sync file"
 msgstr "نفسها في ملفّ المزامنة"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Different in sync file"
 msgstr "تختلف في ملفّ المزامنة"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Not in sync file"
 msgstr "غير موجودة في ملفّ المزامنة"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Plural"
 msgstr "صيغة جموع"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Non-plural"
 msgstr "ليست بصيغة جموع"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "أساسيّ"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "الحالات"
 
-#: src/cataloglistview/cataloglistview.cpp:212
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "عمود البحث"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:217
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "أعد الفرز والتّرشيح عند تغيّر المحتوى"
 
-#: src/cataloglistview/cataloglistview.cpp:233
+#: src/cataloglistview/cataloglistview.cpp:234
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -1711,8 +1711,8 @@ msgstr ""
 "مسارات مخصّصة. ارجع إلى كتيّب «لوكالايز» لتشاهد أمثلة للسّكربتات وطريقة دمجها "
 "بمشروعك."
 
-#: src/editortab.cpp:1651 src/project/project.cpp:466
-#: src/project/project.cpp:471
+#: src/editortab.cpp:1651 src/project/project.cpp:467
+#: src/project/project.cpp:472
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "ثبّت حزمة translate-toolkit وأعد المحاولة"
@@ -1727,7 +1727,7 @@ msgstr "ثبّت حزمة translate-toolkit وأعد المحاولة."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "اختر «المستندالمفتوح» الذي بُني عليه ملفّ XLIFF الحاليّ"
 
-#: src/editortab.cpp:1668 src/project/project.cpp:476
+#: src/editortab.cpp:1668 src/project/project.cpp:477
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "ملفّات «المستندالمفتوح» (*.odt *.ods)"
@@ -2179,12 +2179,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "لم يُعثر على وحدات Qt Sql. لن تعمل ذاكرة الترجمة."
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "تحتاج خاصيّة ”ذاكرة الترجمة“ وحدة SQLite لِ‍«كيوت»."
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "وحدة SQLite غير متوفّرة"
@@ -3737,17 +3737,17 @@ msgstr "مشروع"
 msgid "Language-Team:"
 msgstr "لغة-الفريق:"
 
-#: src/project/project.cpp:439
+#: src/project/project.cpp:440
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "يفحص المجلّدات بحثًا عن الملفّات المصدر"
 
-#: src/project/project.cpp:440
+#: src/project/project.cpp:441
 #, kde-format
 msgid "Editor"
 msgstr "المحرّر"
 
-#: src/project/project.cpp:483
+#: src/project/project.cpp:484
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -4327,12 +4327,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "اختر ملفّ TMX لتصدير قاعدة البيانات المحدّدة إليه"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:82
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "يضيف الملفّات إلى ذاكرة ترجمة «لوكالايز»"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:83
 #, kde-format
 msgid "TM"
 msgstr "ذاكرة الترجمة"

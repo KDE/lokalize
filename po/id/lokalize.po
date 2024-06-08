@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-31 01:59+0000\n"
+"POT-Creation-Date: 2024-06-08 01:50+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -314,73 +314,73 @@ msgstr "Final"
 msgid "Signed-off"
 msgstr "Ditinjau"
 
-#: src/catalog/catalogstring.cpp:60
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "Mulai tag yang disandingkan"
 
-#: src/catalog/catalogstring.cpp:61
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "Ujung dari tag yang disandingkan"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:64
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "Tag tersendiri"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "Tag terisolir"
 
-#: src/catalog/catalogstring.cpp:65
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "Penanda baca"
 
-#: src/catalog/catalogstring.cpp:66
+#: src/catalog/catalogstring.cpp:68
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "Kelompok placeholder generik"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:69
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "Sub-flow"
 
-#: src/catalog/catalogstring.cpp:69
+#: src/catalog/catalogstring.cpp:71
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "Placeholder generik"
 
-#: src/catalog/catalogstring.cpp:70
+#: src/catalog/catalogstring.cpp:72
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "Mulai placeholder yang disandingkan"
 
-#: src/catalog/catalogstring.cpp:71
+#: src/catalog/catalogstring.cpp:73
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "Ujung dari placeholder yang disandingkan"
 
-#: src/catalog/catalogstring.cpp:118
+#: src/catalog/catalogstring.cpp:120
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "singkatan"
 
-#: src/catalog/catalogstring.cpp:119
+#: src/catalog/catalogstring.cpp:121
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -390,7 +390,7 @@ msgstr ""
 "abbreviated form: sebuah istilah yang dihasilkan dari pembiaran dari setiap "
 "bagian dari istilah penuh sementara menunjuk konsep yang sama"
 
-#: src/catalog/catalogstring.cpp:120
+#: src/catalog/catalogstring.cpp:122
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -400,7 +400,7 @@ msgstr ""
 "abbreviation: sebuah bentuk singkatan dari istilah sederhana yang dihasilkan "
 "dari pembiaran dari beberapa hurufnya (misalnya 'adj.' untuk 'adjective')"
 
-#: src/catalog/catalogstring.cpp:121
+#: src/catalog/catalogstring.cpp:123
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -412,7 +412,7 @@ msgstr ""
 "penuh dari istilah berbentuk frase dirangkai menjadi urutan yang diucapkan "
 "hanya secara suku kata (misalnya 'radar' untuk 'radio detecting and ranging')"
 
-#: src/catalog/catalogstring.cpp:122
+#: src/catalog/catalogstring.cpp:124
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -422,7 +422,7 @@ msgstr ""
 "appellation: sebuah istilah nama yang sah, seperti nama sebuah lembaga atau "
 "entitas layak lainnya"
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:125
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -436,7 +436,7 @@ msgstr ""
 "ucapan, meskipun mereka tidak perlu harus mempertahankan langsung kedekatan "
 "satu sama lain"
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:126
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -446,13 +446,13 @@ msgstr ""
 "common name: sebuah sinonim untuk istilah ilmiah internasional yang "
 "digunakan dalam wacana umum dalam bahasa tertentu"
 
-#: src/catalog/catalogstring.cpp:125
+#: src/catalog/catalogstring.cpp:127
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "tanggal  dan/atau waktu"
 
-#: src/catalog/catalogstring.cpp:126
+#: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -465,7 +465,7 @@ msgstr ""
 "seperti yang diidentifikasi oleh tanda sama-dengan (=), atau ditugaskan "
 "untuk satu sama lain dengan tanda yang sama"
 
-#: src/catalog/catalogstring.cpp:127
+#: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -474,7 +474,7 @@ msgid ""
 msgstr ""
 "expanded form: Representasi lengkap dari istilah yang ada bentuk singkatan"
 
-#: src/catalog/catalogstring.cpp:128
+#: src/catalog/catalogstring.cpp:130
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -484,7 +484,7 @@ msgstr ""
 "rumus: angka, simbol atau sejenisnya yang digunakan untuk mengekspresikan "
 "konsep singkat, seperti rumus matematika atau kimia"
 
-#: src/catalog/catalogstring.cpp:129
+#: src/catalog/catalogstring.cpp:131
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -494,7 +494,7 @@ msgstr ""
 "head term: penunjukan konsep yang telah dipilih untuk mengepalai sebuah "
 "rekaman terminologika"
 
-#: src/catalog/catalogstring.cpp:130
+#: src/catalog/catalogstring.cpp:132
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -508,7 +508,7 @@ msgstr ""
 "istilah membuat sebuah istilah majemuk ketika huruf-huruf tersebut diucapkan "
 "secara individual (misal 'BSE' untuk 'bovine spongiform encephalopathy')"
 
-#: src/catalog/catalogstring.cpp:131
+#: src/catalog/catalogstring.cpp:133
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -519,7 +519,7 @@ msgstr ""
 "internasionalnomenklatur ilmiah seperti yang diadopsi oleh badan ilmiah yang "
 "sesuai"
 
-#: src/catalog/catalogstring.cpp:132
+#: src/catalog/catalogstring.cpp:134
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -529,7 +529,7 @@ msgstr ""
 "internationalism: sebuah istilah yang memiliki ortografi yang sama atau "
 "hampir identik dan bentuk fonemik dalam banyak bahasa"
 
-#: src/catalog/catalogstring.cpp:133
+#: src/catalog/catalogstring.cpp:135
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -541,19 +541,19 @@ msgstr ""
 "yang didasarkan pada hubungan matematika atau logika, seperti laporan dari "
 "ketidaksetaraan, rangkaian hubungan, operasi Boolean, dan sejenisnya"
 
-#: src/catalog/catalogstring.cpp:134
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr "materials management unit: sebuah unit untuk melacak objek"
 
-#: src/catalog/catalogstring.cpp:135
+#: src/catalog/catalogstring.cpp:137
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "nama"
 
-#: src/catalog/catalogstring.cpp:136
+#: src/catalog/catalogstring.cpp:138
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -566,7 +566,7 @@ msgstr ""
 "dipertukarkan adalah terbatas untuk beberapa konteks dan tak dapat "
 "diterapkan pada orang lain"
 
-#: src/catalog/catalogstring.cpp:137
+#: src/catalog/catalogstring.cpp:139
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -576,13 +576,13 @@ msgstr ""
 "part number: sebuah sebutan alfanumerik unik yang diberikan untuk sebuah "
 "objek dalam sistem manufaktur"
 
-#: src/catalog/catalogstring.cpp:138
+#: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "phrase"
 msgstr "frase"
 
-#: src/catalog/catalogstring.cpp:139
+#: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -594,13 +594,13 @@ msgstr ""
 "artinya yang sering tidak dapat disimpulkan berdasarkan pada gabungan masuk "
 "akal dari kata yang membentuk kalimat"
 
-#: src/catalog/catalogstring.cpp:140
+#: src/catalog/catalogstring.cpp:142
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr "protected: teks yang ditandai tidak harus diterjemahkan"
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -610,19 +610,19 @@ msgstr ""
 "romanized form: sebuah bentuk istilah yang dihasilkan dari operasi di mana "
 "sistem penulisan non-Latin dikonversi ke abjad Latin"
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:144
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr "segment: teks yang ditandai mewakili sebuah segmen"
 
-#: src/catalog/catalogstring.cpp:143
+#: src/catalog/catalogstring.cpp:145
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr "set phrase: sebuah tetap, frase terleksikal"
 
-#: src/catalog/catalogstring.cpp:144
+#: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -635,7 +635,7 @@ msgstr ""
 "(misalnya 'Group of Twenty-four' untuk 'Intergovernmental Group of Twenty-"
 "four on International Monetary Affairs')"
 
-#: src/catalog/catalogstring.cpp:145
+#: src/catalog/catalogstring.cpp:147
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -646,13 +646,13 @@ msgstr ""
 "penunjukan alfanumerik unik yang ditugaskan untuk sebuah objek dalam sistem "
 "kendali persediaan"
 
-#: src/catalog/catalogstring.cpp:146
+#: src/catalog/catalogstring.cpp:148
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
 msgstr "standard text: sebuah bingkah tetap dari teks berulang"
 
-#: src/catalog/catalogstring.cpp:147
+#: src/catalog/catalogstring.cpp:149
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -662,7 +662,7 @@ msgstr ""
 "symbol: sebuah sebutan konsep dengan huruf, angka, piktogram atau gabungan "
 "daripadanya"
 
-#: src/catalog/catalogstring.cpp:148
+#: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -672,7 +672,7 @@ msgstr ""
 "sinonim: sebuah istilah yang mewakili yang sama atau konsep yang sangat "
 "mirip sebagai istilah entri utama dalam entri istilah"
 
-#: src/catalog/catalogstring.cpp:149
+#: src/catalog/catalogstring.cpp:151
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -682,13 +682,13 @@ msgstr ""
 "frasa sinonim: unit fraseologi dalam sebuah bahasa yang mengungkapkan hal "
 "yang sama mengandung semantik sebagai frasa lain dalam bahasa yang sama"
 
-#: src/catalog/catalogstring.cpp:150
+#: src/catalog/catalogstring.cpp:152
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "term"
 msgstr "istilah"
 
-#: src/catalog/catalogstring.cpp:151
+#: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -701,7 +701,7 @@ msgstr ""
 "karakter dari suatu sistem penulisan yang diwakili oleh karakter dari sistem "
 "penulisan yang lain, dengan mempertimbangkan pengucapan karakter terkonversi"
 
-#: src/catalog/catalogstring.cpp:152
+#: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -713,7 +713,7 @@ msgstr ""
 "dimana karakter dari sistem penulisan abjadiah yang diwakili oleh karakter "
 "dari sistem penulisan abjadiah yang lain"
 
-#: src/catalog/catalogstring.cpp:153
+#: src/catalog/catalogstring.cpp:155
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -724,7 +724,7 @@ msgstr ""
 "pembiaran terhadap satu atau lebih istilah unsur atau suku kata (misalnya "
 "'flu' untuk 'influenza')"
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:156
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
@@ -831,19 +831,19 @@ msgstr "Emailmu:"
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Nilai sumber sebelumnya, disimpan oleh alat lpembaruan"
 
-#: src/cataloglistview/cataloglistview.cpp:57
+#: src/cataloglistview/cataloglistview.cpp:58
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Unit Terjemahan"
 
-#: src/cataloglistview/cataloglistview.cpp:74
+#: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
 msgstr "Cari cepat..."
 
-#: src/cataloglistview/cataloglistview.cpp:75
+#: src/cataloglistview/cataloglistview.cpp:76
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
@@ -852,107 +852,107 @@ msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Menerima kalimat biasa"
 
-#: src/cataloglistview/cataloglistview.cpp:84
+#: src/cataloglistview/cataloglistview.cpp:85
 #, kde-format
 msgid "options"
 msgstr "opsi"
 
-#: src/cataloglistview/cataloglistview.cpp:186
+#: src/cataloglistview/cataloglistview.cpp:187
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Set ulang filter individu"
 
-#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:367
+#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:367
 #, kde-format
 msgid "Case insensitive"
 msgstr "Huruf tak sensitif"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:193 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:194 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Abaikan tanda akselerator"
 
-#: src/cataloglistview/cataloglistview.cpp:194
+#: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
 msgid "Ready"
 msgstr "Siap"
 
-#: src/cataloglistview/cataloglistview.cpp:195
+#: src/cataloglistview/cataloglistview.cpp:196
 #, kde-format
 msgid "Non-ready"
 msgstr "Belum siap"
 
-#: src/cataloglistview/cataloglistview.cpp:196
+#: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
 msgid "Non-empty"
 msgstr "Tidak kosong"
 
-#: src/cataloglistview/cataloglistview.cpp:197
+#: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Empty"
 msgstr "Kosong"
 
-#: src/cataloglistview/cataloglistview.cpp:198
+#: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Changed since file open"
 msgstr "Diubah sejak file terbuka"
 
-#: src/cataloglistview/cataloglistview.cpp:199
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Tak diubah sejak file terbuka"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Same in sync file"
 msgstr "Persamaan dalam file sinkron"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Different in sync file"
 msgstr "Perbedaan dalam file sinkron"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Not in sync file"
 msgstr "Tidak dalam file sinkron"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Plural"
 msgstr "Jamak"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Non-plural"
 msgstr "Tidak jamak"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Dasar"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Kondisi"
 
-#: src/cataloglistview/cataloglistview.cpp:212
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Kolom yang dapat dicari"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:217
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Urutkan dan filterkan saat konten berubah"
 
-#: src/cataloglistview/cataloglistview.cpp:233
+#: src/cataloglistview/cataloglistview.cpp:234
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -1750,8 +1750,8 @@ msgstr ""
 "petunjuk Lokalize untuk contoh-contoh skrip dan bagaimana mencolokkan mereka "
 "ke dalam proyek Anda."
 
-#: src/editortab.cpp:1651 src/project/project.cpp:466
-#: src/project/project.cpp:471
+#: src/editortab.cpp:1651 src/project/project.cpp:467
+#: src/project/project.cpp:472
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instal paket translate-toolkit dan coba lagi"
@@ -1766,7 +1766,7 @@ msgstr "Instal paket translate-toolkit dan coba lagi."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Pilih OpenDocument asli yang mana file XLIFF saat ini didasarkan"
 
-#: src/editortab.cpp:1668 src/project/project.cpp:476
+#: src/editortab.cpp:1668 src/project/project.cpp:477
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "File-file OpenDocument (*.odt *.ods)"
@@ -2223,12 +2223,12 @@ msgstr ""
 "Tidak ada modul-modul Qt Sql yang ditemukan. Memori terjemahan tidak akan "
 "bekerja."
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Fasilitas MT memerlukan modul SQLite Qt"
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Tidak ada modul SQLite yang tersedia"
@@ -3851,17 +3851,17 @@ msgstr "proyek"
 msgid "Language-Team:"
 msgstr "Tim-Bahasa:"
 
-#: src/project/project.cpp:439
+#: src/project/project.cpp:440
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Memindai folder-folder dengan file sumber"
 
-#: src/project/project.cpp:440
+#: src/project/project.cpp:441
 #, kde-format
 msgid "Editor"
 msgstr "Pengedit"
 
-#: src/project/project.cpp:483
+#: src/project/project.cpp:484
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -4439,12 +4439,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "Pilih file TMX untuk mengekspor basis-data terpilih ke"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:82
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Menambahkan file ke memori terjemahan Lokalize"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:83
 #, kde-format
 msgid "TM"
 msgstr "MT"

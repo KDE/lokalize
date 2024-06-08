@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-31 01:59+0000\n"
+"POT-Creation-Date: 2024-06-08 01:50+0000\n"
 "PO-Revision-Date: 2020-05-04 20:00-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -315,73 +315,73 @@ msgstr "最終版"
 msgid "Signed-off"
 msgstr "サインオフ"
 
-#: src/catalog/catalogstring.cpp:60
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "ペアタグの開始"
 
-#: src/catalog/catalogstring.cpp:61
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "ペアタグの終了"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:64
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "単独タグ"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "孤立タグ"
 
-#: src/catalog/catalogstring.cpp:65
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "マーカー"
 
-#: src/catalog/catalogstring.cpp:66
+#: src/catalog/catalogstring.cpp:68
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "一般的なグループプレースホルダー"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:69
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "サブフロー"
 
-#: src/catalog/catalogstring.cpp:69
+#: src/catalog/catalogstring.cpp:71
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "一般的なプレースホルダー"
 
-#: src/catalog/catalogstring.cpp:70
+#: src/catalog/catalogstring.cpp:72
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "ペアプレースホルダーの開始"
 
-#: src/catalog/catalogstring.cpp:71
+#: src/catalog/catalogstring.cpp:73
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "ペアプレースホルダーの終了"
 
-#: src/catalog/catalogstring.cpp:118
+#: src/catalog/catalogstring.cpp:120
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "省略形"
 
-#: src/catalog/catalogstring.cpp:119
+#: src/catalog/catalogstring.cpp:121
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -389,7 +389,7 @@ msgid ""
 "term while designating the same concept"
 msgstr "短縮形: 同じ概念を示しながら、完全な用語の一部を省略した用語"
 
-#: src/catalog/catalogstring.cpp:120
+#: src/catalog/catalogstring.cpp:122
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -399,7 +399,7 @@ msgstr ""
 "略語: いくつかの文字を省略した結果生じる 単純な用語の短縮形(例:「adjective "
 "(形容詞)」→「adj」)"
 
-#: src/catalog/catalogstring.cpp:121
+#: src/catalog/catalogstring.cpp:123
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -408,7 +408,7 @@ msgid ""
 "syllabically (e.g. 'radar' for 'radio detecting and ranging')"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:122
+#: src/catalog/catalogstring.cpp:124
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -416,7 +416,7 @@ msgid ""
 "proper entity"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:125
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -426,7 +426,7 @@ msgid ""
 "immediate proximity to one another"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:126
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -434,13 +434,13 @@ msgid ""
 "general discourse in a given language"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:125
+#: src/catalog/catalogstring.cpp:127
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "日時と、または時間"
 
-#: src/catalog/catalogstring.cpp:126
+#: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -449,7 +449,7 @@ msgid ""
 "the equal sign (=), or assigned to one another by a similar sign"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:127
+#: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -457,7 +457,7 @@ msgid ""
 "abbreviated form"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:128
+#: src/catalog/catalogstring.cpp:130
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -465,7 +465,7 @@ msgid ""
 "such as a mathematical or chemical formula"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:129
+#: src/catalog/catalogstring.cpp:131
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -473,7 +473,7 @@ msgid ""
 "terminological record"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:130
+#: src/catalog/catalogstring.cpp:132
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -483,7 +483,7 @@ msgid ""
 "'BSE' for 'bovine spongiform encephalopathy')"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:131
+#: src/catalog/catalogstring.cpp:133
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -491,7 +491,7 @@ msgid ""
 "scientific nomenclature as adopted by an appropriate scientific body"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:132
+#: src/catalog/catalogstring.cpp:134
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -499,7 +499,7 @@ msgid ""
 "or phonemic form in many languages"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:133
+#: src/catalog/catalogstring.cpp:135
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -508,19 +508,19 @@ msgid ""
 "relationships, Boolean operations, and the like"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:134
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:135
+#: src/catalog/catalogstring.cpp:137
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "名前"
 
-#: src/catalog/catalogstring.cpp:136
+#: src/catalog/catalogstring.cpp:138
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -529,7 +529,7 @@ msgid ""
 "limited to some contexts and inapplicable in others"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:137
+#: src/catalog/catalogstring.cpp:139
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -537,13 +537,13 @@ msgid ""
 "manufacturing system"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:138
+#: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "phrase"
 msgstr "フレーズ"
 
-#: src/catalog/catalogstring.cpp:139
+#: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -552,13 +552,13 @@ msgid ""
 "words making up the phrase"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:140
+#: src/catalog/catalogstring.cpp:142
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -566,19 +566,19 @@ msgid ""
 "Latin writing systems are converted to the Latin alphabet"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:144
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:143
+#: src/catalog/catalogstring.cpp:145
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:144
+#: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -587,7 +587,7 @@ msgid ""
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:145
+#: src/catalog/catalogstring.cpp:147
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -595,13 +595,13 @@ msgid ""
 "designation assigned to an object in an inventory control system"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:146
+#: src/catalog/catalogstring.cpp:148
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:147
+#: src/catalog/catalogstring.cpp:149
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -609,7 +609,7 @@ msgid ""
 "combination thereof"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:148
+#: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -617,7 +617,7 @@ msgid ""
 "main entry term in a term entry"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:149
+#: src/catalog/catalogstring.cpp:151
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -625,13 +625,13 @@ msgid ""
 "semantic content as another phrase in that same language"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:150
+#: src/catalog/catalogstring.cpp:152
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "term"
 msgstr "用語"
 
-#: src/catalog/catalogstring.cpp:151
+#: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -641,7 +641,7 @@ msgid ""
 "converted"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:152
+#: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -650,7 +650,7 @@ msgid ""
 "from another alphabetic writing system"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:153
+#: src/catalog/catalogstring.cpp:155
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -658,7 +658,7 @@ msgid ""
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:156
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
@@ -765,19 +765,19 @@ msgstr "あなたのメールアドレス:"
 msgid "Previous source value, saved by lupdate tool"
 msgstr "lupdate ツールによって保存された前回のソース内容"
 
-#: src/cataloglistview/cataloglistview.cpp:57
+#: src/cataloglistview/cataloglistview.cpp:58
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "翻訳単位"
 
-#: src/cataloglistview/cataloglistview.cpp:74
+#: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
 msgstr "クイック検索..."
 
-#: src/cataloglistview/cataloglistview.cpp:75
+#: src/cataloglistview/cataloglistview.cpp:76
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
@@ -786,108 +786,108 @@ msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "正規表現を受け入れる"
 
-#: src/cataloglistview/cataloglistview.cpp:84
+#: src/cataloglistview/cataloglistview.cpp:85
 #, kde-format
 msgid "options"
 msgstr "オプション"
 
-#: src/cataloglistview/cataloglistview.cpp:186
+#: src/cataloglistview/cataloglistview.cpp:187
 #, kde-format
 msgid "Reset individual filter"
 msgstr "ここのフィルタをリセット"
 
-#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:367
+#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:367
 #, kde-format
 msgid "Case insensitive"
 msgstr "大文字と小文字を区別します"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:193 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:194 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "アクセラレータマークを無視する"
 
-#: src/cataloglistview/cataloglistview.cpp:194
+#: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
 msgid "Ready"
 msgstr "準備完了"
 
-#: src/cataloglistview/cataloglistview.cpp:195
+#: src/cataloglistview/cataloglistview.cpp:196
 #, kde-format
 msgid "Non-ready"
 msgstr "準備未完了"
 
-#: src/cataloglistview/cataloglistview.cpp:196
+#: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
 msgid "Non-empty"
 msgstr "空ではない"
 
-#: src/cataloglistview/cataloglistview.cpp:197
+#: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Empty"
 msgstr "空"
 
-#: src/cataloglistview/cataloglistview.cpp:198
+#: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Changed since file open"
 msgstr "ファイルを開いた後に変更されました"
 
-#: src/cataloglistview/cataloglistview.cpp:199
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "ファイルを開いた後に変更されていません"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Same in sync file"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Different in sync file"
 msgstr "同期ファイルが異なります"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Not in sync file"
 msgstr "同期ファイルではありません"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Plural"
 msgstr "複数"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:205
 #, fuzzy, kde-format
 #| msgid "Non-ready"
 msgid "Non-plural"
 msgstr "準備未完了"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "基本"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "状態"
 
-#: src/cataloglistview/cataloglistview.cpp:212
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "検索可能な列"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:217
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "コンテンツ変更時の再ソートと再フィルタ"
 
-#: src/cataloglistview/cataloglistview.cpp:233
+#: src/cataloglistview/cataloglistview.cpp:234
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -1697,8 +1697,8 @@ msgstr ""
 "パスから現在ロードされていません。スクリプトの例とプロジェクトへの適用方法に"
 "ついては、Lokalize ハンドブックを参照してください。"
 
-#: src/editortab.cpp:1651 src/project/project.cpp:466
-#: src/project/project.cpp:471
+#: src/editortab.cpp:1651 src/project/project.cpp:467
+#: src/project/project.cpp:472
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit をインストールし、再試行する。"
@@ -1713,7 +1713,7 @@ msgstr "translate-toolkit をインストールし、再試行する。"
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "現在の XLIFF ファイルのベースになっている OpenDocument を選択"
 
-#: src/editortab.cpp:1668 src/project/project.cpp:476
+#: src/editortab.cpp:1668 src/project/project.cpp:477
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument ファイル (*.odt *.ods)"
@@ -2168,12 +2168,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Qt Sql モジュールが見つかりませんでした。翻訳メモリは動作しません。"
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "翻訳メモリ機能には SQLite Qt モジュールが必要です。"
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "使用可能な SQLite モジュールがありません"
@@ -3783,19 +3783,19 @@ msgstr "プロジェクト"
 msgid "Language-Team:"
 msgstr "言語チーム:"
 
-#: src/project/project.cpp:439
+#: src/project/project.cpp:440
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "ソースファイルのフォルダをスキャンしています"
 
-#: src/project/project.cpp:440
+#: src/project/project.cpp:441
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Edit term"
 #| msgid "Edit"
 msgid "Editor"
 msgstr "編集"
 
-#: src/project/project.cpp:483
+#: src/project/project.cpp:484
 #, fuzzy, kde-format
 #| msgid "Translation"
 msgctxt "project folder name. %2 is targetLangCode"
@@ -4372,12 +4372,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "データベースをエクスポートする TMX ファイルを選択"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:82
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "開いたファイルを Lokalize の翻訳メモリに取り込む"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:83
 #, kde-format
 msgid "TM"
 msgstr "翻訳メモリ"

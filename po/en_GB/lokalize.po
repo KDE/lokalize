@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-31 01:59+0000\n"
+"POT-Creation-Date: 2024-06-08 01:50+0000\n"
 "PO-Revision-Date: 2024-05-24 19:13+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -310,115 +310,115 @@ msgstr "Final"
 msgid "Signed-off"
 msgstr "Signed-off"
 
-#: src/catalog/catalogstring.cpp:60
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "Start of paired tag"
 
-#: src/catalog/catalogstring.cpp:61
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "End of paired tag"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:64
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "Stand-alone tag"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "Isolated tag"
 
-#: src/catalog/catalogstring.cpp:65
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "Marker"
 
-#: src/catalog/catalogstring.cpp:66
+#: src/catalog/catalogstring.cpp:68
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "Generic group placeholder"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:69
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "Sub-flow"
 
-#: src/catalog/catalogstring.cpp:69
+#: src/catalog/catalogstring.cpp:71
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "Generic placeholder"
 
-#: src/catalog/catalogstring.cpp:70
+#: src/catalog/catalogstring.cpp:72
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "Start of paired placeholder"
 
-#: src/catalog/catalogstring.cpp:71
+#: src/catalog/catalogstring.cpp:73
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "End of paired placeholder"
 
-#: src/catalog/catalogstring.cpp:118
+#: src/catalog/catalogstring.cpp:120
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "abbreviation"
 
-#: src/catalog/catalogstring.cpp:119
-#, kde-format
-msgctxt "XLIFF mark type"
-msgid ""
-"abbreviated form: a term resulting from the omission of any part of the full "
-"term while designating the same concept"
-msgstr ""
-"abbreviated form: a term resulting from the omission of any part of the full "
-"term while designating the same concept"
-
-#: src/catalog/catalogstring.cpp:120
-#, kde-format
-msgctxt "XLIFF mark type"
-msgid ""
-"abbreviation: an abbreviated form of a simple term resulting from the "
-"omission of some of its letters (e.g. 'adj.' for 'adjective')"
-msgstr ""
-"abbreviation: an abbreviated form of a simple term resulting from the "
-"omission of some of its letters (e.g. 'adj.' for 'adjective')"
-
 #: src/catalog/catalogstring.cpp:121
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
-"acronym: an abbreviated form of a term made up of letters from the full form "
-"of a multiword term strung together into a sequence pronounced only "
-"syllabically (e.g. 'radar' for 'radio detecting and ranging')"
+"abbreviated form: a term resulting from the omission of any part of the full "
+"term while designating the same concept"
 msgstr ""
-"acronym: an abbreviated form of a term made up of letters from the full form "
-"of a multiword term strung together into a sequence pronounced only "
-"syllabically (e.g. 'radar' for 'radio detecting and ranging')"
+"abbreviated form: a term resulting from the omission of any part of the full "
+"term while designating the same concept"
 
 #: src/catalog/catalogstring.cpp:122
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
+"abbreviation: an abbreviated form of a simple term resulting from the "
+"omission of some of its letters (e.g. 'adj.' for 'adjective')"
+msgstr ""
+"abbreviation: an abbreviated form of a simple term resulting from the "
+"omission of some of its letters (e.g. 'adj.' for 'adjective')"
+
+#: src/catalog/catalogstring.cpp:123
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"acronym: an abbreviated form of a term made up of letters from the full form "
+"of a multiword term strung together into a sequence pronounced only "
+"syllabically (e.g. 'radar' for 'radio detecting and ranging')"
+msgstr ""
+"acronym: an abbreviated form of a term made up of letters from the full form "
+"of a multiword term strung together into a sequence pronounced only "
+"syllabically (e.g. 'radar' for 'radio detecting and ranging')"
+
+#: src/catalog/catalogstring.cpp:124
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
 "appellation: a proper-name term, such as the name of an agency or other "
 "proper entity"
 msgstr ""
 "appellation: a proper-name term, such as the name of an agency or other "
 "proper entity"
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:125
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -432,7 +432,7 @@ msgstr ""
 "series of utterances, even though they do not necessarily have to maintain "
 "immediate proximity to one another"
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:126
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -442,92 +442,92 @@ msgstr ""
 "common name: a synonym for an international scientific term that is used in "
 "general discourse in a given language"
 
-#: src/catalog/catalogstring.cpp:125
+#: src/catalog/catalogstring.cpp:127
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "date and/or time"
 
-#: src/catalog/catalogstring.cpp:126
-#, kde-format
-msgctxt "XLIFF mark type"
-msgid ""
-"equation: an expression used to represent a concept based on a statement "
-"that two mathematical expressions are, for instance, equal as identified by "
-"the equal sign (=), or assigned to one another by a similar sign"
-msgstr ""
-"equation: an expression used to represent a concept based on a statement "
-"that two mathematical expressions are, for instance, equal as identified by "
-"the equal sign (=), or assigned to one another by a similar sign"
-
-#: src/catalog/catalogstring.cpp:127
-#, kde-format
-msgctxt "XLIFF mark type"
-msgid ""
-"expanded form: The complete representation of a term for which there is an "
-"abbreviated form"
-msgstr ""
-"expanded form: The complete representation of a term for which there is an "
-"abbreviated form"
-
 #: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
-"formula: figures, symbols or the like used to express a concept briefly, "
-"such as a mathematical or chemical formula"
+"equation: an expression used to represent a concept based on a statement "
+"that two mathematical expressions are, for instance, equal as identified by "
+"the equal sign (=), or assigned to one another by a similar sign"
 msgstr ""
-"formula: figures, symbols or the like used to express a concept briefly, "
-"such as a mathematical or chemical formula"
+"equation: an expression used to represent a concept based on a statement "
+"that two mathematical expressions are, for instance, equal as identified by "
+"the equal sign (=), or assigned to one another by a similar sign"
 
 #: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
-"head term: the concept designation that has been chosen to head a "
-"terminological record"
+"expanded form: The complete representation of a term for which there is an "
+"abbreviated form"
 msgstr ""
-"head term: the concept designation that has been chosen to head a "
-"terminological record"
+"expanded form: The complete representation of a term for which there is an "
+"abbreviated form"
 
 #: src/catalog/catalogstring.cpp:130
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
-"initialism: an abbreviated form of a term consisting of some of the initial "
-"letters of the words making up a multiword term or the term elements making "
-"up a compound term when these letters are pronounced individually (e.g. "
-"'BSE' for 'bovine spongiform encephalopathy')"
+"formula: figures, symbols or the like used to express a concept briefly, "
+"such as a mathematical or chemical formula"
 msgstr ""
-"initialism: an abbreviated form of a term consisting of some of the initial "
-"letters of the words making up a multiword term or the term elements making "
-"up a compound term when these letters are pronounced individually (e.g. "
-"'BSE' for 'bovine spongiform encephalopathy')"
+"formula: figures, symbols or the like used to express a concept briefly, "
+"such as a mathematical or chemical formula"
 
 #: src/catalog/catalogstring.cpp:131
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
-"international scientific term: a term that is part of an international "
-"scientific nomenclature as adopted by an appropriate scientific body"
+"head term: the concept designation that has been chosen to head a "
+"terminological record"
 msgstr ""
-"international scientific term: a term that is part of an international "
-"scientific nomenclature as adopted by an appropriate scientific body"
+"head term: the concept designation that has been chosen to head a "
+"terminological record"
 
 #: src/catalog/catalogstring.cpp:132
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
-"internationalism: a term that has the same or nearly identical orthographic "
-"or phonemic form in many languages"
+"initialism: an abbreviated form of a term consisting of some of the initial "
+"letters of the words making up a multiword term or the term elements making "
+"up a compound term when these letters are pronounced individually (e.g. "
+"'BSE' for 'bovine spongiform encephalopathy')"
 msgstr ""
-"internationalism: a term that has the same or nearly identical orthographic "
-"or phonemic form in many languages"
+"initialism: an abbreviated form of a term consisting of some of the initial "
+"letters of the words making up a multiword term or the term elements making "
+"up a compound term when these letters are pronounced individually (e.g. "
+"'BSE' for 'bovine spongiform encephalopathy')"
 
 #: src/catalog/catalogstring.cpp:133
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
+"international scientific term: a term that is part of an international "
+"scientific nomenclature as adopted by an appropriate scientific body"
+msgstr ""
+"international scientific term: a term that is part of an international "
+"scientific nomenclature as adopted by an appropriate scientific body"
+
+#: src/catalog/catalogstring.cpp:134
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"internationalism: a term that has the same or nearly identical orthographic "
+"or phonemic form in many languages"
+msgstr ""
+"internationalism: a term that has the same or nearly identical orthographic "
+"or phonemic form in many languages"
+
+#: src/catalog/catalogstring.cpp:135
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
 "logical expression: an expression used to represent a concept based on "
 "mathematical or logical relations, such as statements of inequality, set "
 "relationships, Boolean operations, and the like"
@@ -536,50 +536,50 @@ msgstr ""
 "mathematical or logical relations, such as statements of inequality, set "
 "relationships, Boolean operations, and the like"
 
-#: src/catalog/catalogstring.cpp:134
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr "materials management unit: a unit to track object"
 
-#: src/catalog/catalogstring.cpp:135
+#: src/catalog/catalogstring.cpp:137
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "name"
 
-#: src/catalog/catalogstring.cpp:136
-#, kde-format
-msgctxt "XLIFF mark type"
-msgid ""
-"near synonym: a term that represents the same or a very similar concept as "
-"another term in the same language, but for which interchangeability is "
-"limited to some contexts and inapplicable in others"
-msgstr ""
-"near synonym: a term that represents the same or a very similar concept as "
-"another term in the same language, but for which interchangeability is "
-"limited to some contexts and inapplicable in others"
-
-#: src/catalog/catalogstring.cpp:137
-#, kde-format
-msgctxt "XLIFF mark type"
-msgid ""
-"part number: a unique alphanumeric designation assigned to an object in a "
-"manufacturing system"
-msgstr ""
-"part number: a unique alphanumeric designation assigned to an object in a "
-"manufacturing system"
-
 #: src/catalog/catalogstring.cpp:138
 #, kde-format
 msgctxt "XLIFF mark type"
-msgid "phrase"
-msgstr "phrase"
+msgid ""
+"near synonym: a term that represents the same or a very similar concept as "
+"another term in the same language, but for which interchangeability is "
+"limited to some contexts and inapplicable in others"
+msgstr ""
+"near synonym: a term that represents the same or a very similar concept as "
+"another term in the same language, but for which interchangeability is "
+"limited to some contexts and inapplicable in others"
 
 #: src/catalog/catalogstring.cpp:139
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
+"part number: a unique alphanumeric designation assigned to an object in a "
+"manufacturing system"
+msgstr ""
+"part number: a unique alphanumeric designation assigned to an object in a "
+"manufacturing system"
+
+#: src/catalog/catalogstring.cpp:140
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "phrase"
+msgstr "phrase"
+
+#: src/catalog/catalogstring.cpp:141
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
 "phraseological: a group of two or more words that form a unit, the meaning "
 "of which frequently cannot be deduced based on the combined sense of the "
 "words making up the phrase"
@@ -588,13 +588,13 @@ msgstr ""
 "of which frequently cannot be deduced based on the combined sense of the "
 "words making up the phrase"
 
-#: src/catalog/catalogstring.cpp:140
+#: src/catalog/catalogstring.cpp:142
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr "protected: the marked text should not be translated"
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -604,119 +604,119 @@ msgstr ""
 "romanised form: a form of a term resulting from an operation whereby non-"
 "Latin writing systems are converted to the Latin alphabet"
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:144
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr "segment: the marked text represents a segment"
 
-#: src/catalog/catalogstring.cpp:143
+#: src/catalog/catalogstring.cpp:145
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr "set phrase: a fixed, lexicalised phrase"
 
-#: src/catalog/catalogstring.cpp:144
-#, kde-format
-msgctxt "XLIFF mark type"
-msgid ""
-"short form: a variant of a multiword term that includes fewer words than the "
-"full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
-"Group of Twenty-four on International Monetary Affairs')"
-msgstr ""
-"short form: a variant of a multiword term that includes fewer words than the "
-"full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
-"Group of Twenty-four on International Monetary Affairs')"
-
-#: src/catalog/catalogstring.cpp:145
-#, kde-format
-msgctxt "XLIFF mark type"
-msgid ""
-"stock keeping unit: an inventory item identified by a unique alphanumeric "
-"designation assigned to an object in an inventory control system"
-msgstr ""
-"stock keeping unit: an inventory item identified by a unique alphanumeric "
-"designation assigned to an object in an inventory control system"
-
 #: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
-msgid "standard text: a fixed chunk of recurring text"
-msgstr "standard text: a fixed chunk of recurring text"
+msgid ""
+"short form: a variant of a multiword term that includes fewer words than the "
+"full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
+"Group of Twenty-four on International Monetary Affairs')"
+msgstr ""
+"short form: a variant of a multiword term that includes fewer words than the "
+"full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
+"Group of Twenty-four on International Monetary Affairs')"
 
 #: src/catalog/catalogstring.cpp:147
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
-"symbol: a designation of a concept by letters, numerals, pictograms or any "
-"combination thereof"
+"stock keeping unit: an inventory item identified by a unique alphanumeric "
+"designation assigned to an object in an inventory control system"
 msgstr ""
-"symbol: a designation of a concept by letters, numerals, pictograms or any "
-"combination thereof"
+"stock keeping unit: an inventory item identified by a unique alphanumeric "
+"designation assigned to an object in an inventory control system"
 
 #: src/catalog/catalogstring.cpp:148
 #, kde-format
 msgctxt "XLIFF mark type"
-msgid ""
-"synonym: a term that represents the same or a very similar concept as the "
-"main entry term in a term entry"
-msgstr ""
-"synonym: a term that represents the same or a very similar concept as the "
-"main entry term in a term entry"
+msgid "standard text: a fixed chunk of recurring text"
+msgstr "standard text: a fixed chunk of recurring text"
 
 #: src/catalog/catalogstring.cpp:149
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
-"synonymous phrase: phraseological unit in a language that expresses the same "
-"semantic content as another phrase in that same language"
+"symbol: a designation of a concept by letters, numerals, pictograms or any "
+"combination thereof"
 msgstr ""
-"synonymous phrase: phraseological unit in a language that expresses the same "
-"semantic content as another phrase in that same language"
+"symbol: a designation of a concept by letters, numerals, pictograms or any "
+"combination thereof"
 
 #: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
-msgid "term"
-msgstr "term"
+msgid ""
+"synonym: a term that represents the same or a very similar concept as the "
+"main entry term in a term entry"
+msgstr ""
+"synonym: a term that represents the same or a very similar concept as the "
+"main entry term in a term entry"
 
 #: src/catalog/catalogstring.cpp:151
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
-"transcribed form: a form of a term resulting from an operation whereby the "
-"characters of one writing system are represented by characters from another "
-"writing system, taking into account the pronunciation of the characters "
-"converted"
+"synonymous phrase: phraseological unit in a language that expresses the same "
+"semantic content as another phrase in that same language"
 msgstr ""
-"transcribed form: a form of a term resulting from an operation whereby the "
-"characters of one writing system are represented by characters from another "
-"writing system, taking into account the pronunciation of the characters "
-"converted"
+"synonymous phrase: phraseological unit in a language that expresses the same "
+"semantic content as another phrase in that same language"
 
 #: src/catalog/catalogstring.cpp:152
 #, kde-format
 msgctxt "XLIFF mark type"
-msgid ""
-"transliterated form: a form of a term resulting from an operation whereby "
-"the characters of an alphabetic writing system are represented by characters "
-"from another alphabetic writing system"
-msgstr ""
-"transliterated form: a form of a term resulting from an operation whereby "
-"the characters of an alphabetic writing system are represented by characters "
-"from another alphabetic writing system"
+msgid "term"
+msgstr "term"
 
 #: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
+"transcribed form: a form of a term resulting from an operation whereby the "
+"characters of one writing system are represented by characters from another "
+"writing system, taking into account the pronunciation of the characters "
+"converted"
+msgstr ""
+"transcribed form: a form of a term resulting from an operation whereby the "
+"characters of one writing system are represented by characters from another "
+"writing system, taking into account the pronunciation of the characters "
+"converted"
+
+#: src/catalog/catalogstring.cpp:154
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"transliterated form: a form of a term resulting from an operation whereby "
+"the characters of an alphabetic writing system are represented by characters "
+"from another alphabetic writing system"
+msgstr ""
+"transliterated form: a form of a term resulting from an operation whereby "
+"the characters of an alphabetic writing system are represented by characters "
+"from another alphabetic writing system"
+
+#: src/catalog/catalogstring.cpp:155
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
 "truncated term: an abbreviated form of a term resulting from the omission of "
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
 "truncated term: an abbreviated form of a term resulting from the omission of "
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:156
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
@@ -823,126 +823,126 @@ msgstr "Your email:"
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Previous source value, saved by lupdate tool"
 
-#: src/cataloglistview/cataloglistview.cpp:57
+#: src/cataloglistview/cataloglistview.cpp:58
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Translation Units"
 
-#: src/cataloglistview/cataloglistview.cpp:74
+#: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
 msgstr "Quick search..."
 
-#: src/cataloglistview/cataloglistview.cpp:75
+#: src/cataloglistview/cataloglistview.cpp:76
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Activated by Ctrl+L. Accepts regular expressions"
 
-#: src/cataloglistview/cataloglistview.cpp:84
+#: src/cataloglistview/cataloglistview.cpp:85
 #, kde-format
 msgid "options"
 msgstr "options"
 
-#: src/cataloglistview/cataloglistview.cpp:186
+#: src/cataloglistview/cataloglistview.cpp:187
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Reset individual filter"
 
-#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:367
+#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:367
 #, kde-format
 msgid "Case insensitive"
 msgstr "Case insensitive"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:193 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:194 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Ignore accelerator marks"
 
-#: src/cataloglistview/cataloglistview.cpp:194
+#: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
 msgid "Ready"
 msgstr "Ready"
 
-#: src/cataloglistview/cataloglistview.cpp:195
+#: src/cataloglistview/cataloglistview.cpp:196
 #, kde-format
 msgid "Non-ready"
 msgstr "Non-ready"
 
-#: src/cataloglistview/cataloglistview.cpp:196
+#: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
 msgid "Non-empty"
 msgstr "Non-empty"
 
-#: src/cataloglistview/cataloglistview.cpp:197
+#: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Empty"
 msgstr "Empty"
 
-#: src/cataloglistview/cataloglistview.cpp:198
+#: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Changed since file open"
 msgstr "Changed since file open"
 
-#: src/cataloglistview/cataloglistview.cpp:199
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Unchanged since file open"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Same in sync file"
 msgstr "Same in sync file"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Different in sync file"
 msgstr "Different in sync file"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Not in sync file"
 msgstr "Not in sync file"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Plural"
 msgstr "Plural"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Non-plural"
 msgstr "Non-plural"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Basic"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "States"
 
-#: src/cataloglistview/cataloglistview.cpp:212
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Searchable column"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:217
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Resort and refilter on content change"
 
-#: src/cataloglistview/cataloglistview.cpp:233
+#: src/cataloglistview/cataloglistview.cpp:234
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -1729,8 +1729,8 @@ msgstr ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 
-#: src/editortab.cpp:1651 src/project/project.cpp:466
-#: src/project/project.cpp:471
+#: src/editortab.cpp:1651 src/project/project.cpp:467
+#: src/project/project.cpp:472
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Install translate-toolkit package and retry"
@@ -1745,7 +1745,7 @@ msgstr "Install translate-toolkit package and retry."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Select original OpenDocument on which current XLIFF file is based"
 
-#: src/editortab.cpp:1668 src/project/project.cpp:476
+#: src/editortab.cpp:1668 src/project/project.cpp:477
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument files (*.odt *.ods)"
@@ -2198,12 +2198,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "No Qt Sql modules were found. Translation memory will not work."
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "TM facility requires SQLite Qt module."
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "No SQLite module available"
@@ -3777,17 +3777,17 @@ msgstr "Project"
 msgid "Language-Team:"
 msgstr "Language-Team:"
 
-#: src/project/project.cpp:439
+#: src/project/project.cpp:440
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Scanning folders with source files"
 
-#: src/project/project.cpp:440
+#: src/project/project.cpp:441
 #, kde-format
 msgid "Editor"
 msgstr "Editor"
 
-#: src/project/project.cpp:483
+#: src/project/project.cpp:484
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -4353,12 +4353,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "Select TMX file to export selected database to"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:82
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Adding files to Lokalize translation memory"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:83
 #, kde-format
 msgid "TM"
 msgstr "TM"
