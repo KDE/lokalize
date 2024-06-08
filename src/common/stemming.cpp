@@ -95,7 +95,7 @@ QString stem(const QString& langCode, const QString& word)
 void cleanupSpellers()
 {
 #ifdef HAVE_HUNSPELL
-    for (const SpellerAndCodec& sc : qAsConst(hunspellers))
+    for (const SpellerAndCodec& sc : std::as_const(hunspellers))
         delete sc.speller;
 
 #endif

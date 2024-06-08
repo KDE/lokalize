@@ -193,7 +193,7 @@ void SearchJob::run()
     const auto sourceRegEx = QRegularExpression(searchParams.isRegEx ? searchParams.sourcePattern : QRegularExpression::escape(searchParams.sourcePattern), searchParams.regExOptions);
     const auto targetRegEx = QRegularExpression(searchParams.isRegEx ? searchParams.targetPattern : QRegularExpression::escape(searchParams.targetPattern), searchParams.regExOptions);
 
-    for (const QString& filePath : qAsConst(files)) {
+    for (const QString& filePath : std::as_const(files)) {
         Catalog catalog(nullptr);
         if (Q_UNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size, true) != 0))
             continue;
@@ -604,7 +604,7 @@ void FileSearchTab::performSearch()
 
 void FileSearchTab::stopSearch()
 {
-    for (auto job : qAsConst(m_runningJobs)) {
+    for (auto job : std::as_const(m_runningJobs)) {
         [[maybe_unused]] const bool result = QThreadPool::globalInstance()->tryTake(job);
     }
     m_runningJobs.clear();

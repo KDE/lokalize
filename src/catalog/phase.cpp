@@ -56,7 +56,7 @@ bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options)
     QSet<QString> names;
     QList<Phase> phases = catalog->allPhases();
     std::sort(phases.begin(), phases.end(), std::greater<Phase>());
-    for (const Phase& p : qAsConst(phases)) {
+    for (const Phase& p : std::as_const(phases)) {
         if (!(options & ForceAdd) && p.contact == phase.contact && p.process == phase.process) {
             phase = p;
             break;

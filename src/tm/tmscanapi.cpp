@@ -41,7 +41,7 @@ RecursiveScanJob::RecursiveScanJob(const QString& dbName, QObject* parent)
 
 bool RecursiveScanJob::doKill()
 {
-    for (auto job : qAsConst(m_jobs)) {
+    for (auto job : std::as_const(m_jobs)) {
         [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
     }
     return true;

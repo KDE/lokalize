@@ -140,7 +140,7 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
 
 TMView::~TMView()
 {
-    for (auto job : qAsConst(m_jobs)) {
+    for (auto job : std::as_const(m_jobs)) {
         [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
     }
 }
@@ -198,7 +198,7 @@ void TMView::slotFileLoaded(const QString& filePath)
         return;
 
     m_cache.clear();
-    for (auto job : qAsConst(m_jobs)) {
+    for (auto job : std::as_const(m_jobs)) {
         [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
     }
     m_jobs.clear();
@@ -336,7 +336,7 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     if (m_catalog->numberOfEntries() <= pos.entry)
         return;//because of Qt::QueuedConnection
 
-    for (auto job : qAsConst(m_jobs)) {
+    for (auto job : std::as_const(m_jobs)) {
         [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
     }
 

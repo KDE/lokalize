@@ -264,7 +264,7 @@ QByteArray Glossary::generateNewId()
     const QRegularExpression rx(QRegularExpression::anchoredPattern(QLatin1Char('^') + authorId + QStringLiteral("\\-([0-9]*)$")));
 
 
-    for (const QByteArray& id : qAsConst(m_idsForEntriesById)) {
+    for (const QByteArray& id : std::as_const(m_idsForEntriesById)) {
         if (const auto match = rx.match(QString::fromLatin1(id)); match.hasMatch())
             busyIdNumbers.append(match.capturedView(1).toInt());
     }

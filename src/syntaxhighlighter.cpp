@@ -140,7 +140,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         }
     }
 
-    for (const HighlightingRule &rule : qAsConst(highlightingRules)) {
+    for (const HighlightingRule &rule : std::as_const(highlightingRules)) {
         auto match = rule.pattern.match(text);
         while (match.hasMatch()) {
             const auto index = match.capturedStart();
