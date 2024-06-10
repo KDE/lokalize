@@ -141,7 +141,7 @@ void GlossarySortFilterProxyModel::setFilterRegExp(const QString& s)
         return;
 
     //static const QRegExp lettersOnly("^[a-z]");
-    QSortFilterProxyModel::setFilterRegExp(s);
+    QSortFilterProxyModel::setFilterRegularExpression(s);
 
     fetchMore(QModelIndex());
 }

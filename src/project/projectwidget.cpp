@@ -334,7 +334,7 @@ void ProjectWidget::modelReloaded()
         if (setCurrentItem(m_currentItemPathBeforeReload))
             break;
     }
-    if (proxyModel()->filterRegExp().pattern().size() > 2)
+    if (proxyModel()->filterRegularExpression().pattern().size() > 2)
         expandItems();
 }
 

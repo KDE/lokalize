@@ -225,10 +225,10 @@ void ProjectTab::setFocus()
 void ProjectTab::setFilterRegExp()
 {
     QString newPattern = m_filterEdit->text();
-    if (m_browser->proxyModel()->filterRegExp().pattern() == newPattern)
+    if (m_browser->proxyModel()->filterRegularExpression().pattern() == newPattern)
         return;
 
-    m_browser->proxyModel()->setFilterRegExp(newPattern);
+    m_browser->proxyModel()->setFilterRegularExpression(newPattern);
     if (newPattern.size() > 2)
         m_browser->expandItems();
 }

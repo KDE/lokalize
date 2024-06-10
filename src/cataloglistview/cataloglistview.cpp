@@ -147,8 +147,8 @@ void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 void CatalogView::setFilterRegExp()
 {
     QString expr = m_lineEdit->text();
-    if (m_proxyModel->filterRegExp().pattern() != expr)
-        m_proxyModel->setFilterRegExp(m_proxyModel->filterOptions()&CatalogTreeFilterModel::IgnoreAccel ? expr.remove(Project::instance()->accel()) : expr);
+    if (m_proxyModel->filterRegularExpression().pattern() != expr)
+        m_proxyModel->setFilterRegularExpression(m_proxyModel->filterOptions()&CatalogTreeFilterModel::IgnoreAccel ? expr.remove(Project::instance()->accel()) : expr);
     refreshCurrentIndex();
 }
 
