@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-08 01:50+0000\n"
+"POT-Creation-Date: 2024-06-10 02:07+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -788,7 +788,7 @@ msgstr "选项"
 msgid "Reset individual filter"
 msgstr "重置单独的过滤器"
 
-#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:367
+#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:365
 #, kde-format
 msgid "Case insensitive"
 msgstr "不区分大小写"
@@ -945,21 +945,21 @@ msgid "Target length"
 msgstr "译文长度"
 
 #: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1064
-#: src/editortab.cpp:1267 src/tm/tmtab.cpp:233
+#: src/editortab.cpp:1267 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "就绪"
 
 #: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1065
-#: src/editortab.cpp:1262 src/tm/tmtab.cpp:234
+#: src/editortab.cpp:1262 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "待审核"
 
 #: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1063
-#: src/tm/tmtab.cpp:235
+#: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -991,7 +991,7 @@ msgstr "当前：%1"
 
 #: src/editortab.cpp:128 src/editortab.cpp:821
 #: src/filesearch/filesearchtab.cpp:776 src/project/projecttab.cpp:510
-#: src/tm/tmtab.cpp:595
+#: src/tm/tmtab.cpp:593
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -1908,17 +1908,17 @@ msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr "在多个文件中查找和替换"
 
-#: src/filesearch/filesearchtab.cpp:461 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:461 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "复制源信息到剪贴板"
 
-#: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "复制目标信息到剪贴板"
 
-#: src/filesearch/filesearchtab.cpp:473 src/tm/tmtab.cpp:417
+#: src/filesearch/filesearchtab.cpp:473 src/tm/tmtab.cpp:415
 #, kde-format
 msgid "Open file"
 msgstr "打开文件"
@@ -2121,7 +2121,7 @@ msgstr "翻译记忆功能需要 SQLite Qt 模块。"
 msgid "No SQLite module available"
 msgstr "没有可用的 SQLite 模块"
 
-#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:493
+#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:491
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2160,7 +2160,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "翻译记忆"
 
-#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:496
+#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -4211,45 +4211,45 @@ msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr ""
 
-#: src/tm/tmtab.cpp:361
+#: src/tm/tmtab.cpp:359
 #, kde-format
 msgid "Substring"
 msgstr "子串"
 
-#: src/tm/tmtab.cpp:361
+#: src/tm/tmtab.cpp:359
 #, kde-format
 msgid "Google-like"
 msgstr "类似 Google"
 
-#: src/tm/tmtab.cpp:361
+#: src/tm/tmtab.cpp:359
 #, kde-format
 msgid "Wildcard"
 msgstr "通配符"
 
-#: src/tm/tmtab.cpp:368
+#: src/tm/tmtab.cpp:366
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "空格即 AND 操作符。不区分大小写。"
 
-#: src/tm/tmtab.cpp:369
+#: src/tm/tmtab.cpp:367
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Shell 通配符(* 和 ?)。区分大小写。"
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:381 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "翻译记忆"
 
-#: src/tm/tmtab.cpp:597
+#: src/tm/tmtab.cpp:595
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "总计：%1 (%2)"
 
-#: src/tm/tmtab.cpp:626 src/tm/tmview.cpp:585
+#: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:585
 #, kde-format
 msgctxt "@info"
 msgid ""
