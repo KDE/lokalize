@@ -4457,7 +4457,7 @@ msgstr "替换文本"
 #: src/xlifftextedit.cpp:1126
 #, kde-format
 msgid "no spellcheck available"
-msgstr "无可用的拼写检查"
+msgstr "没有可用的拼写检查"
 
 #: src/xlifftextedit.cpp:1140
 #, kde-format

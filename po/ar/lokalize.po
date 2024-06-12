@@ -9,13 +9,13 @@
 # Khaled Hosny <khaledhosny@eglug.org>, 2007, 2008.
 # Abdalrahim Fakhouri <abdilra7eem@yahoo.com>, 2012.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2014, 2017.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-10 02:07+0000\n"
-"PO-Revision-Date: 2023-08-19 22:37+0400\n"
+"PO-Revision-Date: 2024-06-08 11:28+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -24,6 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3471,17 +3472,14 @@ msgstr "لفّ الكلمات:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
-#| "disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
 "العَرض المستخدم للفّ الكلمات آلياً الشبيه بـ msgfmt. استخدم القيمة ’0‘ لتعطيل "
-"لفّ الكلمات."
+"لفّ الكلمات. استخدم -1 عند الترجمة لـ KDE PO Summit. من 1 إلى 3 لا يغير شيئا"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3875,15 +3873,7 @@ msgid "Project Overview"
 msgstr "نظرة عامّة على المشروع"
 
 #: src/project/projecttab.cpp:55
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -3894,10 +3884,10 @@ msgid ""
 "what you need.</html>"
 msgstr ""
 "<html>ليس عليك أن تكون مطوّر برمجيّات لتكون عضوًا في فريق «كِيدِي». يمكنك "
-"الانضمام إلى الفِرق المحليّة التي تترجم واجهات البرامج. يمكنك توفير الرّسوميّات، "
-"والسّمات، والأصوات وتكتابة التّوثيق. أنت تقرّر ذلك!<br /><br />زُر <a href="
-"\"%1\">%1</a> لمعلومات عن بعض المشاريع التي يمكنك المشاركة فيها.<br /><br /"
-">إن احتجت أيّة معلومة أو توثيق أكثر، فزيارة <a href=\"%2\">%2</a> ستوفّر لك ما "
+"الانضمام إلى الفِرق الترجمة التي تترجم واجهات البرامج. يمكنك توفير الرّسوميّات، "
+"والسّمات، والأصوات وكتابة التّوثيق. أنت تقرّر ذلك!<br /><br />زُر <a href=\"%1\">"
+"%1</a> لمعلومات عن بعض المشاريع التي يمكنك المشاركة فيها.<br /><br />إن "
+"احتجت أيّة معلومة أو توثيق أكثر، فزيارة <a href=\"%2\">%2</a> ستوفّر لك ما "
 "تحتاج.</html>"
 
 #: src/project/projecttab.cpp:76
