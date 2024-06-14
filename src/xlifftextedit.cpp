@@ -605,7 +605,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             QByteArray a;
             QDataStream out(&a, QIODevice::WriteOnly);
             QVariant v;
-            v.setValue<CatalogString>(catalogString);
+            v.setValue(catalogString);
             out << v;
             mimeData->setData(LOKALIZE_XLIFF_MIMETYPE, a);
         }
