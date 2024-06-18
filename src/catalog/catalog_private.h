@@ -30,7 +30,6 @@
 
 #include <list>
 
-class QTextCodec;
 class CatalogStorage;
 class Catalog;
 
@@ -45,8 +44,6 @@ public:
 
     /** identification string for used import filter*/
     QString _importID;
-
-    QTextCodec *fileCodec{};
 
     int _numberOfPluralForms{-1};
 
