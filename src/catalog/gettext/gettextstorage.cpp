@@ -80,7 +80,7 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
                      m_generatedFromDocbook,
                      belongsToProject,
                      /*forSaving*/true,
-                     m_codec);
+                     QString::fromLatin1(m_codec->name()));
     }
     m_header.setMsgstr(header);
     m_header.setComment(comment);
@@ -446,7 +446,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
                      m_generatedFromDocbook,
                      belongsToProject,
                      /*forSaving*/true,
-                     m_codec);
+                     QString::fromLatin1(m_codec->name()));
         m_header = newHeader;
         m_header.setComment(comment);
         m_header.setMsgstr(values);

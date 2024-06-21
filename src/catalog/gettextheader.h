@@ -11,7 +11,6 @@
 #define GETTEXTHEADER_H
 
 #include <QString>
-#include <QTextCodec>
 #include <QDateTime>
 
 int numberOfPluralFormsFromHeader(const QString& header);
@@ -27,7 +26,7 @@ void updateHeader(QString& header,
                   bool generatedFromDocbook,
                   bool belongsToProject,
                   bool forSaving,
-                  QTextCodec* codec);
+                  const QString& codec);
 
 
 //for XLIFF

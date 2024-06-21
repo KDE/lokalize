@@ -24,7 +24,6 @@
 #include <QString>
 #include <QStringBuilder>
 #include <QMap>
-#include <QTextCodec>
 #include <QDateTime>
 #include <QTimeZone>
 #include <QRegularExpression>
@@ -251,7 +250,7 @@ void updateHeader(QString& header,
                   bool generatedFromDocbook,
                   bool belongsToProject,
                   bool forSaving,
-                  QTextCodec* codec)
+                  const QString& codec)
 {
     askAuthorInfoIfEmpty();
 
@@ -374,7 +373,7 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
 
-    temp = QStringLiteral("Content-Type: text/plain; charset=") + QString::fromLatin1(codec->name()) + BACKSLASH_N;
+    temp = QStringLiteral("Content-Type: text/plain; charset=") + codec + BACKSLASH_N;
     const QRegularExpression ctRe(QStringLiteral("^ *Content-Type:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(ctRe);
