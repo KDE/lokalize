@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-10 02:07+0000\n"
+"POT-Creation-Date: 2024-06-21 01:45+0000\n"
 "PO-Revision-Date: 2024-03-20 21:57+0100\n"
 "Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -187,47 +187,47 @@ msgctxt "@item Undo action"
 msgid "Use alternate translation"
 msgstr "Alternative Übersetzung verwenden"
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "no"
 msgstr "Nein"
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "yes"
 msgstr "Ja"
 
-#: src/binunitsview.cpp:124
+#: src/binunitsview.cpp:125
 #, kde-format
 msgctxt "@title:column"
 msgid "Source"
 msgstr "Quelle"
 
-#: src/binunitsview.cpp:125
+#: src/binunitsview.cpp:126
 #, kde-format
 msgctxt "@title:column"
 msgid "Target"
 msgstr "Ziel"
 
-#: src/binunitsview.cpp:126
+#: src/binunitsview.cpp:127
 #, kde-format
 msgctxt "@title:column"
 msgid "Approved"
 msgstr "Freigegeben"
 
-#: src/binunitsview.cpp:134
+#: src/binunitsview.cpp:135
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Binary Units"
 msgstr "Binäreinheiten"
 
-#: src/binunitsview.cpp:172
+#: src/binunitsview.cpp:173
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set the file"
 msgstr "Datei festlegen"
 
-#: src/binunitsview.cpp:173
+#: src/binunitsview.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"

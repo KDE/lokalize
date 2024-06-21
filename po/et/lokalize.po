@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-10 02:07+0000\n"
+"POT-Creation-Date: 2024-06-21 01:45+0000\n"
 "PO-Revision-Date: 2020-10-08 14:56+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -184,47 +184,47 @@ msgctxt "@item Undo action"
 msgid "Use alternate translation"
 msgstr "Alternatiivtõlge kasutamine"
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "no"
 msgstr "ei"
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "yes"
 msgstr "jah"
 
-#: src/binunitsview.cpp:124
+#: src/binunitsview.cpp:125
 #, kde-format
 msgctxt "@title:column"
 msgid "Source"
 msgstr "Lähtetekst"
 
-#: src/binunitsview.cpp:125
+#: src/binunitsview.cpp:126
 #, kde-format
 msgctxt "@title:column"
 msgid "Target"
 msgstr "Tõlge"
 
-#: src/binunitsview.cpp:126
+#: src/binunitsview.cpp:127
 #, kde-format
 msgctxt "@title:column"
 msgid "Approved"
 msgstr "Heakskiidetud"
 
-#: src/binunitsview.cpp:134
+#: src/binunitsview.cpp:135
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Binary Units"
 msgstr "Binaarühikud"
 
-#: src/binunitsview.cpp:172
+#: src/binunitsview.cpp:173
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set the file"
 msgstr "Määra fail"
 
-#: src/binunitsview.cpp:173
+#: src/binunitsview.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"

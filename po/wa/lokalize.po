@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-10 02:07+0000\n"
+"POT-Creation-Date: 2024-06-21 01:45+0000\n"
 "PO-Revision-Date: 2011-01-17 22:00+0100\n"
 "Last-Translator: Jean Cayron <jean.cayron@gmail.com>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -178,17 +178,17 @@ msgctxt "@item Undo action"
 msgid "Use alternate translation"
 msgstr "Copyî tos les noveas ratournaedjes"
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "no"
 msgstr ""
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "yes"
 msgstr ""
 
-#: src/binunitsview.cpp:124
+#: src/binunitsview.cpp:125
 #, fuzzy, kde-format
 #| msgctxt "@title:column Original text"
 #| msgid "Source"
@@ -196,7 +196,7 @@ msgctxt "@title:column"
 msgid "Source"
 msgstr "Sourdant"
 
-#: src/binunitsview.cpp:125
+#: src/binunitsview.cpp:126
 #, fuzzy, kde-format
 #| msgctxt "@title:column Text in target language"
 #| msgid "Target"
@@ -204,26 +204,26 @@ msgctxt "@title:column"
 msgid "Target"
 msgstr "Såme"
 
-#: src/binunitsview.cpp:126
+#: src/binunitsview.cpp:127
 #, kde-format
 msgctxt "@title:column"
 msgid "Approved"
 msgstr "Asprouvé"
 
-#: src/binunitsview.cpp:134
+#: src/binunitsview.cpp:135
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Binary Units"
 msgstr ""
 
-#: src/binunitsview.cpp:172
+#: src/binunitsview.cpp:173
 #, fuzzy, kde-format
 #| msgid "Subject field:"
 msgctxt "@action:inmenu"
 msgid "Set the file"
 msgstr "Tchamp sudjet:"
 
-#: src/binunitsview.cpp:173
+#: src/binunitsview.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"

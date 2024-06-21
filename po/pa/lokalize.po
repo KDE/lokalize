@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-10 02:07+0000\n"
+"POT-Creation-Date: 2024-06-21 01:45+0000\n"
 "PO-Revision-Date: 2021-01-30 22:55-0800\n"
 "Last-Translator: A S Alam <aalam.yellow@gmail.com>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -170,47 +170,47 @@ msgctxt "@item Undo action"
 msgid "Use alternate translation"
 msgstr "ਬਦਲਵਾਂ ਅਨੁਵਾਦ ਵਰਤੋਂ"
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "no"
 msgstr "ਨਹੀਂ"
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "yes"
 msgstr "ਹਾਂ"
 
-#: src/binunitsview.cpp:124
+#: src/binunitsview.cpp:125
 #, kde-format
 msgctxt "@title:column"
 msgid "Source"
 msgstr "ਸਰੋਤ"
 
-#: src/binunitsview.cpp:125
+#: src/binunitsview.cpp:126
 #, kde-format
 msgctxt "@title:column"
 msgid "Target"
 msgstr "ਟਾਰਗੇਟ"
 
-#: src/binunitsview.cpp:126
+#: src/binunitsview.cpp:127
 #, kde-format
 msgctxt "@title:column"
 msgid "Approved"
 msgstr "ਮਨਜ਼ੂਰ ਕੀਤਾ"
 
-#: src/binunitsview.cpp:134
+#: src/binunitsview.cpp:135
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Binary Units"
 msgstr "ਬਾਈਨਰੀ ਯੂਨਿਟ"
 
-#: src/binunitsview.cpp:172
+#: src/binunitsview.cpp:173
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set the file"
 msgstr "ਫਾਇਲ ਸੈੱਟ"
 
-#: src/binunitsview.cpp:173
+#: src/binunitsview.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"

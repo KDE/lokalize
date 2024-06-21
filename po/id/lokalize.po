@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-10 02:07+0000\n"
+"POT-Creation-Date: 2024-06-21 01:45+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -187,47 +187,47 @@ msgctxt "@item Undo action"
 msgid "Use alternate translation"
 msgstr "Gunakan terjemahan alternatif"
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "no"
 msgstr "tidak"
 
-#: src/binunitsview.cpp:108
+#: src/binunitsview.cpp:109
 #, kde-format
 msgid "yes"
 msgstr "ya"
 
-#: src/binunitsview.cpp:124
+#: src/binunitsview.cpp:125
 #, kde-format
 msgctxt "@title:column"
 msgid "Source"
 msgstr "Sumber"
 
-#: src/binunitsview.cpp:125
+#: src/binunitsview.cpp:126
 #, kde-format
 msgctxt "@title:column"
 msgid "Target"
 msgstr "Sasaran"
 
-#: src/binunitsview.cpp:126
+#: src/binunitsview.cpp:127
 #, kde-format
 msgctxt "@title:column"
 msgid "Approved"
 msgstr "Disetujui"
 
-#: src/binunitsview.cpp:134
+#: src/binunitsview.cpp:135
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Binary Units"
 msgstr "Unit Biner"
 
-#: src/binunitsview.cpp:172
+#: src/binunitsview.cpp:173
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set the file"
 msgstr "Set file"
 
-#: src/binunitsview.cpp:173
+#: src/binunitsview.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"
