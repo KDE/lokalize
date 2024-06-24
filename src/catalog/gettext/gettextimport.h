@@ -18,8 +18,6 @@
 #include <QStringList>
 #include <QTextStream>
 
-class QTextCodec;
-
 namespace GettextCatalog
 {
 
@@ -63,7 +61,7 @@ public:
     }
 
 private:
-    QTextCodec* codecForDevice(QIODevice* /*, bool* hadCodec*/);
+    QByteArray codecForDevice(QIODevice* /*, bool* hadCodec*/);
     ConversionStatus readEntryRaw(QTextStream& stream);
     ConversionStatus readEntry(QTextStream& stream);
 
