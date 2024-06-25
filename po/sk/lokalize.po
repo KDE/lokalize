@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-21 01:45+0000\n"
+"POT-Creation-Date: 2024-06-25 01:43+0000\n"
 "PO-Revision-Date: 2023-12-06 19:07+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -795,24 +795,24 @@ msgstr ""
 "Predchádzajúca zdrojová hodnota, uložené cez Gettext pri prechode na novšiu "
 "šablónu POT"
 
-#: src/catalog/gettextheader.cpp:480
+#: src/catalog/gettextheader.cpp:479
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Meno autora chýba"
 
-#: src/catalog/gettextheader.cpp:480
+#: src/catalog/gettextheader.cpp:479
 #, kde-format
 msgid "Your name:"
 msgstr "Vaše meno:"
 
-#: src/catalog/gettextheader.cpp:490
+#: src/catalog/gettextheader.cpp:489
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "E-mail autora chýba"
 
-#: src/catalog/gettextheader.cpp:490
+#: src/catalog/gettextheader.cpp:489
 #, kde-format
 msgid "Your email:"
 msgstr "Váš e-mail:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-21 01:45+0000\n"
+"POT-Creation-Date: 2024-06-25 01:43+0000\n"
 "PO-Revision-Date: 2024-02-03 20:30+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -792,24 +792,24 @@ msgid ""
 msgstr ""
 "Antaŭa fontvaloro, konservita de Gettext dum transiro al pli nova POT-ŝablono"
 
-#: src/catalog/gettextheader.cpp:480
+#: src/catalog/gettextheader.cpp:479
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Aŭtornomo mankas"
 
-#: src/catalog/gettextheader.cpp:480
+#: src/catalog/gettextheader.cpp:479
 #, kde-format
 msgid "Your name:"
 msgstr "Via nomo:"
 
-#: src/catalog/gettextheader.cpp:490
+#: src/catalog/gettextheader.cpp:489
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Retpoŝto de aŭtoro mankas"
 
-#: src/catalog/gettextheader.cpp:490
+#: src/catalog/gettextheader.cpp:489
 #, kde-format
 msgid "Your email:"
 msgstr "Via Retpoŝto:"
