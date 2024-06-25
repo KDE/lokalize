@@ -5,7 +5,7 @@ ecm_install_icons(ICONS
     32-actions-approved.png
     48-actions-approved.png
     sc-actions-approved.svgz
-    DESTINATION ${DATA_INSTALL_DIR}/lokalize/icons
+    DESTINATION ${KDE_INSTALL_DATADIR}/lokalize/icons
     LANG sr@ijekavian
     THEME hicolor
 )
