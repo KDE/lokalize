@@ -37,10 +37,26 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
 
     // find codec for file
     //    bool hadCodec;
-    QTextCodec* codec = QTextCodec::codecForName(codecForDevice(device/*, &hadCodec*/));
+    const auto codecName = codecForDevice(device/*, &hadCodec*/);
     QTextStream stream(device);
     stream.seek(0);
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QTextCodec* codec = QTextCodec::codecForName(codecName);
     stream.setCodec(codec);
+#else
+    const auto encoding = QStringConverter::encodingForName(codecName.constData());
+    QString decodedData;
+    if (encoding) {
+        stream.setEncoding(*encoding);
+    } else {
+        // non-UTF encoding not supported by QTextStream directly anymore
+        QStringDecoder decoder(codecName.constData());
+        device->seek(0);
+        decodedData = decoder.decode(device->readAll());
+        stream.setString(&decodedData, QIODevice::ReadOnly);
+    }
+#endif
 
     //QIODevice *dev = stream.device();
     //int fileSize = dev->size();
@@ -172,7 +188,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
     setHeader(tempHeader);
     setCatalogExtraData(_extraDataSaver.extraData);
     setErrorIndex(errorIndex);
-    setCodec(codec);
+    setCodec(codecName);
     //setMimeTypes( "text/x-gettext-translation" );
 #if 0
     if (Q_UNLIKELY(recoveredErrorInHeader)) {

@@ -9,7 +9,6 @@
 #ifndef GETTEXTSTORAGE_H
 #define GETTEXTSTORAGE_H
 
-#include <QTextCodec>
 #include <QVector>
 #include "catalogitem.h"
 #include "catalogstorage.h"
@@ -95,7 +94,7 @@ public:
 
 private:
     bool setHeader(const CatalogItem& newHeader);
-    void setCodec(QTextCodec* codec)
+    void setCodec(const QByteArray &codec)
     {
         m_codec = codec;
     }
@@ -106,7 +105,7 @@ private:
     QVector<CatalogItem> m_entries;
     QVector<CatalogItem> m_obsoleteEntries;
     CatalogItem m_header;
-    QTextCodec* m_codec{nullptr};
+    QByteArray m_codec;
 
     short m_maxLineLength{80};
     short m_trailingNewLines{0};

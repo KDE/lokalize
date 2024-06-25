@@ -68,7 +68,7 @@ void CatalogImportPlugin::setHeader(const CatalogItem& item)
     d->_updateHeader = true;
 }
 
-void CatalogImportPlugin::setCodec(QTextCodec* codec)
+void CatalogImportPlugin::setCodec(const QByteArray &codec)
 {
     d->_codec = codec;
 }

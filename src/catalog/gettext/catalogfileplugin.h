@@ -10,7 +10,6 @@
 #define CATALOGFILEPLUGIN_H
 
 #include <QList>
-#include <QTextCodec>
 class QIODevice;
 class QString;
 
@@ -105,7 +104,7 @@ protected:
     void setHeader(const CatalogItem& header);
 
     /** Set the character encoding used in the catalog file. */
-    void setCodec(QTextCodec* codec);
+    void setCodec(const QByteArray &codec);
 
     /** start a new transaction. You should never call this method. */
     void startTransaction();

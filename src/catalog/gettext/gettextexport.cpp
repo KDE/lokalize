@@ -77,10 +77,10 @@ GettextExportPlugin::GettextExportPlugin(short wrapWidth, short trailingNewLines
 
 ConversionStatus GettextExportPlugin::save(QIODevice* device,
         const GettextStorage* catalog,
-        QTextCodec* codec)
+        const QByteArray &codec)
 {
     QTextStream stream(device);
-    stream.setCodec(codec);
+    stream.setCodec(QTextCodec::codecForName(codec));
 
     // only save header if it is not empty
     const QString& headerComment(catalog->m_header.comment());

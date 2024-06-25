@@ -13,10 +13,8 @@
 #include "catalogitem.h"
 #include "catalog.h"
 
-#include <QTextCodec>
 #include <list>
 
-class QTextCodec;
 namespace GettextCatalog
 {
 class GettextStorage;
@@ -35,7 +33,7 @@ public:
     std::list<CatalogItem> _entries;
     std::list<CatalogItem> _obsoleteEntries;
     CatalogItem _header;
-    QTextCodec* _codec;
+    QByteArray _codec;
     QList<int> _errorList;
     QStringList _catalogExtraData;
 
