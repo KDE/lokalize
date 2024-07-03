@@ -76,11 +76,14 @@ GettextExportPlugin::GettextExportPlugin(short wrapWidth, short trailingNewLines
 }
 
 ConversionStatus GettextExportPlugin::save(QIODevice* device,
-        const GettextStorage* catalog,
-        const QByteArray &codec)
+        const GettextStorage* catalog)
 {
     QTextStream stream(device);
-    stream.setCodec(QTextCodec::codecForName(codec));
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    stream.setCodec(QTextCodec::codecForName("UTF-8"));
+#else
+    stream.setEncoding(QStringConverter::Utf8);
+#endif
 
     // only save header if it is not empty
     const QString& headerComment(catalog->m_header.comment());

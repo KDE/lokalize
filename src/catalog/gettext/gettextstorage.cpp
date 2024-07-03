@@ -80,7 +80,7 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
                      m_generatedFromDocbook,
                      belongsToProject,
                      /*forSaving*/true,
-                     QString::fromLatin1(m_codec));
+                     QStringLiteral("utf-8")); // we unconditionally write out as UTF-8
     }
     m_header.setMsgstr(header);
     m_header.setComment(comment);
@@ -89,7 +89,7 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
     GettextExportPlugin exporter(Project::instance()->wordWrap(), m_trailingNewLines);
 
     ConversionStatus status = OK;
-    status = exporter.save(device/*x-gettext-translation*/, this, m_codec);
+    status = exporter.save(device/*x-gettext-translation*/, this);
 
     return status == OK;
 }

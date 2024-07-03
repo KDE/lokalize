@@ -31,8 +31,7 @@ class GettextExportPlugin
 public:
     explicit GettextExportPlugin(short wrapWidth = 1, short trailingNewLines = 1);
     ConversionStatus save(QIODevice* device,
-                          const GettextStorage* catalog,
-                          const QByteArray &codec);
+                          const GettextStorage* catalog);
 
 private:
     /**
