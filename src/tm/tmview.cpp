@@ -291,7 +291,11 @@ void TMView::slotBatchSelectDone()
     }
 
     KNotification *notification = new KNotification(QStringLiteral("BatchTranslationCompleted"));
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     notification->setWidget(this);
+#else
+    notification->setWindow(window()->windowHandle());
+#endif
     notification->setText(msg);
     notification->sendEvent();
 }
@@ -306,7 +310,11 @@ void TMView::slotBatchTranslate()
         return slotBatchSelectDone();
 
     KNotification *notification = new KNotification(QStringLiteral("BatchTranslationScheduled"));
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     notification->setWidget(this);
+#else
+    notification->setWindow(window()->windowHandle());
+#endif
     notification->setText(i18nc("@info", "Batch translation has been scheduled."));
     notification->sendEvent();
 }
@@ -321,7 +329,11 @@ void TMView::slotBatchTranslateFuzzy()
         slotBatchSelectDone();
 
     KNotification *notification = new KNotification(QStringLiteral("BatchTranslationScheduled"));
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     notification->setWidget(this);
+#else
+    notification->setWindow(window()->windowHandle());
+#endif
     notification->setText(i18nc("@info", "Batch translation has been scheduled."));
     notification->sendEvent();
 }
