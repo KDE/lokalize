@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-25 01:43+0000\n"
+"POT-Creation-Date: 2024-07-04 01:44+0000\n"
 "PO-Revision-Date: 2022-11-01 00:32+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: kde-i18n-doc@kde.org\n"
@@ -997,7 +997,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:175 src/lokalizemainwindow.cpp:443
+#: src/editortab.cpp:175 src/lokalizemainwindow.cpp:447
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1031,7 +1031,7 @@ msgid "Translation Memory"
 msgstr "Memorie de traductiones"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:181 src/lokalizemainwindow.cpp:445
+#: src/editortab.cpp:181 src/lokalizemainwindow.cpp:449
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -2073,129 +2073,129 @@ msgstr "Suggestiones:"
 msgid "No errors"
 msgstr "Sin errores"
 
-#: src/lokalizemainwindow.cpp:109
+#: src/lokalizemainwindow.cpp:113
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 "Null modules de Qt Sql esset trovat. Li memorie de traductiones ne va operar."
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
+#: src/lokalizemainwindow.cpp:356 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "MT besona li module SQLite de Qt."
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
+#: src/lokalizemainwindow.cpp:356 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Null module de SQLite disponibil"
 
-#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:491
+#: src/lokalizemainwindow.cpp:450 src/tm/tmtab.cpp:491
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Memorie de traductiones"
 
-#: src/lokalizemainwindow.cpp:447 src/project/projecttab.cpp:188
+#: src/lokalizemainwindow.cpp:451 src/project/projecttab.cpp:188
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Projecte"
 
-#: src/lokalizemainwindow.cpp:474
+#: src/lokalizemainwindow.cpp:478
 #, kde-format
 msgid "Next tab"
 msgstr "Sequent carte"
 
-#: src/lokalizemainwindow.cpp:477
+#: src/lokalizemainwindow.cpp:481
 #, kde-format
 msgid "Previous tab"
 msgstr "Precedent carte"
 
-#: src/lokalizemainwindow.cpp:480
+#: src/lokalizemainwindow.cpp:484
 #, kde-format
 msgid "Previously active tab"
 msgstr "Precedent activ carte"
 
-#: src/lokalizemainwindow.cpp:486
+#: src/lokalizemainwindow.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Glossarium"
 
-#: src/lokalizemainwindow.cpp:490
+#: src/lokalizemainwindow.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Memorie de traductiones"
 
-#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:494
+#: src/lokalizemainwindow.cpp:498 src/tm/tmtab.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Gerer memories de translation"
 
-#: src/lokalizemainwindow.cpp:498
+#: src/lokalizemainwindow.cpp:502
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Compendie"
 
-#: src/lokalizemainwindow.cpp:502
+#: src/lokalizemainwindow.cpp:506
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Configurar li projecte..."
 
-#: src/lokalizemainwindow.cpp:505
+#: src/lokalizemainwindow.cpp:509
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Projecte de traduction de Lokalize (*.lokalize)"
 
-#: src/lokalizemainwindow.cpp:508
+#: src/lokalizemainwindow.cpp:512
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "Projecte de traduction de Lokalize (*.lokalize)"
 
-#: src/lokalizemainwindow.cpp:511
+#: src/lokalizemainwindow.cpp:515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Aperter un projecte..."
 
-#: src/lokalizemainwindow.cpp:515
+#: src/lokalizemainwindow.cpp:519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Cluder li projecte"
 
-#: src/lokalizemainwindow.cpp:518
+#: src/lokalizemainwindow.cpp:522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Aperter un recent projecte"
 
-#: src/lokalizemainwindow.cpp:526
+#: src/lokalizemainwindow.cpp:530
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "_Vicear..."
 
-#: src/lokalizemainwindow.cpp:529
+#: src/lokalizemainwindow.cpp:533
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Trovar in files"
 
-#: src/lokalizemainwindow.cpp:533
+#: src/lokalizemainwindow.cpp:537
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Widget"
 
-#: src/lokalizemainwindow.cpp:710
+#: src/lokalizemainwindow.cpp:718
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -4190,7 +4190,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Total: %1 (%2)"
 
-#: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:585
+#: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:597
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4221,19 +4221,19 @@ msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr ""
 
-#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
+#: src/tm/tmview.cpp:318 src/tm/tmview.cpp:337
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr ""
 
-#: src/tm/tmview.cpp:456
+#: src/tm/tmview.cpp:468
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:458
+#: src/tm/tmview.cpp:470
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4241,43 +4241,43 @@ msgid_plural "(%1 times)"
 msgstr[0] "(1 vez)"
 msgstr[1] "(%1 vezes)"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:551
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "ti-ci"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:552
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "File: %1<br />Date de adjuntion: %2"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:554
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Date del ultim modification: %1"
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:556
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Autor del ultim modification: %1"
 
-#: src/tm/tmview.cpp:545
+#: src/tm/tmview.cpp:557
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />MT: %1"
 
-#: src/tm/tmview.cpp:547
+#: src/tm/tmview.cpp:559
 #, fuzzy, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "Un file con li sam nómine ja existe in li composition."
 
-#: src/tm/tmview.cpp:560 src/tm/tmview.cpp:567
+#: src/tm/tmview.cpp:572 src/tm/tmview.cpp:579
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4286,31 +4286,31 @@ msgstr ""
 "<html>Esque vu vole remover ti element:<br/><i>%1</i><br/>ex li memorie de "
 "traductiones %2?</html>"
 
-#: src/tm/tmview.cpp:561 src/tm/tmview.cpp:568
+#: src/tm/tmview.cpp:573 src/tm/tmview.cpp:580
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Re-usage de traductiones (MT)"
 
-#: src/tm/tmview.cpp:611
+#: src/tm/tmview.cpp:623
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Remover ti element"
 
-#: src/tm/tmview.cpp:613
+#: src/tm/tmview.cpp:625
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Aperter in un nov carte"
 
-#: src/tm/tmview.cpp:621
+#: src/tm/tmview.cpp:633
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Plenar mancant traductiones ex li MT"
 
-#: src/tm/tmview.cpp:635 src/tm/tmview.cpp:641
+#: src/tm/tmview.cpp:647 src/tm/tmview.cpp:653
 #, fuzzy, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4319,13 +4319,13 @@ msgstr ""
 "<html>Esque vu vole remover ti element:<br/><i>%1</i><br/>ex li memorie de "
 "traductiones %2?</html>"
 
-#: src/tm/tmview.cpp:636 src/tm/tmview.cpp:642
+#: src/tm/tmview.cpp:648 src/tm/tmview.cpp:654
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr ""
 
-#: src/tm/tmview.cpp:1038
+#: src/tm/tmview.cpp:1050
 #, fuzzy, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

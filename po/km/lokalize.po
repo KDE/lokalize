@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-25 01:43+0000\n"
+"POT-Creation-Date: 2024-07-04 01:44+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1063,7 +1063,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:175 src/lokalizemainwindow.cpp:443
+#: src/editortab.cpp:175 src/lokalizemainwindow.cpp:447
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1097,7 +1097,7 @@ msgid "Translation Memory"
 msgstr "សតិបកប្រែ​"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:181 src/lokalizemainwindow.cpp:445
+#: src/editortab.cpp:181 src/lokalizemainwindow.cpp:449
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -2189,75 +2189,75 @@ msgstr ""
 msgid "No errors"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:109
+#: src/lokalizemainwindow.cpp:113
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
+#: src/lokalizemainwindow.cpp:356 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
+#: src/lokalizemainwindow.cpp:356 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:491
+#: src/lokalizemainwindow.cpp:450 src/tm/tmtab.cpp:491
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "សតិបកប្រែ​"
 
-#: src/lokalizemainwindow.cpp:447 src/project/projecttab.cpp:188
+#: src/lokalizemainwindow.cpp:451 src/project/projecttab.cpp:188
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:474
+#: src/lokalizemainwindow.cpp:478
 #, kde-format
 msgid "Next tab"
 msgstr "ផ្ទាំង​បន្ទាប់"
 
-#: src/lokalizemainwindow.cpp:477
+#: src/lokalizemainwindow.cpp:481
 #, kde-format
 msgid "Previous tab"
 msgstr "ផ្ទាំង​មុន"
 
-#: src/lokalizemainwindow.cpp:480
+#: src/lokalizemainwindow.cpp:484
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previously active tab"
 msgstr "ផ្ទាំង​មុន"
 
-#: src/lokalizemainwindow.cpp:486
+#: src/lokalizemainwindow.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "សទ្ទានុក្រម​"
 
-#: src/lokalizemainwindow.cpp:490
+#: src/lokalizemainwindow.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "សតិ​​​បក​ប្រែ"
 
-#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:494
+#: src/lokalizemainwindow.cpp:498 src/tm/tmtab.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "គ្រប់គ្រងសតិបកប្រែ​"
 
-#: src/lokalizemainwindow.cpp:498
+#: src/lokalizemainwindow.cpp:502
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "ទិដ្ឋភាពទូទៅ​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:502
+#: src/lokalizemainwindow.cpp:506
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
@@ -2265,19 +2265,19 @@ msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "កំណត់​រចនាសម្ព័ន្ធ​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:505
+#: src/lokalizemainwindow.cpp:509
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "ជ្រើស​ទីតាំង​​នៃ​គម្រោង​បកប្រែ​ផ្នែកទន់​របស់​អ្នក​"
 
-#: src/lokalizemainwindow.cpp:508
+#: src/lokalizemainwindow.cpp:512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:511
+#: src/lokalizemainwindow.cpp:515
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2285,7 +2285,7 @@ msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "បើក​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:515
+#: src/lokalizemainwindow.cpp:519
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2293,31 +2293,31 @@ msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "បើក​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:518
+#: src/lokalizemainwindow.cpp:522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "បើក​គម្រោង​ថ្មី"
 
-#: src/lokalizemainwindow.cpp:526
+#: src/lokalizemainwindow.cpp:530
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:529
+#: src/lokalizemainwindow.cpp:533
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:533
+#: src/lokalizemainwindow.cpp:537
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "ការចាប់​យក​អត្ថបទ​ធាតុ​ក្រា​ហ្វិក​"
 
-#: src/lokalizemainwindow.cpp:710
+#: src/lokalizemainwindow.cpp:718
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -4424,7 +4424,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "សរុប​ ៖ %1​"
 
-#: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:585
+#: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:597
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4455,13 +4455,13 @@ msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "រកមិនឃើញ​​ការផ្តល់យោបល់​ជាមួយ​ផ្គូផ្គងទៀងទាត់ ។"
 
-#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
+#: src/tm/tmview.cpp:318 src/tm/tmview.cpp:337
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "ការបកប្រែចំនួន​ច្រើន​ត្រូវបាន​កំណត់ពេល​ ។"
 
-#: src/tm/tmview.cpp:456
+#: src/tm/tmview.cpp:468
 #, fuzzy, kde-format
 #| msgctxt "percentages in statusbar"
 #| msgid " (%1%)"
@@ -4469,20 +4469,20 @@ msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr " (%1%)"
 
-#: src/tm/tmview.cpp:458
+#: src/tm/tmview.cpp:470
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
 msgid_plural "(%1 times)"
 msgstr[0] ""
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:551
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "នេះ​"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:552
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "File: %1<br />Date: %2"
@@ -4490,31 +4490,31 @@ msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "ឯកសារ​ ៖​ %1<br />កាលបរិច្ឆេទ​ ៖​ %2​"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:554
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr ""
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:556
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr ""
 
-#: src/tm/tmview.cpp:545
+#: src/tm/tmview.cpp:557
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />TM ៖ %1"
 
-#: src/tm/tmview.cpp:547
+#: src/tm/tmview.cpp:559
 #, fuzzy, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />បច្ចុប្បន្ន​មិន​នៅ​ក្នុង​ឯកសារ​ទៀតទេ​"
 
-#: src/tm/tmview.cpp:560 src/tm/tmview.cpp:567
+#: src/tm/tmview.cpp:572 src/tm/tmview.cpp:579
 #, fuzzy, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4522,31 +4522,31 @@ msgid ""
 msgstr ""
 "<html>តើ​អ្នក​ប្រាកដ​ជាចង់​យកធាតុ​​នេះចេញ​ ៖ <br/><i>%1</i><br/>ពី​សតិបកប្រែ %2 ឬ ?</html>"
 
-#: src/tm/tmview.cpp:561 src/tm/tmview.cpp:568
+#: src/tm/tmview.cpp:573 src/tm/tmview.cpp:580
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "ការយកធាតុសតិ​បកប្រែចេញ​"
 
-#: src/tm/tmview.cpp:611
+#: src/tm/tmview.cpp:623
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "យកធាតុ​នេះ​ចេញ​"
 
-#: src/tm/tmview.cpp:613
+#: src/tm/tmview.cpp:625
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "ធាតុ​នេះ​មាន​ឯ​សារ​ដែល​​បើក​"
 
-#: src/tm/tmview.cpp:621
+#: src/tm/tmview.cpp:633
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:635 src/tm/tmview.cpp:641
+#: src/tm/tmview.cpp:647 src/tm/tmview.cpp:653
 #, fuzzy, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4554,13 +4554,13 @@ msgid ""
 msgstr ""
 "<html>តើ​អ្នក​ប្រាកដ​ជាចង់​យកធាតុ​​នេះចេញ​ ៖ <br/><i>%1</i><br/>ពី​សតិបកប្រែ %2 ឬ ?</html>"
 
-#: src/tm/tmview.cpp:636 src/tm/tmview.cpp:642
+#: src/tm/tmview.cpp:648 src/tm/tmview.cpp:654
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "ការយកធាតុសតិ​បកប្រែចេញ​"
 
-#: src/tm/tmview.cpp:1038
+#: src/tm/tmview.cpp:1050
 #, fuzzy, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
