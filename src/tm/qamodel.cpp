@@ -131,7 +131,7 @@ bool QaModel::loadRules(const QString& filename)
 {
     QFile file(filename);
     if (file.open(QIODevice::ReadOnly)) {
-        bool ok = m_doc.setContent(&file);
+        const auto ok = m_doc.setContent(&file);
         file.close();
         if (!ok)
             return false;
