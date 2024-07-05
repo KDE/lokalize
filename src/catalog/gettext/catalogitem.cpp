@@ -93,12 +93,14 @@ void CatalogItem::setMsgid(const QStringList& msg, bool prependEmptyLine)
         it->squeeze();
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void CatalogItem::setMsgid(const QVector<QString>& msg)
 {
     d._msgidPlural = msg;
     for (QVector<QString>::iterator it = d._msgidPlural.begin(); it != d._msgidPlural.end(); ++it)
         it->squeeze();
 }
+#endif
 
 void CatalogItem::setMsgstr(const QString& msg, const int form)
 {
@@ -119,10 +121,12 @@ void CatalogItem::setMsgstr(const QStringList& msg, bool prependEmptyLine)
     d._msgstrPlural = msg.toVector();
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void CatalogItem::setMsgstr(const QVector<QString>& msg)
 {
     d._msgstrPlural = msg;
 }
+#endif
 
 void CatalogItem::setComment(const QString& com)
 {

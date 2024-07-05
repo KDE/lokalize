@@ -97,11 +97,15 @@ public:
     void setMsgid(const QString& msg, const int form = 0);
     void setMsgid(const QStringList& msg);
     void setMsgid(const QStringList& msg, bool prependEmptyLine);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     void setMsgid(const QVector<QString>& msg);
+#endif
     void setMsgstr(const QString& msg, const int form = 0);
     void setMsgstr(const QStringList& msg);
     void setMsgstr(const QStringList& msg, bool prependEmptyLine);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     void setMsgstr(const QVector<QString>& msg);
+#endif
 
     void setValid(bool v)
     {
