@@ -50,7 +50,6 @@ It is targeted for software translation and also integrates external conversion 
 <keyword>XLIFF</keyword>
 <keyword>gettext</keyword>
 <keyword>OpenDocument</keyword>
-<keyword>KBabel</keyword>
 </keywordset>
 
 </bookinfo>
@@ -340,7 +339,7 @@ This allows it to completely replace the Search-in-Files feature which required 
     <term>Batch Translation:</term>
     <listitem>
       <para>
-	To insert the exactly matching suggestion automatically from the translation memory database, use <menuchoice><guimenu>Tools</guimenu><guimenuitem>Fill in all exact suggestions</guimenuitem></menuchoice> OR <guimenuitem>Fill in all exact suggestions and mark as fuzzy</guimenuitem>. This feature is similar rough translation feature in &kbabel;.
+	To insert the exactly matching suggestion automatically from the translation memory database, use <menuchoice><guimenu>Tools</guimenu><guimenuitem>Fill in all exact suggestions</guimenuitem></menuchoice> OR <guimenuitem>Fill in all exact suggestions and mark as fuzzy</guimenuitem>.
       </para>
     </listitem>
   </varlistentry>
@@ -534,7 +533,7 @@ Program Copyright &copy; 2007-2015, Nick Shaforostoff
 </para>
 
 <para>
-Some code was taken from &kbabel;, the &lokalize; predecessor.
+Some code was taken from KBabel, the &lokalize; predecessor.
 </para>
 
 <para>
