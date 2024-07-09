@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-04 01:44+0000\n"
+"POT-Creation-Date: 2024-07-09 01:43+0000\n"
 "PO-Revision-Date: 2010-12-31 00:39+0700\n"
 "Last-Translator: Phuwanat Sakornsakolpat <narachai@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -696,7 +696,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr ""
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:660
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:664
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4481,30 +4481,30 @@ msgstr ""
 msgid "Copy GUI element text to clipboard"
 msgstr ""
 
-#: src/xlifftextedit.cpp:989
+#: src/xlifftextedit.cpp:993
 #, fuzzy, kde-format
 #| msgid "If checked, get translation memory suggestions "
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "เป็นการเปิดใช้การแนะนำความจำการแปล "
 
-#: src/xlifftextedit.cpp:1011 src/xlifftextedit.cpp:1089
+#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "แทนที่ข้อความ"
 
-#: src/xlifftextedit.cpp:1126
+#: src/xlifftextedit.cpp:1130
 #, kde-format
 msgid "no spellcheck available"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1140
+#: src/xlifftextedit.cpp:1144
 #, kde-format
 msgid "An error was reported: %1"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1270
+#: src/xlifftextedit.cpp:1274
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

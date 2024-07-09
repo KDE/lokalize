@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-04 01:44+0000\n"
+"POT-Creation-Date: 2024-07-09 01:43+0000\n"
 "PO-Revision-Date: 2024-06-08 11:28+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -764,7 +764,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "إزالة النّصّ الذي بداخله رقْم"
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:660
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:664
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4581,29 +4581,29 @@ msgstr "ابحث عن نصّ عنصر الواجهة الرّسوميّة في �
 msgid "Copy GUI element text to clipboard"
 msgstr "انسخ نصّ عنصر الواجهة الرّسوميّة إلى الحافظة"
 
-#: src/xlifftextedit.cpp:989
+#: src/xlifftextedit.cpp:993
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "ابحث عن النصّ المحدّد في ذاكرة الترجمة"
 
-#: src/xlifftextedit.cpp:1011 src/xlifftextedit.cpp:1089
+#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "استبدل النصّ"
 
-#: src/xlifftextedit.cpp:1126
+#: src/xlifftextedit.cpp:1130
 #, kde-format
 msgid "no spellcheck available"
 msgstr "لا مدقّق إملائيّ متوفّر"
 
-#: src/xlifftextedit.cpp:1140
+#: src/xlifftextedit.cpp:1144
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "أُبلغ عن خطأ: %1"
 
-#: src/xlifftextedit.cpp:1270
+#: src/xlifftextedit.cpp:1274
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
