@@ -1709,7 +1709,6 @@ void UpdateJob::run()
 
 //BEGIN TMX
 
-#include <QXmlDefaultHandler>
 #include <QXmlStreamReader>
 
 /**

@@ -291,11 +291,7 @@ void TMView::slotBatchSelectDone()
     }
 
     KNotification *notification = new KNotification(QStringLiteral("BatchTranslationCompleted"));
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    notification->setWidget(this);
-#else
     notification->setWindow(window()->windowHandle());
-#endif
     notification->setText(msg);
     notification->sendEvent();
 }
@@ -310,11 +306,7 @@ void TMView::slotBatchTranslate()
         return slotBatchSelectDone();
 
     KNotification *notification = new KNotification(QStringLiteral("BatchTranslationScheduled"));
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    notification->setWidget(this);
-#else
     notification->setWindow(window()->windowHandle());
-#endif
     notification->setText(i18nc("@info", "Batch translation has been scheduled."));
     notification->sendEvent();
 }
@@ -329,11 +321,7 @@ void TMView::slotBatchTranslateFuzzy()
         slotBatchSelectDone();
 
     KNotification *notification = new KNotification(QStringLiteral("BatchTranslationScheduled"));
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    notification->setWidget(this);
-#else
     notification->setWindow(window()->windowHandle());
-#endif
     notification->setText(i18nc("@info", "Batch translation has been scheduled."));
     notification->sendEvent();
 }
@@ -566,19 +554,12 @@ bool TMView::event(QEvent *event)
 
 void TMView::removeEntry(const TMEntry& e)
 {
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     if (KMessageBox::PrimaryAction == KMessageBox::questionTwoActions(
                 this,
                 i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.target.string.toHtmlEscaped(), e.dbName),
                 i18nc("@title:window", "Translation Memory Entry Removal"),
                 KStandardGuiItem::remove(),
                 KStandardGuiItem::cancel())) {
-#else
-    if (KMessageBox::Yes == KMessageBox::questionYesNo(
-                this,
-                i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.target.string.toHtmlEscaped(), e.dbName),
-                i18nc("@title:window", "Translation Memory Entry Removal"))) {
-#endif
         RemoveJob* job = new RemoveJob(e);
         connect(job, SIGNAL(done()), this, SLOT(slotNewEntryDisplayed()));
         TM::threadPool()->start(job, REMOVE);
@@ -640,7 +621,6 @@ void TMView::contextMenu(const QPoint& pos)
         removeEntry(*e);
     } else if (r->data().toInt() == Open) {
         Q_EMIT fileOpenRequested(e->file, e->source.string, e->ctxt, true);
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     } else if ((r->data().toInt() == RemoveFile)
                && KMessageBox::PrimaryAction == KMessageBox::questionTwoActions(
                    this,
@@ -648,11 +628,6 @@ void TMView::contextMenu(const QPoint& pos)
                    i18nc("@title:window", "Translation Memory Missing File Removal"),
                    KStandardGuiItem::remove(),
                    KStandardGuiItem::cancel())) {
-#else
-    } else if ((r->data().toInt() == RemoveFile) &&
-               KMessageBox::Yes == KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from translation memory %2?</html>",  e->file, e->dbName),
-                       i18nc("@title:window", "Translation Memory Missing File Removal"))) {
-#endif
         deleteFile(*e, false);
     }
 }

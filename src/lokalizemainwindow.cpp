@@ -105,11 +105,7 @@ void LokalizeMainWindow::initLater()
 
     if (!Project::instance()->isTmSupported()) {
         KNotification* notification = new KNotification(QStringLiteral("NoSqlModulesAvailable"));
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        notification->setWidget(this);
-#else
         notification->setWindow(windowHandle());
-#endif
         notification->setText(i18nc("@info", "No Qt Sql modules were found. Translation memory will not work."));
         notification->sendEvent();
     }
@@ -710,11 +706,7 @@ void LokalizeMainWindow::projectLoaded()
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
         KNotification* notification = new KNotification(QStringLiteral("FilesOpenError"));
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        notification->setWidget(this);
-#else
         notification->setWindow(windowHandle());
-#endif
         notification->setText(i18nc("@info", "Error opening the following files:\n\n") + QStringLiteral("<filename>") + failedFiles.join(QLatin1String("</filename><br><filename>")) + QStringLiteral("</filename>"));
         notification->sendEvent();
     }

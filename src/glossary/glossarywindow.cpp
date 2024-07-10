@@ -486,7 +486,6 @@ bool GlossaryWindow::queryClose()
     if (glossary->isClean())
         return true;
 
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     switch (KMessageBox::warningTwoActionsCancel(
                 this,
                 i18nc("@info", "The glossary contains unsaved changes.\n"
@@ -502,20 +501,6 @@ bool GlossaryWindow::queryClose()
     default:
         return false;
     }
-#else
-    switch (KMessageBox::warningYesNoCancel(this,
-                                            i18nc("@info", "The glossary contains unsaved changes.\n\
-Do you want to save your changes or discard them?"), i18nc("@title:window", "Warning"),
-                                            KStandardGuiItem::save(), KStandardGuiItem::discard())) {
-    case KMessageBox::Yes:
-        return save();
-    case KMessageBox::No:
-        restore();
-        return true;
-    default:
-        return false;
-    }
-#endif
 }
 
 

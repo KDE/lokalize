@@ -40,11 +40,6 @@ ProjectModel::ProjectModel(QObject *parent)
     m_poModel.dirLister()->setNameFilter(QStringLiteral("*.po *.pot *.xlf *.xliff *.ts"));
     m_potModel.dirLister()->setNameFilter(QStringLiteral("*.pot"));
 
-#if KCOREADDONS_VERSION < QT_VERSION_CHECK(6, 0, 0) // keep error handling disabled until it is removed
-    m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
-    m_potModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
-#endif
-
     connect(&m_poModel, &KDirModel::dataChanged, this, &ProjectModel::po_dataChanged);
 
     connect(&m_poModel, &KDirModel::rowsInserted, this, &ProjectModel::po_rowsInserted);

@@ -169,7 +169,6 @@ bool SettingsController::ensureProjectIsLoaded()
     if (Project::instance()->isLoaded())
         return true;
 
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const int answer = KMessageBox::questionTwoActions(
                 m_mainWindowPtr,
                 i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
@@ -181,16 +180,6 @@ bool SettingsController::ensureProjectIsLoaded()
         return projectCreate();
     if (answer == KMessageBox::SecondaryAction)
         return !projectOpen().isEmpty();
-#else
-    int answer = KMessageBox::questionYesNoCancel(m_mainWindowPtr, i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
-                 QString(), KGuiItem(i18nc("@action", "New"), QIcon::fromTheme(QStringLiteral("document-new"))), KGuiItem(i18nc("@action", "Open"), QIcon::fromTheme(QStringLiteral("project-open")))
-                                                 );
-
-    if (answer == KMessageBox::Yes)
-        return projectCreate();
-    if (answer == KMessageBox::No)
-        return !projectOpen().isEmpty();
-#endif
     return false;
 }
 
@@ -263,11 +252,7 @@ void SettingsController::projectConfigure()
 
     ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setMode(KFile::File | KFile::LocalOnly);
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 108, 0)
     ui_prefs_projectmain.glossaryTbx->setNameFilters({QStringLiteral("*.tbx"), QStringLiteral("*.xml")});
-#else
-    ui_prefs_projectmain.glossaryTbx->setFilter(QStringLiteral("*.tbx\n*.xml"));
-#endif
     connect(ui_prefs_projectmain.poBaseDir, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_PoBaseDir, &RelPathSaver::setText);
     connect(ui_prefs_projectmain.glossaryTbx, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_GlossaryTbx, &RelPathSaver::setText);
     ui_prefs_projectmain.poBaseDir->setUrl(QUrl::fromLocalFile(p.poDir()));

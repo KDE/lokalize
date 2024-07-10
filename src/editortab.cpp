@@ -744,7 +744,6 @@ void EditorTab::updateCaptionPath()
 bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, QMdiSubWindow*> openedFiles, bool silent)
 {
     if (!m_catalog->isClean()) {
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         switch (KMessageBox::warningTwoActionsCancel(
                     SettingsController::instance()->mainWindowPtr(),
                     i18nc("@info", "The document contains unsaved changes.\n"
@@ -762,17 +761,6 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
             return false;
         default:;
         }
-#else
-        switch (KMessageBox::warningYesNoCancel(SettingsController::instance()->mainWindowPtr(),
-                                                i18nc("@info", "The document contains unsaved changes.\n"
-                                                        "Do you want to save your changes or discard them?"), i18nc("@title:window", "Warning"),
-                                                KStandardGuiItem::save(), KStandardGuiItem::discard())
-               ) {
-        case KMessageBox::Yes: if (!saveFile()) return false; break;
-        case KMessageBox::Cancel:               return false;
-        default:;
-        }
-#endif
     }
     if (suggestedDirPath.isEmpty())
         suggestedDirPath = m_catalog->url();
@@ -932,7 +920,6 @@ bool EditorTab::queryClose()
     if (clean)
         return true;
 
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     switch (KMessageBox::warningTwoActionsCancel(
                 this,
                 i18nc("@info", "The document contains unsaved changes.\n"
@@ -947,16 +934,6 @@ bool EditorTab::queryClose()
     default:
         return false;
     }
-#else
-    switch (KMessageBox::warningYesNoCancel(this,
-                                            i18nc("@info", "The document contains unsaved changes.\n"
-                                                    "Do you want to save your changes or discard them?"), i18nc("@title:window", "Warning"),
-                                            KStandardGuiItem::save(), KStandardGuiItem::discard())) {
-    case KMessageBox::Yes: return saveFile();
-    case KMessageBox::No:  return true;
-    default:               return false;
-    }
-#endif
 }
 
 
@@ -1376,7 +1353,6 @@ void EditorTab::pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 void EditorTab::clearTranslatedEntries()
 {
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     switch (KMessageBox::warningContinueCancel(
                 this,
                 i18nc("@info", "This will delete all the translations from the file.\n"
@@ -1384,13 +1360,6 @@ void EditorTab::clearTranslatedEntries()
                 i18nc("@title:window", "Warning"),
                 KStandardGuiItem::clear())) {
     case KMessageBox::PrimaryAction: {
-#else
-    switch (KMessageBox::warningYesNoCancel(this,
-                                            i18nc("@info", "This will delete all the translations from the file.\n"
-                                                    "Do you really want to clear all translated entries?"), i18nc("@title:window", "Warning"),
-                                            KStandardGuiItem::yes(), KStandardGuiItem::no())) {
-    case KMessageBox::Yes: {
-#endif
         DocPosition pos(0);
         do {
             removeTargetSubstring(m_catalog, pos);
@@ -1516,7 +1485,6 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
 
     QString dir = Project::instance()->local()->sourceDir();
     if (dir.isEmpty()) {
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         switch (KMessageBox::questionTwoActionsCancel(
                     SettingsController::instance()->mainWindowPtr(),
                     i18nc("@info", "Would you like to search for the source file locally or via lxr.kde.org?"),
@@ -1532,14 +1500,6 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
         case KMessageBox::SecondaryAction:
             openLxrSearch(srcFileRelPath);
             return;
-#else
-        switch (KMessageBox::questionYesNoCancel(SettingsController::instance()->mainWindowPtr(),
-                i18nc("@info", "Would you like to search for the source file locally or via lxr.kde.org?"), i18nc("@title:window", "Source file lookup"),
-                KGuiItem(i18n("Locally")), KGuiItem(QStringLiteral("lxr.kde.org"))
-                                                )) {
-        case KMessageBox::Yes: break;
-        case KMessageBox::No: openLxrSearch(srcFileRelPath);
-#endif
         case KMessageBox::Cancel:
         default:
             return;
@@ -1568,7 +1528,6 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
                 it++;
             }
             if (!found) {
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
                 switch (KMessageBox::warningTwoActionsCancel(
                             SettingsController::instance()->mainWindowPtr(),
                             i18nc("@info", "Could not find source file in the folder specified.\n"
@@ -1595,26 +1554,6 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
                 default:
                     break;
                 }
-#else
-                switch (KMessageBox::warningYesNoCancel(SettingsController::instance()->mainWindowPtr(),
-                                                        i18nc("@info", "Could not find source file in the folder specified.\n"
-                                                                "Do you want to change source files folder?"), i18nc("@title:window", "Source file lookup"),
-                                                        KStandardGuiItem::yes(), KStandardGuiItem::no(), KGuiItem(i18n("lxr.kde.org")))) {
-                case KMessageBox::Cancel:
-                    Project::instance()->local()->setSourceDir(QString());
-                    Project::instance()->resetSourceFilePaths();
-                    openLxrSearch(srcFileRelPath);
-                case KMessageBox::No:
-                    return;
-                default: {
-                    QString dir = QFileDialog::getExistingDirectory(nullptr, i18n("Select project's base folder for source file lookup"), Project::instance()->local()->sourceDir());
-                    if (dir.length()) {
-                        Project::instance()->local()->setSourceDir(dir);
-                        Project::instance()->resetSourceFilePaths();
-                    }
-                }
-                }
-#endif
             }
         };
         if (Project::instance()->isSourceFilePathsReady())

@@ -393,7 +393,6 @@ void ProjectTab::openFile()
                        QStringLiteral("document-open")
                    );
 
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         if (KMessageBox::PrimaryAction != KMessageBox::warningTwoActions(
                     this,
                     text,
@@ -402,14 +401,6 @@ void ProjectTab::openFile()
                     KStandardGuiItem::cancel())) {
             return;
         }
-#else
-        const int answer = KMessageBox::warningYesNo(
-                               this, text, caption, yes, KStandardGuiItem::cancel()
-                           );
-        if (answer != KMessageBox::Yes) {
-            return;
-        }
-#endif
     }
 
     while (--i >= 0) {

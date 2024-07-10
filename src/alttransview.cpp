@@ -148,7 +148,6 @@ void AltTransView::process()
         setWindowTitle(m_hasInfoTitle);
     }
     if (!isVisible() && !Settings::altTransViewEverShownWithData()) {
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         if (KMessageBox::PrimaryAction == KMessageBox::questionTwoActions(
                     this,
                     i18n("There is useful data available in Alternate Translations view.\n\n"
@@ -158,12 +157,6 @@ void AltTransView::process()
                     i18nc("@title", "Alternative Translations Available"),
                     KGuiItem(i18nc("@action", "Show Data View")),
                     KStandardGuiItem::cancel())) {
-#else
-        if (KMessageBox::questionYesNo(this, i18n("There is useful data available in Alternate Translations view.\n\n"
-                                       "For Gettext PO files it displays difference between current source text "
-                                       "and the source text corresponding to the fuzzy translation found by msgmerge when updating PO based on POT template.\n\n"
-                                       "Do you want to show the view with the data?"), m_normTitle) == KMessageBox::Yes) {
-#endif
             show();
         }
 

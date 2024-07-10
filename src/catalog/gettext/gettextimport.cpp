@@ -21,7 +21,6 @@
 #include <QTime>
 #include <QFileInfo>
 #include <QRegularExpression>
-#include <QTextCodec>
 #include <QList>
 #include <QTextStream>
 #include <QEventLoop>
@@ -41,10 +40,6 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
     QTextStream stream(device);
     stream.seek(0);
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QTextCodec* codec = QTextCodec::codecForName(codecName);
-    stream.setCodec(codec);
-#else
     const auto encoding = QStringConverter::encodingForName(codecName.constData());
     QString decodedData;
     if (encoding) {
@@ -56,7 +51,6 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
         decodedData = decoder.decode(device->readAll());
         stream.setString(&decodedData, QIODevice::ReadOnly);
     }
-#endif
 
     //QIODevice *dev = stream.device();
     //int fileSize = dev->size();
@@ -210,35 +204,20 @@ QByteArray GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCod
     QTextStream stream(device);
     stream.seek(0);
     _errorLine = 0;
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    stream.setCodec("UTF-8");
-#else
     stream.setEncoding(QStringConverter::Utf8);
-#endif
-    stream.setAutoDetectUnicode(true); //this way we can
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QTextCodec* codec = stream.codec(); //detect UTF-16
-#endif
+    stream.setAutoDetectUnicode(true); //this way we can detect UTF-16
 
     ConversionStatus status = readEntry(stream);
     if (Q_UNLIKELY(status != OK && status != RECOVERED_PARSE_ERROR)) {
         qCDebug(LOKALIZE_LOG) << "wasn't able to read header";
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        return codec->name();
-#else
         return QStringConverter::nameForEncoding(stream.encoding());
-#endif
     }
 
     const QRegularExpression regexp(QStringLiteral("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n"));
     const auto match = regexp.match(_msgstr.first());
     if (!match.hasMatch()) {
         qCDebug(LOKALIZE_LOG) << "no charset entry found";
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        return codec->name();
-#else
         return QStringConverter::nameForEncoding(stream.encoding());
-#endif
     }
 
     const QString charset = match.captured(1);
@@ -246,11 +225,7 @@ QByteArray GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCod
 
     if (charset.isEmpty()) {
         qCWarning(LOKALIZE_LOG) << "No charset defined! Assuming UTF-8!";
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        return codec->name();
-#else
         return QStringConverter::nameForEncoding(stream.encoding());
-#endif
     }
 
     // "CHARSET" is the default charset entry in a template (pot).
@@ -261,24 +236,12 @@ QByteArray GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCod
         return "utf-8";
     }
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QTextCodec* t = nullptr;
-    t = QTextCodec::codecForName(charset.toLatin1());
-
-    if (t)
-        return t->name();
-    else
-        qCWarning(LOKALIZE_LOG) << "charset found, but no codec available, using UTF-8 instead";
-
-    return codec->name();//UTF-8
-#else
     if (QStringDecoder t(charset.toLatin1().constData()); t.isValid())
         return t.name();
     else
         qCWarning(LOKALIZE_LOG) << "charset found, but no codec available, using UTF-8 instead";
 
     return QStringConverter::nameForEncoding(stream.encoding());
-#endif
 }
 
 ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)

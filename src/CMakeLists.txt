@@ -177,16 +177,19 @@ qt_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.ProjectOverview.xm
 ### Build intermediate library (will be used by unit tests) ###
 add_library(liblokalize STATIC ${liblokalize_SRCS})
 target_link_libraries(liblokalize
-    KF5::I18n
-    KF5::TextWidgets
-    KF5::KIOFileWidgets
-    KF5::ItemViews
-    KF5::Notifications
-    KF5::SonnetCore
-    KF5::SonnetUi
-    KF5::DBusAddons
-    KF5::Crash
+    KF6::I18n
+    KF6::TextWidgets
+    KF6::KIOFileWidgets
+    KF6::ItemViews
+    KF6::Notifications
+    KF6::SonnetCore
+    KF6::SonnetUi
+    KF6::DBusAddons
+    KF6::Crash
+    KF6::XmlGui
+    KF6::ConfigWidgets
     Qt::Sql
+    Qt::Core5Compat
 )
 if(HUNSPELL_FOUND)
     target_link_libraries(liblokalize ${HUNSPELL_LIBRARIES})

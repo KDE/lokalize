@@ -17,7 +17,6 @@
 #include "catalogitem.h"
 
 #include <QFile>
-#include <QTextCodec>
 #include <QList>
 #include <QTextStream>
 #include <QEventLoop>
@@ -79,11 +78,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         const GettextStorage* catalog)
 {
     QTextStream stream(device);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    stream.setCodec(QTextCodec::codecForName("UTF-8"));
-#else
     stream.setEncoding(QStringConverter::Utf8);
-#endif
 
     // only save header if it is not empty
     const QString& headerComment(catalog->m_header.comment());
@@ -306,15 +301,9 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
     if (list.isEmpty())
         list.append(QString());
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    const QRegExp breakStopRe = containsHtml
-                              ? QRegExp(QStringLiteral("[ >%]"), Qt::CaseSensitive, QRegExp::Wildcard)
-                              : QRegExp(QStringLiteral("[ &%]"), Qt::CaseSensitive, QRegExp::Wildcard);
-#else
     const QRegularExpression breakStopRe = containsHtml
                               ? QRegularExpression(QRegularExpression::wildcardToRegularExpression(QStringLiteral("[ >%]")))
                               : QRegularExpression(QRegularExpression::wildcardToRegularExpression(QStringLiteral("[ &%]")));
-#endif
 
     int max = m_wrapWidth - 2;
     bool prependedEmptyLine = false;
@@ -325,11 +314,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
         }
 
         if (itm->length() > max) {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-            int pos = breakStopRe.lastIndexIn(*itm, max - 1);
-#else
             auto pos = itm->lastIndexOf(breakStopRe, max - 1);
-#endif
             if (pos > (max / 2)) {
                 int pos2 = itm->indexOf(QLatin1Char('<'), pos);
                 if (pos2 > 0 && pos2 < max - 1) {

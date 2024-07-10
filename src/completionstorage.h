@@ -11,9 +11,6 @@
 #ifndef COMPLETIONSTORAGE_H
 #define COMPLETIONSTORAGE_H
 #include <QMap>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <QRegExp>
-#endif
 #include <QRegularExpression>
 #include "catalog.h"
 
@@ -32,11 +29,7 @@ public:
     QStringList makeCompletion(const QString&) const;
 
 public:
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QRegExp rxSplit{QStringLiteral("\\W+|\\d+")};
-#else
     QRegularExpression rxSplit{QStringLiteral("\\W+|\\d+")};
-#endif
 private:
     QMap<QString, int> m_words; //how many occurencies a word has
     //QSet save which files we scanned?

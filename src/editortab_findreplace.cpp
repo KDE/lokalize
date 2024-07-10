@@ -528,7 +528,6 @@ void EditorTab::spellcheckNext()
         if (!switchNext(m_catalog, _spellcheckPos)) {
             qCDebug(LOKALIZE_LOG) << _spellcheckStartPos.entry;
             qCDebug(LOKALIZE_LOG) << _spellcheckStartPos.form;
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             bool continueFromStart =
                     !(_spellcheckStartPos.entry == 0 && _spellcheckStartPos.form == 0)
                     && KMessageBox::PrimaryAction == KMessageBox::questionTwoActions(
@@ -537,12 +536,6 @@ void EditorTab::spellcheckNext()
                         i18nc("@title", "Spellcheck"),
                         KStandardGuiItem::cont(),
                         KStandardGuiItem::cancel());
-#else
-            bool continueFromStart =
-                !(_spellcheckStartPos.entry == 0 && _spellcheckStartPos.form == 0)
-                && KMessageBox::questionYesNo(this, i18n("Lokalize has reached end of document. Do you want to continue from start?"),
-                                              i18nc("@title", "Spellcheck")) == KMessageBox::Yes;
-#endif
             if (continueFromStart) {
                 _spellcheckStartPos.entry = 0;
                 _spellcheckStartPos.form = 0;
