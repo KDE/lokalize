@@ -208,13 +208,19 @@ void SearchJob::run()
             for (pos.form = 0; pos.form < lim; pos.form++) {
                 QRegularExpressionMatch sourceMatch;
                 QRegularExpressionMatch targetMatch;
-                if (!searchParams.sourcePattern.isEmpty())
+                bool hasSourceMatch = true;
+                bool hasTargetMatch = true;
+                if (!searchParams.sourcePattern.isEmpty()) {
                     sourceMatch = sourceRegEx.match(removeAmpFromSource ? catalog.source(pos).remove(QLatin1Char('&')) : catalog.source(pos));
-                if (!searchParams.targetPattern.isEmpty())
+                    hasSourceMatch = sourceMatch.hasMatch() != searchParams.invertSource;
+                }
+                if (!searchParams.targetPattern.isEmpty()) {
                     targetMatch = targetRegEx.match(removeAmpFromTarget ? catalog.target(pos).remove(QLatin1Char('&')) : catalog.target(pos));
+                    hasTargetMatch = targetMatch.hasMatch() != searchParams.invertTarget;
+                }
                 //int np=searchParams.notesPattern.indexIn(catalog.notes(pos));
 
-                if (sourceMatch.hasMatch() != searchParams.invertSource && targetMatch.hasMatch() != searchParams.invertTarget) {
+                if (hasSourceMatch && hasTargetMatch) {
                     //TODO handle multiple results in same column
                     //FileSearchResult r;
                     SearchResult r;
