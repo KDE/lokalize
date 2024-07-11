@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-04 01:44+0000\n"
+"POT-Creation-Date: 2024-07-09 01:43+0000\n"
 "PO-Revision-Date: 2024-03-23 12:53+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -771,7 +771,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Fjern tekst med oppmerking"
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:660
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:664
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4620,29 +4620,29 @@ msgstr "Søk etter elementteksten i omsetjingsminnet"
 msgid "Copy GUI element text to clipboard"
 msgstr "Kopier elementteksten til utklippstavla"
 
-#: src/xlifftextedit.cpp:989
+#: src/xlifftextedit.cpp:993
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Søk etter den valde teksten i omsetjingsminnet"
 
-#: src/xlifftextedit.cpp:1011 src/xlifftextedit.cpp:1089
+#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Byt ut tekst"
 
-#: src/xlifftextedit.cpp:1126
+#: src/xlifftextedit.cpp:1130
 #, kde-format
 msgid "no spellcheck available"
 msgstr "ingen stavekontroll tilgjengeleg"
 
-#: src/xlifftextedit.cpp:1140
+#: src/xlifftextedit.cpp:1144
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Feil meld: %1"
 
-#: src/xlifftextedit.cpp:1270
+#: src/xlifftextedit.cpp:1274
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
