@@ -420,9 +420,11 @@ void EditorTab::setupActions()
 
 
 
-    action = actionCategory->addAction(QStringLiteral("edit_approve"),
-                                       new KToolBarPopupAction(QIcon::fromTheme(QStringLiteral("approved")),
-                                               i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)", "Approved"), this));
+    m_approveAction = new KToolBarPopupAction(QIcon::fromTheme(QStringLiteral("approved")),
+                                               i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)", "Approved"), this);
+    m_stateAction = m_approveAction;
+
+    action = actionCategory->addAction(QStringLiteral("edit_approve"), m_approveAction);
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_U));
 
     action->setCheckable(true);
@@ -431,12 +433,10 @@ void EditorTab::setupActions()
     connect(this, &EditorTab::signalApprovedEntryDisplayed, action, &QAction::setChecked);
     connect(this, &EditorTab::signalApprovedEntryDisplayed, this, &EditorTab::msgStrChanged, Qt::QueuedConnection);
 
-    m_approveAction = action;
-    m_stateAction = action;
     connect(Project::local(), &ProjectLocal::configChanged, this, &EditorTab::setApproveActionTitle);
     connect(m_catalog, &Catalog::activePhaseChanged, this, &EditorTab::setApproveActionTitle);
-    connect(m_stateAction->menu(), &QMenu::aboutToShow, this, &EditorTab::showStatesMenu);
-    connect(m_stateAction->menu(), &QMenu::triggered, this, &EditorTab::setState);
+    connect(m_stateAction->popupMenu(), &QMenu::aboutToShow, this, &EditorTab::showStatesMenu);
+    connect(m_stateAction->popupMenu(), &QMenu::triggered, this, &EditorTab::setState);
 
 
     action = actionCategory->addAction(QStringLiteral("edit_approve_go_fuzzyUntr"));
@@ -1234,14 +1234,14 @@ void EditorTab::setApproveActionTitle()
 
 void EditorTab::showStatesMenu()
 {
-    m_stateAction->menu()->clear();
+    m_stateAction->popupMenu()->clear();
     if (!(m_catalog->capabilities()&ExtendedStates)) {
-        QAction* a = m_stateAction->menu()->addAction(i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review"));
+        QAction* a = m_stateAction->popupMenu()->addAction(i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review"));
         a->setData(QVariant(-1));
         a->setCheckable(true);
         a->setChecked(!m_catalog->isApproved(m_currentPos));
 
-        a = m_stateAction->menu()->addAction(i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready"));
+        a = m_stateAction->popupMenu()->addAction(i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready"));
         a->setData(QVariant(-2));
         a->setCheckable(true);
         a->setChecked(m_catalog->isApproved(m_currentPos));
@@ -1253,13 +1253,13 @@ void EditorTab::showStatesMenu()
 
     const QStringList states = Catalog::translatedStates();
     for (int i = 0; i < StateCount; ++i) {
-        QAction* a = m_stateAction->menu()->addAction(states[i]);
+        QAction* a = m_stateAction->popupMenu()->addAction(states[i]);
         a->setData(QVariant(i));
         a->setCheckable(true);
         a->setChecked(state == i);
 
         if (i == New || i == Translated || i == Final)
-            m_stateAction->menu()->addSeparator();
+            m_stateAction->popupMenu()->addSeparator();
     }
 }
 
@@ -1270,7 +1270,7 @@ void EditorTab::setState(QAction* a)
     else
         m_view->setState(TargetState(a->data().toInt()));
 
-    m_stateAction->menu()->clear();
+    m_stateAction->popupMenu()->clear();
 }
 
 void EditorTab::openPhasesWindow()

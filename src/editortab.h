@@ -36,6 +36,7 @@ class BackgroundChecker;
 class KFind;
 class KReplace;
 class KActionCategory;
+class KToolBarPopupAction;
 
 class Project;
 class Catalog;
@@ -302,8 +303,8 @@ private:
 
     EditorView* m_view{};
     QAction* m_approveAndGoAction{};
-    QAction* m_approveAction{};
-    QAction* m_stateAction{};
+    KToolBarPopupAction* m_approveAction{};
+    KToolBarPopupAction* m_stateAction{};
 
     KProcess* m_pologyProcess{};
     bool m_pologyProcessInProgress{};
