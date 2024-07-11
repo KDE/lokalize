@@ -68,7 +68,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
 
     QSqlQuery queryCache(db);
     queryCache.prepare(QStringLiteral("SELECT * from metadata where filepath=?"));
-    queryCache.bindValue(0, (quint64)qHash(file.localPath()));
+    queryCache.bindValue(0, (quint32)qHash(file.localPath()));
     queryCache.exec();
     //not using file.time(KFileItem::ModificationTime) because it gives wrong result for files that have just been saved in editor
     if (queryCache.next() && QFileInfo(file.localPath()).lastModified() == queryCache.value(2).toDateTime()) {
@@ -91,7 +91,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
 
     query.prepare(QStringLiteral("INSERT INTO metadata (filepath, metadata, changedate) "
                                  "VALUES (?, ?, ?)"));
-    query.bindValue(0, (quint64)qHash(file.localPath()));
+    query.bindValue(0, (quint32)qHash(file.localPath()));
     query.bindValue(1, result);
     query.bindValue(2, QFileInfo(file.localPath()).lastModified());
     if (Q_UNLIKELY(!query.exec()))
