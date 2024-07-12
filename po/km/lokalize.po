@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-09 01:43+0000\n"
+"POT-Creation-Date: 2024-07-12 00:41+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -123,7 +123,7 @@ msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "ការ​បក​ប្រែ​ជម្រើស​"
 
-#: src/alttransview.cpp:154 src/alttransview.cpp:162
+#: src/alttransview.cpp:153
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -135,19 +135,19 @@ msgid ""
 "Do you want to show the view with the data?"
 msgstr ""
 
-#: src/alttransview.cpp:158
+#: src/alttransview.cpp:157
 #, fuzzy, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "ការបកប្រែ​ដទៃទៀត​​"
 
-#: src/alttransview.cpp:159
+#: src/alttransview.cpp:158
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr ""
 
-#: src/alttransview.cpp:254
+#: src/alttransview.cpp:247
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -170,13 +170,13 @@ msgstr ""
 "p><p>ចុចទ្វេដង​ពាក្យមួយចំនួន​ក្នុង​​ទិដ្ឋភាព​ឧបករណ៍​ត្រូវបញ្ចូល​វាក្នុង​ការបកប្រែ ។</p><p>ដាក់ឯកសារបកប្រែ​"
 "កក្នុង​ទិដ្ឋភាពឧបករណ៍​ត្រូវប្រើ​វា​ជា​ប្រភព​សម្រាប់​ការបក​ប្រែ​ជម្រើស​ ។ </p>"
 
-#: src/alttransview.cpp:275
+#: src/alttransview.cpp:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "ដើម ៖ %1​"
 
-#: src/alttransview.cpp:298
+#: src/alttransview.cpp:291
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -750,7 +750,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "យក​អត្ថបទ​​ជាមួយ markup ចេញ​"
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:664
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:660
 #, fuzzy, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -988,21 +988,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "ភាសាគោលដៅ​"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1064
-#: src/editortab.cpp:1267 src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1041
+#: src/editortab.cpp:1244 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "រួចហើយ​"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1065
-#: src/editortab.cpp:1262 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1042
+#: src/editortab.cpp:1239 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "តម្រូវ​​ឲ្យ​ពិនិត្យ​ឡើងវិញ​"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1063
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1040
 #: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
@@ -1035,8 +1035,8 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "បច្ចុប្បន្ន​ ៖​ %1"
 
-#: src/editortab.cpp:128 src/editortab.cpp:821
-#: src/filesearch/filesearchtab.cpp:776 src/project/projecttab.cpp:510
+#: src/editortab.cpp:128 src/editortab.cpp:809
+#: src/filesearch/filesearchtab.cpp:776 src/project/projecttab.cpp:501
 #: src/tm/tmtab.cpp:593
 #, kde-format
 msgctxt "@info:status message entries"
@@ -1063,7 +1063,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:175 src/lokalizemainwindow.cpp:447
+#: src/editortab.cpp:175 src/lokalizemainwindow.cpp:443
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1097,7 +1097,7 @@ msgid "Translation Memory"
 msgstr "សតិបកប្រែ​"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:181 src/lokalizemainwindow.cpp:449
+#: src/editortab.cpp:181 src/lokalizemainwindow.cpp:445
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1462,8 +1462,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(បានយក​បាន​វិញ​​)"
 
-#: src/editortab.cpp:750 src/editortab.cpp:767 src/editortab.cpp:938
-#: src/editortab.cpp:952
+#: src/editortab.cpp:749 src/editortab.cpp:925
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -1473,15 +1472,14 @@ msgstr ""
 "មាន​ឯកសារ​ផ្លាស់ប្តូរ​ដែលមិនបាន​រក្សាទុក​ ។​\n"
 "​តើអ្នកចង់​រក្សាទុក​ការផ្លាស់ប្តូរ​របស់​អ្នក​ ឬបោះ​វាចោល​ ?"
 
-#: src/editortab.cpp:752 src/editortab.cpp:768 src/editortab.cpp:940
-#: src/editortab.cpp:953 src/editortab.cpp:1384 src/editortab.cpp:1390
-#: src/glossary/glossarywindow.cpp:494 src/glossary/glossarywindow.cpp:508
+#: src/editortab.cpp:751 src/editortab.cpp:927 src/editortab.cpp:1360
+#: src/glossary/glossarywindow.cpp:493
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "ការ​ព្រមាន"
 
-#: src/editortab.cpp:785 src/mergemode/mergeview.cpp:188
+#: src/editortab.cpp:773 src/mergemode/mergeview.cpp:188
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Next translation only"
@@ -1489,25 +1487,25 @@ msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "ការ​បក​ប្រែបន្ទាប់​តែប៉ុណ្ណោះ​"
 
-#: src/editortab.cpp:870
+#: src/editortab.cpp:858
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "កំហុស​​ការបើកឯកសារ​​ <filename>%1</filename> បន្ទាត់​​ ៖​ %2"
 
-#: src/editortab.cpp:871
+#: src/editortab.cpp:859
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "កំហុស​ការបើក​ឯកសារ​ជាបន្តបន្ទាប់​​​ ៖"
 
-#: src/editortab.cpp:878
+#: src/editortab.cpp:866
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr ""
 
-#: src/editortab.cpp:903
+#: src/editortab.cpp:891
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -1517,13 +1515,13 @@ msgstr ""
 "កំហុស​ការរក្សាទុកឯកសារ​​ <filename>%1</filename>\n"
 "តើ​អ្នកចង់រក្សាទុកឯកសារ​ផ្សេងទៀត ឬ​បោះបង់​​ ?"
 
-#: src/editortab.cpp:905
+#: src/editortab.cpp:893
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "កំហុស​"
 
-#: src/editortab.cpp:913
+#: src/editortab.cpp:901
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -1533,97 +1531,97 @@ msgstr ""
 "មិន​អាចប្រតិបត្តិ​ឯកសាររក្សាទុកស្វ័យប្រវត្តិ ។​\n"
 "ឯកសារគោលដៅគឺ<filename>%1</filename> ។"
 
-#: src/editortab.cpp:979
+#: src/editortab.cpp:956
 #, fuzzy, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "លោត​ទៅ​​ធាតុ​"
 
-#: src/editortab.cpp:980
+#: src/editortab.cpp:957
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "បញ្ចូលលេខធាតុ​ ៖​"
 
-#: src/editortab.cpp:1051
+#: src/editortab.cpp:1028
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "បច្ចុប្បន្ន ៖​ %1"
 
-#: src/editortab.cpp:1240
+#: src/editortab.cpp:1217
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "បាន​បកប្រែ​"
 
-#: src/editortab.cpp:1241
+#: src/editortab.cpp:1218
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "បាន​ចេញ​​"
 
-#: src/editortab.cpp:1242
+#: src/editortab.cpp:1219
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "បាន​អនុម័ត​"
 
-#: src/editortab.cpp:1245
+#: src/editortab.cpp:1222
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "ការបកប្រែត្រូវបាន​ធ្វើ​រួចហើយ​​ (ថ្វីបើ​វានៅតែ​អាចតម្រូវឲ្យ​ពិនិត្យ​ឡើងវិញ​​​​​)"
 
-#: src/editortab.cpp:1246
+#: src/editortab.cpp:1223
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "ពិនិត្យ​ឡើងវិញ​វិជ្ជមាន​ការបកប្រែ​ដែលបាន​ទទួល​"
 
-#: src/editortab.cpp:1247
+#: src/editortab.cpp:1224
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "ធាតុ​ដែលបានធ្វើ​មូលដ្ឋាននីយកម្ម​ពេញលេញ​ (ឧ.ទា.ចុងក្រោយ​​​)"
 
-#: src/editortab.cpp:1359 src/project/projecttab.cpp:358
+#: src/editortab.cpp:1336 src/project/projecttab.cpp:358
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
-#: src/editortab.cpp:1359 src/editortab.cpp:1367 src/editortab.cpp:1371
+#: src/editortab.cpp:1336 src/editortab.cpp:1344 src/editortab.cpp:1348
 #: src/project/projecttab.cpp:358 src/project/projecttab.cpp:366
 #: src/project/projecttab.cpp:370
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1367 src/project/projecttab.cpp:366
+#: src/editortab.cpp:1344 src/project/projecttab.cpp:366
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1369 src/project/projecttab.cpp:368
+#: src/editortab.cpp:1346 src/project/projecttab.cpp:368
 #, kde-format
 msgid "Pology success"
 msgstr ""
 
-#: src/editortab.cpp:1369
+#: src/editortab.cpp:1346
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1371 src/project/projecttab.cpp:370
+#: src/editortab.cpp:1348 src/project/projecttab.cpp:370
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1382 src/editortab.cpp:1389
+#: src/editortab.cpp:1358
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1631,26 +1629,26 @@ msgid ""
 "Do you really want to clear all translated entries?"
 msgstr ""
 
-#: src/editortab.cpp:1427
+#: src/editortab.cpp:1396
 #, fuzzy, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "ពាក្យ​អត្ថបទ​ប្រភព​ ៖ %1<br/>ពាក្យអត្ថបទ​គោលដៅ​ ៖​ %2"
 
-#: src/editortab.cpp:1428
+#: src/editortab.cpp:1397
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "ចំនួនពាក្យ​"
 
-#: src/editortab.cpp:1522 src/editortab.cpp:1537
+#: src/editortab.cpp:1490
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr ""
 
-#: src/editortab.cpp:1523
+#: src/editortab.cpp:1491
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Use source file"
@@ -1658,7 +1656,7 @@ msgctxt "@title"
 msgid "Source file lookup"
 msgstr "ប្រើ​ឯកសារប្រភព​"
 
-#: src/editortab.cpp:1524
+#: src/editortab.cpp:1492
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "Lokalize"
@@ -1666,33 +1664,18 @@ msgctxt "@action"
 msgid "Search Locally"
 msgstr "​Lokalize"
 
-#: src/editortab.cpp:1525 src/editortab.cpp:1578
+#: src/editortab.cpp:1493 src/editortab.cpp:1537
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr ""
 
-#: src/editortab.cpp:1528 src/editortab.cpp:1581 src/editortab.cpp:1610
+#: src/editortab.cpp:1496 src/editortab.cpp:1540
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr ""
 
-#: src/editortab.cpp:1537 src/editortab.cpp:1576 src/editortab.cpp:1601
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Use source file"
-msgctxt "@title:window"
-msgid "Source file lookup"
-msgstr "ប្រើ​ឯកសារប្រភព​"
-
-#: src/editortab.cpp:1538
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Lokalize"
-msgid "Locally"
-msgstr "​Lokalize"
-
-#: src/editortab.cpp:1574 src/editortab.cpp:1600
+#: src/editortab.cpp:1533
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1700,19 +1683,22 @@ msgid ""
 "Do you want to change source files folder?"
 msgstr ""
 
-#: src/editortab.cpp:1577
+#: src/editortab.cpp:1535
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Use source file"
+msgctxt "@title:window"
+msgid "Source file lookup"
+msgstr "ប្រើ​ឯកសារប្រភព​"
+
+#: src/editortab.cpp:1536
 #, fuzzy, kde-format
 #| msgid "Select a folder:"
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "ជ្រើស​ថត​ ៖"
 
-#: src/editortab.cpp:1602
-#, kde-format
-msgid "lxr.kde.org"
-msgstr ""
-
-#: src/editortab.cpp:1637
+#: src/editortab.cpp:1576
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -1724,33 +1710,33 @@ msgstr ""
 "មិន​អាច​បើក​ឯកសារ​ប្រភព​បាន​ឡើយ​ ៖ គ្មានស្គ្រីបត្រូវធ្វើដែល​​​ត្រូវបាន​ផ្ទុកបច្ចុប្បន្ន​ ។​ យោងតាមសៀវភៅដៃ​"
 "របស់​​ Lokalize សម្រាប់​ឧទាហរណ៍ស្គ្រីប​ និង​របៀប​ដាក់​វា​ក្នុ​ងគម្រោង​របស់អ្នក​ ។​"
 
-#: src/editortab.cpp:1651 src/project/project.cpp:467
+#: src/editortab.cpp:1590 src/project/project.cpp:467
 #: src/project/project.cpp:472
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr ""
 
-#: src/editortab.cpp:1657
+#: src/editortab.cpp:1596
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr ""
 
-#: src/editortab.cpp:1666
+#: src/editortab.cpp:1605
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1668 src/project/project.cpp:477
+#: src/editortab.cpp:1607 src/project/project.cpp:477
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr ""
 
-#: src/editortab.cpp:1713
+#: src/editortab.cpp:1652
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr ""
 
-#: src/editortab.cpp:1837
+#: src/editortab.cpp:1776
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -1762,20 +1748,19 @@ msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "ជំនួស​"
 
-#: src/editortab_findreplace.cpp:536 src/editortab_findreplace.cpp:543
+#: src/editortab_findreplace.cpp:535
 #, fuzzy, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr "Lokalize បានទៅដល់​ចុង​របស់​ឯកសារ​ ។​ តើអ្នក​ចង់បន្ត​​ពី​ចាប់ផ្តើម​ ​?"
 
-#: src/editortab_findreplace.cpp:537 src/editortab_findreplace.cpp:544
-#: src/editortab_findreplace.cpp:551
+#: src/editortab_findreplace.cpp:536 src/editortab_findreplace.cpp:544
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "ពិនិត្យ​អក្ខរាវិរុទ្ធ​"
 
-#: src/editortab_findreplace.cpp:551
+#: src/editortab_findreplace.cpp:544
 #, fuzzy, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize បាន​បញ្ចប់​ការពិនិត្យអក្ខរាវិរុទ្ធ​"
@@ -2080,7 +2065,7 @@ msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "ផ្ទុក​សទ្ទានុក្រុម​ឡើងវិញ​ពីថាស​ បោះចោល​ការផ្លាស់ប្តូរមួយចំនួន​​"
 
-#: src/glossary/glossarywindow.cpp:492 src/glossary/glossarywindow.cpp:507
+#: src/glossary/glossarywindow.cpp:491
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -2189,75 +2174,75 @@ msgstr ""
 msgid "No errors"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:113
+#: src/lokalizemainwindow.cpp:109
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:356 src/project/project.cpp:292
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:356 src/project/project.cpp:292
+#: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:450 src/tm/tmtab.cpp:491
+#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:491
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "សតិបកប្រែ​"
 
-#: src/lokalizemainwindow.cpp:451 src/project/projecttab.cpp:188
+#: src/lokalizemainwindow.cpp:447 src/project/projecttab.cpp:188
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:478
+#: src/lokalizemainwindow.cpp:474
 #, kde-format
 msgid "Next tab"
 msgstr "ផ្ទាំង​បន្ទាប់"
 
-#: src/lokalizemainwindow.cpp:481
+#: src/lokalizemainwindow.cpp:477
 #, kde-format
 msgid "Previous tab"
 msgstr "ផ្ទាំង​មុន"
 
-#: src/lokalizemainwindow.cpp:484
+#: src/lokalizemainwindow.cpp:480
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previously active tab"
 msgstr "ផ្ទាំង​មុន"
 
-#: src/lokalizemainwindow.cpp:490
+#: src/lokalizemainwindow.cpp:486
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "សទ្ទានុក្រម​"
 
-#: src/lokalizemainwindow.cpp:494
+#: src/lokalizemainwindow.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "សតិ​​​បក​ប្រែ"
 
-#: src/lokalizemainwindow.cpp:498 src/tm/tmtab.cpp:494
+#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "គ្រប់គ្រងសតិបកប្រែ​"
 
-#: src/lokalizemainwindow.cpp:502
+#: src/lokalizemainwindow.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "ទិដ្ឋភាពទូទៅ​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:506
+#: src/lokalizemainwindow.cpp:502
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
@@ -2265,19 +2250,19 @@ msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "កំណត់​រចនាសម្ព័ន្ធ​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:509
+#: src/lokalizemainwindow.cpp:505
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "ជ្រើស​ទីតាំង​​នៃ​គម្រោង​បកប្រែ​ផ្នែកទន់​របស់​អ្នក​"
 
-#: src/lokalizemainwindow.cpp:512
+#: src/lokalizemainwindow.cpp:508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:515
+#: src/lokalizemainwindow.cpp:511
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2285,7 +2270,7 @@ msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "បើក​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:519
+#: src/lokalizemainwindow.cpp:515
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2293,31 +2278,31 @@ msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "បើក​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:522
+#: src/lokalizemainwindow.cpp:518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "បើក​គម្រោង​ថ្មី"
 
-#: src/lokalizemainwindow.cpp:530
+#: src/lokalizemainwindow.cpp:526
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:533
+#: src/lokalizemainwindow.cpp:529
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:537
+#: src/lokalizemainwindow.cpp:533
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "ការចាប់​យក​អត្ថបទ​ធាតុ​ក្រា​ហ្វិក​"
 
-#: src/lokalizemainwindow.cpp:718
+#: src/lokalizemainwindow.cpp:710
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -2816,7 +2801,7 @@ msgid ""
 "%2 - Line number"
 msgstr ""
 
-#: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:253
+#: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:242
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2859,14 +2844,14 @@ msgctxt "@title:tab"
 msgid "Spellcheck"
 msgstr "ពិនិត្យ​អក្ខរាវិរុទ្ធ "
 
-#: src/prefs/prefs.cpp:175 src/prefs/prefs.cpp:185
+#: src/prefs/prefs.cpp:174
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
 "want to create a new project or open an existing project?"
 msgstr ""
 
-#: src/prefs/prefs.cpp:176
+#: src/prefs/prefs.cpp:175
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Project overview"
@@ -2874,14 +2859,14 @@ msgctxt "@title"
 msgid "Project Required"
 msgstr "ទិដ្ឋភាពទូទៅ​គម្រោង​"
 
-#: src/prefs/prefs.cpp:177
+#: src/prefs/prefs.cpp:176
 #, fuzzy, kde-format
 #| msgid "Create new project"
 msgctxt "@action"
 msgid "Create Project"
 msgstr "បង្កើត​គម្រោង​ថ្មី"
 
-#: src/prefs/prefs.cpp:178
+#: src/prefs/prefs.cpp:177
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2889,44 +2874,29 @@ msgctxt "@action"
 msgid "Open Project"
 msgstr "បើក​គម្រោង​"
 
-#: src/prefs/prefs.cpp:186
-#, fuzzy, kde-format
-#| msgid "New"
-msgctxt "@action"
-msgid "New"
-msgstr "ថ្មី​"
-
-#: src/prefs/prefs.cpp:186
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open"
-msgctxt "@action"
-msgid "Open"
-msgstr "បើក​"
-
-#: src/prefs/prefs.cpp:203 src/prefs/prefs.cpp:220
+#: src/prefs/prefs.cpp:192 src/prefs/prefs.cpp:209
 #, fuzzy, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "*.lokalize| គម្រោង​ការបកប្រែរបស់ lokalize "
 
-#: src/prefs/prefs.cpp:220
+#: src/prefs/prefs.cpp:209
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr ""
 
-#: src/prefs/prefs.cpp:241
+#: src/prefs/prefs.cpp:230
 #, fuzzy, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "ជ្រើស​ទីតាំង​​នៃ​គម្រោង​បកប្រែ​ផ្នែកទន់​របស់​អ្នក​"
 
-#: src/prefs/prefs.cpp:305
+#: src/prefs/prefs.cpp:290
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "កម្រិតខ្ពស់​"
 
-#: src/prefs/prefs.cpp:316
+#: src/prefs/prefs.cpp:301
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3832,13 +3802,13 @@ msgstr "ថត​គោលសម្រាប់​ឯកសារ POT ​(ពុ
 msgid "Project's glossary"
 msgstr "សន្ទានុក្រមរបស់​គម្រោង​​"
 
-#: src/project/projectmodel.cpp:521
+#: src/project/projectmodel.cpp:516
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "ឈ្មោះ"
 
-#: src/project/projectmodel.cpp:523
+#: src/project/projectmodel.cpp:518
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3846,55 +3816,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "ក្រាប "
 
-#: src/project/projectmodel.cpp:525
+#: src/project/projectmodel.cpp:520
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "សរុប​"
 
-#: src/project/projectmodel.cpp:527
+#: src/project/projectmodel.cpp:522
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "បាន​​បក​ប្រែ"
 
-#: src/project/projectmodel.cpp:529
+#: src/project/projectmodel.cpp:524
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "មិនទាន់រួចឡើយ​"
 
-#: src/project/projectmodel.cpp:531
+#: src/project/projectmodel.cpp:526
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "មិន​បាន​ការ​បក​ប្រែ"
 
-#: src/project/projectmodel.cpp:533
+#: src/project/projectmodel.cpp:528
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr ""
 
-#: src/project/projectmodel.cpp:535
+#: src/project/projectmodel.cpp:530
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "ការបកប្រែចុងក្រោយ​"
 
-#: src/project/projectmodel.cpp:537
+#: src/project/projectmodel.cpp:532
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr ""
 
-#: src/project/projectmodel.cpp:539
+#: src/project/projectmodel.cpp:534
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "ការពិនិត្យឡើងវិញ​"
 
-#: src/project/projectmodel.cpp:541
+#: src/project/projectmodel.cpp:536
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -4424,7 +4394,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "សរុប​ ៖ %1​"
 
-#: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:597
+#: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:578
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4455,13 +4425,13 @@ msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "រកមិនឃើញ​​ការផ្តល់យោបល់​ជាមួយ​ផ្គូផ្គងទៀងទាត់ ។"
 
-#: src/tm/tmview.cpp:318 src/tm/tmview.cpp:337
+#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "ការបកប្រែចំនួន​ច្រើន​ត្រូវបាន​កំណត់ពេល​ ។"
 
-#: src/tm/tmview.cpp:468
+#: src/tm/tmview.cpp:456
 #, fuzzy, kde-format
 #| msgctxt "percentages in statusbar"
 #| msgid " (%1%)"
@@ -4469,20 +4439,20 @@ msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr " (%1%)"
 
-#: src/tm/tmview.cpp:470
+#: src/tm/tmview.cpp:458
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
 msgid_plural "(%1 times)"
 msgstr[0] ""
 
-#: src/tm/tmview.cpp:551
+#: src/tm/tmview.cpp:539
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "នេះ​"
 
-#: src/tm/tmview.cpp:552
+#: src/tm/tmview.cpp:540
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "File: %1<br />Date: %2"
@@ -4490,31 +4460,31 @@ msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "ឯកសារ​ ៖​ %1<br />កាលបរិច្ឆេទ​ ៖​ %2​"
 
-#: src/tm/tmview.cpp:554
+#: src/tm/tmview.cpp:542
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr ""
 
-#: src/tm/tmview.cpp:556
+#: src/tm/tmview.cpp:544
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr ""
 
-#: src/tm/tmview.cpp:557
+#: src/tm/tmview.cpp:545
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />TM ៖ %1"
 
-#: src/tm/tmview.cpp:559
+#: src/tm/tmview.cpp:547
 #, fuzzy, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />បច្ចុប្បន្ន​មិន​នៅ​ក្នុង​ឯកសារ​ទៀតទេ​"
 
-#: src/tm/tmview.cpp:572 src/tm/tmview.cpp:579
+#: src/tm/tmview.cpp:559
 #, fuzzy, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4522,31 +4492,31 @@ msgid ""
 msgstr ""
 "<html>តើ​អ្នក​ប្រាកដ​ជាចង់​យកធាតុ​​នេះចេញ​ ៖ <br/><i>%1</i><br/>ពី​សតិបកប្រែ %2 ឬ ?</html>"
 
-#: src/tm/tmview.cpp:573 src/tm/tmview.cpp:580
+#: src/tm/tmview.cpp:560
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "ការយកធាតុសតិ​បកប្រែចេញ​"
 
-#: src/tm/tmview.cpp:623
+#: src/tm/tmview.cpp:604
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "យកធាតុ​នេះ​ចេញ​"
 
-#: src/tm/tmview.cpp:625
+#: src/tm/tmview.cpp:606
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "ធាតុ​នេះ​មាន​ឯ​សារ​ដែល​​បើក​"
 
-#: src/tm/tmview.cpp:633
+#: src/tm/tmview.cpp:614
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:647 src/tm/tmview.cpp:653
+#: src/tm/tmview.cpp:627
 #, fuzzy, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4554,13 +4524,13 @@ msgid ""
 msgstr ""
 "<html>តើ​អ្នក​ប្រាកដ​ជាចង់​យកធាតុ​​នេះចេញ​ ៖ <br/><i>%1</i><br/>ពី​សតិបកប្រែ %2 ឬ ?</html>"
 
-#: src/tm/tmview.cpp:648 src/tm/tmview.cpp:654
+#: src/tm/tmview.cpp:628
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "ការយកធាតុសតិ​បកប្រែចេញ​"
 
-#: src/tm/tmview.cpp:1050
+#: src/tm/tmview.cpp:1025
 #, fuzzy, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4623,33 +4593,52 @@ msgstr "ស្វែរ​រក​អត្ថបទធាតុ​ GUI ក្�
 msgid "Copy GUI element text to clipboard"
 msgstr "ចម្លង​អត្ថបទ​ធាតុ​ GUI ទៅក្តារតម្បៀតខ្ទាស់​"
 
-#: src/xlifftextedit.cpp:993
+#: src/xlifftextedit.cpp:989
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "ស្វែរ​រក​អត្ថបទធាតុ​ GUI ក្នុង​សតិ​ការបកប្រែ​"
 
-#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
+#: src/xlifftextedit.cpp:1011 src/xlifftextedit.cpp:1089
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "ជំនួស​អត្ថបទ​​​"
 
-#: src/xlifftextedit.cpp:1130
+#: src/xlifftextedit.cpp:1126
 #, kde-format
 msgid "no spellcheck available"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1144
+#: src/xlifftextedit.cpp:1140
 #, kde-format
 msgid "An error was reported: %1"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1274
+#: src/xlifftextedit.cpp:1270
 #, fuzzy, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "ចម្លង​ប្រភព​ទៅគោលដៅ​"
+
+#, fuzzy
+#~| msgctxt "@title"
+#~| msgid "Lokalize"
+#~ msgid "Locally"
+#~ msgstr "​Lokalize"
+
+#, fuzzy
+#~| msgid "New"
+#~ msgctxt "@action"
+#~ msgid "New"
+#~ msgstr "ថ្មី​"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open"
+#~ msgctxt "@action"
+#~ msgid "Open"
+#~ msgstr "បើក​"
 
 #, fuzzy
 #~ msgctxt "@action:inmenu"
