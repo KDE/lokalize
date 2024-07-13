@@ -650,6 +650,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
     while (true) {
         abbrMatch = rxAbbr.match(old, abbrPos);
         if (!abbrMatch.hasMatch()) {
+            abbrPos = -1;
             break;
         }
         abbrPos = abbrMatch.capturedStart();
