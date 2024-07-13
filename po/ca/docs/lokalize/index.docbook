@@ -87,9 +87,7 @@
 >.pot</filename
 >. <acronym
 >POT</acronym
-> és un acrònim de <quote
->Portable Object Template</quote
-> («Plantilla d'objecte portable»). El &lokalize; és un avançat i fàcil d'utilitzar editor de fitxers PO (catàlegs de missatges gettext de &GNU;). Es tracta d'un sistema de traducció assistida per ordinador per als traductors, escrit des de zero utilitzant la plataforma de l'entorn de treball &kde; 4. A part de l'edició bàsica de fitxers PO amb enginyosos detalls auxiliars, integra suport per a un glossari, una memòria de traducció, els diferents modes de diff pel control de la qualitat (QA), la gestió de projectes, &etc; Disposa de moltes característiques com una completa capacitat de navegació, una completa funcionalitat d'edició, funcions de cerca, funcions per a la comprovació de la sintaxi i estadístiques. </para>
+> és un acrònim de «Portable Object Template» («Plantilla d'objecte portable»). El &lokalize; és un avançat i fàcil d'utilitzar editor de fitxers PO (catàlegs de missatges gettext de &GNU;). Es tracta d'un sistema de traducció assistida per ordinador per als traductors, escrit des de zero utilitzant la plataforma de l'entorn de treball &kde; 4. A part de l'edició bàsica de fitxers PO amb enginyosos detalls auxiliars, integra suport per a un glossari, una memòria de traducció, els diferents modes de diff pel control de la qualitat (QA), la gestió de projectes, &etc; Disposa de moltes característiques com una completa capacitat de navegació, una completa funcionalitat d'edició, funcions de cerca, funcions per a la comprovació de la sintaxi i estadístiques. </para>
 <para
 >Els fitxers d'objecte portable (.po): Cada traductor agafa una còpia d'una d'aquestes plantilles POT i comença a omplir els camps en blanc: cada missatge es tradueix en l'idioma desitjat. El fitxer que conté el text traduït es coneix com un fitxer PO (Portable Object «Objecte portable»). </para>
 

@@ -3,22 +3,22 @@
 # This file is distributed under the license LGPL version 2 or later.
 #
 # Orestes Mas <orestes@tsc.upc.edu>, 2009.
-# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 # Manuel Tortosa <manutortosa@chakra-project.org>, 2011, 2012.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2012, 2015, 2016, 2017, 2018, 2019, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-12 00:41+0000\n"
-"PO-Revision-Date: 2024-02-02 09:46+0100\n"
+"POT-Creation-Date: 2024-07-13 00:41+0000\n"
+"PO-Revision-Date: 2024-07-12 10:16+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -965,7 +965,7 @@ msgstr "Entrada"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:327 src/glossary/glossary.cpp:200
+#: src/filesearch/filesearchtab.cpp:333 src/glossary/glossary.cpp:200
 #: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:62
 #, kde-format
 msgctxt "@title:column Original text"
@@ -973,7 +973,7 @@ msgid "Source"
 msgstr "Origen"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:328 src/glossary/glossary.cpp:201
+#: src/filesearch/filesearchtab.cpp:334 src/glossary/glossary.cpp:201
 #: src/tm/tmtab.cpp:63
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -999,7 +999,7 @@ msgid "Files"
 msgstr "Fitxers"
 
 #: src/cataloglistview/catalogmodel.cpp:117
-#: src/filesearch/filesearchtab.cpp:331 src/tm/tmtab.cpp:66
+#: src/filesearch/filesearchtab.cpp:337 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -1063,7 +1063,7 @@ msgid "Current: %1"
 msgstr "Actual: %1"
 
 #: src/editortab.cpp:128 src/editortab.cpp:809
-#: src/filesearch/filesearchtab.cpp:776 src/project/projecttab.cpp:501
+#: src/filesearch/filesearchtab.cpp:782 src/project/projecttab.cpp:501
 #: src/tm/tmtab.cpp:593
 #, kde-format
 msgctxt "@info:status message entries"
@@ -1202,7 +1202,7 @@ msgctxt "@action:inmenu"
 msgid "Change searching direction"
 msgstr "Canvia el sentit de la traducció"
 
-#: src/editortab.cpp:425
+#: src/editortab.cpp:424
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1982,40 +1982,40 @@ msgid "Drop translation files here..."
 msgstr "Deixa anar aquí els fitxers de traducció..."
 
 #. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:330 src/tm/tmtab.cpp:65
+#: src/filesearch/filesearchtab.cpp:336 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
 msgstr "Fitxer"
 
-#: src/filesearch/filesearchtab.cpp:427
+#: src/filesearch/filesearchtab.cpp:433
 #, kde-format
 msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr "Cerca i substitució en fitxers"
 
-#: src/filesearch/filesearchtab.cpp:461 src/tm/tmtab.cpp:403
+#: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Copia l'origen al porta-retalls"
 
-#: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:409
+#: src/filesearch/filesearchtab.cpp:473 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Copia la destinació al porta-retalls"
 
-#: src/filesearch/filesearchtab.cpp:473 src/tm/tmtab.cpp:415
+#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:415
 #, kde-format
 msgid "Open file"
 msgstr "Obre un fitxer"
 
-#: src/filesearch/filesearchtab.cpp:512
+#: src/filesearch/filesearchtab.cpp:518
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr "Cerca i substitueix en fitxers"
 
-#: src/filesearch/filesearchtab.cpp:793
+#: src/filesearch/filesearchtab.cpp:799
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"
@@ -2804,7 +2804,7 @@ msgstr ""
 #: src/prefs/lokalize.kcfg:81
 #, kde-format
 msgid "Font for Messages"
-msgstr "Tipus de lletra per als missatges"
+msgstr "Lletra dels missatges"
 
 #: src/prefs/prefs.cpp:97
 #, kde-format
@@ -2924,20 +2924,19 @@ msgstr "Personal"
 #: src/prefs/prefs_appearance.ui:34
 #, kde-format
 msgid "Editor font:"
-msgstr "Tipus de lletra de l'editor:"
+msgstr "Lletra de l'editor:"
 
 #. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_MsgFont)
 #: src/prefs/prefs_appearance.ui:44
 #, kde-format
 msgid "Change the font for the editor"
-msgstr "Canvia el tipus de lletra de l'editor"
+msgstr "Canvia la lletra de l'editor"
 
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_MsgFont)
 #: src/prefs/prefs_appearance.ui:47
 #, kde-format
 msgid "Choose a new font for the area where you write the translated message."
-msgstr ""
-"Trieu un tipus de lletra nou per a l'àrea on escriviu el missatge traduït."
+msgstr "Trieu una lletra nou per a l'àrea on escriviu el missatge traduït."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:54
