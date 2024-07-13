@@ -36,7 +36,6 @@
 #include <QStringBuilder>
 #include <QTextDocument>
 #include <QStringListModel>
-#include <QTextCodec>
 
 #include <KActionCategory>
 #include <KColorScheme>
@@ -762,8 +761,9 @@ bool TMTab::findGuiTextPackage(QString text, QString package)
     qCWarning(LOKALIZE_LOG) << package << text;
     QLineEdit* const source_target_query[] = {ui_queryOptions->queryTarget, ui_queryOptions->querySource};
     static const DocPosition::Part source_target[] = {DocPosition::Target, DocPosition::Source};
-    QTextCodec* latin1 = QTextCodec::codecForMib(4);
-    DocPosition::Part tryNowPart = source_target[latin1->canEncode(text)];
+    QStringEncoder latin1(QStringEncoder::Latin1);
+    [[maybe_unused]] const auto encoded = latin1.encode(text);
+    DocPosition::Part tryNowPart = source_target[!latin1.hasError()];
     m_partToAlsoTryLater = source_target[tryNowPart == DocPosition::Target];
 
     text.remove(Project::instance()->accel());

@@ -189,7 +189,6 @@ target_link_libraries(liblokalize
     KF6::XmlGui
     KF6::ConfigWidgets
     Qt::Sql
-    Qt::Core5Compat
 )
 if(HUNSPELL_FOUND)
     target_link_libraries(liblokalize ${HUNSPELL_LIBRARIES})

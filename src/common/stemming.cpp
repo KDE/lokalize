@@ -28,12 +28,12 @@ QString enhanceLangCode(const QString& langCode)
 
 #ifdef HAVE_HUNSPELL
 #include <hunspell.hxx>
-#include <QTextCodec>
+#include <QStringConverter>
 
 struct SpellerAndCodec {
     Hunspell* speller{nullptr};
-    QTextCodec* codec{nullptr};
-    SpellerAndCodec(): speller(nullptr), codec(nullptr) {}
+    QByteArray codec;
+    SpellerAndCodec(): speller(nullptr) {}
     explicit SpellerAndCodec(const QString& langCode);
 };
 
@@ -55,9 +55,7 @@ SpellerAndCodec::SpellerAndCodec(const QString& langCode)
         dic = dictPath + enhanceLangCode(langCode) + QLatin1String(".dic");
     if (QFileInfo::exists(dic)) {
         speller = new Hunspell(QString(dictPath + langCode + QLatin1String(".aff")).toLatin1().constData(), dic.toLatin1().constData());
-        codec = QTextCodec::codecForName(speller->get_dic_encoding());
-        if (!codec)
-            codec = QTextCodec::codecForLocale();
+        codec = QStringDecoder(speller->get_dic_encoding()).isValid() ? speller->get_dic_encoding() : "UTF-8";
     }
 }
 
@@ -82,11 +80,14 @@ QString stem(const QString& langCode, const QString& word)
     if (!speller)
         return word;
 
-    const std::vector<std::string> result1 = speller->analyze(sc.codec->fromUnicode(word).toStdString());
+    QStringEncoder encoder(sc.codec.constData());
+    const std::vector<std::string> result1 = speller->analyze(QByteArray(encoder.encode(word)).toStdString());
     const std::vector<std::string> result2 = speller->stem(result1);
 
-    if (!result2.empty())
-        result = sc.codec->toUnicode(QByteArray::fromStdString(result2[0]));
+    if (!result2.empty()) {
+        QStringDecoder decoder(sc.codec.constData());
+        result = decoder.decode(QByteArray::fromStdString(result2[0]));
+    }
 #endif
 
     return result;
