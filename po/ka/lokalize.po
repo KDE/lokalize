@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-13 00:41+0000\n"
-"PO-Revision-Date: 2024-07-12 12:05+0200\n"
+"PO-Revision-Date: 2024-07-13 06:01+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -386,6 +386,9 @@ msgid ""
 "of a multiword term strung together into a sequence pronounced only "
 "syllabically (e.g. 'radar' for 'radio detecting and ranging')"
 msgstr ""
+"აკრონიმი: ტერმინის აბრევიატურა, რომელიც შექმნილია შემადგენელი სიტყვების "
+"პირველი ასოებისგან, რომელიც ერთადაა შეტყუპებული და, მხოლოდ, მარცვლებად "
+"წარმოითქმის (მაგალითად 'radar' 'radio detection and ranging'-ის მაგიერ)"
 
 #: src/catalog/catalogstring.cpp:124
 #, kde-format
@@ -394,6 +397,8 @@ msgid ""
 "appellation: a proper-name term, such as the name of an agency or other "
 "proper entity"
 msgstr ""
+"ტიტული: სწორი სახელის მქონე ტერმინი. მაგალითად, სააგენტოს ან სხვა "
+"ორგანიზაციის სახელი"
 
 #: src/catalog/catalogstring.cpp:125
 #, kde-format
@@ -412,6 +417,8 @@ msgid ""
 "common name: a synonym for an international scientific term that is used in "
 "general discourse in a given language"
 msgstr ""
+"ზოგადი სახელი: სინონიმი საერთაშორისო სამეცნიერო ტერმინისთვის, რომელიც "
+"მითითებულ ენაზე საუბრისას გამოიყენება"
 
 #: src/catalog/catalogstring.cpp:127
 #, kde-format
@@ -1357,7 +1364,7 @@ msgstr "ყველა ახალი თარგმანის კოპი
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
-msgstr ""
+msgstr "ეს, საბაზისო ფაილში, მხოლოდ, ცარიელ და არა-მზა ჩანაწერებს შეცვლის"
 
 #: src/editortab.cpp:641 src/editortab.cpp:684
 #, kde-format
@@ -1551,6 +1558,8 @@ msgid ""
 "This will delete all the translations from the file.\n"
 "Do you really want to clear all translated entries?"
 msgstr ""
+"ეს ფაილიდან ყველა თარგმანს წაშლის.\n"
+"გნებავთ გაასუფთავოთ ყველა ნათარგმნი ჩანაწერი?"
 
 #: src/editortab.cpp:1396
 #, kde-format
@@ -1639,6 +1648,7 @@ msgstr "დააყენეთ პაკეტი translate-toolkit და თ
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
+"აირჩიეთ საწყისი OpenDocument, რომელზეც დაფუძნებულია მიმდინარე XLIFF ფაილი"
 
 #: src/editortab.cpp:1607 src/project/project.cpp:477
 #, kde-format

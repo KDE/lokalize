@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf5-trunk/messages/lokalize/lokalize.pot\n"
-"X-Crowdin-File-ID: 5869\n"
+"X-Crowdin-File: /kf6-trunk/messages/lokalize/lokalize.pot\n"
+"X-Crowdin-File-ID: 54440\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4444,17 +4444,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
-
-#~ msgid "Locally"
-#~ msgstr "本地"
-
-#~ msgid "lxr.kde.org"
-#~ msgstr "lxr.kde.org"
-
-#~ msgctxt "@action"
-#~ msgid "New"
-#~ msgstr "新建"
-
-#~ msgctxt "@action"
-#~ msgid "Open"
-#~ msgstr "打开"
