@@ -1359,7 +1359,7 @@ void EditorTab::clearTranslatedEntries()
                       "Do you really want to clear all translated entries?"),
                 i18nc("@title:window", "Warning"),
                 KStandardGuiItem::clear())) {
-    case KMessageBox::PrimaryAction: {
+    case KMessageBox::Continue: {
         DocPosition pos(0);
         do {
             removeTargetSubstring(m_catalog, pos);
