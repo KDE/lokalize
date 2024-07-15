@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-13 00:41+0000\n"
+"POT-Creation-Date: 2024-07-15 00:41+0000\n"
 "PO-Revision-Date: 2008-09-26 14:57+0300\n"
 "Last-Translator: kom <me@komzpa.net>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -814,7 +814,7 @@ msgstr ""
 msgid "Reset individual filter"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:365
+#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Case insensitive"
 msgstr ""
@@ -927,7 +927,7 @@ msgstr "Запіс"
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
 #: src/filesearch/filesearchtab.cpp:333 src/glossary/glossary.cpp:200
-#: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:62
+#: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:61
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Source"
@@ -937,7 +937,7 @@ msgstr "Крыніца"
 
 #: src/cataloglistview/catalogmodel.cpp:109
 #: src/filesearch/filesearchtab.cpp:334 src/glossary/glossary.cpp:201
-#: src/tm/tmtab.cpp:63
+#: src/tm/tmtab.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Target"
@@ -951,7 +951,7 @@ msgctxt "@title:column"
 msgid "Notes"
 msgstr ""
 
-#: src/cataloglistview/catalogmodel.cpp:113 src/tm/tmtab.cpp:64
+#: src/cataloglistview/catalogmodel.cpp:113 src/tm/tmtab.cpp:63
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
@@ -966,7 +966,7 @@ msgid "Files"
 msgstr "Файла"
 
 #: src/cataloglistview/catalogmodel.cpp:117
-#: src/filesearch/filesearchtab.cpp:337 src/tm/tmtab.cpp:66
+#: src/filesearch/filesearchtab.cpp:337 src/tm/tmtab.cpp:65
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Translation"
@@ -991,14 +991,14 @@ msgid "Target length"
 msgstr "Прадвызначаная мова:"
 
 #: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1041
-#: src/editortab.cpp:1244 src/tm/tmtab.cpp:231
+#: src/editortab.cpp:1244 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1042
-#: src/editortab.cpp:1239 src/tm/tmtab.cpp:232
+#: src/editortab.cpp:1239 src/tm/tmtab.cpp:231
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Manage translation memories"
@@ -1007,7 +1007,7 @@ msgid "Needs review"
 msgstr "Кіраванне памяццю перакладу"
 
 #: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1040
-#: src/tm/tmtab.cpp:233
+#: src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -1043,7 +1043,7 @@ msgstr "Бягучы: %1"
 
 #: src/editortab.cpp:128 src/editortab.cpp:809
 #: src/filesearch/filesearchtab.cpp:782 src/project/projecttab.cpp:501
-#: src/tm/tmtab.cpp:593
+#: src/tm/tmtab.cpp:592
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -1991,7 +1991,7 @@ msgid "Drop translation files here..."
 msgstr "Прадвызначаная мова:"
 
 #. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:336 src/tm/tmtab.cpp:65
+#: src/filesearch/filesearchtab.cpp:336 src/tm/tmtab.cpp:64
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
@@ -2005,17 +2005,17 @@ msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr "Пошук у файлах"
 
-#: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:403
+#: src/filesearch/filesearchtab.cpp:467 src/tm/tmtab.cpp:402
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:473 src/tm/tmtab.cpp:409
+#: src/filesearch/filesearchtab.cpp:473 src/tm/tmtab.cpp:408
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:415
+#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:414
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Replace in files"
@@ -2227,7 +2227,7 @@ msgstr ""
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:491
+#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:490
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Translation Memory"
@@ -2278,7 +2278,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Пераклад"
 
-#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:494
+#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -4421,7 +4421,7 @@ msgstr "Кіраванне памяццю перакладу"
 msgid "TM"
 msgstr ""
 
-#: src/tm/tmtab.cpp:75
+#: src/tm/tmtab.cpp:74
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Source"
@@ -4429,7 +4429,7 @@ msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr "Крыніца"
 
-#: src/tm/tmtab.cpp:80
+#: src/tm/tmtab.cpp:79
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Target"
@@ -4437,39 +4437,39 @@ msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "Прызначэнне"
 
-#: src/tm/tmtab.cpp:359
+#: src/tm/tmtab.cpp:358
 #, kde-format
 msgid "Substring"
 msgstr ""
 
-#: src/tm/tmtab.cpp:359
+#: src/tm/tmtab.cpp:358
 #, kde-format
 msgid "Google-like"
 msgstr ""
 
-#: src/tm/tmtab.cpp:359
+#: src/tm/tmtab.cpp:358
 #, kde-format
 msgid "Wildcard"
 msgstr ""
 
-#: src/tm/tmtab.cpp:366
+#: src/tm/tmtab.cpp:365
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr ""
 
-#: src/tm/tmtab.cpp:367
+#: src/tm/tmtab.cpp:366
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr ""
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:381 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:380 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "Памяць перакладу"
 
-#: src/tm/tmtab.cpp:595
+#: src/tm/tmtab.cpp:594
 #, fuzzy, kde-format
 #| msgctxt "@info:status message entries"
 #| msgid "Total: %1"
@@ -4477,7 +4477,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Усяго: %1"
 
-#: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:578
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:578
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4615,7 +4615,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Запытаць памяць перакладу"
 
-#: src/tm/tmview.cpp:1025
+#: src/tm/tmview.cpp:1026
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Query translation memory"
