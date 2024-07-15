@@ -99,7 +99,7 @@ static DiffInfo getDiffInfo(const QString& diff)
         } else {
             if (state != '+') {
                 d.old.append(diff.at(pos));
-                d.old2DiffClean.append(d.diffIndex.count());
+                d.old2DiffClean.append(d.diffIndex.size());
             }
             d.diffIndex.append(state);
             d.diffClean.append(diff.at(pos));

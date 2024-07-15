@@ -634,9 +634,9 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     void TranslationUnitTextEdit::dropEvent(QDropEvent * event) {
         //Ensure the cursor moves to the correct location
         if (m_part == DocPosition::Target) {
-            setTextCursor(cursorForPosition(event->pos()));
+            setTextCursor(cursorForPosition(event->position().toPoint()));
             //This is a copy modifier, disable the selection flags
-            if (event->keyboardModifiers() & Qt::ControlModifier) {
+            if (event->modifiers() & Qt::ControlModifier) {
                 m_cursorSelectionEnd = 0;
                 m_cursorSelectionStart = 0;
             }

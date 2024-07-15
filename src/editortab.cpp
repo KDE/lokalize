@@ -455,14 +455,14 @@ void EditorTab::setupActions()
 
 
 #ifndef Q_OS_DARWIN
-    int copyShortcut = Qt::ControlModifier | Qt::Key_Space;
+    QKeyCombination copyShortcut = Qt::ControlModifier | Qt::Key_Space;
     if (Q_UNLIKELY(systemLang == QLocale::Korean
                    || systemLang == QLocale::Japanese
                    || systemLang == QLocale::Chinese
                   ))
         copyShortcut = Qt::AltModifier | Qt::Key_Space;
 #else
-    int copyShortcut = Qt::META | Qt::Key_Space;
+    QKeyCombination copyShortcut = Qt::META | Qt::Key_Space;
 #endif
     ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr", i18nc("@action:inmenu", "Copy source to target"), copyShortcut, "msgid2msgstr")
     connect(action, &QAction::triggered, m_view->viewPort(), &TranslationUnitTextEdit::source2target);
