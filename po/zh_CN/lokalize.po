@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-15 00:41+0000\n"
+"POT-Creation-Date: 2024-07-16 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -2235,13 +2235,13 @@ msgstr "项目(&P)"
 msgid "&Scripts"
 msgstr "脚本(&S)"
 
-#: src/main.cpp:63
+#: src/main.cpp:61
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
 msgstr "Lokalize"
 
-#: src/main.cpp:64
+#: src/main.cpp:62
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2250,7 +2250,7 @@ msgstr ""
 "计算机辅助翻译系统。\n"
 "将译者从反复重译的轮回中解放出来。"
 
-#: src/main.cpp:66
+#: src/main.cpp:64
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2262,133 +2262,133 @@ msgstr ""
 "(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 The KBabel 开发者"
 
-#: src/main.cpp:67
+#: src/main.cpp:65
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:68
+#: src/main.cpp:66
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc."
 
-#: src/main.cpp:68
+#: src/main.cpp:66
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "Google 代码之夏项目的赞助开发部分"
 
-#: src/main.cpp:69
+#: src/main.cpp:67
 #, kde-format
 msgid "NLNet Foundation"
 msgstr "NLNet 基金会"
 
-#: src/main.cpp:69
+#: src/main.cpp:67
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr "赞助了 XLIFF 相关的工作"
 
-#: src/main.cpp:70
+#: src/main.cpp:68
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "翻译工具"
 
-#: src/main.cpp:70
+#: src/main.cpp:68
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "提供完美的跨格式转换脚本"
 
-#: src/main.cpp:71
+#: src/main.cpp:69
 #, kde-format
 msgid "LanguageTool"
 msgstr ""
 
-#: src/main.cpp:71
+#: src/main.cpp:69
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr ""
 
-#: src/main.cpp:72
+#: src/main.cpp:70
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:72
+#: src/main.cpp:70
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr "项目树形合并翻译和模板"
 
-#: src/main.cpp:73
+#: src/main.cpp:71
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach"
 
-#: src/main.cpp:73 src/main.cpp:74 src/main.cpp:77
+#: src/main.cpp:71 src/main.cpp:72 src/main.cpp:75
 #, kde-format
 msgid "bug fixing patches"
 msgstr "错误修复补丁"
 
-#: src/main.cpp:74
+#: src/main.cpp:72
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
-#: src/main.cpp:75
+#: src/main.cpp:73
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:75
+#: src/main.cpp:73
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "测试和错误修复"
 
-#: src/main.cpp:76
+#: src/main.cpp:74
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:76
+#: src/main.cpp:74
 #, kde-format
 msgid "patches"
 msgstr "补丁"
 
-#: src/main.cpp:77
+#: src/main.cpp:75
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:78
+#: src/main.cpp:76
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: src/main.cpp:78
+#: src/main.cpp:76
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "XLIFF 改善"
 
-#: src/main.cpp:79
+#: src/main.cpp:77
 #, kde-format
 msgid "Simon Depiets"
 msgstr ""
 
-#: src/main.cpp:79
+#: src/main.cpp:77
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr "bug 修复及改进"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:83
+#: src/main.cpp:81
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "不扫描项目的文件。"
 
-#: src/main.cpp:84
+#: src/main.cpp:82
 #, kde-format
 msgid "Load specified project."
 msgstr "加载指定的项目。"
 
-#: src/main.cpp:85
+#: src/main.cpp:83
 #, kde-format
 msgid "Document to open"
 msgstr "要打开的文档"

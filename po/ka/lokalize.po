@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-15 00:41+0000\n"
-"PO-Revision-Date: 2024-07-13 06:01+0200\n"
+"POT-Creation-Date: 2024-07-16 00:41+0000\n"
+"PO-Revision-Date: 2024-07-15 05:30+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1327,6 +1327,8 @@ msgid ""
 "Previous entry which is translated differently in the file being merged, "
 "including empty translations in merge source"
 msgstr ""
+"წინა ჩანაწერი, რომელიც სხვანაირადაა ნათარგმნი ფაილში, რომლის შერწყმაც "
+"მიმდინარეობს, შერწყმის წყაროში არსებული ცარიელი თარგმანების ჩათვლით"
 
 #: src/editortab.cpp:609 src/editortab.cpp:664
 #, kde-format
@@ -1341,6 +1343,8 @@ msgid ""
 "Next entry which is translated differently in the file being merged, "
 "including empty translations in merge source"
 msgstr ""
+"შემდეგი ჩანაწერი, რომელიც სხვანაირადაა ნათარგმნი ფაილში, რომლის შერწყმაც "
+"მიმდინარეობს, შერწყმის წყაროში არსებული ცარიელი თარგმანების ჩათვლით"
 
 #: src/editortab.cpp:618
 #, kde-format
@@ -1610,6 +1614,8 @@ msgid ""
 "Could not find source file in the folder specified.\n"
 "Do you want to change source files folder?"
 msgstr ""
+"მითითებულ საქაღალდეში კოდის ფაილი ვერ ვიპოვე.\n"
+"გნებავთ შეცვალოთ კოდის ფაილების საქაღალდე?"
 
 #: src/editortab.cpp:1535
 #, kde-format
@@ -2220,13 +2226,13 @@ msgstr "&პროექტი"
 msgid "&Scripts"
 msgstr "&სკრიპტები"
 
-#: src/main.cpp:63
+#: src/main.cpp:61
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
 msgstr "Lokalize"
 
-#: src/main.cpp:64
+#: src/main.cpp:62
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2235,7 +2241,7 @@ msgstr ""
 "ავტომატიზებული თარგმანის სისტემა.\n"
 "ნუ თარგმნით იმას, რაც უკვე ნათარგმნია."
 
-#: src/main.cpp:66
+#: src/main.cpp:64
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2247,133 +2253,133 @@ msgstr ""
 "(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 The KBabel developers"
 
-#: src/main.cpp:67
+#: src/main.cpp:65
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:68
+#: src/main.cpp:66
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc."
 
-#: src/main.cpp:68
+#: src/main.cpp:66
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "კოდის ნაწილის სპონსორია Google Summer of Code"
 
-#: src/main.cpp:69
+#: src/main.cpp:67
 #, kde-format
 msgid "NLNet Foundation"
 msgstr "NLNet Foundation"
 
-#: src/main.cpp:69
+#: src/main.cpp:67
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr "დასპონსორებული XLIFF-თან დაკავშირებული სამუშაოები"
 
-#: src/main.cpp:70
+#: src/main.cpp:68
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "Translate-toolkit"
 
-#: src/main.cpp:70
+#: src/main.cpp:68
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr ""
 
-#: src/main.cpp:71
+#: src/main.cpp:69
 #, kde-format
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/main.cpp:71
+#: src/main.cpp:69
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr "გრამატიკის, სტილისა და მართლწერის შემმოწმებელი"
 
-#: src/main.cpp:72
+#: src/main.cpp:70
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:72
+#: src/main.cpp:70
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr ""
 
-#: src/main.cpp:73
+#: src/main.cpp:71
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach"
 
-#: src/main.cpp:73 src/main.cpp:74 src/main.cpp:77
+#: src/main.cpp:71 src/main.cpp:72 src/main.cpp:75
 #, kde-format
 msgid "bug fixing patches"
 msgstr "შეცდომების გასწორება და პაჩები"
 
-#: src/main.cpp:74
+#: src/main.cpp:72
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
-#: src/main.cpp:75
+#: src/main.cpp:73
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:75
+#: src/main.cpp:73
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "დატესტვა და შეცდომების გასწორება"
 
-#: src/main.cpp:76
+#: src/main.cpp:74
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:76
+#: src/main.cpp:74
 #, kde-format
 msgid "patches"
 msgstr "პაჩები"
 
-#: src/main.cpp:77
+#: src/main.cpp:75
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:78
+#: src/main.cpp:76
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: src/main.cpp:78
+#: src/main.cpp:76
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "XLIFF გაუმჯობესებები"
 
-#: src/main.cpp:79
+#: src/main.cpp:77
 #, kde-format
 msgid "Simon Depiets"
 msgstr "Simon Depiets"
 
-#: src/main.cpp:79
+#: src/main.cpp:77
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr "შეცდომების გასწორება და გაუმჯობესებები"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:83
+#: src/main.cpp:81
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "პროექტის ფაილების სკანირება არ მოხდება."
 
-#: src/main.cpp:84
+#: src/main.cpp:82
 #, kde-format
 msgid "Load specified project."
 msgstr "მითითებული პროექტის ჩატვირთვა."
 
-#: src/main.cpp:85
+#: src/main.cpp:83
 #, kde-format
 msgid "Document to open"
 msgstr "გასახსნელი დოკუმენტი"
@@ -2809,7 +2815,7 @@ msgstr "ფონტის შეცვლა რედაქტორისთ�
 #: src/prefs/prefs_appearance.ui:47
 #, kde-format
 msgid "Choose a new font for the area where you write the translated message."
-msgstr ""
+msgstr "აირჩიეთ ახალი ფონტი ალაგისთვის, სადაც ნათარგმნ შეტყობინებას კრეფთ."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:54
@@ -2941,6 +2947,8 @@ msgstr "ჩასწორების დაწყებისას სტა�
 #, kde-format
 msgid "Visualize separators such as spaces, tabs and new lines in the editor"
 msgstr ""
+"რედაქტორში გამყოფების, როგორიცაა ჰარეები, ტაბულაციები და ხაზის გადატანები, "
+"ვიზუალიზაცია"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
@@ -3042,7 +3050,7 @@ msgstr "მთარგმნელის სახელი, ინგლის
 #: src/prefs/prefs_identity.ui:77
 #, kde-format
 msgid "Please enter here your name and surname written in English"
-msgstr ""
+msgstr "შეიყვანეთ თქვენი გვარი და სახელი ინგლისურად"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_identity.ui:84
@@ -3148,6 +3156,8 @@ msgid ""
 "Delay before automatic checking after you stop typing (in seconds, 0 to "
 "disable)"
 msgstr ""
+"დაყოვნება ავტომატურ შემოწმებამდე მას შემდეგ, რაც კრეფას შეწყვეტთ (წამებში. "
+"გასათიშად 0)"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
@@ -3230,6 +3240,7 @@ msgstr ""
 #, kde-format
 msgid "Prefetch translation memory suggestions on file open"
 msgstr ""
+"თარგმანის მეხსიერების მინიშნებების წინასწარი გამოთხოვა ფაილის გახსნისას"
 
 #. i18n: ectx: property (text), widget (QLabel, label1)
 #: src/prefs/prefs_tm.ui:60
@@ -3269,6 +3280,8 @@ msgid ""
 "You can change the minimum score (0-100) required for suggestions, default "
 "is 0."
 msgstr ""
+"შეგიძლიათ, შეცვალოთ მინიშნებისთვის საჭირო მინიმალური ქულა (0-100). "
+"ნაგულისხმევია 0."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
 #: src/prefs/prefs_tm.ui:138
@@ -3280,7 +3293,7 @@ msgstr "ჩასწორებული ჩანაწერების დ�
 #: src/prefs/prefs_tm.ui:145
 #, kde-format
 msgid "Add opened files to translation memory automatically"
-msgstr ""
+msgstr "გახსნილი ფაილების ავტომატური ჩამატება თარგმანის მეხსიერებაში"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
@@ -3527,6 +3540,9 @@ msgid ""
 "This is main setting. Set this to path of a folder with translation files\n"
 "for your project (or a subproject for your target language)."
 msgstr ""
+"ეს მთავარი პარამეტრია. დააყენეთ ის საქაღალდეზე, რომელიც სათარგმნ ფაილებს "
+"შეიცავს\n"
+"თქვენი პროექტისთვის (ან ქვეპროექტი თქვენი სასურველი ენისთვის)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:141
@@ -3858,6 +3874,7 @@ msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
+"დიდი რაოდენობის ფაილების ერთდროულმა გახსნამ, შეიძლება, Lokalize გააშეშოს."
 
 #: src/project/projecttab.cpp:390
 #, kde-format
@@ -4080,6 +4097,8 @@ msgid ""
 "Reads all project files into translation memory, updating old entries. The "
 "scanning will work in background."
 msgstr ""
+"წაიკითხავს ყველა პროექტის ფაილს თარგმანის მეხსიერებაში და განაახლებს ძველ "
+"ჩანაწერებს. სკანირება ფონურად მოხდება."
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
@@ -4131,7 +4150,7 @@ msgstr "აირჩით TMX ფაილი მონიშნული ბ�
 #: src/tm/tmscanapi.cpp:82
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
-msgstr ""
+msgstr "ფაილების ჩამატება Lokalize-ის თარგმანის მეხსიერებაში"
 
 #: src/tm/tmscanapi.cpp:83
 #, kde-format
@@ -4168,12 +4187,12 @@ msgstr "ვაილდკარდი"
 #: src/tm/tmtab.cpp:365
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
-msgstr ""
+msgstr "ჰარე 'და' ოპერატორია. რეგისტრზე დამოკიდებული არაა."
 
 #: src/tm/tmtab.cpp:366
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
-msgstr ""
+msgstr "ვაილდკარდები (* და ?). დამოკიდებულია რეგისტრზე."
 
 #. i18nc("@title:window","Translation Memory"),false);
 #: src/tm/tmtab.cpp:380 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
@@ -4193,7 +4212,7 @@ msgstr "სულ: %1 (%2)"
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
-msgstr ""
+msgstr "ფაილი %1 არ არსებობს. ის წაიშალა თარგმანის მეხსიერებიდან."
 
 #: src/tm/tmview.cpp:162
 #, kde-format
@@ -4205,25 +4224,25 @@ msgstr "ორმაგი წკაპი ნებისმიერ სიტ
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
-msgstr ""
+msgstr "სერიული თარგმნის მეხსიერების შევსება"
 
 #: src/tm/tmview.cpp:284
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
-msgstr ""
+msgstr "ჯგუფური თარგმანი დასრულდა."
 
 #: src/tm/tmview.cpp:290
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
-msgstr ""
+msgstr "მინიშნებები ზუსტი დამთხვევებით აღმოჩენილი არაა."
 
 #: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
-msgstr ""
+msgstr "ჯგუფური თარგმანი დაგეგმილია."
 
 #: src/tm/tmview.cpp:456
 #, kde-format
@@ -4281,6 +4300,8 @@ msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
+"<html>მართლა გნებავთ წაშალოთ ეს ჩანაწერი:<br/><i>%1</i><br/>თარგმანის "
+"მეხსიერებიდან %2?</html>"
 
 #: src/tm/tmview.cpp:560
 #, kde-format
@@ -4312,6 +4333,8 @@ msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
+"<html>მართლა გნებავთ წაშალოთ ეს ნაკლული ფაილი:<br/><i>%1</i><br/>თარგმანის "
+"მეხსიერებიდან %2?</html>"
 
 #: src/tm/tmview.cpp:628
 #, kde-format

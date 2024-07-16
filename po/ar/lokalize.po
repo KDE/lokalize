@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-15 00:41+0000\n"
+"POT-Creation-Date: 2024-07-16 00:41+0000\n"
 "PO-Revision-Date: 2024-06-08 11:28+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2304,13 +2304,13 @@ msgstr "م&شروع"
 msgid "&Scripts"
 msgstr "س&كربتات"
 
-#: src/main.cpp:63
+#: src/main.cpp:61
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
 msgstr "لوكالايز"
 
-#: src/main.cpp:64
+#: src/main.cpp:62
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2319,7 +2319,7 @@ msgstr ""
 "نظام ترجمة بمساعدة الحاسوب.\n"
 "لا تُترجم ما تمّت ترجمته."
 
-#: src/main.cpp:66
+#: src/main.cpp:64
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2331,133 +2331,133 @@ msgstr ""
 "(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 The KBabel developers"
 
-#: src/main.cpp:67
+#: src/main.cpp:65
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:68
+#: src/main.cpp:66
 #, kde-format
 msgid "Google Inc."
 msgstr "شركة غوغل المحدودة."
 
-#: src/main.cpp:68
+#: src/main.cpp:66
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "رعت التّطوير كجزء من برنامج ”صيف البرمجة من غوغل“"
 
-#: src/main.cpp:69
+#: src/main.cpp:67
 #, kde-format
 msgid "NLNet Foundation"
 msgstr "مؤسّسة NLNet"
 
-#: src/main.cpp:69
+#: src/main.cpp:67
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr "رعت العمل المتعلّق بِ‍ XLIFF"
 
-#: src/main.cpp:70
+#: src/main.cpp:68
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "عُدّة الترجمة (Translate-Toolkit)"
 
-#: src/main.cpp:70
+#: src/main.cpp:68
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "وفّرت سكربتات تحويل متعدّدة النُّسق رائعة"
 
-#: src/main.cpp:71
+#: src/main.cpp:69
 #, kde-format
 msgid "LanguageTool"
 msgstr "أداة اللغة LanguageTool"
 
-#: src/main.cpp:71
+#: src/main.cpp:69
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr "مدقق نحو وأسلوب وإملاء"
 
-#: src/main.cpp:72
+#: src/main.cpp:70
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "فييستُرس زارينز Viesturs Zarins"
 
-#: src/main.cpp:72
+#: src/main.cpp:70
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr "شجرة المشروع التي تدمج الترجمة مع القوالب"
 
-#: src/main.cpp:73
+#: src/main.cpp:71
 #, kde-format
 msgid "Stephan Johach"
 msgstr "ستفان جوناه Stephan Johach"
 
-#: src/main.cpp:73 src/main.cpp:74 src/main.cpp:77
+#: src/main.cpp:71 src/main.cpp:72 src/main.cpp:75
 #, kde-format
 msgid "bug fixing patches"
 msgstr "رُقع لإصلاح العلل"
 
-#: src/main.cpp:74
+#: src/main.cpp:72
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "جوسلوف إليج Chusslove Illich"
 
-#: src/main.cpp:75
+#: src/main.cpp:73
 #, kde-format
 msgid "Jure Repinc"
 msgstr "جور ربنك Jure Repinc"
 
-#: src/main.cpp:75
+#: src/main.cpp:73
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "الاختبار وإصلاح العلل"
 
-#: src/main.cpp:76
+#: src/main.cpp:74
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "ستفان أسرهال Stefan Asserhall"
 
-#: src/main.cpp:76
+#: src/main.cpp:74
 #, kde-format
 msgid "patches"
 msgstr "رُقع"
 
-#: src/main.cpp:77
+#: src/main.cpp:75
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "بابا لازلو Papp Laszlo"
 
-#: src/main.cpp:78
+#: src/main.cpp:76
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "آلبرت آستالس سد Albert Astals Cid"
 
-#: src/main.cpp:78
+#: src/main.cpp:76
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "تحسينات لِ‍ XLIFF"
 
-#: src/main.cpp:79
+#: src/main.cpp:77
 #, kde-format
 msgid "Simon Depiets"
 msgstr "سيمون دبييست Simon Depiets"
 
-#: src/main.cpp:79
+#: src/main.cpp:77
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr "إصلاح العِلل والتحسينات"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:83
+#: src/main.cpp:81
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "لا تفحص ملفّات المشروع."
 
-#: src/main.cpp:84
+#: src/main.cpp:82
 #, kde-format
 msgid "Load specified project."
 msgstr "حمّل المشروع المحدّد."
 
-#: src/main.cpp:85
+#: src/main.cpp:83
 #, kde-format
 msgid "Document to open"
 msgstr "المستند لفتحه"

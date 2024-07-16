@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-15 00:41+0000\n"
+"POT-Creation-Date: 2024-07-16 00:41+0000\n"
 "PO-Revision-Date: 2022-02-17 11:58+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -2358,13 +2358,13 @@ msgstr "&Proiect"
 msgid "&Scripts"
 msgstr "&Scripturi"
 
-#: src/main.cpp:63
+#: src/main.cpp:61
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
 msgstr "Lokalize"
 
-#: src/main.cpp:64
+#: src/main.cpp:62
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2373,7 +2373,7 @@ msgstr ""
 "Sistem de traducere asistată de calculator.\n"
 "Nu mai traduce ce a fost deja tradus."
 
-#: src/main.cpp:66
+#: src/main.cpp:64
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2386,140 +2386,140 @@ msgstr ""
 "(c) 1999-2006 Dezvoltatorii KBabel"
 
 # |, no-check-spell
-#: src/main.cpp:67
+#: src/main.cpp:65
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:68
+#: src/main.cpp:66
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc."
 
 # well-spelled:Google,Summer,of,Code
-#: src/main.cpp:68
+#: src/main.cpp:66
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "dezvoltare sponsorizată ca parte a programului „Google Summer of Code”"
 
-#: src/main.cpp:69
+#: src/main.cpp:67
 #, kde-format
 msgid "NLNet Foundation"
 msgstr "Fundația NLNet"
 
-#: src/main.cpp:69
+#: src/main.cpp:67
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr "a sponsorizat lucrul legat de XLIFF"
 
-#: src/main.cpp:70
+#: src/main.cpp:68
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "Translate-toolkit"
 
-#: src/main.cpp:70
+#: src/main.cpp:68
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "furnizat scripturi excelente de conversie muli-platformă"
 
-#: src/main.cpp:71
+#: src/main.cpp:69
 #, kde-format
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/main.cpp:71
+#: src/main.cpp:69
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr "gramatică, stil și verificare ortografică"
 
 # |, no-check-spell
-#: src/main.cpp:72
+#: src/main.cpp:70
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:72
+#: src/main.cpp:70
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr "fuzionare arbore proiect traducere+șabloane"
 
 # |, no-check-spell
-#: src/main.cpp:73
+#: src/main.cpp:71
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach"
 
-#: src/main.cpp:73 src/main.cpp:74 src/main.cpp:77
+#: src/main.cpp:71 src/main.cpp:72 src/main.cpp:75
 #, kde-format
 msgid "bug fixing patches"
 msgstr "petice de corectare a erorilor"
 
 # |, no-check-spell
-#: src/main.cpp:74
+#: src/main.cpp:72
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
 # |, no-check-spell
-#: src/main.cpp:75
+#: src/main.cpp:73
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:75
+#: src/main.cpp:73
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "testare și petice de corectare a erorilor"
 
 # |, no-check-spell
-#: src/main.cpp:76
+#: src/main.cpp:74
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:76
+#: src/main.cpp:74
 #, kde-format
 msgid "patches"
 msgstr "petice"
 
 # |, no-check-spell
-#: src/main.cpp:77
+#: src/main.cpp:75
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:78
+#: src/main.cpp:76
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: src/main.cpp:78
+#: src/main.cpp:76
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "Îmbunătățiri XLIFF"
 
-#: src/main.cpp:79
+#: src/main.cpp:77
 #, kde-format
 msgid "Simon Depiets"
 msgstr "Simon Depiets"
 
-#: src/main.cpp:79
+#: src/main.cpp:77
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr "corectarea erorilor și îmbunătățiri"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:83
+#: src/main.cpp:81
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "Nu analiza fișierele proiectului."
 
-#: src/main.cpp:84
+#: src/main.cpp:82
 #, kde-format
 msgid "Load specified project."
 msgstr "Încarcă proiectul specificat."
 
-#: src/main.cpp:85
+#: src/main.cpp:83
 #, kde-format
 msgid "Document to open"
 msgstr "Document de deschis"
