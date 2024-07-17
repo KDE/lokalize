@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-16 00:41+0000\n"
-"PO-Revision-Date: 2024-07-15 05:30+0200\n"
+"PO-Revision-Date: 2024-07-16 08:02+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -125,6 +125,13 @@ msgid ""
 "\n"
 "Do you want to show the view with the data?"
 msgstr ""
+"ალტერნატიული თარგმანების ხედში გამოსადეგ მონაცემებია ხელმისაწვდომი.\n"
+"\n"
+"Gettext PO ფაილებისთვის ის აჩვენებ სხვაობას მიმდინარე კოდის ტექსტსა და POT "
+"შაბლონით PO ფაილის განახლებისას msgmerge-ის მიერ აღმოჩენილ გაურკვეველი "
+"თარგმანების კოდს შორის.\n"
+"\n"
+"გნებავთ ამ ხედის ჩვენება მონაცემებით?"
 
 #: src/alttransview.cpp:157
 #, kde-format
@@ -153,6 +160,8 @@ msgid ""
 "translation.</p><p>Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations.</p>"
 msgstr ""
+"<p>ხანდახან, თუ კოდის ტექსტი შეიცვლება, მისი თარგმანი მოძველებული გახდება და "
+"მონიშნულია ან როგორც <emphasis>"
 
 #: src/alttransview.cpp:268
 #, kde-format
@@ -2286,7 +2295,7 @@ msgstr "Translate-toolkit"
 #: src/main.cpp:68
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
-msgstr ""
+msgstr "მოგაწოდებთ კარგ ფორმატებს შორის გადამყვან სკრიპტებს"
 
 #: src/main.cpp:69
 #, kde-format
@@ -2306,7 +2315,7 @@ msgstr "Viesturs Zarins"
 #: src/main.cpp:70
 #, kde-format
 msgid "project tree merging translation+templates"
-msgstr ""
+msgstr "თარგმანების+შაბლონების შერწყმის პროექტის ხე"
 
 #: src/main.cpp:71
 #, kde-format
@@ -2633,6 +2642,8 @@ msgstr "მთარგმნელი გუნდის გადაფარ�
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
 msgstr ""
+"მომხმარებლის მიერ მიწოდებული ენის გუნდის სახელის გამოყენება მისი გენერაციის "
+"მაგიერ"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:35
@@ -2785,7 +2796,7 @@ msgstr "აირჩიეთ სათარგმნი .po ფაილებ
 #: src/prefs/prefs.cpp:230
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
-msgstr ""
+msgstr "ჯერ შექმენით პროგრამა ან OpenDocument-ის თარგმანის პროექტი."
 
 #: src/prefs/prefs.cpp:290
 #, kde-format
@@ -2870,6 +2881,7 @@ msgstr "ახალი დამატებული ტექსტის ფ
 msgid ""
 "You can set another color for viewing the text that was added to the string."
 msgstr ""
+"შეგიძლიათ დააყენოთ სხვა ფერი სტრიქონისთვის დამატებული ტექსტის სანახავად."
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/prefs/prefs_appearance.ui:101
@@ -2890,7 +2902,7 @@ msgstr "წაშლილი ტექსტის ფერის შეცვ
 msgid ""
 "You can set another color for viewing the text that was removed from the "
 "string."
-msgstr ""
+msgstr "შეგიძლიათ დააყენოთ სხვა ფერი სტრიქონიდან წაშლილი ტექსტის სანახავად."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:140
@@ -2985,7 +2997,7 @@ msgstr "წინა ჯერზე გახსნილი ფაილებ
 #: src/prefs/prefs_general.ui:54
 #, kde-format
 msgid "Defines the behavior of the next/previous tab shortcuts"
-msgstr ""
+msgstr "აღწერს წინა/შემდეგი ჩანართის მალსახმობის ქცევას"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:57
@@ -3018,6 +3030,8 @@ msgid ""
 "Fill in your identity and information about your translation team. This "
 "information is used when updating the header of a file."
 msgstr ""
+"შეავსეთ ინფორმაცია თქვენსა და თქვენი მთარგმნელების გუნდის შესახებ. ეს "
+"ინფორმაცია ფაილის თავსართის განახლებისას გამოიყენება."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/prefs/prefs_identity.ui:35
@@ -3234,6 +3248,8 @@ msgid ""
 "If this is checked, the program will fetch translation memories as soon as "
 "you open a file."
 msgstr ""
+"თუ ეს ჩართულა, პროგრამა თარგმანის მეხსიერებას ფაილის გახსნისთანავე "
+"გამოითხოვს."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:51
@@ -4064,6 +4080,9 @@ msgid ""
 "Press Enter to start the search.\n"
 "Press Ctrl+L to go to this control."
 msgstr ""
+"ძებნის გამოსახულება საწყისი ენის ნაწილისთვის.\n"
+"დააჭირეთ Enter-ს ძებნის დასაწყებად.\n"
+"Ctrl+L ამ კონტროლის ელემენტზე გადასასვლელად."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4083,6 +4102,8 @@ msgstr "ფაილის ნიღაბი:"
 #, kde-format
 msgid "Show only results from files with path matching specified mask"
 msgstr ""
+"შედეგების ჩვენება, მხოლოდ, ფაილებიდან, რომლის ბილიკიც მითითებულ ნიღაბს "
+"ემთხვევა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
