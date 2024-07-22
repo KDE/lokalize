@@ -1188,8 +1188,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     sourceClean.remove(c.accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
     QStringList englishList(sourceClean.toLower().split(rxSplit, Qt::SkipEmptyParts));
-    static const QRegularExpression delPart(QRegularExpression::wildcardToRegularExpression(QStringLiteral("<KBABELDEL>*</KBABELDEL>")), QRegularExpression::InvertedGreedinessOption);
-    static const QRegularExpression addPart(QRegularExpression::wildcardToRegularExpression(QStringLiteral("<KBABELADD>*</KBABELADD>")), QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression delPart(QRegularExpression::wildcardToRegularExpression(QStringLiteral("<KBABELDEL>*</KBABELDEL>"), QRegularExpression::UnanchoredWildcardConversion), QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression addPart(QRegularExpression::wildcardToRegularExpression(QStringLiteral("<KBABELADD>*</KBABELADD>"), QRegularExpression::UnanchoredWildcardConversion), QRegularExpression::InvertedGreedinessOption);
 
     //QList<uint> concordanceLevels=sortedUniqueValues(occurencies); //we start from entries with higher word-concordance level
     QMultiMap<uint, qlonglong> concordanceLevelToIds = invertMap(occurencies);
