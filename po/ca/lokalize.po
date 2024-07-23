@@ -4668,17 +4668,3 @@ msgstr "S'ha notificat un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia l'origen a la destinació"
-
-#~ msgid "Locally"
-#~ msgstr "Localment"
-
-#~ msgid "lxr.kde.org"
-#~ msgstr "lxr.kde.org"
-
-#~ msgctxt "@action"
-#~ msgid "New"
-#~ msgstr "Nou"
-
-#~ msgctxt "@action"
-#~ msgid "Open"
-#~ msgstr "Obre"
