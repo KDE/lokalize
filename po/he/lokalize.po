@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-16 00:41+0000\n"
-"PO-Revision-Date: 2024-07-20 20:03+0300\n"
+"PO-Revision-Date: 2024-07-22 18:54+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1398,10 +1398,10 @@ msgid "Copy all new translations"
 msgstr "העתקת כל התרגומים החדשים"
 
 #: src/editortab.cpp:632
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
-msgstr "זה משנה רק כניסות ריקות בקובץ הבסיס"
+msgstr "משנה רק את הרשומות הריקות ואת אלו שטרם מוכנות בקובץ הבסיס"
 
 #: src/editortab.cpp:641 src/editortab.cpp:684
 #, kde-format
@@ -1787,9 +1787,9 @@ msgstr "סנכרון ממקור מ&שני"
 
 #. i18n: ectx: Menu (toolviews)
 #: src/editorui.rc:212 src/lokalizemainwindowui.rc:49
-#, fuzzy, kde-format
+#, kde-format
 msgid "Tool&views"
-msgstr "כלים"
+msgstr "ת&צוגות כלים"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:234 src/filesearch/filesearchtabui.rc:11
@@ -2600,13 +2600,13 @@ msgstr "תהליך"
 #, kde-format
 msgctxt "@title:column"
 msgid "Company"
-msgstr ""
+msgstr "חברה"
 
 #: src/phaseswindow.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Person"
-msgstr ""
+msgstr "איש"
 
 #: src/phaseswindow.cpp:143
 #, kde-format
@@ -2622,7 +2622,7 @@ msgstr "תרגום"
 #: src/phaseswindow.cpp:169
 #, kde-format
 msgid "Review"
-msgstr ""
+msgstr "סקירה"
 
 #: src/phaseswindow.cpp:169
 #, kde-format
@@ -2639,7 +2639,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Edit phases"
-msgstr ""
+msgstr "עריכת שלבים"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:14
@@ -2669,13 +2669,13 @@ msgstr "שם המתרגם בשפת היעד"
 #: src/prefs/lokalize.kcfg:28
 #, kde-format
 msgid "Override Language Team"
-msgstr ""
+msgstr "דריסת צוות השפה"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:29
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
-msgstr ""
+msgstr "להשתמש בשם צוות שפה שסופק על ידי המשתמש במקום ליצור אותו"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:35
@@ -2741,6 +2741,9 @@ msgid ""
 "%1 - Path of the source file\n"
 "%2 - Line number"
 msgstr ""
+"המשתנים הבאים זמינים\n"
+"%1 - נתיב לקובץ המקור\n"
+"%2 - מספר שורה"
 
 #: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:242
 #, kde-format
@@ -2813,18 +2816,18 @@ msgstr "פתיחת מיזם"
 #: src/prefs/prefs.cpp:192 src/prefs/prefs.cpp:209
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
-msgstr ""
+msgstr "מיזם תרגום של Lokalize‏ (‎*.lokalize)"
 
 #: src/prefs/prefs.cpp:209
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
-msgstr ""
+msgstr "נא לבחור תיקייה עם קובצי ‎.po מסוג Gettext לתרגום"
 
 #: src/prefs/prefs.cpp:230
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
-msgstr ""
+msgstr "יצירת תוכנה או מיזם תרגום OpenDocument קודם."
 
 #: src/prefs/prefs.cpp:290
 #, kde-format
@@ -2998,7 +3001,7 @@ msgstr ""
 #: src/prefs/prefs_editor.ui:77
 #, kde-format
 msgid "Minimum word length for word completion"
-msgstr ""
+msgstr "אורך המילה המזערי להשלמת מילים"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_WordCompletionLength)
 #: src/prefs/prefs_editor.ui:90
@@ -3028,7 +3031,7 @@ msgstr "הגדרת התנהגות קיצורי קדימה/אחורה בלשונ�
 #: src/prefs/prefs_general.ui:57
 #, kde-format
 msgid "Next/previous tab shortcut behavior"
-msgstr ""
+msgstr "התנהגות קיצור המקשים ללשונית הבאה/קודמת"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
 #: src/prefs/prefs_general.ui:68
@@ -3133,7 +3136,7 @@ msgstr "נא לכתוב את הדוא״ל שלך"
 #, kde-format
 msgid ""
 "Write your email here so it will appear in the po file header with your name"
-msgstr ""
+msgstr "נא לכתוב את הדוא״ל שלך כאן כדי שיופיע בכותרת קובץ ה־po יחד עם השם שלך"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorLocalizedName)
 #: src/prefs/prefs_identity.ui:144
@@ -3146,7 +3149,7 @@ msgstr "השם שלך בשפה שלך"
 #, kde-format
 msgid ""
 "Write your name and surname in your language with your language alphabet."
-msgstr ""
+msgstr "נא לכתוב את השם ואת שם המשפחה בשפה שלך ובכתב של השפה שלך."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/prefs/prefs_identity.ui:154
@@ -3229,7 +3232,7 @@ msgstr ""
 msgid ""
 "Please enter here the Pology command to be run in order to check a single "
 "entry"
-msgstr ""
+msgstr "נא למלא כאן את פקודת ה־Pology להרצה כדי לבדוק רשומה בודדת"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_0)
 #: src/prefs/prefs_pology.ui:54
@@ -3252,7 +3255,7 @@ msgstr ""
 #, kde-format
 msgid ""
 "Please enter here the Pology command to be run in order to check a whole file"
-msgstr ""
+msgstr "נא למלא כאן את כתובת ה־Pology להרצה לבדיקת קובץ שלם"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:45
@@ -3350,7 +3353,7 @@ msgstr "מקש האצה:"
 #: src/project/prefs_project_advanced.ui:33
 #, kde-format
 msgid "Usually '&', but may also be '_' for GTK apps."
-msgstr ""
+msgstr "בדרך כלל ‚&’, אבל לפעמים יכול גם להיות ‚_’ ליישומי GTK."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_project_advanced.ui:40
@@ -3570,6 +3573,8 @@ msgid ""
 "This is main setting. Set this to path of a folder with translation files\n"
 "for your project (or a subproject for your target language)."
 msgstr ""
+"זאת הגדרה ראשית. יש להגדיר אותה לנתיב של תיקייה עם קובצי תרגום\n"
+"למיזם שלך (או תת־מיזם לשפת היעד שלך)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:141
@@ -3582,13 +3587,13 @@ msgstr "תיקייה עליונה:"
 #: src/project/prefs_projectmain.ui:155
 #, kde-format
 msgid "Automatic"
-msgstr ""
+msgstr "אוטומטי"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:160
 #, kde-format
 msgid "Application"
-msgstr ""
+msgstr "יישום"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:165
@@ -3605,7 +3610,7 @@ msgstr "צוות שפה:"
 #: src/project/project.cpp:440
 #, kde-format
 msgid "Scanning folders with source files"
-msgstr ""
+msgstr "התיקיות עם קובצי המקור נסרקות"
 
 #: src/project/project.cpp:441
 #, kde-format
@@ -3621,7 +3626,7 @@ msgstr "תרגום של %1 ל־%2"
 #: src/project/projectbase.kcfg:11
 #, kde-format
 msgid "default"
-msgstr ""
+msgstr "ברירת מחדל"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:18
@@ -3633,13 +3638,13 @@ msgstr "שפה"
 #: src/project/projectbase.kcfg:32
 #, kde-format
 msgid "User Language Team in Lokalize settings"
-msgstr ""
+msgstr "צוות שפת המשתמש בהגדרות של Lokalize"
 
 #. i18n: ectx: label, entry (OverrideLangTeam), group (General)
 #: src/project/projectbase.kcfg:38
 #, kde-format
 msgid "Override Lokalize Language Team"
-msgstr ""
+msgstr "דריסת צוות התרגום של Lokalize"
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
 #: src/project/projectbase.kcfg:44
@@ -3903,14 +3908,13 @@ msgid "Are you sure you want to open this many files?"
 msgstr "לפתוח כמות כזאת גדולה של קבצים?"
 
 #: src/project/projecttab.cpp:392
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
-msgstr[0] "פתח קובץ"
-msgstr[1] "פתח קובץ"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "&פתיחת קובץ"
+msgstr[1] "&פתיחת שני קבצים"
+msgstr[2] "&פתיחת %1 קבצים"
+msgstr[3] "&פתיחת %1 קבצים"
 
 #: src/tm/dbfilesmodel.cpp:98
 #, kde-format
@@ -4082,14 +4086,15 @@ msgstr "זיכרון תרגום:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Enter to start the search.\n"
 "Press Ctrl+L to go to this control."
 msgstr ""
-"חפש ביטוי עבור החלק של שפת המקור.\n"
-"לחץ על enter עדי להתחיל את החיפוש."
+"ביטויי חיפוש לחלק שפת המקור.\n"
+"נא ללחוץ על Enter כדי להתחיל את החיפוש.\n"
+"או Ctrl+L כדי לגשת לבקר הזה."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4248,25 +4253,25 @@ msgstr "לחיצה כפולה על כל מילה שהיא תוסיף אותה ל
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
-msgstr ""
+msgstr "מילוי זיכרון תרגום במרוכז"
 
 #: src/tm/tmview.cpp:284
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
-msgstr ""
+msgstr "תרגום במרוכז הושלם."
 
 #: src/tm/tmview.cpp:290
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
-msgstr ""
+msgstr "לא נמצאו הצעות עם התאמה מדויקת."
 
 #: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
-msgstr ""
+msgstr "תרגום במרוכז תוזמן."
 
 #: src/tm/tmview.cpp:456
 #, kde-format
@@ -4288,7 +4293,7 @@ msgstr[3] "(%1 פעמים)"
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
-msgstr ""
+msgstr "זה"
 
 #: src/tm/tmview.cpp:540
 #, kde-format

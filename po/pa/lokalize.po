@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# A S Alam <aalam@users.sf.net>, 2007, 2008, 2009, 2010, 2011, 2018, 2021.
+# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2018, 2021, 2024 A S Alam <aalam@users.sf.net>
 # Amanpreet Singh Alam <apreet.alam@gmail.com>, 2008.
 # Amanpreet Singh <aalam@users.sf.net>, 2008.
 # Amanpreet Singh Alam <aalam@users.sf.net>, 2008, 2012, 2013, 2014, 2015, 2016, 2017, 2020.
@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-16 00:41+0000\n"
-"PO-Revision-Date: 2021-01-30 22:55-0800\n"
-"Last-Translator: A S Alam <aalam.yellow@gmail.com>\n"
-"Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
+"PO-Revision-Date: 2024-07-21 22:25-0500\n"
+"Last-Translator: aalam <aalam@punlinux.org>\n"
+"Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
 "Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.08.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -227,10 +227,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:47
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "ਸਭ ਸਹਾਇਕ ਫਾਇਲਾਂ (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "ਸਭ ਸਹਾਇਕ ਫ਼ਾਇਲਾਂ (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:48
 #, kde-format
@@ -1379,12 +1378,10 @@ msgid "This changes only empty entries"
 msgstr "ਇਹ ਕੇਵਲ ਖਾਲੀ ਐਂਟਰੀਆਂ ਬਦਲਦਾ ਹੈ।"
 
 #: src/editortab.cpp:706
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(ਰਿਕਵਰ ਕੀਤਾ)"
+msgstr " (ਰਿਕਵਰ ਕੀਤਾ)"
 
 #: src/editortab.cpp:749 src/editortab.cpp:925
 #, kde-format
@@ -1579,11 +1576,10 @@ msgid "Source file lookup"
 msgstr "ਸਰੋਤ ਫਾਇਲ ਖੋਜ"
 
 #: src/editortab.cpp:1492
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "ਲੋਕਲ"
+msgstr "ਲੋਕਲ ਖੋਜੋ"
 
 #: src/editortab.cpp:1493 src/editortab.cpp:1537
 #, fuzzy, kde-format
@@ -1614,11 +1610,10 @@ msgid "Source file lookup"
 msgstr "ਸਰੋਤ ਫਾਇਲ ਖੋਜ"
 
 #: src/editortab.cpp:1536
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "ਫੋਲਡਰ ਚੁਣੋ:"
+msgstr "ਫੋਲਡਰ ਚੁਣੋ"
 
 #: src/editortab.cpp:1576
 #, kde-format
@@ -2753,24 +2748,19 @@ msgstr ""
 "ਬਣਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਮੌਜੂਦਾ ਪਰੋਜੈਕਟ ਖੋਲ੍ਹਣਾ?"
 
 #: src/prefs/prefs.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "ਪਰੋਜੈਕਟ ਸੰਖੇਪ"
+msgstr "ਪਰੋਜੈਕਟ ਚਾਹੀਦਾ ਹੈ"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "ਨਵਾਂ ਪਰੋਜੈਕਟ ਬਣਾਓ"
+msgstr "ਪਰੋਜੈਕਟ ਬਣਾਓ"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "ਪਰੋਜੈਕਟ ਖੋਲ੍ਹੋ"
@@ -3760,15 +3750,7 @@ msgid "Project Overview"
 msgstr "ਪਰੋਜੈਕਟ ਸੰਖੇਪ"
 
 #: src/project/projecttab.cpp:55
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -3779,10 +3761,10 @@ msgid ""
 "what you need.</html>"
 msgstr ""
 "<html>KDE ਟੀਮ ਦਾ ਮੈਂਬਰ ਬਣਨ ਲਈ ਤੁਹਾਨੂੰ ਸਾਫਟਵੇਅਰ ਡਿਵੈਲਪਰ ਨਹੀਂ ਲਾਜ਼ਮੀ ਨਹੀਂ ਹੈ। ਤੁਸੀਂ ਪ੍ਰੋਗਰਾਮ "
-"ਇੰਟਰਫੇਸ ਅਨੁਵਾਦ ਕਰਨ ਵਾਸਤੇ ਰਾਸ਼ਟਰੀ ਟੀਮਾਂ ਦੇ ਮੈਂਬਰ ਬਣ ਸਕਦੇ ਹੋ। ਤੁਸੀਂ ਗਰਾਫੀਕਲ, ਸਰੂਪ, ਧੁਨੀ ਅਤੇ "
-"ਸੁਧਰੇ ਡੌਕੂਮੈਂਟ ਉਪਲੱਬਧ ਕਰਵਾ ਸਕਦੇ ਹੋ। ਤੁਹਾਡੀ ਆਪਣੀ ਮਰਜ਼ੀ ਹੈ! <br /><br /><a href=\"%1\">%1</"
-"a><br /><br />ਜਿਹਨਾਂ ਪਰੋਜੈੱਕਟਾਂ ਵਿੱਚ ਤੁਸੀ ਯੋਗਦਾਨ ਪਾ ਸਕਦੇ ਹੋ, ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ<a href="
-"\"%2\">%2</a> ਤੇ ਜਾਓ।</html>"
+"ਇੰਟਰਫੇਸ ਅਨੁਵਾਦ ਕਰਨ ਵਾਸਤੇ ਭਾਸ਼ਾ ਟੀਮਾਂ ਦੇ ਮੈਂਬਰ ਬਣ ਸਕਦੇ ਹੋ। ਤੁਸੀਂ ਗਰਾਫਿਕਸ, ਥੀਮ, ਸਾਊਂਡ ਅਤੇ "
+"ਸੁਧਾਰ ਕੀਤੇ ਡੌਕੂਮੈਂਟ ਉਪਲੱਬਧ ਕਰਵਾ ਸਕਦੇ ਹੋ। ਤੁਹਾਡੀ ਆਪਣੀ ਮਰਜ਼ੀ ਹੈ! <br /><br /><a href="
+"\"%1\">%1</a><br /><br />ਜਿਹਨਾਂ ਪਰੋਜੈੱਕਟਾਂ ਵਿੱਚ ਤੁਸੀ ਯੋਗਦਾਨ ਪਾ ਸਕਦੇ ਹੋ, ਬਾਰੇ ਵਧੇਰੇ "
+"ਜਾਣਕਾਰੀ ਲਈ<a href=\"%2\">%2</a> ਤੇ ਜਾਓ।</html>"
 
 #: src/project/projecttab.cpp:76
 #, kde-format
@@ -3808,14 +3790,12 @@ msgid "Translate OpenDocument"
 msgstr "ਓਪਨ-ਡੌਕੂਮੈਂਟ ਦਾ ਅਨੁਵਾਦ ਕਰੋ"
 
 #: src/project/projecttab.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:164
 #, kde-format
@@ -4215,18 +4195,16 @@ msgid "TM"
 msgstr "TM"
 
 #: src/tm/tmtab.cpp:74
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "ਸਰੋਤ:"
+msgstr "ਸਰੋਤ: %1"
 
 #: src/tm/tmtab.cpp:79
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "ਟਾਰਗੇਟ:"
+msgstr "ਟਾਰਗੇਟ: %1"
 
 #: src/tm/tmtab.cpp:358
 #, kde-format

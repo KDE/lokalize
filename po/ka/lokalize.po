@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-16 00:41+0000\n"
-"PO-Revision-Date: 2024-07-16 08:02+0200\n"
+"PO-Revision-Date: 2024-07-22 07:53+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -418,6 +418,10 @@ msgid ""
 "series of utterances, even though they do not necessarily have to maintain "
 "immediate proximity to one another"
 msgstr ""
+"კოლოკაცია: განმეორებადი სიტყვის კომბინაცია, რომელიც ხასიათდება "
+"თანმიმდევრობით იმით, რომ კოლოკაციის კომპონენტები უნდა არსებობდეს გამოთქმის "
+"ან გამონათქვამების სერიაში, მიუხედავად იმისა, რომ მათ აუცილებლად არ უნდა "
+"შეინარჩუნონ უშუალო სიახლოვეს ერთმანეთთან"
 
 #: src/catalog/catalogstring.cpp:126
 #, kde-format
@@ -443,6 +447,9 @@ msgid ""
 "that two mathematical expressions are, for instance, equal as identified by "
 "the equal sign (=), or assigned to one another by a similar sign"
 msgstr ""
+"ტოლობა: გამოსახულება, რომელიც წარმოადგენს პირობას, რომ ორი მათემატიკური "
+"გამოსახულება, მაგალითად, ტოლია, რაც გამოიხატება ტოლობის ნიშნით (=) ან "
+"მინიჭებულია ერთმანეთზე იგივე ნიშნით"
 
 #: src/catalog/catalogstring.cpp:129
 #, kde-format
@@ -451,6 +458,8 @@ msgid ""
 "expanded form: The complete representation of a term for which there is an "
 "abbreviated form"
 msgstr ""
+"გაფართოებული ფორმა: სრული წარმოდგენა ტერმინისა, რომლისთვისაც აბრევიატურა "
+"არსებობს"
 
 #: src/catalog/catalogstring.cpp:130
 #, kde-format
@@ -459,6 +468,8 @@ msgid ""
 "formula: figures, symbols or the like used to express a concept briefly, "
 "such as a mathematical or chemical formula"
 msgstr ""
+"ფორმულა: ფიგურები, სიმბოლოები ან მსგავსი, რომ გარკვეული ცნება, როგორიცაა "
+"მათემატიკური ან ქიმიური ფორმულა, მოკლედ ჩაწეროთ"
 
 #: src/catalog/catalogstring.cpp:131
 #, kde-format
@@ -467,6 +478,8 @@ msgid ""
 "head term: the concept designation that has been chosen to head a "
 "terminological record"
 msgstr ""
+"მთავარი ტერმინი: გაგების დანიშვნა, რომელიც არჩეული იყო მთავარი "
+"ტერმინოლოგიური ჩანაწერისთვის"
 
 #: src/catalog/catalogstring.cpp:132
 #, kde-format
@@ -477,6 +490,10 @@ msgid ""
 "up a compound term when these letters are pronounced individually (e.g. "
 "'BSE' for 'bovine spongiform encephalopathy')"
 msgstr ""
+"აბრევიატურა: ტერმინის შემოკლებული ფორმა, რომელიც მისი შემადგენელი "
+"მრავალსიტყვიანი ტერმინის ან ტერმინების ელემენტების პირველი ასოებისგან "
+"შედგება, რომლებიც სათითაოდ წარმოითქმება (მაგალითად: 'BSE' ნიშნავს 'bovine "
+"spongiform encephalopathy')"
 
 #: src/catalog/catalogstring.cpp:133
 #, kde-format
@@ -485,6 +502,8 @@ msgid ""
 "international scientific term: a term that is part of an international "
 "scientific nomenclature as adopted by an appropriate scientific body"
 msgstr ""
+"საერთაშორისო სამეცნიერო ტერმინი: ტერმინი, რომელიც საერთაშორისო სამეცნიერო "
+"ნომენკლატურის ნაწილია და მიღებულია შესაბამისი სამეცნიერო ორგანოს მიერ"
 
 #: src/catalog/catalogstring.cpp:134
 #, kde-format
@@ -493,6 +512,8 @@ msgid ""
 "internationalism: a term that has the same or nearly identical orthographic "
 "or phonemic form in many languages"
 msgstr ""
+"ინტერნაციონალიზმი: ტერმინი, რომელსაც იგივე, ან თითქმის იგივე ორთოგრაფიული ან "
+"ფონებამატური ფორმა გააჩნია ბევრ ენაში"
 
 #: src/catalog/catalogstring.cpp:135
 #, kde-format
@@ -502,6 +523,9 @@ msgid ""
 "mathematical or logical relations, such as statements of inequality, set "
 "relationships, Boolean operations, and the like"
 msgstr ""
+"ლოგიკური გამოსახულება: გამოსახულება, რომელიც გამოიყენება ისეთი მათემატიკური "
+"ან ლოგიკური დამოკიდებულებების აღსაწერად, როგორიცაა გამოსახულებები "
+"უტოლობისთვის, ურთიერთობების დაყენება, ბულევური ოპერაციები და მსგავსი"
 
 #: src/catalog/catalogstring.cpp:136
 #, kde-format
@@ -523,6 +547,9 @@ msgid ""
 "another term in the same language, but for which interchangeability is "
 "limited to some contexts and inapplicable in others"
 msgstr ""
+"თითქმის სინონიმი: ტერმინი, რომელიც წარმოადგენს იგივე ან ძალიან მსგავს "
+"მნიშვნელობას სხვა ტერმინისგა იგივე ენაში, მაგრამ რომლის ჩანაცვლებადობაც "
+"შეზღუდულია ზოგიერთი კონტექსტით და არ გამოიყენება სხვა კონტექსტით"
 
 #: src/catalog/catalogstring.cpp:139
 #, kde-format
@@ -531,6 +558,8 @@ msgid ""
 "part number: a unique alphanumeric designation assigned to an object in a "
 "manufacturing system"
 msgstr ""
+"ნაწილის ნომერი: წარმოების სისტემაში ობიექტისთვის მინიჭებული უნიკალური "
+"ალფარიცხვითი მიმდევრობა"
 
 #: src/catalog/catalogstring.cpp:140
 #, kde-format
@@ -546,6 +575,9 @@ msgid ""
 "of which frequently cannot be deduced based on the combined sense of the "
 "words making up the phrase"
 msgstr ""
+"ფრაზეოლოგიური: ორი ან მეტი სიტყვის ჯგუფი, რომლებიც ქმნიან ერთეულს, რომლების "
+"მნიშვნელობის დადგენა, ხშირად, შეუძლებელია ფრაზის შემადგენელი სიტყვების "
+"კომბინირებული მნიშვნელობით"
 
 #: src/catalog/catalogstring.cpp:142
 #, kde-format
@@ -560,6 +592,8 @@ msgid ""
 "romanized form: a form of a term resulting from an operation whereby non-"
 "Latin writing systems are converted to the Latin alphabet"
 msgstr ""
+"რომანიზებული ფორმა: ტერმინის ფორმა, რომელიც მიიღება ოპერაციით, რომელსაც "
+"არალათინური ანბანების ლათინურში გადაყვანა ხდება"
 
 #: src/catalog/catalogstring.cpp:144
 #, kde-format
@@ -581,6 +615,10 @@ msgid ""
 "full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
+"მოკლე ფორმა: მრავალსიტყვიანი ტერმინის ვარიანტი, რომელიც ნაკლებ სიტყვას "
+"შეიცავს, ვიდრე სრული ფორმა (მაგ: 'ოცდაოთხკაციანი ჯგუფი', შეიძლება, ნიშნავდეს "
+"'ოცდაოთხკაციანი მთავრობათაშორისი გუნდი საერთაშორისო მონეტარული "
+"ურთიერთობებისთვის')"
 
 #: src/catalog/catalogstring.cpp:147
 #, kde-format
@@ -1647,6 +1685,11 @@ msgid ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 msgstr ""
+"სამიზნე კოდის ფაილის გახსნა შეუძლებელია: სამიზნე კოდის ფაილი მიმდინარე "
+"თარგმანის ფაილთან კავშირში არაა და ამჟამად კოდის ფაილების მორგებული "
+"ბილიკებიდან გასახსნელად სკრიპტები დაყენებული არაა. იხილეთ Lokalize-ის "
+"სახელმძღვანელო სკრიპტის მაგალითებისთვის და როგორ შეტენოთ ისინი თქვენს "
+"პროექტში."
 
 #: src/editortab.cpp:1590 src/project/project.cpp:467
 #: src/project/project.cpp:472
@@ -1802,6 +1845,9 @@ msgid ""
 "<p>This part of the window shows the original message\n"
 "of the currently displayed entry.</p></qt>"
 msgstr ""
+"<qt><p><b>ორიგინალი სტრიქონი</b></p>\n"
+"<p>ფანჯრის ეს ნაწილი ამჟამად ნაჩვენები ჩანაწერის\n"
+"წყარო სტრიქონს აჩვენებს.</p></qt>"
 
 #: src/editorview.cpp:179
 #, kde-format
@@ -2038,6 +2084,8 @@ msgid ""
 "When adding a new item, press enter after you have typed its name for "
 "changes to take effect"
 msgstr ""
+"ახალი ჩანაწერის დამატებისას, ცვლილებების ძალაში შესასვლელად, მისი სახელის "
+"შეყვანის შემდეგ, Enter-ს დააჭირეთ"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/glossary/termedit.ui:95
@@ -2428,6 +2476,8 @@ msgid ""
 "Drop file to be merged into / synced with the current one here, then see "
 "context menu options"
 msgstr ""
+"დააგდეთ აქ ფაილი, რომლის მიმდინარე ფაილთან შერწყმა / სინქრონიზაციაც გნებავთ, "
+"შემდეგ კი იხილეთ კონტექსტური მენიუს პარამეტრები"
 
 #: src/mergemode/mergeview.cpp:228
 #, kde-format
@@ -2841,6 +2891,9 @@ msgid ""
 "If checked, LEDS will be shown to display the message status: Fuzzy, "
 "Untranslated or Error. If unchecked, no LEDs will be displayed."
 msgstr ""
+"თუ ჩართულია, ნაჩვენები იქნება LED-ები შეტყობინების სტატუსის საჩვენებლად: "
+"ბუნდოვანი, უთარგმნელი, ან შეცდომის შემცველი. თუ გამორთულია, LED-ები "
+"ნაჩვენები არ იქნება."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:60
@@ -2849,6 +2902,8 @@ msgid ""
 "LEDs to indicate Fuzzy and Untranslated status as well as cursor column "
 "number"
 msgstr ""
+"LED-ები ბუნდოვანი და უთარგმნელი სტატუსის საჩვენებლად კურსორის სვეტის "
+"ნომერთან ერთად"
 
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
 #: src/prefs/prefs_appearance.ui:69
@@ -2912,6 +2967,9 @@ msgid ""
 "displaying it in the user interface, or when it gets concatenated with "
 "others)."
 msgstr ""
+"ჩართეთ, რომ დაინახოთ, მთავრდება თუ არა სტრიქონი ჰარეთი (რაც, ხანდახან, "
+"მნიშვნელოვანია მის საჩვენებლად მომხმარებლის ინტერფეისში, ან, როცა ის სხვა "
+"სტრიქონებს მიერთდება)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:143
@@ -3195,6 +3253,9 @@ msgid ""
 "following placeholders in order to set-up the commands: %u is the entry "
 "number, %f is the file name. For instance: posieve -u %u check-rules %f"
 msgstr ""
+"Pology-ის ბრძანება, რომელიც ერთი ჩანაწერის შესამოწმებლად უნდა გაეშვას. "
+"გამოიყენეთ შემდეგი ადგილმჭერები მომდევნო ბრძანებებისთვის: %u ჩანაწერის "
+"ნომერია, %f ფაილის სახელი. მაგალითად: posieve -u %u check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:44
@@ -3220,6 +3281,9 @@ msgid ""
 "should include \"-s lokalize\", placeholder %f is the file name. For "
 "instance: posieve -s lokalize check-rules %f"
 msgstr ""
+"Pology-ის ბრძანება, რომელიც მთლიანი ფაილის შესამოწმებლად გამოიყენება. "
+"ბრძანება უნდა შეიცავდეს სტრიქონს \"-s localize\". ადგილმჭერი %f ფაილის "
+"სახელია. მაგალითად: posieve -s localize check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:70
@@ -3318,6 +3382,8 @@ msgid ""
 "Delete missing files from translation memory on Rescan or when clicking a "
 "missing entry"
 msgstr ""
+"ნაკლული ფაილების წაშლა თარგმანის მეხსიერებიდან თავიდან სკანირებისას ან "
+"ნაკლულ ჩანაწერზე დაწკაპუნებისას"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
