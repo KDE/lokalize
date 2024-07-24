@@ -64,12 +64,21 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     setObjectName(QStringLiteral("catalogTreeView"));
 
     QWidget* w = new QWidget(this);
-    QVBoxLayout* layout = new QVBoxLayout(w);
-    layout->setContentsMargins(0, 0, 0, 0);
-    QHBoxLayout* l = new QHBoxLayout;
-    l->setContentsMargins(0, 0, 0, 0);
-    l->setSpacing(0);
-    layout->addLayout(l);
+    QVBoxLayout* mainLayout = new QVBoxLayout(w);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
+    QHBoxLayout* searchAndOptionsButtonLayout = new QHBoxLayout;
+    searchAndOptionsButtonLayout->setContentsMargins(
+        style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+        style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+        style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+        style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+    searchAndOptionsButtonLayout->setSpacing(style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
+    mainLayout->addLayout(searchAndOptionsButtonLayout);
+
+    QFrame* horizontalLine = new QFrame();
+    horizontalLine->setFrameShape(QFrame::HLine);
+    mainLayout->addWidget(horizontalLine);
 
     m_lineEdit->setClearButtonEnabled(true);
     m_lineEdit->setPlaceholderText(i18n("Quick search..."));
@@ -82,16 +91,15 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
 
     QToolButton* btn = new QToolButton(w);
     btn->setPopupMode(QToolButton::InstantPopup);
-    btn->setText(i18n("options"));
-    //btn->setArrowType(Qt::DownArrow);
+    btn->setText(i18n("Options"));
     btn->setMenu(new QMenu(this));
     m_filterOptionsMenu = btn->menu();
     connect(m_filterOptionsMenu, &QMenu::aboutToShow, this, &CatalogView::fillFilterOptionsMenu);
     connect(m_filterOptionsMenu, &QMenu::triggered, this, &CatalogView::filterOptionToggled);
 
-    l->addWidget(m_lineEdit);
-    l->addWidget(btn);
-    layout->addWidget(m_browser);
+    searchAndOptionsButtonLayout->addWidget(m_lineEdit);
+    searchAndOptionsButtonLayout->addWidget(btn);
+    mainLayout->addWidget(m_browser);
 
 
     setTabOrder(m_lineEdit, btn);
