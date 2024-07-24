@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-16 00:41+0000\n"
-"PO-Revision-Date: 2024-07-22 18:54+0300\n"
+"PO-Revision-Date: 2024-07-23 21:31+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2135,7 +2135,7 @@ msgstr "לא נמצאו מודולים של SQL ב־Qt. זיכרון התרגו�
 #: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
-msgstr ""
+msgstr "מערכת זיכרון התרגום צריכה מודול SQLite של Qt"
 
 #: src/lokalizemainwindow.cpp:352 src/project/project.cpp:292
 #, kde-format
@@ -2329,7 +2329,7 @@ msgstr "Translate-toolkit"
 #: src/main.cpp:68
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
-msgstr ""
+msgstr "סיפק סקריפטים חוצי תבניות מעולים"
 
 #: src/main.cpp:69
 #, kde-format
@@ -2344,7 +2344,7 @@ msgstr "בדיקת דקדוד, סגנון ואיות"
 #: src/main.cpp:70
 #, kde-format
 msgid "Viesturs Zarins"
-msgstr ""
+msgstr "ויסטורז זארינס"
 
 #: src/main.cpp:70
 #, kde-format
@@ -2379,7 +2379,7 @@ msgstr "בדיקות ותיקוני תקלות"
 #: src/main.cpp:74
 #, kde-format
 msgid "Stefan Asserhall"
-msgstr ""
+msgstr "סטפן אסרהאל"
 
 #: src/main.cpp:74
 #, kde-format
@@ -2633,7 +2633,7 @@ msgstr "אישור"
 #, kde-format
 msgctxt "noun"
 msgid "Process (this will also change your role):"
-msgstr ""
+msgstr "תהליך (זה שם ישנה את התפקיד שלך):"
 
 #: src/phaseswindow.cpp:251
 #, kde-format
@@ -2944,6 +2944,8 @@ msgid ""
 "displaying it in the user interface, or when it gets concatenated with "
 "others)."
 msgstr ""
+"בדיקה אם המחרוזת מסתיימת ברווח (שזה בדרך כלל חשוב כשמציגים אותה על ממשק "
+"משתמש, או שמחברים אותה למחרוזות אחרות)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:143
@@ -2957,6 +2959,8 @@ msgstr "הדגשת רווחים בסוף"
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
+"אם האפשרות מוגדרת, גלגלת העכבר תעביר ליחידה הקודמת או הבאה, אחרת זאת סתם "
+"גלילה של טקסט"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
@@ -2976,26 +2980,26 @@ msgstr ""
 #: src/prefs/prefs_editor.ui:38
 #, kde-format
 msgid "Mouse wheel goes to previous or next translation unit"
-msgstr ""
+msgstr "גלגלת העכבר מעבירה ליחידת התרגום הקודמת או הבאה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
 #: src/prefs/prefs_editor.ui:45
 #, kde-format
 msgid "Set 'approved' status automatically when editing started"
-msgstr ""
+msgstr "הגדרת מצב ‚מאושרת’ אוטומטית עם תחילת העריכה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
 #: src/prefs/prefs_editor.ui:65
 #, kde-format
 msgid "Visualize separators such as spaces, tabs and new lines in the editor"
-msgstr ""
+msgstr "המחשה חזותית למפרידים כגון רווחים, טאבים ושורות חדשות בעורך"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
 #: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
 #, kde-format
 msgid "Set to 2 to disable word completion"
-msgstr ""
+msgstr "יש להגדיר ל־2 כדי להשבית השלמת מילים"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_editor.ui:77
@@ -3195,14 +3199,14 @@ msgstr "נא למלא את הנתיב לשרת ה־Language Tool המותאם ש
 msgid ""
 "Delay before automatic checking after you stop typing (in seconds, 0 to "
 "disable)"
-msgstr ""
+msgstr "השהיה לפני בדיקה אוטומטית לאחר הפסקת הקלדה (בשניות, 0 להשבתה)"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
 #: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
 #, kde-format
 msgid "Set to 0 to disable auto checking"
-msgstr ""
+msgstr "יש להגדיר ל־0 כדי לבדוק אוטומטית"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
 #: src/prefs/prefs_pology.ui:21
@@ -3219,12 +3223,15 @@ msgid ""
 "following placeholders in order to set-up the commands: %u is the entry "
 "number, %f is the file name. For instance: posieve -u %u check-rules %f"
 msgstr ""
+"פקודת ה־Pology להרצה כדי לבדוק רשומה בודדת. יש להשתמש בממלאי המקום הבאים כדי "
+"להגדיר את הפקודות: %u הוא מספר הרשומה, %f הוא שם הקובץ. למשל: posieve -u %u "
+"check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:44
 #, kde-format
 msgid "The Pology command to run in order to check a single entry."
-msgstr ""
+msgstr "נא למלא כאן את פקודת ה־Pology להרצה כדי לבדוק רשומה בודדת."
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:47
@@ -3243,12 +3250,15 @@ msgid ""
 "should include \"-s lokalize\", placeholder %f is the file name. For "
 "instance: posieve -s lokalize check-rules %f"
 msgstr ""
+"פקודת ה־Pology להרצה כדי לבדוק קובץ שלם. הפקודה הזאת צריכה לכלול „-s "
+"lokalize”, ממלא המקום %f הוא שם הקובץ. למשל: posieve -s lokalize check-rules "
+"%f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:70
 #, kde-format
 msgid "The Pology command to run in order to check a whole file."
-msgstr ""
+msgstr "פקודת ה־Pology להרצה כדי לבדוק קובץ שלם."
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:73
@@ -3334,7 +3344,7 @@ msgstr "הוספת קבצים שנבחרו לזיכרון התרגום אוטו�
 msgid ""
 "Delete missing files from translation memory on Rescan or when clicking a "
 "missing entry"
-msgstr ""
+msgstr "למחוק קבצים חסרים מזיכרון התרגום עם סריקה מחדש או בלחיצה על רשומה חסרה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
