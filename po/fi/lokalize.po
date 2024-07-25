@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-16 00:41+0000\n"
+"POT-Creation-Date: 2024-07-25 00:41+0000\n"
 "PO-Revision-Date: 2024-02-14 19:00+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -831,127 +831,128 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Käännösyksiköt"
 
-#: src/cataloglistview/cataloglistview.cpp:75
+#: src/cataloglistview/cataloglistview.cpp:84
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
 msgstr "Pikahaku…"
 
-#: src/cataloglistview/cataloglistview.cpp:76
+#: src/cataloglistview/cataloglistview.cpp:85
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Aktivoituu Ctrl+L:llä. Hyväksyy säännölliset lausekkeet"
 
-#: src/cataloglistview/cataloglistview.cpp:85
-#, kde-format
-msgid "options"
+#: src/cataloglistview/cataloglistview.cpp:94
+#, fuzzy, kde-format
+#| msgid "options"
+msgid "Options"
 msgstr "Valinnat"
 
-#: src/cataloglistview/cataloglistview.cpp:187
+#: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Alusta yksittäinen suodatin"
 
-#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:364
+#: src/cataloglistview/cataloglistview.cpp:201 src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Case insensitive"
 msgstr "Erota pien- ja suuraakkoset"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:194 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:202 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Ohita valintanäppäinmerkinnät"
 
 # tietueiden suodatus: mitkä tietueet näytetään
-#: src/cataloglistview/cataloglistview.cpp:195
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Ready"
 msgstr "Valmiit"
 
 # tietueiden suodatus: mitkä tietueet näytetään
-#: src/cataloglistview/cataloglistview.cpp:196
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Non-ready"
 msgstr "Keskeneräiset"
 
 # tietueiden suodatus: mitkä tietueet näytetään
-#: src/cataloglistview/cataloglistview.cpp:197
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Non-empty"
 msgstr "Ei-tyhjät"
 
 # tietueiden suodatus: mitkä tietueet näytetään
-#: src/cataloglistview/cataloglistview.cpp:198
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Empty"
 msgstr "Tyhjät"
 
 # tietueiden suodatus: mitkä tietueet näytetään
-#: src/cataloglistview/cataloglistview.cpp:199
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Changed since file open"
 msgstr "Tiedoston avaamisen jälkeen muutetut"
 
 # tietueiden suodatus: mitkä tietueet näytetään
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Tiedoston avaamisen jälkeen muuttamattomat"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Same in sync file"
 msgstr "Synkronointitiedostossa yhtenevät"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgid "Different in sync file"
 msgstr "Synkronointitiedostossa eroavat"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgid "Not in sync file"
 msgstr "Synkronointitiedostosta puuttuvat"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:212
 #, kde-format
 msgid "Plural"
 msgstr "Monikkomuodolliset"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgid "Non-plural"
 msgstr "Ei-monikkomuodolliset"
 
 # Valikko, jossa määritetään, mitkä tietueet päänäkymässä näytetään
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Yksiköt"
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Tilat"
 
-#: src/cataloglistview/cataloglistview.cpp:213
+#: src/cataloglistview/cataloglistview.cpp:221
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Hae sarakkeista"
 
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:225
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Järjestä ja suodata uudelleen sisällön muuttuessa"
 
-#: src/cataloglistview/cataloglistview.cpp:234
+#: src/cataloglistview/cataloglistview.cpp:242
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-16 00:41+0000\n"
+"POT-Creation-Date: 2024-07-25 00:41+0000\n"
 "PO-Revision-Date: 2024-02-03 20:30+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -825,120 +825,121 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Tradukaj Unuoj"
 
-#: src/cataloglistview/cataloglistview.cpp:75
+#: src/cataloglistview/cataloglistview.cpp:84
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
 msgstr "Rapida serĉo..."
 
-#: src/cataloglistview/cataloglistview.cpp:76
+#: src/cataloglistview/cataloglistview.cpp:85
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Aktivigita per Ctrl+L. Akceptas regulajn esprimojn"
 
-#: src/cataloglistview/cataloglistview.cpp:85
-#, kde-format
-msgid "options"
+#: src/cataloglistview/cataloglistview.cpp:94
+#, fuzzy, kde-format
+#| msgid "options"
+msgid "Options"
 msgstr "opcioj"
 
-#: src/cataloglistview/cataloglistview.cpp:187
+#: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Restarigi individuan filtrilon"
 
-#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:364
+#: src/cataloglistview/cataloglistview.cpp:201 src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Case insensitive"
 msgstr "Ne usklecdistinga"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:194 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:202 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Ignori akcelmarkojn"
 
-#: src/cataloglistview/cataloglistview.cpp:195
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Ready"
 msgstr "Preta"
 
-#: src/cataloglistview/cataloglistview.cpp:196
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Non-ready"
 msgstr "Ne-preta"
 
-#: src/cataloglistview/cataloglistview.cpp:197
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Non-empty"
 msgstr "Ne-malplena"
 
-#: src/cataloglistview/cataloglistview.cpp:198
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Empty"
 msgstr "Malplena"
 
-#: src/cataloglistview/cataloglistview.cpp:199
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Changed since file open"
 msgstr "Ŝanĝita ekde dosiero malfermita"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Neŝanĝita ekde dosiero malfermita"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Same in sync file"
 msgstr "Same en sinkroniga dosiero"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgid "Different in sync file"
 msgstr "Malsama en sinkroniga dosiero"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgid "Not in sync file"
 msgstr "Ne en sinkroniga dosiero"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:212
 #, kde-format
 msgid "Plural"
 msgstr "Pluralo"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgid "Non-plural"
 msgstr "Ne-pluralo"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Baza"
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Statoj"
 
-#: src/cataloglistview/cataloglistview.cpp:213
+#: src/cataloglistview/cataloglistview.cpp:221
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Serĉebla kolumno"
 
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:225
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Riferu kaj refiltriĝu pri enhavŝanĝo"
 
-#: src/cataloglistview/cataloglistview.cpp:234
+#: src/cataloglistview/cataloglistview.cpp:242
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"

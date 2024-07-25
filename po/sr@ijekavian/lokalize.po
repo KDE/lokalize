@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-16 00:41+0000\n"
+"POT-Creation-Date: 2024-07-25 00:41+0000\n"
 "PO-Revision-Date: 2017-09-28 18:00+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -844,13 +844,13 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Јединице превода"
 
-#: src/cataloglistview/cataloglistview.cpp:75
+#: src/cataloglistview/cataloglistview.cpp:84
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
 msgstr "Брза претрага..."
 
-#: src/cataloglistview/cataloglistview.cpp:76
+#: src/cataloglistview/cataloglistview.cpp:85
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
@@ -859,119 +859,120 @@ msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Прихвата регуларне изразе."
 
-#: src/cataloglistview/cataloglistview.cpp:85
-#, kde-format
-msgid "options"
+#: src/cataloglistview/cataloglistview.cpp:94
+#, fuzzy, kde-format
+#| msgid "options"
+msgid "Options"
 msgstr "опције"
 
-#: src/cataloglistview/cataloglistview.cpp:187
+#: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Ресетуј појединачни филтер"
 
-#: src/cataloglistview/cataloglistview.cpp:193 src/tm/tmtab.cpp:364
+#: src/cataloglistview/cataloglistview.cpp:201 src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Case insensitive"
 msgstr "Разликуј величину слова"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:194 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:202 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Игнориши убрзивачке знакове"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:195
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Ready"
 msgstr "спремне"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:196
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Non-ready"
 msgstr "неспремне"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:197
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Non-empty"
 msgstr "непразне"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:198
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Empty"
 msgstr "празне"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:199
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Changed since file open"
 msgstr "измијењене од отварања фајла"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "неизмијењене од отварања фајла"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Same in sync file"
 msgstr "исто у синхро фајлу"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgid "Different in sync file"
 msgstr "различито у синхро фајлу"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgid "Not in sync file"
 msgstr "нема у синхро фајлу"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:212
 #, kde-format
 msgid "Plural"
 msgstr "множинске"
 
 # >> @item:inmenu filter on translation units
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgid "Non-plural"
 msgstr "немножинске"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Основно"
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Стања"
 
-#: src/cataloglistview/cataloglistview.cpp:213
+#: src/cataloglistview/cataloglistview.cpp:221
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Претражива колона"
 
 # >> @action:inmenu
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:225
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Поново поређај и филтрирај по измени садржаја"
 
-#: src/cataloglistview/cataloglistview.cpp:234
+#: src/cataloglistview/cataloglistview.cpp:242
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
