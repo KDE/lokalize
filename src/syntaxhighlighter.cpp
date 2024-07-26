@@ -74,28 +74,38 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
 void SyntaxHighlighter::settingsChanged()
 {
-    const QRegularExpression re(QLatin1String(" +$|^ +|.?") + QChar(0x0000AD) + QLatin1String(".?")); //soft hyphen
+    const QRegularExpression re(QLatin1String(" +$|^ +"));
     if (Settings::highlightSpaces() && highlightingRules.last().pattern != re) {
         HighlightingRule rule;
         rule.format.clearForeground();
+        
+        // Note that the foreground and background colours have been switched in
+        // the rules for formatting spaces (nbsp and leading/trailing spaces).
+        // This makes the spaces easier to see.
 
         KColorScheme colorScheme(QPalette::Normal);
-        //nbsp
-        //rule.format.setBackground(colorScheme.background(KColorScheme::NegativeBackground));
+        // nbsp (non-breaking spaces)
+        rule.format.setForeground(colorScheme.background(KColorScheme::AlternateBackground));
         rule.format.setBackground(colorScheme.foreground(KColorScheme::InactiveText));
         rule.format.setFontLetterSpacing(200);
-
         rule.pattern = QRegularExpression(QRegularExpression::escape(QChar(0x00a0U)));
         highlightingRules.append(rule);
-
-        //usual spaces at the end
+        
+        // soft hyphens
+        rule.format.setForeground(colorScheme.foreground(KColorScheme::VisitedText));
+        rule.format.setBackground(colorScheme.background(KColorScheme::VisitedBackground));
         rule.format.setFontLetterSpacing(100);
-        rule.format.setBackground(colorScheme.background(KColorScheme::ActiveBackground));
+        rule.pattern = QRegularExpression(QLatin1String(".?") + QChar(0x0000AD) + QLatin1String(".?"));
+        highlightingRules.append(rule);
+
+        // spaces at the beginning/end of line
+        rule.format.setForeground(colorScheme.background(KColorScheme::VisitedBackground));
+        rule.format.setBackground(colorScheme.foreground(KColorScheme::VisitedText));
         rule.pattern = re;
         highlightingRules.append(rule);
         rehighlight();
     } else if (!Settings::highlightSpaces() && highlightingRules.last().pattern == re) {
-        highlightingRules.resize(highlightingRules.size() - 2);
+        highlightingRules.resize(highlightingRules.size() - 3);
         rehighlight();
     }
 }
