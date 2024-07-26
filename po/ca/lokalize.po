@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-25 00:41+0000\n"
-"PO-Revision-Date: 2024-07-12 10:16+0200\n"
+"PO-Revision-Date: 2024-07-25 09:10+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -852,10 +852,9 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "S'activa amb Ctrl+L. Accepta expressions regulars"
 
 #: src/cataloglistview/cataloglistview.cpp:94
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
-msgstr "opcions"
+msgstr "Opcions"
 
 #: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format

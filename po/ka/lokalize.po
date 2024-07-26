@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-25 00:41+0000\n"
-"PO-Revision-Date: 2024-07-23 06:49+0200\n"
+"PO-Revision-Date: 2024-07-25 04:59+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -627,6 +627,8 @@ msgid ""
 "stock keeping unit: an inventory item identified by a unique alphanumeric "
 "designation assigned to an object in an inventory control system"
 msgstr ""
+"ერთეული: ინვენტარის ჩანაწერი, რომელსაც აქვს უნიკალური ალფარიცხვითი "
+"იდენტიფიკატორი, რომელიც მინიჭებულია ობიექტზე ინვენტარის კონტროლის სისტემაში"
 
 #: src/catalog/catalogstring.cpp:148
 #, kde-format
@@ -661,6 +663,8 @@ msgid ""
 "synonymous phrase: phraseological unit in a language that expresses the same "
 "semantic content as another phrase in that same language"
 msgstr ""
+"სინონიმური ფრაზა: ფრაზეოლოგიური ერთეული ენაში, რომელიც იგივე სემანტიკურ "
+"შემცველობას გამოხატავს, რასაც სხვა ფრაზა იგივე ენაში"
 
 #: src/catalog/catalogstring.cpp:152
 #, kde-format
@@ -686,6 +690,8 @@ msgid ""
 "the characters of an alphabetic writing system are represented by characters "
 "from another alphabetic writing system"
 msgstr ""
+"ტრანსლიტერაციული ფორმა: ტერმინის ფორმა, რომელიც მიღებულია ოპერაციიდან, "
+"რომელშიც ანბანური სისტემა წარმოდგენილია სიმბოლოებით სხვა ანბანიდან"
 
 #: src/catalog/catalogstring.cpp:155
 #, kde-format
@@ -824,8 +830,7 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "გააქტიურდება Ctrl+L-ით. იღებს რეგულარულ გამოსახულებებს"
 
 #: src/cataloglistview/cataloglistview.cpp:94
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
 msgstr "პარამეტრები"
 
