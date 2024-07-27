@@ -779,10 +779,9 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Aktivován pomocí Alt+L. Přijímá regulární výrazy"
 
 #: src/cataloglistview/cataloglistview.cpp:94
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
-msgstr "možnosti"
+msgstr "Možnosti"
 
 #: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format

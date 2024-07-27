@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-25 00:41+0000\n"
-"PO-Revision-Date: 2024-07-25 07:41+0300\n"
+"PO-Revision-Date: 2024-07-26 09:11+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -816,8 +816,7 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "מופעל עם Ctrl+L. מקבל ביטויים רגולריים"
 
 #: src/cataloglistview/cataloglistview.cpp:94
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
 msgstr "אפשרויות"
 
@@ -2104,6 +2103,11 @@ msgid ""
 "That is, there may be several entries with the same word/word sequence "
 "expressing different meanings."
 msgstr ""
+"לשימת ליבך: רשומת מילון מונחים אחת תואמת בדיוק למונח אחד, לא רצף של מילה "
+"במילה.\n"
+"\n"
+"הסיבה לכך היא, שיכולות להיות מגוון רשומות עם אותו רצף של מילה במילה שמבטא "
+"מגוון משמעויות שונות."
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
 #: src/kaider_findextension.ui:30
@@ -3441,6 +3445,11 @@ msgid ""
 "(i.e. files without translation into any language)\n"
 "shared among all subprojects."
 msgstr ""
+"בדרך כלל, מיזם התרגום שלך יהיה תת־מיזם של מיזם לתרגום של אותן\n"
+"המחרוזות למגוון שפות.\n"
+"\n"
+"יש להגדיר את זה לנתיב התיקייה שמכילה קובצי תרגום ריקים (כלומר קבצים בלי "
+"תרגום לאף שפה) שמשותפים בין כל תת־המיזמים."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:131
@@ -4153,6 +4162,8 @@ msgid ""
 "Reads all project files into translation memory, updating old entries. The "
 "scanning will work in background."
 msgstr ""
+"קריאת כל קובצי המיזם לזיכרון התרגום תוך עדכון רשומות ישנות. הסריקה תתרחש "
+"מאחורי הקלעים."
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
