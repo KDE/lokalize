@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-25 02:30+0000\n"
-"PO-Revision-Date: 2024-03-04 21:09+0100\n"
+"PO-Revision-Date: 2024-07-27 21:36+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -849,10 +849,9 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "A Ctrl+L aktiválja. Elfogad reguláris kifejezéseket"
 
 #: src/cataloglistview/cataloglistview.cpp:94
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
-msgstr "beállítások"
+msgstr "Beállítások"
 
 #: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
