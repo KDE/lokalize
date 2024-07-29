@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-25 02:30+0000\n"
-"PO-Revision-Date: 2024-06-08 11:28+0400\n"
+"PO-Revision-Date: 2024-07-28 12:16+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -829,8 +829,7 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "يفعل عن طريق Ctrl+L. يقبل التّعابير النّمطيّة"
 
 #: src/cataloglistview/cataloglistview.cpp:94
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
 msgstr "خيارات"
 
