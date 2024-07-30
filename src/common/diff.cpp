@@ -350,7 +350,7 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
     //i tried that but it failed:
     if (!markup.isEmpty())
         markup += QLatin1Char('|');
-    const QRegularExpression rxSplit(QLatin1Char('(') + markup + QLatin1String("\\W+|\\d+)+"));
+    const QRegularExpression rxSplit(QLatin1String("(\x08?") + markup + QLatin1String("\\W+|\\d+)+"));
 
     main = str.split(rxSplit, Qt::SkipEmptyParts);
     main.prepend(QStringLiteral("\t"));//little hack
