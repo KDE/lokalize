@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-25 02:30+0000\n"
-"PO-Revision-Date: 2024-07-25 13:14+0300\n"
+"PO-Revision-Date: 2024-07-29 14:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -61,7 +61,7 @@ msgstr "Bu özelliğin çalışması için gettext paketini kurun"
 
 #: scripts/msgmerge.py:44
 msgid "Updating from templates..."
-msgstr "Şablonlardan güncelleniyor..."
+msgstr "Şablonlardan güncelleniyor…"
 
 #: scripts/msgmerge.py:71
 msgid "Merge has been completed"
@@ -352,7 +352,7 @@ msgstr "Genel grup ayırıcı"
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
-msgstr "Alt-akış"
+msgstr "Alt akış"
 
 #: src/catalog/catalogstring.cpp:71
 #, kde-format
@@ -396,7 +396,7 @@ msgid ""
 "omission of some of its letters (e.g. 'adj.' for 'adjective')"
 msgstr ""
 "kısaltma: bazı sözcük harflerinin atılmasından doğan bir terimin kısaltılmış "
-"formu (örn. 'sıfat' yerine 's.')"
+"formu (örn. “sıfat” yerine “s.”)"
 
 #: src/catalog/catalogstring.cpp:123
 #, kde-format
@@ -407,8 +407,8 @@ msgid ""
 "syllabically (e.g. 'radar' for 'radio detecting and ranging')"
 msgstr ""
 "baş harf: çoklu sözcük içeren terimin tümündeki sözcükler kullanılarak "
-"oluşturulan ve hecesel olarak okunulan bir kısaltılmış biçim (örn. 'toplu "
-"konut idaresi için' 'toki')"
+"oluşturulan ve hecesel olarak okunulan bir kısaltılmış biçim (örn. “toplu "
+"konut idaresi” için “toki”)"
 
 #: src/catalog/catalogstring.cpp:124
 #, kde-format
@@ -501,7 +501,7 @@ msgid ""
 msgstr ""
 "başharflilik: çok sözcüklü terim oluşturan sözcüklerinin bazı baş harflerini "
 "içeren veya harfleri tek tek söylenen ifade elemanlarının bir kısaltılmış "
-"biçimi (örn.'Sığır süngerimsi ensefalopati' için 'SSE')"
+"biçimi (örn. “sığır süngerimsi ensefalopati” için “SSE”)"
 
 #: src/catalog/catalogstring.cpp:133
 #, kde-format
@@ -621,8 +621,8 @@ msgid ""
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
 "kısa biçim: çok sözcüklü ifadenin, asıl ifadeden daha az içeren biçimidir "
-"(örn. 'Intergovernmental Group of Twenty-four on International Monetary "
-"Affairs' için 'Group of Twenty-four' demek)"
+"(örn. “Intergovernmental Group of Twenty-four on International Monetary "
+"Affairs” için “Group of Twenty-four” demek)"
 
 #: src/catalog/catalogstring.cpp:147
 #, kde-format
@@ -632,7 +632,7 @@ msgid ""
 "designation assigned to an object in an inventory control system"
 msgstr ""
 "stok tutma birimi: bir envanter denetim sistemindeki nesneye atanan "
-"benzersiz bir abece-sayı kavram tarafından belirlenen envanter ögesi"
+"benzersiz bir abece–sayısal kavram tarafından belirlenen envanter ögesi"
 
 #: src/catalog/catalogstring.cpp:148
 #, kde-format
@@ -709,7 +709,7 @@ msgid ""
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
 "kesilmiş terim: hecelerin bir ya da birden fazla ögesinin çıkarılmasından "
-"oluşan kısaltılmış biçim (örn. 'influenza' için 'flu')"
+"oluşan kısaltılmış biçim (örn. “influenza” için “flu”)"
 
 #: src/catalog/catalogstring.cpp:156
 #, kde-format
@@ -828,7 +828,7 @@ msgstr "Çeviri Birimleri"
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
-msgstr "Hızlı ara..."
+msgstr "Hızlı ara…"
 
 #: src/cataloglistview/cataloglistview.cpp:85
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:114
@@ -1156,7 +1156,7 @@ msgstr "Yeni Terim Tanımla"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
-msgstr "Durumlar..."
+msgstr "Durumlar…"
 
 #: src/editortab.cpp:383
 #, kde-format
@@ -1717,17 +1717,17 @@ msgstr ""
 #: src/project/project.cpp:472
 #, kde-format
 msgid "Install translate-toolkit package and retry"
-msgstr "translate-toolkit paketlerini kur ve yeniden dene"
+msgstr "translate-toolkit paketlerini kurun ve yeniden deneyin."
 
 #: src/editortab.cpp:1596
 #, kde-format
 msgid "Install translate-toolkit package and retry."
-msgstr "translate-toolkit paketini kur ve yeniden dene."
+msgstr "translate-toolkit paketini kurun ve yeniden deneyin."
 
 #: src/editortab.cpp:1605
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
-msgstr "Geçerli XLIFF dosyasının tabanı olan özgün OpenDocument'i seç"
+msgstr "Geçerli XLIFF dosyasının tabanı olan özgün OpenDocument’i seç"
 
 #: src/editortab.cpp:1607 src/project/project.cpp:477
 #, kde-format
@@ -1737,7 +1737,7 @@ msgstr "OpenDocument dosyaları (*.odt *.ods)"
 #: src/editortab.cpp:1652
 #, kde-format
 msgid "Install python-uno package for additional functionality."
-msgstr "Ek işlevsellik için python-uno paketini kur."
+msgstr "Ek işlevsellik için python-uno paketini kurun."
 
 #: src/editortab.cpp:1776
 #, kde-format
@@ -1957,7 +1957,7 @@ msgstr "Dosya Listesi"
 #: src/filesearch/filesearchtab.cpp:77
 #, kde-format
 msgid "Drop translation files here..."
-msgstr "Çeviri dosyalarını buraya bırakın..."
+msgstr "Çeviri dosyalarını buraya bırakın…"
 
 #. i18nc("@title:column","Context");
 #: src/filesearch/filesearchtab.cpp:336 src/tm/tmtab.cpp:64
@@ -2092,7 +2092,7 @@ msgstr "+"
 #: src/glossary/termedit.ui:33 src/glossary/termedit.ui:61
 #, kde-format
 msgid "-"
-msgstr "-"
+msgstr "—"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/glossary/termedit.ui:47
@@ -2246,25 +2246,25 @@ msgstr "Proje Genel Görünümü"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
-msgstr "Projeyi Yapılandır..."
+msgstr "Projeyi Yapılandır…"
 
 #: src/lokalizemainwindow.cpp:505
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
-msgstr "Yazılım Çeviri Projesi Oluştur..."
+msgstr "Yazılım Çeviri Projesi Oluştur…"
 
 #: src/lokalizemainwindow.cpp:508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
-msgstr "OpenDocument Çeviri Projesi Oluştur..."
+msgstr "OpenDocument Çeviri Projesi Oluştur…"
 
 #: src/lokalizemainwindow.cpp:511
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
-msgstr "Proje Aç..."
+msgstr "Proje Aç…"
 
 #: src/lokalizemainwindow.cpp:515
 #, kde-format
@@ -2341,9 +2341,9 @@ msgid ""
 "(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 The KBabel developers"
 msgstr ""
-"(c) 2018-2019 Simon Depiets\n"
-"(c) 2007-2015 Nick Shaforostoff\n"
-"(c) 1999-2006 KBabel geliştiricileri"
+"© 2018–2019 Simon Depiets\n"
+"© 2007–2015 Nick Shaforostoff\n"
+"© 1999–2006 KBabel geliştiricileri"
 
 #: src/main.cpp:65
 #, kde-format
@@ -2621,19 +2621,19 @@ msgstr "<b>Notlar:</b>"
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit..."
-msgstr "düzenle..."
+msgstr "Düzenle…"
 
 #: src/noteeditor.cpp:134
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add..."
-msgstr "Ekle..."
+msgstr "Ekle…"
 
 #: src/noteeditor.cpp:136
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add a note..."
-msgstr "Not ekle..."
+msgstr "Not ekle…"
 
 #: src/phaseswindow.cpp:139
 #, kde-format
@@ -2792,9 +2792,9 @@ msgid ""
 "%1 - Path of the source file\n"
 "%2 - Line number"
 msgstr ""
-"Aşağıdaki parametreler mevcuttur\n"
-"%1 - Kaynak dosyanın yolu \n"
-"%2 - Satır numarası"
+"Aşağıdaki parametreler kullanılabilir\n"
+"%1 — Kaynak dosyanın yolu \n"
+"%2 — Satır numarası"
 
 #: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:242
 #, kde-format
@@ -3056,7 +3056,7 @@ msgstr "Fare tekerleği önceki veya sonraki çeviri birimine gider"
 #: src/prefs/prefs_editor.ui:45
 #, kde-format
 msgid "Set 'approved' status automatically when editing started"
-msgstr "Düzenlemeye başlanıldığında 'onaylı' durumunu kendiliğinden ayarla"
+msgstr "Düzenlemeye başlanıldığında “onaylı” durumunu kendiliğinden ayarla"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
 #: src/prefs/prefs_editor.ui:65
@@ -3071,7 +3071,7 @@ msgstr ""
 #: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
 #, kde-format
 msgid "Set to 2 to disable word completion"
-msgstr "Sözcük tamamlamayı kapatmak için 2'ye ayarlayın"
+msgstr "Sözcük tamamlamayı kapatmak için 2 olarak ayarlayın"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_editor.ui:77
@@ -3095,7 +3095,7 @@ msgstr "TS dosyalarındaki XML özel karakterlerini otomatik olarak dönüştür
 #: src/prefs/prefs_general.ui:45
 #, kde-format
 msgid "Restore the previously opened files when launching Lokalize"
-msgstr "Lokalize'yi başlatırken önceden açılan dosyaları geri yükle"
+msgstr "Lokalize’yi başlatırken önceden açılan dosyaları geri yükle"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:54
@@ -3282,7 +3282,7 @@ msgstr ""
 #: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
 #, kde-format
 msgid "Set to 0 to disable auto checking"
-msgstr "Otomatik denetimi devre dışı bırakmak için 0'a ayarlayın"
+msgstr "Kendiliğinden denetimi devre dışı bırakmak için 0 olarak ayarlayın"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
 #: src/prefs/prefs_pology.ui:21
@@ -3328,9 +3328,9 @@ msgid ""
 "should include \"-s lokalize\", placeholder %f is the file name. For "
 "instance: posieve -s lokalize check-rules %f"
 msgstr ""
-"Tüm dosyayı denetlemek için çalıştırılacak Pology komutu. Bu komut \"-s "
-"lokalize\" içermelidir, yer tutucu olarak %f dosya adıdır. Örneğin: posieve -"
-"s lokalize check-rules %f"
+"Tüm dosyayı denetlemek için çalıştırılacak Pology komutu. Bu komut “-s "
+"lokalize” içermelidir, %f yer tutucusu dosya adıdır. Örneğin: posieve -s "
+"lokalize check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:70
@@ -3386,19 +3386,19 @@ msgstr "En fazla öneri sayısını ayarla"
 #, kde-format
 msgid "You can change the maximum number of suggestions, default is 7."
 msgstr ""
-"En çok kaç öneri yapılacağını değiştirebilirsiniz, öntanımlı değer 7'dir."
+"En çok kaç öneri yapılacağını değiştirebilirsiniz, öntanımlı değer 7’dir."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_tm.ui:97
 #, kde-format
 msgid "Minimum score (0-100) of suggestions:"
-msgstr "Önerilerin asgari puanı (0-100):"
+msgstr "Önerilerin en düşük puanı (0–100):"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:107
 #, kde-format
 msgid "Set the minimum score (0-100) of suggestions"
-msgstr "Önerilerin asgari puanını (0-100) ayarla"
+msgstr "Önerilerin en düşük puanını (0–100) ayarla"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:110
@@ -3407,8 +3407,8 @@ msgid ""
 "You can change the minimum score (0-100) required for suggestions, default "
 "is 0."
 msgstr ""
-"Öneriler için gerekli asgari puanı (0-100) değiştirebilirsiniz, varsayılan "
-"0'dır."
+"Öneriler için gerekli en düşük puanı (0–100) değiştirebilirsiniz, öntanımlı "
+"değer 0’dır."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
 #: src/prefs/prefs_tm.ui:138
@@ -3450,7 +3450,7 @@ msgstr "Hızlandırıcı:"
 #, kde-format
 msgid "Usually '&', but may also be '_' for GTK apps."
 msgstr ""
-"Genellikle '&' karakteridir; ancak GTK uygulamalarında '_' de olabilir."
+"Genellikle “&” karakteridir; ancak GTK uygulamalarında “_” de olabilir."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_project_advanced.ui:40
@@ -3473,7 +3473,7 @@ msgid ""
 "specifying where markup is."
 msgstr ""
 "İmleme için düzenli ifade. Bu, çeviri belleğinde yapılacak arama eşleşmeleri "
-"ve 'Etiket ekle' özelliği için kullanılır.\n"
+"ve “Etiket ekle” özelliği için kullanılır.\n"
 "\n"
 "Öntanımlı değer (XML-tabanlı metinler için) şöyledir:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
@@ -3497,8 +3497,8 @@ msgid ""
 "doesn't change anything."
 msgstr ""
 "Otomatik msgfmt benzeri sözcük kaydırma için kullanılan genişlik. Sözcük "
-"kaydırmayı devre dışı bırakmak için '0' değerini kullanın. KDE PO Summit "
-"için çeviri yaparken -1 kullanın. 1-3 arası değerler bir şeyi değiştirmez."
+"kaydırmayı devre dışı bırakmak için “0” değerini kullanın. KDE PO Summit "
+"için çeviri yaparken −1 kullanın. 1–3 arası değerler bir şeyi değiştirmez."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3908,7 +3908,7 @@ msgid ""
 "documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
 "what you need.</html>"
 msgstr ""
-"<html>KDE Takımının bir üyesi olmak için yazılım mühendisi olmanız gerekmez. "
+"<html>KDE takımının bir üyesi olmak için yazılım mühendisi olmanız gerekmez. "
 "Uygulama arayüzleri çevirisi için kendi dilinizin çeviri takımınıza "
 "katılabilirsiniz. İsterseniz grafikler, temalar, sesler yaratabilir ve "
 "yardım belgeleri yazıp var olanları geliştirebilirsiniz. Karar sizin!<br /"
@@ -3919,7 +3919,7 @@ msgstr ""
 #: src/project/projecttab.cpp:76
 #, kde-format
 msgid "&Configure Lokalize"
-msgstr "&Lokalize'yi Yapılandır"
+msgstr "&Lokalize’yi Yapılandır"
 
 #: src/project/projecttab.cpp:77 src/project/projecttab.cpp:191
 #, kde-format
@@ -4023,7 +4023,7 @@ msgstr "Yorum Ekle"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
-msgstr "Dosyalarda Pology'yi Başlat"
+msgstr "Dosyalarda Pology’yi Başlat"
 
 #: src/project/projecttab.cpp:262
 #, kde-format
@@ -4059,7 +4059,7 @@ msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
-"Çok sayıda dosyayı aynı anda açmak Lokalize'i tepkisiz hale getirebilir."
+"Çok sayıda dosyayı aynı anda açmak Lokalize’yi tepkisiz hale getirebilir."
 
 #: src/project/projecttab.cpp:390
 #, kde-format
@@ -4197,13 +4197,13 @@ msgstr "Veri Ekle"
 #: src/tm/managedatabases.ui:33
 #, kde-format
 msgid "Add Data from TMX"
-msgstr "TMX'ten Veri Ekle"
+msgstr "TMX’ten Veri Ekle"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
 #, kde-format
 msgid "Export to TMX"
-msgstr "Verileri TMX'e Aktar"
+msgstr "Verileri TMX’e Aktar"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #: src/tm/managedatabases.ui:47
@@ -4367,7 +4367,7 @@ msgstr "Alt ifade"
 #: src/tm/tmtab.cpp:358
 #, kde-format
 msgid "Google-like"
-msgstr "Google-benzeri"
+msgstr "Google benzeri"
 
 #: src/tm/tmtab.cpp:358
 #, kde-format
@@ -4515,7 +4515,7 @@ msgstr "Bu Girdiyi İçeren Dosyayı Aç"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
-msgstr "Bu eksik dosyayı ÇB'den kaldır"
+msgstr "Bu eksik dosyayı ÇB’den kaldır"
 
 #: src/tm/tmview.cpp:627
 #, kde-format
@@ -4562,7 +4562,7 @@ msgid ""
 "work.</p></html>"
 msgstr ""
 "<html>\n"
-"<p align=\"justify\">KDE çevirisini kolaylaştırmak için, Lokalize "
+"<p align=\"justify\">KDE çevirilerini kolaylaştırmak üzere Lokalize, "
 "uygulamaların kullanıcı arayüzünden metni alabilir ve bu metni içeren çeviri "
 "dosyalarında arayabilir.</p>\n"
 "<p align=\"justify\">Etkinleştirildiğinde, herhangi bir düzenlenemez "
@@ -4571,7 +4571,7 @@ msgstr ""
 "geçiş yapın ve bu metni içeren girişi seçin. Eğer birden fazla dosya aynı "
 "metni içeriyorsa çoğu durumda doğru olan seçilecektir.</p>\n"
 "<p align=\"justify\">Unutmayın: Bu özellik için tüm çeviri dosyaları "
-"dizinlenmiş güncel bir çeviri belleğine sahip olmanız gerekiyor.</p></html>"
+"dizinlenmiş güncel bir çeviri belleğine sahip olmanız gerekir.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:42
