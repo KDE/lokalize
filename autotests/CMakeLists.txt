@@ -13,3 +13,6 @@ ecm_add_test(
     LINK_LIBRARIES Qt::Core Qt::Test liblokalize
     TEST_NAME test_gettextheaderparser
 )
+
+ecm_add_test(difftest.cpp LINK_LIBRARIES Qt::Test liblokalize)
+target_include_directories(difftest PRIVATE ${CMAKE_SOURCE_DIR}/src/project)
