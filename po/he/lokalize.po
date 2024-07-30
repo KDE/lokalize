@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-25 00:41+0000\n"
-"PO-Revision-Date: 2024-07-27 15:28+0300\n"
+"PO-Revision-Date: 2024-07-27 22:30+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -424,6 +424,9 @@ msgid ""
 "series of utterances, even though they do not necessarily have to maintain "
 "immediate proximity to one another"
 msgstr ""
+"צירוף מילים: שילוב מילים חוזר המאופיין בלכידות בכך שהרכיבים של הצירוף חייבים "
+"להופיע יחד בתוך אמירה או סדרת אמירות, אף על פי שהם לא צריכים לשמור על סמיכות "
+"מיידית זה לזה"
 
 #: src/catalog/catalogstring.cpp:126
 #, kde-format
@@ -3796,6 +3799,11 @@ msgid ""
 "documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
 "what you need.</html>"
 msgstr ""
+"<html>אפשר להצטרף לחברות בצוות KDE גם ללא ידע בתכנות .בזכות הצטרפות לצוותים "
+"לפי שפה ניתן לתרגם את ממשקי היישומים. אפשר לספק גרפיקה, ערכות עיצוב, צלילים "
+"ושיפורים בתיעוד. הבחירה בידיך!<br /><br />מומלץ לבקר ב־<a href=\"%1\">%1</a> "
+"לקבלת מידע על חלק מהמיזמים בהם ניתן להשתתף.<br /><br />למידע נוסף או לתיעוד, "
+"ביקור ב־<a href=\"%2\">%2</a> אמור לספק לך את מה שנחוץ.</html>"
 
 #: src/project/projecttab.cpp:76
 #, kde-format
