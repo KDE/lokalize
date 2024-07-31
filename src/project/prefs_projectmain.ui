@@ -217,7 +217,7 @@ for your project (or a subproject for your target language).</string>
  <connections>
   <connection>
    <sender>LangCode</sender>
-   <signal>currentIndexChanged(QString)</signal>
+   <signal>currentTextChanged(QString)</signal>
    <receiver>kcfg_LangCode</receiver>
    <slot>setText(QString)</slot>
    <hints>
