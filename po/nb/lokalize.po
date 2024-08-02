@@ -4567,11 +4567,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopier kilden til oversettelsen"
-
-#~ msgctxt "@action"
-#~ msgid "New"
-#~ msgstr "Nytt"
-
-#~ msgctxt "@action"
-#~ msgid "Open"
-#~ msgstr "Åpne"
