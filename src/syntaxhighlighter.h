@@ -60,6 +60,7 @@ private:
 //     bool fromDocbook;
     QTextCharFormat tagFormat;
     KStatefulBrush tagBrush{KColorScheme::View, KColorScheme::VisitedText};
+    KStatefulBrush escapeCharBrush{KColorScheme::View, KColorScheme::PositiveText};
     bool m_approved{true};
     QString m_sourceString;
 };
