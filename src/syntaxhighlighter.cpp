@@ -50,19 +50,19 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 //     }
 
     //entity
-    rule.format.setForeground(Qt::darkMagenta);
+    rule.format.setForeground(tagBrush.brush(QApplication::palette()));
     rule.pattern = QRegularExpression(QStringLiteral("(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)"));
     highlightingRules.append(rule);
 
     QString accel = Project::instance()->accel();
     if (!accel.isEmpty()) {
-        rule.format.setForeground(Qt::darkMagenta);
+        rule.format.setForeground(tagBrush.brush(QApplication::palette()));
         rule.pattern = QRegularExpression(accel);
         highlightingRules.append(rule);
     }
 
     //\n \t \"
-    rule.format.setForeground(Qt::darkGreen);
+    rule.format.setForeground(escapeCharBrush.brush(QApplication::palette()));
     rule.pattern = QRegularExpression(QStringLiteral("(\\\\[abfnrtv'\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)"));
     highlightingRules.append(rule);
 
