@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-25 00:41+0000\n"
-"PO-Revision-Date: 2024-05-09 06:26+0900\n"
+"PO-Revision-Date: 2024-08-03 14:18+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -810,8 +810,7 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "可用 Ctrl+L 觸發。接受正則表達式"
 
 #: src/cataloglistview/cataloglistview.cpp:94
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
 msgstr "選項"
 
