@@ -1229,6 +1229,16 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         }
     }
 
+    void TranslationUnitTextEdit::skipTags() {
+        QTextCursor cursor = textCursor();
+        
+        // The next > character followed by something other than < or a newline,
+        // but skip any whitespace immediately following the > character
+        QRegularExpression tagRegExp = QRegularExpression(QStringLiteral(">\\s*(?=[^<])"));
+        int matchPos = cursor.document()->find(tagRegExp, cursor).position();
+        cursor.setPosition(matchPos);
+        setTextCursor(cursor);
+    }
 
     void TranslationUnitTextEdit::source2target() {
         CatalogString sourceWithTags = m_catalog->sourceWithTags(m_currentPos);

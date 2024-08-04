@@ -62,6 +62,7 @@ public Q_SLOTS:
     void tagMenu();
     void tagImmediate();
     void insertTag(InlineTag tag);
+    void skipTags();
     void spellReplace();
     void launchLanguageTool();
 
