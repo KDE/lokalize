@@ -1231,13 +1231,27 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
     void TranslationUnitTextEdit::skipTags() {
         QTextCursor cursor = textCursor();
-        
-        // The next > character followed by something other than < or a newline,
-        // but skip any whitespace immediately following the > character
-        QRegularExpression tagRegExp = QRegularExpression(QStringLiteral(">\\s*(?=[^<])"));
-        int matchPos = cursor.document()->find(tagRegExp, cursor).position();
-        cursor.setPosition(matchPos);
-        setTextCursor(cursor);
+        QTextDocument *doc = cursor.document();
+        bool posAfterTag = false;
+
+        QChar tagStart = QLatin1Char('<');
+        QChar tagEnd = QLatin1Char('>');
+
+        const int currentPos = cursor.position();
+        const int docLength = doc->characterCount();
+
+        for (int pos = currentPos; pos < docLength; ++pos) {
+            QChar ch = doc->characterAt(pos);
+            if (ch == tagEnd) {
+                posAfterTag = true;
+            } else if (ch == tagStart) {
+                posAfterTag = false;
+            } else if (posAfterTag && !ch.isSpace()) {
+                cursor.setPosition(pos);
+                setTextCursor(cursor);
+                break;
+            }
+        }
     }
 
     void TranslationUnitTextEdit::source2target() {
