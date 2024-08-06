@@ -454,6 +454,7 @@ TMTab::TMTab(QWidget *parent)
 
     ui_queryOptions->queryStyle->setModel(new QueryStylesModel(this));
     connect(ui_queryOptions->queryStyle, qOverload<int>(&KComboBox::currentIndexChanged), m_model, &TMDBModel::setQueryType);
+    m_model->setQueryType(ui_queryOptions->queryStyle->currentIndex());
 
     ui_queryOptions->dbName->setModel(DBFilesModel::instance());
     ui_queryOptions->dbName->setRootModelIndex(DBFilesModel::instance()->rootIndex());
