@@ -221,3 +221,5 @@ bool QaModel::setData(const QModelIndex& item, const QVariant& value, int role)
     return true;
 }
 
+
+#include "moc_qamodel.cpp"

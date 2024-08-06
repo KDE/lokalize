@@ -151,3 +151,5 @@ void TestGetTextHeaderParser::updateAuthors()
 }
 
 QTEST_MAIN(TestGetTextHeaderParser)
+
+#include "moc_test_gettextheaderparser.cpp"
