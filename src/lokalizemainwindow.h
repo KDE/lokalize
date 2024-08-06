@@ -23,7 +23,6 @@
 
 class QLabel;
 class QMdiSubWindow;
-class QMdiArea;
 class QActionGroup;
 class LokalizeMdiArea;
 class KRecentFilesAction;

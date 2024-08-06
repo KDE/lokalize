@@ -25,8 +25,6 @@
 #include "projectlocal.h"
 #include "metadata/filemetadata.h"
 
-class QTimer;
-class QThreadPool;
 class UpdateStatsJob;
 
 /**
