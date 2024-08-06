@@ -19,7 +19,6 @@
 #include "project.h"
 #include "languagelistmodel.h"
 
-#include <QTimer>
 #include <QSortFilterProxyModel>
 #include <QStringBuilder>
 #include <QFileDialog>

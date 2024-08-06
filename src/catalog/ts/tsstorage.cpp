@@ -15,8 +15,6 @@
 #include "prefs_lokalize.h"
 
 #include <QString>
-#include <QMap>
-#include <QDomDocument>
 #include <QElapsedTimer>
 #include <QPair>
 #include <QList>

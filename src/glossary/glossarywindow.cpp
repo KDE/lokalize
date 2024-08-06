@@ -28,7 +28,6 @@
 #include <QHBoxLayout>
 #include <QSortFilterProxyModel>
 #include <QAbstractItemModel>
-#include <QStringListModel>
 #include <QShortcut>
 #include <QPushButton>
 

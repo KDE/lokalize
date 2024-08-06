@@ -13,16 +13,13 @@
 
 #include "gettextimport.h"
 
-#include "lokalize_debug.h"
 
 //#include <resources.h>
 
 #include <QFile>
 #include <QTime>
 #include <QFileInfo>
-#include <QRegularExpression>
 #include <QList>
-#include <QTextStream>
 #include <QEventLoop>
 
 #include "catalogitem.h"

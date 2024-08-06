@@ -19,7 +19,6 @@
 
 #include "tmscanapi.h" //TODO separate some decls into new header
 #include "state.h"
-#include "qaview.h"
 
 #include "catalog.h"
 #include "fastsizehintitemdelegate.h"

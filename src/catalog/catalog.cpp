@@ -12,7 +12,6 @@
 */
 
 #include "catalog.h"
-#include "catalog_private.h"
 #include "project.h"
 #include "projectmodel.h" //to notify about modification 
 

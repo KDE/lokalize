@@ -14,7 +14,6 @@
 #include <QRegularExpression>
 #include <QLocale>
 #include <QDate>
-#include <QString>
 #include <QDebug>
 
 const QString GetTextHeaderParser::sCurrentYear = QLocale(QLocale::C).toString(QDate::currentDate(), QStringLiteral("yyyy"));

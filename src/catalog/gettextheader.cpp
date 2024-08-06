@@ -21,10 +21,8 @@
 #include <QInputDialog>
 #include <QProcess>
 #include <QThread>
-#include <QString>
 #include <QStringBuilder>
 #include <QMap>
-#include <QDateTime>
 #include <QTimeZone>
 #include <QRegularExpression>
 

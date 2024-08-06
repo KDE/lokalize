@@ -11,7 +11,6 @@
 
 #include "lokalize_debug.h"
 
-#include "jobs.h"
 #include "project.h"
 
 #include <QCoreApplication>

@@ -21,7 +21,6 @@
 #include <kcolorscheme.h>
 
 #include <QApplication>
-#include <QTreeView>
 #include <QTimer>
 #include <QMouseEvent>
 #include <QKeyEvent>

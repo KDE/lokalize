@@ -17,7 +17,6 @@
 #include "actionproxy.h"
 #include "editorview.h"
 #include "catalog.h"
-#include "pos.h"
 #include "cmd.h"
 
 #include "completionstorage.h"
@@ -55,7 +54,6 @@
 #include <QIcon>
 #include <QActionGroup>
 #include <QMdiArea>
-#include <QMdiSubWindow>
 #include <QMenuBar>
 #include <QFileDialog>
 #include <QInputDialog>

@@ -18,7 +18,6 @@
 
 #include <QFile>
 #include <QList>
-#include <QTextStream>
 #include <QEventLoop>
 #include <QStringBuilder>
 #include <QRegularExpression>

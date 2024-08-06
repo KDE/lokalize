@@ -33,7 +33,6 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QStringBuilder>
-#include <QFileSystemWatcher>
 
 #include "projectmodel.h"
 

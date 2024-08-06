@@ -19,7 +19,6 @@
 
 #include "stemming.h"
 
-#include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QStringBuilder>

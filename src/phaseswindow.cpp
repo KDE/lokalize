@@ -20,7 +20,6 @@
 #include <QStringBuilder>
 #include <QPushButton>
 #include <QTextBrowser>
-#include <QTreeView>
 #include <QStringListModel>
 #include <QVBoxLayout>
 #include <QFormLayout>

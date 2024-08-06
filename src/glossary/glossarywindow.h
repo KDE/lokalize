@@ -16,7 +16,6 @@
 #include <QListView>
 #include <QStringListModel>
 
-class QListView;
 //class KTextEdit;
 class QLineEdit;
 class KComboBox;

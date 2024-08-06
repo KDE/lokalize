@@ -11,7 +11,6 @@
 
 #include "tbxparser.h"
 
-#include "glossary.h"
 #include "project.h"
 
 using namespace GlossaryNS;

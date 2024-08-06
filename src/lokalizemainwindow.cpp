@@ -42,7 +42,6 @@
 #include <QTabBar>
 #include <QActionGroup>
 #include <QMdiSubWindow>
-#include <QMdiArea>
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QLabel>

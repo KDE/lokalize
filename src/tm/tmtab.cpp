@@ -22,7 +22,6 @@
 
 #include <QApplication>
 #include <QTreeView>
-#include <QSqlQueryModel>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QButtonGroup>

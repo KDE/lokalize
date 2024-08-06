@@ -23,7 +23,6 @@
 #include <KGuiItem>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KProcess>
 #include <KStandardAction>
 #include <KStandardGuiItem>
 #include <KXMLGUIFactory>

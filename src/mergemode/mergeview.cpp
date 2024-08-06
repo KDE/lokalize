@@ -11,7 +11,6 @@
 #include "mergeview.h"
 
 #include "cmd.h"
-#include "mergecatalog.h"
 #include "project.h"
 #include "diff.h"
 

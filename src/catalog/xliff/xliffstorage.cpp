@@ -16,8 +16,6 @@
 
 #include <QString>
 #include <QStringBuilder>
-#include <QMap>
-#include <QDomDocument>
 #include <QElapsedTimer>
 #include <QPair>
 #include <QList>

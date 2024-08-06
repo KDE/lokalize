@@ -12,7 +12,6 @@
 #include "qamodel.h"
 #include "project.h"
 
-#include <QDomDocument>
 #include <QFile>
 #include <QAction>
 

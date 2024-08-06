@@ -21,7 +21,6 @@
 #include <klocalizedstring.h>
 
 #include <kio/global.h>
-#include <kjob.h>
 #include <kjobtrackerinterface.h>
 #include <KIO/JobTracker>
 
