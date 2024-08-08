@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-25 02:30+0000\n"
+"POT-Creation-Date: 2024-08-08 02:33+0000\n"
 "PO-Revision-Date: 2009-12-19 02:29+0100\n"
 "Last-Translator: Mark Kwidzińśczi <mark@linuxcsb.org>\n"
 "Language-Team: Kaszëbsczi <i18n-csb@linuxcsb.org>\n"
@@ -976,7 +976,7 @@ msgstr "Aktualny: %1"
 
 #: src/editortab.cpp:128 src/editortab.cpp:809
 #: src/filesearch/filesearchtab.cpp:782 src/project/projecttab.cpp:501
-#: src/tm/tmtab.cpp:592
+#: src/tm/tmtab.cpp:593
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -2075,7 +2075,7 @@ msgstr ""
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:490
+#: src/lokalizemainwindow.cpp:446 src/tm/tmtab.cpp:491
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2114,7 +2114,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:493
+#: src/lokalizemainwindow.cpp:494 src/tm/tmtab.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -4173,7 +4173,7 @@ msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr ""
 
-#: src/tm/tmtab.cpp:594
+#: src/tm/tmtab.cpp:595
 #, fuzzy, kde-format
 #| msgctxt "@info:status message entries"
 #| msgid "Total: %1"
@@ -4181,7 +4181,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Całowno: %1"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:578
+#: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:578
 #, kde-format
 msgctxt "@info"
 msgid ""
