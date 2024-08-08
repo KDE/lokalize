@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-07 00:42+0000\n"
+"POT-Creation-Date: 2024-08-08 00:42+0000\n"
 "PO-Revision-Date: 2024-07-21 22:25-0500\n"
 "Last-Translator: aalam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -977,7 +977,7 @@ msgstr "ਮੌਜੂਦਾ: %1"
 
 #: src/editortab.cpp:126 src/editortab.cpp:807
 #: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:500
-#: src/tm/tmtab.cpp:591
+#: src/tm/tmtab.cpp:592
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -2093,7 +2093,7 @@ msgstr "TM ਸਹੂਲਤ ਲਈ SQLite Qt ਮੋਡੀਊਲ ਚਾਹੀਦ�
 msgid "No SQLite module available"
 msgstr "ਕੋਈ SQLite ਮੋਡੀਊਲ ਉਪਲੱਬਧ ਨਹੀਂ।"
 
-#: src/lokalizemainwindow.cpp:445 src/tm/tmtab.cpp:489
+#: src/lokalizemainwindow.cpp:445 src/tm/tmtab.cpp:490
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2132,7 +2132,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "ਅਨੁਵਾਦ ਮੈਮੋਰੀ"
 
-#: src/lokalizemainwindow.cpp:493 src/tm/tmtab.cpp:492
+#: src/lokalizemainwindow.cpp:493 src/tm/tmtab.cpp:493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -4239,13 +4239,13 @@ msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "ਅਨੁਵਾਦ ਮੈਮੋਰੀ"
 
-#: src/tm/tmtab.cpp:593
+#: src/tm/tmtab.cpp:594
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "ਕੁੱਲ: %1 (%2)"
 
-#: src/tm/tmtab.cpp:622 src/tm/tmview.cpp:578
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:578
 #, kde-format
 msgctxt "@info"
 msgid ""
