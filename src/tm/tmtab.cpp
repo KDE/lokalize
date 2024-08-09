@@ -164,7 +164,7 @@ void TMDBModel::slotQueryExecuted(ExecQueryJob* job)
         Q_EMIT finalResultCountFetched(m_totalResultCount);
         return;
     }
-    setQuery(*(job->query));
+    setQuery(std::move(*job->query));
     m_dbOperationMutex.unlock();
     Q_EMIT resultsFetched();
 
