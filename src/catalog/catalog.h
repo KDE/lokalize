@@ -57,7 +57,7 @@ class Catalog: public QUndoStack
 
 public:
     explicit Catalog(QObject* parent);
-    virtual ~Catalog() override;
+    ~Catalog() override;
 
     QString msgid(const DocPosition&) const;
     virtual QString msgstr(const DocPosition&) const;
