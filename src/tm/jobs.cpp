@@ -1520,7 +1520,7 @@ void ScanJob::run()
     Catalog catalog(nullptr);
     if (Q_LIKELY(catalog.loadFromUrl(m_filePath, QString(), &m_size, /*no auto save*/true) == 0)) {
         if (c.targetLangCode != catalog.targetLangCode()) {
-            qCWarning(LOKALIZE_LOG) << "not indexing file because target languages don't match:" << c.targetLangCode << "in TM vs" << catalog.targetLangCode() << "in file";
+            qCWarning(LOKALIZE_LOG) << "not indexing file" << m_filePath << "because target languages don't match:" << c.targetLangCode << "in TM vs" << catalog.targetLangCode() << "in file";
             return;
         }
         qlonglong priorId = -1;
