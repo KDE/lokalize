@@ -304,7 +304,7 @@ void EditorTab::setupActions()
         //                         Qt::Key_K,
         Qt::Key_K,
         Qt::Key_P,
-        Qt::Key_N,
+        //                         Qt::Key_N,
         //                         Qt::Key_Q,
         //                         Qt::Key_R,
         //                         Qt::Key_U,
@@ -483,6 +483,10 @@ void EditorTab::setupActions()
     action = edit->addAction(QStringLiteral("edit_tagimmediate"), m_view->viewPort(), SLOT(tagImmediate()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_M));
     action->setText(i18nc("@action:inmenu", "Insert Next Tag"));
+    
+    action = edit->addAction(QStringLiteral("edit_skiptags"), m_view->viewPort(), SLOT(skipTags()));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_N));
+    action->setText(i18nc("@action:inmenu", "Skip to next non-tag text"));
 
     action = edit->addAction(QStringLiteral("edit_completion"), m_view, SIGNAL(doExplicitCompletion()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::AltModifier | Qt::Key_Space));
