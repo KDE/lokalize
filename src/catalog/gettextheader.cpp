@@ -309,9 +309,12 @@ void updateHeader(QString& header,
     QString mailingList; //initialized with preexisting value or later
 
     static QMap<QString, QLocale::Language> langEnums;
-    if (!langEnums.size())
-        for (int l = QLocale::Abkhazian; l <= QLocale::Akoose; ++l)
+    if (!langEnums.size()) {
+        // If this assert fails, it means that Abkhazian is not the first language anymore, update the code
+        static_assert(QLocale::Abkhazian == 2);
+        for (int l = QLocale::Abkhazian; l <= QLocale::LastLanguage; ++l)
             langEnums[QLocale::languageToString((QLocale::Language)l)] = (QLocale::Language)l;
+    }
 
     static const QRegularExpression langTeamRegExp(QStringLiteral("^ *Language-Team:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
