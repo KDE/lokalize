@@ -27,7 +27,7 @@
 
 namespace TM
 {
-static QVector<ScanJob*> doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
+static QVector<ScanJob*> doScanRecursive(const QDir& dir, const QString& dbName, RecursiveScanJob* metaJob);
 }
 
 using namespace TM;
@@ -56,15 +56,14 @@ void RecursiveScanJob::setJobs(const QVector<ScanJob*>& jobs)
         kill(KJob::EmitResult);
 }
 
-void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
+void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* job)
 {
-    ScanJob* job = static_cast<ScanJob*>(j);
-
     setProcessedAmount(KJob::Files, processedAmount(KJob::Files) + 1);
     emitPercent(processedAmount(KJob::Files), totalAmount(KJob::Files));
 
     setProcessedAmount(KJob::Bytes, processedAmount(KJob::Bytes) + job->m_size);
     if (m_time.elapsed()) emitSpeed(1000 * processedAmount(KJob::Bytes) / m_time.elapsed());
+    job->deleteLater();
 }
 
 void RecursiveScanJob::scanJobDestroyed()
@@ -114,7 +113,7 @@ int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
 }
 
 //returns gross number of jobs started
-static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob)
+static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbName, RecursiveScanJob* metaJob)
 {
     QVector<ScanJob*> result;
     QStringList subDirs(dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable));
@@ -131,7 +130,8 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
 
     while (--i >= 0) {
         ScanJobFeedingBack* job = new ScanJobFeedingBack(dir.filePath(files.at(i)), dbName);
-        QObject::connect(job, &ScanJobFeedingBack::done, (RecursiveScanJob*)metaJob, &RecursiveScanJob::scanJobFinished);
+        QObject::connect(job, &ScanJobFeedingBack::done, metaJob, &RecursiveScanJob::scanJobFinished);
+        QObject::connect(job, &QObject::destroyed, metaJob, &RecursiveScanJob::scanJobDestroyed);
         TM::threadPool()->start(job, SCAN);
         result.append(job);
     }
