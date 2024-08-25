@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-08 02:33+0000\n"
+"POT-Creation-Date: 2024-08-25 02:36+0000\n"
 "PO-Revision-Date: 2024-07-26 14:39+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -789,24 +789,24 @@ msgid ""
 "template"
 msgstr "Førre kjeldeverdi, som gettext lagra ved overgang til ei nyare malfil"
 
-#: src/catalog/gettextheader.cpp:479
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Manglar namn på forfattar"
 
-#: src/catalog/gettextheader.cpp:479
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgid "Your name:"
 msgstr "Namnet ditt:"
 
-#: src/catalog/gettextheader.cpp:489
+#: src/catalog/gettextheader.cpp:492
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Manglar e-postadresse til forfattar"
 
-#: src/catalog/gettextheader.cpp:489
+#: src/catalog/gettextheader.cpp:492
 #, kde-format
 msgid "Your email:"
 msgstr "E-postadressa di:"

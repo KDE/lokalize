@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-08 02:33+0000\n"
+"POT-Creation-Date: 2024-08-25 02:36+0000\n"
 "PO-Revision-Date: 2015-01-30 12:28+0100\n"
 "Last-Translator: Samir Ribic <samir.ribic@etf.unsa.ba>\n"
 "Language-Team: <bs@li.org>\n"
@@ -779,24 +779,24 @@ msgstr ""
 "Prethodna izvorna vrijednost, spasio ju je Gettext prilikom prelaska na "
 "noviji POT predložak"
 
-#: src/catalog/gettextheader.cpp:479
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:479
+#: src/catalog/gettextheader.cpp:482
 #, fuzzy, kde-format
 msgid "Your name:"
 msgstr "Dino Kraljušić,Samir Ribić"
 
-#: src/catalog/gettextheader.cpp:489
+#: src/catalog/gettextheader.cpp:492
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:489
+#: src/catalog/gettextheader.cpp:492
 #, fuzzy, kde-format
 msgid "Your email:"
 msgstr "Dk@et.ba,samir.ribic@etf.unsa.ba"

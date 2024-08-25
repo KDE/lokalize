@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-08 02:33+0000\n"
+"POT-Creation-Date: 2024-08-25 02:36+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -732,24 +732,24 @@ msgid ""
 "template"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:479
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "缺少作者姓名"
 
-#: src/catalog/gettextheader.cpp:479
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgid "Your name:"
 msgstr "您的姓名："
 
-#: src/catalog/gettextheader.cpp:489
+#: src/catalog/gettextheader.cpp:492
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "缺少作者电子邮件"
 
-#: src/catalog/gettextheader.cpp:489
+#: src/catalog/gettextheader.cpp:492
 #, kde-format
 msgid "Your email:"
 msgstr "您的电子邮件："
