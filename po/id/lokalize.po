@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-08 00:42+0000\n"
+"POT-Creation-Date: 2024-08-25 00:41+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -804,24 +804,24 @@ msgstr ""
 "Nilai sumber sebelumnya, disimpan oleh Gettext selama transisi ke sebuah POT "
 "template yang baru"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Nama penulis tidak ada"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgid "Your name:"
 msgstr "Namamu:"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Email penulis tidak ada"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgid "Your email:"
 msgstr "Emailmu:"
@@ -1019,21 +1019,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Panjang sasaran"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1039
-#: src/editortab.cpp:1242 src/tm/tmtab.cpp:229
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1043
+#: src/editortab.cpp:1246 src/tm/tmtab.cpp:229
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Siap"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1040
-#: src/editortab.cpp:1237 src/tm/tmtab.cpp:230
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1044
+#: src/editortab.cpp:1241 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Perlu tinjauan"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1038
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1042
 #: src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status"
@@ -1064,7 +1064,7 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Saat ini: %1"
 
-#: src/editortab.cpp:126 src/editortab.cpp:807
+#: src/editortab.cpp:126 src/editortab.cpp:811
 #: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:500
 #: src/tm/tmtab.cpp:592
 #, kde-format
@@ -1263,46 +1263,52 @@ msgstr "Sisipkan Tag Selanjutnya"
 #: src/editortab.cpp:489
 #, kde-format
 msgctxt "@action:inmenu"
+msgid "Skip to next non-tag text"
+msgstr ""
+
+#: src/editortab.cpp:493
+#, kde-format
+msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "Penyelesaian"
 
-#: src/editortab.cpp:493
+#: src/editortab.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "Ganti dengan saran periksa ejaan terbaik"
 
-#: src/editortab.cpp:500
+#: src/editortab.cpp:504
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "Selanjutnya"
 
-#: src/editortab.cpp:505
+#: src/editortab.cpp:509
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "&Sebelumnya"
 
-#: src/editortab.cpp:511
+#: src/editortab.cpp:515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "&Entri Pertama"
 
-#: src/editortab.cpp:517
+#: src/editortab.cpp:521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "&Entri Terakhir"
 
-#: src/editortab.cpp:523
+#: src/editortab.cpp:527
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Entri dengan nomor"
 
-#: src/editortab.cpp:525 src/project/projecttab.cpp:151
+#: src/editortab.cpp:529 src/project/projecttab.cpp:151
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1310,7 +1316,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Tidak kosong sebelumnya tetapi belum siap"
 
-#: src/editortab.cpp:530 src/project/projecttab.cpp:154
+#: src/editortab.cpp:534 src/project/projecttab.cpp:154
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1318,19 +1324,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Tidak kosong selanjutnya tetapi belum siap"
 
-#: src/editortab.cpp:535 src/project/projecttab.cpp:157
+#: src/editortab.cpp:539 src/project/projecttab.cpp:157
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Belum diterjemahkan sebelumnya"
 
-#: src/editortab.cpp:540 src/project/projecttab.cpp:160
+#: src/editortab.cpp:544 src/project/projecttab.cpp:160
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Belum diterjemahkan selanjutnya"
 
-#: src/editortab.cpp:545 src/project/projecttab.cpp:145
+#: src/editortab.cpp:549 src/project/projecttab.cpp:145
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1338,7 +1344,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Belum siap sebelumnya"
 
-#: src/editortab.cpp:550 src/project/projecttab.cpp:148
+#: src/editortab.cpp:554 src/project/projecttab.cpp:148
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1346,49 +1352,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "Belum siap selanjutnya"
 
-#: src/editortab.cpp:557
+#: src/editortab.cpp:561
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Fokus baris pencarian untuk tampilan Unit Terjemahan"
 
-#: src/editortab.cpp:563
+#: src/editortab.cpp:567
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "Pesan markah"
 
-#: src/editortab.cpp:569
+#: src/editortab.cpp:573
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "Markah sebelumnya"
 
-#: src/editortab.cpp:573
+#: src/editortab.cpp:577
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "Markah selanjutnya"
 
-#: src/editortab.cpp:581
+#: src/editortab.cpp:585
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "Isikan semua saran yang persis"
 
-#: src/editortab.cpp:585
+#: src/editortab.cpp:589
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Isikan semua saran yang persis dan tandai sebagai fuzzy"
 
-#: src/editortab.cpp:590
+#: src/editortab.cpp:594
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Buka file untuk sinkron/gabung"
 
-#: src/editortab.cpp:591 src/editortab.cpp:648
+#: src/editortab.cpp:595 src/editortab.cpp:652
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1398,13 +1404,13 @@ msgstr ""
 "Buka katalog untuk digabungkan ke dalam salah satu saat ini / perubahan "
 "file  basis replika ke"
 
-#: src/editortab.cpp:597 src/editortab.cpp:654
+#: src/editortab.cpp:601 src/editortab.cpp:658
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "Perbedaan sebelumnya"
 
-#: src/editortab.cpp:598 src/editortab.cpp:655
+#: src/editortab.cpp:602 src/editortab.cpp:659
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1414,13 +1420,13 @@ msgstr ""
 "Entri sebelumnya yang diterjemahkan secara berbeda dalam file yang "
 "tergabung, termasuk terjemahan kosong di sumber gabungan"
 
-#: src/editortab.cpp:607 src/editortab.cpp:662
+#: src/editortab.cpp:611 src/editortab.cpp:666
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "Perbedaan selanjutnya"
 
-#: src/editortab.cpp:608 src/editortab.cpp:663
+#: src/editortab.cpp:612 src/editortab.cpp:667
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1430,25 +1436,25 @@ msgstr ""
 "Entri selanjutnya yang diterjemahkan secara berbeda dalam file yang "
 "tergabung, termasuk terjemahan kosong di sumber gabungan"
 
-#: src/editortab.cpp:616
+#: src/editortab.cpp:620
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "Perbedaan selanjutnya yang disetujui"
 
-#: src/editortab.cpp:622 src/editortab.cpp:670
+#: src/editortab.cpp:626 src/editortab.cpp:674
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Salin dari sumber penggabungan"
 
-#: src/editortab.cpp:629 src/editortab.cpp:675
+#: src/editortab.cpp:633 src/editortab.cpp:679
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Salin semua terjemahan baru"
 
-#: src/editortab.cpp:630
+#: src/editortab.cpp:634
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
@@ -1456,25 +1462,25 @@ msgstr ""
 "Perubahan ini hanya entri-entri kosong dan entri-entri belum siap dalam file "
 "basis"
 
-#: src/editortab.cpp:639 src/editortab.cpp:682
+#: src/editortab.cpp:643 src/editortab.cpp:686
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Salin ke sumber penggabungan"
 
-#: src/editortab.cpp:647
+#: src/editortab.cpp:651
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "Buka file untuk sinkron sekunder"
 
-#: src/editortab.cpp:676
+#: src/editortab.cpp:680
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Perubahan ini hanya entri-entri kosong"
 
-#: src/editortab.cpp:704
+#: src/editortab.cpp:708
 #, fuzzy, kde-format
 #| msgctxt "editor tab name"
 #| msgid "(recovered)"
@@ -1482,7 +1488,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(dipulihkan)"
 
-#: src/editortab.cpp:747 src/editortab.cpp:923
+#: src/editortab.cpp:751 src/editortab.cpp:927
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1492,38 +1498,38 @@ msgstr ""
 "Dokumen berisi perubahan yang tak tersimpan.\n"
 "Apakah ingin menyimpan perubahan Andaatau membuangnya?"
 
-#: src/editortab.cpp:749 src/editortab.cpp:925 src/editortab.cpp:1358
+#: src/editortab.cpp:753 src/editortab.cpp:929 src/editortab.cpp:1362
 #: src/glossary/glossarywindow.cpp:492
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Peringatan"
 
-#: src/editortab.cpp:771 src/mergemode/mergeview.cpp:187
+#: src/editortab.cpp:775 src/mergemode/mergeview.cpp:187
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Pilih file terjemahan"
 
-#: src/editortab.cpp:856
+#: src/editortab.cpp:860
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Error membuka file %1, baris: %2"
 
-#: src/editortab.cpp:857
+#: src/editortab.cpp:861
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Error membuka file %1"
 
-#: src/editortab.cpp:864
+#: src/editortab.cpp:868
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Simpan File Sebagai"
 
-#: src/editortab.cpp:889
+#: src/editortab.cpp:893
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1533,13 +1539,13 @@ msgstr ""
 "Error menyimpan file %1\n"
 "Apakah Anda ingin menyimpan ke file lain atau batal?"
 
-#: src/editortab.cpp:891
+#: src/editortab.cpp:895
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Error"
 
-#: src/editortab.cpp:899
+#: src/editortab.cpp:903
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1549,73 +1555,73 @@ msgstr ""
 "Tidak dapat melaksanakan penyimpanan otomatis file .\n"
 "File sasaran adalah %1."
 
-#: src/editortab.cpp:954
+#: src/editortab.cpp:958
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Lompat ke Entri"
 
-#: src/editortab.cpp:955
+#: src/editortab.cpp:959
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Masukkan nomor entri:"
 
-#: src/editortab.cpp:1026
+#: src/editortab.cpp:1030
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Saat ini: %1"
 
-#: src/editortab.cpp:1215
+#: src/editortab.cpp:1219
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Diterjemahkan"
 
-#: src/editortab.cpp:1216
+#: src/editortab.cpp:1220
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Ditinjau"
 
-#: src/editortab.cpp:1217
+#: src/editortab.cpp:1221
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Disetujui"
 
-#: src/editortab.cpp:1220
+#: src/editortab.cpp:1224
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Terjemahan selesai (meskipun mungkin masih perlu tinjauan)"
 
-#: src/editortab.cpp:1221
+#: src/editortab.cpp:1225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Terjemahan telah menerima tinjauan yang positif"
 
-#: src/editortab.cpp:1222
+#: src/editortab.cpp:1226
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Entri telah secara penuh dilokalisir (yaitu final)"
 
-#: src/editortab.cpp:1334 src/project/projecttab.cpp:357
+#: src/editortab.cpp:1338 src/project/projecttab.cpp:357
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Sebuah pemeriksaan Pology sedang berlangsung."
 
-#: src/editortab.cpp:1334 src/editortab.cpp:1342 src/editortab.cpp:1346
+#: src/editortab.cpp:1338 src/editortab.cpp:1346 src/editortab.cpp:1350
 #: src/project/projecttab.cpp:357 src/project/projecttab.cpp:365
 #: src/project/projecttab.cpp:369
 #, kde-format
 msgid "Pology error"
 msgstr "Pology error"
 
-#: src/editortab.cpp:1342 src/project/projecttab.cpp:365
+#: src/editortab.cpp:1346 src/project/projecttab.cpp:365
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1624,17 +1630,17 @@ msgstr ""
 "Pemeriksaan Pology telah mogok secara tiba-tiba:\n"
 "%1"
 
-#: src/editortab.cpp:1344 src/project/projecttab.cpp:367
+#: src/editortab.cpp:1348 src/project/projecttab.cpp:367
 #, kde-format
 msgid "Pology success"
 msgstr "Pology sukses"
 
-#: src/editortab.cpp:1344
+#: src/editortab.cpp:1348
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pemeriksaan Pology telah sukses."
 
-#: src/editortab.cpp:1346 src/project/projecttab.cpp:369
+#: src/editortab.cpp:1350 src/project/projecttab.cpp:369
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1643,7 +1649,7 @@ msgstr ""
 "Pemeriksaan Pology telah dibalikkan dengan sebuah error:\n"
 "%1"
 
-#: src/editortab.cpp:1356
+#: src/editortab.cpp:1360
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1653,19 +1659,19 @@ msgstr ""
 "Ini akan menghapus semua terjemahan dari file.\n"
 "Apakah Anda benar-benar ingin membersihkan semua entri yang diterjemahkan?"
 
-#: src/editortab.cpp:1394
+#: src/editortab.cpp:1398
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Kata teks sumber:  %1<br/>Kata teks sasaran: %2"
 
-#: src/editortab.cpp:1395
+#: src/editortab.cpp:1399
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Jumlah Kata"
 
-#: src/editortab.cpp:1488
+#: src/editortab.cpp:1492
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1673,7 +1679,7 @@ msgid ""
 msgstr ""
 "Apakah Anda ingin mencari file sumber secara lokal atau melalui lxr.kde.org?"
 
-#: src/editortab.cpp:1489
+#: src/editortab.cpp:1493
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Source file lookup"
@@ -1681,26 +1687,26 @@ msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Perlihatkan file sumber"
 
-#: src/editortab.cpp:1490
+#: src/editortab.cpp:1494
 #, fuzzy, kde-format
 #| msgid "Locally"
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Secara lokal"
 
-#: src/editortab.cpp:1491 src/editortab.cpp:1535
+#: src/editortab.cpp:1495 src/editortab.cpp:1539
 #, fuzzy, kde-format
 #| msgid "lxr.kde.org"
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1494 src/editortab.cpp:1538
+#: src/editortab.cpp:1498 src/editortab.cpp:1542
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Pilih folder dasar proyek-proyek untuk perlihatkan file sumber"
 
-#: src/editortab.cpp:1531
+#: src/editortab.cpp:1535
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1710,13 +1716,13 @@ msgstr ""
 "Tidak dapat menemukan file sumber dalam folder yang ditentukan.\n"
 "Apakah Anda ingin mengubah file -file sumber folder?"
 
-#: src/editortab.cpp:1533
+#: src/editortab.cpp:1537
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Perlihatkan file sumber"
 
-#: src/editortab.cpp:1534
+#: src/editortab.cpp:1538
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Subject Field"
@@ -1724,7 +1730,7 @@ msgctxt "@action"
 msgid "Select Folder"
 msgstr "Bidang Subjek"
 
-#: src/editortab.cpp:1574
+#: src/editortab.cpp:1578
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1739,33 +1745,33 @@ msgstr ""
 "petunjuk Lokalize untuk contoh-contoh skrip dan bagaimana mencolokkan mereka "
 "ke dalam proyek Anda."
 
-#: src/editortab.cpp:1588 src/project/project.cpp:466
+#: src/editortab.cpp:1592 src/project/project.cpp:466
 #: src/project/project.cpp:471
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instal paket translate-toolkit dan coba lagi"
 
-#: src/editortab.cpp:1594
+#: src/editortab.cpp:1598
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Instal paket translate-toolkit dan coba lagi."
 
-#: src/editortab.cpp:1603
+#: src/editortab.cpp:1607
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Pilih OpenDocument asli yang mana file XLIFF saat ini didasarkan"
 
-#: src/editortab.cpp:1605 src/project/project.cpp:476
+#: src/editortab.cpp:1609 src/project/project.cpp:476
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "File-file OpenDocument (*.odt *.ods)"
 
-#: src/editortab.cpp:1650
+#: src/editortab.cpp:1654
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Instal paket python-uno untuk fungsionalitas tambahan."
 
-#: src/editortab.cpp:1774
+#: src/editortab.cpp:1778
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -1809,55 +1815,55 @@ msgid "&Edit"
 msgstr "&Edit"
 
 #. i18n: ectx: Menu (glossary)
-#: src/editorui.rc:70
+#: src/editorui.rc:71
 #, kde-format
 msgid "&Glossary"
 msgstr "&Glosarium"
 
 #. i18n: ectx: Menu (tmquery)
-#: src/editorui.rc:96
+#: src/editorui.rc:97
 #, kde-format
 msgid "Translation &Memory"
 msgstr "Memori &Terjemahan"
 
 #. i18n: ectx: Menu (alttrans)
-#: src/editorui.rc:127
+#: src/editorui.rc:128
 #, kde-format
 msgid "Alternative Translations"
 msgstr "Terjemahan Alternatif"
 
 #. i18n: ectx: Menu (go)
-#: src/editorui.rc:145 src/project/projectmanagerui.rc:5
+#: src/editorui.rc:146 src/project/projectmanagerui.rc:5
 #, kde-format
 msgid "&Go"
 msgstr "&Menuju"
 
 #. i18n: ectx: Menu (bookmarks)
-#: src/editorui.rc:175
+#: src/editorui.rc:176
 #, kde-format
 msgid "&Bookmarks"
 msgstr "&Markah"
 
 #. i18n: ectx: Menu (merge)
-#: src/editorui.rc:182
+#: src/editorui.rc:183
 #, kde-format
 msgid "S&ync"
 msgstr "S&inkron"
 
 #. i18n: ectx: Menu (mergesecondary)
-#: src/editorui.rc:192
+#: src/editorui.rc:193
 #, kde-format
 msgid "&Secondary sync source"
 msgstr "&Sumber sinkron sekunder"
 
 #. i18n: ectx: Menu (toolviews)
-#: src/editorui.rc:212 src/lokalizemainwindowui.rc:49
+#: src/editorui.rc:213 src/lokalizemainwindowui.rc:49
 #, kde-format
 msgid "Tool&views"
 msgstr "Tampilan &Alat"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/editorui.rc:234 src/filesearch/filesearchtabui.rc:11
+#: src/editorui.rc:235 src/filesearch/filesearchtabui.rc:11
 #: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "Main Toolbar"
@@ -4700,7 +4706,7 @@ msgstr "tidak ada periksa-ejaan yang tersedia"
 msgid "An error was reported: %1"
 msgstr "Melaporkan sebuah kesalahan: %1"
 
-#: src/xlifftextedit.cpp:1270
+#: src/xlifftextedit.cpp:1294
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

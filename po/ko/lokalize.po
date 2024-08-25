@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-08 00:42+0000\n"
+"POT-Creation-Date: 2024-08-25 00:41+0000\n"
 "PO-Revision-Date: 2024-08-20 00:32+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -754,24 +754,24 @@ msgid ""
 "template"
 msgstr "새 POT 템플릿으로 전환할 때 Gettext에서 저장한 이전 원본 값"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "번역자 이름 없음"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgid "Your name:"
 msgstr "내 이름:"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "번역자 이메일 없음"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgid "Your email:"
 msgstr "내 이메일:"
@@ -966,21 +966,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "대상 길이"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1039
-#: src/editortab.cpp:1242 src/tm/tmtab.cpp:229
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1043
+#: src/editortab.cpp:1246 src/tm/tmtab.cpp:229
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "준비"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1040
-#: src/editortab.cpp:1237 src/tm/tmtab.cpp:230
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1044
+#: src/editortab.cpp:1241 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "검토 필요함"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1038
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1042
 #: src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status"
@@ -1011,7 +1011,7 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "현재: %1"
 
-#: src/editortab.cpp:126 src/editortab.cpp:807
+#: src/editortab.cpp:126 src/editortab.cpp:811
 #: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:500
 #: src/tm/tmtab.cpp:592
 #, kde-format
@@ -1210,46 +1210,52 @@ msgstr "다음 태그 삽입"
 #: src/editortab.cpp:489
 #, kde-format
 msgctxt "@action:inmenu"
+msgid "Skip to next non-tag text"
+msgstr ""
+
+#: src/editortab.cpp:493
+#, kde-format
+msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "자동 완성"
 
-#: src/editortab.cpp:493
+#: src/editortab.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "가장 좋은 맞춤법 검사 제안으로 바꾸기"
 
-#: src/editortab.cpp:500
+#: src/editortab.cpp:504
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "다음(&N)"
 
-#: src/editortab.cpp:505
+#: src/editortab.cpp:509
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "이전(&P)"
 
-#: src/editortab.cpp:511
+#: src/editortab.cpp:515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "첫 항목(&F)"
 
-#: src/editortab.cpp:517
+#: src/editortab.cpp:521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "마지막 항목(&L)"
 
-#: src/editortab.cpp:523
+#: src/editortab.cpp:527
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "번호순 항목"
 
-#: src/editortab.cpp:525 src/project/projecttab.cpp:151
+#: src/editortab.cpp:529 src/project/projecttab.cpp:151
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1257,7 +1263,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "이전 번역되었지만 준비되지 않은 문자열"
 
-#: src/editortab.cpp:530 src/project/projecttab.cpp:154
+#: src/editortab.cpp:534 src/project/projecttab.cpp:154
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1265,19 +1271,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "다음 번역되었지만 준비되지 않은 문자열"
 
-#: src/editortab.cpp:535 src/project/projecttab.cpp:157
+#: src/editortab.cpp:539 src/project/projecttab.cpp:157
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "이전 번역되지 않은 문자열"
 
-#: src/editortab.cpp:540 src/project/projecttab.cpp:160
+#: src/editortab.cpp:544 src/project/projecttab.cpp:160
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "다음 번역되지 않은 문자열"
 
-#: src/editortab.cpp:545 src/project/projecttab.cpp:145
+#: src/editortab.cpp:549 src/project/projecttab.cpp:145
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1285,7 +1291,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "이전 준비되지 않은 문자열"
 
-#: src/editortab.cpp:550 src/project/projecttab.cpp:148
+#: src/editortab.cpp:554 src/project/projecttab.cpp:148
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1293,49 +1299,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "다음 준비되지 않은 문자열"
 
-#: src/editortab.cpp:557
+#: src/editortab.cpp:561
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "번역 단위 보기의 검색 줄에 포커스 맞추기"
 
-#: src/editortab.cpp:563
+#: src/editortab.cpp:567
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "책갈피에 메시지 추가"
 
-#: src/editortab.cpp:569
+#: src/editortab.cpp:573
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "이전 책갈피 항목"
 
-#: src/editortab.cpp:573
+#: src/editortab.cpp:577
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "다음 책갈피 항목"
 
-#: src/editortab.cpp:581
+#: src/editortab.cpp:585
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "모든 제안 입력"
 
-#: src/editortab.cpp:585
+#: src/editortab.cpp:589
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "모든 제안을 입력하고 불분명함으로 표시"
 
-#: src/editortab.cpp:590
+#: src/editortab.cpp:594
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "동기화/합칠 파일 열기"
 
-#: src/editortab.cpp:591 src/editortab.cpp:648
+#: src/editortab.cpp:595 src/editortab.cpp:652
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1343,13 +1349,13 @@ msgid ""
 "to"
 msgstr "현재 카탈로그에 합칠 카탈로그 열기/기본 파일의 변경 사항 반영"
 
-#: src/editortab.cpp:597 src/editortab.cpp:654
+#: src/editortab.cpp:601 src/editortab.cpp:658
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "이전 다른 항목"
 
-#: src/editortab.cpp:598 src/editortab.cpp:655
+#: src/editortab.cpp:602 src/editortab.cpp:659
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1357,13 +1363,13 @@ msgid ""
 "including empty translations in merge source"
 msgstr "합쳐지는 파일에 없거나 다르게 번역된 이전 항목을 찾습니다"
 
-#: src/editortab.cpp:607 src/editortab.cpp:662
+#: src/editortab.cpp:611 src/editortab.cpp:666
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "다음 다른 항목"
 
-#: src/editortab.cpp:608 src/editortab.cpp:663
+#: src/editortab.cpp:612 src/editortab.cpp:667
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1371,55 +1377,55 @@ msgid ""
 "including empty translations in merge source"
 msgstr "합쳐지는 파일에 없거나 다르게 번역된 다음 항목을 찾습니다"
 
-#: src/editortab.cpp:616
+#: src/editortab.cpp:620
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "다음 승인된 항목"
 
-#: src/editortab.cpp:622 src/editortab.cpp:670
+#: src/editortab.cpp:626 src/editortab.cpp:674
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "결합하는 원본에서 복사"
 
-#: src/editortab.cpp:629 src/editortab.cpp:675
+#: src/editortab.cpp:633 src/editortab.cpp:679
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "모든 새로운 번역 복사"
 
-#: src/editortab.cpp:630
+#: src/editortab.cpp:634
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "이 변경 사항은 원본 파일의 비어 있거나 준비되지 않은 항목만 변경합니다"
 
-#: src/editortab.cpp:639 src/editortab.cpp:682
+#: src/editortab.cpp:643 src/editortab.cpp:686
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "결합하는 원본으로 복사"
 
-#: src/editortab.cpp:647
+#: src/editortab.cpp:651
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "두 번째로 동기화할 파일 열기"
 
-#: src/editortab.cpp:676
+#: src/editortab.cpp:680
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "이 변경 사항은 항목만 비웁니다"
 
-#: src/editortab.cpp:704
+#: src/editortab.cpp:708
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(복구됨)"
 
-#: src/editortab.cpp:747 src/editortab.cpp:923
+#: src/editortab.cpp:751 src/editortab.cpp:927
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1429,38 +1435,38 @@ msgstr ""
 "이 문서에는 저장하지 않은 변경 사항이 있습니다.\n"
 "변경 사항을 저장하거나 무시하시겠습니까?"
 
-#: src/editortab.cpp:749 src/editortab.cpp:925 src/editortab.cpp:1358
+#: src/editortab.cpp:753 src/editortab.cpp:929 src/editortab.cpp:1362
 #: src/glossary/glossarywindow.cpp:492
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "경고"
 
-#: src/editortab.cpp:771 src/mergemode/mergeview.cpp:187
+#: src/editortab.cpp:775 src/mergemode/mergeview.cpp:187
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "번역 파일 선택"
 
-#: src/editortab.cpp:856
+#: src/editortab.cpp:860
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "파일 %1을(를) 여는 중 오류 발생, 줄: %2"
 
-#: src/editortab.cpp:857
+#: src/editortab.cpp:861
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "파일 %1을(를) 여는 중 오류 발생"
 
-#: src/editortab.cpp:864
+#: src/editortab.cpp:868
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "파일 다른 이름으로 저장"
 
-#: src/editortab.cpp:889
+#: src/editortab.cpp:893
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1470,13 +1476,13 @@ msgstr ""
 "파일 %1에 저장하는 중 오류가 발생했습니다\n"
 "다른 파일로 저장하거나 취소하시겠습니까?"
 
-#: src/editortab.cpp:891
+#: src/editortab.cpp:895
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "오류"
 
-#: src/editortab.cpp:899
+#: src/editortab.cpp:903
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1486,73 +1492,73 @@ msgstr ""
 "파일을 자동 저장할 수 없습니다.\n"
 "대상 파일은 %1입니다."
 
-#: src/editortab.cpp:954
+#: src/editortab.cpp:958
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "항목으로 이동"
 
-#: src/editortab.cpp:955
+#: src/editortab.cpp:959
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "항목 번호 입력:"
 
-#: src/editortab.cpp:1026
+#: src/editortab.cpp:1030
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "현재: %1"
 
-#: src/editortab.cpp:1215
+#: src/editortab.cpp:1219
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "번역됨"
 
-#: src/editortab.cpp:1216
+#: src/editortab.cpp:1220
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "확인됨"
 
-#: src/editortab.cpp:1217
+#: src/editortab.cpp:1221
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "승인됨"
 
-#: src/editortab.cpp:1220
+#: src/editortab.cpp:1224
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "번역이 완료됨(검토가 필요할 수도 있음)"
 
-#: src/editortab.cpp:1221
+#: src/editortab.cpp:1225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "번역이 긍정적인 평을 받음"
 
-#: src/editortab.cpp:1222
+#: src/editortab.cpp:1226
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "항목이 완전히 번역됨(최종본)"
 
-#: src/editortab.cpp:1334 src/project/projecttab.cpp:357
+#: src/editortab.cpp:1338 src/project/projecttab.cpp:357
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Pology 검사가 진행 중입니다."
 
-#: src/editortab.cpp:1334 src/editortab.cpp:1342 src/editortab.cpp:1346
+#: src/editortab.cpp:1338 src/editortab.cpp:1346 src/editortab.cpp:1350
 #: src/project/projecttab.cpp:357 src/project/projecttab.cpp:365
 #: src/project/projecttab.cpp:369
 #, kde-format
 msgid "Pology error"
 msgstr "Pology 오류"
 
-#: src/editortab.cpp:1342 src/project/projecttab.cpp:365
+#: src/editortab.cpp:1346 src/project/projecttab.cpp:365
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1561,17 +1567,17 @@ msgstr ""
 "Pology 검사가 예상하지 못하게 충돌했습니다:\n"
 "%1"
 
-#: src/editortab.cpp:1344 src/project/projecttab.cpp:367
+#: src/editortab.cpp:1348 src/project/projecttab.cpp:367
 #, kde-format
 msgid "Pology success"
 msgstr "Pology 성공"
 
-#: src/editortab.cpp:1344
+#: src/editortab.cpp:1348
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pology 검사가 성공했습니다."
 
-#: src/editortab.cpp:1346 src/project/projecttab.cpp:369
+#: src/editortab.cpp:1350 src/project/projecttab.cpp:369
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1580,7 +1586,7 @@ msgstr ""
 "Pology 검사에서 오류를 반환했습니다:\n"
 "%1"
 
-#: src/editortab.cpp:1356
+#: src/editortab.cpp:1360
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1590,49 +1596,49 @@ msgstr ""
 "파일의 모든 번역문을 삭제합니다.\n"
 "모든 번역된 항목을 삭제하시겠습니까?"
 
-#: src/editortab.cpp:1394
+#: src/editortab.cpp:1398
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "원문 텍스트 단어 개수: %1<br/>번역문 텍스트 단어 개수: %2"
 
-#: src/editortab.cpp:1395
+#: src/editortab.cpp:1399
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "단어 개수"
 
-#: src/editortab.cpp:1488
+#: src/editortab.cpp:1492
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "로컬에서 소스 파일을 검색하거나 lxr.kde.org에서 검색하시겠습니까?"
 
-#: src/editortab.cpp:1489
+#: src/editortab.cpp:1493
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "소스 파일 찾아보기"
 
-#: src/editortab.cpp:1490
+#: src/editortab.cpp:1494
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "로컬에서 검색"
 
-#: src/editortab.cpp:1491 src/editortab.cpp:1535
+#: src/editortab.cpp:1495 src/editortab.cpp:1539
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org에서 검색"
 
-#: src/editortab.cpp:1494 src/editortab.cpp:1538
+#: src/editortab.cpp:1498 src/editortab.cpp:1542
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "소스 파일을 찾아 볼 프로젝트 기반 폴더 선택"
 
-#: src/editortab.cpp:1531
+#: src/editortab.cpp:1535
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1642,19 +1648,19 @@ msgstr ""
 "지정한 폴더에서 소스 파일을 찾을 수 없습니다.\n"
 "소스 파일 폴더를 변경하시겠습니까?"
 
-#: src/editortab.cpp:1533
+#: src/editortab.cpp:1537
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "소스 파일 찾아보기"
 
-#: src/editortab.cpp:1534
+#: src/editortab.cpp:1538
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "폴더 선택"
 
-#: src/editortab.cpp:1574
+#: src/editortab.cpp:1578
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1668,33 +1674,33 @@ msgstr ""
 "오지 않았습니다. Lokalize 설명서를 참조하여 스크립트 예제 및 프로젝트에 적용"
 "하는 방법을 알아 보십시오."
 
-#: src/editortab.cpp:1588 src/project/project.cpp:466
+#: src/editortab.cpp:1592 src/project/project.cpp:466
 #: src/project/project.cpp:471
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit 패키지를 설치하고 다시 시도하십시오"
 
-#: src/editortab.cpp:1594
+#: src/editortab.cpp:1598
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "translate-toolkit 패키지를 설치하고 다시 시도하십시오."
 
-#: src/editortab.cpp:1603
+#: src/editortab.cpp:1607
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "현재 XLIFF 파일의 기반 OpenDocument 파일 선택"
 
-#: src/editortab.cpp:1605 src/project/project.cpp:476
+#: src/editortab.cpp:1609 src/project/project.cpp:476
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 파일 (*.odt *.ods)"
 
-#: src/editortab.cpp:1650
+#: src/editortab.cpp:1654
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "추가 기능을 사용하려면 python-uno 패키지를 설치하십시오."
 
-#: src/editortab.cpp:1774
+#: src/editortab.cpp:1778
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -1736,55 +1742,55 @@ msgid "&Edit"
 msgstr "편집(&E)"
 
 #. i18n: ectx: Menu (glossary)
-#: src/editorui.rc:70
+#: src/editorui.rc:71
 #, kde-format
 msgid "&Glossary"
 msgstr "상용구(&G)"
 
 #. i18n: ectx: Menu (tmquery)
-#: src/editorui.rc:96
+#: src/editorui.rc:97
 #, kde-format
 msgid "Translation &Memory"
 msgstr "번역 메모리(&M)"
 
 #. i18n: ectx: Menu (alttrans)
-#: src/editorui.rc:127
+#: src/editorui.rc:128
 #, kde-format
 msgid "Alternative Translations"
 msgstr "대체 번역"
 
 #. i18n: ectx: Menu (go)
-#: src/editorui.rc:145 src/project/projectmanagerui.rc:5
+#: src/editorui.rc:146 src/project/projectmanagerui.rc:5
 #, kde-format
 msgid "&Go"
 msgstr "이동(&G)"
 
 #. i18n: ectx: Menu (bookmarks)
-#: src/editorui.rc:175
+#: src/editorui.rc:176
 #, kde-format
 msgid "&Bookmarks"
 msgstr "책갈피(&B)"
 
 #. i18n: ectx: Menu (merge)
-#: src/editorui.rc:182
+#: src/editorui.rc:183
 #, kde-format
 msgid "S&ync"
 msgstr "동기화(&Y)"
 
 #. i18n: ectx: Menu (mergesecondary)
-#: src/editorui.rc:192
+#: src/editorui.rc:193
 #, kde-format
 msgid "&Secondary sync source"
 msgstr "두 번째 동기화 원본(&S)"
 
 #. i18n: ectx: Menu (toolviews)
-#: src/editorui.rc:212 src/lokalizemainwindowui.rc:49
+#: src/editorui.rc:213 src/lokalizemainwindowui.rc:49
 #, kde-format
 msgid "Tool&views"
 msgstr "도구 보기(&V)"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/editorui.rc:234 src/filesearch/filesearchtabui.rc:11
+#: src/editorui.rc:235 src/filesearch/filesearchtabui.rc:11
 #: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "Main Toolbar"
@@ -4525,7 +4531,7 @@ msgstr "맞춤법 검사 사용 불가"
 msgid "An error was reported: %1"
 msgstr "오류 발생: %1"
 
-#: src/xlifftextedit.cpp:1270
+#: src/xlifftextedit.cpp:1294
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

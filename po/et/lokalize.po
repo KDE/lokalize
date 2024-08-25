@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-08 00:42+0000\n"
+"POT-Creation-Date: 2024-08-25 00:41+0000\n"
 "PO-Revision-Date: 2020-10-08 14:56+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -785,24 +785,24 @@ msgid ""
 msgstr ""
 "Eelmine lähteväärtus, mille salvestas Gettext üleminekul uuemale tõlkemallile"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Autori nimi puudub"
 
-#: src/catalog/gettextheader.cpp:477
+#: src/catalog/gettextheader.cpp:480
 #, kde-format
 msgid "Your name:"
 msgstr "Sinu nimi:"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Autori e-posti aadress puudub"
 
-#: src/catalog/gettextheader.cpp:487
+#: src/catalog/gettextheader.cpp:490
 #, kde-format
 msgid "Your email:"
 msgstr "Sinu e-posti aadress:"
@@ -1000,21 +1000,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Pikkus sihtkeeles"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1039
-#: src/editortab.cpp:1242 src/tm/tmtab.cpp:229
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1043
+#: src/editortab.cpp:1246 src/tm/tmtab.cpp:229
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Valmis"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1040
-#: src/editortab.cpp:1237 src/tm/tmtab.cpp:230
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1044
+#: src/editortab.cpp:1241 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Vajab ülevaatamist"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1038
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1042
 #: src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status"
@@ -1045,7 +1045,7 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Aktiivne: %1"
 
-#: src/editortab.cpp:126 src/editortab.cpp:807
+#: src/editortab.cpp:126 src/editortab.cpp:811
 #: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:500
 #: src/tm/tmtab.cpp:592
 #, kde-format
@@ -1244,46 +1244,52 @@ msgstr "Lisa järgmine silt"
 #: src/editortab.cpp:489
 #, kde-format
 msgctxt "@action:inmenu"
+msgid "Skip to next non-tag text"
+msgstr ""
+
+#: src/editortab.cpp:493
+#, kde-format
+msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "Lõpetamine"
 
-#: src/editortab.cpp:493
+#: src/editortab.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "Asenda õigekirja kontrollimise parima pakkumisega"
 
-#: src/editortab.cpp:500
+#: src/editortab.cpp:504
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "&Järgmine"
 
-#: src/editortab.cpp:505
+#: src/editortab.cpp:509
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "&Eelmine"
 
-#: src/editortab.cpp:511
+#: src/editortab.cpp:515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "E&simene kirje"
 
-#: src/editortab.cpp:517
+#: src/editortab.cpp:521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "&Viimane kirje"
 
-#: src/editortab.cpp:523
+#: src/editortab.cpp:527
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Kirje numbri järgi"
 
-#: src/editortab.cpp:525 src/project/projecttab.cpp:151
+#: src/editortab.cpp:529 src/project/projecttab.cpp:151
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1291,7 +1297,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Eelmine tõlgitud ja pooleli"
 
-#: src/editortab.cpp:530 src/project/projecttab.cpp:154
+#: src/editortab.cpp:534 src/project/projecttab.cpp:154
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1299,19 +1305,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Järgmine tõlgitud ja pooleli"
 
-#: src/editortab.cpp:535 src/project/projecttab.cpp:157
+#: src/editortab.cpp:539 src/project/projecttab.cpp:157
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Eelmine tõlkimata"
 
-#: src/editortab.cpp:540 src/project/projecttab.cpp:160
+#: src/editortab.cpp:544 src/project/projecttab.cpp:160
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Järgmine tõlkimata"
 
-#: src/editortab.cpp:545 src/project/projecttab.cpp:145
+#: src/editortab.cpp:549 src/project/projecttab.cpp:145
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1319,7 +1325,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Eelmine pooleli"
 
-#: src/editortab.cpp:550 src/project/projecttab.cpp:148
+#: src/editortab.cpp:554 src/project/projecttab.cpp:148
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1327,49 +1333,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "Järgmine pooleli"
 
-#: src/editortab.cpp:557
+#: src/editortab.cpp:561
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Fookus tõlkeühiku otsingureale"
 
-#: src/editortab.cpp:563
+#: src/editortab.cpp:567
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "Kirje lisamine järjehoidjatesse"
 
-#: src/editortab.cpp:569
+#: src/editortab.cpp:573
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "Eelmine järjehoidja"
 
-#: src/editortab.cpp:573
+#: src/editortab.cpp:577
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "Järgmine järjehoidja"
 
-#: src/editortab.cpp:581
+#: src/editortab.cpp:585
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "Rakenda kõik täpsed pakkumised"
 
-#: src/editortab.cpp:585
+#: src/editortab.cpp:589
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Rakenda kõik täpsed pakkumised ja märgi kahtlaseks"
 
-#: src/editortab.cpp:590
+#: src/editortab.cpp:594
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Ava fail sünkroonimiseks/ühendamiseks"
 
-#: src/editortab.cpp:591 src/editortab.cpp:648
+#: src/editortab.cpp:595 src/editortab.cpp:652
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1379,13 +1385,13 @@ msgstr ""
 "Kataloogi avamine, mis ühendatakse aktiivse kataloogiga või millesse "
 "kantakse baasfailide muudatused"
 
-#: src/editortab.cpp:597 src/editortab.cpp:654
+#: src/editortab.cpp:601 src/editortab.cpp:658
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "Eelmine erinev"
 
-#: src/editortab.cpp:598 src/editortab.cpp:655
+#: src/editortab.cpp:602 src/editortab.cpp:659
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1395,13 +1401,13 @@ msgstr ""
 "Eelmine kirje, mis on ühendatavas failis teisiti tõlgitud, sealhulgas "
 "tõlkimata kirjed ühendatavas failis"
 
-#: src/editortab.cpp:607 src/editortab.cpp:662
+#: src/editortab.cpp:611 src/editortab.cpp:666
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "Järgmine erinev"
 
-#: src/editortab.cpp:608 src/editortab.cpp:663
+#: src/editortab.cpp:612 src/editortab.cpp:667
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1411,49 +1417,49 @@ msgstr ""
 "Järgmine kirje, mis on ühendatavas failis teisiti tõlgitud, sealhulgas "
 "tõlkimata kirjed ühendatavas failis"
 
-#: src/editortab.cpp:616
+#: src/editortab.cpp:620
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "Järgmine heaks kiidetud erinev"
 
-#: src/editortab.cpp:622 src/editortab.cpp:670
+#: src/editortab.cpp:626 src/editortab.cpp:674
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Kopeeri ühendatavast allikast"
 
-#: src/editortab.cpp:629 src/editortab.cpp:675
+#: src/editortab.cpp:633 src/editortab.cpp:679
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Kopeeri kõik uued tõlked"
 
-#: src/editortab.cpp:630
+#: src/editortab.cpp:634
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "See muudab ainult baasfaili tühje ja pooleli kirjeid"
 
-#: src/editortab.cpp:639 src/editortab.cpp:682
+#: src/editortab.cpp:643 src/editortab.cpp:686
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Kopeeri ühendatavasse allikasse"
 
-#: src/editortab.cpp:647
+#: src/editortab.cpp:651
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "Ava fail teiseseks sünkroonimiseks"
 
-#: src/editortab.cpp:676
+#: src/editortab.cpp:680
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "See muudab ainult tõlkimata kirjeid"
 
-#: src/editortab.cpp:704
+#: src/editortab.cpp:708
 #, fuzzy, kde-format
 #| msgctxt "editor tab name"
 #| msgid "(recovered)"
@@ -1461,7 +1467,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(taastatud)"
 
-#: src/editortab.cpp:747 src/editortab.cpp:923
+#: src/editortab.cpp:751 src/editortab.cpp:927
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1471,38 +1477,38 @@ msgstr ""
 "Dokument sisaldab salvestamata muudatusi.\n"
 "Kas soovid neid salvestada või need unustada?"
 
-#: src/editortab.cpp:749 src/editortab.cpp:925 src/editortab.cpp:1358
+#: src/editortab.cpp:753 src/editortab.cpp:929 src/editortab.cpp:1362
 #: src/glossary/glossarywindow.cpp:492
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Hoiatus"
 
-#: src/editortab.cpp:771 src/mergemode/mergeview.cpp:187
+#: src/editortab.cpp:775 src/mergemode/mergeview.cpp:187
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Tõlkefaili valimine"
 
-#: src/editortab.cpp:856
+#: src/editortab.cpp:860
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Tõrge faili %1 avamisel, rida: %2"
 
-#: src/editortab.cpp:857
+#: src/editortab.cpp:861
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Tõrge faili %1 avamisel"
 
-#: src/editortab.cpp:864
+#: src/editortab.cpp:868
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Faili salvestamine"
 
-#: src/editortab.cpp:889
+#: src/editortab.cpp:893
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1512,13 +1518,13 @@ msgstr ""
 "Tõrge faili %1 salvestamisel\n"
 "Kas soovid selle salvestada teise nimega või loobuda?"
 
-#: src/editortab.cpp:891
+#: src/editortab.cpp:895
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Tõrge"
 
-#: src/editortab.cpp:899
+#: src/editortab.cpp:903
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1528,73 +1534,73 @@ msgstr ""
 "Faili automaatne salvestamine nurjus.\n"
 "Sihtfail oli %1."
 
-#: src/editortab.cpp:954
+#: src/editortab.cpp:958
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Kirjele liikumine"
 
-#: src/editortab.cpp:955
+#: src/editortab.cpp:959
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Kirje number:"
 
-#: src/editortab.cpp:1026
+#: src/editortab.cpp:1030
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Aktiivne: %1"
 
-#: src/editortab.cpp:1215
+#: src/editortab.cpp:1219
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Tõlgitud"
 
-#: src/editortab.cpp:1216
+#: src/editortab.cpp:1220
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Valmis"
 
-#: src/editortab.cpp:1217
+#: src/editortab.cpp:1221
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Heakskiidetud"
 
-#: src/editortab.cpp:1220
+#: src/editortab.cpp:1224
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Tõlge on tehtud (võib küll vajada ülevaatamist)"
 
-#: src/editortab.cpp:1221
+#: src/editortab.cpp:1225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Tõlge sai positiivse hinnangu"
 
-#: src/editortab.cpp:1222
+#: src/editortab.cpp:1226
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Kirje on täielikult lokaliseeritud (s.t. valmis)"
 
-#: src/editortab.cpp:1334 src/project/projecttab.cpp:357
+#: src/editortab.cpp:1338 src/project/projecttab.cpp:357
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Pology kontroll juba käib."
 
-#: src/editortab.cpp:1334 src/editortab.cpp:1342 src/editortab.cpp:1346
+#: src/editortab.cpp:1338 src/editortab.cpp:1346 src/editortab.cpp:1350
 #: src/project/projecttab.cpp:357 src/project/projecttab.cpp:365
 #: src/project/projecttab.cpp:369
 #, kde-format
 msgid "Pology error"
 msgstr "Pology tõrge"
 
-#: src/editortab.cpp:1342 src/project/projecttab.cpp:365
+#: src/editortab.cpp:1346 src/project/projecttab.cpp:365
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1603,17 +1609,17 @@ msgstr ""
 "Pology kontrolli tabas ootamatult krahh:\n"
 "%1"
 
-#: src/editortab.cpp:1344 src/project/projecttab.cpp:367
+#: src/editortab.cpp:1348 src/project/projecttab.cpp:367
 #, kde-format
 msgid "Pology success"
 msgstr "Pology õnnestus"
 
-#: src/editortab.cpp:1344
+#: src/editortab.cpp:1348
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pology kontroll õnnestus."
 
-#: src/editortab.cpp:1346 src/project/projecttab.cpp:369
+#: src/editortab.cpp:1350 src/project/projecttab.cpp:369
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1622,7 +1628,7 @@ msgstr ""
 "Pology kontroll tagastas vea:\n"
 "%1"
 
-#: src/editortab.cpp:1356
+#: src/editortab.cpp:1360
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1632,26 +1638,26 @@ msgstr ""
 "See kustutab failist kõik tõlked.\n"
 "Kas tõesti puhastada kõik tõlgitud kirjed?"
 
-#: src/editortab.cpp:1394
+#: src/editortab.cpp:1398
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Lähteteksti sõnu: %1<br/>Tõlketeksti sõnu: %2"
 
-#: src/editortab.cpp:1395
+#: src/editortab.cpp:1399
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Sõnade arv"
 
-#: src/editortab.cpp:1488
+#: src/editortab.cpp:1492
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Kas otsida lähtekoodifaile kohapealt või lxr.kde.org-i kaudu?"
 
-#: src/editortab.cpp:1489
+#: src/editortab.cpp:1493
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Source file lookup"
@@ -1659,26 +1665,26 @@ msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Lähtefaili otsing"
 
-#: src/editortab.cpp:1490
+#: src/editortab.cpp:1494
 #, fuzzy, kde-format
 #| msgid "Locally"
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Kohapeal"
 
-#: src/editortab.cpp:1491 src/editortab.cpp:1535
+#: src/editortab.cpp:1495 src/editortab.cpp:1539
 #, fuzzy, kde-format
 #| msgid "lxr.kde.org"
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1494 src/editortab.cpp:1538
+#: src/editortab.cpp:1498 src/editortab.cpp:1542
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Vali projekti baaskataloog, kust lähtekoodifaile otsida"
 
-#: src/editortab.cpp:1531
+#: src/editortab.cpp:1535
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1688,20 +1694,20 @@ msgstr ""
 "Määratud kataloogis lähtekoodifaili ei leitud.\n"
 "Kas muuta lähtekoodifailide kataloogi?"
 
-#: src/editortab.cpp:1533
+#: src/editortab.cpp:1537
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Lähtefaili otsing"
 
-#: src/editortab.cpp:1534
+#: src/editortab.cpp:1538
 #, fuzzy, kde-format
 #| msgid "Select a folder:"
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Kataloog:"
 
-#: src/editortab.cpp:1574
+#: src/editortab.cpp:1578
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1715,33 +1721,33 @@ msgstr ""
 "lähtefailide avamisega kohandatud asukohtadest. Uuri Lokalize käsiraamatust "
 "skriptide näiteid ning õpetust, kuidas kaasata neid oma projekti."
 
-#: src/editortab.cpp:1588 src/project/project.cpp:466
+#: src/editortab.cpp:1592 src/project/project.cpp:466
 #: src/project/project.cpp:471
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Paigalda pakett translate-toolkit ja proovi uuesti"
 
-#: src/editortab.cpp:1594
+#: src/editortab.cpp:1598
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Paigalda pakett translate-toolkit ja proovi uuesti."
 
-#: src/editortab.cpp:1603
+#: src/editortab.cpp:1607
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Algse OpenDocument-faili valimine, millel aktiivne XLIFF-fail põhineb"
 
-#: src/editortab.cpp:1605 src/project/project.cpp:476
+#: src/editortab.cpp:1609 src/project/project.cpp:476
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument-failid (*.odt *.ods)"
 
-#: src/editortab.cpp:1650
+#: src/editortab.cpp:1654
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Lisafunktsioonide tarbeks paigalda pakett python-uno."
 
-#: src/editortab.cpp:1774
+#: src/editortab.cpp:1778
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -1783,55 +1789,55 @@ msgid "&Edit"
 msgstr "&Redigeerimine"
 
 #. i18n: ectx: Menu (glossary)
-#: src/editorui.rc:70
+#: src/editorui.rc:71
 #, kde-format
 msgid "&Glossary"
 msgstr "Sõ&nastik"
 
 #. i18n: ectx: Menu (tmquery)
-#: src/editorui.rc:96
+#: src/editorui.rc:97
 #, kde-format
 msgid "Translation &Memory"
 msgstr "Tõlke&mälu"
 
 #. i18n: ectx: Menu (alttrans)
-#: src/editorui.rc:127
+#: src/editorui.rc:128
 #, kde-format
 msgid "Alternative Translations"
 msgstr "Alternatiivtõlked"
 
 #. i18n: ectx: Menu (go)
-#: src/editorui.rc:145 src/project/projectmanagerui.rc:5
+#: src/editorui.rc:146 src/project/projectmanagerui.rc:5
 #, kde-format
 msgid "&Go"
 msgstr "&Liikumine"
 
 #. i18n: ectx: Menu (bookmarks)
-#: src/editorui.rc:175
+#: src/editorui.rc:176
 #, kde-format
 msgid "&Bookmarks"
 msgstr "&Järjehoidjad"
 
 #. i18n: ectx: Menu (merge)
-#: src/editorui.rc:182
+#: src/editorui.rc:183
 #, kde-format
 msgid "S&ync"
 msgstr "&Sünkroonimine"
 
 #. i18n: ectx: Menu (mergesecondary)
-#: src/editorui.rc:192
+#: src/editorui.rc:193
 #, kde-format
 msgid "&Secondary sync source"
 msgstr "Tei&sese sünkroonimise allikas"
 
 #. i18n: ectx: Menu (toolviews)
-#: src/editorui.rc:212 src/lokalizemainwindowui.rc:49
+#: src/editorui.rc:213 src/lokalizemainwindowui.rc:49
 #, kde-format
 msgid "Tool&views"
 msgstr "Töö&riistavaated"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/editorui.rc:234 src/filesearch/filesearchtabui.rc:11
+#: src/editorui.rc:235 src/filesearch/filesearchtabui.rc:11
 #: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "Main Toolbar"
@@ -4634,7 +4640,7 @@ msgstr "õigekirja kontrolli pole saadaval"
 msgid "An error was reported: %1"
 msgstr "Teatati tõrkest: %1"
 
-#: src/xlifftextedit.cpp:1270
+#: src/xlifftextedit.cpp:1294
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
