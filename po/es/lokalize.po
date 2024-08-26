@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:41+0000\n"
-"PO-Revision-Date: 2024-07-26 00:39+0200\n"
+"POT-Creation-Date: 2024-08-26 00:40+0000\n"
+"PO-Revision-Date: 2024-08-25 12:30+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1266,7 +1266,7 @@ msgstr "Insertar siguiente etiqueta"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Saltar al siguiente texto que no sea etiqueta"
 
 #: src/editortab.cpp:493
 #, kde-format
@@ -4393,12 +4393,12 @@ msgid "Select TMX file to export selected database to"
 msgstr ""
 "Seleccione el archivo TMX al que exportar la base de datos seleccionada"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:80
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Añadiendo archivos a la memoria de traducción de Lokalize"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "TM"
 msgstr "MT"

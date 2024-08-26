@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:41+0000\n"
+"POT-Creation-Date: 2024-08-26 00:40+0000\n"
 "PO-Revision-Date: 2023-12-06 19:07+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -4365,12 +4365,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "Výber súboru TMX, do ktorého exportovať vybranú databázu"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:80
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Pridávanie súborov do pamäte prekladov Lokalize"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "TM"
 msgstr "TM"

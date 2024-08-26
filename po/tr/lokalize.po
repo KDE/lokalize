@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:41+0000\n"
-"PO-Revision-Date: 2024-07-29 14:59+0300\n"
+"POT-Creation-Date: 2024-08-26 00:40+0000\n"
+"PO-Revision-Date: 2024-08-25 20:48+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.07.70\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -316,25 +316,25 @@ msgstr "İmzalayan"
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
-msgstr "Eşleşmiş etiketlerin başlangıcı"
+msgstr "Eşleşmiş künyelerin başlangıcı"
 
 #: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
-msgstr "Eşleşmiş etiketlerin sonu"
+msgstr "Eşleşmiş künyelerin sonu"
 
 #: src/catalog/catalogstring.cpp:64
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
-msgstr "Tekli etiket"
+msgstr "Tekli künye"
 
 #: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
-msgstr "Yalıtılmış etiket"
+msgstr "Yalıtılmış künye"
 
 #: src/catalog/catalogstring.cpp:67
 #, kde-format
@@ -1230,7 +1230,7 @@ msgstr "Temizle"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
-msgstr "Etiket Ekle"
+msgstr "Künye Ekle"
 
 #: src/editortab.cpp:481
 #, kde-format
@@ -1242,13 +1242,13 @@ msgstr "Bu Birimi LanguageTool ile Denetle"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
-msgstr "Sonraki Etiketi Ekle"
+msgstr "Sonraki Künyeyi Ekle"
 
 #: src/editortab.cpp:489
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Künye olmayan metne atla"
 
 #: src/editortab.cpp:493
 #, kde-format
@@ -2149,7 +2149,7 @@ msgstr ""
 #: src/kaider_findextension.ui:30
 #, kde-format
 msgid "Skip tags"
-msgstr "Etiketleri atla"
+msgstr "Künyeleri atla"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
 #: src/kaider_findextension.ui:33
@@ -3479,7 +3479,7 @@ msgid ""
 "specifying where markup is."
 msgstr ""
 "İmleme için düzenli ifade. Bu, çeviri belleğinde yapılacak arama eşleşmeleri "
-"ve “Etiket ekle” özelliği için kullanılır.\n"
+"ve “Künye Ekle” özelliği için kullanılır.\n"
 "\n"
 "Öntanımlı değer (XML-tabanlı metinler için) şöyledir:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
@@ -4343,12 +4343,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "Seçilen veritabanının aktarılacağı TMX dosyasını seçin"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:80
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Dosyalar Lokalize çeviri belleğine ekleniyor"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "TM"
 msgstr "TM"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:41+0000\n"
+"POT-Creation-Date: 2024-08-26 00:40+0000\n"
 "PO-Revision-Date: 2008-09-24 02:55+0300\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@nospam.gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -4327,12 +4327,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr ""
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:80
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr ""
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "TM"
 msgstr ""

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:41+0000\n"
+"POT-Creation-Date: 2024-08-26 00:40+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -4438,12 +4438,12 @@ msgid "Select TMX file to export selected database to"
 msgstr ""
 "Seleccionar o ficheiro TMX para onde exportar a base de dados seleccionada"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:80
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "A adicionar os ficheiros à memória de tradução do Lokalize"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "TM"
 msgstr "MT"

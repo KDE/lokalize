@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:41+0000\n"
-"PO-Revision-Date: 2024-07-25 08:47+0300\n"
+"POT-Creation-Date: 2024-08-26 00:40+0000\n"
+"PO-Revision-Date: 2024-08-25 09:19+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1258,7 +1258,7 @@ msgstr "Вставити наступну мітку"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Перейти до наступного тексту без теґу"
 
 #: src/editortab.cpp:493
 #, kde-format
@@ -4374,12 +4374,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "Виберіть файл TMX, до якого слід експортувати вибрану базу даних"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:80
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Додавання файлів до пам’яті перекладів Lokalize"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "TM"
 msgstr "ПП"

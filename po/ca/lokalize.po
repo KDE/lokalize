@@ -10,15 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:41+0000\n"
-"PO-Revision-Date: 2024-07-31 12:31+0200\n"
+"POT-Creation-Date: 2024-08-26 00:40+0000\n"
+"PO-Revision-Date: 2024-08-25 14:32+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -1262,7 +1262,7 @@ msgstr "Insereix l'etiqueta següent"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Salta al text següent sense etiqueta"
 
 #: src/editortab.cpp:493
 #, kde-format
@@ -4385,12 +4385,12 @@ msgid "Select TMX file to export selected database to"
 msgstr ""
 "Seleccioneu un fitxer TMX per a exportar-hi la base de dades seleccionada"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:80
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "S'han afegit fitxers a la memòria de traducció del Lokalize"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "TM"
 msgstr "MT"

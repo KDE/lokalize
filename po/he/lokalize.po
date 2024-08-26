@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:41+0000\n"
-"PO-Revision-Date: 2024-08-08 11:42+0300\n"
+"POT-Creation-Date: 2024-08-26 00:40+0000\n"
+"PO-Revision-Date: 2024-08-25 07:46+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1229,7 +1229,7 @@ msgstr "הוספת התגית הבא"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "דילוג לטקסט הבא שאינו תגית"
 
 #: src/editortab.cpp:493
 #, kde-format
@@ -4276,12 +4276,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "נא לבחור קובץ TMX לייצוא מסד הנתונים הנבחר אליו"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:80
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "הוספת קבצים לזיכרון התרגום של Lokalize"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "TM"
 msgstr "זיכרון תרגום"
