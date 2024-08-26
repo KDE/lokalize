@@ -839,7 +839,6 @@ msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:94
 #, fuzzy, kde-format
-#| msgid "options"
 msgid "Options"
 msgstr "valg"
 
