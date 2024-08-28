@@ -75,6 +75,7 @@ int main(int argc, char **argv)
     about.addCredit(i18n("Papp Laszlo"), i18n("bug fixing patches"), QStringLiteral("djszapi@archlinux.us"));
     about.addCredit(i18n("Albert Astals Cid"), i18n("XLIFF improvements"), QStringLiteral("aacid@kde.org"));
     about.addCredit(i18n("Simon Depiets"), i18n("bug fixing and improvements"), QStringLiteral("sdepiets@gmail.com"));
+    about.addCredit(i18n("Karl Ove Hufthammer"), i18n("bug fixing and improvements"), QStringLiteral("karl@huftis.org"));
     KAboutData::setApplicationData(about);
     about.setupCommandLine(&parser);
     //parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
