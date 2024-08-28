@@ -260,7 +260,6 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
     //qCDebug(LOKALIZE_LOG) << " START";
     enum {Begin, Comment, Msgctxt, Msgid, Msgstr} part = Begin;
 
-    _trailingNewLines = 0;
     bool error = false;
     bool recoverableError = false;
     //bool seenMsgctxt=false;
@@ -301,13 +300,8 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
 
         // remember wrapping state to save file nicely
         int len = line.length();
-        if (len) {
-            _trailingNewLines = 0;
-            if (_maxLineLength < len && line.at(0) != QLatin1Char('#'))
+        if (len && _maxLineLength < len && line.at(0) != QLatin1Char('#'))
                 _maxLineLength = len;
-        } else
-            ++_trailingNewLines;
-
 
         if (part == Begin) {
             // ignore trailing newlines

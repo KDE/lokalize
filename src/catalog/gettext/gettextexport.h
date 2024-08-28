@@ -29,7 +29,7 @@ class GettextStorage;
 class GettextExportPlugin
 {
 public:
-    explicit GettextExportPlugin(short wrapWidth = 1, short trailingNewLines = 1);
+    explicit GettextExportPlugin(short wrapWidth = 1);
     ConversionStatus save(QIODevice* device,
                           const GettextStorage* catalog);
 
@@ -60,7 +60,6 @@ public:
      * - Very small values might not be correctly supported.
      */
     short m_wrapWidth;
-    short m_trailingNewLines;
 };
 }
 #endif

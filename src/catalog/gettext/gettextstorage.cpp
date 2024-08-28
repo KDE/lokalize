@@ -85,8 +85,7 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
     m_header.setMsgstr(header);
     m_header.setComment(comment);
 
-    //GettextExportPlugin exporter(m_maxLineLength>70?m_maxLineLength:-1, m_trailingNewLines);// this is kinda hackish...
-    GettextExportPlugin exporter(Project::instance()->wordWrap(), m_trailingNewLines);
+    GettextExportPlugin exporter(Project::instance()->wordWrap());
 
     ConversionStatus status = OK;
     status = exporter.save(device/*x-gettext-translation*/, this);

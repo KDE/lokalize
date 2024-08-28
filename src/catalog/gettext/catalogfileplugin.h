@@ -112,7 +112,6 @@ protected:
     void commitTransaction();
 
     short _maxLineLength{0};
-    short _trailingNewLines{0};
     int _errorLine{0};
 
 private:

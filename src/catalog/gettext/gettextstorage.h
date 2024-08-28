@@ -108,7 +108,6 @@ private:
     QByteArray m_codec;
 
     short m_maxLineLength{80};
-    short m_trailingNewLines{0};
     bool m_generatedFromDocbook{false};
 
     QStringList m_catalogExtraData;
