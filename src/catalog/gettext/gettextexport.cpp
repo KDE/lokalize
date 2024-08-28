@@ -67,9 +67,8 @@ QStringList getTagBrNormal()
    #undef qL
 }
 
-GettextExportPlugin::GettextExportPlugin(short wrapWidth, short trailingNewLines)
+GettextExportPlugin::GettextExportPlugin(short wrapWidth)
     : m_wrapWidth(wrapWidth)
-    , m_trailingNewLines(trailingNewLines)
 {
 }
 
@@ -130,10 +129,6 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
 
     for (const auto & data : std::as_const(catalog->m_catalogExtraData)) {
         stream << '\n' << data << '\n';
-    }
-
-    for (short i = 0; i <= m_trailingNewLines; ++i) {
-        stream << '\n';
     }
 
     return OK;
