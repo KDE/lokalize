@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-26 00:40+0000\n"
+"POT-Creation-Date: 2024-08-29 00:41+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -107,13 +107,13 @@ msgstr "Trộn vào ODF"
 msgid "Generates translated version of ODF document"
 msgstr "Tạo phiên bản đã được dịch của tài liệu ODF"
 
-#: src/alttransview.cpp:36 src/alttransview.cpp:39
+#: src/alttransview.cpp:37 src/alttransview.cpp:40
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "Lời dịch thay thế"
 
-#: src/alttransview.cpp:153
+#: src/alttransview.cpp:154
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -132,20 +132,20 @@ msgstr ""
 "\n"
 "Bạn có muốn hiện khung xem cùng với dữ liệu đó?"
 
-#: src/alttransview.cpp:157
+#: src/alttransview.cpp:158
 #, fuzzy, kde-format
 #| msgid "Alternative Translations"
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Lời dịch thay thế"
 
-#: src/alttransview.cpp:158
+#: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr ""
 
-#: src/alttransview.cpp:247
+#: src/alttransview.cpp:248
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -171,13 +171,13 @@ msgstr ""
 "dịch.</p><p>Thả tệp dịch vào khung xem này để dùng nó làm một nguồn bổ sung "
 "các lời dịch thay thế.</p>"
 
-#: src/alttransview.cpp:268
+#: src/alttransview.cpp:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Nguồn: %1"
 
-#: src/alttransview.cpp:291
+#: src/alttransview.cpp:292
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -771,7 +771,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Việc xoá văn bản với mã đánh dấu"
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:660
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:661
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -1006,21 +1006,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Độ dài đích"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1043
-#: src/editortab.cpp:1246 src/tm/tmtab.cpp:229
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1044
+#: src/editortab.cpp:1247 src/tm/tmtab.cpp:229
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Hoàn tất"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1044
-#: src/editortab.cpp:1241 src/tm/tmtab.cpp:230
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1045
+#: src/editortab.cpp:1242 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Cần xét duyệt"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1042
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1043
 #: src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status"
@@ -1045,13 +1045,13 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Sửa"
 
-#: src/editortab.cpp:125
+#: src/editortab.cpp:126
 #, kde-format
 msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Hiện tại: %1"
 
-#: src/editortab.cpp:126 src/editortab.cpp:811
+#: src/editortab.cpp:127 src/editortab.cpp:812
 #: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:500
 #: src/tm/tmtab.cpp:592
 #, kde-format
@@ -1059,7 +1059,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1"
 msgstr "Tổng: %1"
 
-#: src/editortab.cpp:127 src/editortab.cpp:137
+#: src/editortab.cpp:128 src/editortab.cpp:138
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -1067,131 +1067,131 @@ msgctxt ""
 msgid "Not ready: %1"
 msgstr "Dang dở: %1"
 
-#: src/editortab.cpp:128 src/editortab.cpp:145
+#: src/editortab.cpp:129 src/editortab.cpp:146
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "Chưa dịch: %1"
 
-#: src/editortab.cpp:139 src/editortab.cpp:147
+#: src/editortab.cpp:140 src/editortab.cpp:148
 #, kde-format
 msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:173 src/lokalizemainwindow.cpp:442
+#: src/editortab.cpp:174 src/lokalizemainwindow.cpp:442
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
 msgstr "Tệp"
 
-#: src/editortab.cpp:174 src/project/projecttab.cpp:143
+#: src/editortab.cpp:175 src/project/projecttab.cpp:143
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
 msgstr "Điều hướng"
 
-#: src/editortab.cpp:175
+#: src/editortab.cpp:176
 #, kde-format
 msgctxt "@title actions category"
 msgid "Editing"
 msgstr "Biên tập"
 
-#: src/editortab.cpp:176
+#: src/editortab.cpp:177
 #, kde-format
 msgid "Synchronization 1"
 msgstr "Đồng bộ hoá 1"
 
-#: src/editortab.cpp:177
+#: src/editortab.cpp:178
 #, kde-format
 msgid "Synchronization 2"
 msgstr "Đồng bộ hoá 2"
 
-#: src/editortab.cpp:178
+#: src/editortab.cpp:179
 #, kde-format
 msgid "Translation Memory"
 msgstr "Bộ nhớ lời dịch"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:179 src/lokalizemainwindow.cpp:444
+#: src/editortab.cpp:180 src/lokalizemainwindow.cpp:444
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
 msgstr "Bảng ngữ"
 
-#: src/editortab.cpp:204
+#: src/editortab.cpp:205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
 msgstr "Chèn lời dịch thay thế #%1"
 
-#: src/editortab.cpp:251
+#: src/editortab.cpp:252
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a note"
 msgstr "Thêm ghi chú"
 
-#: src/editortab.cpp:272
+#: src/editortab.cpp:273
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert TM suggestion #%1"
 msgstr "Chèn gợi ý bộ nhớ lời dịch #%1"
 
-#: src/editortab.cpp:277
+#: src/editortab.cpp:278
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove TM suggestion #%1"
 msgstr "Xoá gợi ý bộ nhớ lời dịch #%1"
 
-#: src/editortab.cpp:326
+#: src/editortab.cpp:327
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
 msgstr "Chèn lời dịch ngữ #%1"
 
-#: src/editortab.cpp:337
+#: src/editortab.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Define new term"
 msgstr "Định ra ngữ mới"
 
-#: src/editortab.cpp:378
+#: src/editortab.cpp:379
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
 msgstr "Các giai đoạn..."
 
-#: src/editortab.cpp:381
+#: src/editortab.cpp:382
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Word count"
 msgstr "Số lượng từ"
 
-#: src/editortab.cpp:384
+#: src/editortab.cpp:385
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
 msgstr "Xoá tất cả các mục đã dịch"
 
-#: src/editortab.cpp:387
+#: src/editortab.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
 msgstr "Khởi chạy lệnh Pology với tệp này"
 
-#: src/editortab.cpp:391
+#: src/editortab.cpp:392
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
 msgstr "Trộn lời dịch vào OpenDocument"
 
-#: src/editortab.cpp:412
+#: src/editortab.cpp:413
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Change searching direction"
 msgstr "Đổi hướng tìm kiếm"
 
-#: src/editortab.cpp:422
+#: src/editortab.cpp:423
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1199,103 +1199,103 @@ msgctxt ""
 msgid "Approved"
 msgstr "Được phê chuẩn"
 
-#: src/editortab.cpp:441
+#: src/editortab.cpp:442
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and go to next"
 msgstr "Phê chuẩn và đi tiếp"
 
-#: src/editortab.cpp:450
+#: src/editortab.cpp:451
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent translation"
 msgstr "Lời dịch tương đương"
 
-#: src/editortab.cpp:465
+#: src/editortab.cpp:466
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
 msgstr "Chép nguồn vào đích"
 
-#: src/editortab.cpp:468
+#: src/editortab.cpp:469
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "Bỏ bọc cho đích"
 
-#: src/editortab.cpp:473 src/filesearch/filesearchtab.cpp:92
+#: src/editortab.cpp:474 src/filesearch/filesearchtab.cpp:92
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
 msgstr "Làm trống"
 
-#: src/editortab.cpp:477
+#: src/editortab.cpp:478
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
 msgstr "Chèn thẻ gắn"
 
-#: src/editortab.cpp:481
+#: src/editortab.cpp:482
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
 msgstr "Kiểm tra thông điệp bằng LanguageTool"
 
-#: src/editortab.cpp:485
+#: src/editortab.cpp:486
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
 msgstr "Chèn thẻ gắn tiếp theo"
 
-#: src/editortab.cpp:489
+#: src/editortab.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
 msgstr ""
 
-#: src/editortab.cpp:493
+#: src/editortab.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "Hoàn tất"
 
-#: src/editortab.cpp:497
+#: src/editortab.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "Thay thế bằng đề xuất tốt nhất khi kiểm tra đánh vần"
 
-#: src/editortab.cpp:504
+#: src/editortab.cpp:505
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "&Sau"
 
-#: src/editortab.cpp:509
+#: src/editortab.cpp:510
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "&Trước"
 
-#: src/editortab.cpp:515
+#: src/editortab.cpp:516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "Mục đầu &tiên"
 
-#: src/editortab.cpp:521
+#: src/editortab.cpp:522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "Mục cuối &cùng"
 
-#: src/editortab.cpp:527
+#: src/editortab.cpp:528
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Mục theo số"
 
-#: src/editortab.cpp:529 src/project/projecttab.cpp:151
+#: src/editortab.cpp:530 src/project/projecttab.cpp:151
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1303,7 +1303,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Dang dở, trước"
 
-#: src/editortab.cpp:534 src/project/projecttab.cpp:154
+#: src/editortab.cpp:535 src/project/projecttab.cpp:154
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1311,19 +1311,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Dang dở, sau"
 
-#: src/editortab.cpp:539 src/project/projecttab.cpp:157
+#: src/editortab.cpp:540 src/project/projecttab.cpp:157
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Chưa dịch, trước"
 
-#: src/editortab.cpp:544 src/project/projecttab.cpp:160
+#: src/editortab.cpp:545 src/project/projecttab.cpp:160
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Chưa dịch, sau"
 
-#: src/editortab.cpp:549 src/project/projecttab.cpp:145
+#: src/editortab.cpp:550 src/project/projecttab.cpp:145
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1331,7 +1331,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Chưa dịch hoặc dang dở, trước"
 
-#: src/editortab.cpp:554 src/project/projecttab.cpp:148
+#: src/editortab.cpp:555 src/project/projecttab.cpp:148
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1339,49 +1339,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "Chưa dịch hoặc dang dở, sau"
 
-#: src/editortab.cpp:561
+#: src/editortab.cpp:562
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Nhắm vào dòng tìm kiếm của khung xem \"Danh sách thông điệp\""
 
-#: src/editortab.cpp:567
+#: src/editortab.cpp:568
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "Lưu dấu thông điệp"
 
-#: src/editortab.cpp:573
+#: src/editortab.cpp:574
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "Dấu nhớ trước"
 
-#: src/editortab.cpp:577
+#: src/editortab.cpp:578
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "Dấu nhớ sau"
 
-#: src/editortab.cpp:585
+#: src/editortab.cpp:586
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "Điền vào tất cả các gợi ý chính xác"
 
-#: src/editortab.cpp:589
+#: src/editortab.cpp:590
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Điền vào tất cả các gợi ý chính xác và đánh dấu là dang dở"
 
-#: src/editortab.cpp:594
+#: src/editortab.cpp:595
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Mở tệp để đồng bộ / trộn"
 
-#: src/editortab.cpp:595 src/editortab.cpp:652
+#: src/editortab.cpp:596 src/editortab.cpp:653
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1391,13 +1391,13 @@ msgstr ""
 "Mở danh mục để trộn vào danh mục hiện tại / sao chép các thay đổi trong tệp "
 "cơ sở vào"
 
-#: src/editortab.cpp:601 src/editortab.cpp:658
+#: src/editortab.cpp:602 src/editortab.cpp:659
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "Khác nhau, trước"
 
-#: src/editortab.cpp:602 src/editortab.cpp:659
+#: src/editortab.cpp:603 src/editortab.cpp:660
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1407,13 +1407,13 @@ msgstr ""
 "Mục trước, ở tệp đang được dùng để trộn, mà được dịch khác, bao gồm cả lời "
 "dịch trống trong nguồn trộn"
 
-#: src/editortab.cpp:611 src/editortab.cpp:666
+#: src/editortab.cpp:612 src/editortab.cpp:667
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "Khác nhau, sau"
 
-#: src/editortab.cpp:612 src/editortab.cpp:667
+#: src/editortab.cpp:613 src/editortab.cpp:668
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1423,49 +1423,49 @@ msgstr ""
 "Mục sau, ở tệp đang được dùng để trộn, mà được dịch khác, bao gồm cả lời "
 "dịch trống trong nguồn trộn"
 
-#: src/editortab.cpp:620
+#: src/editortab.cpp:621
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "Khác nhau, sau, đã phê chuẩn"
 
-#: src/editortab.cpp:626 src/editortab.cpp:674
+#: src/editortab.cpp:627 src/editortab.cpp:675
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Chép từ nguồn trộn"
 
-#: src/editortab.cpp:633 src/editortab.cpp:679
+#: src/editortab.cpp:634 src/editortab.cpp:680
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Chép tất cả các lời dịch mới"
 
-#: src/editortab.cpp:634
+#: src/editortab.cpp:635
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "Việc này chỉ thay đổi các mục trống và dang dở trong tệp cơ sở"
 
-#: src/editortab.cpp:643 src/editortab.cpp:686
+#: src/editortab.cpp:644 src/editortab.cpp:687
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Chép vào nguồn trộn"
 
-#: src/editortab.cpp:651
+#: src/editortab.cpp:652
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "Mở tệp để đồng bộ cấp hai"
 
-#: src/editortab.cpp:680
+#: src/editortab.cpp:681
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Việc này chỉ thay đổi các mục trống"
 
-#: src/editortab.cpp:708
+#: src/editortab.cpp:709
 #, fuzzy, kde-format
 #| msgctxt "editor tab name"
 #| msgid "(recovered)"
@@ -1473,7 +1473,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(phục hồi)"
 
-#: src/editortab.cpp:751 src/editortab.cpp:927
+#: src/editortab.cpp:752 src/editortab.cpp:928
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1483,38 +1483,38 @@ msgstr ""
 "Tài liệu có các thay đổi chưa được lưu.\n"
 "Bạn muốn lưu các thay đổi hay loại bỏ chúng?"
 
-#: src/editortab.cpp:753 src/editortab.cpp:929 src/editortab.cpp:1362
+#: src/editortab.cpp:754 src/editortab.cpp:930 src/editortab.cpp:1363
 #: src/glossary/glossarywindow.cpp:492
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Cảnh báo"
 
-#: src/editortab.cpp:775 src/mergemode/mergeview.cpp:187
+#: src/editortab.cpp:776 src/mergemode/mergeview.cpp:187
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Chọn tệp dịch"
 
-#: src/editortab.cpp:860
+#: src/editortab.cpp:861
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Lỗi mở tệp %1, dòng: %2"
 
-#: src/editortab.cpp:861
+#: src/editortab.cpp:862
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Lỗi mở tệp %1"
 
-#: src/editortab.cpp:868
+#: src/editortab.cpp:869
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Lưu tệp thành"
 
-#: src/editortab.cpp:893
+#: src/editortab.cpp:894
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1524,13 +1524,13 @@ msgstr ""
 "Lỗi lưu tệp %1\n"
 "Bạn muốn lưu một tệp khác hay huỷ?"
 
-#: src/editortab.cpp:895
+#: src/editortab.cpp:896
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Lỗi"
 
-#: src/editortab.cpp:903
+#: src/editortab.cpp:904
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1540,73 +1540,73 @@ msgstr ""
 "Không thực hiện được việc tự động lưu tệp.\n"
 "Tệp mục tiêu là %1."
 
-#: src/editortab.cpp:958
+#: src/editortab.cpp:959
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Nhảy đến mục"
 
-#: src/editortab.cpp:959
+#: src/editortab.cpp:960
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Nhập số thứ tự mục:"
 
-#: src/editortab.cpp:1030
+#: src/editortab.cpp:1031
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Hiện tại: %1"
 
-#: src/editortab.cpp:1219
+#: src/editortab.cpp:1220
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Đã dịch"
 
-#: src/editortab.cpp:1220
+#: src/editortab.cpp:1221
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Chấp thuận"
 
-#: src/editortab.cpp:1221
+#: src/editortab.cpp:1222
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Được phê chuẩn"
 
-#: src/editortab.cpp:1224
+#: src/editortab.cpp:1225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Lời dịch đã xong (dù có thể vẫn cần xét duyệt)"
 
-#: src/editortab.cpp:1225
+#: src/editortab.cpp:1226
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Lời dịch đã nhận được xét duyệt tích cực"
 
-#: src/editortab.cpp:1226
+#: src/editortab.cpp:1227
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Mục này đã được địa phương hoá đầy đủ (tức là hoàn chỉnh)"
 
-#: src/editortab.cpp:1338 src/project/projecttab.cpp:357
+#: src/editortab.cpp:1339 src/project/projecttab.cpp:357
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Một lần kiểm tra bằng Pology đang trong quá trình thực hiện rồi."
 
-#: src/editortab.cpp:1338 src/editortab.cpp:1346 src/editortab.cpp:1350
+#: src/editortab.cpp:1339 src/editortab.cpp:1347 src/editortab.cpp:1351
 #: src/project/projecttab.cpp:357 src/project/projecttab.cpp:365
 #: src/project/projecttab.cpp:369
 #, kde-format
 msgid "Pology error"
 msgstr "Lỗi Pology"
 
-#: src/editortab.cpp:1346 src/project/projecttab.cpp:365
+#: src/editortab.cpp:1347 src/project/projecttab.cpp:365
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1615,17 +1615,17 @@ msgstr ""
 "Việc kiểm tra bằng Pology đã bất ngờ gặp sự cố:\n"
 "%1"
 
-#: src/editortab.cpp:1348 src/project/projecttab.cpp:367
+#: src/editortab.cpp:1349 src/project/projecttab.cpp:367
 #, kde-format
 msgid "Pology success"
 msgstr "Hoàn thành Pology"
 
-#: src/editortab.cpp:1348
+#: src/editortab.cpp:1349
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Việc kiểm tra bằng Pology đã thành công."
 
-#: src/editortab.cpp:1350 src/project/projecttab.cpp:369
+#: src/editortab.cpp:1351 src/project/projecttab.cpp:369
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1634,7 +1634,7 @@ msgstr ""
 "Việc kiểm tra bằng Pology đã trả về một lỗi:\n"
 "%1"
 
-#: src/editortab.cpp:1360
+#: src/editortab.cpp:1361
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1644,26 +1644,26 @@ msgstr ""
 "Việc này sẽ xoá tất cả các lời dịch khỏi tệp.\n"
 "Bạn có thật sự muốn xoá tất cả các mục đã dịch không?"
 
-#: src/editortab.cpp:1398
+#: src/editortab.cpp:1399
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Số lượng từ ở nguồn: %1<br/>Số lượng từ ở đích: %2"
 
-#: src/editortab.cpp:1399
+#: src/editortab.cpp:1400
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Số lượng từ"
 
-#: src/editortab.cpp:1492
+#: src/editortab.cpp:1493
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Bạn muốn tìm kiếm tệp nguồn ở máy cục bộ hay bằng lxr.kde.org?"
 
-#: src/editortab.cpp:1493
+#: src/editortab.cpp:1494
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Source file lookup"
@@ -1671,26 +1671,26 @@ msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Tìm kiếm tệp nguồn"
 
-#: src/editortab.cpp:1494
+#: src/editortab.cpp:1495
 #, fuzzy, kde-format
 #| msgid "Locally"
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Cục bộ"
 
-#: src/editortab.cpp:1495 src/editortab.cpp:1539
+#: src/editortab.cpp:1496 src/editortab.cpp:1540
 #, fuzzy, kde-format
 #| msgid "lxr.kde.org"
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1498 src/editortab.cpp:1542
+#: src/editortab.cpp:1499 src/editortab.cpp:1543
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Chọn thư mục cơ sở của dự án để dùng cho việc tìm tệp nguồn"
 
-#: src/editortab.cpp:1535
+#: src/editortab.cpp:1536
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1700,13 +1700,13 @@ msgstr ""
 "Không tìm được tệp nguồn trong thư mục được chỉ định.\n"
 "Bạn có muốn thay đổi thư mục tệp nguồn?"
 
-#: src/editortab.cpp:1537
+#: src/editortab.cpp:1538
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Tìm kiếm tệp nguồn"
 
-#: src/editortab.cpp:1538
+#: src/editortab.cpp:1539
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Subject Field"
@@ -1714,7 +1714,7 @@ msgctxt "@action"
 msgid "Select Folder"
 msgstr "Lĩnh vực chủ đề"
 
-#: src/editortab.cpp:1578
+#: src/editortab.cpp:1579
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1728,33 +1728,33 @@ msgstr ""
 "việc mở tệp nguồn ở các đường dẫn tuỳ ý. Hãy xem các kịch bản ví dụ và cách "
 "đưa chúng vào dự án của bạn trong sổ tay Lokalize."
 
-#: src/editortab.cpp:1592 src/project/project.cpp:466
-#: src/project/project.cpp:471
+#: src/editortab.cpp:1593 src/project/project.cpp:467
+#: src/project/project.cpp:472
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Cài đặt gói translate-toolkit và thử lại"
 
-#: src/editortab.cpp:1598
+#: src/editortab.cpp:1599
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Cài đặt gói translate-toolkit và thử lại."
 
-#: src/editortab.cpp:1607
+#: src/editortab.cpp:1608
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Chọn OpenDocument ban đầu mà tệp XLIFF hiện tại dựa trên đó"
 
-#: src/editortab.cpp:1609 src/project/project.cpp:476
+#: src/editortab.cpp:1610 src/project/project.cpp:477
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Tệp OpenDocument (*.odt *.ods)"
 
-#: src/editortab.cpp:1654
+#: src/editortab.cpp:1655
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Cài đặt gói python-uno để có chức năng bổ sung."
 
-#: src/editortab.cpp:1778
+#: src/editortab.cpp:1779
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -2196,12 +2196,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Không tìm thấy khối SQL Qt nào. Bộ nhớ lời dịch sẽ không hoạt động."
 
-#: src/lokalizemainwindow.cpp:351 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:351 src/project/project.cpp:292
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Bộ nhớ lời dịch cần có khối SQLite Qt."
 
-#: src/lokalizemainwindow.cpp:351 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:351 src/project/project.cpp:292
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Không có khối SQLite nào"
@@ -2472,23 +2472,28 @@ msgstr "Cải thiện XLIFF"
 msgid "Simon Depiets"
 msgstr "Simon Depiets"
 
-#: src/main.cpp:77
+#: src/main.cpp:77 src/main.cpp:78
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr "sửa lỗi và cải thiện"
 
+#: src/main.cpp:78
+#, kde-format
+msgid "Karl Ove Hufthammer"
+msgstr ""
+
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:81
+#: src/main.cpp:82
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "Không quét các tệp của dự án này."
 
-#: src/main.cpp:82
+#: src/main.cpp:83
 #, kde-format
 msgid "Load specified project."
 msgstr "Tải dự án được chỉ định."
 
-#: src/main.cpp:83
+#: src/main.cpp:84
 #, kde-format
 msgid "Document to open"
 msgstr "Tài liệu muốn mở"
@@ -3791,17 +3796,17 @@ msgstr "Dự án"
 msgid "Language-Team:"
 msgstr "Đội ngôn ngữ:"
 
-#: src/project/project.cpp:439
+#: src/project/project.cpp:440
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Quét các thư mục với các tệp nguồn"
 
-#: src/project/project.cpp:440
+#: src/project/project.cpp:441
 #, kde-format
 msgid "Editor"
 msgstr "Biên tập"
 
-#: src/project/project.cpp:483
+#: src/project/project.cpp:484
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3854,13 +3859,13 @@ msgstr "Thư mục cơ sở cho các tệp POT (các bản mẫu để dịch)"
 msgid "Project's glossary"
 msgstr "Bảng ngữ của dự án"
 
-#: src/project/projectmodel.cpp:512
+#: src/project/projectmodel.cpp:513
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Tên"
 
-#: src/project/projectmodel.cpp:514
+#: src/project/projectmodel.cpp:515
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3868,55 +3873,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "Biểu đồ"
 
-#: src/project/projectmodel.cpp:516
+#: src/project/projectmodel.cpp:517
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "Tổng"
 
-#: src/project/projectmodel.cpp:518
+#: src/project/projectmodel.cpp:519
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Đã dịch"
 
-#: src/project/projectmodel.cpp:520
+#: src/project/projectmodel.cpp:521
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "Dang dở"
 
-#: src/project/projectmodel.cpp:522
+#: src/project/projectmodel.cpp:523
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Chưa dịch"
 
-#: src/project/projectmodel.cpp:524
+#: src/project/projectmodel.cpp:525
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "Chưa xong"
 
-#: src/project/projectmodel.cpp:526
+#: src/project/projectmodel.cpp:527
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Lần dịch cuối"
 
-#: src/project/projectmodel.cpp:528
+#: src/project/projectmodel.cpp:529
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "Chú thích"
 
-#: src/project/projectmodel.cpp:530
+#: src/project/projectmodel.cpp:531
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Tu bản bản mẫu"
 
-#: src/project/projectmodel.cpp:532
+#: src/project/projectmodel.cpp:533
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -4637,29 +4642,29 @@ msgstr "Tìm kiếm đoạn chữ của yếu tố GUI trong bộ nhớ lời d�
 msgid "Copy GUI element text to clipboard"
 msgstr "Chép đoạn chữ của yếu tố GUI vào bảng nháp"
 
-#: src/xlifftextedit.cpp:989
+#: src/xlifftextedit.cpp:990
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Tra văn bản được bôi đen trong bộ nhớ lời dịch"
 
-#: src/xlifftextedit.cpp:1011 src/xlifftextedit.cpp:1089
+#: src/xlifftextedit.cpp:1012 src/xlifftextedit.cpp:1090
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Thay thế văn bản"
 
-#: src/xlifftextedit.cpp:1126
+#: src/xlifftextedit.cpp:1127
 #, kde-format
 msgid "no spellcheck available"
 msgstr "không có trình kiểm tra đánh vần nào"
 
-#: src/xlifftextedit.cpp:1140
+#: src/xlifftextedit.cpp:1141
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Một lỗi đã được báo: %1"
 
-#: src/xlifftextedit.cpp:1294
+#: src/xlifftextedit.cpp:1295
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
