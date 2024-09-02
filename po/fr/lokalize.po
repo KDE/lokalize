@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-29 00:41+0000\n"
-"PO-Revision-Date: 2024-07-26 09:13+0200\n"
+"PO-Revision-Date: 2024-08-30 08:31+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -1280,7 +1280,7 @@ msgstr "Insérer une nouvelle balise"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Ignorer jusqu'au texte suivant non étiqueté"
 
 #: src/editortab.cpp:494
 #, kde-format
@@ -2522,7 +2522,7 @@ msgstr "correction de bogues et améliorations"
 #: src/main.cpp:78
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
 #: src/main.cpp:82
