@@ -59,12 +59,6 @@
     </entry>
   </group>
   <group name="Appearance">
-    <entry name="AddColor"  type="Color">
-        <default>#99CCFF</default>
-    </entry>
-    <entry name="DelColor"  type="Color">
-        <default>#FF9999</default>
-    </entry>
     <entry name="HighlightSpaces"  type="Bool">
         <default>true</default>
     </entry>
