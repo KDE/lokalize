@@ -458,19 +458,8 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         html += QString(i18ncp("%1 is the number of times this TM entry has been found", "(1 time)", "(%1 times)", entry.hits));
         html += QStringLiteral("/ ");
 
-
-        //int sourceStartPos=cur.position();
-        QString result = entry.diff.toHtmlEscaped();
-        //result.replace("&","&amp;");
-        //result.replace("<","&lt;");
-        //result.replace(">","&gt;");
-        result.replace(QLatin1String("{KBABELADD}"), QStringLiteral("<font style=\"background-color:") + Settings::addColor().name() + QStringLiteral(";color:black\">"));
-        result.replace(QLatin1String("{/KBABELADD}"), QLatin1String("</font>"));
-        result.replace(QLatin1String("{KBABELDEL}"), QStringLiteral("<font style=\"background-color:") + Settings::delColor().name() + QStringLiteral(";color:black\">"));
-        result.replace(QLatin1String("{/KBABELDEL}"), QLatin1String("</font>"));
-        result.replace(QLatin1String("\\n"), QLatin1String("\\n<br>"));
-        result.replace(QLatin1String("\\n"), QLatin1String("\\n<br>"));
-        html += result;
+        // Add the diff: made of HTML coloured with inline CSS
+        html += diffToHtmlDiff(entry.diff.toHtmlEscaped());
 #if 0
         cur.insertHtml(result);
 
@@ -698,11 +687,12 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     CatalogString target = entry.target;
     //QString english=entry.english;
 
-
-    const QRegularExpression rxAdd(QLatin1String("<font style=\"background-color:[^>]*") + Settings::addColor().name() + QLatin1String("[^>]*\">([^>]*)</font>"));
-    const QRegularExpression rxDel(QLatin1String("<font style=\"background-color:[^>]*") + Settings::delColor().name() + QLatin1String("[^>]*\">([^>]*)</font>"));
-    //rxAdd.setMinimal(true);
-    //rxDel.setMinimal(true);
+    // TODO: This regex looks for formatted html from diff.cpp diffToHtmlDiff()
+    // that is shown to the user, but the diff it searches in seems to only
+    // ever include KBABEL tags? So the regex may be searching for something
+    // that never exists? `m_entries` never contains a string with HTML...
+    const QRegularExpression rxAdd(QLatin1String("<span class=\"lokalizeAddDiffColorSpan\" style=\"background-color:[^>]*;color:[^>]*;\">([^>]*)</span>"));
+    const QRegularExpression rxDel(QLatin1String("<span class=\"lokalizeDelDiffColorSpan\" style=\"background-color:[^>]*;color:[^>]*;\">([^>]*)</span>"));
 
     //first things first
     int pos = 0;

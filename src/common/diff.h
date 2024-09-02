@@ -36,7 +36,6 @@ QString userVisibleWordDiff(const QString& oldString,
                             int options = 0);
 
 
-
 /**
  * This is low-level wrapper used for evaluating translation memory search results
  *
@@ -44,6 +43,20 @@ QString userVisibleWordDiff(const QString& oldString,
  */
 QString wordDiff(QStringList s1, QStringList s2);
 
+
+/**
+ * @short Converts KBABEL curly brace tags into user-readable HTML-coloured diffs
+ *
+ * This takes a string with {KBABELADD} and {KBABELDEL} tags
+ * e.g. "a{KBABELADD}b{/KBABELADD}c{KBABELDEL}d{/KBABELDEL}"
+ * and replaces the curly brace tags with HTML and CSS that
+ * colours the diff using inline CSS. Returns a QString of
+ * the coloured diff for use in user-visible areas like the
+ * translation memory.
+ *
+ * @author Finley Watson <fin-w@tutanota.com>
+ */
+QString diffToHtmlDiff(const QString& diff);
 
 #endif // DIFF_H
 

@@ -23,7 +23,9 @@
 #include <QStringMatcher>
 #include <QStringBuilder>
 
+#include <kcolorscheme.h>
 #include <list>
+#include <qtextformat.h>
 
 
 typedef enum {
@@ -418,13 +420,52 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     res.remove(QStringLiteral("{/KBABELDEL}{KBABELDEL}"));
 
     if (options & Html) {
-        res.replace(QLatin1String("{KBABELADD}"), QLatin1String("<font style=\"background-color:") + Settings::addColor().name() + QLatin1String(";color:black\">"));
-        res.replace(QLatin1String("{/KBABELADD}"), QLatin1String("</font>"));
-        res.replace(QLatin1String("{KBABELDEL}"), QLatin1String("<font style=\"background-color:") + Settings::delColor().name() + QLatin1String(";color:black\">"));
-        res.replace(QLatin1String("{/KBABELDEL}"), QLatin1String("</font>"));
-        res.replace(QLatin1String("\\n"), QLatin1String("\\n<br>"));
+        // Convert from curly brace KBABEL tags to HTML coloured with inline CSS
+        res = diffToHtmlDiff(res);
     }
 
     return res;
 }
 
+QString diffToHtmlDiff(const QString& diff)
+{
+    // TODO: To improve this code, the hex colour generation could
+    // be moved out of this function so that it is not calculated
+    // every time this function is called. Bear in mind that it
+    // should be updated when the user changes colour scheme:
+    // perhaps reading how syntaxhighlighter.cpp works would be
+    // useful as reference, and looking at using KStatefulBrush?
+    QString coloredHtmlDiff;
+
+    QString addDiffColorSpan;
+    QString delDiffColorSpan;
+    QTextCharFormat addDiffColor;
+    QTextCharFormat delDiffColor;
+
+    coloredHtmlDiff = diff;
+
+    KColorScheme colorScheme(QPalette::Normal);
+    addDiffColor.setForeground(colorScheme.foreground(KColorScheme::PositiveText));
+    addDiffColor.setBackground(colorScheme.background(KColorScheme::PositiveBackground));
+    delDiffColor.setForeground(colorScheme.foreground(KColorScheme::NegativeText));
+    delDiffColor.setBackground(colorScheme.background(KColorScheme::NegativeBackground));
+    // Note: the span classes below are used by tmview.cpp TM::targetAdapted() regex, but not elsewhere
+    addDiffColorSpan = QLatin1String("<span class=\"lokalizeAddDiffColorSpan\" style=\"background-color:")
+        + addDiffColor.background().color().name()
+        + QLatin1String(";color:")
+        + addDiffColor.foreground().color().name()
+        + QLatin1String(";\">");
+    delDiffColorSpan = QLatin1String("<span class=\"lokalizeDelDiffColorSpan\" style=\"background-color:")
+        + delDiffColor.background().color().name()
+        + QLatin1String(";color:")
+        + delDiffColor.foreground().color().name()
+        + QLatin1String(";\">");
+
+    coloredHtmlDiff.replace(QLatin1String("{KBABELADD}"), addDiffColorSpan);
+    coloredHtmlDiff.replace(QLatin1String("{/KBABELADD}"), QLatin1String("</span>"));
+    coloredHtmlDiff.replace(QLatin1String("{KBABELDEL}"), delDiffColorSpan);
+    coloredHtmlDiff.replace(QLatin1String("{/KBABELDEL}"), QLatin1String("</span>"));
+    coloredHtmlDiff.replace(QLatin1String("\\n"), QLatin1String("\\n<br>"));
+
+    return coloredHtmlDiff;
+}

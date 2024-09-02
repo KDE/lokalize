@@ -192,18 +192,7 @@ void AltTransView::process()
             currentMsgId.replace(QStringLiteral("\n"), QString());
 
             html += QStringLiteral("<p>");
-
-            QString result = userVisibleWordDiff(prevMsgId, currentMsgId, Project::instance()->accel(), Project::instance()->markup()).toHtmlEscaped();
-            //result.replace("&","&amp;");
-            //result.replace("<","&lt;");
-            //result.replace(">","&gt;");
-            result.replace(QStringLiteral("{KBABELADD}"), QStringLiteral("<font style=\"background-color:") % Settings::addColor().name() % QStringLiteral(";color:black\">"));
-            result.replace(QStringLiteral("{/KBABELADD}"), QStringLiteral("</font>"));
-            result.replace(QStringLiteral("{KBABELDEL}"), QStringLiteral("<font style=\"background-color:") % Settings::delColor().name() % QStringLiteral(";color:black\">"));
-            result.replace(QStringLiteral("{/KBABELDEL}"), QStringLiteral("</font>"));
-            result.replace(QStringLiteral("\\n"), QStringLiteral("\\n<br>"));
-
-            html += result;
+            html += userVisibleWordDiff(prevMsgId, currentMsgId, Project::instance()->accel(), Project::instance()->markup(), Html);
             html += QStringLiteral("<br>");
             cur.insertHtml(html); html.clear();
         }

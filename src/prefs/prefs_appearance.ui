@@ -63,64 +63,6 @@
      </item>
     </layout>
    </item>
-   <item row="3" column="0">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="whatsThis">
-      <string>Text colors for the changes in the message.</string>
-     </property>
-     <property name="title">
-      <string>String Matching</string>
-     </property>
-     <layout class="QGridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string comment="@label:chooser">Text added in the newer string:</string>
-        </property>
-        <property name="buddy">
-         <cstring>kcfg_AddColor</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="KColorButton" name="kcfg_AddColor">
-        <property name="toolTip">
-         <string>Change the color for the new text added</string>
-        </property>
-        <property name="whatsThis">
-         <string>You can set another color for viewing the text that was added to the string.</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string comment="@label:chooser">Text removed in the newer string:</string>
-        </property>
-        <property name="buddy">
-         <cstring>kcfg_DelColor</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="KColorButton" name="kcfg_DelColor">
-        <property name="toolTip">
-         <string>Change the color for the text removed</string>
-        </property>
-        <property name="whatsThis">
-         <string>You can set another color for viewing the text that was removed from the string.</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="4" column="0">
     <spacer>
      <property name="orientation">
