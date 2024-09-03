@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-09-03 00:41+0000\n"
 "PO-Revision-Date: 2024-08-29 09:12+0300\n"
 "Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -150,7 +150,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr "Показати панель даних"
 
-#: src/alttransview.cpp:248
+#: src/alttransview.cpp:237
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -177,13 +177,13 @@ msgstr ""
 "на цю панель, щоб використати цей файл як джерело альтернативних перекладів."
 "</p>"
 
-#: src/alttransview.cpp:269
+#: src/alttransview.cpp:258
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Джерело: %1"
 
-#: src/alttransview.cpp:292
+#: src/alttransview.cpp:281
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -787,12 +787,12 @@ msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Вставити текст з розміткою"
 
-#: src/catalog/gettext/gettextstorage.cpp:111
+#: src/catalog/gettext/gettextstorage.cpp:110
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "роздільник для варіантів рядків з різною довжиною"
 
-#: src/catalog/gettext/gettextstorage.cpp:273
+#: src/catalog/gettext/gettextstorage.cpp:272
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -2969,63 +2969,8 @@ msgstr ""
 "Позначки для показу станів «неточний» і «не перекладено», а також позиція у "
 "рядку"
 
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
-#: src/prefs/prefs_appearance.ui:69
-#, kde-format
-msgid "Text colors for the changes in the message."
-msgstr "Кольори текстових змін у фразі."
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/prefs/prefs_appearance.ui:72
-#, kde-format
-msgid "String Matching"
-msgstr "Відповідність рядків"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: src/prefs/prefs_appearance.ui:78
-#, kde-format
-msgctxt "@label:chooser"
-msgid "Text added in the newer string:"
-msgstr "Текст, доданий у новішім рядку :"
-
-#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_AddColor)
-#: src/prefs/prefs_appearance.ui:88
-#, kde-format
-msgid "Change the color for the new text added"
-msgstr "Змінити колір нового доданого тексту"
-
-#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_AddColor)
-#: src/prefs/prefs_appearance.ui:91
-#, kde-format
-msgid ""
-"You can set another color for viewing the text that was added to the string."
-msgstr ""
-"Ви можете встановити інший колір для тексту, який було додано до рядка."
-
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: src/prefs/prefs_appearance.ui:101
-#, kde-format
-msgctxt "@label:chooser"
-msgid "Text removed in the newer string:"
-msgstr "Текст, вилучений у новішім рядку:"
-
-#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_DelColor)
-#: src/prefs/prefs_appearance.ui:111
-#, kde-format
-msgid "Change the color for the text removed"
-msgstr "Змінити колір вилученого тексту"
-
-#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_DelColor)
-#: src/prefs/prefs_appearance.ui:114
-#, kde-format
-msgid ""
-"You can set another color for viewing the text that was removed from the "
-"string."
-msgstr ""
-"Ви можете встановити інший колір для тексту, який було вилучено з рядка."
-
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
-#: src/prefs/prefs_appearance.ui:140
+#: src/prefs/prefs_appearance.ui:82
 #, kde-format
 msgid ""
 "Check to see if a string ends in a space (which is often important when "
@@ -3036,7 +2981,7 @@ msgstr ""
 "показу у інтерфейсі користувача або коли цей рядок об’єднується з іншими)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
-#: src/prefs/prefs_appearance.ui:143
+#: src/prefs/prefs_appearance.ui:85
 #, kde-format
 msgid "Highlight spaces at the end"
 msgstr "Підсвічувати пробіли на кінцях"
@@ -4439,7 +4384,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Всього: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:578
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:567
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4492,43 +4437,43 @@ msgstr[1] "(%1 рази)"
 msgstr[2] "(%1 разів)"
 msgstr[3] "(1 раз)"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:528
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "цей"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:529
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Файл: %1<br />Дата додавання: %2"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:531
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Дата останньої зміни: %1"
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:533
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Автор останньої зміни: %1"
 
-#: src/tm/tmview.cpp:545
+#: src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />ПП: %1"
 
-#: src/tm/tmview.cpp:547
+#: src/tm/tmview.cpp:536
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Вже немає у цьому файлі"
 
-#: src/tm/tmview.cpp:559
+#: src/tm/tmview.cpp:548
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4537,31 +4482,31 @@ msgstr ""
 "<html>Ви справді бажаєте вилучити запис<br/><i>%1</i><br/>з пам’яті "
 "перекладів %2?</html>"
 
-#: src/tm/tmview.cpp:560
+#: src/tm/tmview.cpp:549
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Вилучення запису з пам’яті перекладів"
 
-#: src/tm/tmview.cpp:604
+#: src/tm/tmview.cpp:593
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Вилучити цей запис"
 
-#: src/tm/tmview.cpp:606
+#: src/tm/tmview.cpp:595
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Відкрити файл, що містить цей запис"
 
-#: src/tm/tmview.cpp:614
+#: src/tm/tmview.cpp:603
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Вилучити дані цього файла, якого не існує, з ПП"
 
-#: src/tm/tmview.cpp:627
+#: src/tm/tmview.cpp:616
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4570,13 +4515,13 @@ msgstr ""
 "<html>Ви справді хочете вилучити дані цього файла, якого не існує:<br/><i>"
 "%1</i><br/>з пам'яті перекладів %2?</html>"
 
-#: src/tm/tmview.cpp:628
+#: src/tm/tmview.cpp:617
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Вилучення даних файла, якого не існує, з пам’яті перекладів"
 
-#: src/tm/tmview.cpp:1026
+#: src/tm/tmview.cpp:1016
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4671,6 +4616,38 @@ msgstr "Повідомлено про помилку: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Копіювати джерело у переклад"
+
+#~ msgid "Text colors for the changes in the message."
+#~ msgstr "Кольори текстових змін у фразі."
+
+#~ msgid "String Matching"
+#~ msgstr "Відповідність рядків"
+
+#~ msgctxt "@label:chooser"
+#~ msgid "Text added in the newer string:"
+#~ msgstr "Текст, доданий у новішім рядку :"
+
+#~ msgid "Change the color for the new text added"
+#~ msgstr "Змінити колір нового доданого тексту"
+
+#~ msgid ""
+#~ "You can set another color for viewing the text that was added to the "
+#~ "string."
+#~ msgstr ""
+#~ "Ви можете встановити інший колір для тексту, який було додано до рядка."
+
+#~ msgctxt "@label:chooser"
+#~ msgid "Text removed in the newer string:"
+#~ msgstr "Текст, вилучений у новішім рядку:"
+
+#~ msgid "Change the color for the text removed"
+#~ msgstr "Змінити колір вилученого тексту"
+
+#~ msgid ""
+#~ "You can set another color for viewing the text that was removed from the "
+#~ "string."
+#~ msgstr ""
+#~ "Ви можете встановити інший колір для тексту, який було вилучено з рядка."
 
 #~ msgid "Locally"
 #~ msgstr "Локально"

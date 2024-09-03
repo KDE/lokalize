@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-09-03 00:41+0000\n"
 "PO-Revision-Date: 2024-08-29 13:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -148,7 +148,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr "Veri Görünümünü Göster"
 
-#: src/alttransview.cpp:248
+#: src/alttransview.cpp:237
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -174,13 +174,13 @@ msgstr ""
 "p><p>Çeviri dosyasını bu araç görünümüne bırakarak alternatif çeviriler için "
 "bir kaynak olarak kullanabilirsiniz.</p>"
 
-#: src/alttransview.cpp:269
+#: src/alttransview.cpp:258
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Köken: %1"
 
-#: src/alttransview.cpp:292
+#: src/alttransview.cpp:281
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -777,12 +777,12 @@ msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "İmleme dili kullanılan metin ekle"
 
-#: src/catalog/gettext/gettextstorage.cpp:111
+#: src/catalog/gettext/gettextstorage.cpp:110
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "farklı uzunluktaki dizi alternatifleri için ayraç"
 
-#: src/catalog/gettext/gettextstorage.cpp:273
+#: src/catalog/gettext/gettextstorage.cpp:272
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -2950,65 +2950,8 @@ msgstr ""
 "Hatalı, Belirsiz ve Çevrilmemiş Ögeleri ile fare işaretçisinin sütun "
 "numarasını göstermek için Işıklı Düğmeler"
 
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
-#: src/prefs/prefs_appearance.ui:69
-#, kde-format
-msgid "Text colors for the changes in the message."
-msgstr "İleti içerisinde yapılan değişiklikler için metin rengi."
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/prefs/prefs_appearance.ui:72
-#, kde-format
-msgid "String Matching"
-msgstr "Dizi Eşleşmesi"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: src/prefs/prefs_appearance.ui:78
-#, kde-format
-msgctxt "@label:chooser"
-msgid "Text added in the newer string:"
-msgstr "Yeni iletiye eklenen metin:"
-
-#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_AddColor)
-#: src/prefs/prefs_appearance.ui:88
-#, kde-format
-msgid "Change the color for the new text added"
-msgstr "Yeni eklenen metin için rengi değiştir"
-
-#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_AddColor)
-#: src/prefs/prefs_appearance.ui:91
-#, kde-format
-msgid ""
-"You can set another color for viewing the text that was added to the string."
-msgstr ""
-"İletiye eklenen metni göstermek için kullanılacak renk için başka bir renk "
-"ayarlayabilirsiniz."
-
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: src/prefs/prefs_appearance.ui:101
-#, kde-format
-msgctxt "@label:chooser"
-msgid "Text removed in the newer string:"
-msgstr "Yeni iletide silinen metin:"
-
-#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_DelColor)
-#: src/prefs/prefs_appearance.ui:111
-#, kde-format
-msgid "Change the color for the text removed"
-msgstr "Silinen metin için rengi değiştir"
-
-#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_DelColor)
-#: src/prefs/prefs_appearance.ui:114
-#, kde-format
-msgid ""
-"You can set another color for viewing the text that was removed from the "
-"string."
-msgstr ""
-"İletiden çıkarılan metni göstermek için kullanılacak renk için başka bir "
-"renk ayarlayabilirsiniz."
-
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
-#: src/prefs/prefs_appearance.ui:140
+#: src/prefs/prefs_appearance.ui:82
 #, kde-format
 msgid ""
 "Check to see if a string ends in a space (which is often important when "
@@ -3020,7 +2963,7 @@ msgstr ""
 "diğer sözcüklerle bitişik gösterilmesini engellemenizi sağlar)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
-#: src/prefs/prefs_appearance.ui:143
+#: src/prefs/prefs_appearance.ui:85
 #, kde-format
 msgid "Highlight spaces at the end"
 msgstr "Sondaki boşlukları vurgula"
@@ -4408,7 +4351,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Toplam: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:578
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:567
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4459,43 +4402,43 @@ msgid_plural "(%1 times)"
 msgstr[0] "(1 kez)"
 msgstr[1] "(%1 kez)"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:528
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "bu dosya"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:529
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Dosya: %1<br />Eklenme tarihi: %2"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:531
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Son değiştirilme tarihi: %1"
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:533
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Son değişikliği yapan: %1"
 
-#: src/tm/tmview.cpp:545
+#: src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />TM: %1"
 
-#: src/tm/tmview.cpp:547
+#: src/tm/tmview.cpp:536
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Artık dosyada yok"
 
-#: src/tm/tmview.cpp:559
+#: src/tm/tmview.cpp:548
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4504,31 +4447,31 @@ msgstr ""
 "<html>Bu girdiyi <br/><i>%1</i><br/> gerçekten %2 çeviri belleğinden silmek "
 "istiyor musunuz?</html>"
 
-#: src/tm/tmview.cpp:560
+#: src/tm/tmview.cpp:549
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Çeviri Belleği Girdisi Silme"
 
-#: src/tm/tmview.cpp:604
+#: src/tm/tmview.cpp:593
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Bu Girdiyi Sil"
 
-#: src/tm/tmview.cpp:606
+#: src/tm/tmview.cpp:595
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Bu Girdiyi İçeren Dosyayı Aç"
 
-#: src/tm/tmview.cpp:614
+#: src/tm/tmview.cpp:603
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Bu eksik dosyayı ÇB’den kaldır"
 
-#: src/tm/tmview.cpp:627
+#: src/tm/tmview.cpp:616
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4537,13 +4480,13 @@ msgstr ""
 "<html>Aşağıdaki eksik dosyayı gerçekten %2 çeviri belleğinden kaldırmak "
 "istiyor musunuz:<br/><i>%1</i></html>"
 
-#: src/tm/tmview.cpp:628
+#: src/tm/tmview.cpp:617
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Çeviri Belleği Eksik Dosya Kaldırma"
 
-#: src/tm/tmview.cpp:1026
+#: src/tm/tmview.cpp:1016
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4635,6 +4578,40 @@ msgstr "Bir hata bildirildi: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kaynağı Hedefe Kopyala"
+
+#~ msgid "Text colors for the changes in the message."
+#~ msgstr "İleti içerisinde yapılan değişiklikler için metin rengi."
+
+#~ msgid "String Matching"
+#~ msgstr "Dizi Eşleşmesi"
+
+#~ msgctxt "@label:chooser"
+#~ msgid "Text added in the newer string:"
+#~ msgstr "Yeni iletiye eklenen metin:"
+
+#~ msgid "Change the color for the new text added"
+#~ msgstr "Yeni eklenen metin için rengi değiştir"
+
+#~ msgid ""
+#~ "You can set another color for viewing the text that was added to the "
+#~ "string."
+#~ msgstr ""
+#~ "İletiye eklenen metni göstermek için kullanılacak renk için başka bir "
+#~ "renk ayarlayabilirsiniz."
+
+#~ msgctxt "@label:chooser"
+#~ msgid "Text removed in the newer string:"
+#~ msgstr "Yeni iletide silinen metin:"
+
+#~ msgid "Change the color for the text removed"
+#~ msgstr "Silinen metin için rengi değiştir"
+
+#~ msgid ""
+#~ "You can set another color for viewing the text that was removed from the "
+#~ "string."
+#~ msgstr ""
+#~ "İletiden çıkarılan metni göstermek için kullanılacak renk için başka bir "
+#~ "renk ayarlayabilirsiniz."
 
 #~ msgid "Locally"
 #~ msgstr "Yerel Olarak"

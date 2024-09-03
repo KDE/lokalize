@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-09-03 00:41+0000\n"
 "PO-Revision-Date: 2024-07-28 12:16+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -154,7 +154,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr "أظهر عرض البيانات"
 
-#: src/alttransview.cpp:248
+#: src/alttransview.cpp:237
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -178,13 +178,13 @@ msgstr ""
 "الأدوات يُدرجها في الترجمة.</p><p>أسقط ملفّ ترجمة في منظور الأدوات لاستخدامه "
 "مصدرًا لترجمات بديلة أخرى.</p>"
 
-#: src/alttransview.cpp:269
+#: src/alttransview.cpp:258
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "الأصل: %1"
 
-#: src/alttransview.cpp:292
+#: src/alttransview.cpp:281
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -770,12 +770,12 @@ msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "إدرّاج النّصّ الذي بداخله رقْم"
 
-#: src/catalog/gettext/gettextstorage.cpp:111
+#: src/catalog/gettext/gettextstorage.cpp:110
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "فاصل لتنويعات السّلاسل مختلفة الطّول"
 
-#: src/catalog/gettext/gettextstorage.cpp:273
+#: src/catalog/gettext/gettextstorage.cpp:272
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -2930,61 +2930,8 @@ msgid ""
 "number"
 msgstr "أضواء لتمثيل حالتي الغبشة وغير المترجمة إضافة إلى موقع المؤشّر في النّصّ"
 
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
-#: src/prefs/prefs_appearance.ui:69
-#, kde-format
-msgid "Text colors for the changes in the message."
-msgstr "ألوان النّصّ للتّغيّرات في الرّسالة."
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/prefs/prefs_appearance.ui:72
-#, kde-format
-msgid "String Matching"
-msgstr "مطابقة السّلسلة"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: src/prefs/prefs_appearance.ui:78
-#, kde-format
-msgctxt "@label:chooser"
-msgid "Text added in the newer string:"
-msgstr "النّصّ المُضاف في السّلسلة الجديدة:"
-
-#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_AddColor)
-#: src/prefs/prefs_appearance.ui:88
-#, kde-format
-msgid "Change the color for the new text added"
-msgstr "غيّر لون النّصّ الجديد المُضاف"
-
-#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_AddColor)
-#: src/prefs/prefs_appearance.ui:91
-#, kde-format
-msgid ""
-"You can set another color for viewing the text that was added to the string."
-msgstr "يمكنك ضبط لون آخر لعرض النّصّ المُضاف إلى السّلسلة."
-
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: src/prefs/prefs_appearance.ui:101
-#, kde-format
-msgctxt "@label:chooser"
-msgid "Text removed in the newer string:"
-msgstr "النصّ المُزال في السّلسلة الجديدة:"
-
-#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_DelColor)
-#: src/prefs/prefs_appearance.ui:111
-#, kde-format
-msgid "Change the color for the text removed"
-msgstr "غيّر لون النّصّ المُزال"
-
-#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_DelColor)
-#: src/prefs/prefs_appearance.ui:114
-#, kde-format
-msgid ""
-"You can set another color for viewing the text that was removed from the "
-"string."
-msgstr "يمكنك ضبط لون آخر لعرض النّصّ المُزال من السّلسلة."
-
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
-#: src/prefs/prefs_appearance.ui:140
+#: src/prefs/prefs_appearance.ui:82
 #, kde-format
 msgid ""
 "Check to see if a string ends in a space (which is often important when "
@@ -2995,7 +2942,7 @@ msgstr ""
 "في واجهة المستخدم، أو عندما تُدمج مع غيرها)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
-#: src/prefs/prefs_appearance.ui:143
+#: src/prefs/prefs_appearance.ui:85
 #, kde-format
 msgid "Highlight spaces at the end"
 msgstr "أبرِز المسافات في النّهاية"
@@ -4365,7 +4312,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "المجموع: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:578
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:567
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4420,43 +4367,43 @@ msgstr[3] "‏(%1 مرات)"
 msgstr[4] "‏(%1 مرة)"
 msgstr[5] "‏(%1 مرة)"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:528
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "هذا"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:529
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "الملفّ: %1<br />تاريخ الإضافة: %2"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:531
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />تاريخ آخر تغيير: %1"
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:533
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />مُجري آخر تغيير: %1"
 
-#: src/tm/tmview.cpp:545
+#: src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />ذاكرة الترجمة: %1"
 
-#: src/tm/tmview.cpp:547
+#: src/tm/tmview.cpp:536
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />ليست في الملفّ بعد الآن"
 
-#: src/tm/tmview.cpp:559
+#: src/tm/tmview.cpp:548
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4465,31 +4412,31 @@ msgstr ""
 "<html>أتريد حقًا إزالة هذه المُدخَلة:<br/><i>%1</i><br/>من ذاكرة الترجمة %2؟</"
 "html>"
 
-#: src/tm/tmview.cpp:560
+#: src/tm/tmview.cpp:549
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "إزالة مُدخَلة من ذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:604
+#: src/tm/tmview.cpp:593
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "أزِل هذه المُدخَلة"
 
-#: src/tm/tmview.cpp:606
+#: src/tm/tmview.cpp:595
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "افتح الملفّ الحاوي لهذه المُدخَلة"
 
-#: src/tm/tmview.cpp:614
+#: src/tm/tmview.cpp:603
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "أزل هذا الملف المفقود من ذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:627
+#: src/tm/tmview.cpp:616
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4498,13 +4445,13 @@ msgstr ""
 "<html>أمتأكّد من إزالة هذه الملف المفقود:<br/><i>%1</i><br/>من ذاكرة الترجمة "
 "%2؟</html>"
 
-#: src/tm/tmview.cpp:628
+#: src/tm/tmview.cpp:617
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "إزالة الملفات المفقودة من الذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:1026
+#: src/tm/tmview.cpp:1016
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4594,6 +4541,36 @@ msgstr "أُبلغ عن خطأ: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "انسخ المصدر إلى الهدف"
+
+#~ msgid "Text colors for the changes in the message."
+#~ msgstr "ألوان النّصّ للتّغيّرات في الرّسالة."
+
+#~ msgid "String Matching"
+#~ msgstr "مطابقة السّلسلة"
+
+#~ msgctxt "@label:chooser"
+#~ msgid "Text added in the newer string:"
+#~ msgstr "النّصّ المُضاف في السّلسلة الجديدة:"
+
+#~ msgid "Change the color for the new text added"
+#~ msgstr "غيّر لون النّصّ الجديد المُضاف"
+
+#~ msgid ""
+#~ "You can set another color for viewing the text that was added to the "
+#~ "string."
+#~ msgstr "يمكنك ضبط لون آخر لعرض النّصّ المُضاف إلى السّلسلة."
+
+#~ msgctxt "@label:chooser"
+#~ msgid "Text removed in the newer string:"
+#~ msgstr "النصّ المُزال في السّلسلة الجديدة:"
+
+#~ msgid "Change the color for the text removed"
+#~ msgstr "غيّر لون النّصّ المُزال"
+
+#~ msgid ""
+#~ "You can set another color for viewing the text that was removed from the "
+#~ "string."
+#~ msgstr "يمكنك ضبط لون آخر لعرض النّصّ المُزال من السّلسلة."
 
 #~ msgid "Locally"
 #~ msgstr "محليًّا"
