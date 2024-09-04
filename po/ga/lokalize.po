@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-03 00:41+0000\n"
+"POT-Creation-Date: 2024-09-04 00:41+0000\n"
 "PO-Revision-Date: 2007-08-03 07:58-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -2723,8 +2723,8 @@ msgstr "Liosta réamhshocraithe ríomhphoist le haghaidh tionscadail nua"
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
-#: src/prefs/lokalize.kcfg:75 src/prefs/lokalize.kcfg:91
-#: src/prefs/lokalize.kcfg:96
+#: src/prefs/lokalize.kcfg:69 src/prefs/lokalize.kcfg:85
+#: src/prefs/lokalize.kcfg:90
 #, kde-format
 msgid ""
 "\n"
@@ -2734,7 +2734,7 @@ msgstr ""
 "        "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
-#: src/prefs/lokalize.kcfg:81
+#: src/prefs/lokalize.kcfg:75
 #, kde-format
 msgid "Font for Messages"
 msgstr "Cló le haghaidh Teachtaireachtaí"

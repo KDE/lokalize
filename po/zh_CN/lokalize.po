@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-03 00:41+0000\n"
+"POT-Creation-Date: 2024-09-04 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -2687,8 +2687,8 @@ msgstr "新项目的默认邮件列表"
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
-#: src/prefs/lokalize.kcfg:75 src/prefs/lokalize.kcfg:91
-#: src/prefs/lokalize.kcfg:96
+#: src/prefs/lokalize.kcfg:69 src/prefs/lokalize.kcfg:85
+#: src/prefs/lokalize.kcfg:90
 #, kde-format
 msgid ""
 "\n"
@@ -2698,7 +2698,7 @@ msgstr ""
 "        "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
-#: src/prefs/lokalize.kcfg:81
+#: src/prefs/lokalize.kcfg:75
 #, kde-format
 msgid "Font for Messages"
 msgstr "翻译内容使用的字体"
@@ -4402,33 +4402,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
-
-#~ msgid "Text colors for the changes in the message."
-#~ msgstr "翻译中被更改部分的文字颜色。"
-
-#~ msgid "String Matching"
-#~ msgstr "字符串匹配"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text added in the newer string:"
-#~ msgstr "新字符串中新增的文本："
-
-#~ msgid "Change the color for the new text added"
-#~ msgstr "更改新增文本的颜色"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was added to the "
-#~ "string."
-#~ msgstr "您可以设定显示字符串中新增文本的显示颜色。"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text removed in the newer string:"
-#~ msgstr "新字符串中被删除的文本："
-
-#~ msgid "Change the color for the text removed"
-#~ msgstr "更改被删除文本的颜色"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was removed from the "
-#~ "string."
-#~ msgstr "您可以设定字符串中被删除的文本的显示颜色。"

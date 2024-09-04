@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-03 00:41+0000\n"
+"POT-Creation-Date: 2024-09-04 00:41+0000\n"
 "PO-Revision-Date: 2023-07-31 17:34+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -2806,8 +2806,8 @@ msgstr "Προκαθορισμένη λίστα αλληλογραφίας γι�
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
-#: src/prefs/lokalize.kcfg:75 src/prefs/lokalize.kcfg:91
-#: src/prefs/lokalize.kcfg:96
+#: src/prefs/lokalize.kcfg:69 src/prefs/lokalize.kcfg:85
+#: src/prefs/lokalize.kcfg:90
 #, kde-format
 msgid ""
 "\n"
@@ -2817,7 +2817,7 @@ msgstr ""
 "        "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
-#: src/prefs/lokalize.kcfg:81
+#: src/prefs/lokalize.kcfg:75
 #, kde-format
 msgid "Font for Messages"
 msgstr "Γραμματοσειρά για τα μηνύματα"
