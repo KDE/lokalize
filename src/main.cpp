@@ -55,7 +55,6 @@ int main(int argc, char **argv)
     TM::threadPool()->setExpiryTimeout(-1);
     QThreadPool::globalInstance()->setMaxThreadCount(1);
     QApplication app(argc, argv);
-    KCrash::initialize();
     KLocalizedString::setApplicationDomain("lokalize");
     QCommandLineParser parser;
     KAboutData about(QStringLiteral("lokalize"), i18nc("@title", "Lokalize"), QStringLiteral(LOKALIZE_VERSION));
@@ -77,6 +76,7 @@ int main(int argc, char **argv)
     about.addCredit(i18n("Simon Depiets"), i18n("bug fixing and improvements"), QStringLiteral("sdepiets@gmail.com"));
     about.addCredit(i18n("Karl Ove Hufthammer"), i18n("bug fixing and improvements"), QStringLiteral("karl@huftis.org"));
     KAboutData::setApplicationData(about);
+    KCrash::initialize();
     about.setupCommandLine(&parser);
     //parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
     parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("noprojectscan"), i18n("Do not scan files of the project.")));
