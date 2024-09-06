@@ -781,7 +781,7 @@ msgstr ""
 #: src/cataloglistview/cataloglistview.cpp:94
 #, kde-format
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 #: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
