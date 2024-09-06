@@ -116,6 +116,86 @@ set(liblokalize_SRCS
     catalog/gettext/gettextexport.cpp
     catalog/xliff/xliffstorage.cpp
     catalog/ts/tsstorage.cpp
+
+    lokalizemainwindow.h
+    actionproxy.h
+
+    editortab.h
+
+    editorview.h
+    xlifftextedit.h
+    syntaxhighlighter.h
+
+    completionstorage.h
+
+    phaseswindow.h
+    noteeditor.h
+    msgctxtview.h
+
+    binunitsview.h
+
+    cataloglistview/cataloglistview.h
+    cataloglistview/catalogmodel.h
+
+    common/headerviewmenu.h
+    common/domroutines.h
+    common/fastsizehintitemdelegate.h
+    common/flowlayout.h
+    common/termlabel.h
+    common/languagelistmodel.h
+    common/stemming.h
+    glossary/glossaryview.h
+    glossary/glossary.h
+    glossary/glossarywindow.h
+
+    metadata/filemetadata.h
+
+    mergemode/mergecatalog.h
+    mergemode/mergeview.h
+    alttransview.h
+    common/diff.h
+    project/project.h
+    project/projectmodel.h
+    project/projectwidget.h
+    project/projecttab.h
+    project/updatestatsjob.h
+    metadata/poextractor.h
+    metadata/xliffextractor.h
+
+    prefs/prefs.h
+
+    languagetool/languagetoolresultjob.h
+    languagetool/languagetoolmanager.h
+    languagetool/languagetoolparser.h
+    languagetool/languagetoolgrammarerror.h
+
+    tools/widgettextcaptureconfig.h
+
+    filesearch/filesearchtab.h
+
+    tm/tmview.h
+    tm/tmscanapi.h
+    tm/jobs.h
+    tm/dbfilesmodel.h
+    tm/tmmanager.h
+    tm/tmtab.h
+    tm/qaview.h
+    tm/qamodel.h
+
+    catalog/phase.h
+
+    catalog/cmd.h
+    catalog/pos.h
+    catalog/catalog.h
+    catalog/catalogstring.h
+    catalog/gettextheader.h
+    catalog/gettextheaderparser.h
+    catalog/gettext/gettextstorage.h
+    catalog/gettext/catalogitem.h
+    catalog/gettext/gettextimport.h
+    catalog/gettext/gettextexport.h
+    catalog/xliff/xliffstorage.h
+    catalog/ts/tsstorage.h
 )
 
 if(WIN32)
