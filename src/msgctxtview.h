@@ -28,7 +28,7 @@ class MsgCtxtView: public QDockWidget
 
 public:
     explicit MsgCtxtView(QWidget*, Catalog*);
-    ~MsgCtxtView();
+    ~MsgCtxtView() override;
 
     void gotoEntry(const DocPosition&, int selection = 0);
     void addNote(DocPosition, const QString& text);

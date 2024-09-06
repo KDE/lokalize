@@ -19,11 +19,11 @@ class WidgetTextCaptureConfig: public QDialog
     Q_OBJECT
 public:
     explicit WidgetTextCaptureConfig(QWidget* parent = nullptr);
-    ~WidgetTextCaptureConfig();
+    ~WidgetTextCaptureConfig() override;
 public Q_SLOTS:
     void writeConfig();
 private:
-    Ui_WidgetTextCapture* ui;
+    Ui_WidgetTextCapture *const ui;
 };
 
 #endif // WIDGETTEXTCAPTURECONFIG_H

@@ -49,7 +49,7 @@ class Project: public ProjectBase
     //qdbuscpp2xml -m -s project.h -o org.kde.lokalize.Project.xml
 public:
     explicit Project();
-    virtual ~Project();
+    ~Project() override;
 
     bool isLoaded()const
     {

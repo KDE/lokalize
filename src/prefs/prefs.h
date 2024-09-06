@@ -22,7 +22,7 @@ class SettingsController: public QObject
 
 public:
     SettingsController();
-    ~SettingsController() = default;
+    ~SettingsController() override = default;
 
     bool dirty{false};
 

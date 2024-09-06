@@ -30,7 +30,7 @@ class ActionProxy: public QObject
 
 public:
     ActionProxy(QObject* parent, QObject* receiver = 0, const char* slot = 0);
-    ~ActionProxy();
+    ~ActionProxy() override;
 
     void registerAction(QAction*);
     void unregisterAction(/*QAction**/);

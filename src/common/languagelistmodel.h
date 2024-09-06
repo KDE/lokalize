@@ -30,7 +30,7 @@ private:
     static void cleanupLanguageListModel();
 
     explicit LanguageListModel(ModelType type = Default, QObject* parent = nullptr);
-    QSortFilterProxyModel* m_sortModel{nullptr};
+    QSortFilterProxyModel* const m_sortModel;
 
 public:
     QVariant data(const QModelIndex& index, int role) const override;

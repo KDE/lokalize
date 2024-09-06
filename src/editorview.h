@@ -42,7 +42,7 @@ class EditorView: public QSplitter
     Q_OBJECT
 public:
     explicit EditorView(QWidget *, Catalog*);
-    virtual ~EditorView();
+    ~EditorView() override;
 
     QTabBar* tabBar()
     {

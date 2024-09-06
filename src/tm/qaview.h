@@ -39,7 +39,7 @@ Q_SIGNALS:
     void rulesChanged();
 
 private:
-    QTreeView* m_browser{};
+    QTreeView* const m_browser;
     QaModel* m_qaModel{};
     QString m_filename;
 

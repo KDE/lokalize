@@ -27,7 +27,7 @@ class NoteEditor: public QWidget
     Q_OBJECT
 public:
     explicit NoteEditor(QWidget* parent);
-    ~NoteEditor() {}
+    ~NoteEditor() override {}
 
     Note note();
     void setNote(const Note&, int idx);
