@@ -56,6 +56,7 @@ int main(int argc, char **argv)
     QThreadPool::globalInstance()->setMaxThreadCount(1);
     QApplication app(argc, argv);
     KLocalizedString::setApplicationDomain("lokalize");
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("lokalize")));
     QCommandLineParser parser;
     KAboutData about(QStringLiteral("lokalize"), i18nc("@title", "Lokalize"), QStringLiteral(LOKALIZE_VERSION));
     about.setShortDescription(i18n("Computer-aided translation system.\nDo not translate what had already been translated."));
