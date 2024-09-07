@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-04 00:41+0000\n"
+"POT-Creation-Date: 2024-09-07 00:41+0000\n"
 "PO-Revision-Date: 2024-08-29 13:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -2472,17 +2472,17 @@ msgid "Karl Ove Hufthammer"
 msgstr "Karl Ove Hufthammer"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:82
+#: src/main.cpp:83
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "Proje dosyalarını tarama."
 
-#: src/main.cpp:83
+#: src/main.cpp:84
 #, kde-format
 msgid "Load specified project."
 msgstr "Belirli bir projeyi yükle."
 
-#: src/main.cpp:84
+#: src/main.cpp:85
 #, kde-format
 msgid "Document to open"
 msgstr "Açılacak belge"

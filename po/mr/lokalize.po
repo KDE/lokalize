@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-04 00:41+0000\n"
+"POT-Creation-Date: 2024-09-07 00:41+0000\n"
 "PO-Revision-Date: 2013-03-06 17:46+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -2344,17 +2344,17 @@ msgid "Karl Ove Hufthammer"
 msgstr ""
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:82
+#: src/main.cpp:83
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr ""
 
-#: src/main.cpp:83
+#: src/main.cpp:84
 #, kde-format
 msgid "Load specified project."
 msgstr ""
 
-#: src/main.cpp:84
+#: src/main.cpp:85
 #, kde-format
 msgid "Document to open"
 msgstr "उघडण्याचा दस्तऐवज"

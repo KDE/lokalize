@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-04 00:41+0000\n"
+"POT-Creation-Date: 2024-09-07 00:41+0000\n"
 "PO-Revision-Date: 2008-09-24 02:55+0300\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@nospam.gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -2485,19 +2485,19 @@ msgid "Karl Ove Hufthammer"
 msgstr ""
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:82
+#: src/main.cpp:83
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox"
 #| msgid "Language:"
 msgid "Do not scan files of the project."
 msgstr "Ziman:"
 
-#: src/main.cpp:83
+#: src/main.cpp:84
 #, kde-format
 msgid "Load specified project."
 msgstr ""
 
-#: src/main.cpp:84
+#: src/main.cpp:85
 #, kde-format
 msgid "Document to open"
 msgstr ""

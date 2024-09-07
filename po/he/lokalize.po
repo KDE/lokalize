@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-04 00:41+0000\n"
+"POT-Creation-Date: 2024-09-07 00:41+0000\n"
 "PO-Revision-Date: 2024-08-29 06:48+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -2445,17 +2445,17 @@ msgid "Karl Ove Hufthammer"
 msgstr "קארל אובה הופטהאמר"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:82
+#: src/main.cpp:83
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "לא לסרוק קבצים של המיזם."
 
-#: src/main.cpp:83
+#: src/main.cpp:84
 #, kde-format
 msgid "Load specified project."
 msgstr "טעינת מיזם מסוים."
 
-#: src/main.cpp:84
+#: src/main.cpp:85
 #, kde-format
 msgid "Document to open"
 msgstr "מסמך לפתיחה"

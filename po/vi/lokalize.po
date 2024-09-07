@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-04 00:41+0000\n"
+"POT-Creation-Date: 2024-09-07 00:41+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -2483,17 +2483,17 @@ msgid "Karl Ove Hufthammer"
 msgstr ""
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:82
+#: src/main.cpp:83
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "Không quét các tệp của dự án này."
 
-#: src/main.cpp:83
+#: src/main.cpp:84
 #, kde-format
 msgid "Load specified project."
 msgstr "Tải dự án được chỉ định."
 
-#: src/main.cpp:84
+#: src/main.cpp:85
 #, kde-format
 msgid "Document to open"
 msgstr "Tài liệu muốn mở"
