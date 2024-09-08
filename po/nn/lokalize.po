@@ -4578,36 +4578,3 @@ msgstr "Feil meld: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopier kjelde til omsetjing"
-
-#~ msgid "Text colors for the changes in the message."
-#~ msgstr "Tekstfargar for endringar i meldinga."
-
-#~ msgid "String Matching"
-#~ msgstr "Tekstsamsvar"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text added in the newer string:"
-#~ msgstr "Tekst lagd til i den nye teksten:"
-
-#~ msgid "Change the color for the new text added"
-#~ msgstr "Endra fargen for ny tekst"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was added to the "
-#~ "string."
-#~ msgstr ""
-#~ "Du kan velja ein annan farge for ny tekst som vart lagd til kjeldeteksten."
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text removed in the newer string:"
-#~ msgstr "Tekst fjerna i den nye teksten:"
-
-#~ msgid "Change the color for the text removed"
-#~ msgstr "Endra fargen for fjerna tekst"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was removed from the "
-#~ "string."
-#~ msgstr ""
-#~ "Du kan velja ein annan farge for ny tekst som vart fjerna frå "
-#~ "kjeldeteksten."

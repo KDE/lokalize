@@ -4521,36 +4521,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopier kilden til oversettelsen"
-
-#~ msgid "Text colors for the changes in the message."
-#~ msgstr "Tekstfarger for endringer i meldinga."
-
-#~ msgid "String Matching"
-#~ msgstr "Tekstsamsvar"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text added in the newer string:"
-#~ msgstr "Tekst som er lagt til i den nye teksten:"
-
-#~ msgid "Change the color for the new text added"
-#~ msgstr "Endre fargen på ny tekst"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was added to the "
-#~ "string."
-#~ msgstr ""
-#~ "Du kan velge en annen farge for tekst som er ny (lagt til) i kildeteksten."
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text removed in the newer string:"
-#~ msgstr "Tekst som er fjernet i den nyeste teksten:"
-
-#~ msgid "Change the color for the text removed"
-#~ msgstr "Endre fargen på slettet tekst"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was removed from the "
-#~ "string."
-#~ msgstr ""
-#~ "Du kan velge en annen farge på den teksten som er blitt slette i "
-#~ "kildeteksten."
