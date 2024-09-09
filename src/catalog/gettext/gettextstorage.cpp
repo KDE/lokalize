@@ -80,7 +80,7 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
                      m_generatedFromDocbook,
                      belongsToProject,
                      /*forSaving*/true,
-                     QStringLiteral("utf-8")); // we unconditionally write out as UTF-8
+                     QStringLiteral("UTF-8")); // we unconditionally write out as UTF-8
     }
     m_header.setMsgstr(header);
     m_header.setComment(comment);
