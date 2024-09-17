@@ -4396,17 +4396,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Zkopírovat zdroj do cíle"
-
-#~ msgid "Text colors for the changes in the message."
-#~ msgstr "Barvy textu pro změny v řetězci."
-
-#~ msgid "String Matching"
-#~ msgstr "Porovnávání řetězců"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text added in the newer string:"
-#~ msgstr "Text přidaný do nového řetězce:"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text removed in the newer string:"
-#~ msgstr "Text odebraný z nového řetězce:"
