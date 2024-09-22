@@ -149,7 +149,7 @@
    <item row="5" column="0">
     <widget class="QCheckBox" name="kcfg_DeleteFromTMOnMissing">
      <property name="text">
-      <string>Delete missing files from translation memory on Rescan or when clicking a missing entry</string>
+      <string>Delete missing files from translation memory on rescan or when right-clicking on a missing entry</string>
      </property>
     </widget>
    </item>
