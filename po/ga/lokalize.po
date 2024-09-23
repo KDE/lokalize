@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-07 00:41+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: 2007-08-03 07:58-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -3303,8 +3303,8 @@ msgstr ""
 #: src/prefs/prefs_tm.ui:152
 #, kde-format
 msgid ""
-"Delete missing files from translation memory on Rescan or when clicking a "
-"missing entry"
+"Delete missing files from translation memory on rescan or when right-"
+"clicking on a missing entry"
 msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)

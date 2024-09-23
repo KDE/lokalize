@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-07 00:41+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -3414,10 +3414,13 @@ msgstr "Tambahkan file yang dibuka ke memori terjemahan secara otomatis"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Delete missing files from translation memory on Rescan or when clicking a "
+#| "missing entry"
 msgid ""
-"Delete missing files from translation memory on Rescan or when clicking a "
-"missing entry"
+"Delete missing files from translation memory on rescan or when right-"
+"clicking on a missing entry"
 msgstr ""
 "Hapus file yang hilang dari memori terjemahan saat Pindai-ulang atau ketika "
 "mengeklik sebuah entri yang tidak ada"

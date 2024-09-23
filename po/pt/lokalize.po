@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-07 00:41+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -3433,10 +3433,13 @@ msgstr "Adicionar os ficheiros abertos automaticamente à memória de tradução
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Delete missing files from translation memory on Rescan or when clicking a "
+#| "missing entry"
 msgid ""
-"Delete missing files from translation memory on Rescan or when clicking a "
-"missing entry"
+"Delete missing files from translation memory on rescan or when right-"
+"clicking on a missing entry"
 msgstr ""
 "Apaga os ficheiros em falta da memória de traduções ao Analisar de Novo ou "
 "ao carregar num elemento em falta"

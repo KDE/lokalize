@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-07 00:41+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: 2011-12-18 07:38+0100\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -3493,8 +3493,8 @@ msgstr "Opmaakt Dateien automaatsch na Översettenspieker inlesen"
 #: src/prefs/prefs_tm.ui:152
 #, kde-format
 msgid ""
-"Delete missing files from translation memory on Rescan or when clicking a "
-"missing entry"
+"Delete missing files from translation memory on rescan or when right-"
+"clicking on a missing entry"
 msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)

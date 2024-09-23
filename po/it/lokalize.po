@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-07 00:41+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: 2024-08-29 18:34+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -3410,10 +3410,13 @@ msgstr "Aggiungi automaticamente i file aperti nella memoria di traduzione"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Delete missing files from translation memory on Rescan or when clicking a "
+#| "missing entry"
 msgid ""
-"Delete missing files from translation memory on Rescan or when clicking a "
-"missing entry"
+"Delete missing files from translation memory on rescan or when right-"
+"clicking on a missing entry"
 msgstr ""
 "Elimina file mancanti dalla memoria di traduzione durante l'aggiornamento "
 "oppure selezionando la voce mancante"

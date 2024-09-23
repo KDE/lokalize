@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-07 00:41+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: 2024-08-21 14:48+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -3381,10 +3381,13 @@ msgstr "Automātiski pievieno atvērtās datnes „Lokalize“ tulkošanas atmi�
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Delete missing files from translation memory on Rescan or when clicking a "
+#| "missing entry"
 msgid ""
-"Delete missing files from translation memory on Rescan or when clicking a "
-"missing entry"
+"Delete missing files from translation memory on rescan or when right-"
+"clicking on a missing entry"
 msgstr ""
 "No tulkošanas atmiņas dzēš trūkstošās datnes, veicot pārskenēšanu vai "
 "klikšķinot uz trūkstoša ieraksta"

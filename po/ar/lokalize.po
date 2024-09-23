@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-07 00:41+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: 2024-09-05 09:35+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -3341,10 +3341,13 @@ msgstr "أضف الملفّات المفتوحة إلى ذاكرة الترجم�
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Delete missing files from translation memory on Rescan or when clicking a "
+#| "missing entry"
 msgid ""
-"Delete missing files from translation memory on Rescan or when clicking a "
-"missing entry"
+"Delete missing files from translation memory on rescan or when right-"
+"clicking on a missing entry"
 msgstr ""
 "احذف الملفات المفقودة من ذاكرة الترجمة عند إعادة الفحص أو عند النقر على "
 "مُدخَلة مفقودة"
