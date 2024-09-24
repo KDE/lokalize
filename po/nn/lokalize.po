@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 02:30+0000\n"
-"PO-Revision-Date: 2024-07-26 14:39+0200\n"
+"PO-Revision-Date: 2024-09-22 19:05+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.11.70\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -4394,12 +4394,13 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "I alt: %1 (%2)"
 
+# Vert vist når meldinga vert fjerna, så kan godt ha denne i preteritum.
 #: src/tm/tmtab.cpp:624 src/tm/tmview.cpp:578
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
-msgstr "Fila %1 finst ikkje og er derfor fjerna frå omsetjingsminnet."
+msgstr "Fila %1 finst ikkje, og ho vert derfor fjerna frå omsetjingsminnet."
 
 #: src/tm/tmview.cpp:162
 #, kde-format
