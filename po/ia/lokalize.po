@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-23 00:41+0000\n"
-"PO-Revision-Date: 2024-09-02 15:55+0200\n"
+"PO-Revision-Date: 2024-09-24 12:14+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -3403,16 +3403,13 @@ msgstr "Adde de modo automatic files a memoria de traduction"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, fuzzy, kde-format
-#| msgid ""
-#| "Delete missing files from translation memory on Rescan or when clicking a "
-#| "missing entry"
+#, kde-format
 msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
 msgstr ""
 "Dele files mancante ab memoria de traduction quando rescande o quando clicca "
-"un entrata mancante"
+"a dfextera sur un entrata mancante"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
