@@ -4633,17 +4633,3 @@ msgstr "Съобщение за грешка:%1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Копиране на оригинала в превода"
-
-#~ msgid "Locally"
-#~ msgstr "Локално"
-
-#~ msgid "lxr.kde.org"
-#~ msgstr "lxr.kde.org"
-
-#~ msgctxt "@action"
-#~ msgid "New"
-#~ msgstr "Нов"
-
-#~ msgctxt "@action"
-#~ msgid "Open"
-#~ msgstr "Отваряне"
