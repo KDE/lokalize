@@ -6,20 +6,21 @@
 # Panagiotis Papadopoulos <pano_90@gmx.net>, 2010, 2011.
 # Rolf Eike Beer <kde@opensource.sf-tec.de>, 2010.
 # Jonas Schürmann <jonasschuermann@aol.de>, 2012.
+# SPDX-FileCopyrightText: 2024 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-23 00:41+0000\n"
-"PO-Revision-Date: 2024-09-03 19:10+0200\n"
-"Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
+"PO-Revision-Date: 2024-09-27 13:42+0200\n"
+"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3409,16 +3410,13 @@ msgstr "Geöffnete Dateien automatisch in die Übersetzungsdatenbank einfügen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, fuzzy, kde-format
-#| msgid ""
-#| "Delete missing files from translation memory on Rescan or when clicking a "
-#| "missing entry"
+#, kde-format
 msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
 msgstr ""
 "Fehlende Dateien aus der Übersetzungsdatenbank beim erneuten Einlesen oder "
-"Klicken auf einen fehlenden Eintrag löschen"
+"Rechtsklicken auf einen fehlenden Eintrag löschen"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
