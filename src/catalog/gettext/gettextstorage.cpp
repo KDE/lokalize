@@ -239,38 +239,58 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos, bool stripNew
 
 QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 {
+    QString msgctxtOld;
+    QString msgidOld;
+    QString msgidpluralOld;
+    bool msgctxtProcessing = false;
+    bool msgidProcessing = false;
+    bool msgidpluralProcessing = false;
     static const QRegularExpression alt_trans_mark_re(QStringLiteral("^#\\|"));
-    QStringList prev = m_entries.at(pos.entry).comment().split(QLatin1Char('\n')).filter(alt_trans_mark_re);
-
-    QString oldSingular;
-    QString oldPlural;
-
-    QString* cur = &oldSingular;
-    QStringList::iterator it = prev.begin();
-    static const QString msgid_plural_alt = QStringLiteral("#| msgid_plural \"");
-    while (it != prev.end()) {
-        if (it->startsWith(msgid_plural_alt))
-            cur = &oldPlural;
-
-        const int start = it->indexOf(QLatin1Char('\"')) + 1;
-        const int end = it->lastIndexOf(QLatin1Char('\"'));
-        if (start && end != -1) {
-            if (!cur->isEmpty())
-                (*cur) += QLatin1Char('\n');
-            if (!(cur->isEmpty() && (end - start) == 0)) //for multiline msgs
-                (*cur) += QStringView(*it).mid(start, end - start);
+    QStringList previousStringComment = m_entries.at(pos.entry).comment().split(QLatin1Char('\n')).filter(alt_trans_mark_re);
+    static const QString msgctxtBeginningOfLine = QStringLiteral("#| msgctxt \"");
+    static const QString msgidBeginningOfLine = QStringLiteral("#| msgid \"");
+    static const QString msgidpluralBeginningOfLine = QStringLiteral("#| msgid_plural \"");
+    QStringListIterator commentIterator(previousStringComment);
+    while (commentIterator.hasNext()) {
+        QString line = commentIterator.next();
+        // Try to isolate the bit in quotes.
+        int start = line.indexOf(QLatin1Char('\"'));
+        const int end = line.lastIndexOf(QLatin1Char('\"'));
+        // Don't include the quote mark.
+        start += 1;
+        if (line.startsWith(msgctxtBeginningOfLine)) {
+            msgctxtProcessing = true;
+            msgidProcessing = false;
+            msgidpluralProcessing = false;
+        } else if (line.startsWith(msgidBeginningOfLine)) {
+            msgctxtProcessing = false;
+            msgidProcessing = true;
+            msgidpluralProcessing = false;
+        } else if (line.startsWith(msgidpluralBeginningOfLine)) {
+            msgctxtProcessing = false;
+            msgidProcessing = false;
+            msgidpluralProcessing = true;
         }
-        ++it;
+        // If text exists between quotes, isolate it and add it
+        // to whichever msg we are processing. Newlines are added
+        // where the msg breaks onto new lines in the .po file.
+        // Otherwise, skip processing.
+        if (start < 1 || end < 1 || start >= end)
+            continue;
+        else {
+            QString betweenQuotes = QString(line).sliced(start, end - start);
+            betweenQuotes.replace(QStringLiteral("\\\""), QStringLiteral("\""));
+            if (msgctxtProcessing)
+                msgctxtOld += msgctxtOld.isEmpty() ? betweenQuotes : QLatin1String("\n") + betweenQuotes;
+            else if (msgidProcessing)
+                msgidOld += msgidOld.isEmpty() ? betweenQuotes : QLatin1String("\n") + betweenQuotes;
+            else if (msgidpluralProcessing)
+                msgidpluralOld += msgidpluralOld.isEmpty() ? betweenQuotes : QLatin1String("\n") + betweenQuotes;
+        }
     }
-    if (pos.form == 0)
-        cur = &oldSingular;
-
-    cur->replace(QStringLiteral("\\\""), QStringLiteral("\""));
 
     QVector<AltTrans> result;
-    if (!cur->isEmpty())
-        result << AltTrans(CatalogString(*cur), i18n("Previous source value, saved by Gettext during transition to a newer POT template"));
-
+    result << AltTrans(CatalogString(msgctxtOld), CatalogString(msgidOld.isEmpty() ? msgidpluralOld : msgidOld), i18n("Previous source value, saved by Gettext during transition to a newer POT template"));
     return result;
 }
 

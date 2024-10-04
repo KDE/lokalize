@@ -179,52 +179,63 @@ void AltTransView::process()
         QTextCursor cur = m_browser->textCursor();
         QString html;
         html.reserve(1024);
-        if (!entry.source.isEmpty()) {
-            QString prevMsgId = entry.source.string;
-            QString currentMsgId = contextWithNewline + source.string;
+        // If either context or id data exists as '#|' comments in .po files,
+        // perform diff calculations on both context and id. If one string is
+        // missing in the comment then treat it as empty.
+        if (!entry.context.isEmpty() || !entry.source.isEmpty()) {
+            if (!entry.context.isEmpty() || !context.isEmpty()) {
+                QString prevMsgCtxt = entry.context.string;
+                QString currentMsgCtxt = context;
+                prevMsgCtxt.replace(QStringLiteral("\n"), QString());
+                currentMsgCtxt.replace(QStringLiteral("\n"), QString());
+                html += userVisibleWordDiff(
+                    prevMsgCtxt, currentMsgCtxt, Project::instance()->accel(),
+                    Project::instance()->markup(), Html);
+            }
+            if (!entry.source.isEmpty() || !source.string.isEmpty()) {
+                QString prevMsgId = entry.source.string;
+                QString currentMsgId = source.string;
 
-            // Messages have arbitrary word wrapping, which should
-            // not affect the diff. So we remove any word wrapping
-            // newlines. (Note that this does not remove manual \n
-            // characters used in the messages.)
-            prevMsgId.replace(QStringLiteral("\n"), QString());
-            currentMsgId.replace(QStringLiteral("\n"), QString());
+                // Messages have arbitrary word wrapping, which should
+                // not affect the diff. So we remove any word wrapping
+                // newlines. (Note that this does not remove manual \n
+                // characters used in the messages.)
+                prevMsgId.replace(QStringLiteral("\n"), QString());
+                currentMsgId.replace(QStringLiteral("\n"), QString());
 
-            html += QStringLiteral("<p>");
-
-            QString result = userVisibleWordDiff(prevMsgId, currentMsgId, Project::instance()->accel(), Project::instance()->markup()).toHtmlEscaped();
-            //result.replace("&","&amp;");
-            //result.replace("<","&lt;");
-            //result.replace(">","&gt;");
-            result.replace(QStringLiteral("{KBABELADD}"), QStringLiteral("<font style=\"background-color:") % Settings::addColor().name() % QStringLiteral(";color:black\">"));
-            result.replace(QStringLiteral("{/KBABELADD}"), QStringLiteral("</font>"));
-            result.replace(QStringLiteral("{KBABELDEL}"), QStringLiteral("<font style=\"background-color:") % Settings::delColor().name() % QStringLiteral(";color:black\">"));
-            result.replace(QStringLiteral("{/KBABELDEL}"), QStringLiteral("</font>"));
-            result.replace(QStringLiteral("\\n"), QStringLiteral("\\n<br>"));
-
-            html += result;
-            html += QStringLiteral("<br>");
-            cur.insertHtml(html); html.clear();
+                if (!html.isEmpty())
+                    html += QStringLiteral("<br>");
+                html += userVisibleWordDiff(
+                    prevMsgId, currentMsgId, Project::instance()->accel(),
+                    Project::instance()->markup(), Html);
+            }
         }
+        // Here we are working with different data to the context and id above:
+        // an example of the translation into an alternative language.
         if (!entry.target.isEmpty()) {
+            if (!html.isEmpty())
+                html += QStringLiteral("<br>");
             if (Q_LIKELY(i < m_actions.size())) {
                 m_actions.at(i)->setStatusTip(entry.target.string);
                 html += QString(QStringLiteral("[%1] ")).arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
             } else
                 html += QStringLiteral("[ - ] ");
-
-            cur.insertText(html); html.clear();
-            insertContent(cur, entry.target);
         }
-        m_entryPositions.insert(cur.anchor(), i);
+        if (!html.isEmpty()) {
+            cur.insertHtml(html);
+            html.clear();
+            if (!entry.target.isEmpty())
+                insertContent(cur, entry.target);
+            m_entryPositions.insert(cur.anchor(), i);
 
-        html += i ? QStringLiteral("<br></p>") : QStringLiteral("</p>");
-        cur.insertHtml(html);
+            if (Q_UNLIKELY(++i >= limit))
+                break;
 
-        if (Q_UNLIKELY(++i >= limit))
-            break;
-
-        cur.insertBlock(i % 2 ? blockFormatAlternate : blockFormatBase);
+            cur.insertBlock(i % 2 ? blockFormatAlternate : blockFormatBase);
+        } else {
+            if (Q_UNLIKELY(++i >= limit))
+                break;
+        }
     }
 
     if (!m_everShown) {

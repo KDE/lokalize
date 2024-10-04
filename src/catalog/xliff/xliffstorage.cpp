@@ -571,6 +571,7 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
     QDomElement elem = unitForPos(pos.entry).firstChildElement(QStringLiteral("alt-trans"));
     while (!elem.isNull()) {
         AltTrans aTrans;
+        aTrans.context = CatalogString();
         aTrans.source = catalogString(elem, DocPosition::Source);
         aTrans.target = catalogString(elem, DocPosition::Target);
         aTrans.phase = elem.attribute(QStringLiteral("phase-name"));

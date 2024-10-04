@@ -422,7 +422,7 @@ QVector<AltTrans> TsStorage::altTrans(const DocPosition& pos) const
 
     QString oldsource = content(unitForPos(pos.entry).firstChildElement(names[OldSourceTag]));
     if (!oldsource.isEmpty())
-        result << AltTrans(CatalogString(oldsource), i18n("Previous source value, saved by lupdate tool"));
+        result << AltTrans(CatalogString(), CatalogString(oldsource), i18n("Previous source value, saved by lupdate tool"));
 
     return result;
 }
