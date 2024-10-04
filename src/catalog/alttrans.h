@@ -18,6 +18,7 @@ struct AltTrans {
     enum Type {Proposal, PreviousVersion, Rejected, Reference, Accepted, Other};
     Type type{Other};
 
+    CatalogString context;
     CatalogString source;
     CatalogString target;
 
@@ -27,8 +28,9 @@ struct AltTrans {
     QString origin;
     QString phase;
 
-    explicit AltTrans(const CatalogString& s = CatalogString(), const QString& o = QString())
-        : source(s)
+    explicit AltTrans(const CatalogString& c = CatalogString(), const CatalogString& s = CatalogString(), const QString& o = QString())
+        : context(c)
+        , source(s)
         , origin(o)
     {}
 };

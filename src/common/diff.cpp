@@ -380,44 +380,40 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
                             const QString& markup,
                             int options)
 {
-    QStringList s1, s2;
-    QStringList s1Space, s2Space;
+    QString res;
+    if (str1ForMatching.isEmpty() && str2ForMatching.isEmpty()) {
+        return res;
+    } else if (!str1ForMatching.isEmpty() && str2ForMatching.isEmpty()) {
+        res = QLatin1String("{KBABELDEL}") + str1ForMatching + QLatin1String("{/KBABELDEL}");
+    } else if (str1ForMatching.isEmpty() && !str2ForMatching.isEmpty()) {
+        res = QLatin1String("{KBABELADD}") + str2ForMatching + QLatin1String("{/KBABELADD}");
+    } else {
+        QStringList s1, s2;
+        QStringList s1Space, s2Space;
 
+        prepareLists(str1ForMatching, s1, s1Space, accel, markup);
+        prepareLists(str2ForMatching, s2, s2Space, accel, markup);
 
-    prepareLists(str1ForMatching, s1, s1Space, accel, markup);
-    prepareLists(str2ForMatching, s2, s2Space, accel, markup);
+        QStringList result(calcLCS(s1, s2, s1Space, s2Space));
+        result.removeFirst();//\t
+        result.first().remove(0, 1); //\b
+        result.replaceInStrings(QStringLiteral("<KBABELDEL></KBABELDEL>"), QString());
+        result.replaceInStrings(QStringLiteral("<KBABELADD></KBABELADD>"), QString());
 
-    //QRegExp rxSpace("[^(\\W+|\\d+)]");
-    //i tried that but it failed:
-    //QRegExp rxSpace("[^("+Project::instance()->markup()+"|\\W+|\\d+)]");
-    //QStringList s1Space(str1ForMatching.split(rxSpace,Qt::SkipEmptyParts));
-    //QStringList s2Space(str2ForMatching.split(rxSpace,Qt::SkipEmptyParts));
+        result.replaceInStrings(QStringLiteral("<KBABELADD>"), QStringLiteral("{KBABELADD}"));
+        result.replaceInStrings(QStringLiteral("</KBABELADD>"), QStringLiteral("{/KBABELADD}"));
+        result.replaceInStrings(QStringLiteral("<KBABELDEL>"), QStringLiteral("{KBABELDEL}"));
+        result.replaceInStrings(QStringLiteral("</KBABELDEL>"), QStringLiteral("{/KBABELDEL}"));
 
-
-    QStringList result(calcLCS(s1, s2, s1Space, s2Space));
-    result.removeFirst();//\t
-    result.first().remove(0, 1); //\b
-//     qCWarning(LOKALIZE_LOG)<<"wordDiff 1 '" <<result<<"'";
-    result.replaceInStrings(QStringLiteral("<KBABELDEL></KBABELDEL>"), QString());
-    result.replaceInStrings(QStringLiteral("<KBABELADD></KBABELADD>"), QString());
-
-    result.replaceInStrings(QStringLiteral("<KBABELADD>"), QStringLiteral("{KBABELADD}"));
-    result.replaceInStrings(QStringLiteral("</KBABELADD>"), QStringLiteral("{/KBABELADD}"));
-    result.replaceInStrings(QStringLiteral("<KBABELDEL>"), QStringLiteral("{KBABELDEL}"));
-    result.replaceInStrings(QStringLiteral("</KBABELDEL>"), QStringLiteral("{/KBABELDEL}"));
-
-    if (options & Html) {
-        result.replaceInStrings(QStringLiteral("&"), QStringLiteral("&amp;"));
-        result.replaceInStrings(QStringLiteral("<"), QStringLiteral("&lt;"));
-        result.replaceInStrings(QStringLiteral(">"), QStringLiteral("&gt;"));
+        if (options & Html) {
+            result.replaceInStrings(QStringLiteral("&"), QStringLiteral("&amp;"));
+            result.replaceInStrings(QStringLiteral("<"), QStringLiteral("&lt;"));
+            result.replaceInStrings(QStringLiteral(">"), QStringLiteral("&gt;"));
+        }
+        res = result.join(QString());
+        res.remove(QStringLiteral("{/KBABELADD}{KBABELADD}"));
+        res.remove(QStringLiteral("{/KBABELDEL}{KBABELDEL}"));
     }
-
-    //result.last().chop(1);//\b
-    //qCWarning(LOKALIZE_LOG)<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
-
-    QString res(result.join(QString()));
-    res.remove(QStringLiteral("{/KBABELADD}{KBABELADD}"));
-    res.remove(QStringLiteral("{/KBABELDEL}{KBABELDEL}"));
 
     if (options & Html) {
         // Convert from curly brace KBABEL tags to HTML coloured with inline CSS
