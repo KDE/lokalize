@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-03 02:30+0000\n"
+"POT-Creation-Date: 2024-10-05 02:31+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -143,7 +143,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr ""
 
-#: src/alttransview.cpp:247
+#: src/alttransview.cpp:258
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -165,13 +165,13 @@ msgstr ""
 "p><p>双击此工具视图的任意单词即可将其插入到翻译结果中去。</p><p>将翻译文件拖"
 "放到此工具视图即可将其用作额外的备选翻译。</p>"
 
-#: src/alttransview.cpp:268
+#: src/alttransview.cpp:279
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "原文：%1"
 
-#: src/alttransview.cpp:291
+#: src/alttransview.cpp:302
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -725,7 +725,7 @@ msgstr "插入带标记的文本"
 msgid "separator for different-length string alternatives"
 msgstr ""
 
-#: src/catalog/gettext/gettextstorage.cpp:272
+#: src/catalog/gettext/gettextstorage.cpp:293
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "

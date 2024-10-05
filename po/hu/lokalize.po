@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-03 02:30+0000\n"
+"POT-Creation-Date: 2024-10-05 02:31+0000\n"
 "PO-Revision-Date: 2024-07-27 21:36+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -150,7 +150,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr "Adatnézet megjelenítése"
 
-#: src/alttransview.cpp:247
+#: src/alttransview.cpp:258
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -176,13 +176,13 @@ msgstr ""
 "fordításba.</p><p>Ejtsen egy fordítási fájlt erre az eszköznézetre, hogy "
 "további alternatív fordítások forrásaként használhassa.</p>"
 
-#: src/alttransview.cpp:268
+#: src/alttransview.cpp:279
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Eredet: %1"
 
-#: src/alttransview.cpp:291
+#: src/alttransview.cpp:302
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -793,7 +793,7 @@ msgstr "Jelölőkódos szöveg beszúrása"
 msgid "separator for different-length string alternatives"
 msgstr "elválasztó a különböző hosszúságú karakterlánc-alternatívákhoz"
 
-#: src/catalog/gettext/gettextstorage.cpp:272
+#: src/catalog/gettext/gettextstorage.cpp:293
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
