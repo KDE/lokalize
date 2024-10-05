@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-23 00:41+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2024-08-20 00:32+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -145,7 +145,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr "데이터 보기 표시"
 
-#: src/alttransview.cpp:237
+#: src/alttransview.cpp:259
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -168,13 +168,13 @@ msgstr ""
 "합니다.</p><p>도구 보기에 번역 파일을 끌어다 놓으면 추가적인 대체 번역 원본으"
 "로 사용합니다.</p>"
 
-#: src/alttransview.cpp:258
+#: src/alttransview.cpp:280
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "원본: %1"
 
-#: src/alttransview.cpp:281
+#: src/alttransview.cpp:303
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -747,7 +747,7 @@ msgstr "마크업이 있는 텍스트 삽입"
 msgid "separator for different-length string alternatives"
 msgstr "다른 길이 대체 문자열 구분자"
 
-#: src/catalog/gettext/gettextstorage.cpp:272
+#: src/catalog/gettext/gettextstorage.cpp:293
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "

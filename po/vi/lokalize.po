@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-23 00:41+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -145,7 +145,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr ""
 
-#: src/alttransview.cpp:237
+#: src/alttransview.cpp:259
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -171,13 +171,13 @@ msgstr ""
 "dịch.</p><p>Thả tệp dịch vào khung xem này để dùng nó làm một nguồn bổ sung "
 "các lời dịch thay thế.</p>"
 
-#: src/alttransview.cpp:258
+#: src/alttransview.cpp:280
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Nguồn: %1"
 
-#: src/alttransview.cpp:281
+#: src/alttransview.cpp:303
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -782,7 +782,7 @@ msgstr "Việc chèn văn bản với mã đánh dấu"
 msgid "separator for different-length string alternatives"
 msgstr "phần phân cách cho các chuỗi thay thế có độ dài khác nhau"
 
-#: src/catalog/gettext/gettextstorage.cpp:272
+#: src/catalog/gettext/gettextstorage.cpp:293
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "

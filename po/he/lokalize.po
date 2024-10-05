@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-23 00:41+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2024-09-23 19:34+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -147,7 +147,7 @@ msgctxt "@action"
 msgid "Show Data View"
 msgstr "הצגת תצוגת נתונים"
 
-#: src/alttransview.cpp:237
+#: src/alttransview.cpp:259
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -171,13 +171,13 @@ msgstr ""
 "הזה מוסיפה אותה לתרגום.</p><p>יש לגרורקובץ תרגום לכלי התצוגה הזה כדי להשתמש "
 "בו כמקור לתרגומים חלופיים נוספים.</p>"
 
-#: src/alttransview.cpp:258
+#: src/alttransview.cpp:280
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "מקור: %1"
 
-#: src/alttransview.cpp:281
+#: src/alttransview.cpp:303
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -765,7 +765,7 @@ msgstr "הוספת טקסט עם סימון"
 msgid "separator for different-length string alternatives"
 msgstr "מפריד למחרוזות חלופיות באורך משתנה"
 
-#: src/catalog/gettext/gettextstorage.cpp:272
+#: src/catalog/gettext/gettextstorage.cpp:293
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
