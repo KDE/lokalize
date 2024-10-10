@@ -49,11 +49,13 @@ parts:
     build-packages:
       - libhunspell-dev
       - gettext
+      - libpulse0
     stage-packages:
       - gettext
       - sonnet-plugins
       - translate-toolkit
       - poxml
+      - libpulse0
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
