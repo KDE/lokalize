@@ -34,7 +34,7 @@
 #include <QRegularExpression>
 
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
-    : QDockWidget(i18nc("@title toolview name", "Unit metadata"), parent)
+    : QDockWidget(i18nc("@title toolview name", "Unit Metadata"), parent)
     , m_browser(new QTextBrowser(this))
     , m_catalog(catalog)
 {
