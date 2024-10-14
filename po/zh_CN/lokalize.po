@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-14 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -2459,9 +2459,11 @@ msgstr ""
 "不匹配的条目：%2"
 
 #: src/msgctxtview.cpp:37
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title toolview name"
+#| msgid "Unit metadata"
 msgctxt "@title toolview name"
-msgid "Unit metadata"
+msgid "Unit Metadata"
 msgstr "条目元数据"
 
 #: src/msgctxtview.cpp:95

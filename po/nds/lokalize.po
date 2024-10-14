@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-14 00:41+0000\n"
 "PO-Revision-Date: 2011-12-18 07:38+0100\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -2650,9 +2650,11 @@ msgstr ""
 "Indrääg ahn Drepers: %2"
 
 #: src/msgctxtview.cpp:37
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title toolview name"
+#| msgid "Unit metadata"
 msgctxt "@title toolview name"
-msgid "Unit metadata"
+msgid "Unit Metadata"
 msgstr "Eenheit-Metadaten"
 
 #: src/msgctxtview.cpp:95
