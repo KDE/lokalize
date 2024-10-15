@@ -2577,9 +2577,7 @@ msgstr ""
 "Μη αντίστοιχες καταχωρήσεις: %2"
 
 #: src/msgctxtview.cpp:37
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Μονάδα μεταδεδομένων"

@@ -2459,12 +2459,10 @@ msgstr ""
 "不匹配的条目：%2"
 
 #: src/msgctxtview.cpp:37
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
-msgstr "条目元数据"
+msgstr ""
 
 #: src/msgctxtview.cpp:95
 #, kde-format
