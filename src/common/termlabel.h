@@ -43,7 +43,7 @@ Q_SIGNALS:
 private:
     QByteArray m_entryId;
     bool m_capFirst{false};
-    QAction* m_action{}; //used only for shortcut purposes
+    QAction* const m_action; //used only for shortcut purposes
 };
 
 }

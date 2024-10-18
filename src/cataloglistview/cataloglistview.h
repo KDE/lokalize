@@ -60,11 +60,11 @@ private Q_SLOTS:
     void filterOptionToggled(QAction*);
 
 private:
-    CatalogTreeView* m_browser;
-    QLineEdit* m_lineEdit;
-    QMenu* m_filterOptionsMenu;
-    CatalogTreeModel* m_model;
-    CatalogTreeFilterModel* m_proxyModel;
+    CatalogTreeView* const m_browser;
+    QLineEdit* const m_lineEdit;
+    QMenu* m_filterOptionsMenu = nullptr;
+    CatalogTreeModel* const m_model;
+    CatalogTreeFilterModel* const m_proxyModel;
     int m_lastKnownDocPosition;
 };
 

@@ -89,7 +89,7 @@ public Q_SLOTS:
 private:
     TranslationStatus getTranslationStatus(int row) const;
 
-    Catalog* m_catalog{nullptr};
+    Catalog* const m_catalog;
     bool m_ignoreAccel{true};
 
     static QVector<QVariant> m_fonts;

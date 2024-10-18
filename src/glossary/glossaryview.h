@@ -52,10 +52,10 @@ private:
     void clear();
 
 private:
-    QScrollArea* m_browser;
-    Catalog* m_catalog;
-    FlowLayout *m_flowLayout;
-    Glossary* m_glossary;
+    QScrollArea* const m_browser;
+    Catalog* const m_catalog;
+    FlowLayout *const m_flowLayout;
+    Glossary* const m_glossary;
     const QRegularExpression m_rxClean;
     const QRegularExpression m_rxSplit{QStringLiteral("\\W|\\d")};
     int m_currentIndex{-1};
