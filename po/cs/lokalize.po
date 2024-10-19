@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-14 00:41+0000\n"
-"PO-Revision-Date: 2024-09-27 11:46+0200\n"
+"PO-Revision-Date: 2024-10-18 11:29+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2467,9 +2467,7 @@ msgstr ""
 "Neodpovídající záznamy: %2"
 
 #: src/msgctxtview.cpp:37
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Metadata jednotky"
