@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -27,19 +28,20 @@
 #include <KStandardGuiItem>
 #include <KXMLGUIFactory>
 
-#include <QLineEdit>
-#include <QIcon>
 #include <QContextMenuEvent>
+#include <QIcon>
+#include <QInputDialog>
+#include <QLabel>
+#include <QLineEdit>
 #include <QMenu>
-#include <QVBoxLayout>
+#include <QProgressBar>
+#include <QPushButton>
+#include <QRegularExpression>
 #include <QShortcut>
 #include <QSortFilterProxyModel>
-#include <QStatusBar>
-#include <QProgressBar>
 #include <QStackedLayout>
-#include <QLabel>
-#include <QPushButton>
-#include <QInputDialog>
+#include <QStatusBar>
+#include <QVBoxLayout>
 
 ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
@@ -116,6 +118,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     l->addWidget(m_filterEdit);
     l->addWidget(m_browser);
+    m_browser->setAlternatingRowColors(true);
     connect(m_browser, &ProjectWidget::fileOpenRequested, this, &ProjectTab::fileOpenRequested);
     connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectTab::updateStatusBar);
     connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectTab::initStatusBarProgress);
@@ -223,13 +226,15 @@ void ProjectTab::setFocus()
 
 void ProjectTab::setFilterRegExp()
 {
-    QString newPattern = m_filterEdit->text();
-    if (m_browser->proxyModel()->filterRegularExpression().pattern() == newPattern)
-        return;
-
-    m_browser->proxyModel()->setFilterRegularExpression(newPattern);
-    if (newPattern.size() > 2)
+    QRegularExpression newRegex(
+        QRegularExpression::wildcardToRegularExpression(
+            m_filterEdit->text(), QRegularExpression::UnanchoredWildcardConversion),
+        QRegularExpression::InvertedGreedinessOption);
+    m_browser->proxyModel()->setFilterRegularExpression(newRegex);
+    if (m_filterEdit->text().size() > 2)
         m_browser->expandItems();
+    else
+        m_browser->collapseAll();
 }
 
 void ProjectTab::contextMenuEvent(QContextMenuEvent *event)

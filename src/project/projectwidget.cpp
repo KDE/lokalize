@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2015 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2019 Karl Ove Hufthammer <karl@huftis.org>
+  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -120,55 +121,41 @@ QString PoItemDelegate::displayText(const QVariant & value, [[maybe_unused]] con
 }
 
 
-
-
-class SortFilterProxyModel : public KDirSortFilterProxyModel
-{
-public:
-    explicit SortFilterProxyModel(QObject* parent = nullptr)
-        : KDirSortFilterProxyModel(parent)
-    {
-        connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &SortFilterProxyModel::invalidate);
-    }
-    ~SortFilterProxyModel() {}
-    void toggleTranslatedFiles();
-    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
-protected:
-    bool lessThan(const QModelIndex& left,
-                  const QModelIndex& right) const override;
-private:
-    bool m_hideTranslatedFiles = false;
-};
-
-void SortFilterProxyModel::toggleTranslatedFiles()
+void ProjectOverviewSortFilterProxyModel::toggleTranslatedFiles()
 {
     m_hideTranslatedFiles = !m_hideTranslatedFiles;
     invalidateFilter();
 }
 
-bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     bool result = false;
     const QAbstractItemModel* model = sourceModel();
     QModelIndex item = model->index(source_row, 0, source_parent);
-    /*
-        if (model->hasChildren(item))
-            model->fetchMore(item);
-    */
+
     if (item.data(ProjectModel::DirectoryRole) == 1 && item.data(ProjectModel::TotalRole) == 0)
-        return false; // Hide rows with no translations if they are folders
+        return false; // Hide rows with no translations if they are folders.
 
     if (item.data(ProjectModel::FuzzyUntrCountAllRole) == 0 && m_hideTranslatedFiles)
-        return false; // Hide rows with no untranslated items if the filter is enabled
+        return false; // Hide rows with no untranslated items if the filter is enabled.
 
+    if (!filterRegularExpression().isValid())
+        return false;
+
+    QString itemPathRelativeToProject = Project::instance()->relativePath(
+        Project::instance()->model()->itemForIndex(item).localPath());
+    // True if the search string matches the item's relative path.
+    result = filterRegularExpression().match(itemPathRelativeToProject).hasMatch();
+
+    // Without this no items are visible.
     int i = model->rowCount(item);
     while (--i >= 0 && !result)
         result = filterAcceptsRow(i, item);
 
-    return result || QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
+    return result;
 }
 
-bool SortFilterProxyModel::lessThan(const QModelIndex& left,
+bool ProjectOverviewSortFilterProxyModel::lessThan(const QModelIndex& left,
                                     const QModelIndex& right) const
 {
     static QCollator collator;
@@ -270,7 +257,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
 
 ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     : QTreeView(parent)
-    , m_proxyModel(new SortFilterProxyModel(this))
+    , m_proxyModel(new ProjectOverviewSortFilterProxyModel(this))
 //     , m_catalog(catalog)
 {
     PoItemDelegate* delegate = new PoItemDelegate(this);

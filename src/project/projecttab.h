@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2009 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -75,6 +76,14 @@ public Q_SLOTS:
     //Q_SCRIPTABLE bool isShown() const;
 
 private Q_SLOTS:
+    /**
+     * @short Sets the regex used to filter the list in Project Overview.
+     * 
+     * The regex accepts wildcards and matches against the relative
+     * paths of the files and directories below the project directory.
+     * 
+     * @author Finley Watson
+     */
     void setFilterRegExp();
     void setFocus();
     void scanFilesToTM();
