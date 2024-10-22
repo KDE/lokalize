@@ -16,8 +16,12 @@ class DiffTest : public QObject
 private Q_SLOTS:
     void testDiff()
     {
-        QCOMPARE(userVisibleWordDiff(u"VeryUnique FooBaz StringTest"_s, u"<b>VeryUnique FooBaz StringTest</b>"_s, Project::instance()->accel(), Project::instance()->markup()),
-                 "{KBABELADD}<b>{/KBABELADD}VeryUnique FooBaz StringTest{KBABELADD}</b>{/KBABELADD}"_L1);
+        QCOMPARE(
+            userVisibleWordDiff(u"VeryUnique FooBaz StringTest"_s,
+                                u"<b>VeryUnique FooBaz StringTest</b>"_s,
+                                Project::instance()->accel(),
+                                Project::instance()->markup()),
+            "{LokalizeAdd}<b>{/LokalizeAdd}VeryUnique FooBaz StringTest{LokalizeAdd}</b>{/LokalizeAdd}"_L1);
     }
 
 };

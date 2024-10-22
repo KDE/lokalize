@@ -4,6 +4,7 @@
   wordDiff algorithm adoption and further refinement:
   SPDX-FileCopyrightText: 2007 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
   (based on Markus Stengel's GPL implementation of LCS-Delta algorithm as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition, written by Thomas H. Cormen et. al. It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem.)
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
@@ -35,11 +36,6 @@ typedef enum {
     ARROW_UP_LEFT = 3,
     FINAL         = 4
 } LCSMarker;
-
-static const QString addMarkerStart = QStringLiteral("<KBABELADD>");
-static const QString addMarkerEnd = QStringLiteral("</KBABELADD>");
-static const QString delMarkerStart = QStringLiteral("<KBABELDEL>");
-static const QString delMarkerEnd = QStringLiteral("</KBABELDEL>");
 
 QStringList calcLCS(const QStringList& s1Words,
                     const QStringList& s2Words,
@@ -177,9 +173,16 @@ void LCSprinter::printLCS(uint index)
 //???this is not really good if we use diff result in autosubst
 
                     empty = calcLCS(word2, word1, empty, empty);
-                    empty.replaceInStrings(QStringLiteral("KBABELADD>"), QStringLiteral("KBABELTMP>"));
-                    empty.replaceInStrings(QStringLiteral("KBABELDEL>"), QStringLiteral("KBABELADD>"));
-                    empty.replaceInStrings(QStringLiteral("KBABELTMP>"), QStringLiteral("KBABELDEL>"));
+                    empty.replaceInStrings(addMarkerStart,
+                                           QStringLiteral("{LokalizeTmp}"));
+                    empty.replaceInStrings(addMarkerEnd,
+                                           QStringLiteral("{/LokalizeTmp}"));
+                    empty.replaceInStrings(delMarkerStart, addMarkerStart);
+                    empty.replaceInStrings(delMarkerEnd, addMarkerEnd);
+                    empty.replaceInStrings(QStringLiteral("{LokalizeTmp}"),
+                                           delMarkerStart);
+                    empty.replaceInStrings(QStringLiteral("{/LokalizeTmp}"),
+                                           delMarkerEnd);
 
                     resultString.push_back(empty.join(QString()));
                 }
@@ -324,8 +327,8 @@ QString wordDiff(QStringList s1, QStringList s2)
 
     if (!r)
         result.remove(0, 1);
-    result.remove(QStringLiteral("</KBABELADD><KBABELADD>"));
-    result.remove(QStringLiteral("</KBABELDEL><KBABELDEL>"));
+    result.remove(addMarkerEnd + addMarkerStart);
+    result.remove(delMarkerEnd + delMarkerStart);
 
     return result;
 }
@@ -337,19 +340,6 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
     Q_UNUSED(accel);
     int pos = 0;
 
-    //accels are only removed by batch jobs
-    //and this is not the one
-#if 0
-    QRegExp rxAccelInWord("[^\\W|\\d]" + accel + "[^\\W|\\d]");
-    int accelLen = accel.size();
-    while ((pos = rxAccelInWord.indexIn(str, pos)) != -1) {
-        str.remove(rxAccelInWord.pos() + 1, accelLen);
-        pos += 2; //two letters
-    }
-#endif
-
-    //QRegExp rxSplit("\\W+|\\d+");
-    //i tried that but it failed:
     if (!markup.isEmpty())
         markup += QLatin1Char('|');
     const QRegularExpression rxSplit(QLatin1String("(\x08?") + markup + QLatin1String("\\W+|\\d+)+"));
@@ -384,9 +374,9 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     if (str1ForMatching.isEmpty() && str2ForMatching.isEmpty()) {
         return res;
     } else if (!str1ForMatching.isEmpty() && str2ForMatching.isEmpty()) {
-        res = QLatin1String("{KBABELDEL}") + str1ForMatching + QLatin1String("{/KBABELDEL}");
+        res = delMarkerStart + str1ForMatching + delMarkerEnd;
     } else if (str1ForMatching.isEmpty() && !str2ForMatching.isEmpty()) {
-        res = QLatin1String("{KBABELADD}") + str2ForMatching + QLatin1String("{/KBABELADD}");
+        res = addMarkerStart + str2ForMatching + addMarkerEnd;
     } else {
         QStringList s1, s2;
         QStringList s1Space, s2Space;
@@ -397,13 +387,8 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
         QStringList result(calcLCS(s1, s2, s1Space, s2Space));
         result.removeFirst();//\t
         result.first().remove(0, 1); //\b
-        result.replaceInStrings(QStringLiteral("<KBABELDEL></KBABELDEL>"), QString());
-        result.replaceInStrings(QStringLiteral("<KBABELADD></KBABELADD>"), QString());
-
-        result.replaceInStrings(QStringLiteral("<KBABELADD>"), QStringLiteral("{KBABELADD}"));
-        result.replaceInStrings(QStringLiteral("</KBABELADD>"), QStringLiteral("{/KBABELADD}"));
-        result.replaceInStrings(QStringLiteral("<KBABELDEL>"), QStringLiteral("{KBABELDEL}"));
-        result.replaceInStrings(QStringLiteral("</KBABELDEL>"), QStringLiteral("{/KBABELDEL}"));
+        result.replaceInStrings(delMarkerStart + delMarkerEnd, QString());
+        result.replaceInStrings(addMarkerStart + addMarkerEnd, QString());
 
         if (options & Html) {
             result.replaceInStrings(QStringLiteral("&"), QStringLiteral("&amp;"));
@@ -411,14 +396,13 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
             result.replaceInStrings(QStringLiteral(">"), QStringLiteral("&gt;"));
         }
         res = result.join(QString());
-        res.remove(QStringLiteral("{/KBABELADD}{KBABELADD}"));
-        res.remove(QStringLiteral("{/KBABELDEL}{KBABELDEL}"));
+        res.remove(addMarkerEnd + addMarkerStart);
+        res.remove(delMarkerEnd + delMarkerStart);
     }
 
-    if (options & Html) {
-        // Convert from curly brace KBABEL tags to HTML coloured with inline CSS
+    // Convert from curly brace diff tags to HTML coloured with inline CSS
+    if (options & Html)
         res = diffToHtmlDiff(res);
-    }
 
     return res;
 }
@@ -457,10 +441,10 @@ QString diffToHtmlDiff(const QString& diff)
         + delDiffColor.foreground().color().name()
         + QLatin1String(";\">");
 
-    coloredHtmlDiff.replace(QLatin1String("{KBABELADD}"), addDiffColorSpan);
-    coloredHtmlDiff.replace(QLatin1String("{/KBABELADD}"), QLatin1String("</span>"));
-    coloredHtmlDiff.replace(QLatin1String("{KBABELDEL}"), delDiffColorSpan);
-    coloredHtmlDiff.replace(QLatin1String("{/KBABELDEL}"), QLatin1String("</span>"));
+    coloredHtmlDiff.replace(addMarkerStart, addDiffColorSpan);
+    coloredHtmlDiff.replace(addMarkerEnd, QLatin1String("</span>"));
+    coloredHtmlDiff.replace(delMarkerStart, delDiffColorSpan);
+    coloredHtmlDiff.replace(delMarkerEnd, QLatin1String("</span>"));
     coloredHtmlDiff.replace(QLatin1String("\\n"), QLatin1String("\\n<br>"));
 
     return coloredHtmlDiff;

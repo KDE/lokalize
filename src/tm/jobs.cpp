@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -1187,8 +1188,16 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     sourceClean.remove(c.accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
     QStringList englishList(sourceClean.toLower().split(rxSplit, Qt::SkipEmptyParts));
-    static const QRegularExpression delPart(QRegularExpression::wildcardToRegularExpression(QStringLiteral("<KBABELDEL>*</KBABELDEL>"), QRegularExpression::UnanchoredWildcardConversion), QRegularExpression::InvertedGreedinessOption);
-    static const QRegularExpression addPart(QRegularExpression::wildcardToRegularExpression(QStringLiteral("<KBABELADD>*</KBABELADD>"), QRegularExpression::UnanchoredWildcardConversion), QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression delPart(
+        QRegularExpression::wildcardToRegularExpression(
+            addMarkerStart + QStringLiteral("*") + addMarkerEnd,
+            QRegularExpression::UnanchoredWildcardConversion),
+        QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression addPart(
+        QRegularExpression::wildcardToRegularExpression(
+            delMarkerStart + QStringLiteral("*") + delMarkerEnd,
+            QRegularExpression::UnanchoredWildcardConversion),
+        QRegularExpression::InvertedGreedinessOption);
 
     //QList<uint> concordanceLevels=sortedUniqueValues(occurencies); //we start from entries with higher word-concordance level
     QMultiMap<uint, qlonglong> concordanceLevelToIds = invertMap(occurencies);

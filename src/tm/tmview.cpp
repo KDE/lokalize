@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2022 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -86,15 +87,18 @@ static DiffInfo getDiffInfo(const QString& diff)
     int pos = -1;
     while (++pos < diff.size()) {
         if (diff.at(pos) == sep) {
-            if (diff.indexOf(QLatin1String("{KBABELDEL}"), pos) == pos) {
+            if (diff.indexOf(delMarkerStart, pos) == pos) {
                 state = '-';
-                pos += 10;
-            } else if (diff.indexOf(QLatin1String("{KBABELADD}"), pos) == pos) {
+                pos += delMarkerStart.length() - 1;
+            } else if (diff.indexOf(addMarkerStart, pos) == pos) {
                 state = '+';
-                pos += 10;
-            } else if (diff.indexOf(QLatin1String("{/KBABEL"), pos) == pos) {
+                pos += addMarkerStart.length() - 1;
+            } else if (diff.indexOf(delMarkerEnd, pos) == pos) {
                 state = '0';
-                pos += 11;
+                pos += delMarkerEnd.length() - 1;
+            } else if (diff.indexOf(addMarkerEnd, pos) == pos) {
+                state = '0';
+                pos += addMarkerEnd.length() - 1;
             }
         } else {
             if (state != '+') {
@@ -369,9 +373,6 @@ void TMView::displayFromCache()
 
 void TMView::slotSuggestionsCame(SelectJob* j)
 {
-//     QTime time;
-//     time.start();
-
     SelectJob& job = *j;
     job.deleteLater();
     if (job.m_pos.entry != m_pos.entry)
@@ -401,7 +402,6 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         DBFilesModel& dbFilesModel = *(DBFilesModel::instance());
         QModelIndex root = dbFilesModel.rootIndex();
         int i = dbFilesModel.rowCount(root);
-        //qCWarning(LOKALIZE_LOG)<<"query other DBs,"<<i<<"total";
         while (--i >= 0) {
             const QString& dbName = dbFilesModel.data(dbFilesModel.index(i, 0, root), DBFilesModel::NameRole).toString();
             if (projectID != dbName && dbFilesModel.m_configurations.value(dbName).targetLangCode == catalog.targetLangCode()) {
@@ -433,9 +433,6 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     m_browser->clear();
     m_entryPositions.clear();
 
-    //m_entries=job.m_entries;
-    //m_browser->insertHtml("<html>");
-
     int i = 0;
     QTextBlockFormat blockFormatBase;
     QTextBlockFormat blockFormatAlternate;
@@ -450,7 +447,6 @@ void TMView::slotSuggestionsCame(SelectJob* j)
 
         const TMEntry& entry = job.m_entries.at(i);
         html += (entry.score > 9500) ? QStringLiteral("<p class='close_match'>") : QStringLiteral("<p>");
-        //qCDebug(LOKALIZE_LOG)<<entry.target.string<<entry.hits;
 
         html += QStringLiteral("/");
         html += QString(i18nc("%1 is the TM entry score in percentage", "%1%", entry.score > 10000 ? 100 : float(entry.score) / 100));
@@ -460,36 +456,13 @@ void TMView::slotSuggestionsCame(SelectJob* j)
 
         // Add the diff: made of HTML coloured with inline CSS
         html += diffToHtmlDiff(entry.diff.toHtmlEscaped());
-#if 0
-        cur.insertHtml(result);
 
-        cur.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, cur.position() - sourceStartPos);
-        CatalogString catStr(entry.diff);
-        catStr.string.remove("{KBABELDEL}"); catStr.string.remove("{/KBABELDEL}");
-        catStr.string.remove("{KBABELADD}"); catStr.string.remove("{/KBABELADD}");
-        catStr.tags = entry.source.tags;
-        DiffInfo d = getDiffInfo(entry.diff);
-        int j = catStr.tags.size();
-        while (--j >= 0) {
-            catStr.tags[j].start = d.old2DiffClean.at(catStr.tags.at(j).start);
-            catStr.tags[j].end  = d.old2DiffClean.at(catStr.tags.at(j).end);
-        }
-        insertContent(cur, catStr, job.m_source, false);
-#endif
-
-        //str.replace('&',"&amp;"); TODO check
         html += QLatin1String("<br>");
         if (Q_LIKELY(i < m_actions_insert.size())) {
             m_actions_insert.at(i)->setStatusTip(entry.target.string);
             html += QStringLiteral("[%1] ").arg(m_actions_insert.at(i)->shortcut().toString(QKeySequence::NativeText));
         } else
             html += QLatin1String("[ - ] ");
-        /*
-                QString str(entry.target.string);
-                str.replace('<',"&lt;");
-                str.replace('>',"&gt;");
-                html+=str;
-        */
         cur.insertHtml(html); html.clear();
         cur.setCharFormat((entry.score > 9500) ? closeMatchCharFormat : noncloseMatchCharFormat);
         insertContent(cur, entry.target);
@@ -506,15 +479,9 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     }
     m_browser->insertHtml(QStringLiteral("</html>"));
     setUpdatesEnabled(true);
-//    qCWarning(LOKALIZE_LOG)<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
 }
 
 
-/*
-void TMView::slotPaletteChanged()
-{
-
-}*/
 bool TMView::event(QEvent *event)
 {
     if (event->type() == QEvent::ToolTip) {
@@ -689,8 +656,9 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 
     // TODO: This regex looks for formatted html from diff.cpp diffToHtmlDiff()
     // that is shown to the user, but the diff it searches in seems to only
-    // ever include KBABEL tags? So the regex may be searching for something
-    // that never exists? `m_entries` never contains a string with HTML...
+    // ever include curly brace tags? So the regex may be searching for
+    // something that never exists? `m_entries` never contains a string with
+    // HTML...
     const QRegularExpression rxAdd(QLatin1String("<span class=\"lokalizeAddDiffColorSpan\" style=\"background-color:[^>]*;color:[^>]*;\">([^>]*)</span>"));
     const QRegularExpression rxDel(QLatin1String("<span class=\"lokalizeDelDiffColorSpan\" style=\"background-color:[^>]*;color:[^>]*;\">([^>]*)</span>"));
 
@@ -702,7 +670,9 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
             break;
         }
         pos = match.capturedStart();
-        diff.replace(pos, match.capturedLength(), QStringLiteral("\tKBABELDEL\t") + match.capturedView(1) + QStringLiteral("\t/KBABELDEL\t"));
+        diff.replace(pos, match.capturedLength(),
+                     QStringLiteral("\tLokalizeDel\t") + match.capturedView(1) +
+                         QStringLiteral("\t/LokalizeDel\t"));
     }
     pos = 0;
     while (true) {
@@ -711,7 +681,9 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
             break;
         }
         pos = match.capturedStart();
-        diff.replace(pos, match.capturedLength(), QStringLiteral("\tKBABELADD\t") + match.capturedView(1) + QStringLiteral("\t/KBABELADD\t"));
+        diff.replace(pos, match.capturedLength(),
+                     QStringLiteral("\tLokalizeAdd\t") + match.capturedView(1) +
+                         QStringLiteral("\t/LokalizeAdd\t"));
     }
 
     diff.replace(QStringLiteral("&lt;"), QStringLiteral("<"));

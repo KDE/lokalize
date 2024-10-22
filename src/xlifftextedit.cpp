@@ -152,7 +152,7 @@ void TranslationUnitTextEdit::fileLoaded()
 
     QLocale langLocale(langCode);
     // First try to use a locale name derived from the language code
-    m_highlighter->setCurrentLanguage(langLocale.name());    
+    m_highlighter->setCurrentLanguage(langLocale.name());
     //qCWarning(LOKALIZE_LOG) << "Attempting to set highlighting for " << m_part << " as " << langLocale.name();
     // If that fails, try to use the language code directly
     if (m_highlighter->currentLanguage() != langLocale.name() || m_highlighter->currentLanguage().isEmpty()) {
@@ -297,37 +297,6 @@ void TranslationUnitTextEdit::setContent(const CatalogString& catStr, const Cata
         m_languageToolTimer->start(Settings::self()->languageToolDelay() * 1000);
     }
 }
-
-#if 0
-struct SearchFunctor {
-    virtual int operator()(const QString& str, int startingPos);
-};
-
-int SearchFunctor::operator()(const QString& str, int startingPos)
-{
-    return str.indexOf(TAGRANGE_IMAGE_SYMBOL, startingPos);
-}
-
-struct AlternativeSearchFunctor: public SearchFunctor {
-    int operator()(const QString& str, int startingPos);
-};
-
-int AlternativeSearchFunctor::operator()(const QString& str, int startingPos)
-{
-    int tagPos = str.indexOf(TAGRANGE_IMAGE_SYMBOL, startingPos);
-    int diffStartPos = str.indexOf("{KBABEL", startingPos);
-    int diffEndPos = str.indexOf("{/KBABEL", startingPos);
-
-    int diffPos = qMin(diffStartPos, diffEndPos);
-    if (diffPos == -1)
-        diffPos = qMax(diffStartPos, diffEndPos);
-
-    int result = qMin(tagPos, diffPos);
-    if (result == -1)
-        result = qMax(tagPos, diffPos);
-    return result;
-}
-#endif
 
 void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr, bool insertText)
 {
