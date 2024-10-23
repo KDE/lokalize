@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2008 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -10,14 +11,17 @@
 #ifndef ALTTRANSVIEW_H
 #define ALTTRANSVIEW_H
 
+#include "alttrans.h"
+#include "pos.h"
+
+#include <QDockWidget>
+#include <QListWidget>
+
 #define ALTTRANS_SHORTCUTS 9
 
-#include "pos.h"
-#include "alttrans.h"
-#include <QDockWidget>
 namespace TM
 {
-class TextBrowser;
+class DynamicItemHeightQListWidget;
 }
 class Catalog;
 class QAction;
@@ -54,7 +58,7 @@ private:
 
 
 private:
-    TM::TextBrowser* m_browser;
+    TM::DynamicItemHeightQListWidget* m_atm_entries_list{nullptr};
     Catalog* m_catalog;
     QString m_normTitle;
     QString m_hasInfoTitle;
@@ -64,8 +68,7 @@ private:
     DocPos m_prevEntry;
 
     QVector<AltTrans> m_entries;
-    QMap<int, int> m_entryPositions;
-    QVector<QAction*> m_actions;//need them to get shortcuts
+    QVector<QAction*> m_actions; // need them to get shortcuts
 };
 
 #endif

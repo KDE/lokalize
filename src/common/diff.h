@@ -1,15 +1,15 @@
-/* **************************************************************************
+/*
   This file is part of Lokalize
 
   wordDiff algorithm adoption and further refinement:
         SPDX-FileCopyrightText: 2007 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
+
   (based on Markus Stengel's GPL implementation of LCS-Delta algorithm as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition, written by Thomas H. Cormen et. al. It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem.)
-
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+*/
 
-************************************************************************** */
 #ifndef DIFF_H
 #define DIFF_H
 

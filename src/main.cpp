@@ -10,36 +10,30 @@
 
 #include "lokalize_debug.h"
 
-#include "project.h"
+#include "catalogstring.h"
+#include "editortab.h"
+#include "jobs.h"
+#include "lokalizemainwindow.h"
+#include "pos.h"
 #include "prefs.h"
 #include "prefs_lokalize.h"
-
-#include "version.h"
-#include "projecttab.h"
+#include "project.h"
 #include "projectmodel.h"
-
-#include "lokalizemainwindow.h"
 #include "stemming.h"
+#include "version.h"
 
-#include "jobs.h"
-#include "catalogstring.h"
-#include "pos.h"
-
-#include <QMetaType>
-#include <QString>
+#include <QApplication>
+#include <QCommandLineOption>
+#include <QCommandLineParser>
 #include <QFile>
 #include <QFileInfo>
-#include <QApplication>
-#include <QCommandLineParser>
-#include <QCommandLineOption>
+#include <QMetaType>
+#include <QString>
 
 #include <KCrash>
 #include <KDBusService>
-
-#include <klocalizedstring.h>
-
 #include <kaboutdata.h>
-#include "editortab.h"
+#include <klocalizedstring.h>
 
 int main(int argc, char **argv)
 {
@@ -67,7 +61,7 @@ int main(int argc, char **argv)
     about.addCredit(i18n("NLNet Foundation"), i18n("sponsored XLIFF-related work"), QString(), QStringLiteral("https://nlnet.nl/"));
     about.addCredit(i18n("Translate-toolkit"), i18n("provided excellent cross-format converting scripts"), QString(), QStringLiteral("https://toolkit.translatehouse.org"));
     about.addCredit(i18n("LanguageTool"), i18n("grammar, style and spell checker"), QString(), QStringLiteral("https://toolkit.translatehouse.org"));
-    about.addCredit(i18n("Viesturs Zarins"), i18n("project tree merging translation+templates"), QStringLiteral("https://languagetool.org"), QString());
+    about.addCredit(i18n("Viesturs Zarins"), i18n("project tree merging translation+templates"), QString(), QStringLiteral("https://languagetool.org"));
     about.addCredit(i18n("Stephan Johach"), i18n("bug fixing patches"), QStringLiteral("hunsum@gmx.de"));
     about.addCredit(i18n("Chusslove Illich"), i18n("bug fixing patches"), QStringLiteral("caslav.ilic@gmx.net"));
     about.addCredit(i18n("Jure Repinc"), i18n("testing and bug fixing"), QStringLiteral("jlp@holodeck1.com"));
@@ -76,6 +70,7 @@ int main(int argc, char **argv)
     about.addCredit(i18n("Albert Astals Cid"), i18n("XLIFF improvements"), QStringLiteral("aacid@kde.org"));
     about.addCredit(i18n("Simon Depiets"), i18n("bug fixing and improvements"), QStringLiteral("sdepiets@gmail.com"));
     about.addCredit(i18n("Karl Ove Hufthammer"), i18n("bug fixing and improvements"), QStringLiteral("karl@huftis.org"));
+    about.addCredit(i18n("Finley Watson"), i18n("bug fixing and improvments"), QStringLiteral("fin-w@tutanota.com"));
     KAboutData::setApplicationData(about);
     KCrash::initialize();
     about.setupCommandLine(&parser);

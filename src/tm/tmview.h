@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -13,9 +14,11 @@
 #include "pos.h"
 #include "tmentry.h"
 
-#include <QTextBrowser>
 #include <QDockWidget>
+#include <QLabel>
+#include <QListWidget>
 #include <QMap>
+#include <QScrollBar>
 #include <QVector>
 
 class QRunnable;
@@ -26,8 +29,8 @@ class QDragEnterEvent;
 #define TM_SHORTCUTS 10
 namespace TM
 {
-class TextBrowser;
 class SelectJob;
+class DynamicItemHeightQListWidget;
 
 class TMView: public QDockWidget
 {
@@ -79,40 +82,54 @@ private:
     void deleteFile(const TMEntry& e, const bool showPopUp);
     void runJobs();
 
-
 private:
-    TextBrowser* m_browser{nullptr};
+    DynamicItemHeightQListWidget* m_tm_entries_list{nullptr};
     Catalog* m_catalog{nullptr};
     DocPosition m_pos;
-
+  
     SelectJob* m_currentSelectJob{nullptr};
-    QVector<QAction*> m_actions_insert;//need them to get insertion shortcuts
-    QVector<QAction*> m_actions_remove;//need them to get deletion shortcuts
+    QVector<QAction*> m_actions_insert; // need them to get insertion shortcuts
+    QVector<QAction*> m_actions_remove; // need them to get deletion shortcuts
     QList<TMEntry> m_entries;
-    QMap<int, int> m_entryPositions;
-
+  
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo{false};
-
+  
     bool m_isBatching{false};
     bool m_markAsFuzzy{false};
     QMap<DocPos, QVector<TMEntry>> m_cache;
-    DocPosition m_prevCachePos;//hacky hacky
-    QVector<QRunnable*> m_jobs;//holds pointers to all the jobs for the current file
+    DocPosition m_prevCachePos; // hacky hacky
+    QVector<QRunnable*> m_jobs; // holds pointers to all the jobs for the current file
 };
 
-class TextBrowser: public QTextBrowser
+class DoubleClickToInsertTextQLabel : public QLabel
 {
     Q_OBJECT
 public:
-    explicit TextBrowser(QWidget* parent): QTextBrowser(parent)
-    {
-        setContextMenuPolicy(Qt::CustomContextMenu);
-    }
+    explicit DoubleClickToInsertTextQLabel(QString text);
+
     void mouseDoubleClickEvent(QMouseEvent* event) override;
 Q_SIGNALS:
     void textInsertRequested(const QString&);
+};
+
+class DynamicItemHeightQListWidget : public QListWidget
+{
+public:
+    explicit DynamicItemHeightQListWidget(QWidget* parent);
+    /**
+     * @short Calculate and set heights of the list items, assuming word wrap.
+     *
+     * The Translation Memory contains entries of varying height
+     * because the text they contain wraps to new lines depending
+     * on its length and the width of the Translation Memory. The
+     * heights of the entries must be manually calculated and set
+     * so that they look right and adapt to resizes.
+     *
+     * @author Finley Watson <fin-w@tutanota.com>
+     */
+    void updateListItemHeights();
 };
 
 CatalogString targetAdapted(const TMEntry& entry, const CatalogString& ref);

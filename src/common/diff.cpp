@@ -1,4 +1,4 @@
-/* **************************************************************************
+/*
   This file is part of Lokalize
 
   wordDiff algorithm adoption and further refinement:
@@ -8,26 +8,22 @@
   (based on Markus Stengel's GPL implementation of LCS-Delta algorithm as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition, written by Thomas H. Cormen et. al. It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem.)
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-
-************************************************************************** */
+*/
 
 #include "diff.h"
 
 #include "lokalize_debug.h"
 
-// #include "project.h"
-#include "prefs_lokalize.h"
-
-#include <QRegularExpression>
-#include <QVector>
-#include <QStringList>
-#include <QStringMatcher>
-#include <QStringBuilder>
+#include <list>
 
 #include <kcolorscheme.h>
-#include <list>
-#include <qtextformat.h>
 
+#include <QRegularExpression>
+#include <QStringBuilder>
+#include <QStringList>
+#include <QStringMatcher>
+#include <QTextFormat>
+#include <QVector>
 
 typedef enum {
     NOTHING       = 0,
@@ -445,7 +441,8 @@ QString diffToHtmlDiff(const QString& diff)
     coloredHtmlDiff.replace(addMarkerEnd, QLatin1String("</span>"));
     coloredHtmlDiff.replace(delMarkerStart, delDiffColorSpan);
     coloredHtmlDiff.replace(delMarkerEnd, QLatin1String("</span>"));
-    coloredHtmlDiff.replace(QLatin1String("\\n"), QLatin1String("\\n<br>"));
+    // Newline chars that are manual line breaks in the translation file are converted to HTML
+    coloredHtmlDiff.replace(QLatin1String("\n"), QLatin1String("<br>"));
 
     return coloredHtmlDiff;
 }

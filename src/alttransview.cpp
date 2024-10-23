@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2019, 2023 Karl Ove Hufthammer <karl@huftis.org>
+  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -12,41 +13,38 @@
 
 #include "lokalize_debug.h"
 
-#include "diff.h"
 #include "catalog.h"
 #include "cmd.h"
-#include "project.h"
-#include "xlifftextedit.h"
-#include "tmview.h" //TextBrowser
+#include "diff.h"
 #include "mergecatalog.h"
 #include "prefs_lokalize.h"
+#include "project.h"
+#include "projectbase.h"
+#include "tmview.h" // For the DynamicItemHeightQListWidget and other functionality
 
-#include <QStringBuilder>
-#include <QDragEnterEvent>
-#include <QMimeData>
-#include <QFileInfo>
-#include <QDir>
-#include <QToolTip>
 #include <QAction>
+#include <QDir>
+#include <QDragEnterEvent>
+#include <QFileInfo>
+#include <QMimeData>
+#include <QScrollBar>
+#include <QStringBuilder>
+#include <QStringLiteral>
+#include <QToolTip>
 
-#include <kcoreaddons_version.h>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <kcoreaddons_version.h>
 
 AltTransView::AltTransView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget(i18nc("@title:window", "Alternate Translations"), parent)
-    , m_browser(new TM::TextBrowser(this))
-    , m_catalog(catalog)
+    , m_atm_entries_list(new TM::DynamicItemHeightQListWidget(this)), m_catalog(catalog)
     , m_normTitle(i18nc("@title:window", "Alternate Translations"))
     , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
     , m_actions(actions)
 {
     setObjectName(QStringLiteral("msgIdDiff"));
-    setWidget(m_browser);
-    hide();
-
-    m_browser->setReadOnly(true);
-    m_browser->viewport()->setBackgroundRole(QPalette::Window);
+    setWidget(m_atm_entries_list);
     QTimer::singleShot(0, this, &AltTransView::initLater);
 }
 
@@ -63,9 +61,6 @@ void AltTransView::initLater()
     while (--i >= 0) {
         connect(m_actions.at(i), &QAction::triggered, this, [this, i] { slotUseSuggestion(i); });
     }
-
-    connect(m_browser, &TM::TextBrowser::textInsertRequested, this, &AltTransView::textInsertRequested);
-    //connect(m_browser, &TM::TextBrowser::customContextMenuRequested, this, &AltTransView::contextMenu);
 }
 
 AltTransView::~AltTransView()
@@ -127,12 +122,12 @@ void AltTransView::slotNewEntryDisplayed(const DocPosition& pos)
 void AltTransView::process()
 {
     if (m_entry == m_prevEntry) return;
-    if (m_catalog->numberOfEntries() <= m_entry.entry)
+    if (m_catalog->numberOfEntries() <= m_entry.entry) {
+        m_atm_entries_list->clear();
         return;//because of Qt::QueuedConnection
+    }
 
     m_prevEntry = m_entry;
-    m_browser->clear();
-    m_entryPositions.clear();
 
     const QVector<AltTrans>& entries = m_catalog->altTrans(m_entry.toDocPosition());
     m_entries = entries;
@@ -142,6 +137,7 @@ void AltTransView::process()
             m_hasInfo = false;
             setWindowTitle(m_normTitle);
         }
+        m_atm_entries_list->clear();
         return;
     }
     if (!m_hasInfo) {
@@ -166,20 +162,21 @@ void AltTransView::process()
 
     CatalogString source = m_catalog->sourceWithTags(m_entry.toDocPosition());
     QString context = m_catalog->context(m_entry.toDocPosition()).first();
-    QString contextWithNewline = context + (context.isEmpty() ? QString() : QStringLiteral("\n"));
 
-    QTextBlockFormat blockFormatBase;
-    QTextBlockFormat blockFormatAlternate; blockFormatAlternate.setBackground(QPalette().alternateBase());
-    QTextCharFormat noncloseMatchCharFormat;
-    QTextCharFormat closeMatchCharFormat;  closeMatchCharFormat.setFontWeight(QFont::Bold);
+    setUpdatesEnabled(false);
+    m_atm_entries_list->viewport()->setUpdatesEnabled(false);
+    m_atm_entries_list->clear();
     int i = 0;
     int limit = entries.size();
+    QString translationDetails = i18n("From alternate translations folder");
+    QString keyboardShortcut;
+    QString metadata;
+    QString sourceString;
+    QString targetString;
+    QString contextString;
     while (true) {
         const AltTrans& entry = entries.at(i);
 
-        QTextCursor cur = m_browser->textCursor();
-        QString html;
-        html.reserve(1024);
         // If either context or id data exists as '#|' comments in .po files,
         // perform diff calculations on both context and id. If one string is
         // missing in the comment then treat it as empty.
@@ -187,11 +184,21 @@ void AltTransView::process()
             if (!entry.context.isEmpty() || !context.isEmpty()) {
                 QString prevMsgCtxt = entry.context.string;
                 QString currentMsgCtxt = context;
+
+                // Messages have arbitrary word wrapping, which should
+                // not affect the diff. So we remove any word wrapping
+                // newlines. (Note that this does not remove manual \n
+                // characters used in the messages.)
                 prevMsgCtxt.replace(QStringLiteral("\n"), QString());
                 currentMsgCtxt.replace(QStringLiteral("\n"), QString());
-                html += userVisibleWordDiff(
-                    prevMsgCtxt, currentMsgCtxt, Project::instance()->accel(),
-                    Project::instance()->markup(), Html);
+                QString contextHeader =
+                    i18nc("Title for an alternative translation entry context diff.",
+                          "Comparison with previous context:");
+                contextString = QStringLiteral("<strong>%1</strong><br>%2<br>")
+                                    .arg(contextHeader,
+                                         userVisibleWordDiff(prevMsgCtxt, currentMsgCtxt,
+                                                             Project::instance()->accel(),
+                                                             Project::instance()->markup(), Html));
             }
             if (!entry.source.isEmpty() || !source.string.isEmpty()) {
                 QString prevMsgId = entry.source.string;
@@ -203,40 +210,55 @@ void AltTransView::process()
                 // characters used in the messages.)
                 prevMsgId.replace(QStringLiteral("\n"), QString());
                 currentMsgId.replace(QStringLiteral("\n"), QString());
-
-                if (!html.isEmpty())
-                    html += QStringLiteral("<br>");
-                html += userVisibleWordDiff(
-                    prevMsgId, currentMsgId, Project::instance()->accel(),
-                    Project::instance()->markup(), Html);
+                QString sourceHeader = i18nc("Title for alternative translation source diff.",
+                                             "Comparison with previous source:");
+                sourceString = QStringLiteral("<strong>%1</strong><br>%2<br>")
+                                   .arg(sourceHeader,
+                                        userVisibleWordDiff(prevMsgId, currentMsgId,
+                                                            Project::instance()->accel(),
+                                                            Project::instance()->markup(), Html));
             }
+        } else {
+            contextString.clear();
+            sourceString.clear();
         }
         // Here we are working with different data to the context and id above:
-        // an example of the translation into an alternative language.
+        // an example of the translation into an alternative language. As such,
+        // display a translation entry like those in the Translation Memory.
         if (!entry.target.isEmpty()) {
-            if (!html.isEmpty())
-                html += QStringLiteral("<br>");
+            m_actions.at(i)->setStatusTip(entry.target.string);
             if (Q_LIKELY(i < m_actions.size())) {
-                m_actions.at(i)->setStatusTip(entry.target.string);
-                html += QString(QStringLiteral("[%1] ")).arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
-            } else
-                html += QStringLiteral("[ - ] ");
-        }
-        if (!html.isEmpty()) {
-            cur.insertHtml(html);
-            html.clear();
-            if (!entry.target.isEmpty())
-                insertContent(cur, entry.target);
-            m_entryPositions.insert(cur.anchor(), i);
-
-            if (Q_UNLIKELY(++i >= limit))
-                break;
-
-            cur.insertBlock(i % 2 ? blockFormatAlternate : blockFormatBase);
+                keyboardShortcut = m_actions.at(i)->shortcut().toString(QKeySequence::NativeText);
+                metadata = QStringLiteral("%1 • %2").arg(translationDetails, keyboardShortcut);
+            } else {
+                metadata = translationDetails;
+            }
+            targetString = QStringLiteral("<ul style=\"margin:0px;\"><li>%1</li><li>%2</li></ul>")
+                               .arg(source.string, entry.target.string.toHtmlEscaped());
+            targetString.replace(QLatin1String("\n"), QLatin1String("<br>"));
         } else {
-            if (Q_UNLIKELY(++i >= limit))
-                break;
+            targetString.clear();
         }
+        // Only show an entry when there is data to show:
+        // see https://bugs.kde.org/show_bug.cgi?id=494500
+        // We should clean up the data being fed to this
+        // function to prevent duplicate data, but in the
+        // mean time this is a work-around.
+        if (!contextString.isEmpty() || !sourceString.isEmpty() || !targetString.isEmpty()) {
+            QListWidgetItem* translationMemoryEntryItem = new QListWidgetItem();
+            TM::DoubleClickToInsertTextQLabel* label = new TM::DoubleClickToInsertTextQLabel(
+                QStringLiteral("%1%2%3%4")
+                    .arg(metadata, contextString, targetString, sourceString));
+            m_atm_entries_list->addItem(translationMemoryEntryItem);
+            m_atm_entries_list->setItemWidget(translationMemoryEntryItem, label);
+
+            // Double-clicking words in a TM entry should add the selected
+            // word to the current translation target at the cursor position.
+            connect(label, &TM::DoubleClickToInsertTextQLabel::textInsertRequested, this,
+                    &AltTransView::textInsertRequested);
+        }
+        if (Q_UNLIKELY(++i >= limit))
+            break;
     }
 
     if (!m_everShown) {
@@ -247,6 +269,10 @@ void AltTransView::process()
         KConfigGroup group(&config, QStringLiteral("AltTransView"));
         group.writeEntry("EverShown", true);
     }
+
+    m_atm_entries_list->updateListItemHeights();
+    m_atm_entries_list->viewport()->setUpdatesEnabled(true);
+    setUpdatesEnabled(true);
 }
 
 
@@ -255,31 +281,33 @@ bool AltTransView::event(QEvent *event)
     if (event->type() == QEvent::ToolTip) {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
 
-        if (m_entryPositions.isEmpty()) {
-            QString tooltip = i18nc("@info:tooltip", "<p>Sometimes, if source text is changed, its translation becomes deprecated and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. looses approval status), "
-                                    "or (only in case of XLIFF file) moved to the <emphasis>alternate&nbsp;translations</emphasis> section accompanying the unit.</p>"
-                                    "<p>This toolview also shows the difference between current source string and the previous source string, so that you can easily see which changes should be applied to existing translation to make it reflect current source.</p>"
-                                    "<p>Double-clicking any word in this toolview inserts it into translation.</p>"
-                                    "<p>Drop translation file onto this toolview to use it as a source for additional alternate translations.</p>"
-                                   );
-            QToolTip::showText(helpEvent->globalPos(), tooltip);
-            return true;
+        for (int i = 0; i < m_atm_entries_list->count(); ++i) {
+            if (m_atm_entries_list->itemWidget(m_atm_entries_list->item(i))->underMouse()) {
+                if (i >= m_entries.size())
+                    return false;
+                QString origin = m_entries.at(i).origin;
+                if (origin.isEmpty())
+                    return false;
+                QString tooltip = i18nc("@info:tooltip", "Origin: %1", origin);
+                QToolTip::showText(helpEvent->globalPos(), tooltip);
+                return true;
+            }
         }
-
-        int block1 = m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
-        int block = *m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
-        if (block1 != block)
-            qCWarning(LOKALIZE_LOG) << "block numbers don't match";
-        if (block >= m_entries.size())
-            return false;
-
-        QString origin = m_entries.at(block).origin;
-        if (origin.isEmpty())
-            return false;
-
-        QString tooltip = i18nc("@info:tooltip", "Origin: %1", origin);
+        // This is long, but the tooltip formats it to a sensible width automatically.
+        QString tooltip = i18nc(
+            "@info:tooltip",
+            "Sometimes, if source text is changed, its translation becomes deprecated and is "
+            "either marked as needing review (i.e., loses approval status), or (only in case "
+            "of XLIFF file) moved to the alternate translations section accompanying the unit. "
+            "This toolview also shows the difference between current source string and the "
+            "previous source string, so that you can easily see which changes should be applied "
+            "to existing translation to make it reflect current source. Double-clicking any "
+            "word in this toolview inserts it into translation. Drop translation file onto this "
+            "toolview to use it as a source for additional alternate translations.");
         QToolTip::showText(helpEvent->globalPos(), tooltip);
         return true;
+    } else if (event->type() == QEvent::Resize && m_atm_entries_list->count() > 0) {
+        m_atm_entries_list->updateListItemHeights();
     }
     return QDockWidget::event(event);
 }

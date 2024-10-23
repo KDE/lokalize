@@ -13,14 +13,14 @@
 
 #include "lokalize_debug.h"
 
-#include "jobs.h"
-#include "tmscanapi.h"
 #include "catalog.h"
 #include "cmd.h"
-#include "project.h"
-#include "prefs_lokalize.h"
 #include "dbfilesmodel.h"
 #include "diff.h"
+#include "jobs.h"
+#include "prefs_lokalize.h"
+#include "project.h"
+#include "tmscanapi.h"
 #include "xlifftextedit.h"
 
 #include <kcoreaddons_version.h>
@@ -28,16 +28,20 @@
 #include <kmessagebox.h>
 #include <knotification.h>
 
-#include <QTime>
-#include <QDragEnterEvent>
-#include <QMimeData>
-#include <QFileInfo>
-#include <QFile>
+#include <QApplication>
 #include <QDir>
+#include <QDragEnterEvent>
+#include <QFile>
+#include <QFileInfo>
+#include <QLabel>
+#include <QListWidget>
+#include <QMenu>
+#include <QMimeData>
+#include <QScrollBar>
+#include <QStringBuilder>
+#include <QTime>
 #include <QTimer>
 #include <QToolTip>
-#include <QMenu>
-#include <QStringBuilder>
 
 #ifdef NDEBUG
 #undef NDEBUG
@@ -112,20 +116,83 @@ static DiffInfo getDiffInfo(const QString& diff)
     return d;
 }
 
-
-void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
+DoubleClickToInsertTextQLabel::DoubleClickToInsertTextQLabel(QString text) : QLabel(text)
 {
-    QTextBrowser::mouseDoubleClickEvent(event);
-
-    QString sel = textCursor().selectedText();
-    if (!(sel.isEmpty() || sel.contains(QLatin1Char(' '))))
-        Q_EMIT textInsertRequested(sel);
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    setWordWrap(true);
+    // We're using HTML
+    setTextFormat(Qt::RichText);
+    // It must be possible to highlight words by double-clicking because
+    // they get added to the target string being translated.
+    setTextInteractionFlags(Qt::TextSelectableByMouse);
+    // Internal margins within the background colour of the list item.
+    setContentsMargins(QMargins(style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing),
+                                style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing),
+                                style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing),
+                                style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing)));
 }
 
+void DoubleClickToInsertTextQLabel::mouseDoubleClickEvent(QMouseEvent* event)
+{
+    QLabel::mouseDoubleClickEvent(event);
+    if (this->hasSelectedText()) {
+        QString sel = this->selectedText();
+        if (!(sel.isEmpty() || sel.contains(QLatin1Char(' '))))
+            Q_EMIT textInsertRequested(sel);
+    }
+}
 
-TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions_insert, const QVector<QAction*>& actions_remove)
+DynamicItemHeightQListWidget::DynamicItemHeightQListWidget(QWidget* parent) : QListWidget(parent)
+{
+    // The below scrollbar lines are required because the scrollbar width is initially
+    // coming back as 100px, and this messes up calculations of the viewport width in
+    // DynamicItemHeightQListWidget::updateListItemHeights() that are used to calculate
+    // the initial heights of the list items. To avoid this, set the width explicitly.
+    verticalScrollBar()->setFixedWidth(style()->pixelMetric(QStyle::PM_ScrollBarExtent));
+    verticalScrollBar()->sizePolicy().setRetainSizeWhenHidden(true);
+    viewport()->setBackgroundRole(QPalette::Window);
+    setAlternatingRowColors(true);
+    setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    setMouseTracking(true);
+}
+
+void DynamicItemHeightQListWidget::updateListItemHeights()
+{
+    bool scrollBarVisible = this->verticalScrollBar()->isVisible();
+    int totalNewListItemHeightWithoutScrollbar = 0;
+    int widthWithScrollbar = scrollBarVisible
+                                 ? this->viewport()->width()
+                                 : this->viewport()->width() - this->verticalScrollBar()->width();
+    int widthWithoutScrollbar = scrollBarVisible
+                                    ? this->viewport()->width() + this->verticalScrollBar()->width()
+                                    : this->viewport()->width();
+    // First calculate the total height of the list, assuming the
+    // scrollbar doesn't show and we can use the entire width.
+    for (int i = 0; i < this->count(); ++i) {
+        QListWidgetItem* listWidgetItem = this->item(i);
+        QWidget* itemText = this->itemWidget(listWidgetItem);
+        totalNewListItemHeightWithoutScrollbar += itemText->heightForWidth(widthWithoutScrollbar);
+    }
+    // If the list is too tall even without scrollbars,
+    // then the scrollbars will have to show and we use
+    // the narrower width that takes into account the
+    // scrollbar's presence when calculating item heights.
+    bool scrollbarsWillShow = totalNewListItemHeightWithoutScrollbar > this->viewport()->height();
+    for (int i = 0; i < this->count(); ++i) {
+        QListWidgetItem* listWidgetItem = this->item(i);
+        QWidget* itemText = this->itemWidget(listWidgetItem);
+        // Set item widths and heights, taking into account
+        // whether the scrollbar is about to show or not
+        listWidgetItem->setSizeHint(
+            QSize(1, itemText->heightForWidth(scrollbarsWillShow ? widthWithScrollbar
+                                                                 : widthWithoutScrollbar)));
+    }
+}
+
+TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions_insert,
+               const QVector<QAction*>& actions_remove)
     : QDockWidget(i18nc("@title:window", "Translation Memory"), parent)
-    , m_browser(new TextBrowser(this))
+    , m_tm_entries_list(new DynamicItemHeightQListWidget(this))
     , m_catalog(catalog)
     , m_actions_insert(actions_insert)
     , m_actions_remove(actions_remove)
@@ -133,10 +200,7 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
 {
     setObjectName(QStringLiteral("TMView"));
-    setWidget(m_browser);
-
-    m_browser->document()->setDefaultStyleSheet(QStringLiteral("p.close_match { font-weight:bold; }"));
-    m_browser->viewport()->setBackgroundRole(QPalette::Window);
+    setWidget(m_tm_entries_list);
 
     QTimer::singleShot(0, this, &TMView::initLater);
     connect(m_catalog, qOverload<const QString &>(&Catalog::signalFileLoaded), this, &TMView::slotFileLoaded);
@@ -166,12 +230,6 @@ void TMView::initLater()
     setToolTip(i18nc("@info:tooltip", "Double-click any word to insert it into translation"));
 
     DBFilesModel::instance();
-
-    connect(m_browser, &TM::TextBrowser::textInsertRequested, this, &TMView::textInsertRequested);
-    connect(m_browser, &TM::TextBrowser::customContextMenuRequested, this, &TMView::contextMenu);
-    //TODO ? kdisplayPaletteChanged
-//     connect(KGlobalSettings::self(),,SIGNAL(kdisplayPaletteChanged()),this,SLOT(slotPaletteChanged()));
-
 }
 
 void TMView::dragEnterEvent(QDragEnterEvent* event)
@@ -350,7 +408,7 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 
     if (pos.entry != -1)
         m_pos = pos;
-    m_browser->clear();
+    m_tm_entries_list->clear();
     if (Settings::prefetchTM()
         && m_cache.contains(DocPos(m_pos))) {
         QTimer::singleShot(0, this, &TMView::displayFromCache);
@@ -430,80 +488,121 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     }
 
     setUpdatesEnabled(false);
-    m_browser->clear();
-    m_entryPositions.clear();
-
+    m_tm_entries_list->viewport()->setUpdatesEnabled(false);
+    m_tm_entries_list->clear();
     int i = 0;
-    QTextBlockFormat blockFormatBase;
-    QTextBlockFormat blockFormatAlternate;
-    blockFormatAlternate.setBackground(QPalette().alternateBase());
-    QTextCharFormat noncloseMatchCharFormat;
-    QTextCharFormat closeMatchCharFormat;
-    closeMatchCharFormat.setFontWeight(QFont::Bold);
+    QString keyboardShortcut;
+    QString occurrences;
+    QString percentageMatch;
+    QString metadata;
+    QString source;
+    QString target;
     while (true) {
-        QTextCursor cur = m_browser->textCursor();
-        QString html;
-        html.reserve(1024);
-
         const TMEntry& entry = job.m_entries.at(i);
-        html += (entry.score > 9500) ? QStringLiteral("<p class='close_match'>") : QStringLiteral("<p>");
-
-        html += QStringLiteral("/");
-        html += QString(i18nc("%1 is the TM entry score in percentage", "%1%", entry.score > 10000 ? 100 : float(entry.score) / 100));
-        html += QStringLiteral(" ");
-        html += QString(i18ncp("%1 is the number of times this TM entry has been found", "(1 time)", "(%1 times)", entry.hits));
-        html += QStringLiteral("/ ");
-
-        // Add the diff: made of HTML coloured with inline CSS
-        html += diffToHtmlDiff(entry.diff.toHtmlEscaped());
-
-        html += QLatin1String("<br>");
+        // Generate the metadata string based on the TM entry's
+        // match percentage, occurrences and keyboard shortcut.
+        if (entry.score >= 10000) {
+            percentageMatch = i18nc("A perfect match between a Translation Memory source string "
+                                    "and the source string being translated.",
+                                    "100% (perfect match)");
+        } else {
+            percentageMatch = i18nc("The similarity between a Translation Memory source string and "
+                                    "the source string being translated, %1 is 0 to 99 (percent).",
+                                    "%1%", int(entry.score / 100));
+        }
+        occurrences = i18ncp("The number of times a Translation Memory entry exists in the "
+                             "database, %1 is the number.",
+                             "Occurred %1 time", "Occurred %1 times", entry.hits);
         if (Q_LIKELY(i < m_actions_insert.size())) {
+            // For keyboard shortcuts.
             m_actions_insert.at(i)->setStatusTip(entry.target.string);
-            html += QStringLiteral("[%1] ").arg(m_actions_insert.at(i)->shortcut().toString(QKeySequence::NativeText));
-        } else
-            html += QLatin1String("[ - ] ");
-        cur.insertHtml(html); html.clear();
-        cur.setCharFormat((entry.score > 9500) ? closeMatchCharFormat : noncloseMatchCharFormat);
-        insertContent(cur, entry.target);
-        m_entryPositions.insert(cur.anchor(), i);
-
-        html += i ? QStringLiteral("<br></p>") : QStringLiteral("</p>");
-        cur.insertHtml(html);
-
+            keyboardShortcut =
+                m_actions_insert.at(i)->shortcut().toString(QKeySequence::NativeText);
+            metadata =
+                i18nc("Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
+                      "(%3). Bullet point is a separator between the data and can be translated.",
+                      "%1 • %2 • %3", percentageMatch, occurrences, keyboardShortcut);
+        } else {
+            metadata = i18nc("Percentage match (%1) and number of occurrences (%2). Bullet point "
+                             "is a separator between the data and can be translated.",
+                             "%1 • %2", percentageMatch, occurrences);
+        }
+        if (entry.target.string == QLatin1String(" ")) {
+            // Show an empty bullet point rather than a blank line.
+            target = QLatin1String("&nbsp;");
+        } else {
+            // Diff between current translation source and TM entry source.
+            // Bold target string on 100% match.
+            target =
+                entry.score >= 10000
+                    ? QLatin1String("<strong>%1</strong>").arg(entry.target.string.toHtmlEscaped())
+                    : entry.target.string.toHtmlEscaped();
+            // Newline chars that are manual line breaks in the translation file are converted to
+            // HTML.
+            target.replace(QLatin1String("\n"), QLatin1String("<br>"));
+            // Work around HTML collapsing together multiple spaces
+            target.replace(QLatin1String("  "), QLatin1String("&nbsp;&nbsp;"));
+        }
+        source = entry.score >= 10000 ? QLatin1String("<strong>%1</strong>")
+                                            .arg(diffToHtmlDiff(entry.diff.toHtmlEscaped()))
+                                      : diffToHtmlDiff(entry.diff.toHtmlEscaped());
+        // Add a QLabel containing the TM entry HTML to a new list item.
+        QListWidgetItem* translationMemoryEntryItem = new QListWidgetItem();
+        DoubleClickToInsertTextQLabel* label = new DoubleClickToInsertTextQLabel(
+            QStringLiteral("%1"
+                           "<ul style=\"margin-top:0px;padding-top:0px;\">"
+                           "<li>%2</li>"
+                           "<li>%3</li>"
+                           "</ul>")
+                .arg(metadata, source, target));
+        m_tm_entries_list->addItem(translationMemoryEntryItem);
+        m_tm_entries_list->setItemWidget(translationMemoryEntryItem, label);
+        // Double-clicking words in a TM entry should add the selected
+        // word to the current translation target at the cursor position.
+        connect(label, &DoubleClickToInsertTextQLabel::textInsertRequested, this,
+                &TMView::textInsertRequested);
+        // TM entry should show a tooltip with options / info about it on right-click and
+        // mouse-over.
+        connect(label, &DoubleClickToInsertTextQLabel::customContextMenuRequested, this,
+                &TMView::contextMenu);
         if (Q_UNLIKELY(++i >= limit))
             break;
-
-        cur.insertBlock(i % 2 ? blockFormatAlternate : blockFormatBase);
-
     }
-    m_browser->insertHtml(QStringLiteral("</html>"));
+    m_tm_entries_list->updateListItemHeights();
+    m_tm_entries_list->viewport()->setUpdatesEnabled(true);
     setUpdatesEnabled(true);
 }
-
 
 bool TMView::event(QEvent *event)
 {
     if (event->type() == QEvent::ToolTip) {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        //int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
-        QMap<int, int>::iterator block = m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
-        if (block != m_entryPositions.end() && *block < m_entries.size()) {
-            const TMEntry& tmEntry = m_entries.at(*block);
-            QString file = tmEntry.file;
-            if (file == m_catalog->url())
-                file = i18nc("File argument in tooltip, when file is current file", "this");
-            QString tooltip = i18nc("@info:tooltip", "File: %1<br />Addition date: %2", file, tmEntry.date.toString(Qt::ISODate));
-            if (!tmEntry.changeDate.isNull() && tmEntry.changeDate != tmEntry.date)
-                tooltip += i18nc("@info:tooltip on TM entry continues", "<br />Last change date: %1", tmEntry.changeDate.toString(Qt::ISODate));
-            if (!tmEntry.changeAuthor.isEmpty())
-                tooltip += i18nc("@info:tooltip on TM entry continues", "<br />Last change author: %1", tmEntry.changeAuthor);
-            tooltip += i18nc("@info:tooltip on TM entry continues", "<br />TM: %1", tmEntry.dbName);
-            if (tmEntry.obsolete)
-                tooltip += i18nc("@info:tooltip on TM entry continues", "<br />Is not present in the file anymore");
-            QToolTip::showText(helpEvent->globalPos(), tooltip);
-            return true;
+        for (int i = 0; i < m_tm_entries_list->count(); ++i) {
+            if (m_tm_entries_list->itemWidget(m_tm_entries_list->item(i))->underMouse()) {
+                const TMEntry& tmEntry = m_entries.at(i);
+                QString file = tmEntry.file;
+                if (file == m_catalog->url())
+                    file = i18nc("File argument in tooltip, when file is current file", "this");
+                QString tooltip = i18nc("@info:tooltip", "File: %1<br />Addition date: %2", file,
+                                        tmEntry.date.toString(Qt::ISODate));
+                if (!tmEntry.changeDate.isNull() && tmEntry.changeDate != tmEntry.date)
+                    tooltip +=
+                        i18nc("@info:tooltip on TM entry continues", "<br />Last change date: %1",
+                              tmEntry.changeDate.toString(Qt::ISODate));
+                if (!tmEntry.changeAuthor.isEmpty())
+                    tooltip += i18nc("@info:tooltip on TM entry continues",
+                                     "<br />Last change author: %1", tmEntry.changeAuthor);
+                tooltip +=
+                    i18nc("@info:tooltip on TM entry continues", "<br />TM: %1", tmEntry.dbName);
+                if (tmEntry.obsolete)
+                    tooltip += i18nc("@info:tooltip on TM entry continues",
+                                     "<br />Is not present in the file anymore");
+                QToolTip::showText(helpEvent->globalPos(), tooltip);
+                return true;
+            }
         }
+    } else if (event->type() == QEvent::Resize && m_tm_entries_list->count() > 0) {
+        m_tm_entries_list->updateListItemHeights();
     }
     return QDockWidget::event(event);
 }
@@ -548,43 +647,53 @@ void TMView::runJobs()
 
 void TMView::contextMenu(const QPoint& pos)
 {
-    int block = *m_entryPositions.lowerBound(m_browser->cursorForPosition(pos).anchor());
-    qCWarning(LOKALIZE_LOG) << block;
-    if (block >= m_entries.size())
-        return;
-
-    const auto * e = &m_entries.at(block);
-
-    enum {Remove, RemoveFile, Open};
-    QMenu popup;
-    popup.addAction(i18nc("@action:inmenu", "Remove this entry"))->setData(Remove);
-    if (e->file != m_catalog->url() && QFile::exists(e->file))
-        popup.addAction(i18nc("@action:inmenu", "Open file containing this entry"))->setData(Open);
-    else {
-        if (Settings::deleteFromTMOnMissing()) {
-            //Automatic deletion
-            deleteFile(*e, true);
-            e = &m_entries.at(block); // e points to an invalid addres after TMView::deleteFile
-        } else if (!QFile::exists(e->file)) {
-            //Still offer manual deletion if this is not the current file
-            popup.addAction(i18nc("@action:inmenu", "Remove this missing file from TM"))->setData(RemoveFile);
+    for (int i = 0; i < m_tm_entries_list->count(); ++i) {
+        QWidget* entry = m_tm_entries_list->itemWidget(m_tm_entries_list->item(i));
+        if (entry->underMouse()) {
+            const TMEntry* tmEntry = &m_entries.at(i);
+            enum { Remove, RemoveFile, Open };
+            QMenu popup;
+            popup.addAction(i18nc("@action:inmenu", "Remove this entry"))->setData(Remove);
+            if (tmEntry->file != m_catalog->url()) {
+                if (QFile::exists(tmEntry->file)) {
+                    popup.addAction(i18nc("@action:inmenu", "Open file containing this entry"))
+                        ->setData(Open);
+                } else {
+                    if (Settings::deleteFromTMOnMissing()) {
+                        // Automatic deletion
+                        deleteFile(*tmEntry, true);
+                        // Fix segfault at QAction* r below: show no menu
+                        // after showing warning in deleteFile() above.
+                        return;
+                    } else {
+                        // Still offer manual deletion if this is not the current file.
+                        popup
+                            .addAction(i18nc("@action:inmenu", "Remove this missing file from TM"))
+                            ->setData(RemoveFile);
+                    }
+                }
+            }
+            QAction* r = popup.exec(entry->mapToGlobal(pos));
+            if (!r)
+                return;
+            if (r->data().toInt() == Remove) {
+                removeEntry(*tmEntry);
+            } else if (r->data().toInt() == Open) {
+                Q_EMIT fileOpenRequested(tmEntry->file, tmEntry->source.string, tmEntry->ctxt,
+                                         true);
+            } else if ((r->data().toInt() == RemoveFile) &&
+                       KMessageBox::PrimaryAction ==
+                           KMessageBox::questionTwoActions(
+                               this,
+                               i18n("<html>Do you really want to remove this missing "
+                                    "file:<br/><i>%1</i><br/>from translation memory %2?</html>",
+                                    tmEntry->file, tmEntry->dbName),
+                               i18nc("@title:window", "Translation Memory Missing File Removal"),
+                               KStandardGuiItem::remove(), KStandardGuiItem::cancel())) {
+                deleteFile(*tmEntry, false);
+            }
+            break;
         }
-    }
-    QAction* r = popup.exec(m_browser->mapToGlobal(pos));
-    if (!r)
-        return;
-    if (r->data().toInt() == Remove) {
-        removeEntry(*e);
-    } else if (r->data().toInt() == Open) {
-        Q_EMIT fileOpenRequested(e->file, e->source.string, e->ctxt, true);
-    } else if ((r->data().toInt() == RemoveFile)
-               && KMessageBox::PrimaryAction == KMessageBox::questionTwoActions(
-                   this,
-                   i18n("<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from translation memory %2?</html>",  e->file, e->dbName),
-                   i18nc("@title:window", "Translation Memory Missing File Removal"),
-                   KStandardGuiItem::remove(),
-                   KStandardGuiItem::cancel())) {
-        deleteFile(*e, false);
     }
 }
 
