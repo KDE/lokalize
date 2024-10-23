@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-22 00:41+0000\n"
+"POT-Creation-Date: 2024-10-23 00:43+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -750,7 +750,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "យក​អត្ថបទ​​ជាមួយ markup ចេញ​"
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:661
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:630
 #, fuzzy, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4339,7 +4339,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "គោលសែល​ (* និង​ ?) ។ ប្រកាន់​តួអក្សរតូចធំ​ ។​"
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:127 src/tm/tmview.cpp:132
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4353,44 +4353,44 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "សរុប​ ៖ %1​"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:567
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr ""
 
-#: src/tm/tmview.cpp:162
+#: src/tm/tmview.cpp:166
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "ចុចទ្វេដង​ពាក្យ​មួយចំនួន​ដើម្បីបញ្ចូល​វា​ក្នុងការបកប្រែ​"
 
-#: src/tm/tmview.cpp:281
+#: src/tm/tmview.cpp:285
 #, fuzzy, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "ការបំពេញ​សតិ​បកប្រែ​ចំនួន​ច្រើន​"
 
-#: src/tm/tmview.cpp:284
+#: src/tm/tmview.cpp:288
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "ការបកប្រែ​ចំនួន​ច្រើន​​បាន​បញ្ចប់​ ។"
 
-#: src/tm/tmview.cpp:290
+#: src/tm/tmview.cpp:294
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "រកមិនឃើញ​​ការផ្តល់យោបល់​ជាមួយ​ផ្គូផ្គងទៀងទាត់ ។"
 
-#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
+#: src/tm/tmview.cpp:314 src/tm/tmview.cpp:329
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "ការបកប្រែចំនួន​ច្រើន​ត្រូវបាន​កំណត់ពេល​ ។"
 
-#: src/tm/tmview.cpp:456
+#: src/tm/tmview.cpp:452
 #, fuzzy, kde-format
 #| msgctxt "percentages in statusbar"
 #| msgid " (%1%)"
@@ -4398,20 +4398,20 @@ msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr " (%1%)"
 
-#: src/tm/tmview.cpp:458
+#: src/tm/tmview.cpp:454
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
 msgid_plural "(%1 times)"
 msgstr[0] ""
 
-#: src/tm/tmview.cpp:528
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "នេះ​"
 
-#: src/tm/tmview.cpp:529
+#: src/tm/tmview.cpp:496
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "File: %1<br />Date: %2"
@@ -4419,31 +4419,31 @@ msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "ឯកសារ​ ៖​ %1<br />កាលបរិច្ឆេទ​ ៖​ %2​"
 
-#: src/tm/tmview.cpp:531
+#: src/tm/tmview.cpp:498
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr ""
 
-#: src/tm/tmview.cpp:533
+#: src/tm/tmview.cpp:500
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr ""
 
-#: src/tm/tmview.cpp:534
+#: src/tm/tmview.cpp:501
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />TM ៖ %1"
 
-#: src/tm/tmview.cpp:536
+#: src/tm/tmview.cpp:503
 #, fuzzy, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />បច្ចុប្បន្ន​មិន​នៅ​ក្នុង​ឯកសារ​ទៀតទេ​"
 
-#: src/tm/tmview.cpp:548
+#: src/tm/tmview.cpp:515
 #, fuzzy, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4451,31 +4451,31 @@ msgid ""
 msgstr ""
 "<html>តើ​អ្នក​ប្រាកដ​ជាចង់​យកធាតុ​​នេះចេញ​ ៖ <br/><i>%1</i><br/>ពី​សតិបកប្រែ %2 ឬ ?</html>"
 
-#: src/tm/tmview.cpp:549
+#: src/tm/tmview.cpp:516
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "ការយកធាតុសតិ​បកប្រែចេញ​"
 
-#: src/tm/tmview.cpp:593
+#: src/tm/tmview.cpp:560
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "យកធាតុ​នេះ​ចេញ​"
 
-#: src/tm/tmview.cpp:595
+#: src/tm/tmview.cpp:562
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "ធាតុ​នេះ​មាន​ឯ​សារ​ដែល​​បើក​"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:570
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:616
+#: src/tm/tmview.cpp:583
 #, fuzzy, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4483,13 +4483,13 @@ msgid ""
 msgstr ""
 "<html>តើ​អ្នក​ប្រាកដ​ជាចង់​យកធាតុ​​នេះចេញ​ ៖ <br/><i>%1</i><br/>ពី​សតិបកប្រែ %2 ឬ ?</html>"
 
-#: src/tm/tmview.cpp:617
+#: src/tm/tmview.cpp:584
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "ការយកធាតុសតិ​បកប្រែចេញ​"
 
-#: src/tm/tmview.cpp:1016
+#: src/tm/tmview.cpp:988
 #, fuzzy, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4552,29 +4552,29 @@ msgstr "ស្វែរ​រក​អត្ថបទធាតុ​ GUI ក្�
 msgid "Copy GUI element text to clipboard"
 msgstr "ចម្លង​អត្ថបទ​ធាតុ​ GUI ទៅក្តារតម្បៀតខ្ទាស់​"
 
-#: src/xlifftextedit.cpp:990
+#: src/xlifftextedit.cpp:959
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "ស្វែរ​រក​អត្ថបទធាតុ​ GUI ក្នុង​សតិ​ការបកប្រែ​"
 
-#: src/xlifftextedit.cpp:1012 src/xlifftextedit.cpp:1090
+#: src/xlifftextedit.cpp:981 src/xlifftextedit.cpp:1059
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "ជំនួស​អត្ថបទ​​​"
 
-#: src/xlifftextedit.cpp:1127
+#: src/xlifftextedit.cpp:1096
 #, kde-format
 msgid "no spellcheck available"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1141
+#: src/xlifftextedit.cpp:1110
 #, kde-format
 msgid "An error was reported: %1"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1295
+#: src/xlifftextedit.cpp:1264
 #, fuzzy, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

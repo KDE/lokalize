@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-22 00:41+0000\n"
+"POT-Creation-Date: 2024-10-23 00:43+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -719,7 +719,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr ""
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:661
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:630
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4342,7 +4342,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr ""
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:127 src/tm/tmview.cpp:132
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4354,50 +4354,50 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr ""
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:567
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr ""
 
-#: src/tm/tmview.cpp:162
+#: src/tm/tmview.cpp:166
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr ""
 
-#: src/tm/tmview.cpp:281
+#: src/tm/tmview.cpp:285
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr ""
 
-#: src/tm/tmview.cpp:284
+#: src/tm/tmview.cpp:288
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr ""
 
-#: src/tm/tmview.cpp:290
+#: src/tm/tmview.cpp:294
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr ""
 
-#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
+#: src/tm/tmview.cpp:314 src/tm/tmview.cpp:329
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr ""
 
-#: src/tm/tmview.cpp:456
+#: src/tm/tmview.cpp:452
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr ""
 
-#: src/tm/tmview.cpp:458
+#: src/tm/tmview.cpp:454
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4405,50 +4405,50 @@ msgid_plural "(%1 times)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/tm/tmview.cpp:528
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr ""
 
-#: src/tm/tmview.cpp:529
+#: src/tm/tmview.cpp:496
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr ""
 
-#: src/tm/tmview.cpp:531
+#: src/tm/tmview.cpp:498
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr ""
 
-#: src/tm/tmview.cpp:533
+#: src/tm/tmview.cpp:500
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr ""
 
-#: src/tm/tmview.cpp:534
+#: src/tm/tmview.cpp:501
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr ""
 
-#: src/tm/tmview.cpp:536
+#: src/tm/tmview.cpp:503
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr ""
 
-#: src/tm/tmview.cpp:548
+#: src/tm/tmview.cpp:515
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
 
-#: src/tm/tmview.cpp:549
+#: src/tm/tmview.cpp:516
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Translated"
@@ -4456,32 +4456,32 @@ msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Revirat"
 
-#: src/tm/tmview.cpp:593
+#: src/tm/tmview.cpp:560
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr ""
 
-#: src/tm/tmview.cpp:595
+#: src/tm/tmview.cpp:562
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr ""
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:570
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:616
+#: src/tm/tmview.cpp:583
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
 
-#: src/tm/tmview.cpp:617
+#: src/tm/tmview.cpp:584
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Translated"
@@ -4489,7 +4489,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Revirat"
 
-#: src/tm/tmview.cpp:1016
+#: src/tm/tmview.cpp:988
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4545,7 +4545,7 @@ msgstr ""
 msgid "Copy GUI element text to clipboard"
 msgstr ""
 
-#: src/xlifftextedit.cpp:990
+#: src/xlifftextedit.cpp:959
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Translated"
@@ -4553,7 +4553,7 @@ msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Revirat"
 
-#: src/xlifftextedit.cpp:1012 src/xlifftextedit.cpp:1090
+#: src/xlifftextedit.cpp:981 src/xlifftextedit.cpp:1059
 #, fuzzy, kde-format
 #| msgctxt "@item Undo action item"
 #| msgid "Replace"
@@ -4561,17 +4561,17 @@ msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Remplaçar"
 
-#: src/xlifftextedit.cpp:1127
+#: src/xlifftextedit.cpp:1096
 #, kde-format
 msgid "no spellcheck available"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1141
+#: src/xlifftextedit.cpp:1110
 #, kde-format
 msgid "An error was reported: %1"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1295
+#: src/xlifftextedit.cpp:1264
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

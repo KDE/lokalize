@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-22 00:41+0000\n"
+"POT-Creation-Date: 2024-10-23 00:43+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -771,7 +771,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Việc xoá văn bản với mã đánh dấu"
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:661
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:630
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4382,7 +4382,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Các thế tự của hệ vỏ (* và ?). Có phân biệt hoa thường."
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:127 src/tm/tmview.cpp:132
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4394,93 +4394,93 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Tổng: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:567
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "Tệp %1 không tồn tại, nó đã bị xoá khỏi bộ nhớ lời dịch."
 
-#: src/tm/tmview.cpp:162
+#: src/tm/tmview.cpp:166
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Bấm đúp vào bất kì từ nào để chèn nó vào lời dịch"
 
-#: src/tm/tmview.cpp:281
+#: src/tm/tmview.cpp:285
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Việc điền bộ nhớ lời dịch một loạt"
 
-#: src/tm/tmview.cpp:284
+#: src/tm/tmview.cpp:288
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Việc dịch một loạt đã hoàn tất."
 
-#: src/tm/tmview.cpp:290
+#: src/tm/tmview.cpp:294
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Không tìm thấy gợi ý nào khớp chính xác."
 
-#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
+#: src/tm/tmview.cpp:314 src/tm/tmview.cpp:329
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Việc dịch một loạt đã được lập lịch."
 
-#: src/tm/tmview.cpp:456
+#: src/tm/tmview.cpp:452
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:458
+#: src/tm/tmview.cpp:454
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
 msgid_plural "(%1 times)"
 msgstr[0] "(%1 lần)"
 
-#: src/tm/tmview.cpp:528
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "tệp này"
 
-#: src/tm/tmview.cpp:529
+#: src/tm/tmview.cpp:496
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Tệp: %1<br />Ngày thêm: %2"
 
-#: src/tm/tmview.cpp:531
+#: src/tm/tmview.cpp:498
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Ngày thay đổi cuối: %1"
 
-#: src/tm/tmview.cpp:533
+#: src/tm/tmview.cpp:500
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Tác giả thay đổi cuối: %1"
 
-#: src/tm/tmview.cpp:534
+#: src/tm/tmview.cpp:501
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />BNLD: %1"
 
-#: src/tm/tmview.cpp:536
+#: src/tm/tmview.cpp:503
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />không còn xuất hiện trong tệp nữa"
 
-#: src/tm/tmview.cpp:548
+#: src/tm/tmview.cpp:515
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4489,31 +4489,31 @@ msgstr ""
 "<html>Bạn có thật sự muốn xoá mục này:<br/><i>%1</i><br/>khỏi bộ nhớ lời "
 "dịch %2?</html>"
 
-#: src/tm/tmview.cpp:549
+#: src/tm/tmview.cpp:516
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Xoá mục bộ nhớ lời dịch"
 
-#: src/tm/tmview.cpp:593
+#: src/tm/tmview.cpp:560
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Xoá mục này"
 
-#: src/tm/tmview.cpp:595
+#: src/tm/tmview.cpp:562
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Mở tệp chứa mục này"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:570
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Xoá tệp không còn tồn tại này khỏi BNLD"
 
-#: src/tm/tmview.cpp:616
+#: src/tm/tmview.cpp:583
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4522,13 +4522,13 @@ msgstr ""
 "<html>Bạn có thật sự muốn xoá tệp không còn tồn tại này:<br/><i>%1</i><br/"
 ">khỏi bộ nhớ lời dịch %2?</html>"
 
-#: src/tm/tmview.cpp:617
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Xoá tệp không tồn tại khỏi bộ nhớ lời dịch"
 
-#: src/tm/tmview.cpp:1016
+#: src/tm/tmview.cpp:988
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4594,29 +4594,29 @@ msgstr "Tìm kiếm đoạn chữ của yếu tố GUI trong bộ nhớ lời d�
 msgid "Copy GUI element text to clipboard"
 msgstr "Chép đoạn chữ của yếu tố GUI vào bảng nháp"
 
-#: src/xlifftextedit.cpp:990
+#: src/xlifftextedit.cpp:959
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Tra văn bản được bôi đen trong bộ nhớ lời dịch"
 
-#: src/xlifftextedit.cpp:1012 src/xlifftextedit.cpp:1090
+#: src/xlifftextedit.cpp:981 src/xlifftextedit.cpp:1059
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Thay thế văn bản"
 
-#: src/xlifftextedit.cpp:1127
+#: src/xlifftextedit.cpp:1096
 #, kde-format
 msgid "no spellcheck available"
 msgstr "không có trình kiểm tra đánh vần nào"
 
-#: src/xlifftextedit.cpp:1141
+#: src/xlifftextedit.cpp:1110
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Một lỗi đã được báo: %1"
 
-#: src/xlifftextedit.cpp:1295
+#: src/xlifftextedit.cpp:1264
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

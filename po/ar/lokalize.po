@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-22 00:41+0000\n"
+"POT-Creation-Date: 2024-10-23 00:43+0000\n"
 "PO-Revision-Date: 2024-10-14 20:27+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -764,7 +764,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "إزالة النّصّ الذي بداخله رقْم"
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:661
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:630
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4300,7 +4300,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "أنماط الصّدفة ”‎(*‎“ و ”‎?)‎“. حسّاس للحالة."
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:127 src/tm/tmview.cpp:132
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4312,50 +4312,50 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "المجموع: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:567
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "الملف %1 غير موجود، أزيل من ذاكرة الترجمة."
 
-#: src/tm/tmview.cpp:162
+#: src/tm/tmview.cpp:166
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "انقر مزدوجًا على أيّة كلمة لإدراجها في الترجمة"
 
-#: src/tm/tmview.cpp:281
+#: src/tm/tmview.cpp:285
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "ملء ذاكرة الترجمة بِدفعة"
 
-#: src/tm/tmview.cpp:284
+#: src/tm/tmview.cpp:288
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "اكتملت دفعة الترجمة."
 
-#: src/tm/tmview.cpp:290
+#: src/tm/tmview.cpp:294
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "لم يُعثر على اقتراحات بمطابقات تامّة."
 
-#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
+#: src/tm/tmview.cpp:314 src/tm/tmview.cpp:329
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "جُدولت دفعة الترجمة."
 
-#: src/tm/tmview.cpp:456
+#: src/tm/tmview.cpp:452
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "‏%1٪"
 
-#: src/tm/tmview.cpp:458
+#: src/tm/tmview.cpp:454
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4367,43 +4367,43 @@ msgstr[3] "‏(%1 مرات)"
 msgstr[4] "‏(%1 مرة)"
 msgstr[5] "‏(%1 مرة)"
 
-#: src/tm/tmview.cpp:528
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "هذا"
 
-#: src/tm/tmview.cpp:529
+#: src/tm/tmview.cpp:496
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "الملفّ: %1<br />تاريخ الإضافة: %2"
 
-#: src/tm/tmview.cpp:531
+#: src/tm/tmview.cpp:498
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />تاريخ آخر تغيير: %1"
 
-#: src/tm/tmview.cpp:533
+#: src/tm/tmview.cpp:500
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />مُجري آخر تغيير: %1"
 
-#: src/tm/tmview.cpp:534
+#: src/tm/tmview.cpp:501
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />ذاكرة الترجمة: %1"
 
-#: src/tm/tmview.cpp:536
+#: src/tm/tmview.cpp:503
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />ليست في الملفّ بعد الآن"
 
-#: src/tm/tmview.cpp:548
+#: src/tm/tmview.cpp:515
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4412,31 +4412,31 @@ msgstr ""
 "<html>أتريد حقًا إزالة هذه المُدخَلة:<br/><i>%1</i><br/>من ذاكرة الترجمة %2؟</"
 "html>"
 
-#: src/tm/tmview.cpp:549
+#: src/tm/tmview.cpp:516
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "إزالة مُدخَلة من ذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:593
+#: src/tm/tmview.cpp:560
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "أزِل هذه المُدخَلة"
 
-#: src/tm/tmview.cpp:595
+#: src/tm/tmview.cpp:562
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "افتح الملفّ الحاوي لهذه المُدخَلة"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:570
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "أزل هذا الملف المفقود من ذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:616
+#: src/tm/tmview.cpp:583
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4445,13 +4445,13 @@ msgstr ""
 "<html>أمتأكّد من إزالة هذه الملف المفقود:<br/><i>%1</i><br/>من ذاكرة الترجمة "
 "%2؟</html>"
 
-#: src/tm/tmview.cpp:617
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "إزالة الملفات المفقودة من الذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:1016
+#: src/tm/tmview.cpp:988
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4514,29 +4514,29 @@ msgstr "ابحث عن نصّ عنصر الواجهة الرّسوميّة في �
 msgid "Copy GUI element text to clipboard"
 msgstr "انسخ نصّ عنصر الواجهة الرّسوميّة إلى الحافظة"
 
-#: src/xlifftextedit.cpp:990
+#: src/xlifftextedit.cpp:959
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "ابحث عن النصّ المحدّد في ذاكرة الترجمة"
 
-#: src/xlifftextedit.cpp:1012 src/xlifftextedit.cpp:1090
+#: src/xlifftextedit.cpp:981 src/xlifftextedit.cpp:1059
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "استبدل النصّ"
 
-#: src/xlifftextedit.cpp:1127
+#: src/xlifftextedit.cpp:1096
 #, kde-format
 msgid "no spellcheck available"
 msgstr "لا مدقّق إملائيّ متوفّر"
 
-#: src/xlifftextedit.cpp:1141
+#: src/xlifftextedit.cpp:1110
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "أُبلغ عن خطأ: %1"
 
-#: src/xlifftextedit.cpp:1295
+#: src/xlifftextedit.cpp:1264
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

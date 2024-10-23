@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-22 00:41+0000\n"
+"POT-Creation-Date: 2024-10-23 00:43+0000\n"
 "PO-Revision-Date: 2023-12-06 19:07+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -775,7 +775,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Odstrániť text so značkami"
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:661
+#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:630
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4367,7 +4367,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Shellovské globálne (* a ?). Rozlišuje sa veľkosť písmen,"
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:127 src/tm/tmview.cpp:132
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4379,50 +4379,50 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Celkovo: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:567
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "Súbor %1 neexistuje, bol odstránený z pamäte prekladov."
 
-#: src/tm/tmview.cpp:162
+#: src/tm/tmview.cpp:166
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Dvakrát kliknite na slovo na jeho pridanie do prekladu"
 
-#: src/tm/tmview.cpp:281
+#: src/tm/tmview.cpp:285
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Hromadné naplnenie pamäte prekladov"
 
-#: src/tm/tmview.cpp:284
+#: src/tm/tmview.cpp:288
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Hromadný preklad bol dokončený."
 
-#: src/tm/tmview.cpp:290
+#: src/tm/tmview.cpp:294
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Neboli nájdené žiadne presné zhody."
 
-#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
+#: src/tm/tmview.cpp:314 src/tm/tmview.cpp:329
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Hromadný preklad bol naplánovaný."
 
-#: src/tm/tmview.cpp:456
+#: src/tm/tmview.cpp:452
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:458
+#: src/tm/tmview.cpp:454
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4431,43 +4431,43 @@ msgstr[0] "Čas"
 msgstr[1] "(%1 krát)"
 msgstr[2] "(%1 krát)"
 
-#: src/tm/tmview.cpp:528
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "tento"
 
-#: src/tm/tmview.cpp:529
+#: src/tm/tmview.cpp:496
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Súbor: %1<br />Dátum pridania: %2"
 
-#: src/tm/tmview.cpp:531
+#: src/tm/tmview.cpp:498
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Dátum poslednej zmeny: %1"
 
-#: src/tm/tmview.cpp:533
+#: src/tm/tmview.cpp:500
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Autor poslednej zmeny: %1"
 
-#: src/tm/tmview.cpp:534
+#: src/tm/tmview.cpp:501
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />TM: %1"
 
-#: src/tm/tmview.cpp:536
+#: src/tm/tmview.cpp:503
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Už sa nenachádza v súbore"
 
-#: src/tm/tmview.cpp:548
+#: src/tm/tmview.cpp:515
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4476,31 +4476,31 @@ msgstr ""
 "<html>Naozaj chcete odstrániť túto položku :<br/><i>%1</i><br/>z pamäte "
 "prekladov %2?</html>"
 
-#: src/tm/tmview.cpp:549
+#: src/tm/tmview.cpp:516
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Odstránenie položky pamäte prekladov"
 
-#: src/tm/tmview.cpp:593
+#: src/tm/tmview.cpp:560
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Odstrániť túto položku"
 
-#: src/tm/tmview.cpp:595
+#: src/tm/tmview.cpp:562
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Otvoriť súbor obsahujúci túto položku"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:570
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Odstrániť tento chýbajúci súbor z TM"
 
-#: src/tm/tmview.cpp:616
+#: src/tm/tmview.cpp:583
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4509,13 +4509,13 @@ msgstr ""
 "<html>Naozaj chcete odstrániť tento chýbajúci súbor:<br/><i>%1</i><br/>z "
 "pamäte prekladov %2?</html>"
 
-#: src/tm/tmview.cpp:617
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Odstránenie chýbajúceho súboru pamäte prekladov"
 
-#: src/tm/tmview.cpp:1016
+#: src/tm/tmview.cpp:988
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4581,29 +4581,29 @@ msgstr "Hľadať text GUI prvku v pamäti prekladov"
 msgid "Copy GUI element text to clipboard"
 msgstr "Kopírovať text GUI prvku do schránky"
 
-#: src/xlifftextedit.cpp:990
+#: src/xlifftextedit.cpp:959
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Hľadať vybraný text v pamäti prekladov"
 
-#: src/xlifftextedit.cpp:1012 src/xlifftextedit.cpp:1090
+#: src/xlifftextedit.cpp:981 src/xlifftextedit.cpp:1059
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Nah&radiť text"
 
-#: src/xlifftextedit.cpp:1127
+#: src/xlifftextedit.cpp:1096
 #, kde-format
 msgid "no spellcheck available"
 msgstr "kontrola pravopisu nedostupná"
 
-#: src/xlifftextedit.cpp:1141
+#: src/xlifftextedit.cpp:1110
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Bola nahlásená chyba: %1"
 
-#: src/xlifftextedit.cpp:1295
+#: src/xlifftextedit.cpp:1264
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
