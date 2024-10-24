@@ -132,6 +132,17 @@ public:
     void updateListItemHeights();
 };
 
+/**
+ * @short Generate the correct target, given a slightly different source.
+ *
+ * Send a translation entry to this along with the current source
+ * translation being edited. This calculates what changes to apply
+ * based on the difference between the entry source and current
+ * translation source, then tries to apply the changes to the
+ * entry target string and returns that modified entry. Things
+ * like a colon (:) at the end of a translation entry (where the
+ * current translation has no colon) can be removed automatically.
+ */
 CatalogString targetAdapted(const TMEntry& entry, const CatalogString& ref);
 
 }

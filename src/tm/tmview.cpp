@@ -745,79 +745,28 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
     return pos;
 }
 
-
-
-
-
-//TODO thorough testing
-
-/**
- * this tries some black magic
- * naturally, there are many assumptions that might not always be true
- */
 CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 {
-    qCWarning(LOKALIZE_LOG) << entry.source.string << entry.target.string << entry.diff;
-
     QString diff = entry.diff;
-    CatalogString target = entry.target;
-    //QString english=entry.english;
-
-    // TODO: This regex looks for formatted html from diff.cpp diffToHtmlDiff()
-    // that is shown to the user, but the diff it searches in seems to only
-    // ever include curly brace tags? So the regex may be searching for
-    // something that never exists? `m_entries` never contains a string with
-    // HTML...
-    const QRegularExpression rxAdd(QLatin1String("<span class=\"lokalizeAddDiffColorSpan\" style=\"background-color:[^>]*;color:[^>]*;\">([^>]*)</span>"));
-    const QRegularExpression rxDel(QLatin1String("<span class=\"lokalizeDelDiffColorSpan\" style=\"background-color:[^>]*;color:[^>]*;\">([^>]*)</span>"));
-
-    //first things first
-    int pos = 0;
-    while (true) {
-        const auto match = rxDel.match(diff, pos);
-        if (!match.hasMatch()) {
-            break;
-        }
-        pos = match.capturedStart();
-        diff.replace(pos, match.capturedLength(),
-                     QStringLiteral("\tLokalizeDel\t") + match.capturedView(1) +
-                         QStringLiteral("\t/LokalizeDel\t"));
-    }
-    pos = 0;
-    while (true) {
-        const auto match = rxAdd.match(diff, pos);
-        if (!match.hasMatch()) {
-            break;
-        }
-        pos = match.capturedStart();
-        diff.replace(pos, match.capturedLength(),
-                     QStringLiteral("\tLokalizeAdd\t") + match.capturedView(1) +
-                         QStringLiteral("\t/LokalizeAdd\t"));
-    }
+    // TODO when this is called by AltTransView::slotUseSuggestion()
+    // there may be empty strings but these don't necessarily represent
+    // a deletion of the entire string, because the data may not exist
+    // so in those cases I think the data should be assumed to be
+    // identical to current form?
+    CatalogString target = entry.target.isEmpty() ? ref : entry.target;
 
     diff.replace(QStringLiteral("&lt;"), QStringLiteral("<"));
     diff.replace(QStringLiteral("&gt;"), QStringLiteral(">"));
 
-    //possible enhancement: search for non-translated words in removedSubstrings...
-    //QStringList removedSubstrings;
-    //QStringList addedSubstrings;
-
-
-    /*
-      0 - common
-      + - add
-      - - del
-      M - modified
-
-      so the string is like 00000MM00+++---000
-    */
     DiffInfo d = getDiffInfo(diff);
-
-    bool sameMarkup = Project::instance()->markup() == entry.markupExpr && !entry.markupExpr.isEmpty();
+    int pos = 0;
+    bool sameMarkup =
+        Project::instance()->markup() == entry.markupExpr && !entry.markupExpr.isEmpty();
     bool tryMarkup = !entry.target.tags.size() && sameMarkup;
-    //search for changed markup
+    // search for changed markup
     if (tryMarkup) {
-        const QRegularExpression rxMarkup(entry.markupExpr, QRegularExpression::InvertedGreedinessOption);
+        const QRegularExpression rxMarkup(entry.markupExpr,
+                                          QRegularExpression::InvertedGreedinessOption);
         pos = 0;
         int replacingPos = 0;
         while (true) {
@@ -827,13 +776,11 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
             }
             pos = match.capturedStart();
 
-            //qCWarning(LOKALIZE_LOG)<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
-            QByteArray diffIndexPart(d.diffIndex.mid(d.old2DiffClean.at(pos),
-                                     d.old2DiffClean.at(pos + match.capturedLength() - 1) + 1 - d.old2DiffClean.at(pos)));
-            //qCWarning(LOKALIZE_LOG)<<"diffMPart"<<diffMPart;
-            if (diffIndexPart.contains('-')
-                || diffIndexPart.contains('+')) {
-                //form newMarkup
+            QByteArray diffIndexPart(d.diffIndex.mid(
+                d.old2DiffClean.at(pos), d.old2DiffClean.at(pos + match.capturedLength() - 1) + 1 -
+                                             d.old2DiffClean.at(pos)));
+            if (diffIndexPart.contains('-') || diffIndexPart.contains('+')) {
+                // form newMarkup
                 QString newMarkup;
                 newMarkup.reserve(diffIndexPart.size());
                 int j = -1;
@@ -842,20 +789,16 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                         newMarkup.append(d.diffClean.at(d.old2DiffClean.at(pos) + j));
                 }
 
-                //replace first ocurrence
+                // replace first ocurrence
                 int tmp = target.string.indexOf(match.capturedView(0), replacingPos);
                 if (tmp != -1) {
-                    target.replace(tmp,
-                                   match.capturedView(0).size(),
-                                   newMarkup);
+                    target.replace(tmp, match.capturedView(0).size(), newMarkup);
                     replacingPos = tmp;
-                    //qCWarning(LOKALIZE_LOG)<<"d.old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
 
-                    //avoid trying this part again
+                    // avoid trying this part again
                     tmp = d.old2DiffClean.at(pos + match.capturedLength() - 1);
                     while (--tmp >= d.old2DiffClean.at(pos))
                         d.diffIndex[tmp] = 'M';
-                    //qCWarning(LOKALIZE_LOG)<<"M"<<diffM;
                 }
             }
 
@@ -863,19 +806,17 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
         }
     }
 
-    //del, add only markup, punct, num
-    //TODO further improvement: spaces, punct marked as 0
-//BEGIN BEGIN HANDLING
+    // del, add only markup, punct, num
+    // TODO further improvement: spaces, punct marked as 0
+// BEGIN BEGIN HANDLING
     QRegularExpression rxNonTranslatable;
     if (tryMarkup)
-        rxNonTranslatable.setPattern(QStringLiteral("^((") + entry.markupExpr + QStringLiteral(")|(\\W|\\d)+)+"));
+        rxNonTranslatable.setPattern(QStringLiteral("^((") + entry.markupExpr +
+                                     QStringLiteral(")|(\\W|\\d)+)+"));
     else
         rxNonTranslatable.setPattern(QStringLiteral("^(\\W|\\d)+"));
 
-    //qCWarning(LOKALIZE_LOG)<<"("+entry.markup+"|(\\W|\\d)+";
-
-
-    //handle the beginning
+    // handle the beginning
     int len = d.diffIndex.indexOf('0');
     if (len > 0) {
         QByteArray diffMPart(d.diffIndex.left(len));
@@ -883,21 +824,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
         if (m != -1)
             diffMPart.truncate(m);
 
-#if 0
-        nono
-        //first goes del, then add. so stop on second del sequence
-        bool seenAdd = false;
-        int j = -1;
-        while (++j < diffMPart.size()) {
-            if (diffMPart.at(j) == '+')
-                seenAdd = true;
-            else if (seenAdd && diffMPart.at(j) == '-') {
-                diffMPart.truncate(j);
-                break;
-            }
-        }
-#endif
-        //form 'oldMarkup'
+        // form 'oldMarkup'
         QString oldMarkup;
         oldMarkup.reserve(diffMPart.size());
         int j = -1;
@@ -906,11 +833,10 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                 oldMarkup.append(d.diffClean.at(j));
         }
 
-        //qCWarning(LOKALIZE_LOG)<<"old"<<oldMarkup;
-        oldMarkup = rxNonTranslatable.match(oldMarkup).captured(0); //FIXME if it fails?
+        oldMarkup = rxNonTranslatable.match(oldMarkup).captured(0); // FIXME if it fails?
         if (target.string.startsWith(oldMarkup)) {
 
-            //form 'newMarkup'
+            // form 'newMarkup'
             QString newMarkup;
             newMarkup.reserve(diffMPart.size());
             j = -1;
@@ -918,30 +844,27 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                 if (diffMPart.at(j) != '-')
                     newMarkup.append(d.diffClean.at(j));
             }
-            //qCWarning(LOKALIZE_LOG)<<"new"<<newMarkup;
             newMarkup = rxNonTranslatable.match(newMarkup).captured(0);
 
-            //replace
-            qCWarning(LOKALIZE_LOG) << "BEGIN HANDLING. replacing" << target.string.left(oldMarkup.size()) << "with" << newMarkup;
+            // replace
             target.remove(0, oldMarkup.size());
             target.insert(0, newMarkup);
 
-            //avoid trying this part again
+            // avoid trying this part again
             j = diffMPart.size();
             while (--j >= 0)
                 d.diffIndex[j] = 'M';
-            //qCWarning(LOKALIZE_LOG)<<"M"<<diffM;
         }
-
     }
-//END BEGIN HANDLING
-//BEGIN END HANDLING
+// END BEGIN HANDLING
+// BEGIN END HANDLING
     if (tryMarkup)
-        rxNonTranslatable.setPattern(QStringLiteral("((") + entry.markupExpr + QStringLiteral(")|(\\W|\\d)+)+$"));
+        rxNonTranslatable.setPattern(QStringLiteral("((") + entry.markupExpr +
+                                     QStringLiteral(")|(\\W|\\d)+)+$"));
     else
         rxNonTranslatable.setPattern(QStringLiteral("(\\W|\\d)+$"));
 
-    //handle the end
+    // handle the end
     if (!d.diffIndex.endsWith('0')) {
         len = d.diffIndex.lastIndexOf('0') + 1;
         QByteArray diffMPart(d.diffIndex.mid(len));
@@ -951,7 +874,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
             diffMPart = diffMPart.mid(len);
         }
 
-        //form 'oldMarkup'
+        // form 'oldMarkup'
         QString oldMarkup;
         oldMarkup.reserve(diffMPart.size());
         int j = -1;
@@ -959,11 +882,10 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
             if (diffMPart.at(j) != '+')
                 oldMarkup.append(d.diffClean.at(len + j));
         }
-        //qCWarning(LOKALIZE_LOG)<<"old-"<<oldMarkup;
         oldMarkup = rxNonTranslatable.match(oldMarkup).captured(0);
         if (target.string.endsWith(oldMarkup)) {
 
-            //form newMarkup
+            // form newMarkup
             QString newMarkup;
             newMarkup.reserve(diffMPart.size());
             j = -1;
@@ -971,70 +893,44 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                 if (diffMPart.at(j) != '-')
                     newMarkup.append(d.diffClean.at(len + j));
             }
-            //qCWarning(LOKALIZE_LOG)<<"new"<<newMarkup;
             newMarkup = rxNonTranslatable.match(newMarkup).captured(0);
 
-            //replace
+            // replace
             target.string.chop(oldMarkup.size());
             target.string.append(newMarkup);
 
-            //avoid trying this part again
+            // avoid trying this part again
             j = diffMPart.size();
             while (--j >= 0)
                 d.diffIndex[len + j] = 'M';
-            //qCWarning(LOKALIZE_LOG)<<"M"<<diffM;
         }
     }
-//END BEGIN HANDLING
+// END BEGIN HANDLING
 
-    //search for numbers and stuff
-    //QRegExp rxNum("[\\d\\.\\%]+");
+    // search for numbers and stuff
     pos = 0;
     int replacingPos = 0;
     QString cap;
     QString _;
-    //while ((pos=rxNum.indexIn(old,pos))!=-1)
-    qCWarning(LOKALIZE_LOG) << "string:" << target.string << "searching for placeables in" << d.old;
     while ((pos = nextPlacableIn(d.old, pos, cap)) != -1) {
-        qCDebug(LOKALIZE_LOG) << "considering placable" << cap;
-        //save these so we can use rxNum in a body
+        // save these so we can use rxNum in a body
         int endPos1 = pos + cap.size() - 1;
         int endPos = d.old2DiffClean.at(endPos1);
         int startPos = d.old2DiffClean.at(pos);
-        QByteArray diffMPart = d.diffIndex.mid(startPos,
-                                               endPos + 1 - startPos);
+        QByteArray diffMPart = d.diffIndex.mid(startPos, endPos + 1 - startPos);
 
-        qCDebug(LOKALIZE_LOG) << "starting diffMPart" << diffMPart;
-
-        //the following loop extends replacement text, e.g. for 1 -> 500 cases
-        while ((++endPos < d.diffIndex.size())
-               && (d.diffIndex.at(endPos) == '+')
-               && (-1 != nextPlacableIn(QString(d.diffClean.at(endPos)), 0, _))
-              )
+        // the following loop extends replacement text, e.g. for 1 -> 500 cases
+        while ((++endPos < d.diffIndex.size()) && (d.diffIndex.at(endPos) == '+') &&
+               (-1 != nextPlacableIn(QString(d.diffClean.at(endPos)), 0, _)))
             diffMPart.append('+');
 
-        qCDebug(LOKALIZE_LOG) << "diffMPart extended 1" << diffMPart;
-//         if ((pos-1>=0) && (d.old2DiffClean.at(pos)>=0))
-//         {
-//             qCWarning(LOKALIZE_LOG)<<"d.diffIndex"<<d.diffIndex<<d.old2DiffClean.at(pos)-1;
-//             qCWarning(LOKALIZE_LOG)<<"(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+')"<<(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+');
-//             //qCWarning(LOKALIZE_LOG)<<(-1!=nextPlacableIn(QString(d.diffClean.at(d.old2DiffClean.at(pos))),0,_));
-//         }
-
-        //this is for the case when +'s preceed -'s:
-        while ((--startPos >= 0)
-               && (d.diffIndex.at(startPos) == '+')
-               //&&(-1!=nextPlacableIn(QString(d.diffClean.at(d.old2DiffClean.at(pos))),0,_))
-              )
+        // this is for the case when +'s preceed -'s:
+        while ((--startPos >= 0) && (d.diffIndex.at(startPos) == '+'))
             diffMPart.prepend('+');
         ++startPos;
 
-        qCDebug(LOKALIZE_LOG) << "diffMPart extended 2" << diffMPart;
-
-        if ((diffMPart.contains('-')
-             || diffMPart.contains('+'))
-            && (!diffMPart.contains('M'))) {
-            //form newMarkup
+        if ((diffMPart.contains('-') || diffMPart.contains('+')) && (!diffMPart.contains('M'))) {
+            // form newMarkup
             QString newMarkup;
             newMarkup.reserve(diffMPart.size());
             int j = -1;
@@ -1042,28 +938,32 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                 if (diffMPart.at(j) != '-')
                     newMarkup.append(d.diffClean.at(startPos + j));
             }
-            if (newMarkup.endsWith(QLatin1Char(' '))) newMarkup.chop(1);
-            //qCWarning(LOKALIZE_LOG)<<"d.old"<<cap<<"new"<<newMarkup;
+            if (newMarkup.endsWith(QLatin1Char(' ')))
+                newMarkup.chop(1);
 
-
-            //replace first ocurrence
+            // replace first ocurrence
             int tmp = target.string.indexOf(cap, replacingPos);
             if (tmp != -1) {
-                qCWarning(LOKALIZE_LOG) << "replacing" << cap << "with" << newMarkup;
                 target.replace(tmp, cap.size(), newMarkup);
                 replacingPos = tmp;
 
-                //avoid trying this part again
+                // avoid trying this part again
                 tmp = d.old2DiffClean.at(endPos1) + 1;
                 while (--tmp >= d.old2DiffClean.at(pos))
                     d.diffIndex[tmp] = 'M';
-                //qCWarning(LOKALIZE_LOG)<<"M"<<diffM;
             } else
-                qCWarning(LOKALIZE_LOG) << "newMarkup" << newMarkup << "wasn't used";
+                qCWarning(LOKALIZE_LOG) << "TM::targetAdapted(): newMarkup" << newMarkup << "wasn't used";
         }
         pos = endPos1 + 1;
     }
     adaptCatalogString(target, ref);
+    if (target.string != entry.target.string) {
+        qCWarning(LOKALIZE_LOG) << "TM::targetAdapted() generated modified target to "
+                                   "insert\n\tsource:"
+                                << entry.source.string << "\n\ttarget:" << entry.target.string
+                                << "\n\tdiff:" << entry.diff
+                                << "\n\treturned target:" << target.string;
+    }
     return target;
 }
 
