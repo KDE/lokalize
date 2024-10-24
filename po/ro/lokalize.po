@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-23 00:43+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2022-02-17 11:58+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -113,13 +113,13 @@ msgstr "Combină în ODF"
 msgid "Generates translated version of ODF document"
 msgstr "Generează versiunea tradusă a documentului ODF"
 
-#: src/alttransview.cpp:37 src/alttransview.cpp:40
+#: src/alttransview.cpp:40 src/alttransview.cpp:42
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "Traduceri alternative"
 
-#: src/alttransview.cpp:154
+#: src/alttransview.cpp:150
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -131,20 +131,45 @@ msgid ""
 "Do you want to show the view with the data?"
 msgstr ""
 
-#: src/alttransview.cpp:158
+#: src/alttransview.cpp:154
 #, fuzzy, kde-format
 #| msgid "Alternative Translations"
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Traduceri alternative"
 
-#: src/alttransview.cpp:159
+#: src/alttransview.cpp:155
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr ""
 
-#: src/alttransview.cpp:259
+#: src/alttransview.cpp:171
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Alternate translations folder:"
+msgid "From alternate translations folder"
+msgstr "Dosar cu traduceri alternative:"
+
+#: src/alttransview.cpp:196
+#, kde-format
+msgctxt "Title for an alternative translation entry context diff."
+msgid "Comparison with previous context:"
+msgstr ""
+
+#: src/alttransview.cpp:214
+#, kde-format
+msgctxt "Title for alternative translation source diff."
+msgid "Comparison with previous source:"
+msgstr ""
+
+#: src/alttransview.cpp:291
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Origin: %1"
+msgstr "Origine: %1"
+
+#: src/alttransview.cpp:299
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid ""
@@ -160,16 +185,15 @@ msgstr ""
 #| "translations.</p>"
 msgctxt "@info:tooltip"
 msgid ""
-"<p>Sometimes, if source text is changed, its translation becomes deprecated "
-"and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. "
-"looses approval status), or (only in case of XLIFF file) moved to the "
-"<emphasis>alternate&nbsp;translations</emphasis> section accompanying the "
-"unit.</p><p>This toolview also shows the difference between current source "
-"string and the previous source string, so that you can easily see which "
-"changes should be applied to existing translation to make it reflect current "
-"source.</p><p>Double-clicking any word in this toolview inserts it into "
-"translation.</p><p>Drop translation file onto this toolview to use it as a "
-"source for additional alternate translations.</p>"
+"Sometimes, if source text is changed, its translation becomes deprecated and "
+"is either marked as needing review (i.e., loses approval status), or (only "
+"in case of XLIFF file) moved to the alternate translations section "
+"accompanying the unit. This toolview also shows the difference between "
+"current source string and the previous source string, so that you can easily "
+"see which changes should be applied to existing translation to make it "
+"reflect current source. Double-clicking any word in this toolview inserts it "
+"into translation. Drop translation file onto this toolview to use it as a "
+"source for additional alternate translations."
 msgstr ""
 "<p>Uneori, dacă textul original este modificat, traducerea acestuia devine "
 "învechită și este marcată fie ca <emphasis>necesitând&nbsp;revizie</"
@@ -183,13 +207,7 @@ msgstr ""
 "p><p>Aruncați un fișier cu traduceri în această vizualizare pentru a-l "
 "utiliza ca sursă de traduceri alternative.</p>"
 
-#: src/alttransview.cpp:280
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Origin: %1"
-msgstr "Origine: %1"
-
-#: src/alttransview.cpp:303
+#: src/alttransview.cpp:331
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -2365,13 +2383,13 @@ msgstr "&Proiect"
 msgid "&Scripts"
 msgstr "&Scripturi"
 
-#: src/main.cpp:61
+#: src/main.cpp:55
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
 msgstr "Lokalize"
 
-#: src/main.cpp:62
+#: src/main.cpp:56
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2380,7 +2398,7 @@ msgstr ""
 "Sistem de traducere asistată de calculator.\n"
 "Nu mai traduce ce a fost deja tradus."
 
-#: src/main.cpp:64
+#: src/main.cpp:58
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2393,145 +2411,156 @@ msgstr ""
 "(c) 1999-2006 Dezvoltatorii KBabel"
 
 # |, no-check-spell
-#: src/main.cpp:65
+#: src/main.cpp:59
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:66
+#: src/main.cpp:60
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc."
 
 # well-spelled:Google,Summer,of,Code
-#: src/main.cpp:66
+#: src/main.cpp:60
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "dezvoltare sponsorizată ca parte a programului „Google Summer of Code”"
 
-#: src/main.cpp:67
+#: src/main.cpp:61
 #, kde-format
 msgid "NLNet Foundation"
 msgstr "Fundația NLNet"
 
-#: src/main.cpp:67
+#: src/main.cpp:61
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr "a sponsorizat lucrul legat de XLIFF"
 
-#: src/main.cpp:68
+#: src/main.cpp:62
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "Translate-toolkit"
 
-#: src/main.cpp:68
+#: src/main.cpp:62
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "furnizat scripturi excelente de conversie muli-platformă"
 
-#: src/main.cpp:69
+#: src/main.cpp:63
 #, kde-format
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/main.cpp:69
+#: src/main.cpp:63
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr "gramatică, stil și verificare ortografică"
 
 # |, no-check-spell
-#: src/main.cpp:70
+#: src/main.cpp:64
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:70
+#: src/main.cpp:64
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr "fuzionare arbore proiect traducere+șabloane"
 
 # |, no-check-spell
-#: src/main.cpp:71
+#: src/main.cpp:65
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach"
 
-#: src/main.cpp:71 src/main.cpp:72 src/main.cpp:75
+#: src/main.cpp:65 src/main.cpp:66 src/main.cpp:69
 #, kde-format
 msgid "bug fixing patches"
 msgstr "petice de corectare a erorilor"
 
 # |, no-check-spell
-#: src/main.cpp:72
+#: src/main.cpp:66
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
 # |, no-check-spell
-#: src/main.cpp:73
+#: src/main.cpp:67
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:73
+#: src/main.cpp:67
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "testare și petice de corectare a erorilor"
 
 # |, no-check-spell
-#: src/main.cpp:74
+#: src/main.cpp:68
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:74
+#: src/main.cpp:68
 #, kde-format
 msgid "patches"
 msgstr "petice"
 
 # |, no-check-spell
-#: src/main.cpp:75
+#: src/main.cpp:69
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:76
+#: src/main.cpp:70
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: src/main.cpp:76
+#: src/main.cpp:70
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "Îmbunătățiri XLIFF"
 
-#: src/main.cpp:77
+#: src/main.cpp:71
 #, kde-format
 msgid "Simon Depiets"
 msgstr "Simon Depiets"
 
-#: src/main.cpp:77 src/main.cpp:78
+#: src/main.cpp:71 src/main.cpp:72
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr "corectarea erorilor și îmbunătățiri"
 
-#: src/main.cpp:78
+#: src/main.cpp:72
 #, kde-format
 msgid "Karl Ove Hufthammer"
 msgstr ""
 
+#: src/main.cpp:73
+#, kde-format
+msgid "Finley Watson"
+msgstr ""
+
+#: src/main.cpp:73
+#, fuzzy, kde-format
+#| msgid "bug fixing and improvements"
+msgid "bug fixing and improvments"
+msgstr "corectarea erorilor și îmbunătățiri"
+
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:83
+#: src/main.cpp:78
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "Nu analiza fișierele proiectului."
 
-#: src/main.cpp:84
+#: src/main.cpp:79
 #, kde-format
 msgid "Load specified project."
 msgstr "Încarcă proiectul specificat."
 
-#: src/main.cpp:85
+#: src/main.cpp:80
 #, kde-format
 msgid "Document to open"
 msgstr "Document de deschis"
@@ -4416,7 +4445,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Valori globale consolă (* și ?). Insensibil la majuscule."
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:127 src/tm/tmview.cpp:132
+#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:194 src/tm/tmview.cpp:199
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4428,95 +4457,125 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Total: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:534
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:633
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "Fișierul %1 nu există, a fost eliminat din memoria traducerilor."
 
-#: src/tm/tmview.cpp:166
+#: src/tm/tmview.cpp:230
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Faceți dublu-clic pe orice cuvânt pentru a-l insera în traducere"
 
-#: src/tm/tmview.cpp:285
+#: src/tm/tmview.cpp:343
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Memoria traducerii în serie se umple"
 
-#: src/tm/tmview.cpp:288
+#: src/tm/tmview.cpp:346
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Traducerea în serie s-a încheiat."
 
-#: src/tm/tmview.cpp:294
+#: src/tm/tmview.cpp:352
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "N-au fost găsite sugestii cu potriviri exacte."
 
-#: src/tm/tmview.cpp:314 src/tm/tmview.cpp:329
+#: src/tm/tmview.cpp:372 src/tm/tmview.cpp:387
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Traducerea în serie a fost programată."
 
-#: src/tm/tmview.cpp:452
+#: src/tm/tmview.cpp:507
 #, kde-format
-msgctxt "%1 is the TM entry score in percentage"
+msgctxt ""
+"A perfect match between a Translation Memory source string and the source "
+"string being translated."
+msgid "100% (perfect match)"
+msgstr ""
+
+#: src/tm/tmview.cpp:511
+#, fuzzy, kde-format
+#| msgctxt "%1 is the TM entry score in percentage"
+#| msgid "%1%"
+msgctxt ""
+"The similarity between a Translation Memory source string and the source "
+"string being translated, %1 is 0 to 99 (percent)."
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:454
+#: src/tm/tmview.cpp:515
 #, kde-format
-msgctxt "%1 is the number of times this TM entry has been found"
-msgid "(1 time)"
-msgid_plural "(%1 times)"
-msgstr[0] "(1 dată)"
-msgstr[1] "(de %1 ori)"
-msgstr[2] "(de %1 de ori)"
+msgctxt ""
+"The number of times a Translation Memory entry exists in the database, %1 is "
+"the number."
+msgid "Occurred %1 time"
+msgid_plural "Occurred %1 times"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
-#: src/tm/tmview.cpp:495
+#: src/tm/tmview.cpp:524
+#, kde-format
+msgctxt ""
+"Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
+"(%3). Bullet point is a separator between the data and can be translated."
+msgid "%1 • %2 • %3"
+msgstr ""
+
+#: src/tm/tmview.cpp:528
+#, kde-format
+msgctxt ""
+"Percentage match (%1) and number of occurrences (%2). Bullet point is a "
+"separator between the data and can be translated."
+msgid "%1 • %2"
+msgstr ""
+
+#: src/tm/tmview.cpp:585
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "acesta"
 
-#: src/tm/tmview.cpp:496
+#: src/tm/tmview.cpp:586
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Fișier: %1<br />Data adăugării: %2"
 
-#: src/tm/tmview.cpp:498
+#: src/tm/tmview.cpp:590
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Data ultimei modificări: %1"
 
-#: src/tm/tmview.cpp:500
+#: src/tm/tmview.cpp:594
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Autorul ultimei modificări: %1"
 
-#: src/tm/tmview.cpp:501
+#: src/tm/tmview.cpp:596
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />MT: %1"
 
-#: src/tm/tmview.cpp:503
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Nu mai este prezent în fișier"
 
-#: src/tm/tmview.cpp:515
+#: src/tm/tmview.cpp:614
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4525,31 +4584,31 @@ msgstr ""
 "<html>Chiar doriți să înlăturați această intrare:<br/><i>%1</i><br/> din "
 "memoria de traduceri %2?</html>"
 
-#: src/tm/tmview.cpp:516
+#: src/tm/tmview.cpp:615
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Înlăturare intrări memorie traduceri"
 
-#: src/tm/tmview.cpp:560
+#: src/tm/tmview.cpp:656
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Elimină această înregistrare"
 
-#: src/tm/tmview.cpp:562
+#: src/tm/tmview.cpp:659
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Deschide fișierul ce conține această înregistrare"
 
-#: src/tm/tmview.cpp:570
+#: src/tm/tmview.cpp:671
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Elimină acest fișier lipsă din MT"
 
-#: src/tm/tmview.cpp:583
+#: src/tm/tmview.cpp:688
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4558,13 +4617,13 @@ msgstr ""
 "<html>Sigur doriți să eliminați acest fișier lipsă:<br/><i>%1</i><br/>din "
 "memoria de traduceri %2?</html>"
 
-#: src/tm/tmview.cpp:584
+#: src/tm/tmview.cpp:691
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Înlăturare fișier lipsă din memoria traducerilor"
 
-#: src/tm/tmview.cpp:988
+#: src/tm/tmview.cpp:1097
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4656,6 +4715,13 @@ msgstr "A fost raportată o eroare: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copiază sursa în destinație"
+
+#~ msgctxt "%1 is the number of times this TM entry has been found"
+#~ msgid "(1 time)"
+#~ msgid_plural "(%1 times)"
+#~ msgstr[0] "(1 dată)"
+#~ msgstr[1] "(de %1 ori)"
+#~ msgstr[2] "(de %1 de ori)"
 
 #~ msgid "Text colors for the changes in the message."
 #~ msgstr "Culorile textului pentru modificările în mesaj."

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-23 00:43+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -107,13 +107,13 @@ msgstr "合并到 ODF"
 msgid "Generates translated version of ODF document"
 msgstr "生成 ODF 文档的已翻译版本"
 
-#: src/alttransview.cpp:37 src/alttransview.cpp:40
+#: src/alttransview.cpp:40 src/alttransview.cpp:42
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "备选翻译"
 
-#: src/alttransview.cpp:154
+#: src/alttransview.cpp:150
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -131,32 +131,69 @@ msgstr ""
 "\n"
 "您想要在该视图中显示这些数据吗？"
 
-#: src/alttransview.cpp:158
+#: src/alttransview.cpp:154
 #, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr ""
 
-#: src/alttransview.cpp:159
+#: src/alttransview.cpp:155
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr ""
 
-#: src/alttransview.cpp:259
+#: src/alttransview.cpp:171
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Alternate translations folder:"
+msgid "From alternate translations folder"
+msgstr "备选翻译文件夹："
+
+#: src/alttransview.cpp:196
+#, kde-format
+msgctxt "Title for an alternative translation entry context diff."
+msgid "Comparison with previous context:"
+msgstr ""
+
+#: src/alttransview.cpp:214
+#, kde-format
+msgctxt "Title for alternative translation source diff."
+msgid "Comparison with previous source:"
+msgstr ""
+
+#: src/alttransview.cpp:291
 #, kde-format
 msgctxt "@info:tooltip"
+msgid "Origin: %1"
+msgstr "原文：%1"
+
+#: src/alttransview.cpp:299
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid ""
+#| "<p>Sometimes, if source text is changed, its translation becomes "
+#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
+#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
+#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
+#| "accompanying the unit.</p><p>This toolview also shows the difference "
+#| "between current source string and the previous source string, so that you "
+#| "can easily see which changes should be applied to existing translation to "
+#| "make it reflect current source.</p><p>Double-clicking any word in this "
+#| "toolview inserts it into translation.</p><p>Drop translation file onto "
+#| "this toolview to use it as a source for additional alternate translations."
+#| "</p>"
+msgctxt "@info:tooltip"
 msgid ""
-"<p>Sometimes, if source text is changed, its translation becomes deprecated "
-"and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. "
-"looses approval status), or (only in case of XLIFF file) moved to the "
-"<emphasis>alternate&nbsp;translations</emphasis> section accompanying the "
-"unit.</p><p>This toolview also shows the difference between current source "
-"string and the previous source string, so that you can easily see which "
-"changes should be applied to existing translation to make it reflect current "
-"source.</p><p>Double-clicking any word in this toolview inserts it into "
-"translation.</p><p>Drop translation file onto this toolview to use it as a "
-"source for additional alternate translations.</p>"
+"Sometimes, if source text is changed, its translation becomes deprecated and "
+"is either marked as needing review (i.e., loses approval status), or (only "
+"in case of XLIFF file) moved to the alternate translations section "
+"accompanying the unit. This toolview also shows the difference between "
+"current source string and the previous source string, so that you can easily "
+"see which changes should be applied to existing translation to make it "
+"reflect current source. Double-clicking any word in this toolview inserts it "
+"into translation. Drop translation file onto this toolview to use it as a "
+"source for additional alternate translations."
 msgstr ""
 "<p>在源文本发生了更改之后，它的原有翻译有时会变得不再适用。这些翻译要么被标记"
 "为<emphasis>需要审核</emphasis> (意味着审核状态被撤销)，要么 (仅对于 XLIFF 文"
@@ -165,13 +202,7 @@ msgstr ""
 "p><p>双击此工具视图的任意单词即可将其插入到翻译结果中去。</p><p>将翻译文件拖"
 "放到此工具视图即可将其用作额外的备选翻译。</p>"
 
-#: src/alttransview.cpp:280
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Origin: %1"
-msgstr "原文：%1"
-
-#: src/alttransview.cpp:303
+#: src/alttransview.cpp:331
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -2241,13 +2272,13 @@ msgstr "项目(&P)"
 msgid "&Scripts"
 msgstr "脚本(&S)"
 
-#: src/main.cpp:61
+#: src/main.cpp:55
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
 msgstr "Lokalize"
 
-#: src/main.cpp:62
+#: src/main.cpp:56
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2256,7 +2287,7 @@ msgstr ""
 "计算机辅助翻译系统。\n"
 "将译者从反复重译的轮回中解放出来。"
 
-#: src/main.cpp:64
+#: src/main.cpp:58
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2268,138 +2299,149 @@ msgstr ""
 "(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 The KBabel 开发者"
 
-#: src/main.cpp:65
+#: src/main.cpp:59
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:66
+#: src/main.cpp:60
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc."
 
-#: src/main.cpp:66
+#: src/main.cpp:60
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "Google 代码之夏项目的赞助开发部分"
 
-#: src/main.cpp:67
+#: src/main.cpp:61
 #, kde-format
 msgid "NLNet Foundation"
 msgstr "NLNet 基金会"
 
-#: src/main.cpp:67
+#: src/main.cpp:61
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr "赞助了 XLIFF 相关的工作"
 
-#: src/main.cpp:68
+#: src/main.cpp:62
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "翻译工具"
 
-#: src/main.cpp:68
+#: src/main.cpp:62
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "提供完美的跨格式转换脚本"
 
-#: src/main.cpp:69
+#: src/main.cpp:63
 #, kde-format
 msgid "LanguageTool"
 msgstr ""
 
-#: src/main.cpp:69
+#: src/main.cpp:63
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr ""
 
-#: src/main.cpp:70
+#: src/main.cpp:64
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:70
+#: src/main.cpp:64
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr "项目树形合并翻译和模板"
 
-#: src/main.cpp:71
+#: src/main.cpp:65
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach"
 
-#: src/main.cpp:71 src/main.cpp:72 src/main.cpp:75
+#: src/main.cpp:65 src/main.cpp:66 src/main.cpp:69
 #, kde-format
 msgid "bug fixing patches"
 msgstr "错误修复补丁"
 
-#: src/main.cpp:72
+#: src/main.cpp:66
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
-#: src/main.cpp:73
+#: src/main.cpp:67
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:73
+#: src/main.cpp:67
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "测试和错误修复"
 
-#: src/main.cpp:74
+#: src/main.cpp:68
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:74
+#: src/main.cpp:68
 #, kde-format
 msgid "patches"
 msgstr "补丁"
 
-#: src/main.cpp:75
+#: src/main.cpp:69
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:76
+#: src/main.cpp:70
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: src/main.cpp:76
+#: src/main.cpp:70
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "XLIFF 改善"
 
-#: src/main.cpp:77
+#: src/main.cpp:71
 #, kde-format
 msgid "Simon Depiets"
 msgstr ""
 
-#: src/main.cpp:77 src/main.cpp:78
+#: src/main.cpp:71 src/main.cpp:72
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr "bug 修复及改进"
 
-#: src/main.cpp:78
+#: src/main.cpp:72
 #, kde-format
 msgid "Karl Ove Hufthammer"
 msgstr ""
 
+#: src/main.cpp:73
+#, kde-format
+msgid "Finley Watson"
+msgstr ""
+
+#: src/main.cpp:73
+#, fuzzy, kde-format
+#| msgid "bug fixing and improvements"
+msgid "bug fixing and improvments"
+msgstr "bug 修复及改进"
+
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:83
+#: src/main.cpp:78
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "不扫描项目的文件。"
 
-#: src/main.cpp:84
+#: src/main.cpp:79
 #, kde-format
 msgid "Load specified project."
 msgstr "加载指定的项目。"
 
-#: src/main.cpp:85
+#: src/main.cpp:80
 #, kde-format
 msgid "Document to open"
 msgstr "要打开的文档"
@@ -4170,7 +4212,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Shell 通配符(* 和 ?)。区分大小写。"
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:127 src/tm/tmview.cpp:132
+#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:194 src/tm/tmview.cpp:199
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4182,93 +4224,123 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "总计：%1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:534
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:633
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr ""
 
-#: src/tm/tmview.cpp:166
+#: src/tm/tmview.cpp:230
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "双击任何单词以将其插入翻译"
 
-#: src/tm/tmview.cpp:285
+#: src/tm/tmview.cpp:343
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "批量翻译记忆填写"
 
-#: src/tm/tmview.cpp:288
+#: src/tm/tmview.cpp:346
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "已完成批量翻译。"
 
-#: src/tm/tmview.cpp:294
+#: src/tm/tmview.cpp:352
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "未发现任何精确匹配建议。"
 
-#: src/tm/tmview.cpp:314 src/tm/tmview.cpp:329
+#: src/tm/tmview.cpp:372 src/tm/tmview.cpp:387
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "已安排批量翻译。"
 
-#: src/tm/tmview.cpp:452
+#: src/tm/tmview.cpp:507
 #, kde-format
-msgctxt "%1 is the TM entry score in percentage"
+msgctxt ""
+"A perfect match between a Translation Memory source string and the source "
+"string being translated."
+msgid "100% (perfect match)"
+msgstr ""
+
+#: src/tm/tmview.cpp:511
+#, fuzzy, kde-format
+#| msgctxt "%1 is the TM entry score in percentage"
+#| msgid "%1%"
+msgctxt ""
+"The similarity between a Translation Memory source string and the source "
+"string being translated, %1 is 0 to 99 (percent)."
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:454
+#: src/tm/tmview.cpp:515
 #, kde-format
-msgctxt "%1 is the number of times this TM entry has been found"
-msgid "(1 time)"
-msgid_plural "(%1 times)"
-msgstr[0] "(%1次)"
+msgctxt ""
+"The number of times a Translation Memory entry exists in the database, %1 is "
+"the number."
+msgid "Occurred %1 time"
+msgid_plural "Occurred %1 times"
+msgstr[0] ""
 
-#: src/tm/tmview.cpp:495
+#: src/tm/tmview.cpp:524
+#, kde-format
+msgctxt ""
+"Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
+"(%3). Bullet point is a separator between the data and can be translated."
+msgid "%1 • %2 • %3"
+msgstr ""
+
+#: src/tm/tmview.cpp:528
+#, kde-format
+msgctxt ""
+"Percentage match (%1) and number of occurrences (%2). Bullet point is a "
+"separator between the data and can be translated."
+msgid "%1 • %2"
+msgstr ""
+
+#: src/tm/tmview.cpp:585
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "本文件"
 
-#: src/tm/tmview.cpp:496
+#: src/tm/tmview.cpp:586
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "文件：%1<br />添加日期：%2"
 
-#: src/tm/tmview.cpp:498
+#: src/tm/tmview.cpp:590
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />最后修改日期: %1"
 
-#: src/tm/tmview.cpp:500
+#: src/tm/tmview.cpp:594
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />最后修改人: %1"
 
-#: src/tm/tmview.cpp:501
+#: src/tm/tmview.cpp:596
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />翻译记忆： %1"
 
-#: src/tm/tmview.cpp:503
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />不再存在于文件中"
 
-#: src/tm/tmview.cpp:515
+#: src/tm/tmview.cpp:614
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4276,44 +4348,44 @@ msgid ""
 msgstr ""
 "<html>您确定要从翻译记忆 %2 中移除条目：<br/><i>%1</i><br/> 吗？</html>"
 
-#: src/tm/tmview.cpp:516
+#: src/tm/tmview.cpp:615
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "翻译记忆条目移除"
 
-#: src/tm/tmview.cpp:560
+#: src/tm/tmview.cpp:656
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "删除此条目"
 
-#: src/tm/tmview.cpp:562
+#: src/tm/tmview.cpp:659
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "打开包含此条目的文件"
 
-#: src/tm/tmview.cpp:570
+#: src/tm/tmview.cpp:671
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:583
+#: src/tm/tmview.cpp:688
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
 
-#: src/tm/tmview.cpp:584
+#: src/tm/tmview.cpp:691
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr ""
 
-#: src/tm/tmview.cpp:988
+#: src/tm/tmview.cpp:1097
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4402,3 +4474,8 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
+
+#~ msgctxt "%1 is the number of times this TM entry has been found"
+#~ msgid "(1 time)"
+#~ msgid_plural "(%1 times)"
+#~ msgstr[0] "(%1次)"
