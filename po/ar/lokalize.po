@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-24 00:42+0000\n"
+"POT-Creation-Date: 2024-10-25 00:42+0000\n"
 "PO-Revision-Date: 2024-10-14 20:27+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -4523,7 +4523,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "إزالة الملفات المفقودة من الذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:1097
+#: src/tm/tmview.cpp:997
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

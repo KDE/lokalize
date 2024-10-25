@@ -10,15 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-24 00:42+0000\n"
-"PO-Revision-Date: 2024-10-14 09:02+0200\n"
+"POT-Creation-Date: 2024-10-25 00:42+0000\n"
+"PO-Revision-Date: 2024-10-24 10:48+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -150,23 +150,21 @@ msgid "Show Data View"
 msgstr "Mostra la vista de les dades"
 
 #: src/alttransview.cpp:171
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Carpeta de les traduccions alternatives:"
+msgstr "Des de la carpeta de traduccions alternatives"
 
 #: src/alttransview.cpp:196
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "Comparació amb el context anterior:"
 
 #: src/alttransview.cpp:214
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "Comparació amb l'origen anterior:"
 
 #: src/alttransview.cpp:291
 #, kde-format
@@ -175,20 +173,7 @@ msgid "Origin: %1"
 msgstr "Origen: %1"
 
 #: src/alttransview.cpp:299
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -201,17 +186,16 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>A vegades, si el text original ha canviat, la seva traducció es torna "
-"obsoleta i es marca com que <emphasis>s'ha&nbsp;de&nbsp;revisar</emphasis> "
-"(p. ex. perd l'estat d'aprovada), o (només en cas de fitxers XLIFF) es mou a "
-"la secció de <emphasis>traduccions&nbsp;alternatives</emphasis> que "
-"acompanya la unitat.</p><p>Aquesta vista d'eina també mostra les diferències "
-"entre la cadena actual original i l'anterior, de manera que us resulti fàcil "
-"veure quins canvis s'han d'aplicar a la traducció existent per a reflectir "
-"l'origen actual.</p><p>Feu doble clic a qualsevol paraula a aquesta vista "
-"d'eina per a inserir-la a la traducció.</p><p>Arrossegueu un fitxer de "
-"traducció a aquesta vista d'eina per a usar-lo com a font de traduccions "
-"alternatives.</p>"
+"A vegades, si el text original ha canviat, la seva traducció es torna "
+"obsoleta i es marca com que s'ha de revisar (és a dir, perd l'estat "
+"d'aprovada), o (només en cas de fitxers XLIFF) es mou a la secció de "
+"traduccions alternatives que acompanya la unitat. Aquesta vista d'eina també "
+"mostra les diferències entre la cadena actual original i l'anterior, de "
+"manera que us resulti més fàcil veure quins canvis s'han d'aplicar a la "
+"traducció existent per a reflectir l'origen actual. Feu doble clic a "
+"qualsevol paraula en aquesta vista d'eina per a inserir-la a la traducció. "
+"Arrossegueu un fitxer de traducció a aquesta vista d'eina per a usar-lo com "
+"a font de traduccions alternatives."
 
 #: src/alttransview.cpp:331
 #, kde-format
@@ -2531,11 +2515,10 @@ msgstr "Karl Ove Hufthammer"
 #: src/main.cpp:73
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:73
-#, fuzzy, kde-format
-#| msgid "bug fixing and improvements"
+#, kde-format
 msgid "bug fixing and improvments"
 msgstr "Esmena d'errors i millores"
 
@@ -4479,12 +4462,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (coincidència perfecta)"
 
 #: src/tm/tmview.cpp:511
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4498,8 +4479,8 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "S'ha trobat %1 vegada"
+msgstr[1] "S'ha trobat %1 vegades"
 
 #: src/tm/tmview.cpp:524
 #, kde-format
@@ -4507,7 +4488,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:528
 #, kde-format
@@ -4515,7 +4496,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:585
 #, kde-format
@@ -4601,7 +4582,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Supressió d'un fitxer que manca de la memòria de traducció"
 
-#: src/tm/tmview.cpp:1097
+#: src/tm/tmview.cpp:997
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-24 00:42+0000\n"
-"PO-Revision-Date: 2024-10-14 07:31+0200\n"
+"POT-Creation-Date: 2024-10-25 00:42+0000\n"
+"PO-Revision-Date: 2024-10-24 07:27+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -149,23 +149,21 @@ msgid "Show Data View"
 msgstr "Prikaži pogled podatkov"
 
 #: src/alttransview.cpp:171
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Mapa z alternativnimi prevodi:"
+msgstr "Iz mape z alternativnimi prevodi"
 
 #: src/alttransview.cpp:196
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "Primerjava s prejšnjim kontekstom:"
 
 #: src/alttransview.cpp:214
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "Primerjava s prejšnjim virom:"
 
 #: src/alttransview.cpp:291
 #, kde-format
@@ -174,20 +172,7 @@ msgid "Origin: %1"
 msgstr "Izvor: %1"
 
 #: src/alttransview.cpp:299
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -200,15 +185,14 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>Včasih, ko je spremenjeno izvorno besedilo, postane njegov prevod opuščen "
-"in označen kot <emphasis>potrebuje&nbsp;pregled</emphasis> (zgubi stanje "
-"potrditve), ali (samo v primeru datoteke XLIFF) premaknjen v odsek "
-"<emphasis>alternativni&nbsp;prevodi</emphasis>, ki spremlja enoto.</p><p>Ta "
-"prikaz orodja tudi prikaže razliko med novim izvornim nizom in starim, tako "
-"da lahko z lahkoto vidite, katere spremembe naj bi bile izvedene za obstoječ "
-"prevod.</p><p>Dvokliknite katerokoli besedo v tem prikazu orodja, da jo "
-"vstavite v prevod.</p><p>Spustite datoteko s prevodi na ta prikaz orodja, da "
-"jo uporabite kot vir za alternativne prevode.</p>"
+"Včasih, ko je spremenjeno izvorno besedilo, postane njegov prevod opuščen in "
+"označen kot potrebuje pregled (zgubi stanje potrditve), ali (samo v primeru "
+"datoteke XLIFF) premaknjen v odsek alternativni prevodi, ki spremlja enoto. "
+"Ta prikaz orodja tudi prikaže razliko med novim izvornim nizom in starim, "
+"tako da lahko z lahkoto vidite, katere spremembe naj bi bile izvedene za "
+"obstoječ prevod. Dvokliknite katerokoli besedo v tem prikazu orodja, da jo "
+"vstavite v prevod. Spustite datoteko s prevodi na ta prikaz orodja, da jo "
+"uporabite kot vir za alternativne prevode."
 
 #: src/alttransview.cpp:331
 #, kde-format
@@ -2509,11 +2493,10 @@ msgstr "Karl Ove Hufthammer"
 #: src/main.cpp:73
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:73
-#, fuzzy, kde-format
-#| msgid "bug fixing and improvements"
+#, kde-format
 msgid "bug fixing and improvments"
 msgstr "popravki napak in izboljšave"
 
@@ -4444,12 +4427,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (popolno ujemanje)"
 
 #: src/tm/tmview.cpp:511
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4463,10 +4444,10 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Se je pojavilo %1 krat"
+msgstr[1] "Se je pojavilo %1 krat"
+msgstr[2] "Se je pojavilo %1 krat"
+msgstr[3] "Se je pojavilo %1 krat"
 
 #: src/tm/tmview.cpp:524
 #, kde-format
@@ -4474,7 +4455,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:528
 #, kde-format
@@ -4482,7 +4463,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:585
 #, kde-format
@@ -4568,7 +4549,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Odstranjevanje manjkajočih datotek iz pomnilnika prevodov"
 
-#: src/tm/tmview.cpp:1097
+#: src/tm/tmview.cpp:997
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-24 00:42+0000\n"
+"POT-Creation-Date: 2024-10-25 00:42+0000\n"
 "PO-Revision-Date: 2024-10-14 20:11+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -4496,7 +4496,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "הסרת קובץ חסר מזיכרון תרגום"
 
-#: src/tm/tmview.cpp:1097
+#: src/tm/tmview.cpp:997
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

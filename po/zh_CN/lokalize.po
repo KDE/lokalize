@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-24 00:42+0000\n"
+"POT-Creation-Date: 2024-10-25 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -144,11 +144,9 @@ msgid "Show Data View"
 msgstr ""
 
 #: src/alttransview.cpp:171
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "备选翻译文件夹："
+msgstr ""
 
 #: src/alttransview.cpp:196
 #, kde-format
@@ -169,20 +167,7 @@ msgid "Origin: %1"
 msgstr "原文：%1"
 
 #: src/alttransview.cpp:299
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -195,12 +180,6 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>在源文本发生了更改之后，它的原有翻译有时会变得不再适用。这些翻译要么被标记"
-"为<emphasis>需要审核</emphasis> (意味着审核状态被撤销)，要么 (仅对于 XLIFF 文"
-"件而言) 被移至该条目的<emphasis>备选翻译</emphasis>部分。</p><p>此工具视图还"
-"会显示当前源文本和旧版源文本的差异，以便检查并发现新版源文本所需的修订。</"
-"p><p>双击此工具视图的任意单词即可将其插入到翻译结果中去。</p><p>将翻译文件拖"
-"放到此工具视图即可将其用作额外的备选翻译。</p>"
 
 #: src/alttransview.cpp:331
 #, kde-format
@@ -2425,10 +2404,9 @@ msgid "Finley Watson"
 msgstr ""
 
 #: src/main.cpp:73
-#, fuzzy, kde-format
-#| msgid "bug fixing and improvements"
+#, kde-format
 msgid "bug fixing and improvments"
-msgstr "bug 修复及改进"
+msgstr ""
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
 #: src/main.cpp:78
@@ -4270,9 +4248,7 @@ msgid "100% (perfect match)"
 msgstr ""
 
 #: src/tm/tmview.cpp:511
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4385,7 +4361,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr ""
 
-#: src/tm/tmview.cpp:1097
+#: src/tm/tmview.cpp:997
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4474,8 +4450,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
-
-#~ msgctxt "%1 is the number of times this TM entry has been found"
-#~ msgid "(1 time)"
-#~ msgid_plural "(%1 times)"
-#~ msgstr[0] "(%1次)"
