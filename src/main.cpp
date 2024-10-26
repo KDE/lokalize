@@ -7,7 +7,6 @@
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-
 #include "lokalize_debug.h"
 
 #include "catalogstring.h"
@@ -57,9 +56,15 @@ int main(int argc, char **argv)
     about.setLicense(KAboutLicense::GPL);
     about.setCopyrightStatement(i18nc("@info:credit", "(c) 2018-2019 Simon Depiets\n(c) 2007-2015 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers"));
     about.addAuthor(i18n("Nick Shaforostoff"), QString(), QStringLiteral("shaforostoff@gmail.com"));
-    about.addCredit(i18n("Google Inc."), i18n("sponsored development as part of Google Summer Of Code program"), QString(), QStringLiteral("https://google.com"));
+    about.addCredit(i18n("Google Inc."),
+                    i18n("sponsored development as part of Google Summer Of Code program"),
+                    QString(),
+                    QStringLiteral("https://google.com"));
     about.addCredit(i18n("NLNet Foundation"), i18n("sponsored XLIFF-related work"), QString(), QStringLiteral("https://nlnet.nl/"));
-    about.addCredit(i18n("Translate-toolkit"), i18n("provided excellent cross-format converting scripts"), QString(), QStringLiteral("https://toolkit.translatehouse.org"));
+    about.addCredit(i18n("Translate-toolkit"),
+                    i18n("provided excellent cross-format converting scripts"),
+                    QString(),
+                    QStringLiteral("https://toolkit.translatehouse.org"));
     about.addCredit(i18n("LanguageTool"), i18n("grammar, style and spell checker"), QString(), QStringLiteral("https://toolkit.translatehouse.org"));
     about.addCredit(i18n("Viesturs Zarins"), i18n("project tree merging translation+templates"), QString(), QStringLiteral("https://languagetool.org"));
     about.addCredit(i18n("Stephan Johach"), i18n("bug fixing patches"), QStringLiteral("hunsum@gmx.de"));
@@ -70,18 +75,18 @@ int main(int argc, char **argv)
     about.addCredit(i18n("Albert Astals Cid"), i18n("XLIFF improvements"), QStringLiteral("aacid@kde.org"));
     about.addCredit(i18n("Simon Depiets"), i18n("bug fixing and improvements"), QStringLiteral("sdepiets@gmail.com"));
     about.addCredit(i18n("Karl Ove Hufthammer"), i18n("bug fixing and improvements"), QStringLiteral("karl@huftis.org"));
-    about.addCredit(i18n("Finley Watson"), i18n("bug fixing and improvments"), QStringLiteral("fin-w@tutanota.com"));
+    about.addCredit(i18n("Finley Watson"), i18n("bug fixing and improvements"), QStringLiteral("fin-w@tutanota.com"));
     KAboutData::setApplicationData(about);
     KCrash::initialize();
     about.setupCommandLine(&parser);
-    //parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
-    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("noprojectscan"), i18n("Do not scan files of the project.")));
-    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("project"), i18n("Load specified project."), QStringLiteral("filename")));
-    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("+[URL]"), i18n("Document to open")));
+    // parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
+    parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("noprojectscan"), i18n("Do not scan files of the project.")));
+    parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("project"), i18n("Load specified project."), QStringLiteral("filename")));
+    parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("+[URL]"), i18n("Document to open")));
     parser.process(app);
     about.processCommandLine(&parser);
 
-    //qCDebug(LOKALIZE_LOG) is important as it avoids compile 'optimization'.
+    // qCDebug(LOKALIZE_LOG) is important as it avoids compile 'optimization'.
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPosition>();
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPos>();
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<InlineTag>();
@@ -100,7 +105,7 @@ int main(int argc, char **argv)
 
         QVector<QString> urls;
         const auto filePaths = parser.positionalArguments();
-        for (const QString& filePath : filePaths)
+        for (const QString &filePath : filePaths)
             if (filePath.endsWith(QLatin1String(".lokalize")))
                 projectFilePath = filePath;
             else if (QFileInfo::exists(filePath))
@@ -116,14 +121,15 @@ int main(int argc, char **argv)
                 projectFilePath = projectFileInfo.absoluteFilePath();
             Project::instance()->load(projectFilePath);
         }
-        LokalizeMainWindow* lmw = new LokalizeMainWindow;
+        LokalizeMainWindow *lmw = new LokalizeMainWindow;
         SettingsController::instance()->setMainWindowPtr(lmw);
         lmw->show();
 
         if (urls.size())
             new DelayedFileOpener(urls, lmw);
 
-        //Project::instance()->model()->setCompleteScan(parser.isSet("noprojectscan"));// TODO: negate check (and ensure nobody passes the no-op --noprojectscan argument)
+        // Project::instance()->model()->setCompleteScan(parser.isSet("noprojectscan"));// TODO: negate check (and ensure nobody passes the no-op
+        // --noprojectscan argument)
     }
     int code = app.exec();
 
@@ -133,7 +139,7 @@ int main(int argc, char **argv)
     TM::threadPool()->waitForDone(1000);
     Project::instance()->model()->threadPool()->clear();
 
-    if (SettingsController::instance()->dirty) //for config changes done w/o config dialog
+    if (SettingsController::instance()->dirty) // for config changes done w/o config dialog
         Settings::self()->save();
 
     if (Project::instance()->isLoaded())
@@ -146,11 +152,9 @@ int main(int argc, char **argv)
         Project::instance()->model()->threadPool()->waitForDone(1000);
         TM::threadPool()->waitForDone(1000);
         QThreadPool::globalInstance()->waitForDone(1000);
-        //qCDebug(LOKALIZE_LOG)<<"QCoreApplication::processEvents()...";
+        // qCDebug(LOKALIZE_LOG)<<"QCoreApplication::processEvents()...";
         QCoreApplication::processEvents();
         QCoreApplication::sendPostedEvents(nullptr, 0);
     }
     return code;
 }
-
-

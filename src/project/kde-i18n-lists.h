@@ -12,6 +12,6 @@
 
 #include <QString>
 
-QString getMailingList(); //implementation is in project.cpp
+QString getMailingList(); // implementation is in project.cpp
 
 #endif

@@ -13,18 +13,18 @@
 #include <QFile>
 #include <QXmlStreamReader>
 
-#include "lokalize_debug.h"
 #include "catalog/catalog.h"
+#include "lokalize_debug.h"
 
 class XliffHandler
 {
 public:
     XliffHandler() = default;
 
-    bool startElement(const QString& localName, const QXmlStreamAttributes& atts);
-    bool endElement(const QString& localName);
-    bool characters(const QString&);
-    //void endAnalysis(bool complete);
+    bool startElement(const QString &localName, const QXmlStreamAttributes &atts);
+    bool endElement(const QString &localName);
+    bool characters(const QString &);
+    // void endAnalysis(bool complete);
 
     int total{0};
     int untranslated{0};
@@ -44,14 +44,15 @@ private:
 };
 
 extern const QString xliff_states[];
-TargetState stringToState(const QString& state);
+TargetState stringToState(const QString &state);
 
-bool XliffHandler::startElement(const QString& localName, const QXmlStreamAttributes& atts)
+bool XliffHandler::startElement(const QString &localName, const QXmlStreamAttributes &atts)
 {
-    //if (fileType == Unknown)
-    //    fileType = strcmp(localname, "xliff") ? Other : XLF;
+    // if (fileType == Unknown)
+    //     fileType = strcmp(localname, "xliff") ? Other : XLF;
 
-    if (localName == QLatin1String("source")) total++;
+    if (localName == QLatin1String("source"))
+        total++;
     else if (localName == QLatin1String("target")) {
         charCount = 0;
 
@@ -66,9 +67,9 @@ bool XliffHandler::startElement(const QString& localName, const QXmlStreamAttrib
             }
         }
     } else if (localName == QLatin1String("phase")) {
-        QString contactNameString  = atts.value(QLatin1String("contact-name")).toString();
+        QString contactNameString = atts.value(QLatin1String("contact-name")).toString();
         QString contactEmailString = atts.value(QLatin1String("contact-email")).toString();
-        QString dateString         = atts.value(QLatin1String("date")).toString();
+        QString dateString = atts.value(QLatin1String("date")).toString();
 
         QString currentLastTranslator;
         if (!contactNameString.isEmpty() && !contactEmailString.isEmpty())
@@ -78,7 +79,8 @@ bool XliffHandler::startElement(const QString& localName, const QXmlStreamAttrib
         else if (!contactEmailString.isEmpty())
             currentLastTranslator = contactEmailString;
 
-        if (!currentLastTranslator.isEmpty()) lastTranslator_fallback = currentLastTranslator;
+        if (!currentLastTranslator.isEmpty())
+            lastTranslator_fallback = currentLastTranslator;
         if (!dateString.isEmpty()) {
             lastDateString_fallback = dateString;
 
@@ -92,7 +94,7 @@ bool XliffHandler::startElement(const QString& localName, const QXmlStreamAttrib
     return true;
 }
 
-bool XliffHandler::endElement(const QString& localName)
+bool XliffHandler::endElement(const QString &localName)
 {
     if (localName == QLatin1String("target")) {
         if (!charCount) {
@@ -111,14 +113,13 @@ bool XliffHandler::endElement(const QString& localName)
     return true;
 }
 
-bool XliffHandler::characters(const QString& ch)
+bool XliffHandler::characters(const QString &ch)
 {
     charCount += ch.length();
     return true;
 }
 
-
-FileMetaData XliffExtractor::extract(const QString& filePath)
+FileMetaData XliffExtractor::extract(const QString &filePath)
 {
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -129,16 +130,14 @@ FileMetaData XliffExtractor::extract(const QString& filePath)
     XliffHandler handler;
     while (!reader.atEnd()) {
         reader.readNext();
-        if(reader.isStartElement()) {
+        if (reader.isStartElement()) {
             QString name = reader.name().toString();
             QXmlStreamAttributes attr = reader.attributes();
             handler.startElement(name, attr);
-        }
-        else if(reader.isEndElement()) {
+        } else if (reader.isEndElement()) {
             QString name = reader.name().toString();
             handler.endElement(name);
-        }
-        else if(reader.isCharacters()) {
+        } else if (reader.isCharacters()) {
             QString text = reader.text().toString();
             handler.characters(text);
         }
@@ -147,15 +146,14 @@ FileMetaData XliffExtractor::extract(const QString& filePath)
     if (reader.hasError())
         qCDebug(LOKALIZE_LOG) << "Parsing failed.";
 
-
-    //TODO WordCount
+    // TODO WordCount
     FileMetaData m;
-    m.fuzzy      = handler.fuzzy;
+    m.fuzzy = handler.fuzzy;
     m.translated = handler.total - handler.untranslated - handler.fuzzy;
     m.untranslated = handler.untranslated;
     m.filePath = filePath;
 
-    //qCDebug(LOKALIZE_LOG)<<"parsed"<<filePath<<m.fuzzy<<m.translated<<m.untranslated<<handler.fuzzy_approver<<handler.fuzzy_reviewer;
+    // qCDebug(LOKALIZE_LOG)<<"parsed"<<filePath<<m.fuzzy<<m.translated<<m.untranslated<<handler.fuzzy_approver<<handler.fuzzy_reviewer;
     Q_ASSERT(m.fuzzy >= 0 && m.untranslated >= 0 && handler.total >= 0);
 
     m.translated_approver = handler.total - handler.untranslated - handler.fuzzy_approver;

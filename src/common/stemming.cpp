@@ -11,13 +11,13 @@
 
 #include "lokalize_debug.h"
 
-#include <QMap>
 #include <QFileInfo>
+#include <QMap>
 #include <QMutex>
 #include <QMutexLocker>
 #include <QStringBuilder>
 
-QString enhanceLangCode(const QString& langCode)
+QString enhanceLangCode(const QString &langCode)
 {
     if (langCode.length() != 2)
         return langCode;
@@ -25,23 +25,26 @@ QString enhanceLangCode(const QString& langCode)
     return QLocale(langCode).name();
 }
 
-
 #ifdef HAVE_HUNSPELL
-#include <hunspell.hxx>
 #include <QStringConverter>
+#include <hunspell.hxx>
 
 struct SpellerAndCodec {
-    Hunspell* speller{nullptr};
+    Hunspell *speller{nullptr};
     QByteArray codec;
-    SpellerAndCodec(): speller(nullptr) {}
-    explicit SpellerAndCodec(const QString& langCode);
+    SpellerAndCodec()
+        : speller(nullptr)
+    {
+    }
+    explicit SpellerAndCodec(const QString &langCode);
 };
 
-SpellerAndCodec::SpellerAndCodec(const QString& langCode)
+SpellerAndCodec::SpellerAndCodec(const QString &langCode)
 {
 #ifdef Q_OS_MAC
     QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") + QStringView(langCode).left(2) + QLatin1Char('/');
-    if (langCode == QLatin1String("pl_PL")) dictPath = QStringLiteral("/System/Library/Spelling/");
+    if (langCode == QLatin1String("pl_PL"))
+        dictPath = QStringLiteral("/System/Library/Spelling/");
 #elif defined(Q_OS_WIN)
     QString dictPath = QStringLiteral("C:/Program Files (x86)/LibreOffice 5/share/extensions/dict-") + QStringView(langCode).left(2) + QLatin1Char('/');
 #else
@@ -63,7 +66,7 @@ static QMap<QString, SpellerAndCodec> hunspellers;
 
 #endif
 
-QString stem(const QString& langCode, const QString& word)
+QString stem(const QString &langCode, const QString &word)
 {
     QString result = word;
 
@@ -76,7 +79,7 @@ QString stem(const QString& langCode, const QString& word)
     }
 
     SpellerAndCodec sc(hunspellers.value(langCode));
-    Hunspell* speller = sc.speller;
+    Hunspell *speller = sc.speller;
     if (!speller)
         return word;
 
@@ -96,10 +99,8 @@ QString stem(const QString& langCode, const QString& word)
 void cleanupSpellers()
 {
 #ifdef HAVE_HUNSPELL
-    for (const SpellerAndCodec& sc : std::as_const(hunspellers))
+    for (const SpellerAndCodec &sc : std::as_const(hunspellers))
         delete sc.speller;
 
 #endif
 }
-
-

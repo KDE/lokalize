@@ -9,18 +9,18 @@
 
 #include "lokalize_debug.h"
 
-#include "gettextheader.h"
 #include "catalogitem_private.h"
-#include "gettextimport.h"
 #include "gettextexport.h"
+#include "gettextheader.h"
+#include "gettextimport.h"
 
 #include "project.h"
 
+#include <QMap>
 #include <QMutex>
 #include <QMutexLocker>
 #include <QRegularExpression>
 #include <QString>
-#include <QMap>
 
 #include <klocalizedstring.h>
 
@@ -30,11 +30,11 @@ QMutex regExMutex;
 
 using namespace GettextCatalog;
 
-//BEGIN OPEN/SAVE
+// BEGIN OPEN/SAVE
 
-int GettextStorage::load(QIODevice* device/*, bool readonly*/)
+int GettextStorage::load(QIODevice *device /*, bool readonly*/)
 {
-    //GettextImportPlugin importer=GettextImportPlugin(readonly?(new ExtraDataSaver()):(new ExtraDataListSaver()));
+    // GettextImportPlugin importer=GettextImportPlugin(readonly?(new ExtraDataSaver()):(new ExtraDataListSaver()));
     GettextImportPlugin importer;
     ConversionStatus status = OK;
     int errorLine{};
@@ -43,43 +43,41 @@ int GettextStorage::load(QIODevice* device/*, bool readonly*/)
         status = importer.open(device, this, &errorLine);
     }
 
-    //for langs with more than 2 forms
-    //we create any form-entries additionally needed
+    // for langs with more than 2 forms
+    // we create any form-entries additionally needed
     uint i = 0;
     uint lim = size();
     while (i < lim) {
-        CatalogItem& item = m_entries[i];
-        if (item.isPlural()
-            && item.msgstrPlural().count() < m_numberOfPluralForms
-           ) {
+        CatalogItem &item = m_entries[i];
+        if (item.isPlural() && item.msgstrPlural().count() < m_numberOfPluralForms) {
             QVector<QString> msgstr(item.msgstrPlural());
             while (msgstr.count() < m_numberOfPluralForms)
                 msgstr.append(QString());
             item.setMsgstr(msgstr);
         }
         ++i;
-
     }
-    //qCompress(m_storage->m_catalogExtraData.join("\n\n").toUtf8(),9);
+    // qCompress(m_storage->m_catalogExtraData.join("\n\n").toUtf8(),9);
 
     return status == OK ? 0 : (errorLine + 1);
 }
 
-bool GettextStorage::save(QIODevice* device, bool belongsToProject)
+bool GettextStorage::save(QIODevice *device, bool belongsToProject)
 {
     QString header = m_header.msgstr();
     QString comment = m_header.comment();
-    QString catalogProjectId;//=m_url.fileName();
-    //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
+    QString catalogProjectId; //=m_url.fileName();
+    // catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
     {
         QMutexLocker locker(&regExMutex);
-        updateHeader(header, comment,
+        updateHeader(header,
+                     comment,
                      m_targetLangCode,
                      m_numberOfPluralForms,
                      catalogProjectId,
                      m_generatedFromDocbook,
                      belongsToProject,
-                     /*forSaving*/true,
+                     /*forSaving*/ true,
                      QStringLiteral("UTF-8")); // we unconditionally write out as UTF-8
     }
     m_header.setMsgstr(header);
@@ -88,20 +86,19 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
     GettextExportPlugin exporter(Project::instance()->wordWrap());
 
     ConversionStatus status = OK;
-    status = exporter.save(device/*x-gettext-translation*/, this);
+    status = exporter.save(device /*x-gettext-translation*/, this);
 
     return status == OK;
 }
 
-//END OPEN/SAVE
+// END OPEN/SAVE
 
-//BEGIN STORAGE TRANSLATION
+// BEGIN STORAGE TRANSLATION
 
 int GettextStorage::size() const
 {
     return m_entries.size();
 }
-
 
 static const QChar altSep(156);
 static InlineTag makeInlineTag(int i)
@@ -111,7 +108,7 @@ static InlineTag makeInlineTag(int i)
     return InlineTag(i, i, InlineTag::x, QString::number(i), QString(), altSepText, ctype);
 }
 
-static CatalogString makeCatalogString(const QString& string)
+static CatalogString makeCatalogString(const QString &string)
 {
     CatalogString result;
     result.string = string;
@@ -126,7 +123,7 @@ static CatalogString makeCatalogString(const QString& string)
     return result;
 }
 
-//flat-model interface (ignores XLIFF grouping)
+// flat-model interface (ignores XLIFF grouping)
 CatalogString GettextStorage::sourceWithTags(DocPosition pos) const
 {
     return makeCatalogString(source(pos));
@@ -136,15 +133,15 @@ CatalogString GettextStorage::targetWithTags(DocPosition pos) const
     return makeCatalogString(target(pos));
 }
 
-QString GettextStorage::source(const DocPosition& pos) const
+QString GettextStorage::source(const DocPosition &pos) const
 {
     return m_entries.at(pos.entry).msgid(pos.form);
 }
-QString GettextStorage::target(const DocPosition& pos) const
+QString GettextStorage::target(const DocPosition &pos) const
 {
     return m_entries.at(pos.entry).msgstr(pos.form);
 }
-QString GettextStorage::sourceWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
+QString GettextStorage::sourceWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     if (m_entries.at(pos.entry).isPlural()) {
         const QVector<QString> plurals = m_entries.at(pos.entry).msgidPlural();
@@ -172,7 +169,7 @@ QString GettextStorage::sourceWithPlurals(const DocPosition& pos, bool truncateF
         return str;
     }
 }
-QString GettextStorage::targetWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
+QString GettextStorage::targetWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     if (m_entries.at(pos.entry).isPlural()) {
         const QVector<QString> plurals = m_entries.at(pos.entry).msgstrPlural();
@@ -201,43 +198,42 @@ QString GettextStorage::targetWithPlurals(const DocPosition& pos, bool truncateF
     }
 }
 
-void GettextStorage::targetDelete(const DocPosition& pos, int count)
+void GettextStorage::targetDelete(const DocPosition &pos, int count)
 {
     m_entries[pos.entry].d._msgstrPlural[pos.form].remove(pos.offset, count);
 }
-void GettextStorage::targetInsert(const DocPosition& pos, const QString& arg)
+void GettextStorage::targetInsert(const DocPosition &pos, const QString &arg)
 {
     m_entries[pos.entry].d._msgstrPlural[pos.form].insert(pos.offset, arg);
 }
-void GettextStorage::setTarget(const DocPosition& pos, const QString& arg)
+void GettextStorage::setTarget(const DocPosition &pos, const QString &arg)
 {
     m_entries[pos.entry].d._msgstrPlural[pos.form] = arg;
 }
 
-
-void GettextStorage::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
+void GettextStorage::targetInsertTag(const DocPosition &pos, const InlineTag &tag)
 {
     Q_UNUSED(tag);
     targetInsert(pos, altSep);
 }
 
-InlineTag GettextStorage::targetDeleteTag(const DocPosition& pos)
+InlineTag GettextStorage::targetDeleteTag(const DocPosition &pos)
 {
     targetDelete(pos, 1);
     return makeInlineTag(pos.offset);
 }
 
-QStringList GettextStorage::sourceAllForms(const DocPosition& pos, bool stripNewLines) const
+QStringList GettextStorage::sourceAllForms(const DocPosition &pos, bool stripNewLines) const
 {
     return m_entries.at(pos.entry).allPluralForms(CatalogItem::Source, stripNewLines);
 }
 
-QStringList GettextStorage::targetAllForms(const DocPosition& pos, bool stripNewLines) const
+QStringList GettextStorage::targetAllForms(const DocPosition &pos, bool stripNewLines) const
 {
     return m_entries.at(pos.entry).allPluralForms(CatalogItem::Target, stripNewLines);
 }
 
-QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
+QVector<AltTrans> GettextStorage::altTrans(const DocPosition &pos) const
 {
     QString msgctxtOld;
     QString msgidOld;
@@ -290,19 +286,22 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
     }
 
     QVector<AltTrans> result;
-    result << AltTrans(CatalogString(msgctxtOld), CatalogString(msgidOld.isEmpty() ? msgidpluralOld : msgidOld), i18n("Previous source value, saved by Gettext during transition to a newer POT template"));
+    result << AltTrans(CatalogString(msgctxtOld),
+                       CatalogString(msgidOld.isEmpty() ? msgidpluralOld : msgidOld),
+                       i18n("Previous source value, saved by Gettext during transition to a newer POT template"));
     return result;
 }
 
-Note GettextStorage::setNote(DocPosition pos, const Note& note)
+Note GettextStorage::setNote(DocPosition pos, const Note &note)
 {
-    //qCWarning(LOKALIZE_LOG)<<"s"<<m_entries.at(pos.entry).comment();
+    // qCWarning(LOKALIZE_LOG)<<"s"<<m_entries.at(pos.entry).comment();
     Note oldNote;
     QVector<Note> l = notes(pos);
-    if (l.size()) oldNote = l.first();
+    if (l.size())
+        oldNote = l.first();
 
     QStringList comment = m_entries.at(pos.entry).comment().split(QLatin1Char('\n'));
-    //remove previous comment;
+    // remove previous comment;
     QStringList::iterator it = comment.begin();
     while (it != comment.end()) {
         if (it->startsWith(QLatin1String("# ")))
@@ -314,11 +313,11 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
         comment.prepend(QStringLiteral("# ") + note.content.split(QLatin1Char('\n')).join(QStringLiteral("\n# ")));
     m_entries[pos.entry].setComment(comment.join(QLatin1Char('\n')));
 
-    //qCWarning(LOKALIZE_LOG)<<"e"<<m_entries.at(pos.entry).comment();
+    // qCWarning(LOKALIZE_LOG)<<"e"<<m_entries.at(pos.entry).comment();
     return oldNote;
 }
 
-QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegularExpression& re, int preLen) const
+QVector<Note> GettextStorage::notes(const DocPosition &docPosition, const QRegularExpression &re, int preLen) const
 {
     QVector<Note> result;
     QString content;
@@ -338,23 +337,23 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegul
     }
     return result;
 
-//i18nc("@info PO comment parsing. contains filename","<i>Place:</i>");
-//i18nc("@info PO comment parsing","<i>GUI place:</i>");
+    // i18nc("@info PO comment parsing. contains filename","<i>Place:</i>");
+    // i18nc("@info PO comment parsing","<i>GUI place:</i>");
 }
 
-QVector<Note> GettextStorage::notes(const DocPosition& docPosition) const
+QVector<Note> GettextStorage::notes(const DocPosition &docPosition) const
 {
     static const QRegularExpression nre(QStringLiteral("^# "));
     return notes(docPosition, nre, 2);
 }
 
-QVector<Note> GettextStorage::developerNotes(const DocPosition& docPosition) const
+QVector<Note> GettextStorage::developerNotes(const DocPosition &docPosition) const
 {
     static const QRegularExpression dnre(QStringLiteral("^#\\. (?!i18n: file:)"));
     return notes(docPosition, dnre, 3);
 }
 
-QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
+QStringList GettextStorage::sourceFiles(const DocPosition &pos) const
 {
     QStringList result;
     QStringList commentLines = m_entries.at(pos.entry).comment().split(QLatin1Char('\n'));
@@ -383,17 +382,17 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     return result;
 }
 
-QStringList GettextStorage::context(const DocPosition& pos) const
+QStringList GettextStorage::context(const DocPosition &pos) const
 {
     return matchData(pos);
 }
 
-QStringList GettextStorage::matchData(const DocPosition& pos) const
+QStringList GettextStorage::matchData(const DocPosition &pos) const
 {
     QString ctxt = m_entries.at(pos.entry).msgctxt();
 
-    //KDE-specific
-    //Splits @info:whatsthis and actual note
+    // KDE-specific
+    // Splits @info:whatsthis and actual note
     /*    if (ctxt.startsWith('@') && ctxt.contains(' '))
         {
             QStringList result(ctxt.section(' ',0,0,Qt::SectionSkipEmpty));
@@ -403,10 +402,10 @@ QStringList GettextStorage::matchData(const DocPosition& pos) const
     return QStringList(ctxt);
 }
 
-QString GettextStorage::id(const DocPosition& pos) const
+QString GettextStorage::id(const DocPosition &pos) const
 {
-    //entries in gettext format may be non-unique
-    //only if their msgctxts are different
+    // entries in gettext format may be non-unique
+    // only if their msgctxts are different
 
     QString result = source(pos);
     result.remove(QLatin1Char('\n'));
@@ -417,16 +416,16 @@ QString GettextStorage::id(const DocPosition& pos) const
         return QString qChecksum(result);*/
 }
 
-bool GettextStorage::isPlural(const DocPosition& pos) const
+bool GettextStorage::isPlural(const DocPosition &pos) const
 {
     return m_entries.at(pos.entry).isPlural();
 }
 
-bool GettextStorage::isApproved(const DocPosition& pos) const
+bool GettextStorage::isApproved(const DocPosition &pos) const
 {
     return !m_entries.at(pos.entry).isFuzzy();
 }
-void GettextStorage::setApproved(const DocPosition& pos, bool approved)
+void GettextStorage::setApproved(const DocPosition &pos, bool approved)
 {
     if (approved)
         m_entries[pos.entry].unsetFuzzy();
@@ -434,27 +433,24 @@ void GettextStorage::setApproved(const DocPosition& pos, bool approved)
         m_entries[pos.entry].setFuzzy();
 }
 
-bool GettextStorage::isEmpty(const DocPosition& pos) const
+bool GettextStorage::isEmpty(const DocPosition &pos) const
 {
     return m_entries.at(pos.entry).isUntranslated();
 }
 
-//END STORAGE TRANSLATION
+// END STORAGE TRANSLATION
 
-
-
-
-//called from importer
-bool GettextStorage::setHeader(const CatalogItem& newHeader)
+// called from importer
+bool GettextStorage::setHeader(const CatalogItem &newHeader)
 {
     if (newHeader.isValid()) {
         // normalize the values - ensure every key:value pair is only on a single line
         QString values = newHeader.msgstr();
         values.replace(QStringLiteral("\\n"), QStringLiteral("\\n\n"));
-//       qCDebug(LOKALIZE_LOG) << "Normalized header: " << values;
+        //       qCDebug(LOKALIZE_LOG) << "Normalized header: " << values;
         QString comment = newHeader.comment();
-        QString catalogProjectId;//=m_url.fileName(); FIXME m_url is always empty
-        //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
+        QString catalogProjectId; //=m_url.fileName(); FIXME m_url is always empty
+        // catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
         bool belongsToProject = m_url.contains(Project::instance()->poDir());
 
         updateHeader(values,
@@ -464,20 +460,17 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
                      catalogProjectId,
                      m_generatedFromDocbook,
                      belongsToProject,
-                     /*forSaving*/true,
+                     /*forSaving*/ true,
                      QString::fromLatin1(m_codec));
         m_header = newHeader;
         m_header.setComment(comment);
         m_header.setMsgstr(values);
 
-//       setClean(false);
-        //Q_EMIT signalHeaderChanged();
+        //       setClean(false);
+        // Q_EMIT signalHeaderChanged();
 
         return true;
     }
     qCWarning(LOKALIZE_LOG) << "header Not valid";
     return false;
 }
-
-
-

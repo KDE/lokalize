@@ -7,7 +7,6 @@
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-
 #ifndef SCANAPI_H
 #define SCANAPI_H
 
@@ -18,38 +17,38 @@
 
 #include <kjob.h>
 
-bool dragIsAcceptable(const QList<QUrl>& urls);
+bool dragIsAcceptable(const QList<QUrl> &urls);
 QString shorterFilePath(const QString path);
-
 
 namespace TM
 {
 class ScanJob;
 class ScanJobFeedingBack;
 
-void purgeMissingFilesFromTM(const QStringList& urls, const QString& dbName);
+void purgeMissingFilesFromTM(const QStringList &urls, const QString &dbName);
 
-///wrapper. returns gross number of jobs started
-int scanRecursive(const QStringList& urls, const QString& dbName);
+/// wrapper. returns gross number of jobs started
+int scanRecursive(const QStringList &urls, const QString &dbName);
 
-class RecursiveScanJob: public KJob
+class RecursiveScanJob : public KJob
 {
     Q_OBJECT
 public:
-    explicit RecursiveScanJob(const QString& dbName, QObject* parent = nullptr);
-    void setJobs(const QVector<ScanJob*>& jobs);
+    explicit RecursiveScanJob(const QString &dbName, QObject *parent = nullptr);
+    void setJobs(const QVector<ScanJob *> &jobs);
     void start() override;
 
 public Q_SLOTS:
-    void scanJobFinished(ScanJobFeedingBack*);
+    void scanJobFinished(ScanJobFeedingBack *);
     void scanJobDestroyed();
+
 protected:
     bool doKill() override;
 
 private:
     QString m_dbName;
     QElapsedTimer m_time;
-    QVector<ScanJob*> m_jobs;
+    QVector<ScanJob *> m_jobs;
     qulonglong m_destroyedJobs{0};
 };
 }

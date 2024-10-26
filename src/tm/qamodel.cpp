@@ -6,18 +6,17 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-
 #include "qamodel.h"
 #include "domroutines.h"
-#include <QStringList>
-#include <QFile>
-#include <QTextStream>
 #include <QCoreApplication>
+#include <QFile>
+#include <QStringList>
+#include <QTextStream>
 #include <klocalizedstring.h>
 
 static const QString ruleTagNames[] = {QStringLiteral("source"), QStringLiteral("falseFriend"), QStringLiteral("target")};
 
-static QStringList domListToStringList(const QDomNodeList& nodes)
+static QStringList domListToStringList(const QDomNodeList &nodes)
 {
     QStringList result;
     result.reserve(nodes.size());
@@ -27,13 +26,13 @@ static QStringList domListToStringList(const QDomNodeList& nodes)
     return result;
 }
 
-static QRegularExpression domNodeToRegExp(const QDomNode& node)
+static QRegularExpression domNodeToRegExp(const QDomNode &node)
 {
     QRegularExpression re(node.toElement().text(), QRegularExpression::InvertedGreedinessOption);
     return re;
 }
 
-static QVector<QRegularExpression> domListToRegExpVector(const QDomNodeList& nodes)
+static QVector<QRegularExpression> domListToRegExpVector(const QDomNodeList &nodes)
 {
     QVector<QRegularExpression> result;
     result.reserve(nodes.size());
@@ -43,11 +42,11 @@ static QVector<QRegularExpression> domListToRegExpVector(const QDomNodeList& nod
     return result;
 }
 
-
-QaModel* QaModel::_instance = nullptr;
+QaModel *QaModel::_instance = nullptr;
 void QaModel::cleanupQaModel()
 {
-    delete QaModel::_instance; QaModel::_instance = nullptr;
+    delete QaModel::_instance;
+    QaModel::_instance = nullptr;
 }
 
 bool QaModel::isInstantiated()
@@ -55,7 +54,7 @@ bool QaModel::isInstantiated()
     return _instance != nullptr;
 }
 
-QaModel* QaModel::instance()
+QaModel *QaModel::instance()
 {
     if (Q_UNLIKELY(_instance == nullptr)) {
         _instance = new QaModel;
@@ -65,8 +64,8 @@ QaModel* QaModel::instance()
     return _instance;
 }
 
-
-QaModel::QaModel(QObject* parent): QAbstractListModel(parent)
+QaModel::QaModel(QObject *parent)
+    : QAbstractListModel(parent)
 {
 }
 
@@ -75,7 +74,7 @@ QaModel::~QaModel()
     saveRules();
 }
 
-int QaModel::rowCount(const QModelIndex& parent) const
+int QaModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
@@ -88,15 +87,17 @@ QVariant QaModel::headerData(int section, Qt::Orientation, int role) const
         return QVariant();
 
     switch (section) {
-    //case ID: return i18nc("@title:column","ID");
-    case Source: return i18nc("@title:column Original text", "Source");;
-    case FalseFriend: return i18nc("@title:column Translator's false friend", "False Friend");
+    // case ID: return i18nc("@title:column","ID");
+    case Source:
+        return i18nc("@title:column Original text", "Source");
+        ;
+    case FalseFriend:
+        return i18nc("@title:column Translator's false friend", "False Friend");
     }
     return QVariant();
 }
 
-
-QVariant QaModel::data(const QModelIndex& item, int role) const
+QVariant QaModel::data(const QModelIndex &item, int role) const
 {
     if (role == Qt::ToolTipRole)
         return m_filename;
@@ -105,7 +106,7 @@ QVariant QaModel::data(const QModelIndex& item, int role) const
         return QVariant();
 
     static const QString nl(QLatin1Char('\n'));
-    const QDomElement& entry = m_entries.at(item.row()).toElement();
+    const QDomElement &entry = m_entries.at(item.row()).toElement();
     return domListToStringList(entry.elementsByTagName(ruleTagNames[item.column()])).join(nl);
 }
 
@@ -127,7 +128,7 @@ QVector<Rule> QaModel::toVector() const
     return rules;
 }
 
-bool QaModel::loadRules(const QString& filename)
+bool QaModel::loadRules(const QString &filename)
 {
     QFile file(filename);
     if (file.open(QIODevice::ReadOnly)) {
@@ -136,12 +137,12 @@ bool QaModel::loadRules(const QString& filename)
         if (!ok)
             return false;
     } else {
-        m_doc.setContent(QByteArray(
-                             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                             "<qa version=\"1.0\">\n"
-                             "    <category name=\"default\">\n"
-                             "    </category>\n"
-                             "</qa>\n"));
+        m_doc.setContent(
+            QByteArray("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                       "<qa version=\"1.0\">\n"
+                       "    <category name=\"default\">\n"
+                       "    </category>\n"
+                       "</qa>\n"));
     }
 
     m_entries = m_doc.elementsByTagName(QStringLiteral("rule"));
@@ -163,10 +164,9 @@ bool QaModel::saveRules(QString filename)
     QTextStream stream(&device);
     m_doc.save(stream, 2);
 
-    //setClean(true);
+    // setClean(true);
     return true;
 }
-
 
 QModelIndex QaModel::appendRow()
 {
@@ -182,9 +182,9 @@ QModelIndex QaModel::appendRow()
     return index(m_entries.count() - 1);
 }
 
-void QaModel::removeRow(const QModelIndex& rowIndex)
+void QaModel::removeRow(const QModelIndex &rowIndex)
 {
-    //TODO optimize for contiguous selections
+    // TODO optimize for contiguous selections
     beginRemoveRows(QModelIndex(), rowIndex.row(), rowIndex.row());
 
     QDomElement category = m_doc.elementsByTagName(QStringLiteral("qa")).at(0).toElement().elementsByTagName(QStringLiteral("category")).at(0).toElement();
@@ -193,13 +193,12 @@ void QaModel::removeRow(const QModelIndex& rowIndex)
     endRemoveRows();
 }
 
-
-Qt::ItemFlags QaModel::flags(const QModelIndex&) const
+Qt::ItemFlags QaModel::flags(const QModelIndex &) const
 {
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
 }
 
-bool QaModel::setData(const QModelIndex& item, const QVariant& value, int role)
+bool QaModel::setData(const QModelIndex &item, const QVariant &value, int role)
 {
     if (role != Qt::DisplayRole && role != Qt::EditRole)
         return false;
@@ -220,6 +219,5 @@ bool QaModel::setData(const QModelIndex& item, const QVariant& value, int role)
     Q_EMIT dataChanged(item, item);
     return true;
 }
-
 
 #include "moc_qamodel.cpp"

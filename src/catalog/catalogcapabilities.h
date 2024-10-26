@@ -15,13 +15,13 @@ enum CatalogCapabilities {
     MultipleNotes = 2,
     Phases = 4,
     ExtendedStates = 8,
-    Tags = 16
+    Tags = 16,
 };
 
 enum CatalogType {
     Gettext,
     Xliff,
-    Ts
+    Ts,
 };
 
 #endif

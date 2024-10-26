@@ -10,38 +10,40 @@
 #ifndef LOKALIZESUBWINDOWBASE_H
 #define LOKALIZESUBWINDOWBASE_H
 
-#include <QHash>
-#include <QString>
+#include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
-#include <QDateTime>
+#include <QHash>
+#include <QString>
 
 #include "actionproxy.h"
 
 #include <kmainwindow.h>
 #include <kxmlguiclient.h>
 
-
 /**
  * Interface for LokalizeMainWindow
  */
-class LokalizeSubwindowBase: public KMainWindow
+class LokalizeSubwindowBase : public KMainWindow
 {
     Q_OBJECT
 public:
-    explicit LokalizeSubwindowBase(QWidget* parent): KMainWindow(parent) {}
+    explicit LokalizeSubwindowBase(QWidget *parent)
+        : KMainWindow(parent)
+    {
+    }
     virtual ~LokalizeSubwindowBase()
     {
         Q_EMIT aboutToBeClosed();
     }
-    virtual KXMLGUIClient* guiClient() = 0;
+    virtual KXMLGUIClient *guiClient() = 0;
     virtual void reloadUpdatedXML() = 0;
     virtual void setUpdatedXMLFile() = 0;
 
-    //interface for LokalizeMainWindow
+    // interface for LokalizeMainWindow
     virtual void hideDocks() = 0;
     virtual void showDocks() = 0;
-    //bool queryClose();
+    // bool queryClose();
 
     virtual QString currentFilePath()
     {
@@ -56,7 +58,7 @@ Q_SIGNALS:
     void aboutToBeClosed();
 
 public:
-    //QHash<QString,ActionProxy*> supportedActions;
+    // QHash<QString,ActionProxy*> supportedActions;
     StatusBarProxy statusBarItems;
 
 protected:
@@ -66,15 +68,19 @@ protected:
 /**
  * C++ casting workaround
  */
-class LokalizeSubwindowBase2: public LokalizeSubwindowBase, public KXMLGUIClient
+class LokalizeSubwindowBase2 : public LokalizeSubwindowBase, public KXMLGUIClient
 {
 public:
-    explicit LokalizeSubwindowBase2(QWidget* parent): LokalizeSubwindowBase(parent), KXMLGUIClient() {}
+    explicit LokalizeSubwindowBase2(QWidget *parent)
+        : LokalizeSubwindowBase(parent)
+        , KXMLGUIClient()
+    {
+    }
     ~LokalizeSubwindowBase2() override = default;
 
-    KXMLGUIClient* guiClient() override
+    KXMLGUIClient *guiClient() override
     {
-        return (KXMLGUIClient*)this;
+        return (KXMLGUIClient *)this;
     }
 
     void setUpdatedXMLFile() override

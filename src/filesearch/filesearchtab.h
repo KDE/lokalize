@@ -15,11 +15,11 @@
 #include "qaview.h"
 #include "rule.h"
 
+#include <QAbstractListModel>
 #include <QDockWidget>
 #include <QScreen>
-#include <QAbstractListModel>
-#include <state.h>
 #include <phase.h>
+#include <state.h>
 
 class MassReplaceJob;
 class SearchJob;
@@ -41,21 +41,25 @@ class Ui_FileSearchOptions;
 /**
  * Global file search/repalce tab
  */
-class FileSearchTab: public LokalizeSubwindowBase2
+class FileSearchTab : public LokalizeSubwindowBase2
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.FileSearch")
-    //qdbuscpp2xml -m -s filesearch/filesearchtab.h -o filesearch/org.kde.lokalize.FileSearch.xml
+    // qdbuscpp2xml -m -s filesearch/filesearchtab.h -o filesearch/org.kde.lokalize.FileSearch.xml
 
 public:
     explicit FileSearchTab(QWidget *parent);
     ~FileSearchTab() override;
 
-    void hideDocks() override {}
-    void showDocks() override {}
-    KXMLGUIClient* guiClient() override
+    void hideDocks() override
     {
-        return (KXMLGUIClient*)this;
+    }
+    void showDocks() override
+    {
+    }
+    KXMLGUIClient *guiClient() override
+    {
+        return (KXMLGUIClient *)this;
     }
     QString dbusObjectPath();
     int dbusId()
@@ -68,9 +72,9 @@ public Q_SLOTS:
     void copyTargetToClipboard();
     void openFile();
     Q_SCRIPTABLE void performSearch();
-    Q_SCRIPTABLE void addFilesToSearch(const QStringList&);
-    Q_SCRIPTABLE void setSourceQuery(const QString&);
-    Q_SCRIPTABLE void setTargetQuery(const QString&);
+    Q_SCRIPTABLE void addFilesToSearch(const QStringList &);
+    Q_SCRIPTABLE void setSourceQuery(const QString &);
+    Q_SCRIPTABLE void setTargetQuery(const QString &);
     Q_SCRIPTABLE bool findGuiText(QString text)
     {
         return findGuiTextPackage(text, QString());
@@ -78,32 +82,31 @@ public Q_SLOTS:
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
     void fileSearchNext();
     void stopSearch();
-    void massReplace(const QRegularExpression &what, const QString& with);
+    void massReplace(const QRegularExpression &what, const QString &with);
 
 private Q_SLOTS:
-    void searchJobDone(SearchJob*);
-    void replaceJobDone(MassReplaceJob*);
+    void searchJobDone(SearchJob *);
+    void replaceJobDone(MassReplaceJob *);
 
 Q_SIGNALS:
-    void fileOpenRequested(const QString& filePath, DocPosition docPos, int selection, const bool setAsActive);
-    void fileOpenRequested(const QString& filePath, const bool setAsActive);
+    void fileOpenRequested(const QString &filePath, DocPosition docPos, int selection, const bool setAsActive);
+    void fileOpenRequested(const QString &filePath, const bool setAsActive);
 
 private:
-    void dragEnterEvent(QDragEnterEvent* event) override;
-    void dropEvent(QDropEvent*) override;
-
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *) override;
 
 private:
-    Ui_FileSearchOptions* ui_fileSearchOptions{nullptr};
+    Ui_FileSearchOptions *ui_fileSearchOptions{nullptr};
 
-    FileSearchModel* m_model{nullptr};
-    SearchFileListView* m_searchFileListView{nullptr};
-    MassReplaceView* m_massReplaceView{nullptr};
-    QaView* m_qaView{new QaView(this)};
+    FileSearchModel *m_model{nullptr};
+    SearchFileListView *m_searchFileListView{nullptr};
+    MassReplaceView *m_massReplaceView{nullptr};
+    QaView *m_qaView{new QaView(this)};
 
-    QVector<QRunnable*> m_runningJobs;
+    QVector<QRunnable *> m_runningJobs;
 
-    //to avoid results from previous search showing up in the new one
+    // to avoid results from previous search showing up in the new one
     int m_lastSearchNumber{0};
 
     int m_dbusId{-1};
@@ -118,75 +121,81 @@ struct FileSearchResult {
 
     bool isApproved{};
     TargetState state;
-    //Phase activePhase;
+    // Phase activePhase;
 
     QVector<StartLen> sourcePositions;
     QVector<StartLen> targetPositions;
 
-    //int matchedQaRule;
-    //short notePos;
-    //char  noteindex;
+    // int matchedQaRule;
+    // short notePos;
+    // char  noteindex;
 };
 
-typedef QMap<QString, QVector<FileSearchResult> > FileSearchResults;
+typedef QMap<QString, QVector<FileSearchResult>> FileSearchResults;
 
-struct SearchResult: public FileSearchResult {
+struct SearchResult : public FileSearchResult {
     QString filepath;
 
-    explicit SearchResult(const FileSearchResult& fsr): FileSearchResult(fsr) {}
-    SearchResult() {}
+    explicit SearchResult(const FileSearchResult &fsr)
+        : FileSearchResult(fsr)
+    {
+    }
+    SearchResult()
+    {
+    }
 };
 
 typedef QVector<SearchResult> SearchResults;
 
-class FileSearchModel: public QAbstractListModel
+class FileSearchModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-
     enum FileSearchModelColumns {
         Source = 0,
         Target,
-        //Context,
+        // Context,
         Filepath,
         TranslationStatus,
-        //Notes,
-        ColumnCount
+        // Notes,
+        ColumnCount,
     };
 
     enum Roles {
         FullPathRole = Qt::UserRole,
         TransStateRole = Qt::UserRole + 1,
-        HtmlDisplayRole = Qt::UserRole + 2
+        HtmlDisplayRole = Qt::UserRole + 2,
     };
 
-    explicit FileSearchModel(QObject* parent);
+    explicit FileSearchModel(QObject *parent);
     ~FileSearchModel() override = default;
 
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const override;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override
+    QVariant data(const QModelIndex &item, int role = Qt::DisplayRole) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override
     {
-        Q_UNUSED(parent) return ColumnCount;
+        Q_UNUSED(parent)
+        return ColumnCount;
     }
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override
     {
-        Q_UNUSED(parent) return m_searchResults.size();
+        Q_UNUSED(parent)
+        return m_searchResults.size();
     }
 
-    SearchResults searchResults()const
+    SearchResults searchResults() const
     {
         return m_searchResults;
     }
-    SearchResult searchResult(const QModelIndex& item) const
+    SearchResult searchResult(const QModelIndex &item) const
     {
         return m_searchResults.at(item.row());
     }
-    void appendSearchResults(const SearchResults&);
+    void appendSearchResults(const SearchResults &);
     void clear();
 
 public Q_SLOTS:
-    void setReplacePreview(const QRegularExpression&, const QString&);
+    void setReplacePreview(const QRegularExpression &, const QString &);
 
 private:
     SearchResults m_searchResults;
@@ -194,48 +203,50 @@ private:
     QString m_replaceWith;
 };
 
-class SearchFileListView: public QDockWidget
+class SearchFileListView : public QDockWidget
 {
     Q_OBJECT
 
 public:
-    explicit SearchFileListView(QWidget*);
-    ~SearchFileListView() {}
+    explicit SearchFileListView(QWidget *);
+    ~SearchFileListView()
+    {
+    }
 
-    void addFiles(const QStringList& files);
-    void addFilesFast(const QStringList& files);
+    void addFiles(const QStringList &files);
+    void addFilesFast(const QStringList &files);
 
-    QStringList files()const;
+    QStringList files() const;
 
-    void scrollTo(const QString& file = QString());
+    void scrollTo(const QString &file = QString());
 
 public Q_SLOTS:
     void clear();
-    void requestFileOpen(const QModelIndex&);
+    void requestFileOpen(const QModelIndex &);
 Q_SIGNALS:
-    void fileOpenRequested(const QString& filePath, const bool setAsActive);
+    void fileOpenRequested(const QString &filePath, const bool setAsActive);
 
 private:
-    QTreeView* m_browser{};
-    QLabel* m_background{};
-    QStringListModel* m_model{};
+    QTreeView *m_browser{};
+    QLabel *m_background{};
+    QStringListModel *m_model{};
 };
 
 class Ui_MassReplaceOptions;
 
-class MassReplaceView: public QDockWidget
+class MassReplaceView : public QDockWidget
 {
     Q_OBJECT
 
 public:
-    explicit MassReplaceView(QWidget*);
+    explicit MassReplaceView(QWidget *);
     ~MassReplaceView();
 
     void deactivatePreview();
 
 Q_SIGNALS:
-    void previewRequested(const QRegularExpression&, const QString&);
-    void replaceRequested(const QRegularExpression&, const QString&);
+    void previewRequested(const QRegularExpression &, const QString &);
+    void replaceRequested(const QRegularExpression &, const QString &);
 
 private Q_SLOTS:
     void requestPreview(bool enable);
@@ -243,7 +254,7 @@ private Q_SLOTS:
     void requestReplace();
 
 private:
-    Ui_MassReplaceOptions* ui{};
+    Ui_MassReplaceOptions *ui{};
 };
 
 struct SearchParams {
@@ -266,56 +277,54 @@ struct SearchParams {
 };
 
 #include <QRunnable>
-class SearchJob: public QObject, public QRunnable
+class SearchJob : public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit SearchJob(const QStringList& f,
-                       const SearchParams& sp,
-                       const QVector<Rule>& r,
-                       int sn,
-                       QObject* parent = nullptr);
+    explicit SearchJob(const QStringList &f, const SearchParams &sp, const QVector<Rule> &r, int sn, QObject *parent = nullptr);
     ~SearchJob() override = default;
 
 Q_SIGNALS:
-    void done(SearchJob*);
+    void done(SearchJob *);
+
 protected:
     void run() override;
+
 public:
     QStringList files;
     SearchParams searchParams;
     QVector<Rule> rules;
     int searchNumber{};
 
-    SearchResults results; //plain
+    SearchResults results; // plain
 
     int m_size{0};
 };
 
 /// @short replace in files
-class MassReplaceJob: public QObject, public QRunnable
+class MassReplaceJob : public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit MassReplaceJob(const SearchResults& srs,
+    explicit MassReplaceJob(const SearchResults &srs,
                             int pos,
-                            const QRegularExpression& s,
-                            const QString& r,
-                            //int sn,
-                            QObject* parent = nullptr);
+                            const QRegularExpression &s,
+                            const QString &r,
+                            // int sn,
+                            QObject *parent = nullptr);
     ~MassReplaceJob() override = default;
 
 Q_SIGNALS:
-    void done(MassReplaceJob*);
+    void done(MassReplaceJob *);
 
 protected:
     void run() override;
+
 public:
     SearchResults searchResults;
     int globalPos{};
     QRegularExpression replaceWhat;
     QString replaceWith;
 };
-
 
 #endif

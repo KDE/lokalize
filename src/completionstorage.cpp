@@ -11,18 +11,19 @@
 
 #include "lokalize_debug.h"
 
-#include "project.h"
 #include "prefs_lokalize.h"
+#include "project.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
 
-CompletionStorage* CompletionStorage::_instance = nullptr;
+CompletionStorage *CompletionStorage::_instance = nullptr;
 void CompletionStorage::cleanupCompletionStorage()
 {
-    delete CompletionStorage::_instance; CompletionStorage::_instance = nullptr;
+    delete CompletionStorage::_instance;
+    CompletionStorage::_instance = nullptr;
 }
 
-CompletionStorage* CompletionStorage::instance()
+CompletionStorage *CompletionStorage::instance()
 {
     if (_instance == nullptr) {
         _instance = new CompletionStorage();
@@ -31,18 +32,19 @@ CompletionStorage* CompletionStorage::instance()
     return _instance;
 }
 
-
-void CompletionStorage::scanCatalog(Catalog* catalog)
+void CompletionStorage::scanCatalog(Catalog *catalog)
 {
-    if (!catalog->numberOfEntries()) return;
-    QElapsedTimer a; a.start();
+    if (!catalog->numberOfEntries())
+        return;
+    QElapsedTimer a;
+    a.start();
 
     int wordCompletionLength = Settings::self()->wordCompletionLength();
     /* we can't skip the scanning because there might be explicit completion triggered
     if (wordCompletionLength<3 || !catalog->numberOfEntries())
         return;
     */
-    wordCompletionLength += 3; //only long words
+    wordCompletionLength += 3; // only long words
 
     QString accel = Project::instance()->accel();
 
@@ -52,7 +54,7 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
         string.remove(accel);
 
         const QStringList words = string.toLower().split(rxSplit, Qt::SkipEmptyParts);
-        for (const QString& word : words) {
+        for (const QString &word : words) {
             if (word.length() < wordCompletionLength)
                 continue;
             m_words[word]++;
@@ -62,19 +64,18 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
     qCWarning(LOKALIZE_LOG) << "indexed" << catalog->url() << "for word completion in" << a.elapsed() << "msecs";
 }
 
-QStringList CompletionStorage::makeCompletion(const QString& word) const
+QStringList CompletionStorage::makeCompletion(const QString &word) const
 {
-    //QTime a;a.start();
+    // QTime a;a.start();
     if (word.isEmpty())
         return QStringList();
-    QMultiMap<int, QString> hits; //we use the fact that qmap sorts it's items by keys
+    QMultiMap<int, QString> hits; // we use the fact that qmap sorts it's items by keys
     QString cleanWord = word.toLower();
     QMap<QString, int>::const_iterator it = m_words.lowerBound(cleanWord);
     while (it != m_words.constEnd() && it.key().startsWith(cleanWord)) {
         hits.insert(-it.value(), it.key().mid(word.length()));
         ++it;
     }
-    //qCDebug(LOKALIZE_LOG)<<"hits generated in"<<a.elapsed()<<"msecs";
+    // qCDebug(LOKALIZE_LOG)<<"hits generated in"<<a.elapsed()<<"msecs";
     return hits.values();
 }
-

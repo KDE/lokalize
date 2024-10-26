@@ -7,18 +7,16 @@
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-
 #include "qaview.h"
-#include "qamodel.h"
 #include "project.h"
+#include "qamodel.h"
 
-#include <QFile>
 #include <QAction>
+#include <QFile>
 
 #include <klocalizedstring.h>
 
-
-QaView::QaView(QWidget* parent)
+QaView::QaView(QWidget *parent)
     : QDockWidget(i18nc("@title:window", "Quality Assurance"), parent)
     , m_browser(new QTreeView(this))
 {
@@ -33,7 +31,7 @@ QaView::QaView(QWidget* parent)
     m_browser->setRootIsDecorated(false);
     m_browser->setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    QAction* action = new QAction(i18nc("@action:inmenu", "Add"), m_browser);
+    QAction *action = new QAction(i18nc("@action:inmenu", "Add"), m_browser);
     connect(action, &QAction::triggered, this, &QaView::addRule);
     m_browser->addAction(action);
 
@@ -66,11 +64,10 @@ bool QaView::saveRules(QString filename)
     return m_qaModel->saveRules(filename.isEmpty() ? m_filename : filename);
 }
 
-QVector< Rule > QaView::rules() const
+QVector<Rule> QaView::rules() const
 {
     return m_qaModel->toVector();
 }
-
 
 void QaView::addRule()
 {
@@ -82,12 +79,11 @@ void QaView::addRule()
 void QaView::removeRule()
 {
     const auto selectedRows = m_browser->selectionModel()->selectedRows();
-    for (const QModelIndex& rowIndex : selectedRows)
+    for (const QModelIndex &rowIndex : selectedRows)
         m_qaModel->removeRow(rowIndex);
 }
 
-int findMatchingRule(const QVector<Rule>& rules, const QString& source, const QString& target,
-                     QVector<StartLen>& positions)
+int findMatchingRule(const QVector<Rule> &rules, const QString &source, const QString &target, QVector<StartLen> &positions)
 {
     for (QVector<Rule>::const_iterator it = rules.constBegin(); it != rules.constEnd(); ++it) {
         if (const auto sourceMatch = it->sources.first().match(source); sourceMatch.hasMatch()) {

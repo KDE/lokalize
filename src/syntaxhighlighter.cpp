@@ -12,19 +12,16 @@
 
 #include "lokalize_debug.h"
 
-#include "project.h"
-#include "prefs_lokalize.h"
 #include "prefs.h"
+#include "prefs_lokalize.h"
+#include "project.h"
 
-
-#include <QTextEdit>
 #include <QApplication>
 #include <QStringBuilder>
+#include <QTextEdit>
 
 #define STATE_NORMAL 0
 #define STATE_TAG 1
-
-
 
 #define NUM_OF_RULES 5
 
@@ -33,23 +30,23 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 {
     highlightingRules.reserve(NUM_OF_RULES);
     HighlightingRule rule;
-    //rule.format.setFontItalic(true);
-//     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
+    // rule.format.setFontItalic(true);
+    //     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
     setAutomatic(false);
 
     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
 
-    //QTextCharFormat format;
-    //tagFormat.setForeground(Qt::darkBlue);
-//     if (!docbook) //support multiline tags
-//     {
-//         rule.format = tagFormat;
-//         rule.pattern = QRegExp("<.+>");
-//         rule.pattern.setMinimal(true);
-//         highlightingRules.append(rule);
-//     }
+    // QTextCharFormat format;
+    // tagFormat.setForeground(Qt::darkBlue);
+    //     if (!docbook) //support multiline tags
+    //     {
+    //         rule.format = tagFormat;
+    //         rule.pattern = QRegExp("<.+>");
+    //         rule.pattern.setMinimal(true);
+    //         highlightingRules.append(rule);
+    //     }
 
-    //entity
+    // entity
     rule.format.setForeground(tagBrush.brush(QApplication::palette()));
     rule.pattern = QRegularExpression(QStringLiteral("(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)"));
     highlightingRules.append(rule);
@@ -66,10 +63,9 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
     rule.pattern = QRegularExpression(QStringLiteral("(\\\\[abfnrtv'\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)"));
     highlightingRules.append(rule);
 
-    //spaces
+    // spaces
     settingsChanged();
     connect(SettingsController::instance(), &SettingsController::generalSettingsChanged, this, &SyntaxHighlighter::settingsChanged);
-
 }
 
 void SyntaxHighlighter::settingsChanged()
@@ -78,7 +74,7 @@ void SyntaxHighlighter::settingsChanged()
     if (Settings::highlightSpaces() && highlightingRules.last().pattern != re) {
         HighlightingRule rule;
         rule.format.clearForeground();
-        
+
         // Note that the foreground and background colours have been switched in
         // the rules for formatting spaces (nbsp and leading/trailing spaces).
         // This makes the spaces easier to see.
@@ -90,7 +86,7 @@ void SyntaxHighlighter::settingsChanged()
         rule.format.setFontLetterSpacing(200);
         rule.pattern = QRegularExpression(QRegularExpression::escape(QChar(0x00a0U)));
         highlightingRules.append(rule);
-        
+
         // soft hyphens
         rule.format.setForeground(colorScheme.foreground(KColorScheme::VisitedText));
         rule.format.setBackground(colorScheme.background(KColorScheme::VisitedBackground));
@@ -129,7 +125,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
     setFormat(0, text.length(), f);
 
     tagFormat.setFontItalic(!m_approved);
-    //if (fromDocbook)
+    // if (fromDocbook)
     {
         int startIndex = STATE_NORMAL;
         if (previousBlockState() != STATE_TAG)
@@ -142,8 +138,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                 currentBlockState = STATE_TAG;
                 commentLength = text.length() - startIndex;
             } else {
-                commentLength = endIndex - startIndex
-                                + 1/*+ commentEndExpression.matchedLength()*/;
+                commentLength = endIndex - startIndex + 1 /*+ commentEndExpression.matchedLength()*/;
             }
             setFormat(startIndex, commentLength, tagFormat);
             startIndex = text.indexOf(QLatin1Char('<'), startIndex + commentLength);
@@ -192,26 +187,24 @@ void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QText
 
 void SyntaxHighlighter::setMisspelled(int start, int count)
 {
-    const Project& project = *Project::instance();
+    const Project &project = *Project::instance();
 
     const QString text = currentBlock().text();
     QString word = text.mid(start, count);
-    if (m_sourceString.contains(word)
-        && QStringView(project.targetLangCode()).left(2) != QStringView(project.sourceLangCode()).left(2))
+    if (m_sourceString.contains(word) && QStringView(project.targetLangCode()).left(2) != QStringView(project.sourceLangCode()).left(2))
         return;
 
     const QString accel = project.accel();
 
     if (!isWordMisspelled(word.remove(accel)))
         return;
-    count = word.length(); //safety
+    count = word.length(); // safety
 
-    bool smthPreceeding = (start > 0) &&
-                          (accel.endsWith(text.at(start - 1))
-                           || text.at(start - 1) == QChar(0x0000AD) //soft hyphen
-                          );
+    bool smthPreceeding = (start > 0)
+        && (accel.endsWith(text.at(start - 1)) || text.at(start - 1) == QChar(0x0000AD) // soft hyphen
+        );
 
-    //HACK. Needs Sonnet API redesign (KDE 5)
+    // HACK. Needs Sonnet API redesign (KDE 5)
     if (smthPreceeding) {
         qCWarning(LOKALIZE_LOG) << "ampersand is in the way. word len:" << count;
         const QRegularExpression regExp(QStringLiteral("\\b"));
@@ -225,10 +218,9 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
             return;
     }
 
-    bool smthAfter = (start + count + 1 < text.size()) &&
-                     (accel.startsWith(text.at(start + count))
-                      || text.at(start + count) == QChar(0x0000AD) //soft hyphen
-                     );
+    bool smthAfter = (start + count + 1 < text.size())
+        && (accel.startsWith(text.at(start + count)) || text.at(start + count) == QChar(0x0000AD) // soft hyphen
+        );
     if (smthAfter) {
         qCWarning(LOKALIZE_LOG) << "smthAfter. ampersand is in the way. word len:" << count;
         const QRegularExpression regExp(QStringLiteral("\\b"));

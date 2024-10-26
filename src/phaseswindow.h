@@ -10,15 +10,14 @@
 #ifndef PHASESWINDOW_H
 #define PHASESWINDOW_H
 
-
-#include "phase.h"
 #include "note.h"
+#include "phase.h"
 
-#include <QUrl>
 #include <QDialog>
-#include <QModelIndex>
-#include <QVector>
 #include <QMap>
+#include <QModelIndex>
+#include <QUrl>
+#include <QVector>
 
 class QDialogButtonBox;
 class QStackedLayout;
@@ -26,15 +25,15 @@ class QTextBrowser;
 class NoteEditor;
 class PhasesModel;
 class MyTreeView;
-class PhasesWindow: public QDialog
+class PhasesWindow : public QDialog
 {
     Q_OBJECT
 public:
-    explicit PhasesWindow(Catalog* catalog, QWidget *parent);
+    explicit PhasesWindow(Catalog *catalog, QWidget *parent);
     ~PhasesWindow() override = default;
 
 private Q_SLOTS:
-    void displayPhaseNotes(const QModelIndex& current);
+    void displayPhaseNotes(const QModelIndex &current);
     void addPhase();
     void handleResult();
     void anchorClicked(QUrl);
@@ -42,39 +41,38 @@ private Q_SLOTS:
     void noteEditRejected();
 
 private:
-    Catalog* m_catalog{};
-    PhasesModel* m_model{};
-    MyTreeView* m_view{};
-    QTextBrowser* m_browser{};
-    NoteEditor* m_editor{};
-    QWidget* m_noteView{};
-    QStackedLayout* m_stackedLayout{};
-    QDialogButtonBox* m_buttonBox{};
+    Catalog *m_catalog{};
+    PhasesModel *m_model{};
+    MyTreeView *m_view{};
+    QTextBrowser *m_browser{};
+    NoteEditor *m_editor{};
+    QWidget *m_noteView{};
+    QStackedLayout *m_stackedLayout{};
+    QDialogButtonBox *m_buttonBox{};
 
-    QMap<QString, QVector<Note> > m_phaseNotes;
+    QMap<QString, QVector<Note>> m_phaseNotes;
 };
-
 
 #include <QTreeView>
 
-class MyTreeView: public QTreeView
+class MyTreeView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit MyTreeView(QWidget* parent): QTreeView(parent) {}
+    explicit MyTreeView(QWidget *parent)
+        : QTreeView(parent)
+    {
+    }
     ~MyTreeView() override = default;
 
 Q_SIGNALS:
-    void currentIndexChanged(const QModelIndex& current);
+    void currentIndexChanged(const QModelIndex &current);
+
 private:
-    void currentChanged(const QModelIndex& current, const QModelIndex&) override
+    void currentChanged(const QModelIndex &current, const QModelIndex &) override
     {
         Q_EMIT currentIndexChanged(current);
     }
 };
 
-
-
-
 #endif
-

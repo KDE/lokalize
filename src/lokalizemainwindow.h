@@ -12,14 +12,14 @@
 
 #include "pos.h"
 
-#include <kxmlguiwindow.h>
 #include <kconfiggroup.h>
+#include <kxmlguiwindow.h>
 
-#include <QPointer>
-#include <QMap>
-#include <QUrl>
-#include <QMdiArea>
 #include <QDBusObjectPath>
+#include <QMap>
+#include <QMdiArea>
+#include <QPointer>
+#include <QUrl>
 
 class QLabel;
 class QMdiSubWindow;
@@ -45,71 +45,70 @@ class TMTab;
  *
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
-class LokalizeMainWindow: public KXmlGuiWindow
+class LokalizeMainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.MainWindow")
-    //qdbuscpp2xml -m -s lokalizemainwindow.h -o org.kde.lokalize.MainWindow.xml
+    // qdbuscpp2xml -m -s lokalizemainwindow.h -o org.kde.lokalize.MainWindow.xml
 
 public:
     LokalizeMainWindow();
     ~LokalizeMainWindow() override;
 
 protected:
-    void saveProjectState(KConfigGroup&);
-    void saveProperties(KConfigGroup& stateGroup) override;
+    void saveProjectState(KConfigGroup &);
+    void saveProperties(KConfigGroup &stateGroup) override;
     bool queryClose() override;
-    void readProperties(const KConfigGroup& stateGroup) override;
+    void readProperties(const KConfigGroup &stateGroup) override;
     void registerDBusAdaptor();
     void setupActions();
 
 private Q_SLOTS:
-    void slotSubWindowActivated(QMdiSubWindow*);
+    void slotSubWindowActivated(QMdiSubWindow *);
     void initLater();
     void applyToBeActiveSubWindow();
     void projectLoaded();
     void projectSettingsChanged();
 
-    void editorClosed(QObject* obj);
+    void editorClosed(QObject *obj);
     void resetMultiEditorAdaptor();
 
-    void openProject(const QUrl& url)
+    void openProject(const QUrl &url)
     {
-        openProject(url.toLocalFile());   //convenience overload for recent projects action
+        openProject(url.toLocalFile()); // convenience overload for recent projects action
     }
     void openProject()
     {
         openProject(QString());
     }
 
-
 public Q_SLOTS:
     /**
      * Adds new editor with @param path loaded,
      * or just activates already existing editor with this file.
      */
-    Q_SCRIPTABLE int openFileInEditor(const QString& path);
-    Q_SCRIPTABLE int openFileInEditorAt(const QString& path, const QString& source, const QString& ctxt);
-    int lookupInTranslationMemory(DocPosition::Part part, const QString& text);
-    Q_SCRIPTABLE int lookupInTranslationMemory(const QString& source, const QString& target);
+    Q_SCRIPTABLE int openFileInEditor(const QString &path);
+    Q_SCRIPTABLE int openFileInEditorAt(const QString &path, const QString &source, const QString &ctxt);
+    int lookupInTranslationMemory(DocPosition::Part part, const QString &text);
+    Q_SCRIPTABLE int lookupInTranslationMemory(const QString &source, const QString &target);
     Q_SCRIPTABLE int showTranslationMemory();
     Q_SCRIPTABLE void showProjectOverview();
-    Q_SCRIPTABLE QObject* projectOverview();
+    Q_SCRIPTABLE QObject *projectOverview();
 
     Q_SCRIPTABLE bool closeProject();
     Q_SCRIPTABLE void openProject(QString path);
     Q_SCRIPTABLE QString currentProject();
 
     /// @returns 0 if current tab is not of Editor type
-    Q_SCRIPTABLE QObject* activeEditor();
+    Q_SCRIPTABLE QObject *activeEditor();
 
     /// @returns editor with @param path loaded or 0 if there is no such editor.
-    Q_SCRIPTABLE QObject* editorForFile(const QString& path);
+    Q_SCRIPTABLE QObject *editorForFile(const QString &path);
     /**
      * # part of editor DBus path: /ThisIsWhatYouWant/Editor/#
      * @returns -1 if there is no such editor
      */
-    Q_SCRIPTABLE int editorIndexForFile(const QString& path);
+    Q_SCRIPTABLE int editorIndexForFile(const QString &path);
 
     /// @returns Unix process ID
     Q_SCRIPTABLE int pid();
@@ -118,22 +117,22 @@ public Q_SLOTS:
     Q_SCRIPTABLE QString dbusName();
 
     Q_SCRIPTABLE void busyCursor(bool busy);
-    //Q_SCRIPTABLE void processEvents();
+    // Q_SCRIPTABLE void processEvents();
 
-    //returns 0 if error
-    EditorTab* fileOpen_(QString url, const bool setAsActive);
-    EditorTab* fileOpen(QString url = QString(), int entry = 0, bool setAsActive = true, const QString& mergeFile = QString(), bool silent = false);
-    EditorTab* fileOpen(const QString& url, const QString& source, const QString& ctxt, const bool setAsActive);
-    EditorTab* fileOpen(const QString& url, DocPosition docPos, int selection, const bool setAsActive);
-    EditorTab* fileOpen(const QUrl& url)
+    // returns 0 if error
+    EditorTab *fileOpen_(QString url, const bool setAsActive);
+    EditorTab *fileOpen(QString url = QString(), int entry = 0, bool setAsActive = true, const QString &mergeFile = QString(), bool silent = false);
+    EditorTab *fileOpen(const QString &url, const QString &source, const QString &ctxt, const bool setAsActive);
+    EditorTab *fileOpen(const QString &url, DocPosition docPos, int selection, const bool setAsActive);
+    EditorTab *fileOpen(const QUrl &url)
     {
         return fileOpen(url.toLocalFile(), 0, true);
     }
-    TM::TMTab* showTM();
-    FileSearchTab* showFileSearch(bool activate = true);
+    TM::TMTab *showTM();
+    FileSearchTab *showFileSearch(bool activate = true);
     void showFileSearchAction();
     void fileSearchNext();
-    void addFilesToSearch(const QStringList&);
+    void addFilesToSearch(const QStringList &);
 
     void widgetTextCapture();
 Q_SIGNALS:
@@ -141,32 +140,32 @@ Q_SIGNALS:
     Q_SCRIPTABLE void editorActivated();
 
 private:
-    LokalizeMdiArea* m_mdiArea;
+    LokalizeMdiArea *m_mdiArea;
     QPointer<QMdiSubWindow> m_prevSubWindow{};
     QPointer<QMdiSubWindow> m_projectSubWindow{};
     QPointer<QMdiSubWindow> m_translationMemorySubWindow{};
     QPointer<QMdiSubWindow> m_fileSearchSubWindow{};
-    QPointer<QMdiSubWindow> m_toBeActiveSubWindow{}; //used during session restore
+    QPointer<QMdiSubWindow> m_toBeActiveSubWindow{}; // used during session restore
 
-    QActionGroup* m_editorActions{};
-    QActionGroup* m_managerActions{};
-    KRecentFilesAction* m_openRecentFileAction{};
-    KRecentFilesAction* m_openRecentProjectAction{};
-    QVector<QLabel*> m_statusBarLabels;
+    QActionGroup *m_editorActions{};
+    QActionGroup *m_managerActions{};
+    KRecentFilesAction *m_openRecentFileAction{};
+    KRecentFilesAction *m_openRecentProjectAction{};
+    QVector<QLabel *> m_statusBarLabels;
 
     QByteArray m_lastEditorState;
 
-    //used for kross API
-    EditorTab* m_spareEditor{};
-    MultiEditorAdaptor* m_multiEditorAdaptor{};
+    // used for kross API
+    EditorTab *m_spareEditor{};
+    MultiEditorAdaptor *m_multiEditorAdaptor{};
 
-    //using QPointer switches it.value() to 0 before we get to destroyed() handler
-    //typedef QMap<QUrl, QPointer<QMdiSubWindow> > FileToEditor;
-    typedef QMap<QString, QMdiSubWindow*> FileToEditor;
+    // using QPointer switches it.value() to 0 before we get to destroyed() handler
+    // typedef QMap<QUrl, QPointer<QMdiSubWindow> > FileToEditor;
+    typedef QMap<QString, QMdiSubWindow *> FileToEditor;
     FileToEditor m_fileToEditor;
 };
 
-class LokalizeMdiArea: public QMdiArea
+class LokalizeMdiArea : public QMdiArea
 {
     Q_OBJECT
 public Q_SLOTS:
@@ -174,19 +173,18 @@ public Q_SLOTS:
     void activatePreviousSubWindow();
 };
 
-class DelayedFileOpener: public QObject
+class DelayedFileOpener : public QObject
 {
     Q_OBJECT
 public:
-    DelayedFileOpener(const QVector<QString>& urls, LokalizeMainWindow* lmw);
+    DelayedFileOpener(const QVector<QString> &urls, LokalizeMainWindow *lmw);
 
 private Q_SLOTS:
     void doOpen();
 
 private:
     QVector<QString> m_urls;
-    LokalizeMainWindow* m_lmw{};
+    LokalizeMainWindow *m_lmw{};
 };
-
 
 #endif

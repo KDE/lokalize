@@ -22,11 +22,7 @@ bool TbxParser::startDocument()
     return true;
 }
 
-
-
-bool TbxParser::startElement(const QString&, const QString&,
-                             const QString& qName,
-                             const QXmlAttributes& attr)
+bool TbxParser::startElement(const QString &, const QString &, const QString &qName, const QXmlAttributes &attr)
 {
     if (qName == "langSet") {
         if (attr.value("xml:lang").startsWith(QLatin1String("en")))
@@ -51,7 +47,7 @@ bool TbxParser::startElement(const QString&, const QString&,
     return true;
 }
 
-bool TbxParser::endElement(const QString&, const QString&, const QString& qName)
+bool TbxParser::endElement(const QString &, const QString &, const QString &qName)
 {
     if (qName == "term") {
         if (m_lang == langEn) {
@@ -67,7 +63,7 @@ bool TbxParser::endElement(const QString&, const QString&, const QString& qName)
     } else if (qName == "descrip") {
         if (m_state == descripSubjectField && !m_subjectField.isEmpty()) {
             m_entry.subjectField = Project::instance()->glossary()->subjectFields.indexOf(m_subjectField);
-            if (m_entry.subjectField == -1) { //got this field value for the first time
+            if (m_entry.subjectField == -1) { // got this field value for the first time
                 m_entry.subjectField = Project::instance()->glossary()->subjectFields.size();
                 Project::instance()->glossary()->subjectFields << m_subjectField;
             }
@@ -75,7 +71,7 @@ bool TbxParser::endElement(const QString&, const QString&, const QString& qName)
         }
 
     } else if (qName == "termEntry") {
-        //sanity check --maybe this entry is only for another language?
+        // sanity check --maybe this entry is only for another language?
         if (m_entry.target.isEmpty() || m_entry.english.isEmpty())
             return true;
 
@@ -89,13 +85,11 @@ bool TbxParser::endElement(const QString&, const QString&, const QString& qName)
     return true;
 }
 
-
-
-bool TbxParser::characters(const QString & ch)
+bool TbxParser::characters(const QString &ch)
 {
     if (m_state == term) {
         if (m_lang == langEn)
-            m_termEn += ch.toLower(); //this is important
+            m_termEn += ch.toLower(); // this is important
         else if (m_lang == langTarget)
             m_termOther += ch;
     } else if (m_state == descripDefinition)
@@ -103,7 +97,5 @@ bool TbxParser::characters(const QString & ch)
     else if (m_state == descripSubjectField)
         m_subjectField += ch;
 
-
     return true;
 }
-

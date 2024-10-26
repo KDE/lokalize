@@ -20,5 +20,5 @@ CatalogExportPlugin::CatalogExportPlugin()
 
 CatalogExportPlugin::~CatalogExportPlugin()
 {
-//    delete d;
+    //    delete d;
 }

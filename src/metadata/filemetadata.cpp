@@ -25,8 +25,8 @@ FileMetaData FileMetaData::extract(const QString &filePath)
         XliffExtractor extractor;
         return extractor.extract(filePath);
     } else if (filePath.endsWith(QLatin1String(".ts"))) {
-        //POExtractor extractor;
-        //extractor.extract(filePath, m);
+        // POExtractor extractor;
+        // extractor.extract(filePath, m);
     }
 
     return {};
@@ -34,9 +34,9 @@ FileMetaData FileMetaData::extract(const QString &filePath)
 
 QDataStream &operator<<(QDataStream &s, const FileMetaData &d)
 {
-    //Magic number
+    // Magic number
     s << (quint32)0xABC42BCA;
-    //Version
+    // Version
     s << (qint32)1;
     s << d.translated;
     s << d.translated_approver;
@@ -54,17 +54,17 @@ QDataStream &operator<<(QDataStream &s, const FileMetaData &d)
 
 QDataStream &operator>>(QDataStream &s, FileMetaData &d)
 {
-    //Read the magic number
+    // Read the magic number
     qint32 version = 0;
     quint32 magic;
     s >> magic;
     if (magic == 0xABC42BCA) {
-        //This is a valid magic number, we can expect a version number
-        //Else it's the old format
+        // This is a valid magic number, we can expect a version number
+        // Else it's the old format
         s >> version;
         s >> d.translated;
     } else {
-        //Legacy format, the magic number was actually the translated count
+        // Legacy format, the magic number was actually the translated count
         d.translated = magic;
     }
     s >> d.translated_approver;

@@ -15,10 +15,10 @@
 
 #include <kmainwindow.h>
 
-#include <QSqlQueryModel>
-#include <QSqlDatabase>
 #include <QMutex>
 #include <QScreen>
+#include <QSqlDatabase>
+#include <QSqlQueryModel>
 
 class KXMLGUIClient;
 class QComboBox;
@@ -38,28 +38,31 @@ class ExecQueryJob;
 /**
  * Translation Memory tab
  */
-class TMTab: public LokalizeSubwindowBase2
+class TMTab : public LokalizeSubwindowBase2
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.TranslationMemory")
-    //qdbuscpp2xml -m -s tm/tmtab.h -o tm/org.kde.lokalize.TranslationMemory.xml
+    // qdbuscpp2xml -m -s tm/tmtab.h -o tm/org.kde.lokalize.TranslationMemory.xml
 
 public:
     explicit TMTab(QWidget *parent);
     ~TMTab() override;
 
-    void hideDocks() override {}
-    void showDocks() override {}
-    KXMLGUIClient* guiClient() override
+    void hideDocks() override
     {
-        return (KXMLGUIClient*)this;
+    }
+    void showDocks() override
+    {
+    }
+    KXMLGUIClient *guiClient() override
+    {
+        return (KXMLGUIClient *)this;
     }
     QString dbusObjectPath();
     int dbusId()
     {
         return m_dbusId;
     }
-
 
 public Q_SLOTS:
     Q_SCRIPTABLE bool findGuiText(QString text)
@@ -68,7 +71,7 @@ public Q_SLOTS:
     }
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
     Q_SCRIPTABLE void lookup(QString source, QString target);
-    //void lookup(DocPosition::Part, QString text);
+    // void lookup(DocPosition::Part, QString text);
 
 public Q_SLOTS:
     void performQuery();
@@ -82,29 +85,27 @@ public Q_SLOTS:
     void setQAMode(bool enabled);
 
 Q_SIGNALS:
-    void fileOpenRequested(const QString& url, const QString& source, const QString& ctxt, const bool setAsActive);
+    void fileOpenRequested(const QString &url, const QString &source, const QString &ctxt, const bool setAsActive);
 
 private:
-    void dragEnterEvent(QDragEnterEvent* event) override;
-    void dropEvent(QDropEvent*) override;
-
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *) override;
 
 private:
-    Ui_QueryOptions* ui_queryOptions{};
-    TMDBModel* m_model{};
+    Ui_QueryOptions *ui_queryOptions{};
+    TMDBModel *m_model{};
     TMResultsSortFilterProxyModel *m_proxyModel{};
-    QaView* m_qaView{};
+    QaView *m_qaView{};
 
     DocPosition::Part m_partToAlsoTryLater{DocPosition::UndefPart};
     int m_dbusId{-1};
     static QList<int> ids;
 };
 
-class TMDBModel: public QSqlQueryModel
+class TMDBModel : public QSqlQueryModel
 {
     Q_OBJECT
 public:
-
     enum TMDBModelColumns {
         Source = 0,
         Target,
@@ -114,66 +115,63 @@ public:
         _TargetAccel,
         _Bits,
         TransationStatus,
-        ColumnCount
+        ColumnCount,
     };
 
     enum QueryType {
         SubStr = 0,
         WordOrder,
-        Glob
+        Glob,
     };
 
     enum Roles {
         FullPathRole = Qt::UserRole,
         TransStateRole = Qt::UserRole + 1,
-        //HtmlDisplayRole=FastSizeHintItemDelegate::HtmlDisplayRole
+        // HtmlDisplayRole=FastSizeHintItemDelegate::HtmlDisplayRole
     };
 
-    explicit TMDBModel(QObject* parent);
+    explicit TMDBModel(QObject *parent);
     ~TMDBModel() override = default;
 
-    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const override;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override
+    QVariant data(const QModelIndex &item, int role = Qt::DisplayRole) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override
     {
         Q_UNUSED(parent);
         return ColumnCount;
     }
-    int totalResultCount()const
+    int totalResultCount() const
     {
         return m_totalResultCount;
     }
-    QString dbName()const
+    QString dbName() const
     {
         return m_dbName;
     }
 
 public Q_SLOTS:
-    void setFilter(const QString& source, const QString& target,
-                   bool invertSource, bool invertTarget,
-                   const QString& filemask
-                  );
+    void setFilter(const QString &source, const QString &target, bool invertSource, bool invertTarget, const QString &filemask);
     void setQueryType(int);
-    void setDB(const QString&);
-    void slotQueryExecuted(ExecQueryJob*);
+    void setDB(const QString &);
+    void slotQueryExecuted(ExecQueryJob *);
 
 Q_SIGNALS:
     void resultsFetched();
     void finalResultCountFetched(int);
 
-
 private:
     bool rowIsApproved(int row) const;
-    int translationStatus(const QModelIndex& item) const;
+    int translationStatus(const QModelIndex &item) const;
 
 private:
     QueryType m_queryType{WordOrder};
     QString m_dbName;
     int m_totalResultCount{0};
+
 public:
     mutable QMutex m_dbOperationMutex;
 };
 
-//const QString& sourceRefine, const QString& targetRefine
+// const QString& sourceRefine, const QString& targetRefine
 
 }
 

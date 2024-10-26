@@ -22,11 +22,13 @@ using namespace GettextCatalog;
 QString CatalogItem::msgctxt(const bool noNewlines) const
 {
     QString msgctxt = d._msgctxt;
-    if (noNewlines) return msgctxt.replace(QLatin1Char('\n'), QLatin1Char(' ')); //" " or "" ?
-    else            return msgctxt;
+    if (noNewlines)
+        return msgctxt.replace(QLatin1Char('\n'), QLatin1Char(' ')); //" " or "" ?
+    else
+        return msgctxt;
 }
 
-const QString& CatalogItem::msgstr(const int form) const
+const QString &CatalogItem::msgstr(const int form) const
 {
     if (Q_LIKELY(form < d._msgstrPlural.size()))
         return d._msgstrPlural.at(form);
@@ -46,11 +48,11 @@ bool CatalogItem::prependEmptyForMsgstr(const int form) const
     return d._prependMsgStrEmptyLine;
 }
 
-const QVector<QString>& CatalogItem::msgstrPlural() const
+const QVector<QString> &CatalogItem::msgstrPlural() const
 {
     return d._msgstrPlural;
 }
-const QVector<QString>& CatalogItem::msgidPlural() const
+const QVector<QString> &CatalogItem::msgidPlural() const
 {
     return d._msgidPlural;
 }
@@ -64,60 +66,60 @@ QStringList CatalogItem::allPluralForms(CatalogItem::Part part, bool stripNewLin
     return result;
 }
 
-void CatalogItem::setMsgctxt(const QString& msg)
+void CatalogItem::setMsgctxt(const QString &msg)
 {
     d._msgctxt = msg;
     d._msgctxt.squeeze();
     d._keepEmptyMsgCtxt = msg.isEmpty();
 }
 
-void CatalogItem::setMsgid(const QString& msg, const int form)
+void CatalogItem::setMsgid(const QString &msg, const int form)
 {
     if (form >= d._msgidPlural.size())
         d._msgidPlural.resize(form + 1);
     d._msgidPlural[form] = msg;
 }
 
-void CatalogItem::setMsgid(const QStringList& msg)
+void CatalogItem::setMsgid(const QStringList &msg)
 {
-    d._msgidPlural = msg.toVector(); //TODO
+    d._msgidPlural = msg.toVector(); // TODO
     for (QVector<QString>::iterator it = d._msgidPlural.begin(); it != d._msgidPlural.end(); ++it)
         it->squeeze();
 }
 
-void CatalogItem::setMsgid(const QStringList& msg, bool prependEmptyLine)
+void CatalogItem::setMsgid(const QStringList &msg, bool prependEmptyLine)
 {
     d._prependMsgIdEmptyLine = prependEmptyLine;
-    d._msgidPlural = msg.toVector(); //TODO
+    d._msgidPlural = msg.toVector(); // TODO
     for (QVector<QString>::iterator it = d._msgidPlural.begin(); it != d._msgidPlural.end(); ++it)
         it->squeeze();
 }
 
-void CatalogItem::setMsgstr(const QString& msg, const int form)
+void CatalogItem::setMsgstr(const QString &msg, const int form)
 {
     if (form >= d._msgstrPlural.size())
         d._msgstrPlural.resize(form + 1);
     d._msgstrPlural[form] = msg;
 }
 
-void CatalogItem::setMsgstr(const QStringList& msg)
+void CatalogItem::setMsgstr(const QStringList &msg)
 {
-    //TODO
+    // TODO
     d._msgstrPlural = msg.toVector();
 }
 
-void CatalogItem::setMsgstr(const QStringList& msg, bool prependEmptyLine)
+void CatalogItem::setMsgstr(const QStringList &msg, bool prependEmptyLine)
 {
     d._prependMsgStrEmptyLine = prependEmptyLine;
     d._msgstrPlural = msg.toVector();
 }
 
-void CatalogItem::setComment(const QString& com)
+void CatalogItem::setComment(const QString &com)
 {
     {
-        //static QMutex reMutex;
-        //QMutexLocker reLock(&reMutex); //avoid crash #281033
-        //now we have a bigger scale mutex in GettextStorage
+        // static QMutex reMutex;
+        // QMutexLocker reLock(&reMutex); //avoid crash #281033
+        // now we have a bigger scale mutex in GettextStorage
         static const QRegularExpression fuzzyRegExp(QStringLiteral("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy"));
         d._fuzzyCached = com.contains(fuzzyRegExp);
     }
@@ -211,7 +213,6 @@ void CatalogItem::setSyntaxError(bool on)
 
 #endif
 
-
 QStringList CatalogItem::msgstrAsList() const
 {
     if (d._msgstrPlural.isEmpty()) {
@@ -228,8 +229,6 @@ QStringList CatalogItem::msgstrAsList() const
 
     return list;
 }
-
-
 
 void CatalogItem::setFuzzy()
 {
@@ -280,9 +279,6 @@ void CatalogItem::unsetFuzzy()
     d._comment.remove(QRegularExpression(QStringLiteral("#\\s*\n")));
     d._comment.remove(QRegularExpression(QStringLiteral("^#\\s*\n")));
 }
-
-
-
 
 #if 0
 QString CatalogItem::nextError() const

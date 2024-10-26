@@ -32,10 +32,9 @@ void GlossaryTest::testLoad()
     terms = glossary.terms(QStringLiteral("test-1").toUtf8(), QStringLiteral("hu"));
     QCOMPARE(terms.size(), 0);
 
-    
     terms = glossary.terms(QStringLiteral("test-2").toUtf8(), QStringLiteral("hu"));
     QCOMPARE(terms.size(), 0);
-    
+
     QCOMPARE(glossary.path(), QFINDTESTDATA("data/glossary/terms.tbx"));
 }
 

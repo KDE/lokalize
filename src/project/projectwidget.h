@@ -25,20 +25,20 @@ class QSortFilterProxyModel;
  * and ProjectWindow + ProjectView are its controllers
  * the data is project-wide KDirModel based ProjectModel
  */
-class ProjectWidget: public QTreeView
+class ProjectWidget : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit ProjectWidget(QWidget* parent);
+    explicit ProjectWidget(QWidget *parent);
     ~ProjectWidget() override;
 
-    bool setCurrentItem(const QString&);
+    bool setCurrentItem(const QString &);
     QString currentItem() const;
     QStringList selectedItems() const;
     bool currentIsTranslationFile() const;
 
-    QSortFilterProxyModel* proxyModel();
-    void expandItems(const QModelIndex& parent = QModelIndex());
+    QSortFilterProxyModel *proxyModel();
+    void expandItems(const QModelIndex &parent = QModelIndex());
 
     void gotoPrevFuzzyUntr();
     void gotoNextFuzzyUntr();
@@ -53,35 +53,42 @@ public:
     void toggleTranslatedFiles();
 
 Q_SIGNALS:
-    void fileOpenRequested(const QString&, const bool setAsActive);
-    void newWindowOpenRequested(const QUrl&);
+    void fileOpenRequested(const QString &, const bool setAsActive);
+    void newWindowOpenRequested(const QUrl &);
 
 private Q_SLOTS:
-    void slotItemActivated(const QModelIndex&);
+    void slotItemActivated(const QModelIndex &);
     void modelAboutToReload();
     void modelReloaded();
 
 private:
-    enum gotoIndexResult {gotoIndex_end = -1, gotoIndex_notfound = 0, gotoIndex_found = 1};
+    enum gotoIndexResult {
+        gotoIndex_end = -1,
+        gotoIndex_notfound = 0,
+        gotoIndex_found = 1,
+    };
 
-    bool gotoIndexCheck(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role);
-    QModelIndex gotoIndexPrevNext(const QModelIndex& currentIndex, int direction) const;
-    gotoIndexResult gotoIndexFind(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction);
-    gotoIndexResult gotoIndex(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction);
-    void recursiveAdd(QStringList& list, const QModelIndex& idx) const;
+    bool gotoIndexCheck(const QModelIndex &currentIndex, ProjectModel::AdditionalRoles role);
+    QModelIndex gotoIndexPrevNext(const QModelIndex &currentIndex, int direction) const;
+    gotoIndexResult gotoIndexFind(const QModelIndex &currentIndex, ProjectModel::AdditionalRoles role, int direction);
+    gotoIndexResult gotoIndex(const QModelIndex &currentIndex, ProjectModel::AdditionalRoles role, int direction);
+    void recursiveAdd(QStringList &list, const QModelIndex &idx) const;
 
-    ProjectOverviewSortFilterProxyModel* m_proxyModel;
+    ProjectOverviewSortFilterProxyModel *m_proxyModel;
     QString m_currentItemPathBeforeReload;
 };
 
-class ProjectOverviewSortFilterProxyModel : public KDirSortFilterProxyModel {
-  public:
-    explicit ProjectOverviewSortFilterProxyModel(QObject* parent = nullptr)
-        : KDirSortFilterProxyModel(parent) {
-        connect(Project::instance()->model(), &ProjectModel::totalsChanged, this,
-                &ProjectOverviewSortFilterProxyModel::invalidate);
+class ProjectOverviewSortFilterProxyModel : public KDirSortFilterProxyModel
+{
+public:
+    explicit ProjectOverviewSortFilterProxyModel(QObject *parent = nullptr)
+        : KDirSortFilterProxyModel(parent)
+    {
+        connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectOverviewSortFilterProxyModel::invalidate);
     }
-    ~ProjectOverviewSortFilterProxyModel() {}
+    ~ProjectOverviewSortFilterProxyModel()
+    {
+    }
     void toggleTranslatedFiles();
     /**
      * @short Filter the list of files and dirs by their relative path from the project root.
@@ -92,12 +99,12 @@ class ProjectOverviewSortFilterProxyModel : public KDirSortFilterProxyModel {
      *
      * @author Finley Watson
      */
-    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
-  protected:
-    bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
+protected:
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 
-  private:
+private:
     bool m_hideTranslatedFiles = false;
 };
 

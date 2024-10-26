@@ -4,8 +4,8 @@
    SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#include "languagetoolgrammarerror.h"
 #include "languagetoolparser.h"
+#include "languagetoolgrammarerror.h"
 #include "lokalize_debug.h"
 
 #include <klocalizedstring.h>
@@ -17,7 +17,7 @@ QString LanguageToolParser::parseResult(const QJsonObject &obj, const QString &t
     QString infos;
     const QJsonArray array = obj.value(QLatin1String("matches")).toArray();
     for (const QJsonValue &current : array) {
-        //qDebug() << " current " << current;
+        // qDebug() << " current " << current;
         if (current.type() == QJsonValue::Object) {
             const QJsonObject languageToolObject = current.toObject();
             LanguageToolGrammarError error;

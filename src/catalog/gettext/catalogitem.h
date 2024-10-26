@@ -32,23 +32,28 @@ namespace GettextCatalog
  */
 class CatalogItem
 {
-
 public:
-    explicit CatalogItem() {}
-    CatalogItem(const CatalogItem& item): d(item.d) {}
-    ~CatalogItem() {}
+    explicit CatalogItem()
+    {
+    }
+    CatalogItem(const CatalogItem &item)
+        : d(item.d)
+    {
+    }
+    ~CatalogItem()
+    {
+    }
 
     bool isFuzzy() const
     {
-        return d._fuzzyCached;   //", fuzzy" in comment
+        return d._fuzzyCached; //", fuzzy" in comment
     }
-    bool isCformat() const;    //", c-format" or possible-c-format in comment (from the debug parameter of xgettext)
-    bool isNoCformat() const;  //", no-c-format" in comment
-    bool isQtformat() const;   //", qt-format" in comment
+    bool isCformat() const; //", c-format" or possible-c-format in comment (from the debug parameter of xgettext)
+    bool isNoCformat() const; //", no-c-format" in comment
+    bool isQtformat() const; //", qt-format" in comment
     bool isNoQtformat() const; //", no-qt-format" in comment
     bool isUntranslated() const;
     bool isUntranslated(uint form) const;
-
 
     inline bool isPlural() const
     {
@@ -70,19 +75,22 @@ public:
         d.clear();
     }
 
-    const QString& comment() const
+    const QString &comment() const
     {
         return d._comment;
     }
     QString msgctxt(const bool noNewlines = false) const;
-    const QString& msgid(const int form = 0) const
+    const QString &msgid(const int form = 0) const
     {
         return d.msgid(form);
     }
-    const QString& msgstr(const int form = 0) const;
-    const QVector<QString>& msgstrPlural() const;
-    const QVector<QString>& msgidPlural() const;
-    enum Part {Source, Target};
+    const QString &msgstr(const int form = 0) const;
+    const QVector<QString> &msgstrPlural() const;
+    const QVector<QString> &msgidPlural() const;
+    enum Part {
+        Source,
+        Target,
+    };
     QStringList allPluralForms(CatalogItem::Part, bool stripNewLines = false) const;
     bool prependEmptyForMsgid(const int form = 0) const;
     bool prependEmptyForMsgstr(const int form = 0) const;
@@ -92,14 +100,14 @@ public:
     }
 
     QStringList msgstrAsList() const;
-    void setComment(const QString& com);
-    void setMsgctxt(const QString& msg);
-    void setMsgid(const QString& msg, const int form = 0);
-    void setMsgid(const QStringList& msg);
-    void setMsgid(const QStringList& msg, bool prependEmptyLine);
-    void setMsgstr(const QString& msg, const int form = 0);
-    void setMsgstr(const QStringList& msg);
-    void setMsgstr(const QStringList& msg, bool prependEmptyLine);
+    void setComment(const QString &com);
+    void setMsgctxt(const QString &msg);
+    void setMsgid(const QString &msg, const int form = 0);
+    void setMsgid(const QStringList &msg);
+    void setMsgid(const QStringList &msg, bool prependEmptyLine);
+    void setMsgstr(const QString &msg, const int form = 0);
+    void setMsgstr(const QStringList &msg);
+    void setMsgstr(const QStringList &msg, bool prependEmptyLine);
 
     void setValid(bool v)
     {
@@ -137,7 +145,7 @@ public:
                     , const QRegExp& singularPlural, const int neededLines);
 
 #endif
-    inline void operator=(const CatalogItem& rhs)
+    inline void operator=(const CatalogItem &rhs)
     {
         d.assign(rhs.d);
     }
@@ -148,7 +156,6 @@ private:
     friend class GettextStorage;
     void setFuzzy();
     void unsetFuzzy();
-
 };
 
 }

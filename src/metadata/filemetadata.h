@@ -13,8 +13,8 @@
 #ifndef LOKALIZE_FILEMETADATA_H
 #define LOKALIZE_FILEMETADATA_H
 
-#include <QString>
 #include <QDataStream>
+#include <QString>
 
 struct FileMetaData {
     bool invalid_file{false};
@@ -39,4 +39,4 @@ struct FileMetaData {
 QDataStream &operator<<(QDataStream &s, const FileMetaData &d);
 QDataStream &operator>>(QDataStream &s, FileMetaData &d);
 
-#endif //LOKALIZE_FILEMETADATA_H
+#endif // LOKALIZE_FILEMETADATA_H

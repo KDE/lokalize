@@ -11,50 +11,49 @@
 
 #include "lokalize_debug.h"
 
+#include "dbfilesmodel.h"
+#include "languagelistmodel.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "projectlocal.h"
 #include "projectmodel.h"
-#include "languagelistmodel.h"
-#include "dbfilesmodel.h"
 
-#include "ui_prefs_identity.h"
+#include "ui_prefs_appearance.h"
 #include "ui_prefs_editor.h"
 #include "ui_prefs_general.h"
-#include "ui_prefs_appearance.h"
-#include "ui_prefs_pology.h"
+#include "ui_prefs_identity.h"
 #include "ui_prefs_languagetool.h"
-#include "ui_prefs_tm.h"
-#include "ui_prefs_projectmain.h"
+#include "ui_prefs_pology.h"
 #include "ui_prefs_project_advanced.h"
 #include "ui_prefs_project_local.h"
+#include "ui_prefs_projectmain.h"
+#include "ui_prefs_tm.h"
 
-
-#include <kcoreaddons_version.h>
-#include <kio_version.h>
+#include <KConfigDialog>
+#include <KEditListWidget>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KEditListWidget>
-#include <KConfigDialog>
+#include <kcoreaddons_version.h>
+#include <kio_version.h>
 
-#include <QIcon>
 #include <QBoxLayout>
-#include <QFileDialog>
 #include <QDragEnterEvent>
 #include <QDropEvent>
-#include <QTimer>
+#include <QFileDialog>
+#include <QIcon>
 #include <QMimeData>
+#include <QTimer>
 
-//#include <sonnet/configwidget.h>
+// #include <sonnet/configwidget.h>
 
-SettingsController* SettingsController::_instance = nullptr;
+SettingsController *SettingsController::_instance = nullptr;
 void SettingsController::cleanupSettingsController()
 {
     delete SettingsController::_instance;
     SettingsController::_instance = nullptr;
 }
 
-SettingsController* SettingsController::instance()
+SettingsController *SettingsController::instance()
 {
     if (_instance == nullptr) {
         _instance = new SettingsController;
@@ -66,7 +65,8 @@ SettingsController* SettingsController::instance()
 
 SettingsController::SettingsController()
     : QObject(Project::instance())
-{}
+{
+}
 
 void SettingsController::showSettingsDialog()
 {
@@ -76,17 +76,16 @@ void SettingsController::showSettingsDialog()
     KConfigDialog *dialog = new KConfigDialog(m_mainWindowPtr, QStringLiteral("lokalize_settings"), Settings::self());
     dialog->setFaceType(KPageDialog::List);
 
-// Identity
+    // Identity
     QWidget *w = new QWidget(dialog);
     Ui_prefs_identity ui_prefs_identity;
     ui_prefs_identity.setupUi(w);
 
-
     KConfigGroup grp = Settings::self()->config()->group(QStringLiteral("Identity"));
 
     ui_prefs_identity.DefaultLangCode->setModel(LanguageListModel::instance()->sortModel());
-    ui_prefs_identity.DefaultLangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(grp.readEntry("DefaultLangCode",
-            QLocale::system().name())));
+    ui_prefs_identity.DefaultLangCode->setCurrentIndex(
+        LanguageListModel::instance()->sortModelRowForLangCode(grp.readEntry("DefaultLangCode", QLocale::system().name())));
 
     connect(ui_prefs_identity.DefaultLangCode, qOverload<int>(&KComboBox::activated), ui_prefs_identity.kcfg_DefaultLangCode, &LangCodeSaver::setLangCode);
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
@@ -96,43 +95,42 @@ void SettingsController::showSettingsDialog()
 
     dialog->addPage(w, i18nc("@title:tab", "Identity"), QStringLiteral("preferences-desktop-user"));
 
-//General
+    // General
     w = new QWidget(dialog);
     Ui_prefs_general ui_prefs_general;
     ui_prefs_general.setupUi(w);
     connect(ui_prefs_general.kcfg_CustomEditorEnabled, &QCheckBox::toggled, ui_prefs_general.kcfg_CustomEditorCommand, &QLineEdit::setEnabled);
     ui_prefs_general.kcfg_CustomEditorCommand->setEnabled(Settings::self()->customEditorEnabled());
-    //Set here to avoid I18N_ARGUMENT_MISSING if set in ui file
-    ui_prefs_general.kcfg_CustomEditorCommand->setToolTip(i18n(
-                "The following parameters are available\n%1 - Path of the source file\n%2 - Line number"
-                , QStringLiteral("%1"), QStringLiteral("%2")));
+    // Set here to avoid I18N_ARGUMENT_MISSING if set in ui file
+    ui_prefs_general.kcfg_CustomEditorCommand->setToolTip(
+        i18n("The following parameters are available\n%1 - Path of the source file\n%2 - Line number", QStringLiteral("%1"), QStringLiteral("%2")));
     dialog->addPage(w, i18nc("@title:tab", "General"), QStringLiteral("preferences-system-windows"));
 
-//Editor
+    // Editor
     w = new QWidget(dialog);
     Ui_prefs_editor ui_prefs_editor;
     ui_prefs_editor.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab", "Editing"), QStringLiteral("accessories-text-editor"));
 
-//Font
+    // Font
     w = new QWidget(dialog);
     Ui_prefs_appearance ui_prefs_appearance;
     ui_prefs_appearance.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab", "Appearance"), QStringLiteral("preferences-desktop-font"));
 
-//TM
+    // TM
     w = new QWidget(dialog);
     Ui_prefs_tm ui_prefs_tm;
     ui_prefs_tm.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab", "Translation Memory"), QStringLiteral("configure"));
 
-//Pology
+    // Pology
     w = new QWidget(dialog);
     Ui_prefs_pology ui_prefs_pology;
     ui_prefs_pology.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab", "Pology"), QStringLiteral("preferences-desktop-filetype-association"));
 
-//LanguageTool
+    // LanguageTool
     w = new QWidget(dialog);
     Ui_prefs_languagetool ui_prefs_languagetool;
     ui_prefs_languagetool.setupUi(w);
@@ -140,8 +138,7 @@ void SettingsController::showSettingsDialog()
 
     connect(dialog, &KConfigDialog::settingsChanged, this, &SettingsController::generalSettingsChanged);
 
-
-//Spellcheck
+// Spellcheck
 #if 0
     w = new Sonnet::ConfigWidget(Settings::self()->config(), dialog);
     w->setParent(this);
@@ -151,17 +148,13 @@ void SettingsController::showSettingsDialog()
     connect(dialog, SIGNAL(defaultClicked()), w, SLOT(slotDefault()));
 #endif
 
-
-
-
-    //connect(dialog,SIGNAL(settingsChanged(const QString&)),m_view, SLOT(settingsChanged()));
+    // connect(dialog,SIGNAL(settingsChanged(const QString&)),m_view, SLOT(settingsChanged()));
 
     dialog->show();
-//    dialog->addPage(new General(0, "General"), i18n("General") );
-//    dialog->addPage(new Appearance(0, "Style"), i18n("Appearance") );
-//    connect(dialog, SIGNAL(settingsChanged(const QString&)), mainWidget, SLOT(loadSettings()));
-//    connect(dialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(loadSettings()));
-
+    //    dialog->addPage(new General(0, "General"), i18n("General") );
+    //    dialog->addPage(new Appearance(0, "Style"), i18n("Appearance") );
+    //    connect(dialog, SIGNAL(settingsChanged(const QString&)), mainWidget, SLOT(loadSettings()));
+    //    connect(dialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(loadSettings()));
 }
 
 bool SettingsController::ensureProjectIsLoaded()
@@ -170,11 +163,11 @@ bool SettingsController::ensureProjectIsLoaded()
         return true;
 
     const int answer = KMessageBox::questionTwoActions(
-                m_mainWindowPtr,
-                i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
-                i18nc("@title", "Project Required"),
-                KGuiItem(i18nc("@action", "Create Project"), QIcon::fromTheme(QStringLiteral("document-new"))),
-                KGuiItem(i18nc("@action", "Open Project"), QIcon::fromTheme(QStringLiteral("project-open"))));
+        m_mainWindowPtr,
+        i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
+        i18nc("@title", "Project Required"),
+        KGuiItem(i18nc("@action", "Create Project"), QIcon::fromTheme(QStringLiteral("document-new"))),
+        KGuiItem(i18nc("@action", "Open Project"), QIcon::fromTheme(QStringLiteral("project-open"))));
 
     if (answer == KMessageBox::PrimaryAction)
         return projectCreate();
@@ -186,11 +179,13 @@ bool SettingsController::ensureProjectIsLoaded()
 QString SettingsController::projectOpen(QString path, bool doOpen)
 {
     if (path.isEmpty()) {
-        //Project::instance()->model()->weaver()->suspend();
-        //KDE5PORT mutex if needed
-        path = QFileDialog::getOpenFileName(m_mainWindowPtr, QString(), QDir::homePath()/*_catalog->url().directory()*/,
-                                            i18n("Lokalize translation project (*.lokalize)")/*"text/x-lokalize-project"*/);
-        //Project::instance()->model()->weaver()->resume();
+        // Project::instance()->model()->weaver()->suspend();
+        // KDE5PORT mutex if needed
+        path = QFileDialog::getOpenFileName(m_mainWindowPtr,
+                                            QString(),
+                                            QDir::homePath() /*_catalog->url().directory()*/,
+                                            i18n("Lokalize translation project (*.lokalize)") /*"text/x-lokalize-project"*/);
+        // Project::instance()->model()->weaver()->resume();
     }
 
     if (!path.isEmpty() && doOpen)
@@ -201,23 +196,28 @@ QString SettingsController::projectOpen(QString path, bool doOpen)
 
 bool SettingsController::projectCreate()
 {
-    //Project::instance()->model()->weaver()->suspend();
-    //KDE5PORT mutex if needed
+    // Project::instance()->model()->weaver()->suspend();
+    // KDE5PORT mutex if needed
     QString desirablePath = Project::instance()->desirablePath();
     if (desirablePath.isEmpty())
         desirablePath = QDir::homePath() + QStringLiteral("/index.lokalize");
-    QString path = QFileDialog::getSaveFileName(m_mainWindowPtr, i18nc("@window:title", "Select folder with Gettext .po files to translate"), desirablePath, i18n("Lokalize translation project (*.lokalize)") /*"text/x-lokalize-project"*/);
-    //Project::instance()->model()->weaver()->resume();
+    QString path = QFileDialog::getSaveFileName(m_mainWindowPtr,
+                                                i18nc("@window:title", "Select folder with Gettext .po files to translate"),
+                                                desirablePath,
+                                                i18n("Lokalize translation project (*.lokalize)") /*"text/x-lokalize-project"*/);
+    // Project::instance()->model()->weaver()->resume();
     if (path.isEmpty())
         return false;
 
-    //TODO ask-n-save
+    // TODO ask-n-save
     QDir projectFolder = QFileInfo(path).absoluteDir();
     QString projectId = projectFolder.dirName();
-    if (projectFolder.cdUp()) projectId = projectFolder.dirName() + QLatin1Char('-') + projectId;;
+    if (projectFolder.cdUp())
+        projectId = projectFolder.dirName() + QLatin1Char('-') + projectId;
+    ;
     Project::instance()->load(path, QString(), projectId);
-    //Project::instance()->setDefaults(); //NOTE will this be an obstacle?
-    //Project::instance()->setProjectID();
+    // Project::instance()->setDefaults(); //NOTE will this be an obstacle?
+    // Project::instance()->setProjectID();
 
     QTimer::singleShot(500, this, &SettingsController::projectConfigure);
     return true;
@@ -226,16 +226,14 @@ bool SettingsController::projectCreate()
 void SettingsController::projectConfigure()
 {
     if (Project::instance()->path().isEmpty()) {
-        KMessageBox::error(mainWindowPtr(),
-                           i18n("Create software or OpenDocument translation project first."));
+        KMessageBox::error(mainWindowPtr(), i18n("Create software or OpenDocument translation project first."));
         return;
     }
 
     KConfigDialog *dialog = new KConfigDialog(m_mainWindowPtr, QStringLiteral("project_settings"), Project::instance());
     dialog->setFaceType(KPageDialog::List);
 
-
-// Main
+    // Main
     QWidget *w = new QWidget(dialog);
     Ui_prefs_projectmain ui_prefs_projectmain;
     ui_prefs_projectmain.setupUi(w);
@@ -245,7 +243,7 @@ void SettingsController::projectConfigure()
     ui_prefs_projectmain.kcfg_PoBaseDir->hide();
     ui_prefs_projectmain.kcfg_GlossaryTbx->hide();
 
-    Project& p = *(Project::instance());
+    Project &p = *(Project::instance());
     ui_prefs_projectmain.LangCode->setModel(LanguageListModel::instance()->sortModel());
     ui_prefs_projectmain.LangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(p.langCode()));
     connect(ui_prefs_projectmain.LangCode, qOverload<int>(&KComboBox::activated), ui_prefs_projectmain.kcfg_LangCode, &LangCodeSaver::setLangCode);
@@ -259,13 +257,10 @@ void SettingsController::projectConfigure()
     ui_prefs_projectmain.glossaryTbx->setUrl(QUrl::fromLocalFile(p.glossaryPath()));
 
     auto kcfg_ProjLangTeam = ui_prefs_projectmain.kcfg_ProjLangTeam;
-    connect(ui_prefs_projectmain.kcfg_LanguageSource,
-            qOverload<int>(&KComboBox::currentIndexChanged),
-            this, [kcfg_ProjLangTeam](int index) {
-                kcfg_ProjLangTeam->setEnabled(static_cast<Project::LangSource>(index) == Project::LangSource::Project);
-                kcfg_ProjLangTeam->setFocus();
-            });
-
+    connect(ui_prefs_projectmain.kcfg_LanguageSource, qOverload<int>(&KComboBox::currentIndexChanged), this, [kcfg_ProjLangTeam](int index) {
+        kcfg_ProjLangTeam->setEnabled(static_cast<Project::LangSource>(index) == Project::LangSource::Project);
+        kcfg_ProjLangTeam->setFocus();
+    });
 
     // RegExps
     w = new QWidget(dialog);
@@ -280,18 +275,18 @@ void SettingsController::projectConfigure()
     ui_project_advanced.potBranchDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui_project_advanced.altDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     connect(ui_project_advanced.potBaseDir, &KUrlRequester::textChanged, ui_project_advanced.kcfg_PotBaseDir, &RelPathSaver::setText);
-    connect(ui_project_advanced.branchDir, &KUrlRequester::textChanged,  ui_project_advanced.kcfg_BranchDir, &RelPathSaver::setText);
-    connect(ui_project_advanced.potBranchDir, &KUrlRequester::textChanged,  ui_project_advanced.kcfg_PotBranchDir, &RelPathSaver::setText);
-    connect(ui_project_advanced.altDir, &KUrlRequester::textChanged,  ui_project_advanced.kcfg_AltDir, &RelPathSaver::setText);
+    connect(ui_project_advanced.branchDir, &KUrlRequester::textChanged, ui_project_advanced.kcfg_BranchDir, &RelPathSaver::setText);
+    connect(ui_project_advanced.potBranchDir, &KUrlRequester::textChanged, ui_project_advanced.kcfg_PotBranchDir, &RelPathSaver::setText);
+    connect(ui_project_advanced.altDir, &KUrlRequester::textChanged, ui_project_advanced.kcfg_AltDir, &RelPathSaver::setText);
     ui_project_advanced.potBaseDir->setUrl(QUrl::fromLocalFile(p.potDir()));
     ui_project_advanced.branchDir->setUrl(QUrl::fromLocalFile(p.branchDir()));
     ui_project_advanced.potBranchDir->setUrl(QUrl::fromLocalFile(p.potBranchDir()));
     ui_project_advanced.altDir->setUrl(QUrl::fromLocalFile(p.altTransDir()));
     dialog->addPage(w, i18nc("@title:tab", "Advanced"), QStringLiteral("applications-development-translation"));
 
-    //Scripts
+    // Scripts
     w = new QWidget(dialog);
-    QVBoxLayout* layout = new QVBoxLayout(w);
+    QVBoxLayout *layout = new QVBoxLayout(w);
     layout->setSpacing(6);
     layout->setContentsMargins(11, 11, 11, 11);
 
@@ -310,13 +305,13 @@ void SettingsController::projectConfigure()
 
 void SettingsController::reflectProjectConfigChange()
 {
-    //TODO check target language change: reflect changes in TM and glossary
+    // TODO check target language change: reflect changes in TM and glossary
     TM::DBFilesModel::instance()->openDB(Project::instance()->projectID());
 }
 
 void SettingsController::reflectRelativePathsHack()
 {
-    //m_scriptsRelPrefWidget->clear();
+    // m_scriptsRelPrefWidget->clear();
     QStringList actionz(m_scriptsPrefWidget->items());
     QString projectDir(Project::instance()->projectDir());
     int i = actionz.size();
@@ -330,20 +325,19 @@ void LangCodeSaver::setLangCode(int index)
     setText(LanguageListModel::instance()->langCodeForSortModelRow(index));
 }
 
-void RelPathSaver::setText(const QString& txt)
+void RelPathSaver::setText(const QString &txt)
 {
     QLineEdit::setText(QDir(Project::instance()->projectDir()).relativeFilePath(txt));
 }
 
-
-void writeUiState(const char* elementName, const QByteArray& state)
+void writeUiState(const char *elementName, const QByteArray &state)
 {
     KConfig config;
     KConfigGroup cg(&config, QStringLiteral("MainWindow"));
     cg.writeEntry(elementName, state.toBase64());
 }
 
-QByteArray readUiState(const char* elementName)
+QByteArray readUiState(const char *elementName)
 {
     KConfig config;
     KConfigGroup cg(&config, QStringLiteral("MainWindow"));

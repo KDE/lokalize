@@ -7,8 +7,8 @@
 #ifndef LANGUAGETOOLMANAGER_H
 #define LANGUAGETOOLMANAGER_H
 
-#include <QObject>
 #include <QHash>
+#include <QObject>
 
 class QColor;
 class QNetworkAccessManager;

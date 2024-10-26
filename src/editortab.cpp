@@ -16,64 +16,62 @@
 #include "lokalize_debug.h"
 
 #include "actionproxy.h"
-#include "editorview.h"
 #include "catalog.h"
 #include "cmd.h"
+#include "editorview.h"
 
 #include "completionstorage.h"
 
-//views
-#include "msgctxtview.h"
+// views
 #include "alttransview.h"
-#include "mergeview.h"
+#include "binunitsview.h"
 #include "cataloglistview.h"
 #include "glossaryview.h"
+#include "mergeview.h"
+#include "msgctxtview.h"
 #include "tmview.h"
-#include "binunitsview.h"
 
 #include "phaseswindow.h"
 #include "projectlocal.h"
 
-
-#include "project.h"
+#include "languagelistmodel.h"
 #include "prefs.h"
 #include "prefs_lokalize.h"
-#include "languagelistmodel.h"
+#include "project.h"
 
-#include <kcoreaddons_version.h>
-#include <KToolBarPopupAction>
+#include <KActionCategory>
 #include <KActionCollection>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KShell>
 #include <KStandardAction>
 #include <KStandardShortcut>
+#include <KToolBarPopupAction>
 #include <KXMLGUIFactory>
-#include <KActionCategory>
-#include <KMessageBox>
-#include <KLocalizedString>
-#include <KShell>
+#include <kcoreaddons_version.h>
 
-#include <QDesktopServices>
-#include <QIcon>
 #include <QActionGroup>
+#include <QApplication>
+#include <QDesktopServices>
+#include <QDir>
+#include <QFileDialog>
+#include <QIcon>
+#include <QInputDialog>
 #include <QMdiArea>
 #include <QMenuBar>
-#include <QFileDialog>
-#include <QInputDialog>
-#include <QApplication>
-#include <QDir>
-#include <QTime>
-#include <QStringBuilder>
 #include <QProcess>
 #include <QStandardPaths>
+#include <QStringBuilder>
+#include <QTime>
 
-
-EditorTab::EditorTab(QWidget* parent, bool valid)
+EditorTab::EditorTab(QWidget *parent, bool valid)
     : LokalizeSubwindowBase2(parent)
     , m_project(Project::instance())
     , m_catalog(new Catalog(this))
-    , m_view(new EditorView(this, m_catalog/*,new keyEventHandler(this,m_catalog)*/))
+    , m_view(new EditorView(this, m_catalog /*,new keyEventHandler(this,m_catalog)*/))
     , m_valid(valid)
 {
-    //QTime chrono;chrono.start();
+    // QTime chrono;chrono.start();
 
     setAcceptDrops(true);
     setCentralWidget(m_view);
@@ -94,10 +92,9 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
 
     connect(m_catalog, &Catalog::signalFileAutoSaveFailed, this, &EditorTab::fileAutoSaveFailedWarning);
 
-
-    //defer some work to make window appear earlier (~200 msec on my Core Duo)
-    //QTimer::singleShot(0,this,SLOT(initLater()));
-    //qCWarning(LOKALIZE_LOG)<<chrono.elapsed();
+    // defer some work to make window appear earlier (~200 msec on my Core Duo)
+    // QTimer::singleShot(0,this,SLOT(initLater()));
+    // qCWarning(LOKALIZE_LOG)<<chrono.elapsed();
 }
 
 void EditorTab::initLater()
@@ -119,7 +116,6 @@ EditorTab::~EditorTab()
 
     delete m_catalog;
 }
-
 
 void EditorTab::setupStatusBar()
 {
@@ -161,44 +157,33 @@ void EditorTab::numberOfUntranslatedChanged()
 
 void EditorTab::setupActions()
 {
-    //all operations that can be done after initial setup
+    // all operations that can be done after initial setup
     //(via QTimer::singleShot) go to initLater()
 
     setXMLFile(QStringLiteral("editorui.rc"));
     setUpdatedXMLFile();
 
     QAction *action;
-    KActionCollection* ac = actionCollection();
-    KActionCategory* actionCategory;
+    KActionCollection *ac = actionCollection();
+    KActionCategory *actionCategory;
 
-    KActionCategory* file = new KActionCategory(i18nc("@title actions category", "File"), ac);
-    KActionCategory* nav = new KActionCategory(i18nc("@title actions category", "Navigation"), ac);
-    KActionCategory* edit = new KActionCategory(i18nc("@title actions category", "Editing"), ac);
-    KActionCategory* sync1 = new KActionCategory(i18n("Synchronization 1"), ac);
-    KActionCategory* sync2 = new KActionCategory(i18n("Synchronization 2"), ac);
-    KActionCategory* tm = new KActionCategory(i18n("Translation Memory"), ac);
-    KActionCategory* glossary = new KActionCategory(i18nc("@title actions category", "Glossary"), ac);
-    //KActionCategory* tools=new KActionCategory(i18nc("@title actions category","Tools"), ac);
+    KActionCategory *file = new KActionCategory(i18nc("@title actions category", "File"), ac);
+    KActionCategory *nav = new KActionCategory(i18nc("@title actions category", "Navigation"), ac);
+    KActionCategory *edit = new KActionCategory(i18nc("@title actions category", "Editing"), ac);
+    KActionCategory *sync1 = new KActionCategory(i18n("Synchronization 1"), ac);
+    KActionCategory *sync2 = new KActionCategory(i18n("Synchronization 2"), ac);
+    KActionCategory *tm = new KActionCategory(i18n("Translation Memory"), ac);
+    KActionCategory *glossary = new KActionCategory(i18nc("@title actions category", "Glossary"), ac);
+    // KActionCategory* tools=new KActionCategory(i18nc("@title actions category","Tools"), ac);
 
 #ifndef Q_OS_DARWIN
     QLocale::Language systemLang = QLocale::system().language();
 #endif
 
-
-//BEGIN dockwidgets
-    QVector<QAction*> altactions(ALTTRANS_SHORTCUTS);
-    Qt::Key altlist[ALTTRANS_SHORTCUTS] = {
-        Qt::Key_1,
-        Qt::Key_2,
-        Qt::Key_3,
-        Qt::Key_4,
-        Qt::Key_5,
-        Qt::Key_6,
-        Qt::Key_7,
-        Qt::Key_8,
-        Qt::Key_9
-    };
-    QAction* altaction;
+    // BEGIN dockwidgets
+    QVector<QAction *> altactions(ALTTRANS_SHORTCUTS);
+    Qt::Key altlist[ALTTRANS_SHORTCUTS] = {Qt::Key_1, Qt::Key_2, Qt::Key_3, Qt::Key_4, Qt::Key_5, Qt::Key_6, Qt::Key_7, Qt::Key_8, Qt::Key_9};
+    QAction *altaction;
     for (int i = 0; i < ALTTRANS_SHORTCUTS; ++i) {
         altaction = tm->addAction(QStringLiteral("alttrans_insert_%1").arg(i));
         ac->setDefaultShortcut(altaction, QKeySequence(Qt::AltModifier | altlist[i]));
@@ -209,7 +194,10 @@ void EditorTab::setupActions()
     m_altTransView = new AltTransView(this, m_catalog, altactions);
     addDockWidget(Qt::BottomDockWidgetArea, m_altTransView);
     ac->addAction(QStringLiteral("showmsgiddiff_action"), m_altTransView->toggleViewAction());
-    connect(this, qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed), m_altTransView, qOverload<const DocPosition &>(&AltTransView::slotNewEntryDisplayed));
+    connect(this,
+            qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed),
+            m_altTransView,
+            qOverload<const DocPosition &>(&AltTransView::slotNewEntryDisplayed));
     connect(m_altTransView, &AltTransView::textInsertRequested, m_view, &EditorView::insertTerm);
     connect(m_altTransView, &AltTransView::refreshRequested, m_view, qOverload<>(&EditorView::gotoEntry), Qt::QueuedConnection);
     connect(m_catalog, qOverload<>(&Catalog::signalFileLoaded), m_altTransView, &AltTransView::fileLoaded);
@@ -217,22 +205,35 @@ void EditorTab::setupActions()
     m_syncView = new MergeView(this, m_catalog, true);
     addDockWidget(Qt::BottomDockWidgetArea, m_syncView);
     sync1->addAction(QStringLiteral("showmergeview_action"), m_syncView->toggleViewAction());
-    connect(this, qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed), m_syncView, qOverload<const DocPosition &>(&MergeView::slotNewEntryDisplayed));
+    connect(this,
+            qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed),
+            m_syncView,
+            qOverload<const DocPosition &>(&MergeView::slotNewEntryDisplayed));
     connect(m_catalog, qOverload<>(&Catalog::signalFileLoaded), m_syncView, &MergeView::cleanup);
     connect(m_syncView, &MergeView::gotoEntry, this, qOverload<DocPosition, int>(&EditorTab::gotoEntry));
 
     m_syncViewSecondary = new MergeView(this, m_catalog, false);
     addDockWidget(Qt::BottomDockWidgetArea, m_syncViewSecondary);
     sync2->addAction(QStringLiteral("showmergeviewsecondary_action"), m_syncViewSecondary->toggleViewAction());
-    connect(this, qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed), m_syncViewSecondary, qOverload<const DocPosition &>(&MergeView::slotNewEntryDisplayed));
+    connect(this,
+            qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed),
+            m_syncViewSecondary,
+            qOverload<const DocPosition &>(&MergeView::slotNewEntryDisplayed));
     connect(m_catalog, qOverload<>(&Catalog::signalFileLoaded), m_syncViewSecondary, &MergeView::cleanup);
-    connect(m_catalog, qOverload<const QString &>(&Catalog::signalFileLoaded), m_syncViewSecondary, qOverload<QString>(&MergeView::mergeOpen), Qt::QueuedConnection);
+    connect(m_catalog,
+            qOverload<const QString &>(&Catalog::signalFileLoaded),
+            m_syncViewSecondary,
+            qOverload<QString>(&MergeView::mergeOpen),
+            Qt::QueuedConnection);
     connect(m_syncViewSecondary, &MergeView::gotoEntry, this, qOverload<DocPosition, int>(&EditorTab::gotoEntry));
 
     m_transUnitsView = new CatalogView(this, m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_transUnitsView);
     ac->addAction(QStringLiteral("showcatalogtreeview_action"), m_transUnitsView->toggleViewAction());
-    connect(this, qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed), m_transUnitsView, qOverload<const DocPosition &>(&CatalogView::slotNewEntryDisplayed));
+    connect(this,
+            qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed),
+            m_transUnitsView,
+            qOverload<const DocPosition &>(&CatalogView::slotNewEntryDisplayed));
     connect(m_transUnitsView, &CatalogView::gotoEntry, this, qOverload<DocPosition, int>(&EditorTab::gotoEntry));
     connect(m_transUnitsView, &CatalogView::escaped, this, &EditorTab::setProperFocus);
     connect(m_syncView, &MergeView::mergeCatalogPointerChanged, m_transUnitsView, &CatalogView::setMergeCatalogPointer);
@@ -248,26 +249,15 @@ void EditorTab::setupActions()
     connect(m_view->viewPort(), &TranslationUnitTextEdit::languageToolChanged, m_notesView, &MsgCtxtView::languageTool);
 
     action = edit->addAction(QStringLiteral("edit_addnote"), m_notesView, SLOT(addNoteUI()));
-    //action->setShortcut(Qt::ControlModifier+glist[i]);
+    // action->setShortcut(Qt::ControlModifier+glist[i]);
     action->setText(i18nc("@action:inmenu", "Add a note"));
 
-    QVector<QAction*> tmactions_insert(TM_SHORTCUTS);
-    QVector<QAction*> tmactions_remove(TM_SHORTCUTS);
-    const Qt::Key tmlist[TM_SHORTCUTS] = {
-        Qt::Key_1,
-        Qt::Key_2,
-        Qt::Key_3,
-        Qt::Key_4,
-        Qt::Key_5,
-        Qt::Key_6,
-        Qt::Key_7,
-        Qt::Key_8,
-        Qt::Key_9,
-        Qt::Key_0
-    };
-    QAction* tmaction;
+    QVector<QAction *> tmactions_insert(TM_SHORTCUTS);
+    QVector<QAction *> tmactions_remove(TM_SHORTCUTS);
+    const Qt::Key tmlist[TM_SHORTCUTS] = {Qt::Key_1, Qt::Key_2, Qt::Key_3, Qt::Key_4, Qt::Key_5, Qt::Key_6, Qt::Key_7, Qt::Key_8, Qt::Key_9, Qt::Key_0};
+    QAction *tmaction;
     for (int i = 0; i < TM_SHORTCUTS; ++i) {
-//         action->setVisible(false);
+        //         action->setVisible(false);
         tmaction = tm->addAction(QStringLiteral("tmquery_insert_%1").arg(i));
         ac->setDefaultShortcut(tmaction, QKeySequence(Qt::ControlModifier | tmlist[i]));
         tmaction->setText(i18nc("@action:inmenu", "Insert TM suggestion #%1", i + 1));
@@ -280,11 +270,14 @@ void EditorTab::setupActions()
     }
 #ifndef Q_OS_DARWIN
     if (systemLang == QLocale::Czech) {
-        ac->setDefaultShortcuts(tmactions_insert[0], QList<QKeySequence>() << QKeySequence(Qt::ControlModifier | tmlist[0]) << QKeySequence(Qt::ControlModifier | Qt::Key_Plus));
-        ac->setDefaultShortcuts(tmactions_remove[0], QList<QKeySequence>() << QKeySequence(Qt::ControlModifier | Qt::AltModifier | tmlist[0]) << QKeySequence(Qt::ControlModifier | Qt::AltModifier | Qt::Key_Plus));
+        ac->setDefaultShortcuts(tmactions_insert[0],
+                                QList<QKeySequence>() << QKeySequence(Qt::ControlModifier | tmlist[0]) << QKeySequence(Qt::ControlModifier | Qt::Key_Plus));
+        ac->setDefaultShortcuts(tmactions_remove[0],
+                                QList<QKeySequence>() << QKeySequence(Qt::ControlModifier | Qt::AltModifier | tmlist[0])
+                                                      << QKeySequence(Qt::ControlModifier | Qt::AltModifier | Qt::Key_Plus));
     }
 #endif
-    TM::TMView* _tmView = new TM::TMView(this, m_catalog, tmactions_insert, tmactions_remove);
+    TM::TMView *_tmView = new TM::TMView(this, m_catalog, tmactions_insert, tmactions_remove);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     tm->addAction(QStringLiteral("showtmqueryview_action"), _tmView->toggleViewAction());
     connect(_tmView, &TM::TMView::refreshRequested, m_view, qOverload<>(&EditorView::gotoEntry), Qt::QueuedConnection);
@@ -293,42 +286,43 @@ void EditorTab::setupActions()
     connect(_tmView, &TM::TMView::fileOpenRequested, this, &EditorTab::fileOpenRequested);
     connect(this, &EditorTab::fileAboutToBeClosed, m_catalog, &Catalog::flushUpdateDBBuffer);
     connect(this, &EditorTab::signalNewEntryDisplayed, m_catalog, &Catalog::flushUpdateDBBuffer);
-    connect(this, &EditorTab::signalNewEntryDisplayed, _tmView, qOverload<const DocPosition &>(&TM::TMView::slotNewEntryDisplayed)); //do this after flushUpdateDBBuffer
+    connect(this,
+            &EditorTab::signalNewEntryDisplayed,
+            _tmView,
+            qOverload<const DocPosition &>(&TM::TMView::slotNewEntryDisplayed)); // do this after flushUpdateDBBuffer
 
-    QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
-    const Qt::Key glist[GLOSSARY_SHORTCUTS] = {
-        Qt::Key_E,
-        Qt::Key_H,
-        //                         Qt::Key_G,
-        //                         Qt::Key_I,
-        //                         Qt::Key_J,
-        //                         Qt::Key_K,
-        Qt::Key_K,
-        Qt::Key_P,
-        //                         Qt::Key_N,
-        //                         Qt::Key_Q,
-        //                         Qt::Key_R,
-        //                         Qt::Key_U,
-        //                         Qt::Key_V,
-        //                         Qt::Key_W,
-        //                         Qt::Key_X,
-        Qt::Key_Y,
-        //                         Qt::Key_Z,
-        Qt::Key_BraceLeft,
-        Qt::Key_BraceRight,
-        Qt::Key_Semicolon,
-        Qt::Key_Apostrophe
-    };
-    QAction* gaction;
+    QVector<QAction *> gactions(GLOSSARY_SHORTCUTS);
+    const Qt::Key glist[GLOSSARY_SHORTCUTS] = {Qt::Key_E,
+                                               Qt::Key_H,
+                                               //                         Qt::Key_G,
+                                               //                         Qt::Key_I,
+                                               //                         Qt::Key_J,
+                                               //                         Qt::Key_K,
+                                               Qt::Key_K,
+                                               Qt::Key_P,
+                                               //                         Qt::Key_N,
+                                               //                         Qt::Key_Q,
+                                               //                         Qt::Key_R,
+                                               //                         Qt::Key_U,
+                                               //                         Qt::Key_V,
+                                               //                         Qt::Key_W,
+                                               //                         Qt::Key_X,
+                                               Qt::Key_Y,
+                                               //                         Qt::Key_Z,
+                                               Qt::Key_BraceLeft,
+                                               Qt::Key_BraceRight,
+                                               Qt::Key_Semicolon,
+                                               Qt::Key_Apostrophe};
+    QAction *gaction;
     for (int i = 0; i < GLOSSARY_SHORTCUTS; ++i) {
-//         action->setVisible(false);
+        //         action->setVisible(false);
         gaction = glossary->addAction(QStringLiteral("glossary_insert_%1").arg(i));
         ac->setDefaultShortcut(gaction, QKeySequence(Qt::ControlModifier | glist[i]));
         gaction->setText(i18nc("@action:inmenu", "Insert term translation #%1", QString::number(i)));
         gactions[i] = gaction;
     }
 
-    GlossaryNS::GlossaryView* _glossaryView = new GlossaryNS::GlossaryView(this, m_catalog, gactions);
+    GlossaryNS::GlossaryView *_glossaryView = new GlossaryNS::GlossaryView(this, m_catalog, gactions);
     addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
     glossary->addAction(QStringLiteral("showglossaryview_action"), _glossaryView->toggleViewAction());
     connect(this, &EditorTab::signalNewEntryDisplayed, _glossaryView, qOverload<DocPosition>(&GlossaryNS::GlossaryView::slotNewEntryDisplayed));
@@ -339,41 +333,36 @@ void EditorTab::setupActions()
     _glossaryView->addAction(gaction);
     _glossaryView->setContextMenuPolicy(Qt::ActionsContextMenu);
 
-
-    BinUnitsView* binUnitsView = new BinUnitsView(m_catalog, this);
+    BinUnitsView *binUnitsView = new BinUnitsView(m_catalog, this);
     addDockWidget(Qt::BottomDockWidgetArea, binUnitsView);
     edit->addAction(QStringLiteral("showbinunitsview_action"), binUnitsView->toggleViewAction());
     connect(m_view, &EditorView::binaryUnitSelectRequested, binUnitsView, &BinUnitsView::selectUnit);
 
-
-//END dockwidgets
-
-
-
+    // END dockwidgets
 
     actionCategory = file;
 
-// File
+    // File
     action = file->addAction(KStandardAction::Save, this, SLOT(saveFile()));
-//    action->setEnabled(false);
-//    connect (m_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
+    //    action->setEnabled(false);
+    //    connect (m_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
     connect(m_catalog, &Catalog::cleanChanged, this, &EditorTab::setModificationSign);
     file->addAction(KStandardAction::SaveAs, this, SLOT(saveFileAs()));
-    //action = KStandardAction::quit(qApp, SLOT(quit()), ac);
-    //action->setText(i18nc("@action:inmenu","Close all Lokalize windows"));
+    // action = KStandardAction::quit(qApp, SLOT(quit()), ac);
+    // action->setText(i18nc("@action:inmenu","Close all Lokalize windows"));
 
-    //KStandardAction::quit(kapp, SLOT(quit()), ac);
-    //KStandardAction::quit(this, SLOT(deleteLater()), ac);
-#define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
-    action = actionCategory->addAction(QStringLiteral(_name));\
-    action->setText(_text);\
-    action->setIcon(QIcon::fromTheme(QStringLiteral(_icon)));\
-    ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
+    // KStandardAction::quit(kapp, SLOT(quit()), ac);
+    // KStandardAction::quit(this, SLOT(deleteLater()), ac);
+#define ADD_ACTION_SHORTCUT_ICON(_name, _text, _shortcut, _icon)                                                                                               \
+    action = actionCategory->addAction(QStringLiteral(_name));                                                                                                 \
+    action->setText(_text);                                                                                                                                    \
+    action->setIcon(QIcon::fromTheme(QStringLiteral(_icon)));                                                                                                  \
+    ac->setDefaultShortcut(action, QKeySequence(_shortcut));
 
-#define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
-    action = actionCategory->addAction(QStringLiteral(_name));\
-    action->setText(_text);\
-    ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
+#define ADD_ACTION_SHORTCUT(_name, _text, _shortcut)                                                                                                           \
+    action = actionCategory->addAction(QStringLiteral(_name));                                                                                                 \
+    action->setText(_text);                                                                                                                                    \
+    ac->setDefaultShortcut(action, QKeySequence(_shortcut));
 
     action = actionCategory->addAction(QStringLiteral("file_phases"));
     action->setText(i18nc("@action:inmenu", "Phases..."));
@@ -394,8 +383,7 @@ void EditorTab::setupActions()
     connect(this, &EditorTab::xliffFileOpened, action, &QAction::setVisible);
     action->setVisible(false);
 
-
-//Edit
+    // Edit
     actionCategory = edit;
     action = edit->addAction(KStandardAction::Undo, this, SLOT(undo()));
     connect(m_view->viewPort(), &TranslationUnitTextEdit::undoRequested, this, &EditorTab::undo);
@@ -413,14 +401,14 @@ void EditorTab::setupActions()
     action->setText(i18nc("@action:inmenu", "Change searching direction"));
     edit->addAction(KStandardAction::Replace, this, SLOT(replace()));
 
-    connect(m_view, &EditorView::findRequested,     this, &EditorTab::find);
+    connect(m_view, &EditorView::findRequested, this, &EditorTab::find);
     connect(m_view, &EditorView::findNextRequested, this, qOverload<>(&EditorTab::findNext));
-    connect(m_view, &EditorView::replaceRequested,  this, &EditorTab::replace);
+    connect(m_view, &EditorView::replaceRequested, this, &EditorTab::replace);
 
-
-
-    m_approveAction = new KToolBarPopupAction(QIcon::fromTheme(QStringLiteral("approved")),
-                                               i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)", "Approved"), this);
+    m_approveAction =
+        new KToolBarPopupAction(QIcon::fromTheme(QStringLiteral("approved")),
+                                i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)", "Approved"),
+                                this);
     m_stateAction = m_approveAction;
 
     action = actionCategory->addAction(QStringLiteral("edit_approve"), m_approveAction);
@@ -437,7 +425,6 @@ void EditorTab::setupActions()
     connect(m_stateAction->popupMenu(), &QMenu::aboutToShow, this, &EditorTab::showStatesMenu);
     connect(m_stateAction->popupMenu(), &QMenu::triggered, this, &EditorTab::setState);
 
-
     action = actionCategory->addAction(QStringLiteral("edit_approve_go_fuzzyUntr"));
     action->setText(i18nc("@action:inmenu", "Approve and go to next"));
     connect(action, &QAction::triggered, this, &EditorTab::toggleApprovementGotoNextFuzzyUntr);
@@ -445,20 +432,14 @@ void EditorTab::setupActions()
 
     setApproveActionTitle();
 
-
-
     action = actionCategory->addAction(QStringLiteral("edit_nonequiv"), m_view, SLOT(setEquivTrans(bool)));
     action->setText(i18nc("@action:inmenu", "Equivalent translation"));
     action->setCheckable(true);
     connect(this, &EditorTab::signalEquivTranslatedEntryDisplayed, action, &QAction::setChecked);
 
-
 #ifndef Q_OS_DARWIN
     QKeyCombination copyShortcut = Qt::ControlModifier | Qt::Key_Space;
-    if (Q_UNLIKELY(systemLang == QLocale::Korean
-                   || systemLang == QLocale::Japanese
-                   || systemLang == QLocale::Chinese
-                  ))
+    if (Q_UNLIKELY(systemLang == QLocale::Korean || systemLang == QLocale::Japanese || systemLang == QLocale::Chinese))
         copyShortcut = Qt::AltModifier | Qt::Key_Space;
 #else
     QKeyCombination copyShortcut = Qt::META | Qt::Key_Space;
@@ -484,7 +465,7 @@ void EditorTab::setupActions()
     action = edit->addAction(QStringLiteral("edit_tagimmediate"), m_view->viewPort(), SLOT(tagImmediate()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_M));
     action->setText(i18nc("@action:inmenu", "Insert Next Tag"));
-    
+
     action = edit->addAction(QStringLiteral("edit_skiptags"), m_view->viewPort(), SLOT(skipTags()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_N));
     action->setText(i18nc("@action:inmenu", "Skip to next non-tag text"));
@@ -496,10 +477,10 @@ void EditorTab::setupActions()
     action = edit->addAction(QStringLiteral("edit_spellreplace"), m_view->viewPort(), SLOT(spellReplace()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_Equal));
     action->setText(i18nc("@action:inmenu", "Replace with best spellcheck suggestion"));
-//     action = ac->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
-//     action->setText(i18nc("@action:inmenu","Define new term"));
+    //     action = ac->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
+    //     action->setText(i18nc("@action:inmenu","Define new term"));
 
-// Go
+    // Go
     actionCategory = nav;
     action = nav->addAction(KStandardAction::Next, this, SLOT(gotoNext()));
     action->setText(i18nc("@action:inmenu entry", "&Next"));
@@ -527,12 +508,18 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_G));
     action->setText(i18nc("@action:inmenu", "Entry by number"));
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"), Qt::ControlModifier | Qt::Key_PageUp, "prevfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"),
+                             Qt::ControlModifier | Qt::Key_PageUp,
+                             "prevfuzzy")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzy);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyRequested, this, &EditorTab::gotoPrevFuzzy);
     connect(this, &EditorTab::signalPriorFuzzyAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next non-empty but not ready"), Qt::ControlModifier | Qt::Key_PageDown, "nextfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next non-empty but not ready"),
+                             Qt::ControlModifier | Qt::Key_PageDown,
+                             "nextfuzzy")
     connect(action, &QAction::triggered, this, &EditorTab::gotoNextFuzzy);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyRequested, this, &EditorTab::gotoNextFuzzy);
     connect(this, &EditorTab::signalNextFuzzyAvailable, action, &QAction::setEnabled);
@@ -547,12 +534,18 @@ void EditorTab::setupActions()
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextUntranslatedRequested, this, &EditorTab::gotoNextUntranslated);
     connect(this, &EditorTab::signalNextUntranslatedAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"), Qt::ControlModifier | Qt::ShiftModifier/*ALT*/ | Qt::Key_PageUp, "prevfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"),
+                             Qt::ControlModifier | Qt::ShiftModifier /*ALT*/ | Qt::Key_PageUp,
+                             "prevfuzzyuntrans")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzyUntr);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyUntrRequested, this, &EditorTab::gotoPrevFuzzyUntr);
     connect(this, &EditorTab::signalPriorFuzzyOrUntrAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"), Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageDown, "nextfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"),
+                             Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageDown,
+                             "nextfuzzyuntrans")
     connect(action, &QAction::triggered, this, qOverload<>(&EditorTab::gotoNextFuzzyUntr));
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyUntrRequested, this, qOverload<>(&EditorTab::gotoNextFuzzyUntr));
     connect(this, &EditorTab::signalNextFuzzyOrUntrAvailable, action, &QAction::setEnabled);
@@ -561,13 +554,12 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_L));
     action->setText(i18nc("@action:inmenu", "Focus the search line of Translation Units view"));
 
-
-//Bookmarks
+    // Bookmarks
     action = nav->addAction(KStandardAction::AddBookmark, m_view, SLOT(toggleBookmark(bool)));
-    //action = ac->addAction("bookmark_do");
+    // action = ac->addAction("bookmark_do");
     action->setText(i18nc("@option:check", "Bookmark message"));
     action->setCheckable(true);
-    //connect(action, SIGNAL(triggered(bool)),m_view,SLOT(toggleBookmark(bool)));
+    // connect(action, SIGNAL(triggered(bool)),m_view,SLOT(toggleBookmark(bool)));
     connect(this, &EditorTab::signalBookmarkDisplayed, action, &QAction::setChecked);
 
     action = nav->addAction(QStringLiteral("bookmark_prior"), this, SLOT(gotoPrevBookmark()));
@@ -578,7 +570,7 @@ void EditorTab::setupActions()
     action->setText(i18nc("@action:inmenu", "Next bookmark"));
     connect(this, &EditorTab::signalNextBookmarkAvailable, action, &QAction::setEnabled);
 
-//Tools
+    // Tools
     edit->addAction(KStandardAction::Spelling, this, SLOT(spellcheck()));
 
     actionCategory = tm;
@@ -587,10 +579,12 @@ void EditorTab::setupActions()
     connect(action, &QAction::triggered, _tmView, &TM::TMView::slotBatchTranslate);
 
     // xgettext: no-c-format
-    ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy", i18nc("@action:inmenu", "Fill in all exact suggestions and mark as fuzzy"), Qt::ControlModifier | Qt::AltModifier | Qt::Key_N)
+    ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",
+                        i18nc("@action:inmenu", "Fill in all exact suggestions and mark as fuzzy"),
+                        Qt::ControlModifier | Qt::AltModifier | Qt::Key_N)
     connect(action, &QAction::triggered, _tmView, &TM::TMView::slotBatchTranslateFuzzy);
 
-//MergeMode
+    // MergeMode
     action = sync1->addAction(QStringLiteral("merge_open"), m_syncView, SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu", "Open file for sync/merge"));
     action->setStatusTip(i18nc("@info:status", "Open catalog to be merged into the current one / replicate base file changes to"));
@@ -600,7 +594,8 @@ void EditorTab::setupActions()
 
     action = sync1->addAction(QStringLiteral("merge_prev"), m_syncView, SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu", "Previous different"));
-    action->setStatusTip(i18nc("@info:status", "Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setStatusTip(
+        i18nc("@info:status", "Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     ac->setDefaultShortcut(action, QKeySequence(Qt::AltModifier | Qt::Key_Up));
@@ -610,7 +605,8 @@ void EditorTab::setupActions()
 
     action = sync1->addAction(QStringLiteral("merge_next"), m_syncView, SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu", "Next different"));
-    action->setStatusTip(i18nc("@info:status", "Next entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setStatusTip(
+        i18nc("@info:status", "Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     ac->setDefaultShortcut(action, QKeySequence(Qt::AltModifier | Qt::Key_Down));
@@ -638,7 +634,7 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::AltModifier | Qt::Key_A));
     connect(m_syncView, &MergeView::mergeCatalogAvailable, action, &QAction::setEnabled);
     m_syncView->addAction(action);
-    //action->setShortcut(Qt::AltModifier+Qt::Key_E);
+    // action->setShortcut(Qt::AltModifier+Qt::Key_E);
 
     action = sync1->addAction(QStringLiteral("merge_back"), m_syncView, SLOT(mergeBack()));
     action->setText(i18nc("@action:inmenu", "Copy to merging source"));
@@ -646,8 +642,7 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::AltModifier | Qt::Key_Return));
     m_syncView->addAction(action);
 
-
-//Secondary merge
+    // Secondary merge
     action = sync2->addAction(QStringLiteral("mergesecondary_open"), m_syncViewSecondary, SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu", "Open file for secondary sync"));
     action->setStatusTip(i18nc("@info:status", "Open catalog to be merged into the current one / replicate base file changes to"));
@@ -657,7 +652,8 @@ void EditorTab::setupActions()
 
     action = sync2->addAction(QStringLiteral("mergesecondary_prev"), m_syncViewSecondary, SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu", "Previous different"));
-    action->setStatusTip(i18nc("@info:status", "Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setStatusTip(
+        i18nc("@info:status", "Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     connect(m_syncView, &MergeView::signalPriorChangedAvailable, action, &QAction::setEnabled);
@@ -665,7 +661,8 @@ void EditorTab::setupActions()
 
     action = sync2->addAction(QStringLiteral("mergesecondary_next"), m_syncViewSecondary, SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu", "Next different"));
-    action->setStatusTip(i18nc("@info:status", "Next entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setStatusTip(
+        i18nc("@info:status", "Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     connect(m_syncView, &MergeView::signalNextChangedAvailable, action, &QAction::setEnabled);
@@ -725,7 +722,6 @@ void EditorTab::setModificationSign()
     setProperCaption(_captionPath, !clean);
 }
 
-
 void EditorTab::updateCaptionPath()
 {
     QString url = m_catalog->url();
@@ -744,16 +740,16 @@ void EditorTab::updateCaptionPath()
         _captionPath = _captionPath.mid(2);
 }
 
-bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, QMdiSubWindow*> openedFiles, bool silent)
+bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, QMdiSubWindow *> openedFiles, bool silent)
 {
     if (!m_catalog->isClean()) {
-        switch (KMessageBox::warningTwoActionsCancel(
-                    SettingsController::instance()->mainWindowPtr(),
-                    i18nc("@info", "The document contains unsaved changes.\n"
-                          "Do you want to save your changes or discard them?"),
-                    i18nc("@title:window", "Warning"),
-                    KStandardGuiItem::save(),
-                    KStandardGuiItem::discard())) {
+        switch (KMessageBox::warningTwoActionsCancel(SettingsController::instance()->mainWindowPtr(),
+                                                     i18nc("@info",
+                                                           "The document contains unsaved changes.\n"
+                                                           "Do you want to save your changes or discard them?"),
+                                                     i18nc("@title:window", "Warning"),
+                                                     KStandardGuiItem::save(),
+                                                     KStandardGuiItem::discard())) {
         case KMessageBox::PrimaryAction:
             if (!saveFile())
                 return false;
@@ -770,16 +766,18 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
 
     QString saidPath;
     if (filePath.isEmpty()) {
-        //Prevent crashes
-        //Project::instance()->model()->weaver()->suspend();
-        //KDE5PORT use mutex if the crash is still there with kfilemetadata library
-        filePath = QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(), i18nc("@title:window", "Select translation file"),
-                                                suggestedDirPath, Catalog::supportedFileTypes(true));//" text/x-gettext-translation-template");
-        //Project::instance()->model()->weaver()->resume();
-        //TODO application/x-xliff, windows: just extensions
-        //originalPath=url.path(); never used
+        // Prevent crashes
+        // Project::instance()->model()->weaver()->suspend();
+        // KDE5PORT use mutex if the crash is still there with kfilemetadata library
+        filePath = QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(),
+                                                i18nc("@title:window", "Select translation file"),
+                                                suggestedDirPath,
+                                                Catalog::supportedFileTypes(true)); //" text/x-gettext-translation-template");
+        // Project::instance()->model()->weaver()->resume();
+        // TODO application/x-xliff, windows: just extensions
+        // originalPath=url.path(); never used
     } else if (!QFile::exists(filePath) && Project::instance()->isLoaded()) {
-        //check if we are opening template
+        // check if we are opening template
         QString newPath = filePath;
         newPath.replace(Project::instance()->poDir(), Project::instance()->potDir());
         if (QFile::exists(newPath) || QFile::exists(newPath += QLatin1Char('t'))) {
@@ -789,7 +787,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
     }
     if (filePath.isEmpty())
         return false;
-    QMap<QString, QMdiSubWindow*>::const_iterator it = openedFiles.constFind(filePath);
+    QMap<QString, QMdiSubWindow *>::const_iterator it = openedFiles.constFind(filePath);
     if (it != openedFiles.constEnd()) {
         qCWarning(LOKALIZE_LOG) << "already opened:" << filePath;
         return false;
@@ -799,7 +797,8 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
 
     QString prevFilePath = currentFilePath();
     bool wasOpen = !m_catalog->isEmpty();
-    if (wasOpen) Q_EMIT fileAboutToBeClosed();
+    if (wasOpen)
+        Q_EMIT fileAboutToBeClosed();
     int errorLine = m_catalog->loadFromUrl(filePath, saidPath);
     if (wasOpen && errorLine == 0) {
         Q_EMIT fileClosed();
@@ -813,24 +812,26 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();
 
-        m_currentPos.entry = -1; //so the signals are emitted
+        m_currentPos.entry = -1; // so the signals are emitted
         DocPosition pos(0);
-        //we delay gotoEntry(pos) until project is loaded;
+        // we delay gotoEntry(pos) until project is loaded;
 
-//Project
+        // Project
         if (!m_project->isLoaded()) {
             QFileInfo fileInfo(filePath);
-//search for it
+            // search for it
             int i = 4;
             QDir dir = fileInfo.dir();
             QStringList proj(QStringLiteral("*.lokalize"));
             dir.setNameFilters(proj);
             while (--i && !dir.isRoot() && !m_project->isLoaded()) {
                 if (dir.entryList().isEmpty()) {
-                    if (!dir.cdUp()) break;
-                } else m_project->load(dir.absoluteFilePath(dir.entryList().first()));
+                    if (!dir.cdUp())
+                        break;
+                } else
+                    m_project->load(dir.absoluteFilePath(dir.entryList().first()));
             }
-            //enforce autosync
+            // enforce autosync
             m_syncViewSecondary->mergeOpen(filePath);
 
             if (!m_project->isLoaded()) {
@@ -851,34 +852,40 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
         updateCaptionPath();
         setModificationSign();
 
-//OK!!!
+        // OK!!!
         Q_EMIT xliffFileOpened(m_catalog->type() == Xliff);
         Q_EMIT fileOpened();
         return true;
     }
 
     if (!silent) {
-        if (errorLine > 0) KMessageBox::error(this, i18nc("@info", "Error opening the file %1, line: %2", filePath, errorLine));
-        else             KMessageBox::error(this, i18nc("@info", "Error opening the file %1", filePath));
+        if (errorLine > 0)
+            KMessageBox::error(this, i18nc("@info", "Error opening the file %1, line: %2", filePath, errorLine));
+        else
+            KMessageBox::error(this, i18nc("@info", "Error opening the file %1", filePath));
     }
     return false;
 }
 
-bool EditorTab::saveFileAs(const QString& defaultPath)
+bool EditorTab::saveFileAs(const QString &defaultPath)
 {
-    QString filePath = QFileDialog::getSaveFileName(this, i18nc("@title:window", "Save File As"),
-                       QFileInfo(defaultPath.isEmpty() ? m_catalog->url() : defaultPath).absoluteFilePath(), m_catalog->fileType());
-    if (filePath.isEmpty()) return false;
+    QString filePath = QFileDialog::getSaveFileName(this,
+                                                    i18nc("@title:window", "Save File As"),
+                                                    QFileInfo(defaultPath.isEmpty() ? m_catalog->url() : defaultPath).absoluteFilePath(),
+                                                    m_catalog->fileType());
+    if (filePath.isEmpty())
+        return false;
     if (!Catalog::extIsSupported(filePath) && m_catalog->url().contains(QLatin1Char('.')))
         filePath += QStringView(m_catalog->url()).mid(m_catalog->url().lastIndexOf(QLatin1Char('.')));
 
     return saveFile(filePath);
 }
 
-bool EditorTab::saveFile(const QString& filePath)
+bool EditorTab::saveFile(const QString &filePath)
 {
     bool clean = m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified() && filePath == m_catalog->url();
-    if (clean) return true;
+    if (clean)
+        return true;
     if (m_catalog->isClean() && filePath.isEmpty()) {
         Q_EMIT m_catalog->signalFileSaved();
         return true;
@@ -890,19 +897,25 @@ bool EditorTab::saveFile(const QString& filePath)
         return true;
     }
     const QString errorFilePath = filePath.isEmpty() ? m_catalog->url() : filePath;
-    if (KMessageBox::Continue == KMessageBox::warningContinueCancel(this,
-            i18nc("@info", "Error saving the file %1\n"
-                  "Do you want to save to another file or cancel?", errorFilePath),
-            i18nc("@title", "Error"), KStandardGuiItem::save())
-       )
+    if (KMessageBox::Continue
+        == KMessageBox::warningContinueCancel(this,
+                                              i18nc("@info",
+                                                    "Error saving the file %1\n"
+                                                    "Do you want to save to another file or cancel?",
+                                                    errorFilePath),
+                                              i18nc("@title", "Error"),
+                                              KStandardGuiItem::save()))
         return saveFileAs(errorFilePath);
     return false;
 }
 
-void EditorTab::fileAutoSaveFailedWarning(const QString& fileName)
+void EditorTab::fileAutoSaveFailedWarning(const QString &fileName)
 {
-    KMessageBox::information(this, i18nc("@info", "Could not perform file autosaving.\n"
-                                         "The target file was %1.", fileName));
+    KMessageBox::information(this,
+                             i18nc("@info",
+                                   "Could not perform file autosaving.\n"
+                                   "The target file was %1.",
+                                   fileName));
 }
 
 EditorState EditorTab::state()
@@ -912,10 +925,9 @@ EditorState EditorTab::state()
     state.filePath = m_catalog->url();
     state.mergeFilePath = m_syncView->filePath();
     state.entry = m_currentPos.entry;
-    //state.offset=_currentPos.offset;
+    // state.offset=_currentPos.offset;
     return state;
 }
-
 
 bool EditorTab::queryClose()
 {
@@ -923,13 +935,13 @@ bool EditorTab::queryClose()
     if (clean)
         return true;
 
-    switch (KMessageBox::warningTwoActionsCancel(
-                this,
-                i18nc("@info", "The document contains unsaved changes.\n"
-                      "Do you want to save your changes or discard them?"),
-                i18nc("@title:window", "Warning"),
-                KStandardGuiItem::save(),
-                KStandardGuiItem::discard())) {
+    switch (KMessageBox::warningTwoActionsCancel(this,
+                                                 i18nc("@info",
+                                                       "The document contains unsaved changes.\n"
+                                                       "Do you want to save your changes or discard them?"),
+                                                 i18nc("@title:window", "Warning"),
+                                                 KStandardGuiItem::save(),
+                                                 KStandardGuiItem::discard())) {
     case KMessageBox::PrimaryAction:
         return saveFile();
     case KMessageBox::SecondaryAction:
@@ -938,7 +950,6 @@ bool EditorTab::queryClose()
         return false;
     }
 }
-
 
 void EditorTab::undo()
 {
@@ -956,9 +967,14 @@ void EditorTab::gotoEntry()
 {
     bool ok = false;
     DocPosition pos = m_currentPos;
-    pos.entry = QInputDialog::getInt(this, i18nc("@title", "Jump to Entry"),
+    pos.entry = QInputDialog::getInt(this,
+                                     i18nc("@title", "Jump to Entry"),
                                      i18nc("@label:spinbox", "Enter entry number:"),
-                                     pos.entry, 1, m_catalog->numberOfEntries(), 1, &ok);
+                                     pos.entry,
+                                     1,
+                                     m_catalog->numberOfEntries(),
+                                     1,
+                                     &ok);
     if (ok) {
         --(pos.entry);
         gotoEntry(pos);
@@ -970,15 +986,14 @@ void EditorTab::gotoEntry(DocPosition pos)
 }
 void EditorTab::gotoEntry(DocPosition pos, int selection)
 {
-    //specially for dbus users
+    // specially for dbus users
     if (pos.entry >= m_catalog->numberOfEntries() || pos.entry < 0)
         return;
     if (!m_catalog->isPlural(pos))
         pos.form = 0;
 
-    m_currentPos.part = pos.part; //for searching;
-    //UndefPart => called on fuzzy toggle
-
+    m_currentPos.part = pos.part; // for searching;
+    // UndefPart => called on fuzzy toggle
 
     bool newEntry = m_currentPos.entry != pos.entry || m_currentPos.form != pos.form;
     if (newEntry || pos.part == DocPosition::Comment) {
@@ -990,12 +1005,11 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
         }
     }
 
-
     m_view->gotoEntry(pos, selection);
     if (pos.part == DocPosition::UndefPart)
         m_currentPos.part = DocPosition::Target;
 
-    //QTime time; time.start();
+    // QTime time; time.start();
 
     if (newEntry) {
         m_currentPos = pos;
@@ -1012,11 +1026,8 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
             Q_EMIT signalPriorUntranslatedAvailable(pos.entry > m_catalog->firstUntranslatedIndex());
             Q_EMIT signalNextUntranslatedAvailable(pos.entry < m_catalog->lastUntranslatedIndex());
 
-            Q_EMIT signalPriorFuzzyOrUntrAvailable(pos.entry > m_catalog->firstFuzzyIndex()
-                                                 || pos.entry > m_catalog->firstUntranslatedIndex()
-                                                );
-            Q_EMIT signalNextFuzzyOrUntrAvailable(pos.entry < m_catalog->lastFuzzyIndex()
-                                                || pos.entry < m_catalog->lastUntranslatedIndex());
+            Q_EMIT signalPriorFuzzyOrUntrAvailable(pos.entry > m_catalog->firstFuzzyIndex() || pos.entry > m_catalog->firstUntranslatedIndex());
+            Q_EMIT signalNextFuzzyOrUntrAvailable(pos.entry < m_catalog->lastFuzzyIndex() || pos.entry < m_catalog->lastUntranslatedIndex());
 
             Q_EMIT signalPriorBookmarkAvailable(pos.entry > m_catalog->firstBookmarkIndex());
             Q_EMIT signalNextBookmarkAvailable(pos.entry < m_catalog->lastBookmarkIndex());
@@ -1025,11 +1036,10 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
             Q_EMIT signalEquivTranslatedEntryDisplayed(m_catalog->isEquivTrans(pos));
             Q_EMIT signalApprovedEntryDisplayed(m_catalog->isApproved(pos));
         }
-
     }
 
     statusBarItems.insert(ID_STATUS_CURRENT, i18nc("@info:status", "Current: %1", m_currentPos.entry + 1));
-    //qCDebug(LOKALIZE_LOG)<<"ELA "<<time.elapsed();
+    // qCDebug(LOKALIZE_LOG)<<"ELA "<<time.elapsed();
 }
 
 void EditorTab::msgStrChanged()
@@ -1040,9 +1050,12 @@ void EditorTab::msgStrChanged()
         return;
 
     QString msg;
-    if (isUntr)         msg = i18nc("@info:status", "Untranslated");
-    else if (isApproved)msg = i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
-    else                msg = i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
+    if (isUntr)
+        msg = i18nc("@info:status", "Untranslated");
+    else if (isApproved)
+        msg = i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
+    else
+        msg = i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
 
     /*    else
             statusBar()->changeItem("",ID_STATUS_ISFUZZY);*/
@@ -1055,7 +1068,8 @@ void EditorTab::msgStrChanged()
 
 void EditorTab::switchForm(int newForm)
 {
-    if (m_currentPos.form == newForm) return;
+    if (m_currentPos.form == newForm)
+        return;
 
     DocPosition pos = m_currentPos;
     pos.form = newForm;
@@ -1069,7 +1083,6 @@ void EditorTab::gotoNextUnfiltered()
     if (switchNext(m_catalog, pos))
         gotoEntry(pos);
 }
-
 
 void EditorTab::gotoPrevUnfiltered()
 {
@@ -1101,7 +1114,6 @@ void EditorTab::gotoLast()
     if (pos.entry != -1)
         gotoEntry(pos);
 }
-
 
 void EditorTab::gotoNext()
 {
@@ -1186,7 +1198,7 @@ bool EditorTab::gotoNextFuzzyUntr()
     return gotoNextFuzzyUntr(DocPosition());
 }
 
-bool EditorTab::gotoNextFuzzyUntr(const DocPosition& p)
+bool EditorTab::gotoNextFuzzyUntr(const DocPosition &p)
 {
     int index = (p.entry == -1) ? m_currentPos.entry : p.entry;
 
@@ -1197,35 +1209,32 @@ bool EditorTab::gotoNextFuzzyUntr(const DocPosition& p)
     if ((fu == -1) && (un == -1))
         return false;
 
-    if (fu == -1)       fu = un;
-    else if (un == -1)  un = fu;
+    if (fu == -1)
+        fu = un;
+    else if (un == -1)
+        un = fu;
 
     pos.entry = fu < un ? fu : un;
     gotoEntry(pos);
     return true;
 }
 
-
 void EditorTab::toggleApprovementGotoNextFuzzyUntr()
 {
     if (!m_catalog->isApproved(m_currentPos.entry))
         m_view->toggleApprovement();
     if (!gotoNextFuzzyUntr())
-        gotoNextFuzzyUntr(DocPosition(-2));//so that we don't skip the first
+        gotoNextFuzzyUntr(DocPosition(-2)); // so that we don't skip the first
 }
 
 void EditorTab::setApproveActionTitle()
 {
-    const QStringList titles = {
-        i18nc("@option:check trans-unit state", "Translated"),
-        i18nc("@option:check trans-unit state", "Signed-off"),
-        i18nc("@option:check trans-unit state", "Approved")
-    };
-    const QStringList helpText = {
-        i18nc("@info:tooltip", "Translation is done (although still may need a review)"),
-        i18nc("@info:tooltip", "Translation has received positive review"),
-        i18nc("@info:tooltip", "Entry is fully localized (i.e. final)")
-    };
+    const QStringList titles = {i18nc("@option:check trans-unit state", "Translated"),
+                                i18nc("@option:check trans-unit state", "Signed-off"),
+                                i18nc("@option:check trans-unit state", "Approved")};
+    const QStringList helpText = {i18nc("@info:tooltip", "Translation is done (although still may need a review)"),
+                                  i18nc("@info:tooltip", "Translation has received positive review"),
+                                  i18nc("@info:tooltip", "Entry is fully localized (i.e. final)")};
 
     int role = m_catalog->activePhaseRole();
     if (role == ProjectLocal::Undefined)
@@ -1238,8 +1247,8 @@ void EditorTab::setApproveActionTitle()
 void EditorTab::showStatesMenu()
 {
     m_stateAction->popupMenu()->clear();
-    if (!(m_catalog->capabilities()&ExtendedStates)) {
-        QAction* a = m_stateAction->popupMenu()->addAction(i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review"));
+    if (!(m_catalog->capabilities() & ExtendedStates)) {
+        QAction *a = m_stateAction->popupMenu()->addAction(i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review"));
         a->setData(QVariant(-1));
         a->setCheckable(true);
         a->setChecked(!m_catalog->isApproved(m_currentPos));
@@ -1256,7 +1265,7 @@ void EditorTab::showStatesMenu()
 
     const QStringList states = Catalog::translatedStates();
     for (int i = 0; i < StateCount; ++i) {
-        QAction* a = m_stateAction->popupMenu()->addAction(states[i]);
+        QAction *a = m_stateAction->popupMenu()->addAction(states[i]);
         a->setData(QVariant(i));
         a->setCheckable(true);
         a->setChecked(state == i);
@@ -1266,9 +1275,9 @@ void EditorTab::showStatesMenu()
     }
 }
 
-void EditorTab::setState(QAction* a)
+void EditorTab::setState(QAction *a)
 {
-    if (!(m_catalog->capabilities()&ExtendedStates))
+    if (!(m_catalog->capabilities() & ExtendedStates))
         m_view->toggleApprovement();
     else
         m_view->setState(TargetState(a->data().toInt()));
@@ -1302,16 +1311,16 @@ void EditorTab::gotoNextBookmark()
     gotoEntry(pos);
 }
 
-//wrapper for cmdline handling...
+// wrapper for cmdline handling...
 void EditorTab::mergeOpen(QString mergeFilePath)
 {
     m_syncView->mergeOpen(mergeFilePath);
 }
 
-//HACK to prevent redundant repaintings when widget isn't visible
-void EditorTab::paintEvent(QPaintEvent* event)
+// HACK to prevent redundant repaintings when widget isn't visible
+void EditorTab::paintEvent(QPaintEvent *event)
 {
-    if (QMdiSubWindow* sw = qobject_cast<QMdiSubWindow*>(parent())) {
+    if (QMdiSubWindow *sw = qobject_cast<QMdiSubWindow *>(parent())) {
         if (sw->mdiArea()->currentSubWindow() != sw)
             return;
     }
@@ -1330,8 +1339,7 @@ void EditorTab::launchPology()
         m_pologyProcess = new KProcess;
         m_pologyProcess->setOutputChannelMode(KProcess::SeparateChannels);
         qCWarning(LOKALIZE_LOG) << "Launching pology command: " << command;
-        connect(m_pologyProcess, qOverload<int, QProcess::ExitStatus>(&KProcess::finished),
-                this, &EditorTab::pologyHasFinished);
+        connect(m_pologyProcess, qOverload<int, QProcess::ExitStatus>(&KProcess::finished), this, &EditorTab::pologyHasFinished);
         m_pologyProcess->setShellCommand(command);
         m_pologyProcessInProgress = true;
         m_pologyProcess->start();
@@ -1356,12 +1364,12 @@ void EditorTab::pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 void EditorTab::clearTranslatedEntries()
 {
-    switch (KMessageBox::warningContinueCancel(
-                this,
-                i18nc("@info", "This will delete all the translations from the file.\n"
-                      "Do you really want to clear all translated entries?"),
-                i18nc("@title:window", "Warning"),
-                KStandardGuiItem::clear())) {
+    switch (KMessageBox::warningContinueCancel(this,
+                                               i18nc("@info",
+                                                     "This will delete all the translations from the file.\n"
+                                                     "Do you really want to clear all translated entries?"),
+                                               i18nc("@title:window", "Warning"),
+                                               KStandardGuiItem::clear())) {
     case KMessageBox::Continue: {
         DocPosition pos(0);
         do {
@@ -1377,11 +1385,11 @@ void EditorTab::clearTranslatedEntries()
 
 void EditorTab::displayWordCount()
 {
-    //TODO in trans and fuzzy separately
+    // TODO in trans and fuzzy separately
     int sourceCount = 0;
     int targetCount = 0;
-    const QRegularExpression rxClean(Project::instance()->markup() + QLatin1Char('|') + Project::instance()->accel()); //cleaning regexp; NOTE isEmpty()?
-    const QRegularExpression rxSplit(QStringLiteral("\\W|\\d"));//splitting regexp
+    const QRegularExpression rxClean(Project::instance()->markup() + QLatin1Char('|') + Project::instance()->accel()); // cleaning regexp; NOTE isEmpty()?
+    const QRegularExpression rxSplit(QStringLiteral("\\W|\\d")); // splitting regexp
     DocPosition pos(0);
     do {
         QString msg = m_catalog->source(pos);
@@ -1395,11 +1403,11 @@ void EditorTab::displayWordCount()
         targetCount += words.size();
     } while (switchNext(m_catalog, pos));
 
-    KMessageBox::information(this, i18nc("@info words count",
-                                         "Source text words: %1<br/>Target text words: %2",
-                                         sourceCount, targetCount), i18nc("@title", "Word Count"));
+    KMessageBox::information(this,
+                             i18nc("@info words count", "Source text words: %1<br/>Target text words: %2", sourceCount, targetCount),
+                             i18nc("@title", "Word Count"));
 }
-bool EditorTab::findEntryBySourceContext(const QString& source, const QString& ctxt)
+bool EditorTab::findEntryBySourceContext(const QString &source, const QString &ctxt)
 {
     DocPosition pos(0);
     do {
@@ -1411,10 +1419,10 @@ bool EditorTab::findEntryBySourceContext(const QString& source, const QString& c
     return false;
 }
 
-//see also termlabel.h
+// see also termlabel.h
 void EditorTab::defineNewTerm()
 {
-    //TODO just a word under cursor?
+    // TODO just a word under cursor?
     QString en(m_view->selectionInSource().toLower());
     if (en.isEmpty())
         en = m_catalog->msgid(m_currentPos).toLower();
@@ -1425,7 +1433,6 @@ void EditorTab::defineNewTerm()
 
     m_project->defineNewTerm(en, target);
 }
-
 
 void EditorTab::reloadFile()
 {
@@ -1439,13 +1446,12 @@ void EditorTab::reloadFile()
         mergeOpen(mergeFilePath);
 }
 
-static void openLxrSearch(const QString& srcFileRelPath)
+static void openLxrSearch(const QString &srcFileRelPath)
 {
-    QDesktopServices::openUrl(QUrl(QStringLiteral("https://lxr.kde.org/search?_filestring=")
-                                   + QString::fromLatin1(QUrl::toPercentEncoding(srcFileRelPath))));
+    QDesktopServices::openUrl(QUrl(QStringLiteral("https://lxr.kde.org/search?_filestring=") + QString::fromLatin1(QUrl::toPercentEncoding(srcFileRelPath))));
 }
 
-static void openLocalSource(const QString& file, int line)
+static void openLocalSource(const QString &file, int line)
 {
     if (!Settings::self()->customEditorEnabled()) {
         QDesktopServices::openUrl(QUrl::fromLocalFile(file));
@@ -1468,7 +1474,7 @@ static void openLocalSource(const QString& file, int line)
     QProcess::startDetached(progFullPath, args);
 }
 
-void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int line)
+void EditorTab::dispatchSrcFileOpenRequest(const QString &srcFileRelPath, int line)
 {
     // Try project scripts first.
     m_srcFileOpenRequestAccepted = false;
@@ -1488,13 +1494,12 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
 
     QString dir = Project::instance()->local()->sourceDir();
     if (dir.isEmpty()) {
-        switch (KMessageBox::questionTwoActionsCancel(
-                    SettingsController::instance()->mainWindowPtr(),
-                    i18nc("@info", "Would you like to search for the source file locally or via lxr.kde.org?"),
-                    i18nc("@title", "Source file lookup"),
-                    KGuiItem(i18nc("@action", "Search Locally")),
-                    KGuiItem(i18nc("@action", "Search on lxr.kde.org")),
-                    KStandardGuiItem::cancel())) {
+        switch (KMessageBox::questionTwoActionsCancel(SettingsController::instance()->mainWindowPtr(),
+                                                      i18nc("@info", "Would you like to search for the source file locally or via lxr.kde.org?"),
+                                                      i18nc("@title", "Source file lookup"),
+                                                      KGuiItem(i18nc("@action", "Search Locally")),
+                                                      KGuiItem(i18nc("@action", "Search on lxr.kde.org")),
+                                                      KStandardGuiItem::cancel())) {
         case KMessageBox::PrimaryAction:
             dir = QFileDialog::getExistingDirectory(this, i18n("Select project's base folder for source file lookup"), QDir::homePath());
             if (dir.length())
@@ -1522,7 +1527,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
             auto it = sourceFilePaths.constFind(fn);
             while (it != sourceFilePaths.constEnd() && it.key() == fn) {
                 const QString absFilePath = QString::fromUtf8(it.value() + '/' + fn);
-                if (!absFilePath.endsWith(srcFileRelPath) || !QFileInfo::exists(absFilePath)) { //for the case when link contained also folders
+                if (!absFilePath.endsWith(srcFileRelPath) || !QFileInfo::exists(absFilePath)) { // for the case when link contained also folders
                     it++;
                     continue;
                 }
@@ -1531,16 +1536,18 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
                 it++;
             }
             if (!found) {
-                switch (KMessageBox::warningTwoActionsCancel(
-                            SettingsController::instance()->mainWindowPtr(),
-                            i18nc("@info", "Could not find source file in the folder specified.\n"
-                                  "Do you want to change source files folder?"),
-                            i18nc("@title:window", "Source file lookup"),
-                            KGuiItem(i18nc("@action", "Select Folder")),
-                            KGuiItem(i18nc("@action", "Search on lxr.kde.org")),
-                            KStandardGuiItem::cancel())) {
+                switch (KMessageBox::warningTwoActionsCancel(SettingsController::instance()->mainWindowPtr(),
+                                                             i18nc("@info",
+                                                                   "Could not find source file in the folder specified.\n"
+                                                                   "Do you want to change source files folder?"),
+                                                             i18nc("@title:window", "Source file lookup"),
+                                                             KGuiItem(i18nc("@action", "Select Folder")),
+                                                             KGuiItem(i18nc("@action", "Search on lxr.kde.org")),
+                                                             KStandardGuiItem::cancel())) {
                 case KMessageBox::PrimaryAction: {
-                    QString dir = QFileDialog::getExistingDirectory(nullptr, i18n("Select project's base folder for source file lookup"), Project::instance()->local()->sourceDir());
+                    QString dir = QFileDialog::getExistingDirectory(nullptr,
+                                                                    i18n("Select project's base folder for source file lookup"),
+                                                                    Project::instance()->local()->sourceDir());
                     if (dir.length()) {
                         Project::instance()->local()->setSourceDir(dir);
                         Project::instance()->resetSourceFilePaths();
@@ -1564,7 +1571,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
         else {
             Project::instance()->sourceFilePaths();
             auto conn = std::make_shared<QMetaObject::Connection>();
-            *conn = connect(Project::instance(), &Project::sourceFilePathsAreReady, [this, conn, doOpen](){
+            *conn = connect(Project::instance(), &Project::sourceFilePathsAreReady, [this, conn, doOpen]() {
                 this->disconnect(*conn);
                 doOpen();
             });
@@ -1572,15 +1579,15 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
         return;
     }
 
-
     // Otherwise, let the user know how to create a project script to handle
     // opening source file paths that are not relative to translation files.
-    KMessageBox::information(this, i18nc("@info",
-                                         "Cannot open the target source file: The target source file is not "
-                                         "relative to the current translation file, and there are currently no "
-                                         "scripts loaded to handle opening source files in custom paths. Refer "
-                                         "to the Lokalize handbook for script examples and how to plug them "
-                                         "into your project."));
+    KMessageBox::information(this,
+                             i18nc("@info",
+                                   "Cannot open the target source file: The target source file is not "
+                                   "relative to the current translation file, and there are currently no "
+                                   "scripts loaded to handle opening source files in custom paths. Refer "
+                                   "to the Lokalize handbook for script examples and how to plug them "
+                                   "into your project."));
 }
 
 void EditorTab::mergeIntoOpenDocument()
@@ -1595,33 +1602,33 @@ void EditorTab::mergeIntoOpenDocument()
     }
 
     if (QProcess::execute(xliff2odf, QStringList(QLatin1String("--version"))) == -2) {
-        KMessageBox::error(SettingsController::instance()->mainWindowPtr(),
-                           i18n("Install translate-toolkit package and retry."));
+        KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry."));
         return;
     }
     QString xliffFolder = QFileInfo(m_catalog->url()).absolutePath();
 
     QString originalOdfFilePath = m_catalog->originalOdfFilePath();
     if (originalOdfFilePath.isEmpty() || !QFile::exists(originalOdfFilePath)) {
-        originalOdfFilePath = QFileDialog::getOpenFileName(
-                                  SettingsController::instance()->mainWindowPtr(),
-                                  i18n("Select original OpenDocument on which current XLIFF file is based"),
-                                  xliffFolder,
-                                  i18n("OpenDocument files (*.odt *.ods)")/*"text/x-lokalize-project"*/);
-        if (originalOdfFilePath.length()) m_catalog->setOriginalOdfFilePath(originalOdfFilePath);
+        originalOdfFilePath = QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(),
+                                                           i18n("Select original OpenDocument on which current XLIFF file is based"),
+                                                           xliffFolder,
+                                                           i18n("OpenDocument files (*.odt *.ods)") /*"text/x-lokalize-project"*/);
+        if (originalOdfFilePath.length())
+            m_catalog->setOriginalOdfFilePath(originalOdfFilePath);
     }
     if (originalOdfFilePath.isEmpty())
         return;
 
     saveFile();
 
-    //TODO check if odt did update (merge with new template is needed)
+    // TODO check if odt did update (merge with new template is needed)
 
     QFileInfo originalOdfFileInfo(originalOdfFilePath);
     QString targetLangCode = m_catalog->targetLangCode();
 
     QStringList args(m_catalog->url());
-    args.append(xliffFolder + QLatin1Char('/') + originalOdfFileInfo.baseName() + QLatin1Char('-') + targetLangCode + QLatin1Char('.') + originalOdfFileInfo.suffix());
+    args.append(xliffFolder + QLatin1Char('/') + originalOdfFileInfo.baseName() + QLatin1Char('-') + targetLangCode + QLatin1Char('.')
+                + originalOdfFileInfo.suffix());
     args.append(QStringLiteral("-t"));
     args.append(originalOdfFilePath);
     qCDebug(LOKALIZE_LOG) << args;
@@ -1630,7 +1637,7 @@ void EditorTab::mergeIntoOpenDocument()
     if (!QFile::exists(args.at(1)))
         return;
 
-    //if (originalOdfFileInfo.suffix().toLower()==QLatin1String(".odt"))
+    // if (originalOdfFileInfo.suffix().toLower()==QLatin1String(".odt"))
     {
         const QString lowriter = QStandardPaths::findExecutable(QStringLiteral("soffice"));
         if (lowriter.isEmpty()) {
@@ -1638,21 +1645,22 @@ void EditorTab::mergeIntoOpenDocument()
         }
 
         if (QProcess::execute(lowriter, QStringList(QStringLiteral("--version"))) == -2) {
-            //TODO
-            //KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
+            // TODO
+            // KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
             return;
         }
         QProcess::startDetached(lowriter, QStringList(args.at(1)));
         QString reloaderScript = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("scripts/odf/xliff2odf-standalone.py"));
         if (reloaderScript.length()) {
             QString python = QStandardPaths::findExecutable(QStringLiteral("python"));
-            QStringList unoArgs(QStringLiteral("-c")); unoArgs.append(QStringLiteral("import uno"));
+            QStringList unoArgs(QStringLiteral("-c"));
+            unoArgs.append(QStringLiteral("import uno"));
             if (python.isEmpty() || QProcess::execute(python, unoArgs) != 0) {
                 python = QStandardPaths::findExecutable(QStringLiteral("python3"));
-                QStringList unoArgs(QStringLiteral("-c")); unoArgs.append(QStringLiteral("import uno"));
+                QStringList unoArgs(QStringLiteral("-c"));
+                unoArgs.append(QStringLiteral("import uno"));
                 if (python.isEmpty() || QProcess::execute(python, unoArgs) != 0) {
-                    KMessageBox::information(SettingsController::instance()->mainWindowPtr(),
-                                             i18n("Install python-uno package for additional functionality."));
+                    KMessageBox::information(SettingsController::instance()->mainWindowPtr(), i18n("Install python-uno package for additional functionality."));
                     return;
                 }
             }
@@ -1665,8 +1673,7 @@ void EditorTab::mergeIntoOpenDocument()
     }
 }
 
-
-//BEGIN DBus interface
+// BEGIN DBus interface
 #include "editoradaptor.h"
 QList<int> EditorTab::ids;
 
@@ -1685,7 +1692,6 @@ QString EditorTab::dbusObjectPath()
     }
     return EDITOR_PATH + QString::number(m_dbusId);
 }
-
 
 QString EditorTab::currentFilePath()
 {
@@ -1712,7 +1718,6 @@ void EditorTab::lookupSelectionInTranslationMemory()
 {
     Q_EMIT tmLookupRequested(selectionInSource(), selectionInTarget());
 }
-
 
 void EditorTab::setEntryFilteredOut(int entry, bool filteredOut)
 {
@@ -1751,29 +1756,29 @@ QString EditorTab::targetLangCode()
 {
     return m_catalog->targetLangCode();
 }
-void EditorTab::addEntryNote(int entry, const QString& note)
+void EditorTab::addEntryNote(int entry, const QString &note)
 {
     m_notesView->addNote(DocPosition(entry), note);
 }
-void EditorTab::addTemporaryEntryNote(int entry, const QString& note)
+void EditorTab::addTemporaryEntryNote(int entry, const QString &note)
 {
     m_notesView->addTemporaryEntryNote(entry, note);
 }
 
-void EditorTab::addAlternateTranslation(int entry, const QString& translation)
+void EditorTab::addAlternateTranslation(int entry, const QString &translation)
 {
     m_altTransView->addAlternateTranslation(entry, translation);
 }
-void EditorTab::addTemporaryAlternateTranslation(int entry, const QString& translation)
+void EditorTab::addTemporaryAlternateTranslation(int entry, const QString &translation)
 {
     m_altTransView->addAlternateTranslation(entry, translation);
 }
-void EditorTab::attachAlternateTranslationFile(const QString& path)
+void EditorTab::attachAlternateTranslationFile(const QString &path)
 {
     m_altTransView->attachAltTransFile(path);
 }
 
-void EditorTab::setEntryTarget(int entry, int form, const QString& content)
+void EditorTab::setEntryTarget(int entry, int form, const QString &content)
 {
     DocPosition pos(entry, form);
     m_catalog->beginMacro(i18nc("@item Undo action item", "Set unit text"));
@@ -1783,6 +1788,6 @@ void EditorTab::setEntryTarget(int entry, int form, const QString& content)
     if (m_currentPos == pos)
         m_view->gotoEntry();
 }
-//END DBus interface
+// END DBus interface
 
 #include "moc_editortab.cpp"

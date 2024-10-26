@@ -76,17 +76,17 @@ void ActionProxy::setChecked(bool checked)
         m_checked = checked;
 }
 
-
 #endif
 
-void StatusBarProxy::insert(int key, const QString& str)
+void StatusBarProxy::insert(int key, const QString &str)
 {
     if (m_currentStatusBar)
-        if (key < m_statusBarLabels.size()) m_statusBarLabels.at(key)->setText(str);
+        if (key < m_statusBarLabels.size())
+            m_statusBarLabels.at(key)->setText(str);
     QMap<int, QString>::insert(key, str);
 }
 
-void StatusBarProxy::registerStatusBar(QStatusBar* bar, const QVector<QLabel*>& statusBarLabels)
+void StatusBarProxy::registerStatusBar(QStatusBar *bar, const QVector<QLabel *> &statusBarLabels)
 {
     m_currentStatusBar = bar;
     m_statusBarLabels = statusBarLabels;
@@ -96,7 +96,8 @@ void StatusBarProxy::registerStatusBar(QStatusBar* bar, const QVector<QLabel*>& 
 
     QMap<int, QString>::const_iterator i = constBegin();
     while (i != constEnd()) {
-        if (i.key() < statusBarLabels.size()) statusBarLabels.at(i.key())->setText(i.value());
+        if (i.key() < statusBarLabels.size())
+            statusBarLabels.at(i.key())->setText(i.value());
         ++i;
     }
 }

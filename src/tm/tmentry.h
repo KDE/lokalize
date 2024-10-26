@@ -14,8 +14,8 @@
 
 #include "catalogstring.h"
 
-#include <QString>
 #include <QDate>
+#include <QString>
 
 namespace TM
 {
@@ -30,20 +30,20 @@ struct TMEntry {
     QDate changeDate;
     QString changeAuthor;
 
-    //the remaining are used only for results
+    // the remaining are used only for results
     qlonglong id;
-    short score: 16; //100.00%==10000
-    ushort hits: 15;
-    bool obsolete: 1;
+    short score : 16; // 100.00%==10000
+    ushort hits : 15;
+    bool obsolete : 1;
     QString dbName;
 
     QString diff;
 
-    //different databases can have different settings:
+    // different databases can have different settings:
     QString accelExpr;
     QString markupExpr;
 
-    bool operator>(const TMEntry& other) const
+    bool operator>(const TMEntry &other) const
     {
         if (score == other.score) {
             if (hits == other.hits)
@@ -52,7 +52,7 @@ struct TMEntry {
         }
         return score > other.score;
     }
-    bool operator<(const TMEntry& other) const
+    bool operator<(const TMEntry &other) const
     {
         if (score == other.score) {
             if (hits == other.hits)
@@ -62,7 +62,13 @@ struct TMEntry {
         return score < other.score;
     }
 
-    TMEntry(): id(-1), score(0), hits(0), obsolete(false) {}
+    TMEntry()
+        : id(-1)
+        , score(0)
+        , hits(0)
+        , obsolete(false)
+    {
+    }
 };
 
 }

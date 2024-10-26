@@ -11,28 +11,29 @@
 #include "mergeview.h"
 
 #include "cmd.h"
-#include "project.h"
 #include "diff.h"
+#include "project.h"
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <ktextedit.h>
 #include <knotification.h>
+#include <ktextedit.h>
 
 #include <QDragEnterEvent>
-#include <QMimeData>
 #include <QFile>
-#include <QToolTip>
-#include <QStringBuilder>
 #include <QFileDialog>
+#include <QMimeData>
+#include <QStringBuilder>
+#include <QToolTip>
 
-MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
-    : QDockWidget(primary ? i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync") : i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"), parent)
+MergeView::MergeView(QWidget *parent, Catalog *catalog, bool primary)
+    : QDockWidget(primary ? i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync")
+                          : i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"),
+                  parent)
     , m_browser(new QTextEdit(this))
     , m_baseCatalog(catalog)
-    , m_normTitle(primary ?
-                  i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync") :
-                  i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"))
+    , m_normTitle(primary ? i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync")
+                          : i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"))
     , m_hasInfoTitle(m_normTitle + QLatin1String(" [*]"))
 {
     setObjectName(primary ? QStringLiteral("mergeView-primary") : QStringLiteral("mergeView-secondary"));
@@ -62,7 +63,7 @@ QString MergeView::filePath()
     return QString();
 }
 
-void MergeView::dragEnterEvent(QDragEnterEvent* event)
+void MergeView::dragEnterEvent(QDragEnterEvent *event)
 {
     if (event->mimeData()->hasUrls() && Catalog::extIsSupported(event->mimeData()->urls().first().path()))
         event->acceptProposedAction();
@@ -74,31 +75,29 @@ void MergeView::dropEvent(QDropEvent *event)
     event->acceptProposedAction();
 }
 
-void MergeView::slotUpdate(const DocPosition& pos)
+void MergeView::slotUpdate(const DocPosition &pos)
 {
     if (pos.entry == m_pos.entry)
         slotNewEntryDisplayed(pos);
 }
 
-void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
+void MergeView::slotNewEntryDisplayed(const DocPosition &pos)
 {
     m_pos = pos;
 
     if (!m_mergeCatalog)
         return;
 
-    Q_EMIT signalPriorChangedAvailable((pos.entry > m_mergeCatalog->firstChangedIndex())
-                                     || (pluralFormsAvailableBackward() != -1));
-    Q_EMIT signalNextChangedAvailable((pos.entry < m_mergeCatalog->lastChangedIndex())
-                                    || (pluralFormsAvailableForward() != -1));
+    Q_EMIT signalPriorChangedAvailable((pos.entry > m_mergeCatalog->firstChangedIndex()) || (pluralFormsAvailableBackward() != -1));
+    Q_EMIT signalNextChangedAvailable((pos.entry < m_mergeCatalog->lastChangedIndex()) || (pluralFormsAvailableForward() != -1));
 
     if (!m_mergeCatalog->isPresent(pos.entry)) {
-        //i.e. no corresponding entry, whether changed or not
+        // i.e. no corresponding entry, whether changed or not
         if (m_hasInfo) {
             m_hasInfo = false;
             setWindowTitle(m_normTitle);
             m_browser->clear();
-//             m_browser->viewport()->setBackgroundRole(QPalette::Base);
+            //             m_browser->viewport()->setBackgroundRole(QPalette::Base);
         }
         Q_EMIT signalEntryWithMergeDisplayed(false);
 
@@ -112,11 +111,8 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 
     Q_EMIT signalEntryWithMergeDisplayed(m_mergeCatalog->isDifferent(pos.entry));
 
-    QString result = userVisibleWordDiff(m_baseCatalog->msgstr(pos),
-                                         m_mergeCatalog->msgstr(pos),
-                                         Project::instance()->accel(),
-                                         Project::instance()->markup(),
-                                         Html);
+    QString result =
+        userVisibleWordDiff(m_baseCatalog->msgstr(pos), m_mergeCatalog->msgstr(pos), Project::instance()->accel(), Project::instance()->markup(), Html);
 #if 0
     int i = -1;
     bool inTag = false;
@@ -142,7 +138,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
     }
     result.replace(QLatin1Char(' '), QChar::Nbsp);
     m_browser->setHtml(result);
-    //qCDebug(LOKALIZE_LOG)<<"ELA "<<time.elapsed();
+    // qCDebug(LOKALIZE_LOG)<<"ELA "<<time.elapsed();
 }
 
 void MergeView::cleanup()
@@ -166,14 +162,14 @@ void MergeView::mergeOpen(QString mergeFilePath)
 
     if (mergeFilePath == m_baseCatalog->url()) {
         //(we are likely to be _mergeViewSecondary)
-        //special handling: open corresponding file in the branch
-        //for AutoSync
+        // special handling: open corresponding file in the branch
+        // for AutoSync
 
         QString path = mergeFilePath;
         const QString oldPath = path;
         path.replace(Project::instance()->poDir(), Project::instance()->branchDir());
 
-        if (oldPath == path) { //if file doesn't exist both are empty
+        if (oldPath == path) { // if file doesn't exist both are empty
             cleanup();
             return;
         }
@@ -182,10 +178,10 @@ void MergeView::mergeOpen(QString mergeFilePath)
     }
 
     if (mergeFilePath.isEmpty()) {
-        //Project::instance()->model()->weaver()->suspend();
-        //KDE5PORT use mutex if needed
+        // Project::instance()->model()->weaver()->suspend();
+        // KDE5PORT use mutex if needed
         mergeFilePath = QFileDialog::getOpenFileName(this, i18nc("@title:window", "Select translation file"), QString(), Catalog::supportedFileTypes(false));
-        //Project::instance()->model()->weaver()->resume();
+        // Project::instance()->model()->weaver()->resume();
     }
     if (mergeFilePath.isEmpty())
         return;
@@ -214,25 +210,25 @@ void MergeView::mergeOpen(QString mergeFilePath)
 
         Q_EMIT signalNextChangedAvailable(m_pos.entry < m_mergeCatalog->lastChangedIndex());
 
-        //a bit hacky :)
+        // a bit hacky :)
         connect(m_mergeCatalog, &MergeCatalog::signalEntryModified, this, &MergeView::slotUpdate);
 
         if (m_pos.entry != -1)
             slotNewEntryDisplayed(m_pos);
         show();
     } else {
-        //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
+        // KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         cleanup();
         if (errorLine > 0) {
-            KMessageBox::error(this, i18nc("@info", "Error opening the file <filename>%1</filename> for synchronization, error line: %2", mergeFilePath, errorLine));
+            KMessageBox::error(this,
+                               i18nc("@info", "Error opening the file <filename>%1</filename> for synchronization, error line: %2", mergeFilePath, errorLine));
         }
     }
-
 }
 
 bool MergeView::isModified()
 {
-    return m_mergeCatalog && m_mergeCatalog->isModified(); //not isClean because mergecatalog doesn't keep history
+    return m_mergeCatalog && m_mergeCatalog->isModified(); // not isClean because mergecatalog doesn't keep history
 }
 
 int MergeView::pluralFormsAvailableForward()
@@ -240,7 +236,7 @@ int MergeView::pluralFormsAvailableForward()
     if (Q_LIKELY(m_pos.entry == -1 || !m_mergeCatalog->isPlural(m_pos.entry)))
         return -1;
 
-    const int formLimit = qMin(m_baseCatalog->numberOfPluralForms(), m_mergeCatalog->numberOfPluralForms()); //just sanity check
+    const int formLimit = qMin(m_baseCatalog->numberOfPluralForms(), m_mergeCatalog->numberOfPluralForms()); // just sanity check
     DocPosition pos = m_pos;
     while (++(pos.form) < formLimit) {
         if (m_baseCatalog->msgstr(pos) != m_mergeCatalog->msgstr(pos))
@@ -269,7 +265,7 @@ void MergeView::gotoPrevChanged()
 
     DocPosition pos;
 
-    //first, check if there any plural forms waiting to be synced
+    // first, check if there any plural forms waiting to be synced
     const int form = pluralFormsAvailableBackward();
     if (Q_UNLIKELY(form != -1)) {
         pos = m_pos;
@@ -295,7 +291,7 @@ void MergeView::gotoNextChanged(bool approvedOnly)
 
     DocPosition pos = m_pos;
 
-    //first, check if there any plural forms waiting to be synced
+    // first, check if there any plural forms waiting to be synced
     const int form = pluralFormsAvailableForward();
     if (Q_UNLIKELY(form != -1)) {
         pos = m_pos;
@@ -313,9 +309,7 @@ void MergeView::gotoNextChanged(bool approvedOnly)
 
 void MergeView::mergeBack()
 {
-    if (m_pos.entry == -1
-        || m_mergeCatalog == nullptr
-        || (m_baseCatalog != nullptr && m_baseCatalog->msgstr(m_pos).isEmpty())) {
+    if (m_pos.entry == -1 || m_mergeCatalog == nullptr || (m_baseCatalog != nullptr && m_baseCatalog->msgstr(m_pos).isEmpty())) {
         return;
     }
 
@@ -324,9 +318,7 @@ void MergeView::mergeBack()
 
 void MergeView::mergeAccept()
 {
-    if (m_pos.entry == -1
-        || m_mergeCatalog == nullptr
-        || m_mergeCatalog->msgstr(m_pos).isEmpty()) {
+    if (m_pos.entry == -1 || m_mergeCatalog == nullptr || m_mergeCatalog->msgstr(m_pos).isEmpty()) {
         return;
     }
 
@@ -337,22 +329,27 @@ void MergeView::mergeAccept()
 
 void MergeView::mergeAcceptAllForEmpty()
 {
-    if (Q_UNLIKELY(!m_mergeCatalog)) return;
+    if (Q_UNLIKELY(!m_mergeCatalog))
+        return;
 
-    const bool containsBefore = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry) != m_mergeCatalog->differentEntries().end();
-    m_mergeCatalog->copyToBaseCatalog(/*MergeCatalog::EmptyOnly*/MergeCatalog::HigherOnly);
-    const bool containsAfter = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry) != m_mergeCatalog->differentEntries().end();
+    const bool containsBefore = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry)
+        != m_mergeCatalog->differentEntries().end();
+    m_mergeCatalog->copyToBaseCatalog(/*MergeCatalog::EmptyOnly*/ MergeCatalog::HigherOnly);
+    const bool containsAfter = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry)
+        != m_mergeCatalog->differentEntries().end();
     if (containsBefore != containsAfter)
         Q_EMIT gotoEntry(m_pos, 0);
 }
-
 
 bool MergeView::event(QEvent *event)
 {
     if ((event->type() == QEvent::ToolTip) && m_mergeCatalog) {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        QString text = QStringLiteral("<b>") + QDir::toNativeSeparators(filePath()) + QStringLiteral("</b>\n") + i18nc("@info:tooltip", "Different entries: %1\nUnmatched entries: %2",
-                       m_mergeCatalog->differentEntries().size(), m_mergeCatalog->unmatchedCount());
+        QString text = QStringLiteral("<b>") + QDir::toNativeSeparators(filePath()) + QStringLiteral("</b>\n")
+            + i18nc("@info:tooltip",
+                    "Different entries: %1\nUnmatched entries: %2",
+                    m_mergeCatalog->differentEntries().size(),
+                    m_mergeCatalog->unmatchedCount());
         text.replace(QLatin1Char('\n'), QLatin1String("<br />"));
         QToolTip::showText(helpEvent->globalPos(), text);
         return true;

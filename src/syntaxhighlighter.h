@@ -11,16 +11,15 @@
 #ifndef HIGHLIGHTER_H
 #define HIGHLIGHTER_H
 
+#include <KStatefulBrush>
 #include <QSyntaxHighlighter>
+#include <kcolorscheme.h>
 #include <sonnet/highlighter.h>
 #include <sonnet/speller.h>
-#include <kcolorscheme.h>
-#include <KStatefulBrush>
 
 #include <QHash>
 #include <QRegularExpression>
 #include <QTextCharFormat>
-
 
 class QTextEdit;
 
@@ -36,7 +35,7 @@ public:
     {
         m_approved = a;
     }
-    void setSourceString(const QString& s)
+    void setSourceString(const QString &s)
     {
         m_sourceString = s;
     }
@@ -50,7 +49,7 @@ protected:
 private Q_SLOTS:
     void settingsChanged();
 
-//    void setFormatRetainingUnderlines(int start, int count, QTextCharFormat format);
+    //    void setFormatRetainingUnderlines(int start, int count, QTextCharFormat format);
 private:
     struct HighlightingRule {
         QRegularExpression pattern;
@@ -58,7 +57,7 @@ private:
     };
     QVector<HighlightingRule> highlightingRules;
 
-//     bool fromDocbook;
+    //     bool fromDocbook;
     QTextCharFormat tagFormat;
     KStatefulBrush tagBrush{KColorScheme::View, KColorScheme::VisitedText};
     KStatefulBrush escapeCharBrush{KColorScheme::View, KColorScheme::PositiveText};

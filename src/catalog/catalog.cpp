@@ -13,26 +13,26 @@
 
 #include "catalog.h"
 #include "project.h"
-#include "projectmodel.h" //to notify about modification 
+#include "projectmodel.h" //to notify about modification
 
 #include "catalogstorage.h"
 #include "gettextstorage.h"
-#include "xliffstorage.h"
 #include "tsstorage.h"
+#include "xliffstorage.h"
 
 #include "mergecatalog.h"
 
+#include "dbfilesmodel.h"
+#include "jobs.h"
 #include "lokalize_debug.h"
 #include "prefs_lokalize.h"
-#include "jobs.h"
-#include "dbfilesmodel.h"
 
+#include <QBuffer>
+#include <QDir>
+#include <QFileInfo>
+#include <QMap>
 #include <QString>
 #include <QStringBuilder>
-#include <QMap>
-#include <QBuffer>
-#include <QFileInfo>
-#include <QDir>
 
 #include <klocalizedstring.h>
 
@@ -54,14 +54,18 @@ QString Catalog::supportedFileTypes(bool includeTemplates)
 
 static const QString extensions[] = {QStringLiteral(".po"), QStringLiteral(".pot"), QStringLiteral(".xlf"), QStringLiteral(".xliff"), QStringLiteral(".ts")};
 
-
 QStringList Catalog::translatedStates()
 {
-    static QStringList const xliff_states = {
-        i18n("New"), i18n("Needs translation"), i18n("Needs full localization"), i18n("Needs adaptation"), i18n("Translated"),
-        i18n("Needs translation review"), i18n("Needs full localization review"), i18n("Needs adaptation review"), i18n("Final"),
-        i18n("Signed-off")
-    };
+    static QStringList const xliff_states = {i18n("New"),
+                                             i18n("Needs translation"),
+                                             i18n("Needs full localization"),
+                                             i18n("Needs adaptation"),
+                                             i18n("Translated"),
+                                             i18n("Needs translation review"),
+                                             i18n("Needs full localization review"),
+                                             i18n("Needs adaptation review"),
+                                             i18n("Final"),
+                                             i18n("Signed-off")};
 
     return xliff_states;
 }
@@ -75,7 +79,7 @@ QStringList Catalog::supportedExtensions()
     return result;
 }
 
-bool Catalog::extIsSupported(const QString& path)
+bool Catalog::extIsSupported(const QString &path)
 {
     QStringList ext = supportedExtensions();
     int i = ext.size();
@@ -88,10 +92,14 @@ Catalog::Catalog(QObject *parent)
     : QUndoStack(parent)
     , d(this)
 {
-    //cause refresh events for files modified from lokalize itself aint delivered automatically
-    connect(this, qOverload<const QString &>(&Catalog::signalFileSaved), Project::instance()->model(), qOverload<const QString &>(&ProjectModel::slotFileSaved), Qt::QueuedConnection);
+    // cause refresh events for files modified from lokalize itself aint delivered automatically
+    connect(this,
+            qOverload<const QString &>(&Catalog::signalFileSaved),
+            Project::instance()->model(),
+            qOverload<const QString &>(&ProjectModel::slotFileSaved),
+            Qt::QueuedConnection);
 
-    QTimer* t = &(d._autoSaveTimer);
+    QTimer *t = &(d._autoSaveTimer);
     t->setInterval(2 * 60 * 1000);
     t->setSingleShot(false);
     connect(t, &QTimer::timeout, this, &Catalog::doAutoSave);
@@ -104,19 +112,19 @@ Catalog::Catalog(QObject *parent)
 Catalog::~Catalog()
 {
     clear();
-    //delete m_storage; //deleted in clear();
+    // delete m_storage; //deleted in clear();
 }
-
 
 void Catalog::clear()
 {
-    setIndex(cleanIndex());//to keep TM in sync
+    setIndex(cleanIndex()); // to keep TM in sync
     QUndoStack::clear();
     d._errorIndex.clear();
     d._nonApprovedIndex.clear();
     d._nonApprovedNonEmptyIndex.clear();
     d._emptyIndex.clear();
-    delete m_storage; m_storage = nullptr;
+    delete m_storage;
+    m_storage = nullptr;
     d._filePath.clear();
     d._lastModifiedPos = DocPosition();
     d._modifiedEntries.clear();
@@ -133,41 +141,39 @@ void Catalog::clear()
         */
 }
 
-
-
-void Catalog::push(QUndoCommand* cmd)
+void Catalog::push(QUndoCommand *cmd)
 {
     generatePhaseForCatalogIfNeeded(this);
     QUndoStack::push(cmd);
 }
 
-
-//BEGIN STORAGE TRANSLATION
+// BEGIN STORAGE TRANSLATION
 
 int Catalog::capabilities() const
 {
-    if (Q_UNLIKELY(!m_storage)) return 0;
+    if (Q_UNLIKELY(!m_storage))
+        return 0;
 
     return m_storage->capabilities();
 }
 
 int Catalog::numberOfEntries() const
 {
-    if (Q_UNLIKELY(!m_storage)) return 0;
+    if (Q_UNLIKELY(!m_storage))
+        return 0;
 
     return m_storage->size();
 }
 
-
-static DocPosition alterForSinglePlural(const Catalog* th, DocPosition pos)
+static DocPosition alterForSinglePlural(const Catalog *th, DocPosition pos)
 {
-    //if source lang is english (implied) and target lang has only 1 plural form (e.g. Chinese)
+    // if source lang is english (implied) and target lang has only 1 plural form (e.g. Chinese)
     if (Q_UNLIKELY(th->numberOfPluralForms() == 1 && th->isPlural(pos)))
         pos.form = 1;
     return pos;
 }
 
-QString Catalog::msgid(const DocPosition& pos) const
+QString Catalog::msgid(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QString();
@@ -175,14 +181,14 @@ QString Catalog::msgid(const DocPosition& pos) const
     return m_storage->source(alterForSinglePlural(this, pos));
 }
 
-QString Catalog::msgidWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
+QString Catalog::msgidWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QString();
     return m_storage->sourceWithPlurals(pos, truncateFirstLine);
 }
 
-QString Catalog::msgstr(const DocPosition& pos) const
+QString Catalog::msgstr(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QString();
@@ -190,7 +196,7 @@ QString Catalog::msgstr(const DocPosition& pos) const
     return m_storage->target(pos);
 }
 
-QString Catalog::msgstrWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
+QString Catalog::msgstrWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QString();
@@ -198,16 +204,14 @@ QString Catalog::msgstrWithPlurals(const DocPosition& pos, bool truncateFirstLin
     return m_storage->targetWithPlurals(pos, truncateFirstLine);
 }
 
-
-CatalogString Catalog::sourceWithTags(const DocPosition& pos) const
+CatalogString Catalog::sourceWithTags(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return CatalogString();
 
     return m_storage->sourceWithTags(alterForSinglePlural(this, pos));
-
 }
-CatalogString Catalog::targetWithTags(const DocPosition& pos) const
+CatalogString Catalog::targetWithTags(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return CatalogString();
@@ -215,7 +219,7 @@ CatalogString Catalog::targetWithTags(const DocPosition& pos) const
     return m_storage->targetWithTags(pos);
 }
 
-CatalogString Catalog::catalogString(const DocPosition& pos) const
+CatalogString Catalog::catalogString(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return CatalogString();
@@ -223,8 +227,7 @@ CatalogString Catalog::catalogString(const DocPosition& pos) const
     return m_storage->catalogString(pos.part == DocPosition::Source ? alterForSinglePlural(this, pos) : pos);
 }
 
-
-QVector<Note> Catalog::notes(const DocPosition& pos) const
+QVector<Note> Catalog::notes(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QVector<Note>();
@@ -232,7 +235,7 @@ QVector<Note> Catalog::notes(const DocPosition& pos) const
     return m_storage->notes(pos);
 }
 
-QVector<Note> Catalog::developerNotes(const DocPosition& pos) const
+QVector<Note> Catalog::developerNotes(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QVector<Note>();
@@ -240,7 +243,7 @@ QVector<Note> Catalog::developerNotes(const DocPosition& pos) const
     return m_storage->developerNotes(pos);
 }
 
-Note Catalog::setNote(const DocPosition& pos, const Note& note)
+Note Catalog::setNote(const DocPosition &pos, const Note &note)
 {
     if (Q_UNLIKELY(!m_storage))
         return Note();
@@ -256,25 +259,25 @@ QStringList Catalog::noteAuthors() const
     return m_storage->noteAuthors();
 }
 
-void Catalog::attachAltTransCatalog(Catalog* altCat)
+void Catalog::attachAltTransCatalog(Catalog *altCat)
 {
     d._altTransCatalogs.push_back(altCat);
     if (numberOfEntries() != altCat->numberOfEntries())
         qCWarning(LOKALIZE_LOG) << altCat->url() << "has different number of entries";
 }
 
-void Catalog::attachAltTrans(int entry, const AltTrans& trans)
+void Catalog::attachAltTrans(int entry, const AltTrans &trans)
 {
     d._altTranslations.insert(entry, trans);
 }
 
-QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
+QVector<AltTrans> Catalog::altTrans(const DocPosition &pos) const
 {
     QVector<AltTrans> result;
     if (m_storage)
         result = m_storage->altTrans(pos);
 
-    for (Catalog* altCat : d._altTransCatalogs) {
+    for (Catalog *altCat : d._altTransCatalogs) {
         if (pos.entry >= altCat->numberOfEntries()) {
             qCDebug(LOKALIZE_LOG) << "ignoring" << altCat->url() << "this time because" << pos.entry << "<" << altCat->numberOfEntries();
             continue;
@@ -298,7 +301,7 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
     return result;
 }
 
-QStringList Catalog::sourceFiles(const DocPosition& pos) const
+QStringList Catalog::sourceFiles(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QStringList();
@@ -306,7 +309,7 @@ QStringList Catalog::sourceFiles(const DocPosition& pos) const
     return m_storage->sourceFiles(pos);
 }
 
-QString Catalog::id(const DocPosition& pos) const
+QString Catalog::id(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QString();
@@ -314,7 +317,7 @@ QString Catalog::id(const DocPosition& pos) const
     return m_storage->id(pos);
 }
 
-QStringList Catalog::context(const DocPosition& pos) const
+QStringList Catalog::context(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QStringList();
@@ -322,7 +325,7 @@ QStringList Catalog::context(const DocPosition& pos) const
     return m_storage->context(pos);
 }
 
-QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
+QString Catalog::setPhase(const DocPosition &pos, const QString &phase)
 {
     if (Q_UNLIKELY(!m_storage))
         return QString();
@@ -330,8 +333,7 @@ QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
     return m_storage->setPhase(pos, phase);
 }
 
-
-void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role)
+void Catalog::setActivePhase(const QString &phase, ProjectLocal::PersonRole role)
 {
     d._phase = phase;
     d._phaseRole = role;
@@ -344,7 +346,7 @@ void Catalog::updateApprovedEmptyIndexCache()
     if (Q_UNLIKELY(!m_storage))
         return;
 
-    //index cache TODO profile?
+    // index cache TODO profile?
     d._nonApprovedIndex.clear();
     d._nonApprovedNonEmptyIndex.clear();
     d._emptyIndex.clear();
@@ -367,7 +369,7 @@ void Catalog::updateApprovedEmptyIndexCache()
     Q_EMIT signalNumberOfEmptyChanged();
 }
 
-QString Catalog::phase(const DocPosition& pos) const
+QString Catalog::phase(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QString();
@@ -375,7 +377,7 @@ QString Catalog::phase(const DocPosition& pos) const
     return m_storage->phase(pos);
 }
 
-Phase Catalog::phase(const QString& name) const
+Phase Catalog::phase(const QString &name) const
 {
     return m_storage->phase(name);
 }
@@ -385,12 +387,12 @@ QList<Phase> Catalog::allPhases() const
     return m_storage->allPhases();
 }
 
-QVector<Note> Catalog::phaseNotes(const QString& phase) const
+QVector<Note> Catalog::phaseNotes(const QString &phase) const
 {
     return m_storage->phaseNotes(phase);
 }
 
-QVector<Note> Catalog::setPhaseNotes(const QString& phase, QVector<Note> notes)
+QVector<Note> Catalog::setPhaseNotes(const QString &phase, QVector<Note> notes)
 {
     return m_storage->setPhaseNotes(phase, notes);
 }
@@ -410,18 +412,17 @@ bool Catalog::isApproved(uint index) const
     if (Q_UNLIKELY(!m_storage))
         return false;
 
-    bool extendedStates = m_storage->capabilities()&ExtendedStates;
+    bool extendedStates = m_storage->capabilities() & ExtendedStates;
 
-    return (extendedStates &&::isApproved(state(DocPosition(index)), activePhaseRole()))
-           || (!extendedStates && m_storage->isApproved(DocPosition(index)));
+    return (extendedStates && ::isApproved(state(DocPosition(index)), activePhaseRole())) || (!extendedStates && m_storage->isApproved(DocPosition(index)));
 }
 
-TargetState Catalog::state(const DocPosition& pos) const
+TargetState Catalog::state(const DocPosition &pos) const
 {
     if (Q_UNLIKELY(!m_storage))
         return NeedsTranslation;
 
-    if (m_storage->capabilities()&ExtendedStates)
+    if (m_storage->capabilities() & ExtendedStates)
         return m_storage->state(pos);
     else
         return closestState(m_storage->isApproved(pos), activePhaseRole());
@@ -432,13 +433,12 @@ bool Catalog::isEmpty(uint index) const
     return m_storage && m_storage->isEmpty(DocPosition(index));
 }
 
-bool Catalog::isEmpty(const DocPosition& pos) const
+bool Catalog::isEmpty(const DocPosition &pos) const
 {
     return m_storage && m_storage->isEmpty(pos);
 }
 
-
-bool Catalog::isEquivTrans(const DocPosition& pos) const
+bool Catalog::isEquivTrans(const DocPosition &pos) const
 {
     return m_storage && m_storage->isEquivTrans(pos);
 }
@@ -448,7 +448,7 @@ int Catalog::binUnitsCount() const
     return m_storage ? m_storage->binUnitsCount() : 0;
 }
 
-int Catalog::unitById(const QString& id) const
+int Catalog::unitById(const QString &id) const
 {
     return m_storage ? m_storage->unitById(id) : 0;
 }
@@ -493,27 +493,28 @@ QString Catalog::targetLangCode() const
     return m_storage->targetLangCode();
 }
 
-void Catalog::setTargetLangCode(const QString& targetLangCode)
+void Catalog::setTargetLangCode(const QString &targetLangCode)
 {
     if (Q_UNLIKELY(!m_storage))
         return;
 
     bool notify = m_storage->targetLangCode() != targetLangCode;
     m_storage->setTargetLangCode(targetLangCode);
-    if (notify) Q_EMIT signalFileLoaded();
+    if (notify)
+        Q_EMIT signalFileLoaded();
 }
 
-//END STORAGE TRANSLATION
+// END STORAGE TRANSLATION
 
-//BEGIN OPEN/SAVE
+// BEGIN OPEN/SAVE
 #define DOESNTEXIST -1
 #define ISNTREADABLE -2
 #define UNKNOWNFORMAT -3
 
-KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
+KAutoSaveFile *Catalog::checkAutoSave(const QString &url)
 {
-    KAutoSaveFile* autoSave = nullptr;
-    const QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(QUrl::fromLocalFile(url));
+    KAutoSaveFile *autoSave = nullptr;
+    const QList<KAutoSaveFile *> staleFiles = KAutoSaveFile::staleFiles(QUrl::fromLocalFile(url));
     for (KAutoSaveFile *stale : staleFiles) {
         if (stale->open(QIODevice::ReadOnly) && !autoSave) {
             autoSave = stale;
@@ -526,7 +527,7 @@ KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
     return autoSave;
 }
 
-int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* fileSize, bool fast)
+int Catalog::loadFromUrl(const QString &filePath, const QString &saidUrl, int *fileSize, bool fast)
 {
     QFileInfo info(filePath);
     if (Q_UNLIKELY(!info.exists() || info.isDir()))
@@ -535,14 +536,14 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
         return ISNTREADABLE;
     bool readOnly = !info.isWritable();
 
-
-    QElapsedTimer a; a.start();
+    QElapsedTimer a;
+    a.start();
 
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly))
-        return ISNTREADABLE;//TODO
+        return ISNTREADABLE; // TODO
 
-    CatalogStorage* storage = nullptr;
+    CatalogStorage *storage = nullptr;
     if (filePath.endsWith(QLatin1String(".po")) || filePath.endsWith(QLatin1String(".pot")))
         storage = new GettextCatalog::GettextStorage;
     else if (filePath.endsWith(QLatin1String(".xlf")) || filePath.endsWith(QLatin1String(".xliff")))
@@ -550,14 +551,16 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
     else if (filePath.endsWith(QLatin1String(".ts")))
         storage = new TsStorage;
     else {
-        //try harder
+        // try harder
         QTextStream in(&file);
         int i = 0;
         bool gettext = false;
         while (!in.atEnd() && ++i < 64 && !gettext)
             gettext = in.readLine().contains(QLatin1String("msgid"));
-        if (gettext) storage = new GettextCatalog::GettextStorage;
-        else return UNKNOWNFORMAT;
+        if (gettext)
+            storage = new GettextCatalog::GettextStorage;
+        else
+            return UNKNOWNFORMAT;
     }
 
     int line = storage->load(&file);
@@ -569,12 +572,13 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
         return line;
     }
 
-    if (a.elapsed() > 100) qCDebug(LOKALIZE_LOG) << filePath << "opened in" << a.elapsed();
+    if (a.elapsed() > 100)
+        qCDebug(LOKALIZE_LOG) << filePath << "opened in" << a.elapsed();
 
-    //ok...
+    // ok...
     clear();
 
-    //commit transaction
+    // commit transaction
     m_storage = storage;
 
     updateApprovedEmptyIndexCache();
@@ -584,18 +588,18 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
     d._readOnly = readOnly;
     d._filePath = saidUrl.isEmpty() ? filePath : saidUrl;
 
-    //set some sane role, a real phase with a nmae will be created later with the first edit command
+    // set some sane role, a real phase with a nmae will be created later with the first edit command
     setActivePhase(QString(), Project::local()->role());
 
     if (!fast) {
-        KAutoSaveFile* autoSave = checkAutoSave(d._filePath);
+        KAutoSaveFile *autoSave = checkAutoSave(d._filePath);
         d._autoSaveRecovered = autoSave;
         if (autoSave) {
             d._autoSave->deleteLater();
             d._autoSave = autoSave;
 
-            //restore 'modified' status for entries
-            MergeCatalog* mergeCatalog = new MergeCatalog(this, this);
+            // restore 'modified' status for entries
+            MergeCatalog *mergeCatalog = new MergeCatalog(this, this);
             int errorLine = mergeCatalog->loadFromUrl(autoSave->fileName());
             if (Q_LIKELY(errorLine == 0))
                 mergeCatalog->copyToBaseCatalog();
@@ -618,7 +622,7 @@ bool Catalog::save()
     return saveToUrl(d._filePath);
 }
 
-//this function is not called if QUndoStack::isClean() !
+// this function is not called if QUndoStack::isClean() !
 bool Catalog::saveToUrl(QString localFilePath)
 {
     if (Q_UNLIKELY(!m_storage))
@@ -633,7 +637,7 @@ bool Catalog::saveToUrl(QString localFilePath)
         if (!QDir::root().mkpath(localPath))
             return false;
     QFile file(localFilePath);
-    if (Q_UNLIKELY(!file.open(QIODevice::WriteOnly)))   //i18n("Wasn't able to open file %1",filename.ascii());
+    if (Q_UNLIKELY(!file.open(QIODevice::WriteOnly))) // i18n("Wasn't able to open file %1",filename.ascii());
         return false;
 
     bool belongsToProject = localFilePath.contains(Project::instance()->poDir());
@@ -644,14 +648,14 @@ bool Catalog::saveToUrl(QString localFilePath)
 
     d._autoSave->remove();
     d._autoSaveRecovered = false;
-    setClean(); //undo/redo
+    setClean(); // undo/redo
     if (nameChanged) {
         d._filePath = localFilePath;
         d._autoSave->setManagedFile(QUrl::fromLocalFile(localFilePath));
     }
 
-    //Settings::self()->setCurrentGroup("Bookmarks");
-    //Settings::self()->addItemIntList(d._filePath.url(),d._bookmarkIndex);
+    // Settings::self()->setCurrentGroup("Bookmarks");
+    // Settings::self()->addItemIntList(d._filePath.url(),d._bookmarkIndex);
 
     Q_EMIT signalFileSaved();
     Q_EMIT signalFileSaved(localFilePath);
@@ -699,41 +703,36 @@ QByteArray Catalog::contents()
     return buf.data();
 }
 
-//END OPEN/SAVE
-
-
+// END OPEN/SAVE
 
 /**
  * helper method to keep db in a good shape :)
  * called on
  * 1) entry switch
  * 2) automatic editing code like replace or undo/redo operation
-**/
-static void updateDB(
-    const QString& filePath,
-    const QString& ctxt,
-    const CatalogString& english,
-    const CatalogString& newTarget,
-    int form,
-    bool approved,
-    const QString& dbName
-    //const DocPosition&,//for back tracking
+ **/
+static void updateDB(const QString &filePath,
+                     const QString &ctxt,
+                     const CatalogString &english,
+                     const CatalogString &newTarget,
+                     int form,
+                     bool approved,
+                     const QString &dbName
+                     // const DocPosition&,//for back tracking
 )
 {
-    TM::UpdateJob* j = new TM::UpdateJob(filePath, ctxt, english, newTarget, form, approved,
-                                         dbName);
+    TM::UpdateJob *j = new TM::UpdateJob(filePath, ctxt, english, newTarget, form, approved, dbName);
     TM::threadPool()->start(j);
 }
 
-
-//BEGIN UNDO/REDO
-const DocPosition& Catalog::undo()
+// BEGIN UNDO/REDO
+const DocPosition &Catalog::undo()
 {
     QUndoStack::undo();
     return d._lastModifiedPos;
 }
 
-const DocPosition& Catalog::redo()
+const DocPosition &Catalog::redo()
 {
     QUndoStack::redo();
     return d._lastModifiedPos;
@@ -746,8 +745,8 @@ void Catalog::flushUpdateDBBuffer()
 
     DocPosition pos = d._lastModifiedPos;
     if (pos.entry == -1 || pos.entry >= numberOfEntries()) {
-        //nothing to flush
-        //qCWarning(LOKALIZE_LOG)<<"nothing to flush or new file opened";
+        // nothing to flush
+        // qCWarning(LOKALIZE_LOG)<<"nothing to flush or new file opened";
         return;
     }
     QString dbName;
@@ -755,9 +754,10 @@ void Catalog::flushUpdateDBBuffer()
         dbName = Project::instance()->projectID();
     } else {
         dbName = sourceLangCode() + QLatin1Char('-') + targetLangCode();
-        qCInfo(LOKALIZE_LOG) << "updating" << dbName << "because target language of project db does not match" << Project::instance()->targetLangCode() << targetLangCode();
+        qCInfo(LOKALIZE_LOG) << "updating" << dbName << "because target language of project db does not match" << Project::instance()->targetLangCode()
+                             << targetLangCode();
         if (!TM::DBFilesModel::instance()->m_configurations.contains(dbName)) {
-            TM::OpenDBJob* openDBJob = new TM::OpenDBJob(dbName, TM::Local, true);
+            TM::OpenDBJob *openDBJob = new TM::OpenDBJob(dbName, TM::Local, true);
             connect(openDBJob, &TM::OpenDBJob::done, TM::DBFilesModel::instance(), &TM::DBFilesModel::updateProjectTmIndex);
 
             openDBJob->m_setParams = true;
@@ -772,20 +772,14 @@ void Catalog::flushUpdateDBBuffer()
     int form = -1;
     if (isPlural(pos.entry))
         form = pos.form;
-    updateDB(url(),
-             context(DocPosition(pos.entry)).first(),
-             sourceWithTags(pos),
-             targetWithTags(pos),
-             form,
-             isApproved(pos.entry),
-             dbName);
+    updateDB(url(), context(DocPosition(pos.entry)).first(), sourceWithTags(pos), targetWithTags(pos), form, isApproved(pos.entry), dbName);
 
     d._lastModifiedPos = DocPosition();
 }
 
-void Catalog::setLastModifiedPos(const DocPosition& pos)
+void Catalog::setLastModifiedPos(const DocPosition &pos)
 {
-    if (pos.entry >= numberOfEntries()) //bin-units
+    if (pos.entry >= numberOfEntries()) // bin-units
         return;
 
     bool entryChanged = DocPos(d._lastModifiedPos) != DocPos(pos);
@@ -795,7 +789,7 @@ void Catalog::setLastModifiedPos(const DocPosition& pos)
     d._lastModifiedPos = pos;
 }
 
-bool CatalogPrivate::addToEmptyIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos, bool alreadyEmpty)
+bool CatalogPrivate::addToEmptyIndexIfAppropriate(CatalogStorage *storage, const DocPosition &pos, bool alreadyEmpty)
 {
     if ((!pos.offset) && (storage->target(pos).isEmpty()) && (!alreadyEmpty)) {
         insertInList(_emptyIndex, pos.entry);
@@ -804,7 +798,7 @@ bool CatalogPrivate::addToEmptyIndexIfAppropriate(CatalogStorage* storage, const
     return false;
 }
 
-void Catalog::targetDelete(const DocPosition& pos, int count)
+void Catalog::targetDelete(const DocPosition &pos, int count)
 {
     if (Q_UNLIKELY(!m_storage))
         return;
@@ -817,7 +811,7 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
     Q_EMIT signalEntryModified(pos);
 }
 
-bool CatalogPrivate::removeFromUntransIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos)
+bool CatalogPrivate::removeFromUntransIndexIfAppropriate(CatalogStorage *storage, const DocPosition &pos)
 {
     if ((!pos.offset) && (storage->isEmpty(pos))) {
         _emptyIndex.remove(pos.entry);
@@ -826,7 +820,7 @@ bool CatalogPrivate::removeFromUntransIndexIfAppropriate(CatalogStorage* storage
     return false;
 }
 
-void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
+void Catalog::targetInsert(const DocPosition &pos, const QString &arg)
 {
     if (Q_UNLIKELY(!m_storage))
         return;
@@ -838,7 +832,7 @@ void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
     Q_EMIT signalEntryModified(pos);
 }
 
-void Catalog::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
+void Catalog::targetInsertTag(const DocPosition &pos, const InlineTag &tag)
 {
     if (Q_UNLIKELY(!m_storage))
         return;
@@ -850,7 +844,7 @@ void Catalog::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
     Q_EMIT signalEntryModified(pos);
 }
 
-InlineTag Catalog::targetDeleteTag(const DocPosition& pos)
+InlineTag Catalog::targetDeleteTag(const DocPosition &pos)
 {
     if (Q_UNLIKELY(!m_storage))
         return InlineTag();
@@ -864,19 +858,17 @@ InlineTag Catalog::targetDeleteTag(const DocPosition& pos)
     return tag;
 }
 
-void Catalog::setTarget(DocPosition pos, const CatalogString& s)
+void Catalog::setTarget(DocPosition pos, const CatalogString &s)
 {
-    //TODO for case of markup present
+    // TODO for case of markup present
     m_storage->setTarget(pos, s.string);
 }
 
-TargetState Catalog::setState(const DocPosition& pos, TargetState state)
+TargetState Catalog::setState(const DocPosition &pos, TargetState state)
 {
-    bool extendedStates = m_storage && m_storage->capabilities()&ExtendedStates;
-    bool approved =::isApproved(state, activePhaseRole());
-    if (Q_UNLIKELY(!m_storage
-                   || (extendedStates && m_storage->state(pos) == state)
-                   || (!extendedStates && m_storage->isApproved(pos) == approved)))
+    bool extendedStates = m_storage && m_storage->capabilities() & ExtendedStates;
+    bool approved = ::isApproved(state, activePhaseRole());
+    if (Q_UNLIKELY(!m_storage || (extendedStates && m_storage->state(pos) == state) || (!extendedStates && m_storage->isApproved(pos) == approved)))
         return this->state(pos);
 
     TargetState prevState;
@@ -904,14 +896,15 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
     return prevState;
 }
 
-Phase Catalog::updatePhase(const Phase& phase)
+Phase Catalog::updatePhase(const Phase &phase)
 {
     return m_storage->updatePhase(phase);
 }
 
-void Catalog::setEquivTrans(const DocPosition& pos, bool equivTrans)
+void Catalog::setEquivTrans(const DocPosition &pos, bool equivTrans)
 {
-    if (m_storage) m_storage->setEquivTrans(pos, equivTrans);
+    if (m_storage)
+        m_storage->setEquivTrans(pos, equivTrans);
 }
 
 bool Catalog::setModified(DocPos entry, bool modified)
@@ -942,12 +935,9 @@ bool Catalog::isModified(int entry) const
     return false;
 }
 
-//END UNDO/REDO
+// END UNDO/REDO
 
-
-
-
-int findNextInList(const std::list<int>& list, int index)
+int findNextInList(const std::list<int> &list, int index)
 {
     int nextIndex = -1;
     for (int key : list) {
@@ -959,7 +949,7 @@ int findNextInList(const std::list<int>& list, int index)
     return nextIndex;
 }
 
-int findPrevInList(const std::list<int>& list, int index)
+int findPrevInList(const std::list<int> &list, int index)
 {
     int prevIndex = -1;
     for (int key : list) {
@@ -970,7 +960,7 @@ int findPrevInList(const std::list<int>& list, int index)
     return prevIndex;
 }
 
-void insertInList(std::list<int>& list, int index)
+void insertInList(std::list<int> &list, int index)
 {
     std::list<int>::const_iterator it = list.cbegin();
     while (it != list.cend() && index > *it)
@@ -985,7 +975,6 @@ void Catalog::setBookmark(uint idx, bool set)
     else
         d._bookmarkIndex.remove(idx);
 }
-
 
 bool isApproved(TargetState state, ProjectLocal::PersonRole role)
 {
@@ -1002,13 +991,9 @@ bool isApproved(TargetState state)
 TargetState closestState(bool approved, ProjectLocal::PersonRole role)
 {
     Q_ASSERT(role != ProjectLocal::Undefined);
-    static const TargetState approvementStates[][3] = {
-        {NeedsTranslation, NeedsReviewTranslation, NeedsReviewTranslation},
-        {Translated, Final, SignedOff}
-    };
+    static const TargetState approvementStates[][3] = {{NeedsTranslation, NeedsReviewTranslation, NeedsReviewTranslation}, {Translated, Final, SignedOff}};
     return approvementStates[approved][role];
 }
-
 
 bool Catalog::isObsolete(int entry) const
 {
@@ -1026,7 +1011,7 @@ QString Catalog::originalOdfFilePath()
     return m_storage->originalOdfFilePath();
 }
 
-void Catalog::setOriginalOdfFilePath(const QString& odfFilePath)
+void Catalog::setOriginalOdfFilePath(const QString &odfFilePath)
 {
     if (Q_UNLIKELY(!m_storage))
         return;

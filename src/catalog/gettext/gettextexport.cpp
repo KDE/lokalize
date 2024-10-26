@@ -13,58 +13,26 @@
 
 #include "lokalize_debug.h"
 
-#include "gettextstorage.h"
 #include "catalogitem.h"
+#include "gettextstorage.h"
 
+#include <QEventLoop>
 #include <QFile>
 #include <QList>
-#include <QEventLoop>
-#include <QStringBuilder>
 #include <QRegularExpression>
-
+#include <QStringBuilder>
 
 using namespace GettextCatalog;
 
 QStringList getTagBrNormal()
 {
-   #define qL(x) QLatin1String(x)
-   return (QStringList()
-       << qL("blockquote")
-       << qL("calloutlist")
-       << qL("center")
-       << qL("dd")
-       << qL("dl")
-       << qL("dt")
-       << qL("glosslist")
-       << qL("h1")
-       << qL("h2")
-       << qL("h3")
-       << qL("h4")
-       << qL("h5")
-       << qL("h6")
-       << qL("item")
-       << qL("itemizedlist")
-       << qL("li")
-       << qL("list")
-       << qL("listitem")
-       << qL("ol")
-       << qL("orderedlist")
-       << qL("p")
-       << qL("para")
-       << qL("pre")
-       << qL("seglistitem")
-       << qL("segmentedlist")
-       << qL("simplelist")
-       << qL("subtitle")
-       << qL("table")
-       << qL("td")
-       << qL("th")
-       << qL("title")
-       << qL("tr")
-       << qL("ul")
-       << qL("variablelist")
-       << qL("varlistentry"));
-   #undef qL
+#define qL(x) QLatin1String(x)
+    return (QStringList() << qL("blockquote") << qL("calloutlist") << qL("center") << qL("dd") << qL("dl") << qL("dt") << qL("glosslist") << qL("h1")
+                          << qL("h2") << qL("h3") << qL("h4") << qL("h5") << qL("h6") << qL("item") << qL("itemizedlist") << qL("li") << qL("list")
+                          << qL("listitem") << qL("ol") << qL("orderedlist") << qL("p") << qL("para") << qL("pre") << qL("seglistitem") << qL("segmentedlist")
+                          << qL("simplelist") << qL("subtitle") << qL("table") << qL("td") << qL("th") << qL("title") << qL("tr") << qL("ul")
+                          << qL("variablelist") << qL("varlistentry"));
+#undef qL
 }
 
 GettextExportPlugin::GettextExportPlugin(short wrapWidth)
@@ -72,20 +40,19 @@ GettextExportPlugin::GettextExportPlugin(short wrapWidth)
 {
 }
 
-ConversionStatus GettextExportPlugin::save(QIODevice* device,
-        const GettextStorage* catalog)
+ConversionStatus GettextExportPlugin::save(QIODevice *device, const GettextStorage *catalog)
 {
     QTextStream stream(device);
     stream.setEncoding(QStringConverter::Utf8);
 
     // only save header if it is not empty
-    const QString& headerComment(catalog->m_header.comment());
+    const QString &headerComment(catalog->m_header.comment());
     // ### why is this useful to have a header with an empty msgstr?
     if (!headerComment.isEmpty() || !catalog->m_header.msgstrPlural().isEmpty()) {
         // write header
         writeComment(stream, headerComment);
 
-        const QString& headerMsgid(catalog->m_header.msgid());
+        const QString &headerMsgid(catalog->m_header.msgid());
 
         // Gettext PO files should have an empty msgid as header
         if (!headerMsgid.isEmpty()) {
@@ -99,15 +66,15 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         writeKeyword(stream, QStringLiteral("msgstr"), catalog->m_header.msgstr(), false);
     }
 
-    for (const auto & entry : std::as_const(catalog->m_entries)) {
+    for (const auto &entry : std::as_const(catalog->m_entries)) {
         stream << '\n';
 
-        const CatalogItem& catalogItem = entry;
+        const CatalogItem &catalogItem = entry;
         // write entry
         writeComment(stream, catalogItem.comment());
 
-        const QString& msgctxt = catalogItem.msgctxt();
-        if (! msgctxt.isEmpty() || catalogItem.keepEmptyMsgCtxt())
+        const QString &msgctxt = catalogItem.msgctxt();
+        if (!msgctxt.isEmpty() || catalogItem.keepEmptyMsgCtxt())
             writeKeyword(stream, QStringLiteral("msgctxt"), msgctxt);
 
         writeKeyword(stream, QStringLiteral("msgid"), catalogItem.msgid(), true, catalogItem.prependEmptyForMsgid());
@@ -118,7 +85,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
             writeKeyword(stream, QStringLiteral("msgstr"), catalogItem.msgstr(), true, catalogItem.prependEmptyForMsgstr());
         else {
             qCDebug(LOKALIZE_LOG) << "Saving gettext plural form";
-            //TODO check len of the actual stringlist??
+            // TODO check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
             for (int i = 0; i < forms; ++i) {
                 const QString keyword = QStringLiteral("msgstr[") + QString::number(i) + QLatin1Char(']');
@@ -127,14 +94,14 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         }
     }
 
-    for (const auto & data : std::as_const(catalog->m_catalogExtraData)) {
+    for (const auto &data : std::as_const(catalog->m_catalogExtraData)) {
         stream << '\n' << data << '\n';
     }
 
     return OK;
 }
 
-void GettextExportPlugin::writeComment(QTextStream& stream, const QString& comment) const
+void GettextExportPlugin::writeComment(QTextStream &stream, const QString &comment) const
 {
     if (!comment.isEmpty()) {
         // We must check that each comment line really starts with a #, to avoid syntax errors
@@ -146,12 +113,12 @@ void GettextExportPlugin::writeComment(QTextStream& stream, const QString& comme
                 stream << '\n';
                 continue;
             }
-            const QString& span((newpos == -1) ? comment.mid(pos) : comment.mid(pos, newpos - pos));
+            const QString &span((newpos == -1) ? comment.mid(pos) : comment.mid(pos, newpos - pos));
 
             const int len = span.length();
             QString spaces; // Stored leading spaces
-            for (int i = 0 ; i < len ; ++i) {
-                const QChar& ch = span[ i ];
+            for (int i = 0; i < len; ++i) {
+                const QChar &ch = span[i];
                 if (ch == QLatin1Char('#')) {
                     stream << spaces << span.mid(i);
                     break;
@@ -174,7 +141,7 @@ void GettextExportPlugin::writeComment(QTextStream& stream, const QString& comme
     }
 }
 
-void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keyword, QString text, bool containsHtml, bool startedWithEmptyLine) const
+void GettextExportPlugin::writeKeyword(QTextStream &stream, const QString &keyword, QString text, bool containsHtml, bool startedWithEmptyLine) const
 {
     if (text.isEmpty()) {
         // Whatever the wrapping mode, an empty line is an empty line
@@ -258,14 +225,14 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
         if (list.last().isEmpty())
             list.removeLast();
 
-        if (list.count() == 1)  {
+        if (list.count() == 1) {
             stream << keyword << QStringLiteral(" \"") << list.first() << QStringLiteral("\"\n");
             return;
         }
 
         stream << keyword << QLatin1String(" \"\"\n");
 
-        for (const auto & item: std::as_const(list)) {
+        for (const auto &item : std::as_const(list)) {
             stream << QStringLiteral("\"") << item << QStringLiteral("\"\n");
         }
         return;
@@ -279,7 +246,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
 
         stream << keyword << QStringLiteral(" ");
 
-        for (const auto & item : std::as_const(list)) {
+        for (const auto &item : std::as_const(list)) {
             stream << QStringLiteral("\"") << item << QStringLiteral("\"\n");
         }
 
@@ -295,9 +262,8 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
     if (list.isEmpty())
         list.append(QString());
 
-    const QRegularExpression breakStopRe = containsHtml
-                              ? QRegularExpression(QRegularExpression::wildcardToRegularExpression(QStringLiteral("[ >%]")))
-                              : QRegularExpression(QRegularExpression::wildcardToRegularExpression(QStringLiteral("[ &%]")));
+    const QRegularExpression breakStopRe = containsHtml ? QRegularExpression(QRegularExpression::wildcardToRegularExpression(QStringLiteral("[ >%]")))
+                                                        : QRegularExpression(QRegularExpression::wildcardToRegularExpression(QStringLiteral("[ &%]")));
 
     int max = m_wrapWidth - 2;
     bool prependedEmptyLine = false;
@@ -322,10 +288,10 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
                     } while (max >= 2 && itm->at(max - 1) == QLatin1Char('\\'));
                 }
                 pos = max;
-                //Restore the max variable to the m_wordWrap - 2 value
+                // Restore the max variable to the m_wordWrap - 2 value
                 max = m_wrapWidth - 2;
             }
-            //itm=list.insert(itm,itm->left(pos));
+            // itm=list.insert(itm,itm->left(pos));
             QString t = *itm;
             itm = list.insert(itm, t);
             ++itm;
@@ -343,7 +309,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
 
     stream << keyword << QStringLiteral(" ");
 
-    for (const auto & item: std::as_const(list)) {
+    for (const auto &item : std::as_const(list)) {
         stream << QStringLiteral("\"") << item << QStringLiteral("\"\n");
     }
 }

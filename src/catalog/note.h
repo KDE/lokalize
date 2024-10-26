@@ -13,7 +13,11 @@
 #include <QString>
 
 struct Note {
-    enum Owner {General, Source, Target};
+    enum Owner {
+        General,
+        Source,
+        Target,
+    };
 
     QString content;
     char priority{5}; // 1 is the highest
@@ -21,24 +25,24 @@ struct Note {
     QString from;
     QString lang;
 
-    explicit Note(const QString& content_ = QString())
+    explicit Note(const QString &content_ = QString())
         : content(content_)
-    {}
+    {
+    }
 
-    Note(const QString& content_, char priority_, Owner annotates_, const QString& from_, const QString& lang_)
+    Note(const QString &content_, char priority_, Owner annotates_, const QString &from_, const QString &lang_)
         : content(content_)
         , priority(priority_)
         , annotates(annotates_)
         , from(from_)
         , lang(lang_)
-    {}
+    {
+    }
 
-    bool operator<(const Note& other) const
+    bool operator<(const Note &other) const
     {
         return priority < other.priority;
     }
-
 };
-
 
 #endif

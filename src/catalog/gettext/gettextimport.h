@@ -25,22 +25,24 @@ class ExtraDataSaver
 {
 public:
     ExtraDataSaver() = default;
-    virtual ~ExtraDataSaver() =default;
+    virtual ~ExtraDataSaver() = default;
 
-    void operator()(const QString& comment)
+    void operator()(const QString &comment)
     {
         extraData.append(comment);
     }
     QStringList extraData;
 };
 
-class ExtraDataSkipSaver: public ExtraDataSaver
+class ExtraDataSkipSaver : public ExtraDataSaver
 {
 public:
     ExtraDataSkipSaver() = default;
     ~ExtraDataSkipSaver() override = default;
 
-    void operator()(const QString&) {}
+    void operator()(const QString &)
+    {
+    }
 };
 
 /**
@@ -48,22 +50,22 @@ public:
  * As an extra information, it stores the list of all obsolete entries.
  * @short Gettext PO parser
  */
-class GettextImportPlugin: public CatalogImportPlugin
+class GettextImportPlugin : public CatalogImportPlugin
 {
 public:
     GettextImportPlugin() = default;
     ~GettextImportPlugin() override = default;
 
-    ConversionStatus load(QIODevice*) override;
+    ConversionStatus load(QIODevice *) override;
     const QString id()
     {
         return QStringLiteral("GNU gettext");
     }
 
 private:
-    QByteArray codecForDevice(QIODevice* /*, bool* hadCodec*/);
-    ConversionStatus readEntryRaw(QTextStream& stream);
-    ConversionStatus readEntry(QTextStream& stream);
+    QByteArray codecForDevice(QIODevice * /*, bool* hadCodec*/);
+    ConversionStatus readEntryRaw(QTextStream &stream);
+    ConversionStatus readEntry(QTextStream &stream);
 
     // description of the last read entry
     QString _msgctxt;

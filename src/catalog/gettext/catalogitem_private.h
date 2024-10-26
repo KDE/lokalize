@@ -12,28 +12,27 @@
 #ifndef CATALOGITEMPRIVATE_H
 #define CATALOGITEMPRIVATE_H
 
-#include <QVector>
-#include <QString>
 #include <QByteArray>
+#include <QString>
+#include <QVector>
 
 namespace GettextCatalog
 {
 
 /**
-* This class represents data for an entry in a catalog.
-* It contains the comment, the Msgid and the Msgstr.
-* It defines some functions to query the state of the entry
-* (fuzzy, untranslated, cformat).
-*
-* @short Class, representing an entry in a catalog
-* @author Matthias Kiefer <matthias.kiefer@gmx.de>
-* @author Stanislav Visnovsky <visnovsky@kde.org>
-* @author Nick Shaforostoff <shafff@ukr.net>
-*/
+ * This class represents data for an entry in a catalog.
+ * It contains the comment, the Msgid and the Msgstr.
+ * It defines some functions to query the state of the entry
+ * (fuzzy, untranslated, cformat).
+ *
+ * @short Class, representing an entry in a catalog
+ * @author Matthias Kiefer <matthias.kiefer@gmx.de>
+ * @author Stanislav Visnovsky <visnovsky@kde.org>
+ * @author Nick Shaforostoff <shafff@ukr.net>
+ */
 
 class CatalogItemPrivate
 {
-
 public:
     bool _plural;
     bool _valid;
@@ -48,7 +47,7 @@ public:
     QVector<QString> _msgidPlural;
     QVector<QString> _msgstrPlural;
 
-    //QVector<QString> _errors;
+    // QVector<QString> _errors;
 
     CatalogItemPrivate()
         : _plural(false)
@@ -57,18 +56,17 @@ public:
         , _prependMsgIdEmptyLine(false)
         , _prependMsgStrEmptyLine(false)
         , _keepEmptyMsgCtxt(false)
-    {}
+    {
+    }
 
     void clear();
-    void assign(const CatalogItemPrivate& other);
+    void assign(const CatalogItemPrivate &other);
     bool isUntranslated() const;
     bool isUntranslated(uint form) const;
-    const QString& msgid(const int form) const;
-
+    const QString &msgid(const int form) const;
 };
 
-inline
-void CatalogItemPrivate::clear()
+inline void CatalogItemPrivate::clear()
 {
     _plural = false;
     _valid = true;
@@ -79,8 +77,7 @@ void CatalogItemPrivate::clear()
     //_errors.clear();
 }
 
-inline
-void CatalogItemPrivate::assign(const CatalogItemPrivate& other)
+inline void CatalogItemPrivate::assign(const CatalogItemPrivate &other)
 {
     _comment = other._comment;
     _msgctxt = other._msgctxt;
@@ -92,8 +89,7 @@ void CatalogItemPrivate::assign(const CatalogItemPrivate& other)
     _fuzzyCached = other._fuzzyCached;
 }
 
-inline
-bool CatalogItemPrivate::isUntranslated() const
+inline bool CatalogItemPrivate::isUntranslated() const
 {
     int i = _msgstrPlural.size();
     while (--i >= 0)
@@ -102,8 +98,7 @@ bool CatalogItemPrivate::isUntranslated() const
     return false;
 }
 
-inline
-bool CatalogItemPrivate::isUntranslated(uint form) const
+inline bool CatalogItemPrivate::isUntranslated(uint form) const
 {
     if ((int)form < _msgstrPlural.size())
         return _msgstrPlural.at(form).isEmpty();
@@ -111,10 +106,9 @@ bool CatalogItemPrivate::isUntranslated(uint form) const
         return true;
 }
 
-inline
-const QString& CatalogItemPrivate::msgid(const int form) const
+inline const QString &CatalogItemPrivate::msgid(const int form) const
 {
-    //if original lang is english, we have only 2 formz
+    // if original lang is english, we have only 2 formz
     return (form < _msgidPlural.size()) ? _msgidPlural.at(form) : _msgidPlural.last();
 }
 

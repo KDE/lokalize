@@ -10,36 +10,36 @@
 #ifndef MSGCTXTVIEW_H
 #define MSGCTXTVIEW_H
 
-#include "pos.h"
 #include "note.h"
+#include "pos.h"
 
-#include <QMap>
-#include <QDockWidget>
 #include <KProcess>
+#include <QDockWidget>
+#include <QMap>
 
 class Catalog;
 class NoteEditor;
 class QTextBrowser;
 class QStackedLayout;
 
-class MsgCtxtView: public QDockWidget
+class MsgCtxtView : public QDockWidget
 {
     Q_OBJECT
 
 public:
-    explicit MsgCtxtView(QWidget*, Catalog*);
+    explicit MsgCtxtView(QWidget *, Catalog *);
     ~MsgCtxtView() override;
 
-    void gotoEntry(const DocPosition&, int selection = 0);
-    void addNote(DocPosition, const QString& text);
-    void addTemporaryEntryNote(int entry, const QString& text);
+    void gotoEntry(const DocPosition &, int selection = 0);
+    void addNote(DocPosition, const QString &text);
+    void addTemporaryEntryNote(int entry, const QString &text);
 public Q_SLOTS:
     void removeErrorNotes();
     void cleanup();
-    void languageTool(const QString& text);
+    void languageTool(const QString &text);
     void addNoteUI();
 private Q_SLOTS:
-    void anchorClicked(const QUrl& link);
+    void anchorClicked(const QUrl &link);
     void noteEditAccepted();
     void noteEditRejected();
     void process();
@@ -49,34 +49,32 @@ private Q_SLOTS:
     void pologyHasFinished();
 
 Q_SIGNALS:
-    void srcFileOpenRequested(const QString& srcPath, int line);
+    void srcFileOpenRequested(const QString &srcPath, int line);
     void escaped();
 
 private:
-    QTextBrowser* m_browser{};
-    NoteEditor* m_editor{};
-    QStackedLayout* m_stackedLayout{};
+    QTextBrowser *m_browser{};
+    NoteEditor *m_editor{};
+    QStackedLayout *m_stackedLayout{};
 
-    Catalog* m_catalog{};
-    QMap< DocPos, QPair<Note, int> > m_unfinishedNotes; //note and its index
-    QMultiMap< int, QString > m_tempNotes;
-    QMultiMap< int, QString > m_pologyNotes;
-    QMultiMap< int, QString > m_languageToolNotes;
-    int  m_selection{};
-    int  m_offset{};
+    Catalog *m_catalog{};
+    QMap<DocPos, QPair<Note, int>> m_unfinishedNotes; // note and its index
+    QMultiMap<int, QString> m_tempNotes;
+    QMultiMap<int, QString> m_pologyNotes;
+    QMultiMap<int, QString> m_languageToolNotes;
+    int m_selection{};
+    int m_offset{};
     bool m_hasInfo{};
     bool m_hasErrorNotes{};
     DocPos m_entry{};
     DocPos m_prevEntry{};
 
-    KProcess* m_pologyProcess{};
+    KProcess *m_pologyProcess{};
     int m_pologyProcessInProgress{};
     bool m_pologyStartedReceivingOutput{};
     QString m_pologyData;
 
     static const QString BR;
 };
-
-
 
 #endif

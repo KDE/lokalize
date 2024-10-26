@@ -27,43 +27,45 @@ namespace GlossaryNS
  */
 class TbxParser : public QXmlDefaultHandler
 {
-    enum State { //localstate for getting chars into right place
+    enum State { // localstate for getting chars into right place
         null = 0,
-//        termGrp,
+        //        termGrp,
         term,
         descripDefinition,
-        descripSubjectField
+        descripSubjectField,
     };
 
     enum Lang {
         langNull = 0,
         langEn,
-        langTarget
+        langTarget,
     };
 
 public:
-    explicit TbxParser(Glossary* glossary)
+    explicit TbxParser(Glossary *glossary)
         : QXmlDefaultHandler()
         , m_glossary(glossary)
-    {}
+    {
+    }
 
-    ~TbxParser() {}
+    ~TbxParser()
+    {
+    }
 
     bool startDocument();
-    bool startElement(const QString&, const QString&, const QString&, const QXmlAttributes&);
-    bool endElement(const QString&, const QString&, const QString&);
-    bool characters(const QString&);
+    bool startElement(const QString &, const QString &, const QString &, const QXmlAttributes &);
+    bool endElement(const QString &, const QString &, const QString &);
+    bool characters(const QString &);
 
 private:
-//    bool inTermTag:1;
-    State m_state: 8;
-    Lang m_lang: 8;
+    //    bool inTermTag:1;
+    State m_state : 8;
+    Lang m_lang : 8;
     QString m_termEn;
     QString m_termOther;
     TermEntry m_entry;
     QString m_subjectField;
-    Glossary* m_glossary;
-
+    Glossary *m_glossary;
 };
 }
 #endif

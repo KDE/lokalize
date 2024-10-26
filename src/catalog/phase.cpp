@@ -8,24 +8,24 @@
 */
 
 #include "phase.h"
-#include "cmd.h"
 #include "catalog.h"
-#include "project.h"
-#include "prefs_lokalize.h"
+#include "cmd.h"
 #include "gettextheader.h"
+#include "prefs_lokalize.h"
+#include "project.h"
 
 #include <QSet>
 
 #include <klocalizedstring.h>
 
-const char* const* processes()
+const char *const *processes()
 {
-    static const char* const processes[] = {"translation", "review", "approval"};
+    static const char *const processes[] = {"translation", "review", "approval"};
     return processes;
 }
 
-//guess role
-ProjectLocal::PersonRole roleForProcess(const QString& process)
+// guess role
+ProjectLocal::PersonRole roleForProcess(const QString &process)
 {
     int i = ProjectLocal::Undefined;
     while (i >= 0 && !process.startsWith(QLatin1String(processes()[--i])))
@@ -33,21 +33,21 @@ ProjectLocal::PersonRole roleForProcess(const QString& process)
     return (i == -1) ? Project::local()->role() : ProjectLocal::PersonRole(i);
 }
 
-void generatePhaseForCatalogIfNeeded(Catalog* catalog)
+void generatePhaseForCatalogIfNeeded(Catalog *catalog)
 {
-    if (Q_LIKELY(!(catalog->capabilities()&Phases) || catalog->activePhaseRole() == ProjectLocal::Undefined))
+    if (Q_LIKELY(!(catalog->capabilities() & Phases) || catalog->activePhaseRole() == ProjectLocal::Undefined))
         return;
 
     Phase phase;
     phase.process = QLatin1String(processes()[Project::local()->role()]);
 
     if (initPhaseForCatalog(catalog, phase))
-        static_cast<QUndoStack*>(catalog)->push(new UpdatePhaseCmd(catalog, phase));
+        static_cast<QUndoStack *>(catalog)->push(new UpdatePhaseCmd(catalog, phase));
 
     catalog->setActivePhase(phase.name, roleForProcess(phase.process));
 }
 
-bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options)
+bool initPhaseForCatalog(Catalog *catalog, Phase &phase, int options)
 {
     askAuthorInfoIfEmpty();
 
@@ -56,7 +56,7 @@ bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options)
     QSet<QString> names;
     QList<Phase> phases = catalog->allPhases();
     std::sort(phases.begin(), phases.end(), std::greater<Phase>());
-    for (const Phase& p : std::as_const(phases)) {
+    for (const Phase &p : std::as_const(phases)) {
         if (!(options & ForceAdd) && p.contact == phase.contact && p.process == phase.process) {
             phase = p;
             break;
@@ -78,4 +78,5 @@ bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options)
 Phase::Phase()
     : date(QDate::currentDate())
     , tool(QStringLiteral("lokalize-" LOKALIZE_VERSION))
-{}
+{
+}

@@ -9,8 +9,8 @@
 
 #include <KConfigGroup>
 #include <KSharedConfig>
-#include <QNetworkAccessManager>
 #include <QColor>
+#include <QNetworkAccessManager>
 #include <QRandomGenerator>
 
 LanguageToolManager::LanguageToolManager(QObject *parent)
@@ -35,10 +35,8 @@ QNetworkAccessManager *LanguageToolManager::networkAccessManager() const
 
 QString LanguageToolManager::languageToolCheckPath() const
 {
-    return (Settings::self()->languageToolCustom() ?
-            Settings::self()->languageToolInstancePath() :
-            QStringLiteral("https://languagetool.org/api/v2")
-           ) + QStringLiteral("/check");
+    return (Settings::self()->languageToolCustom() ? Settings::self()->languageToolInstancePath() : QStringLiteral("https://languagetool.org/api/v2"))
+        + QStringLiteral("/check");
 }
 
 #include "moc_languagetoolmanager.cpp"

@@ -13,44 +13,45 @@
 
 #include "lokalize_debug.h"
 
-#include "project.h"
 #include "catalog.h"
 #include "headerviewmenu.h"
+#include "project.h"
 
-#include <kdirlister.h>
-#include <kstringhandler.h>
-#include <kdirsortfilterproxymodel.h>
 #include <kcolorscheme.h>
+#include <kdirlister.h>
+#include <kdirsortfilterproxymodel.h>
+#include <kstringhandler.h>
 
 #include <QApplication>
-#include <QTimer>
-#include <QMouseEvent>
-#include <QKeyEvent>
-#include <QPainter>
-#include <QLinearGradient>
+#include <QCollator>
 #include <QHeaderView>
 #include <QItemDelegate>
+#include <QKeyEvent>
+#include <QLinearGradient>
+#include <QMouseEvent>
+#include <QPainter>
 #include <QStyledItemDelegate>
-#include <QCollator>
+#include <QTimer>
 
-
-class PoItemDelegate: public QStyledItemDelegate
+class PoItemDelegate : public QStyledItemDelegate
 {
 public:
     explicit PoItemDelegate(QObject *parent = nullptr);
     ~PoItemDelegate() override = default;
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-    QString displayText(const QVariant & value, const QLocale & locale) const override;
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+    QString displayText(const QVariant &value, const QLocale &locale) const override;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
 private:
     KColorScheme m_colorScheme{QPalette::Normal};
 };
 
 PoItemDelegate::PoItemDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
-{}
+{
+}
 
-QSize PoItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+QSize PoItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QString text = index.data().toString();
     int lineCount = 1;
@@ -103,7 +104,7 @@ void PoItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         myRect.setWidth(option.rect.width() - myRect.left() + option.rect.left());
         if (untranslated)
             brush = m_colorScheme.foreground(KColorScheme::NegativeText);
-        //esle: paint what is left with the last brush used - blank, positive or neutral
+        // esle: paint what is left with the last brush used - blank, positive or neutral
 
         painter->fillRect(myRect, brush);
         // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
@@ -115,11 +116,10 @@ void PoItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 
 // Temporary workaround for Qt bug https://bugreports.qt.io/browse/QTBUG-78094
 // to ensure that large numbers are formatted using a thousands separator
-QString PoItemDelegate::displayText(const QVariant & value, [[maybe_unused]] const QLocale & locale) const
+QString PoItemDelegate::displayText(const QVariant &value, [[maybe_unused]] const QLocale &locale) const
 {
     return QStyledItemDelegate::displayText(value, QLocale::system());
 }
-
 
 void ProjectOverviewSortFilterProxyModel::toggleTranslatedFiles()
 {
@@ -127,10 +127,10 @@ void ProjectOverviewSortFilterProxyModel::toggleTranslatedFiles()
     invalidateFilter();
 }
 
-bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     bool result = false;
-    const QAbstractItemModel* model = sourceModel();
+    const QAbstractItemModel *model = sourceModel();
     QModelIndex item = model->index(source_row, 0, source_parent);
 
     if (item.data(ProjectModel::DirectoryRole) == 1 && item.data(ProjectModel::TotalRole) == 0)
@@ -142,8 +142,7 @@ bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const
     if (!filterRegularExpression().isValid())
         return false;
 
-    QString itemPathRelativeToProject = Project::instance()->relativePath(
-        Project::instance()->model()->itemForIndex(item).localPath());
+    QString itemPathRelativeToProject = Project::instance()->relativePath(Project::instance()->model()->itemForIndex(item).localPath());
     // True if the search string matches the item's relative path.
     result = filterRegularExpression().match(itemPathRelativeToProject).hasMatch();
 
@@ -155,24 +154,21 @@ bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const
     return result;
 }
 
-bool ProjectOverviewSortFilterProxyModel::lessThan(const QModelIndex& left,
-                                    const QModelIndex& right) const
+bool ProjectOverviewSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
     static QCollator collator;
-//     qCWarning(LOKALIZE_LOG)<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
+    //     qCWarning(LOKALIZE_LOG)<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
     //<<left.data().toString()<<right.data().toString()
-    ProjectModel* projectModel = static_cast<ProjectModel*>(sourceModel());
-    const KFileItem leftFileItem  = projectModel->itemForIndex(left);
+    ProjectModel *projectModel = static_cast<ProjectModel *>(sourceModel());
+    const KFileItem leftFileItem = projectModel->itemForIndex(left);
     const KFileItem rightFileItem = projectModel->itemForIndex(right);
 
-    //Code taken from KDirSortFilterProxyModel, as it is not compatible with our model.
-    //TODO: make KDirSortFilterProxyModel::subSortLessThan not cast model to KDirModel, but use data() with FileItemRole instead.
+    // Code taken from KDirSortFilterProxyModel, as it is not compatible with our model.
+    // TODO: make KDirSortFilterProxyModel::subSortLessThan not cast model to KDirModel, but use data() with FileItemRole instead.
 
     // Directories and hidden files should always be on the top, independent
     // from the sort order.
     const bool isLessThan = (sortOrder() == Qt::AscendingOrder);
-
-
 
     if (leftFileItem.isNull() || rightFileItem.isNull()) {
         qCWarning(LOKALIZE_LOG) << ".isNull()";
@@ -193,7 +189,6 @@ bool ProjectOverviewSortFilterProxyModel::lessThan(const QModelIndex& left,
     } else if (!leftFileItem.isHidden() && rightFileItem.isHidden()) {
         return !isLessThan;
     }
-
 
     // Hidden elements go before visible ones, if they both are
     // folders or files.
@@ -255,18 +250,18 @@ bool ProjectOverviewSortFilterProxyModel::lessThan(const QModelIndex& left,
     }
 }
 
-ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
+ProjectWidget::ProjectWidget(/*Catalog* catalog, */ QWidget *parent)
     : QTreeView(parent)
     , m_proxyModel(new ProjectOverviewSortFilterProxyModel(this))
 //     , m_catalog(catalog)
 {
-    PoItemDelegate* delegate = new PoItemDelegate(this);
+    PoItemDelegate *delegate = new PoItemDelegate(this);
     setItemDelegate(delegate);
 
     connect(this, &ProjectWidget::activated, this, &ProjectWidget::slotItemActivated);
 
     m_proxyModel->setSourceModel(Project::instance()->model());
-    //m_proxyModel->setDynamicSortFilter(true);
+    // m_proxyModel->setDynamicSortFilter(true);
     setModel(m_proxyModel);
     connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectWidget::modelAboutToReload);
     connect(Project::instance()->model(), &ProjectModel::loadingFinished, this, &ProjectWidget::modelReloaded, Qt::QueuedConnection);
@@ -274,7 +269,7 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     setUniformRowHeights(true);
     setAllColumnsShowFocus(true);
     int widthDefaults[] = {6, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4};
-    //FileName, Graph, TotalCount, TranslatedCount, FuzzyCount, UntranslatedCount, IncompleteCount, Comment, SourceDate, TranslationDate, LastTranslator
+    // FileName, Graph, TotalCount, TranslatedCount, FuzzyCount, UntranslatedCount, IncompleteCount, Comment, SourceDate, TranslationDate, LastTranslator
     int i = sizeof(widthDefaults) / sizeof(int);
     int baseWidth = columnWidth(0);
     while (--i >= 0)
@@ -285,7 +280,7 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setSelectionBehavior(QAbstractItemView::SelectRows);
-//    QTimer::singleShot(0,this,SLOT(initLater()));
+    //    QTimer::singleShot(0,this,SLOT(initLater()));
 
     new HeaderViewMenuHandler(header());
 
@@ -295,7 +290,7 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     i = sizeof(widthDefaults) / sizeof(int);
     while (--i >= 0) {
         if (columnWidth(i) > 5 * baseWidth * widthDefaults[i]) {
-            //The column width is more than 5 times its normal width
+            // The column width is more than 5 times its normal width
             setColumnWidth(i, 5 * baseWidth * widthDefaults[i]);
         }
     }
@@ -325,8 +320,7 @@ void ProjectWidget::modelReloaded()
         expandItems();
 }
 
-
-bool ProjectWidget::setCurrentItem(const QString& u)
+bool ProjectWidget::setCurrentItem(const QString &u)
 {
     if (u.isEmpty())
         return true;
@@ -340,48 +334,44 @@ QString ProjectWidget::currentItem() const
 {
     if (!currentIndex().isValid())
         return QString();
-    return Project::instance()->model()->itemForIndex(
-               m_proxyModel->mapToSource(currentIndex())
-           ).localPath();
+    return Project::instance()->model()->itemForIndex(m_proxyModel->mapToSource(currentIndex())).localPath();
 }
 
 bool ProjectWidget::currentIsTranslationFile() const
 {
-    //remember 'bout empty state
+    // remember 'bout empty state
     return Catalog::extIsSupported(currentItem());
 }
 
-
-
-void ProjectWidget::slotItemActivated(const QModelIndex& index)
+void ProjectWidget::slotItemActivated(const QModelIndex &index)
 {
     if (currentIsTranslationFile()) {
-        ProjectModel * srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel*>(m_proxyModel)->sourceModel());
-        QModelIndex srcIndex = static_cast<QSortFilterProxyModel*>(m_proxyModel)->mapToSource(index);
+        ProjectModel *srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel *>(m_proxyModel)->sourceModel());
+        QModelIndex srcIndex = static_cast<QSortFilterProxyModel *>(m_proxyModel)->mapToSource(index);
         QUrl fileUrl = srcModel->beginEditing(srcIndex);
 
         Q_EMIT fileOpenRequested(fileUrl.toLocalFile(), !(QApplication::keyboardModifiers() & Qt::ControlModifier));
     }
 }
 
-void ProjectWidget::recursiveAdd(QStringList& list, const QModelIndex& idx) const
+void ProjectWidget::recursiveAdd(QStringList &list, const QModelIndex &idx) const
 {
     if (!m_proxyModel->filterAcceptsRow(idx.row(), idx.parent())) {
         return;
     }
-    ProjectModel& model = *(Project::instance()->model());
-    const KFileItem& item(model.itemForIndex(idx));
+    ProjectModel &model = *(Project::instance()->model());
+    const KFileItem &item(model.itemForIndex(idx));
     if (item.isDir()) {
         int j = model.rowCount(idx);
         while (--j >= 0) {
-            const KFileItem& childItem(model.itemForIndex(model.index(j, 0, idx)));
+            const KFileItem &childItem(model.itemForIndex(model.index(j, 0, idx)));
 
             if (childItem.isDir())
                 recursiveAdd(list, model.index(j, 0, idx));
             else if (m_proxyModel->filterAcceptsRow(j, idx))
                 list.prepend(childItem.localPath());
         }
-    } else //if (!list.contains(u))
+    } else // if (!list.contains(u))
         list.prepend(item.localPath());
 }
 
@@ -389,7 +379,7 @@ QStringList ProjectWidget::selectedItems() const
 {
     QStringList list;
     const auto items = selectedIndexes();
-    for (const QModelIndex& item : items) {
+    for (const QModelIndex &item : items) {
         if (item.column() == 0)
             recursiveAdd(list, m_proxyModel->mapToSource(item));
     }
@@ -397,9 +387,9 @@ QStringList ProjectWidget::selectedItems() const
     return list;
 }
 
-void ProjectWidget::expandItems(const QModelIndex& parent)
+void ProjectWidget::expandItems(const QModelIndex &parent)
 {
-    const QAbstractItemModel* m = model();
+    const QAbstractItemModel *m = model();
     expand(parent);
 
     int i = m->rowCount(parent);
@@ -407,20 +397,19 @@ void ProjectWidget::expandItems(const QModelIndex& parent)
         expandItems(m->index(i, 0, parent));
 }
 
-
-bool ProjectWidget::gotoIndexCheck(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role)
+bool ProjectWidget::gotoIndexCheck(const QModelIndex &currentIndex, ProjectModel::AdditionalRoles role)
 {
     // Check if role is found for this index
     if (currentIndex.isValid()) {
-        ProjectModel *srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel*>(m_proxyModel)->sourceModel());
-        QModelIndex srcIndex = static_cast<QSortFilterProxyModel*>(m_proxyModel)->mapToSource(currentIndex);
+        ProjectModel *srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel *>(m_proxyModel)->sourceModel());
+        QModelIndex srcIndex = static_cast<QSortFilterProxyModel *>(m_proxyModel)->mapToSource(currentIndex);
         QVariant result = srcModel->data(srcIndex, role);
         return result.isValid() && result.toInt() > 0;
     }
     return false;
 }
 
-QModelIndex ProjectWidget::gotoIndexPrevNext(const QModelIndex& currentIndex, int direction) const
+QModelIndex ProjectWidget::gotoIndexPrevNext(const QModelIndex &currentIndex, int direction) const
 {
     QModelIndex index = currentIndex;
     QModelIndex sibling;
@@ -436,8 +425,7 @@ QModelIndex ProjectWidget::gotoIndexPrevNext(const QModelIndex& currentIndex, in
     return index;
 }
 
-ProjectWidget::gotoIndexResult ProjectWidget::gotoIndexFind(
-    const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction)
+ProjectWidget::gotoIndexResult ProjectWidget::gotoIndexFind(const QModelIndex &currentIndex, ProjectModel::AdditionalRoles role, int direction)
 {
     QModelIndex index = currentIndex;
 
@@ -467,8 +455,7 @@ ProjectWidget::gotoIndexResult ProjectWidget::gotoIndexFind(
         return gotoIndex_end;
 }
 
-ProjectWidget::gotoIndexResult ProjectWidget::gotoIndex(
-    const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction)
+ProjectWidget::gotoIndexResult ProjectWidget::gotoIndex(const QModelIndex &currentIndex, ProjectModel::AdditionalRoles role, int direction)
 {
     QModelIndex index = currentIndex;
 
@@ -489,42 +476,42 @@ void ProjectWidget::gotoNextFuzzyUntr()
 }
 void ProjectWidget::gotoPrevFuzzy()
 {
-    gotoIndex(currentIndex(), ProjectModel::FuzzyCountRole,     -1);
+    gotoIndex(currentIndex(), ProjectModel::FuzzyCountRole, -1);
 }
 void ProjectWidget::gotoNextFuzzy()
 {
-    gotoIndex(currentIndex(), ProjectModel::FuzzyCountRole,     +1);
+    gotoIndex(currentIndex(), ProjectModel::FuzzyCountRole, +1);
 }
 void ProjectWidget::gotoPrevUntranslated()
 {
-    gotoIndex(currentIndex(), ProjectModel::UntransCountRole,   -1);
+    gotoIndex(currentIndex(), ProjectModel::UntransCountRole, -1);
 }
 void ProjectWidget::gotoNextUntranslated()
 {
-    gotoIndex(currentIndex(), ProjectModel::UntransCountRole,   +1);
+    gotoIndex(currentIndex(), ProjectModel::UntransCountRole, +1);
 }
 void ProjectWidget::gotoPrevTemplateOnly()
 {
-    gotoIndex(currentIndex(), ProjectModel::TemplateOnlyRole,   -1);
+    gotoIndex(currentIndex(), ProjectModel::TemplateOnlyRole, -1);
 }
 void ProjectWidget::gotoNextTemplateOnly()
 {
-    gotoIndex(currentIndex(), ProjectModel::TemplateOnlyRole,   +1);
+    gotoIndex(currentIndex(), ProjectModel::TemplateOnlyRole, +1);
 }
 void ProjectWidget::gotoPrevTransOnly()
 {
-    gotoIndex(currentIndex(), ProjectModel::TransOnlyRole,      -1);
+    gotoIndex(currentIndex(), ProjectModel::TransOnlyRole, -1);
 }
 void ProjectWidget::gotoNextTransOnly()
 {
-    gotoIndex(currentIndex(), ProjectModel::TransOnlyRole,      +1);
+    gotoIndex(currentIndex(), ProjectModel::TransOnlyRole, +1);
 }
 void ProjectWidget::toggleTranslatedFiles()
 {
     m_proxyModel->toggleTranslatedFiles();
 }
 
-QSortFilterProxyModel* ProjectWidget::proxyModel()
+QSortFilterProxyModel *ProjectWidget::proxyModel()
 {
     return m_proxyModel;
 }

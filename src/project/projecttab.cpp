@@ -10,15 +10,14 @@
 */
 
 #include "projecttab.h"
+#include "catalog.h"
+#include "lokalize_debug.h"
+#include "prefs.h"
+#include "prefs_lokalize.h"
 #include "project.h"
 #include "projectwidget.h"
 #include "tmscanapi.h"
-#include "prefs.h"
-#include "prefs_lokalize.h"
-#include "catalog.h"
-#include "lokalize_debug.h"
 
-#include <kcoreaddons_version.h>
 #include <KActionCategory>
 #include <KActionCollection>
 #include <KGuiItem>
@@ -27,6 +26,7 @@
 #include <KStandardAction>
 #include <KStandardGuiItem>
 #include <KXMLGUIFactory>
+#include <kcoreaddons_version.h>
 
 #include <QContextMenuEvent>
 #include <QIcon>
@@ -49,11 +49,11 @@ ProjectTab::ProjectTab(QWidget *parent)
     , m_filterEdit(new QLineEdit(this))
 
 {
-    setWindowTitle(i18nc("@title:window", "Project Overview")); //setCaption(i18nc("@title:window","Project"),false);
-//BEGIN setup welcome widget
-    QWidget* welcomeWidget = new QWidget(this);
-    QVBoxLayout* wl = new QVBoxLayout(welcomeWidget);
-    QLabel* about = new QLabel(i18n("<html>" //copied from kaboutkdedialog_p.cpp
+    setWindowTitle(i18nc("@title:window", "Project Overview")); // setCaption(i18nc("@title:window","Project"),false);
+    // BEGIN setup welcome widget
+    QWidget *welcomeWidget = new QWidget(this);
+    QVBoxLayout *wl = new QVBoxLayout(welcomeWidget);
+    QLabel *about = new QLabel(i18n("<html>" // copied from kaboutkdedialog_p.cpp
                                     "You do not have to be a software developer to be a member of the "
                                     "KDE team. You can join the language teams that translate "
                                     "program interfaces. You can provide graphics, themes, sounds, and "
@@ -67,22 +67,23 @@ ProjectTab::ProjectTab(QWidget *parent)
                                     "<a href=\"%2\">%2</a> "
                                     "will provide you with what you need.</html>",
                                     QLatin1String("https://community.kde.org/Get_Involved"),
-                                    QLatin1String("https://techbase.kde.org/")), welcomeWidget);
+                                    QLatin1String("https://techbase.kde.org/")),
+                               welcomeWidget);
     about->setAlignment(Qt::AlignCenter);
     about->setWordWrap(true);
     about->setOpenExternalLinks(true);
     about->setTextInteractionFlags(Qt::TextBrowserInteraction);
     about->setTextFormat(Qt::RichText);
 
-    QPushButton* conf = new QPushButton(i18n("&Configure Lokalize"), welcomeWidget);
-    QPushButton* openProject = new QPushButton(i18nc("@action:inmenu", "Open project"), welcomeWidget);
-    QPushButton* createProject = new QPushButton(i18nc("@action:inmenu", "Translate software"), welcomeWidget);
-    QPushButton* createOdfProject = new QPushButton(i18nc("@action:inmenu", "Translate OpenDocument"), welcomeWidget);
+    QPushButton *conf = new QPushButton(i18n("&Configure Lokalize"), welcomeWidget);
+    QPushButton *openProject = new QPushButton(i18nc("@action:inmenu", "Open project"), welcomeWidget);
+    QPushButton *createProject = new QPushButton(i18nc("@action:inmenu", "Translate software"), welcomeWidget);
+    QPushButton *createOdfProject = new QPushButton(i18nc("@action:inmenu", "Translate OpenDocument"), welcomeWidget);
     connect(conf, &QPushButton::clicked, SettingsController::instance(), &SettingsController::showSettingsDialog);
     connect(openProject, &QPushButton::clicked, this, qOverload<>(&ProjectTab::projectOpenRequested));
     connect(createProject, &QPushButton::clicked, SettingsController::instance(), &SettingsController::projectCreate);
     connect(createOdfProject, &QPushButton::clicked, Project::instance(), &Project::projectOdfCreate);
-    QHBoxLayout* wbtnl = new QHBoxLayout();
+    QHBoxLayout *wbtnl = new QHBoxLayout();
     wbtnl->addStretch(1);
     wbtnl->addWidget(conf);
     wbtnl->addWidget(openProject);
@@ -96,19 +97,17 @@ ProjectTab::ProjectTab(QWidget *parent)
     wl->addLayout(wbtnl);
     wl->addStretch(1);
 
-
-//END setup welcome widget
-    QWidget* baseWidget = new QWidget(this);
+    // END setup welcome widget
+    QWidget *baseWidget = new QWidget(this);
     m_stackedLayout = new QStackedLayout(baseWidget);
-    QWidget* w = new QWidget(this);
+    QWidget *w = new QWidget(this);
     m_stackedLayout->addWidget(welcomeWidget);
     m_stackedLayout->addWidget(w);
     connect(Project::instance(), &Project::loaded, this, &ProjectTab::showRealProjectOverview);
-    if (Project::instance()->isLoaded()) //for --project cmd option
+    if (Project::instance()->isLoaded()) // for --project cmd option
         showRealProjectOverview();
 
-    QVBoxLayout* l = new QVBoxLayout(w);
-
+    QVBoxLayout *l = new QVBoxLayout(w);
 
     m_filterEdit->setClearButtonEnabled(true);
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
@@ -124,49 +123,74 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectTab::initStatusBarProgress);
 
     setCentralWidget(baseWidget);
-    QStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
+    QStatusBar *statusBar = static_cast<LokalizeSubwindowBase2 *>(parent)->statusBar();
 
     m_progressBar = new QProgressBar(nullptr);
     m_progressBar->setVisible(false);
-    m_progressBar->setFormat(i18nc("Loading bar percentage indicator %p will be replaced by the actual percentage number, so make sure you include it in your translation", "%p%"));
+    m_progressBar->setFormat(
+        i18nc("Loading bar percentage indicator %p will be replaced by the actual percentage number, so make sure you include it in your translation", "%p%"));
     statusBar->insertWidget(ID_STATUS_PROGRESS, m_progressBar, 1);
 
     setXMLFile(QStringLiteral("projectmanagerui.rc"), true);
     setUpdatedXMLFile();
-    //QAction* action = KStandardAction::find(Project::instance(),&ProjectTab::showTM,actionCollection());
+    // QAction* action = KStandardAction::find(Project::instance(),&ProjectTab::showTM,actionCollection());
 
-#define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
-    action = nav->addAction(QStringLiteral(_name));\
-    action->setText(_text);\
-    action->setIcon(QIcon::fromTheme(_icon));\
-    ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
+#define ADD_ACTION_SHORTCUT_ICON(_name, _text, _shortcut, _icon)                                                                                               \
+    action = nav->addAction(QStringLiteral(_name));                                                                                                            \
+    action->setText(_text);                                                                                                                                    \
+    action->setIcon(QIcon::fromTheme(_icon));                                                                                                                  \
+    ac->setDefaultShortcut(action, QKeySequence(_shortcut));
 
     QAction *action;
-    KActionCollection* ac = actionCollection();
-    KActionCategory* nav = new KActionCategory(i18nc("@title actions category", "Navigation"), ac);
+    KActionCollection *ac = actionCollection();
+    KActionCategory *nav = new KActionCategory(i18nc("@title actions category", "Navigation"), ac);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"), Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageUp, QStringLiteral("prevfuzzyuntrans"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"),
+                             Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageUp,
+                             QStringLiteral("prevfuzzyuntrans"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevFuzzyUntr);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"), Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageDown, QStringLiteral("nextfuzzyuntrans"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"),
+                             Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageDown,
+                             QStringLiteral("nextfuzzyuntrans"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextFuzzyUntr);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"), Qt::ControlModifier | Qt::Key_PageUp, QStringLiteral("prevfuzzy"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"),
+                             Qt::ControlModifier | Qt::Key_PageUp,
+                             QStringLiteral("prevfuzzy"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevFuzzy);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy", i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next non-empty but not ready"), Qt::ControlModifier | Qt::Key_PageDown, QStringLiteral("nextfuzzy"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next non-empty but not ready"),
+                             Qt::ControlModifier | Qt::Key_PageDown,
+                             QStringLiteral("nextfuzzy"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextFuzzy);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans", i18nc("@action:inmenu", "Previous untranslated"), Qt::AltModifier | Qt::Key_PageUp, QStringLiteral("prevuntranslated"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",
+                             i18nc("@action:inmenu", "Previous untranslated"),
+                             Qt::AltModifier | Qt::Key_PageUp,
+                             QStringLiteral("prevuntranslated"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevUntranslated);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_untrans", i18nc("@action:inmenu", "Next untranslated"), Qt::AltModifier | Qt::Key_PageDown, QStringLiteral("nextuntranslated"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_untrans",
+                             i18nc("@action:inmenu", "Next untranslated"),
+                             Qt::AltModifier | Qt::Key_PageDown,
+                             QStringLiteral("nextuntranslated"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextUntranslated);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_templateOnly", i18nc("@action:inmenu", "Previous template only"), Qt::ControlModifier | Qt::Key_Up, QStringLiteral("prevtemplate"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_templateOnly",
+                             i18nc("@action:inmenu", "Previous template only"),
+                             Qt::ControlModifier | Qt::Key_Up,
+                             QStringLiteral("prevtemplate"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevTemplateOnly);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_templateOnly", i18nc("@action:inmenu", "Next template only"), Qt::ControlModifier | Qt::Key_Down, QStringLiteral("nexttemplate"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_templateOnly",
+                             i18nc("@action:inmenu", "Next template only"),
+                             Qt::ControlModifier | Qt::Key_Down,
+                             QStringLiteral("nexttemplate"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTemplateOnly);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_transOnly", i18nc("@action:inmenu", "Previous translation only"), Qt::AltModifier | Qt::Key_Up, QStringLiteral("prevpo"))
@@ -184,10 +208,10 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(action, &QAction::triggered, this, &ProjectTab::toggleTranslatedFiles);
 
     //    ADD_ACTION_SHORTCUT_ICON("edit_find",i18nc("@action:inmenu","Find in files"),Qt::AltModifier+Qt::Key_Down,"nextpo")
-    //connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTransOnly);
+    // connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTransOnly);
     action = nav->addAction(KStandardAction::Find, this, SLOT(findTriggered()));
 
-    KActionCategory* proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
+    KActionCategory *proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
 
     action = proj->addAction(QStringLiteral("project_open"), this, SIGNAL(projectOpenRequested()));
     action->setText(i18nc("@action:inmenu", "Open project"));
@@ -196,7 +220,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     int i = 6;
     while (--i > ID_STATUS_PROGRESS)
         statusBarItems.insert(i, QString());
-
 }
 
 void ProjectTab::showRealProjectOverview()
@@ -226,10 +249,8 @@ void ProjectTab::setFocus()
 
 void ProjectTab::setFilterRegExp()
 {
-    QRegularExpression newRegex(
-        QRegularExpression::wildcardToRegularExpression(
-            m_filterEdit->text(), QRegularExpression::UnanchoredWildcardConversion),
-        QRegularExpression::InvertedGreedinessOption);
+    QRegularExpression newRegex(QRegularExpression::wildcardToRegularExpression(m_filterEdit->text(), QRegularExpression::UnanchoredWildcardConversion),
+                                QRegularExpression::InvertedGreedinessOption);
     m_browser->proxyModel()->setFilterRegularExpression(newRegex);
     if (m_filterEdit->text().size() > 2)
         m_browser->expandItems();
@@ -239,7 +260,7 @@ void ProjectTab::setFilterRegExp()
 
 void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 {
-    QMenu* menu = new QMenu(this);
+    QMenu *menu = new QMenu(this);
     connect(menu, &QMenu::aboutToHide, menu, &QMenu::deleteLater);
 
     if (m_browser->selectedItems().size() > 1 || (m_browser->selectedItems().size() == 1 && !m_browser->currentIsTranslationFile())) {
@@ -265,16 +286,15 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
     if (QDir(Project::instance()->templatesRoot()).exists())
         menu->addAction(i18nc("@action:inmenu", "Search in files (including templates)"), this, &ProjectTab::searchInFilesInclTempl);
 
-//     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
-//             )
-//     {
-//         menu.addSeparator();
-//         menu.addAction(i18n("Force Scanning"),this,&ProjectTab::slotForceStats);
-//
-//     }
+    //     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
+    //             )
+    //     {
+    //         menu.addSeparator();
+    //         menu.addAction(i18n("Force Scanning"),this,&ProjectTab::slotForceStats);
+    //
+    //     }
     menu->popup(event->globalPos());
 }
-
 
 void ProjectTab::scanFilesToTM()
 {
@@ -289,7 +309,7 @@ void ProjectTab::addComment()
     QStringList previousCommentsFiles = Project::instance()->commentsFiles();
     QString previousComment;
     if (i >= 1) {
-        //Retrieve previous comment (first one)
+        // Retrieve previous comment (first one)
         int existingItem = previousCommentsFiles.indexOf(Project::instance()->relativePath(files.at(0)));
         if (existingItem != -1 && previousCommentsTexts.count() > existingItem) {
             previousComment = previousCommentsTexts.at(existingItem);
@@ -297,7 +317,8 @@ void ProjectTab::addComment()
     }
 
     bool ok;
-    QString newComment = QInputDialog::getText(this, i18n("Project file comment"), i18n("Input a comment for this project file:"), QLineEdit::Normal, previousComment, &ok);
+    QString newComment =
+        QInputDialog::getText(this, i18n("Project file comment"), i18n("Input a comment for this project file:"), QLineEdit::Normal, previousComment, &ok);
     if (!ok)
         return;
 
@@ -318,8 +339,13 @@ void ProjectTab::addComment()
 
 void ProjectTab::findTriggered()
 {
-  // Allows the Edit->Find menu to hide itself before it gets deleted afterwards.
-  QMetaObject::invokeMethod(this, [this](){searchInFiles(false);}, Qt::QueuedConnection);
+    // Allows the Edit->Find menu to hide itself before it gets deleted afterwards.
+    QMetaObject::invokeMethod(
+        this,
+        [this]() {
+            searchInFiles(false);
+        },
+        Qt::QueuedConnection);
 }
 
 void ProjectTab::searchInFiles(bool templ)
@@ -353,8 +379,7 @@ void ProjectTab::pologyOnFiles()
         m_pologyProcess = new KProcess;
         m_pologyProcess->setOutputChannelMode(KProcess::SeparateChannels);
         qCWarning(LOKALIZE_LOG) << "Launching pology command: " << command;
-        connect(m_pologyProcess, qOverload<int, QProcess::ExitStatus>(&KProcess::finished),
-                this, &ProjectTab::pologyHasFinished);
+        connect(m_pologyProcess, qOverload<int, QProcess::ExitStatus>(&KProcess::finished), this, &ProjectTab::pologyHasFinished);
         m_pologyProcess->setShellCommand(command);
         m_pologyProcessInProgress = true;
         m_pologyProcess->start();
@@ -389,26 +414,17 @@ void ProjectTab::openFile()
 
     if (i > 50) {
         QString caption = i18np("You are about to open %1 file", "You are about to open %1 files", i);
-        QString text = i18n("Opening a large number of files at the same time can make Lokalize unresponsive.")
-                       + QStringLiteral("\n\n")
-                       + i18n("Are you sure you want to open this many files?");
-        auto yes = KGuiItem(
-                       i18np("&Open %1 File", "&Open %1 Files", i),
-                       QStringLiteral("document-open")
-                   );
+        QString text = i18n("Opening a large number of files at the same time can make Lokalize unresponsive.") + QStringLiteral("\n\n")
+            + i18n("Are you sure you want to open this many files?");
+        auto yes = KGuiItem(i18np("&Open %1 File", "&Open %1 Files", i), QStringLiteral("document-open"));
 
-        if (KMessageBox::PrimaryAction != KMessageBox::warningTwoActions(
-                    this,
-                    text,
-                    caption,
-                    yes,
-                    KStandardGuiItem::cancel())) {
+        if (KMessageBox::PrimaryAction != KMessageBox::warningTwoActions(this, text, caption, yes, KStandardGuiItem::cancel())) {
             return;
         }
     }
 
     while (--i >= 0) {
-        if (Catalog::extIsSupported(files.at(i)))  {
+        if (Catalog::extIsSupported(files.at(i))) {
             if (files.at(i).endsWith(QLatin1String(".pot"))) {
                 const QUrl potUrl = QUrl::fromLocalFile(files.at(i));
                 Q_EMIT fileOpenRequested(Project::instance()->model()->potToPo(potUrl).toLocalFile(), true);
@@ -476,7 +492,7 @@ bool ProjectTab::currentItemIsTranslationFile() const
 {
     return m_browser->currentIsTranslationFile();
 }
-void ProjectTab::setCurrentItem(const QString& url)
+void ProjectTab::setCurrentItem(const QString &url)
 {
     m_browser->setCurrentItem(url);
 }
@@ -525,6 +541,6 @@ void ProjectTab::setLegacyUnitsCount(int to)
     initStatusBarProgress();
 }
 
-//bool ProjectTab::isShown() const {return isVisible();}
+// bool ProjectTab::isShown() const {return isVisible();}
 
 #include "moc_projecttab.cpp"

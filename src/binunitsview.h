@@ -16,33 +16,32 @@ class MyTreeView;
 
 #include "pos.h"
 
-#include <QHash>
-#include <QDockWidget>
 #include <QAbstractListModel>
+#include <QDockWidget>
+#include <QHash>
 
-class BinUnitsView: public QDockWidget
+class BinUnitsView : public QDockWidget
 {
     Q_OBJECT
 public:
-    explicit BinUnitsView(Catalog* catalog, QWidget *parent);
+    explicit BinUnitsView(Catalog *catalog, QWidget *parent);
 
 public Q_SLOTS:
-    void selectUnit(const QString& id);
+    void selectUnit(const QString &id);
 
 private:
     void contextMenuEvent(QContextMenuEvent *event) override;
 private Q_SLOTS:
-    void mouseDoubleClicked(const QModelIndex&);
+    void mouseDoubleClicked(const QModelIndex &);
     void fileLoaded();
 
 private:
-    Catalog* m_catalog{};
-    BinUnitsModel* m_model{};
-    MyTreeView* m_view{};
+    Catalog *m_catalog{};
+    BinUnitsModel *m_model{};
+    MyTreeView *m_view{};
 };
 
-
-class BinUnitsModel: public QAbstractListModel
+class BinUnitsModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
@@ -50,32 +49,31 @@ public:
         SourceFilePath = 0,
         TargetFilePath,
         Approved,
-        ColumnCount
+        ColumnCount,
     };
 
-    BinUnitsModel(Catalog* catalog, QObject* parent);
+    BinUnitsModel(Catalog *catalog, QObject *parent);
     ~BinUnitsModel() override = default;
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override
     {
         Q_UNUSED(parent);
         return ColumnCount;
     }
-    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const override;
+    QVariant data(const QModelIndex &, int role = Qt::DisplayRole) const override;
     QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const override;
 
-    void setTargetFilePath(int row, const QString&);
+    void setTargetFilePath(int row, const QString &);
 
 private Q_SLOTS:
     void fileLoaded();
-    void entryModified(const DocPosition&);
+    void entryModified(const DocPosition &);
     void updateFile(QString path);
 
 private:
-    Catalog* m_catalog;
+    Catalog *m_catalog;
     mutable QHash<QString, QImage> m_imageCache;
-
 };
 
 #endif // BINUNITSVIEW_H

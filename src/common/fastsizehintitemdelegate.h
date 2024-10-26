@@ -7,13 +7,12 @@
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-
 #ifndef FASTSIZEHINTITEMDELEGATE_H
 #define FASTSIZEHINTITEMDELEGATE_H
 
+#include <QCache>
 #include <QItemDelegate>
 #include <QStaticText>
-#include <QCache>
 
 #include <KColorScheme>
 
@@ -25,20 +24,20 @@ QString convertToHtml(QString string, bool italics = false);
  *
  * @author Nick Shaforostoff
  */
-class FastSizeHintItemDelegate: public QItemDelegate
+class FastSizeHintItemDelegate : public QItemDelegate
 {
     Q_OBJECT
 
 public:
     enum Roles {
-        HtmlDisplayRole = Qt::UserRole + 5
+        HtmlDisplayRole = Qt::UserRole + 5,
     };
 
-    explicit FastSizeHintItemDelegate(QObject *parent, const QVector<bool>& slc, const QVector<bool>& rtc);
+    explicit FastSizeHintItemDelegate(QObject *parent, const QVector<bool> &slc, const QVector<bool> &rtc);
     ~FastSizeHintItemDelegate() override = default;
 
-    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 public Q_SLOTS:
     void reset();
@@ -48,8 +47,8 @@ private:
     QVector<bool> richTextColumns;
 
     struct RowColumn {
-        short row: 16;
-        short column: 16;
+        short row : 16;
+        short column : 16;
     };
     union RowColumnUnion {
         RowColumn index;
@@ -60,4 +59,3 @@ private:
     KColorScheme activeScheme{QPalette::Active, KColorScheme::View};
 };
 #endif // FASTSIZEHINTITEMDELEGATE_H
-

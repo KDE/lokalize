@@ -10,7 +10,7 @@
 #include "pos.h"
 #include "catalog.h"
 
-bool switchPrev(Catalog*& catalog, DocPosition& pos, int parts)
+bool switchPrev(Catalog *&catalog, DocPosition &pos, int parts)
 {
     bool switchEntry = false;
     bool switchCommentIndex = false;
@@ -27,15 +27,14 @@ bool switchPrev(Catalog*& catalog, DocPosition& pos, int parts)
     if (switchCommentIndex) {
         if (pos.form)
             pos.form--;
-        switchEntry = pos.form; //pos.form is zero again
+        switchEntry = pos.form; // pos.form is zero again
         skipCommentThisTime = pos.form;
     }
 
     if (!switchEntry)
         return true;
 
-    if (Q_UNLIKELY(pos.form > 0
-                   && catalog->isPlural(pos.entry)))
+    if (Q_UNLIKELY(pos.form > 0 && catalog->isPlural(pos.entry)))
         pos.form--;
     else if (Q_UNLIKELY(pos.entry == 0))
         return false;
@@ -54,7 +53,7 @@ bool switchPrev(Catalog*& catalog, DocPosition& pos, int parts)
     return true;
 }
 
-bool switchNext(Catalog*& catalog, DocPosition& pos, int parts)
+bool switchNext(Catalog *&catalog, DocPosition &pos, int parts)
 {
     bool switchEntry = false;
     bool switchCommentIndex = false;
@@ -79,10 +78,7 @@ bool switchNext(Catalog*& catalog, DocPosition& pos, int parts)
     if (!switchEntry)
         return true;
 
-
-    if (Q_UNLIKELY(pos.entry != -1
-                   && pos.form + 1 < catalog->numberOfPluralForms()
-                   && catalog->isPlural(pos.entry)))
+    if (Q_UNLIKELY(pos.entry != -1 && pos.form + 1 < catalog->numberOfPluralForms() && catalog->isPlural(pos.entry)))
         pos.form++;
     else if (Q_UNLIKELY(pos.entry == catalog->numberOfEntries() - 1))
         return false;
@@ -98,7 +94,7 @@ bool switchNext(Catalog*& catalog, DocPosition& pos, int parts)
 }
 
 #include <QDBusArgument>
-const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition& pos)
+const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition &pos)
 {
     int entry;
     int form;

@@ -32,75 +32,75 @@ namespace TM
 class SelectJob;
 class DynamicItemHeightQListWidget;
 
-class TMView: public QDockWidget
+class TMView : public QDockWidget
 {
     Q_OBJECT
 public:
-    explicit TMView(QWidget*, Catalog*, const QVector<QAction*>&, const QVector<QAction*>&);
+    explicit TMView(QWidget *, Catalog *, const QVector<QAction *> &, const QVector<QAction *> &);
     ~TMView() override;
 
-    void dragEnterEvent(QDragEnterEvent* event) override;
-    void dropEvent(QDropEvent*) override;
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *) override;
 
     QSize sizeHint() const override
     {
         return QSize(300, 100);
     }
 Q_SIGNALS:
-//     void textReplaceRequested(const QString&);
+    //     void textReplaceRequested(const QString&);
     void refreshRequested();
-    void textInsertRequested(const QString&);
-    void fileOpenRequested(const QString& filePath, const QString& str, const QString& ctxt, const bool setAsActive);
+    void textInsertRequested(const QString &);
+    void fileOpenRequested(const QString &filePath, const QString &str, const QString &ctxt, const bool setAsActive);
 
 public Q_SLOTS:
     void slotNewEntryDisplayed();
-    void slotNewEntryDisplayed(const DocPosition& pos);
-    void slotSuggestionsCame(SelectJob*);
+    void slotNewEntryDisplayed(const DocPosition &pos);
+    void slotSuggestionsCame(SelectJob *);
 
     void slotUseSuggestion(int);
     void slotRemoveSuggestion(int);
-    void slotFileLoaded(const QString& url);
+    void slotFileLoaded(const QString &url);
     void displayFromCache();
 
     void slotBatchTranslate();
     void slotBatchTranslateFuzzy();
 
 private Q_SLOTS:
-    //i think we do not wanna cache suggestions:
-    //what if good sugg may be generated
-    //from the entry user translated 1 minute ago?
+    // i think we do not wanna cache suggestions:
+    // what if good sugg may be generated
+    // from the entry user translated 1 minute ago?
 
     void slotBatchSelectDone();
-    void slotCacheSuggestions(SelectJob*);
+    void slotCacheSuggestions(SelectJob *);
 
     void initLater();
-    void contextMenu(const QPoint & pos);
-    void removeEntry(const TMEntry & e);
+    void contextMenu(const QPoint &pos);
+    void removeEntry(const TMEntry &e);
 
 private:
     bool event(QEvent *event) override;
-    void deleteFile(const TMEntry& e, const bool showPopUp);
+    void deleteFile(const TMEntry &e, const bool showPopUp);
     void runJobs();
 
 private:
-    DynamicItemHeightQListWidget* m_tm_entries_list{nullptr};
-    Catalog* m_catalog{nullptr};
+    DynamicItemHeightQListWidget *m_tm_entries_list{nullptr};
+    Catalog *m_catalog{nullptr};
     DocPosition m_pos;
-  
-    SelectJob* m_currentSelectJob{nullptr};
-    QVector<QAction*> m_actions_insert; // need them to get insertion shortcuts
-    QVector<QAction*> m_actions_remove; // need them to get deletion shortcuts
+
+    SelectJob *m_currentSelectJob{nullptr};
+    QVector<QAction *> m_actions_insert; // need them to get insertion shortcuts
+    QVector<QAction *> m_actions_remove; // need them to get deletion shortcuts
     QList<TMEntry> m_entries;
-  
+
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo{false};
-  
+
     bool m_isBatching{false};
     bool m_markAsFuzzy{false};
     QMap<DocPos, QVector<TMEntry>> m_cache;
     DocPosition m_prevCachePos; // hacky hacky
-    QVector<QRunnable*> m_jobs; // holds pointers to all the jobs for the current file
+    QVector<QRunnable *> m_jobs; // holds pointers to all the jobs for the current file
 };
 
 class DoubleClickToInsertTextQLabel : public QLabel
@@ -109,15 +109,15 @@ class DoubleClickToInsertTextQLabel : public QLabel
 public:
     explicit DoubleClickToInsertTextQLabel(QString text);
 
-    void mouseDoubleClickEvent(QMouseEvent* event) override;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
 Q_SIGNALS:
-    void textInsertRequested(const QString&);
+    void textInsertRequested(const QString &);
 };
 
 class DynamicItemHeightQListWidget : public QListWidget
 {
 public:
-    explicit DynamicItemHeightQListWidget(QWidget* parent);
+    explicit DynamicItemHeightQListWidget(QWidget *parent);
     /**
      * @short Calculate and set heights of the list items, assuming word wrap.
      *
@@ -143,7 +143,7 @@ public:
  * like a colon (:) at the end of a translation entry (where the
  * current translation has no colon) can be removed automatically.
  */
-CatalogString targetAdapted(const TMEntry& entry, const CatalogString& ref);
+CatalogString targetAdapted(const TMEntry &entry, const CatalogString &ref);
 
 }
 #endif

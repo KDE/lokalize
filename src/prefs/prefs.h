@@ -16,7 +16,7 @@ class KEditListWidget;
 /**
  * Singleton that manages cfgs for Lokalize and projects
  */
-class SettingsController: public QObject
+class SettingsController : public QObject
 {
     Q_OBJECT
 
@@ -26,11 +26,11 @@ public:
 
     bool dirty{false};
 
-    void setMainWindowPtr(QWidget* w)
+    void setMainWindowPtr(QWidget *w)
     {
         m_mainWindowPtr = w;
     }
-    QWidget* mainWindowPtr()
+    QWidget *mainWindowPtr()
     {
         return m_mainWindowPtr;
     }
@@ -51,45 +51,51 @@ Q_SIGNALS:
     void generalSettingsChanged();
 
 private:
-    KEditListWidget* m_scriptsRelPrefWidget{nullptr}; //HACK to get relative filenames in the project file
-    KEditListWidget* m_scriptsPrefWidget{nullptr};
-    QWidget* m_mainWindowPtr{nullptr};
+    KEditListWidget *m_scriptsRelPrefWidget{nullptr}; // HACK to get relative filenames in the project file
+    KEditListWidget *m_scriptsPrefWidget{nullptr};
+    QWidget *m_mainWindowPtr{nullptr};
 
 private:
-    static SettingsController* _instance;
+    static SettingsController *_instance;
     static void cleanupSettingsController();
+
 public:
-    static SettingsController* instance();
+    static SettingsController *instance();
 };
 
 /**
  * helper widget to save relative paths in project file,
  * thus allowing its publishing in e.g. svn
  */
-class RelPathSaver: public QLineEdit
+class RelPathSaver : public QLineEdit
 {
     Q_OBJECT
 public:
-    explicit RelPathSaver(QWidget* p): QLineEdit(p) {}
+    explicit RelPathSaver(QWidget *p)
+        : QLineEdit(p)
+    {
+    }
 public Q_SLOTS:
-    void setText(const QString&);
+    void setText(const QString &);
 };
-
 
 /**
  * helper widget to save lang code text values
  * identified by LanguageListModel string index internally
  */
-class LangCodeSaver: public QLineEdit
+class LangCodeSaver : public QLineEdit
 {
     Q_OBJECT
 public:
-    explicit LangCodeSaver(QWidget* p): QLineEdit(p) {}
+    explicit LangCodeSaver(QWidget *p)
+        : QLineEdit(p)
+    {
+    }
 public Q_SLOTS:
     void setLangCode(int);
 };
 
-void writeUiState(const char* elementName, const QByteArray&);
-QByteArray readUiState(const char* elementName);
+void writeUiState(const char *elementName, const QByteArray &);
+QByteArray readUiState(const char *elementName);
 
 #endif

@@ -5,8 +5,8 @@
 */
 
 #include "languagetoolgrammarerror.h"
-#include "lokalize_debug.h"
 #include "languagetoolmanager.h"
+#include "lokalize_debug.h"
 
 #include <klocalizedstring.h>
 
@@ -14,7 +14,6 @@
 
 QString LanguageToolGrammarError::parse(const QJsonObject &obj, const QString &text)
 {
-
     QString mError = obj[QStringLiteral("message")].toString();
     int mStart = obj[QStringLiteral("offset")].toInt(-1);
     int mLength = obj[QStringLiteral("length")].toInt(-1);
@@ -55,6 +54,6 @@ QStringList LanguageToolGrammarError::parseSuggestion(const QJsonObject &obj)
             lst.append(suggestionObject[QLatin1String("value")].toString());
         }
     }
-    //qDebug() << " lst : " << lst;
+    // qDebug() << " lst : " << lst;
     return lst;
 }

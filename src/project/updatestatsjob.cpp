@@ -14,38 +14,38 @@
 
 #include <QFileInfo>
 #include <QSqlDatabase>
-#include <QSqlQuery>
 #include <QSqlError>
+#include <QSqlQuery>
 #include <QStandardPaths>
 
 #include "lokalize_debug.h"
 
-//these are run in separate thread
-UpdateStatsJob::UpdateStatsJob(const QList<KFileItem> &files, QObject*)
+// these are run in separate thread
+UpdateStatsJob::UpdateStatsJob(const QList<KFileItem> &files, QObject *)
     : m_files(files)
 {
     setAutoDelete(false);
 }
 
-//#define NOMETAINFOCACHE
+// #define NOMETAINFOCACHE
 #ifndef NOMETAINFOCACHE
-static void initDataBase(QSqlDatabase& db)
+static void initDataBase(QSqlDatabase &db)
 {
     QSqlQuery queryMain(db);
     queryMain.exec(QStringLiteral("PRAGMA encoding = \"UTF-8\""));
-    queryMain.exec(QStringLiteral(
-                       "CREATE TABLE IF NOT EXISTS metadata ("
-                       "filepath INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
+    queryMain.exec(
+        QStringLiteral("CREATE TABLE IF NOT EXISTS metadata ("
+                       "filepath INTEGER PRIMARY KEY ON CONFLICT REPLACE, " // AUTOINCREMENT,"
                        //"filepath TEXT UNIQUE ON CONFLICT REPLACE, "
-                       "metadata BLOB, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
+                       "metadata BLOB, " // XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
                        "changedate INTEGER"
                        ")"));
 
-    //queryMain.exec("CREATE INDEX IF NOT EXISTS filepath_index ON metainfo ("filepath)");
+    // queryMain.exec("CREATE INDEX IF NOT EXISTS filepath_index ON metainfo ("filepath)");
 }
 #endif
 
-static FileMetaData cachedMetaData(const KFileItem& file)
+static FileMetaData cachedMetaData(const KFileItem &file)
 {
     if (file.isNull() || file.isDir())
         return FileMetaData();
@@ -70,7 +70,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     queryCache.prepare(QStringLiteral("SELECT * from metadata where filepath=?"));
     queryCache.bindValue(0, (quint32)qHash(file.localPath()));
     queryCache.exec();
-    //not using file.time(KFileItem::ModificationTime) because it gives wrong result for files that have just been saved in editor
+    // not using file.time(KFileItem::ModificationTime) because it gives wrong result for files that have just been saved in editor
     if (queryCache.next() && QFileInfo(file.localPath()).lastModified() == queryCache.value(2).toDateTime()) {
         result = queryCache.value(1).toByteArray();
         QDataStream stream(&result, QIODevice::ReadOnly);
@@ -84,13 +84,14 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     FileMetaData m = FileMetaData::extract(file.localPath());
 
     QDataStream stream(&result, QIODevice::WriteOnly);
-    //this is synced with ProjectModel::ProjectNode::setFileStats
+    // this is synced with ProjectModel::ProjectNode::setFileStats
     stream << m;
 
     QSqlQuery query(db);
 
-    query.prepare(QStringLiteral("INSERT INTO metadata (filepath, metadata, changedate) "
-                                 "VALUES (?, ?, ?)"));
+    query.prepare(
+        QStringLiteral("INSERT INTO metadata (filepath, metadata, changedate) "
+                       "VALUES (?, ?, ?)"));
     query.bindValue(0, (quint32)qHash(file.localPath()));
     query.bindValue(1, result);
     query.bindValue(2, QFileInfo(file.localPath()).lastModified());
@@ -122,7 +123,7 @@ void UpdateStatsJob::run()
     if (ok) {
         QSqlDatabase db = QSqlDatabase::database(dbName);
         {
-            //braces are needed to avoid resource leak on close
+            // braces are needed to avoid resource leak on close
             QSqlQuery queryEnd(QStringLiteral("END"), db);
         }
         db.close();

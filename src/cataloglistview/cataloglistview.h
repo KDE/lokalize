@@ -10,8 +10,8 @@
 #ifndef CATALOGLISTVIEW_H
 #define CATALOGLISTVIEW_H
 
-#include "pos.h"
 #include "mergecatalog.h"
+#include "pos.h"
 
 #include <QDockWidget>
 class QTreeView;
@@ -24,12 +24,12 @@ class QAction;
 class QModelIndex;
 class CatalogTreeView;
 
-class CatalogView: public QDockWidget
+class CatalogView : public QDockWidget
 {
     Q_OBJECT
 
 public:
-    explicit CatalogView(QWidget*, Catalog*);
+    explicit CatalogView(QWidget *, Catalog *);
     ~CatalogView() override;
 
     void setEntryFilteredOut(int entry, bool filteredOut);
@@ -38,33 +38,34 @@ public:
     int prevEntryNumber();
     int firstEntryNumber();
     int lastEntryNumber();
+
 private:
     int siblingEntryNumber(int step);
     void refreshCurrentIndex();
 
 public Q_SLOTS:
-    void slotNewEntryDisplayed(const DocPosition&);
+    void slotNewEntryDisplayed(const DocPosition &);
     void setEntriesFilteredOut(bool filteredOut = false);
     void setFocus();
     void reset();
-    void setMergeCatalogPointer(MergeCatalog* pointer);
+    void setMergeCatalogPointer(MergeCatalog *pointer);
 
 Q_SIGNALS:
-    void gotoEntry(const DocPosition&, int selection);
+    void gotoEntry(const DocPosition &, int selection);
     void escaped();
 
 private Q_SLOTS:
-    void slotItemActivated(const QModelIndex&);
+    void slotItemActivated(const QModelIndex &);
     void setFilterRegExp();
     void fillFilterOptionsMenu();
-    void filterOptionToggled(QAction*);
+    void filterOptionToggled(QAction *);
 
 private:
-    CatalogTreeView* const m_browser;
-    QLineEdit* const m_lineEdit;
-    QMenu* m_filterOptionsMenu = nullptr;
-    CatalogTreeModel* const m_model;
-    CatalogTreeFilterModel* const m_proxyModel;
+    CatalogTreeView *const m_browser;
+    QLineEdit *const m_lineEdit;
+    QMenu *m_filterOptionsMenu = nullptr;
+    CatalogTreeModel *const m_model;
+    CatalogTreeFilterModel *const m_proxyModel;
     int m_lastKnownDocPosition;
 };
 

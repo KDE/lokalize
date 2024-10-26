@@ -10,30 +10,28 @@
 #ifndef GETTEXTHEADER_H
 #define GETTEXTHEADER_H
 
-#include <QString>
 #include <QDateTime>
+#include <QString>
 
-int numberOfPluralFormsFromHeader(const QString& header);
-QString GNUPluralForms(const QString& lang);
+int numberOfPluralFormsFromHeader(const QString &header);
+QString GNUPluralForms(const QString &lang);
 
 QString formatGettextDate(const QDateTime &dt);
 
-void updateHeader(QString& header,
-                  QString& comment,
-                  QString& langCode,
-                  int& numberOfPluralForms,
-                  const QString& CatalogProjectId,
+void updateHeader(QString &header,
+                  QString &comment,
+                  QString &langCode,
+                  int &numberOfPluralForms,
+                  const QString &CatalogProjectId,
                   bool generatedFromDocbook,
                   bool belongsToProject,
                   bool forSaving,
-                  const QString& codec);
+                  const QString &codec);
 
-
-//for XLIFF
-int numberOfPluralFormsForLangCode(const QString& langCode);
+// for XLIFF
+int numberOfPluralFormsForLangCode(const QString &langCode);
 
 /// @returns false if author info is still empty after function finishes
 bool askAuthorInfoIfEmpty();
 
 #endif
-

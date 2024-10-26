@@ -49,15 +49,14 @@
 #define DEBUG
 using namespace TM;
 
-
 struct DiffInfo {
     explicit DiffInfo(int reserveSize);
 
     QString diffClean;
     QString old;
-    //Formatting info:
+    // Formatting info:
     QByteArray diffIndex;
-    //Map old string-->d.diffClean
+    // Map old string-->d.diffClean
     QVector<int> old2DiffClean;
 };
 
@@ -69,8 +68,6 @@ DiffInfo::DiffInfo(int reserveSize)
     old2DiffClean.reserve(reserveSize);
 }
 
-
-
 /**
  * 0 - common
  + - add
@@ -80,14 +77,14 @@ DiffInfo::DiffInfo(int reserveSize)
  so the string is like 00000MM00+++---000
  (M appears afterwards)
 */
-static DiffInfo getDiffInfo(const QString& diff)
+static DiffInfo getDiffInfo(const QString &diff)
 {
     DiffInfo d(diff.size());
 
     QChar sep(QLatin1Char('{'));
     char state = '0';
-    //walk through diff string char-by-char
-    //calculate old and others
+    // walk through diff string char-by-char
+    // calculate old and others
     int pos = -1;
     while (++pos < diff.size()) {
         if (diff.at(pos) == sep) {
@@ -116,7 +113,8 @@ static DiffInfo getDiffInfo(const QString& diff)
     return d;
 }
 
-DoubleClickToInsertTextQLabel::DoubleClickToInsertTextQLabel(QString text) : QLabel(text)
+DoubleClickToInsertTextQLabel::DoubleClickToInsertTextQLabel(QString text)
+    : QLabel(text)
 {
     setContextMenuPolicy(Qt::CustomContextMenu);
     setWordWrap(true);
@@ -132,7 +130,7 @@ DoubleClickToInsertTextQLabel::DoubleClickToInsertTextQLabel(QString text) : QLa
                                 style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing)));
 }
 
-void DoubleClickToInsertTextQLabel::mouseDoubleClickEvent(QMouseEvent* event)
+void DoubleClickToInsertTextQLabel::mouseDoubleClickEvent(QMouseEvent *event)
 {
     QLabel::mouseDoubleClickEvent(event);
     if (this->hasSelectedText()) {
@@ -142,7 +140,8 @@ void DoubleClickToInsertTextQLabel::mouseDoubleClickEvent(QMouseEvent* event)
     }
 }
 
-DynamicItemHeightQListWidget::DynamicItemHeightQListWidget(QWidget* parent) : QListWidget(parent)
+DynamicItemHeightQListWidget::DynamicItemHeightQListWidget(QWidget *parent)
+    : QListWidget(parent)
 {
     // The below scrollbar lines are required because the scrollbar width is initially
     // coming back as 100px, and this messes up calculations of the viewport width in
@@ -160,17 +159,13 @@ void DynamicItemHeightQListWidget::updateListItemHeights()
 {
     bool scrollBarVisible = this->verticalScrollBar()->isVisible();
     int totalNewListItemHeightWithoutScrollbar = 0;
-    int widthWithScrollbar = scrollBarVisible
-                                 ? this->viewport()->width()
-                                 : this->viewport()->width() - this->verticalScrollBar()->width();
-    int widthWithoutScrollbar = scrollBarVisible
-                                    ? this->viewport()->width() + this->verticalScrollBar()->width()
-                                    : this->viewport()->width();
+    int widthWithScrollbar = scrollBarVisible ? this->viewport()->width() : this->viewport()->width() - this->verticalScrollBar()->width();
+    int widthWithoutScrollbar = scrollBarVisible ? this->viewport()->width() + this->verticalScrollBar()->width() : this->viewport()->width();
     // First calculate the total height of the list, assuming the
     // scrollbar doesn't show and we can use the entire width.
     for (int i = 0; i < this->count(); ++i) {
-        QListWidgetItem* listWidgetItem = this->item(i);
-        QWidget* itemText = this->itemWidget(listWidgetItem);
+        QListWidgetItem *listWidgetItem = this->item(i);
+        QWidget *itemText = this->itemWidget(listWidgetItem);
         totalNewListItemHeightWithoutScrollbar += itemText->heightForWidth(widthWithoutScrollbar);
     }
     // If the list is too tall even without scrollbars,
@@ -179,18 +174,15 @@ void DynamicItemHeightQListWidget::updateListItemHeights()
     // scrollbar's presence when calculating item heights.
     bool scrollbarsWillShow = totalNewListItemHeightWithoutScrollbar > this->viewport()->height();
     for (int i = 0; i < this->count(); ++i) {
-        QListWidgetItem* listWidgetItem = this->item(i);
-        QWidget* itemText = this->itemWidget(listWidgetItem);
+        QListWidgetItem *listWidgetItem = this->item(i);
+        QWidget *itemText = this->itemWidget(listWidgetItem);
         // Set item widths and heights, taking into account
         // whether the scrollbar is about to show or not
-        listWidgetItem->setSizeHint(
-            QSize(1, itemText->heightForWidth(scrollbarsWillShow ? widthWithScrollbar
-                                                                 : widthWithoutScrollbar)));
+        listWidgetItem->setSizeHint(QSize(1, itemText->heightForWidth(scrollbarsWillShow ? widthWithScrollbar : widthWithoutScrollbar)));
     }
 }
 
-TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions_insert,
-               const QVector<QAction*>& actions_remove)
+TMView::TMView(QWidget *parent, Catalog *catalog, const QVector<QAction *> &actions_insert, const QVector<QAction *> &actions_remove)
     : QDockWidget(i18nc("@title:window", "Translation Memory"), parent)
     , m_tm_entries_list(new DynamicItemHeightQListWidget(this))
     , m_catalog(catalog)
@@ -219,12 +211,16 @@ void TMView::initLater()
 
     int i = m_actions_insert.size();
     while (--i >= 0) {
-        connect(m_actions_insert.at(i), &QAction::triggered, this, [this, i] { slotUseSuggestion(i); });
+        connect(m_actions_insert.at(i), &QAction::triggered, this, [this, i] {
+            slotUseSuggestion(i);
+        });
     }
 
     i = m_actions_remove.size();
     while (--i >= 0) {
-        connect(m_actions_remove.at(i), &QAction::triggered, this, [this, i] { slotRemoveSuggestion(i); });
+        connect(m_actions_remove.at(i), &QAction::triggered, this, [this, i] {
+            slotRemoveSuggestion(i);
+        });
     }
 
     setToolTip(i18nc("@info:tooltip", "Double-click any word to insert it into translation"));
@@ -232,7 +228,7 @@ void TMView::initLater()
     DBFilesModel::instance();
 }
 
-void TMView::dragEnterEvent(QDragEnterEvent* event)
+void TMView::dragEnterEvent(QDragEnterEvent *event)
 {
     if (dragIsAcceptable(event->mimeData()->urls()))
         event->acceptProposedAction();
@@ -242,21 +238,20 @@ void TMView::dropEvent(QDropEvent *event)
 {
     QStringList files;
     const auto urls = event->mimeData()->urls();
-    for (const QUrl& url : urls)
+    for (const QUrl &url : urls)
         files.append(url.toLocalFile());
     if (scanRecursive(files, Project::instance()->projectID()))
         event->acceptProposedAction();
 }
 
-void TMView::slotFileLoaded(const QString& filePath)
+void TMView::slotFileLoaded(const QString &filePath)
 {
-    const QString& pID = Project::instance()->projectID();
+    const QString &pID = Project::instance()->projectID();
 
     if (Settings::scanToTMOnOpen())
         TM::threadPool()->start(new ScanJob(filePath, pID), SCAN);
 
-    if (!Settings::prefetchTM()
-        && !m_isBatching)
+    if (!Settings::prefetchTM() && !m_isBatching)
         return;
 
     m_cache.clear();
@@ -267,16 +262,15 @@ void TMView::slotFileLoaded(const QString& filePath)
 
     DocPosition pos;
     while (switchNext(m_catalog, pos)) {
-        if (!m_catalog->isEmpty(pos.entry)
-            && m_catalog->isApproved(pos.entry))
+        if (!m_catalog->isEmpty(pos.entry) && m_catalog->isApproved(pos.entry))
             continue;
-        SelectJob* j = initSelectJob(m_catalog, pos, pID, NoEnqueue);
+        SelectJob *j = initSelectJob(m_catalog, pos, pID, NoEnqueue);
         connect(j, &SelectJob::done, this, &TMView::slotCacheSuggestions);
         m_jobs.append(j);
     }
 
-    //dummy job for the finish indication
-    BatchSelectFinishedJob* m_seq = new BatchSelectFinishedJob(this);
+    // dummy job for the finish indication
+    BatchSelectFinishedJob *m_seq = new BatchSelectFinishedJob(this);
     connect(m_seq, &BatchSelectFinishedJob::done, this, &TMView::slotBatchSelectDone);
     m_jobs.append(m_seq);
 
@@ -286,7 +280,7 @@ void TMView::slotFileLoaded(const QString& filePath)
     QTimer::singleShot(0, this, &TMView::runJobs);
 }
 
-void TMView::slotCacheSuggestions(SelectJob* job)
+void TMView::slotCacheSuggestions(SelectJob *job)
 {
     m_jobs.removeAll(job);
     qCDebug(LOKALIZE_LOG) << job->m_pos.entry;
@@ -306,22 +300,19 @@ void TMView::slotBatchSelectDone()
     bool insHappened = false;
     DocPosition pos;
     while (switchNext(m_catalog, pos)) {
-        if (!(m_catalog->isEmpty(pos.entry)
-              || !m_catalog->isApproved(pos.entry))
-           )
+        if (!(m_catalog->isEmpty(pos.entry) || !m_catalog->isApproved(pos.entry)))
             continue;
-        const QVector<TMEntry>& suggList = m_cache.value(DocPos(pos));
+        const QVector<TMEntry> &suggList = m_cache.value(DocPos(pos));
         if (suggList.isEmpty())
             continue;
-        const TMEntry& entry = suggList.first();
-        if (entry.score < 9900) //hacky
+        const TMEntry &entry = suggList.first();
+        if (entry.score < 9900) // hacky
             continue;
         {
-            bool forceFuzzy = (suggList.size() > 1 && suggList.at(1).score >= 10000)
-                              || entry.score < 10000;
+            bool forceFuzzy = (suggList.size() > 1 && suggList.at(1).score >= 10000) || entry.score < 10000;
             bool ctxtMatches = entry.score == 1001;
             if (!m_catalog->isApproved(pos.entry)) {
-                ///m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
+                /// m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
                 removeTargetSubstring(m_catalog, pos, 0, m_catalog->targetWithTags(pos).string.size());
                 insertCatalogString(m_catalog, pos, entry.target, 0);
                 if (ctxtMatches || !(m_markAsFuzzy || forceFuzzy))
@@ -332,11 +323,10 @@ void TMView::slotBatchSelectDone()
             } else {
                 insertCatalogString(m_catalog, pos, entry.target, 0);
             }
-            ///m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
+            /// m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
 
             if (Q_UNLIKELY(m_pos.entry == pos.entry && pos.form == m_pos.form))
                 Q_EMIT refreshRequested();
-
         }
         if (!insHappened) {
             insHappened = true;
@@ -393,24 +383,23 @@ void TMView::slotNewEntryDisplayed()
     return slotNewEntryDisplayed(DocPosition());
 }
 
-void TMView::slotNewEntryDisplayed(const DocPosition& pos)
+void TMView::slotNewEntryDisplayed(const DocPosition &pos)
 {
     if (m_catalog->numberOfEntries() <= pos.entry)
-        return;//because of Qt::QueuedConnection
+        return; // because of Qt::QueuedConnection
 
     for (auto job : std::as_const(m_jobs)) {
         [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
     }
 
-    //update DB
-    //m_catalog->flushUpdateDBBuffer();
-    //this is called via subscribtion
+    // update DB
+    // m_catalog->flushUpdateDBBuffer();
+    // this is called via subscribtion
 
     if (pos.entry != -1)
         m_pos = pos;
     m_tm_entries_list->clear();
-    if (Settings::prefetchTM()
-        && m_cache.contains(DocPos(m_pos))) {
+    if (Settings::prefetchTM() && m_cache.contains(DocPos(m_pos))) {
         QTimer::singleShot(0, this, &TMView::displayFromCache);
     }
     m_currentSelectJob = initSelectJob(m_catalog, m_pos);
@@ -419,32 +408,30 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 
 void TMView::displayFromCache()
 {
-    if (m_prevCachePos.entry == m_pos.entry
-        && m_prevCachePos.form == m_pos.form)
+    if (m_prevCachePos.entry == m_pos.entry && m_prevCachePos.form == m_pos.form)
         return;
-    SelectJob* temp = initSelectJob(m_catalog, m_pos, QString(), 0);
+    SelectJob *temp = initSelectJob(m_catalog, m_pos, QString(), 0);
     temp->m_entries = m_cache.value(DocPos(m_pos)).toList();
     slotSuggestionsCame(temp);
     temp->deleteLater();
     m_prevCachePos = m_pos;
 }
 
-void TMView::slotSuggestionsCame(SelectJob* j)
+void TMView::slotSuggestionsCame(SelectJob *j)
 {
-    SelectJob& job = *j;
+    SelectJob &job = *j;
     job.deleteLater();
     if (job.m_pos.entry != m_pos.entry)
         return;
 
-    Catalog& catalog = *m_catalog;
+    Catalog &catalog = *m_catalog;
     if (catalog.numberOfEntries() <= m_pos.entry)
-        return;//because of Qt::QueuedConnection
+        return; // because of Qt::QueuedConnection
 
-
-    //BEGIN query other DBs handling
-    Project* project = Project::instance();
-    const QString& projectID = project->projectID();
-    //check if this is an additional query, from secondary DBs
+    // BEGIN query other DBs handling
+    Project *project = Project::instance();
+    const QString &projectID = project->projectID();
+    // check if this is an additional query, from secondary DBs
     if (job.m_dbName != projectID) {
         job.m_entries += m_entries;
         std::sort(job.m_entries.begin(), job.m_entries.end(), std::greater<TMEntry>());
@@ -456,20 +443,20 @@ void TMView::slotSuggestionsCame(SelectJob* j)
             i--;
         }
     } else if (job.m_entries.isEmpty() || job.m_entries.first().score < 8500) {
-        //be careful, as we switched to QDirModel!
-        DBFilesModel& dbFilesModel = *(DBFilesModel::instance());
+        // be careful, as we switched to QDirModel!
+        DBFilesModel &dbFilesModel = *(DBFilesModel::instance());
         QModelIndex root = dbFilesModel.rootIndex();
         int i = dbFilesModel.rowCount(root);
         while (--i >= 0) {
-            const QString& dbName = dbFilesModel.data(dbFilesModel.index(i, 0, root), DBFilesModel::NameRole).toString();
+            const QString &dbName = dbFilesModel.data(dbFilesModel.index(i, 0, root), DBFilesModel::NameRole).toString();
             if (projectID != dbName && dbFilesModel.m_configurations.value(dbName).targetLangCode == catalog.targetLangCode()) {
-                SelectJob* j = initSelectJob(m_catalog, m_pos, dbName);
+                SelectJob *j = initSelectJob(m_catalog, m_pos, dbName);
                 connect(j, &SelectJob::done, this, &TMView::slotSuggestionsCame);
                 m_jobs.append(j);
             }
         }
     }
-    //END query other DBs handling
+    // END query other DBs handling
 
     m_entries = job.m_entries;
 
@@ -498,34 +485,45 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     QString source;
     QString target;
     while (true) {
-        const TMEntry& entry = job.m_entries.at(i);
+        const TMEntry &entry = job.m_entries.at(i);
         // Generate the metadata string based on the TM entry's
         // match percentage, occurrences and keyboard shortcut.
         if (entry.score >= 10000) {
-            percentageMatch = i18nc("A perfect match between a Translation Memory source string "
-                                    "and the source string being translated.",
-                                    "100% (perfect match)");
+            percentageMatch = i18nc(
+                "A perfect match between a Translation Memory source string "
+                "and the source string being translated.",
+                "100% (perfect match)");
         } else {
-            percentageMatch = i18nc("The similarity between a Translation Memory source string and "
-                                    "the source string being translated, %1 is 0 to 99 (percent).",
-                                    "%1%", int(entry.score / 100));
+            percentageMatch = i18nc(
+                "The similarity between a Translation Memory source string and "
+                "the source string being translated, %1 is 0 to 99 (percent).",
+                "%1%",
+                int(entry.score / 100));
         }
-        occurrences = i18ncp("The number of times a Translation Memory entry exists in the "
-                             "database, %1 is the number.",
-                             "Occurred %1 time", "Occurred %1 times", entry.hits);
+        occurrences = i18ncp(
+            "The number of times a Translation Memory entry exists in the "
+            "database, %1 is the number.",
+            "Occurred %1 time",
+            "Occurred %1 times",
+            entry.hits);
         if (Q_LIKELY(i < m_actions_insert.size())) {
             // For keyboard shortcuts.
             m_actions_insert.at(i)->setStatusTip(entry.target.string);
-            keyboardShortcut =
-                m_actions_insert.at(i)->shortcut().toString(QKeySequence::NativeText);
-            metadata =
-                i18nc("Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
-                      "(%3). Bullet point is a separator between the data and can be translated.",
-                      "%1 • %2 • %3", percentageMatch, occurrences, keyboardShortcut);
+            keyboardShortcut = m_actions_insert.at(i)->shortcut().toString(QKeySequence::NativeText);
+            metadata = i18nc(
+                "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
+                "(%3). Bullet point is a separator between the data and can be translated.",
+                "%1 • %2 • %3",
+                percentageMatch,
+                occurrences,
+                keyboardShortcut);
         } else {
-            metadata = i18nc("Percentage match (%1) and number of occurrences (%2). Bullet point "
-                             "is a separator between the data and can be translated.",
-                             "%1 • %2", percentageMatch, occurrences);
+            metadata = i18nc(
+                "Percentage match (%1) and number of occurrences (%2). Bullet point "
+                "is a separator between the data and can be translated.",
+                "%1 • %2",
+                percentageMatch,
+                occurrences);
         }
         if (entry.target.string == QLatin1String(" ")) {
             // Show an empty bullet point rather than a blank line.
@@ -533,38 +531,31 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         } else {
             // Diff between current translation source and TM entry source.
             // Bold target string on 100% match.
-            target =
-                entry.score >= 10000
-                    ? QLatin1String("<strong>%1</strong>").arg(entry.target.string.toHtmlEscaped())
-                    : entry.target.string.toHtmlEscaped();
+            target = entry.score >= 10000 ? QLatin1String("<strong>%1</strong>").arg(entry.target.string.toHtmlEscaped()) : entry.target.string.toHtmlEscaped();
             // Newline chars that are manual line breaks in the translation file are converted to
             // HTML.
             target.replace(QLatin1String("\n"), QLatin1String("<br>"));
             // Work around HTML collapsing together multiple spaces
             target.replace(QLatin1String("  "), QLatin1String("&nbsp;&nbsp;"));
         }
-        source = entry.score >= 10000 ? QLatin1String("<strong>%1</strong>")
-                                            .arg(diffToHtmlDiff(entry.diff.toHtmlEscaped()))
+        source = entry.score >= 10000 ? QLatin1String("<strong>%1</strong>").arg(diffToHtmlDiff(entry.diff.toHtmlEscaped()))
                                       : diffToHtmlDiff(entry.diff.toHtmlEscaped());
         // Add a QLabel containing the TM entry HTML to a new list item.
-        QListWidgetItem* translationMemoryEntryItem = new QListWidgetItem();
-        DoubleClickToInsertTextQLabel* label = new DoubleClickToInsertTextQLabel(
-            QStringLiteral("%1"
-                           "<ul style=\"margin-top:0px;padding-top:0px;\">"
-                           "<li>%2</li>"
-                           "<li>%3</li>"
-                           "</ul>")
-                .arg(metadata, source, target));
+        QListWidgetItem *translationMemoryEntryItem = new QListWidgetItem();
+        DoubleClickToInsertTextQLabel *label = new DoubleClickToInsertTextQLabel(QStringLiteral("%1"
+                                                                                                "<ul style=\"margin-top:0px;padding-top:0px;\">"
+                                                                                                "<li>%2</li>"
+                                                                                                "<li>%3</li>"
+                                                                                                "</ul>")
+                                                                                     .arg(metadata, source, target));
         m_tm_entries_list->addItem(translationMemoryEntryItem);
         m_tm_entries_list->setItemWidget(translationMemoryEntryItem, label);
         // Double-clicking words in a TM entry should add the selected
         // word to the current translation target at the cursor position.
-        connect(label, &DoubleClickToInsertTextQLabel::textInsertRequested, this,
-                &TMView::textInsertRequested);
+        connect(label, &DoubleClickToInsertTextQLabel::textInsertRequested, this, &TMView::textInsertRequested);
         // TM entry should show a tooltip with options / info about it on right-click and
         // mouse-over.
-        connect(label, &DoubleClickToInsertTextQLabel::customContextMenuRequested, this,
-                &TMView::contextMenu);
+        connect(label, &DoubleClickToInsertTextQLabel::customContextMenuRequested, this, &TMView::contextMenu);
         if (Q_UNLIKELY(++i >= limit))
             break;
     }
@@ -579,24 +570,18 @@ bool TMView::event(QEvent *event)
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
         for (int i = 0; i < m_tm_entries_list->count(); ++i) {
             if (m_tm_entries_list->itemWidget(m_tm_entries_list->item(i))->underMouse()) {
-                const TMEntry& tmEntry = m_entries.at(i);
+                const TMEntry &tmEntry = m_entries.at(i);
                 QString file = tmEntry.file;
                 if (file == m_catalog->url())
                     file = i18nc("File argument in tooltip, when file is current file", "this");
-                QString tooltip = i18nc("@info:tooltip", "File: %1<br />Addition date: %2", file,
-                                        tmEntry.date.toString(Qt::ISODate));
+                QString tooltip = i18nc("@info:tooltip", "File: %1<br />Addition date: %2", file, tmEntry.date.toString(Qt::ISODate));
                 if (!tmEntry.changeDate.isNull() && tmEntry.changeDate != tmEntry.date)
-                    tooltip +=
-                        i18nc("@info:tooltip on TM entry continues", "<br />Last change date: %1",
-                              tmEntry.changeDate.toString(Qt::ISODate));
+                    tooltip += i18nc("@info:tooltip on TM entry continues", "<br />Last change date: %1", tmEntry.changeDate.toString(Qt::ISODate));
                 if (!tmEntry.changeAuthor.isEmpty())
-                    tooltip += i18nc("@info:tooltip on TM entry continues",
-                                     "<br />Last change author: %1", tmEntry.changeAuthor);
-                tooltip +=
-                    i18nc("@info:tooltip on TM entry continues", "<br />TM: %1", tmEntry.dbName);
+                    tooltip += i18nc("@info:tooltip on TM entry continues", "<br />Last change author: %1", tmEntry.changeAuthor);
+                tooltip += i18nc("@info:tooltip on TM entry continues", "<br />TM: %1", tmEntry.dbName);
                 if (tmEntry.obsolete)
-                    tooltip += i18nc("@info:tooltip on TM entry continues",
-                                     "<br />Is not present in the file anymore");
+                    tooltip += i18nc("@info:tooltip on TM entry continues", "<br />Is not present in the file anymore");
                 QToolTip::showText(helpEvent->globalPos(), tooltip);
                 return true;
             }
@@ -607,26 +592,28 @@ bool TMView::event(QEvent *event)
     return QDockWidget::event(event);
 }
 
-void TMView::removeEntry(const TMEntry& e)
+void TMView::removeEntry(const TMEntry &e)
 {
-    if (KMessageBox::PrimaryAction == KMessageBox::questionTwoActions(
-                this,
-                i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.target.string.toHtmlEscaped(), e.dbName),
-                i18nc("@title:window", "Translation Memory Entry Removal"),
-                KStandardGuiItem::remove(),
-                KStandardGuiItem::cancel())) {
-        RemoveJob* job = new RemoveJob(e);
+    if (KMessageBox::PrimaryAction
+        == KMessageBox::questionTwoActions(this,
+                                           i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",
+                                                e.target.string.toHtmlEscaped(),
+                                                e.dbName),
+                                           i18nc("@title:window", "Translation Memory Entry Removal"),
+                                           KStandardGuiItem::remove(),
+                                           KStandardGuiItem::cancel())) {
+        RemoveJob *job = new RemoveJob(e);
         connect(job, SIGNAL(done()), this, SLOT(slotNewEntryDisplayed()));
         TM::threadPool()->start(job, REMOVE);
     }
 }
 
-void TMView::deleteFile(const TMEntry& e, const bool showPopUp)
+void TMView::deleteFile(const TMEntry &e, const bool showPopUp)
 {
     QString filePath = e.file;
     if (Project::instance()->isFileMissing(filePath)) {
-        //File doesn't exist
-        RemoveFileJob* job = new RemoveFileJob(e.file, e.dbName);
+        // File doesn't exist
+        RemoveFileJob *job = new RemoveFileJob(e.file, e.dbName);
         connect(job, SIGNAL(done()), this, SLOT(slotNewEntryDisplayed()));
         TM::threadPool()->start(job, REMOVEFILE);
         if (showPopUp) {
@@ -639,25 +626,28 @@ void TMView::deleteFile(const TMEntry& e, const bool showPopUp)
 void TMView::runJobs()
 {
     for (const auto job : m_jobs) {
-        if (auto j = dynamic_cast<TM::Job * const>(job)) {
+        if (auto j = dynamic_cast<TM::Job *const>(job)) {
             TM::threadPool()->start(job, j->priority());
         }
     }
 }
 
-void TMView::contextMenu(const QPoint& pos)
+void TMView::contextMenu(const QPoint &pos)
 {
     for (int i = 0; i < m_tm_entries_list->count(); ++i) {
-        QWidget* entry = m_tm_entries_list->itemWidget(m_tm_entries_list->item(i));
+        QWidget *entry = m_tm_entries_list->itemWidget(m_tm_entries_list->item(i));
         if (entry->underMouse()) {
-            const TMEntry* tmEntry = &m_entries.at(i);
-            enum { Remove, RemoveFile, Open };
+            const TMEntry *tmEntry = &m_entries.at(i);
+            enum {
+                Remove,
+                RemoveFile,
+                Open,
+            };
             QMenu popup;
             popup.addAction(i18nc("@action:inmenu", "Remove this entry"))->setData(Remove);
             if (tmEntry->file != m_catalog->url()) {
                 if (QFile::exists(tmEntry->file)) {
-                    popup.addAction(i18nc("@action:inmenu", "Open file containing this entry"))
-                        ->setData(Open);
+                    popup.addAction(i18nc("@action:inmenu", "Open file containing this entry"))->setData(Open);
                 } else {
                     if (Settings::deleteFromTMOnMissing()) {
                         // Automatic deletion
@@ -667,29 +657,27 @@ void TMView::contextMenu(const QPoint& pos)
                         return;
                     } else {
                         // Still offer manual deletion if this is not the current file.
-                        popup
-                            .addAction(i18nc("@action:inmenu", "Remove this missing file from TM"))
-                            ->setData(RemoveFile);
+                        popup.addAction(i18nc("@action:inmenu", "Remove this missing file from TM"))->setData(RemoveFile);
                     }
                 }
             }
-            QAction* r = popup.exec(entry->mapToGlobal(pos));
+            QAction *r = popup.exec(entry->mapToGlobal(pos));
             if (!r)
                 return;
             if (r->data().toInt() == Remove) {
                 removeEntry(*tmEntry);
             } else if (r->data().toInt() == Open) {
-                Q_EMIT fileOpenRequested(tmEntry->file, tmEntry->source.string, tmEntry->ctxt,
-                                         true);
-            } else if ((r->data().toInt() == RemoveFile) &&
-                       KMessageBox::PrimaryAction ==
-                           KMessageBox::questionTwoActions(
-                               this,
-                               i18n("<html>Do you really want to remove this missing "
-                                    "file:<br/><i>%1</i><br/>from translation memory %2?</html>",
-                                    tmEntry->file, tmEntry->dbName),
-                               i18nc("@title:window", "Translation Memory Missing File Removal"),
-                               KStandardGuiItem::remove(), KStandardGuiItem::cancel())) {
+                Q_EMIT fileOpenRequested(tmEntry->file, tmEntry->source.string, tmEntry->ctxt, true);
+            } else if ((r->data().toInt() == RemoveFile)
+                       && KMessageBox::PrimaryAction
+                           == KMessageBox::questionTwoActions(this,
+                                                              i18n("<html>Do you really want to remove this missing "
+                                                                   "file:<br/><i>%1</i><br/>from translation memory %2?</html>",
+                                                                   tmEntry->file,
+                                                                   tmEntry->dbName),
+                                                              i18nc("@title:window", "Translation Memory Missing File Removal"),
+                                                              KStandardGuiItem::remove(),
+                                                              KStandardGuiItem::cancel())) {
                 deleteFile(*tmEntry, false);
             }
             break;
@@ -702,16 +690,16 @@ void TMView::contextMenu(const QPoint& pos)
  * searches to th nearest rxNum or ABBR
  * clears rxNum if ABBR is found before rxNum
  */
-static int nextPlacableIn(const QString& old, int start, QString& cap)
+static int nextPlacableIn(const QString &old, int start, QString &cap)
 {
     static const QRegularExpression rxNum(QStringLiteral("[\\d\\.\\%]+"));
     static const QRegularExpression rxAbbr(QStringLiteral("\\w+"));
 
     const auto numMatch = rxNum.match(old, start);
-//    int abbrPos=rxAbbr.indexIn(old,start);
+    //    int abbrPos=rxAbbr.indexIn(old,start);
     QRegularExpressionMatch abbrMatch;
     int abbrPos = start;
-    //qCWarning(LOKALIZE_LOG)<<"seeing"<<old.size()<<old;
+    // qCWarning(LOKALIZE_LOG)<<"seeing"<<old.size()<<old;
     while (true) {
         abbrMatch = rxAbbr.match(old, abbrPos);
         if (!abbrMatch.hasMatch()) {
@@ -720,8 +708,8 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
         }
         abbrPos = abbrMatch.capturedStart();
         QString word = abbrMatch.captured(0);
-        //check if tail contains uppoer case characters
-        const QChar* c = word.unicode() + 1;
+        // check if tail contains uppoer case characters
+        const QChar *c = word.unicode() + 1;
         int i = word.size() - 1;
         while (--i >= 0) {
             if ((c++)->isUpper())
@@ -734,18 +722,18 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
     if (pos == -1)
         pos = qMax(numMatch.capturedStart(), abbrPos);
 
-//     if (pos==numMatch.capturedStart())
-//         cap=numMatch.captured(0);
-//     else
-//         cap=rxAbbr.cap(0);
+    //     if (pos==numMatch.capturedStart())
+    //         cap=numMatch.captured(0);
+    //     else
+    //         cap=rxAbbr.cap(0);
 
     cap = pos == numMatch.capturedStart() ? numMatch.captured(0) : abbrMatch.captured(0);
-    //qCWarning(LOKALIZE_LOG)<<cap;
+    // qCWarning(LOKALIZE_LOG)<<cap;
 
     return pos;
 }
 
-CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
+CatalogString TM::targetAdapted(const TMEntry &entry, const CatalogString &ref)
 {
     QString diff = entry.diff;
     // TODO when this is called by AltTransView::slotUseSuggestion()
@@ -760,13 +748,11 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 
     DiffInfo d = getDiffInfo(diff);
     int pos = 0;
-    bool sameMarkup =
-        Project::instance()->markup() == entry.markupExpr && !entry.markupExpr.isEmpty();
+    bool sameMarkup = Project::instance()->markup() == entry.markupExpr && !entry.markupExpr.isEmpty();
     bool tryMarkup = !entry.target.tags.size() && sameMarkup;
     // search for changed markup
     if (tryMarkup) {
-        const QRegularExpression rxMarkup(entry.markupExpr,
-                                          QRegularExpression::InvertedGreedinessOption);
+        const QRegularExpression rxMarkup(entry.markupExpr, QRegularExpression::InvertedGreedinessOption);
         pos = 0;
         int replacingPos = 0;
         while (true) {
@@ -776,9 +762,8 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
             }
             pos = match.capturedStart();
 
-            QByteArray diffIndexPart(d.diffIndex.mid(
-                d.old2DiffClean.at(pos), d.old2DiffClean.at(pos + match.capturedLength() - 1) + 1 -
-                                             d.old2DiffClean.at(pos)));
+            QByteArray diffIndexPart(
+                d.diffIndex.mid(d.old2DiffClean.at(pos), d.old2DiffClean.at(pos + match.capturedLength() - 1) + 1 - d.old2DiffClean.at(pos)));
             if (diffIndexPart.contains('-') || diffIndexPart.contains('+')) {
                 // form newMarkup
                 QString newMarkup;
@@ -808,11 +793,10 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 
     // del, add only markup, punct, num
     // TODO further improvement: spaces, punct marked as 0
-// BEGIN BEGIN HANDLING
+    // BEGIN BEGIN HANDLING
     QRegularExpression rxNonTranslatable;
     if (tryMarkup)
-        rxNonTranslatable.setPattern(QStringLiteral("^((") + entry.markupExpr +
-                                     QStringLiteral(")|(\\W|\\d)+)+"));
+        rxNonTranslatable.setPattern(QStringLiteral("^((") + entry.markupExpr + QStringLiteral(")|(\\W|\\d)+)+"));
     else
         rxNonTranslatable.setPattern(QStringLiteral("^(\\W|\\d)+"));
 
@@ -835,7 +819,6 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 
         oldMarkup = rxNonTranslatable.match(oldMarkup).captured(0); // FIXME if it fails?
         if (target.string.startsWith(oldMarkup)) {
-
             // form 'newMarkup'
             QString newMarkup;
             newMarkup.reserve(diffMPart.size());
@@ -856,11 +839,10 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                 d.diffIndex[j] = 'M';
         }
     }
-// END BEGIN HANDLING
-// BEGIN END HANDLING
+    // END BEGIN HANDLING
+    // BEGIN END HANDLING
     if (tryMarkup)
-        rxNonTranslatable.setPattern(QStringLiteral("((") + entry.markupExpr +
-                                     QStringLiteral(")|(\\W|\\d)+)+$"));
+        rxNonTranslatable.setPattern(QStringLiteral("((") + entry.markupExpr + QStringLiteral(")|(\\W|\\d)+)+$"));
     else
         rxNonTranslatable.setPattern(QStringLiteral("(\\W|\\d)+$"));
 
@@ -884,7 +866,6 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
         }
         oldMarkup = rxNonTranslatable.match(oldMarkup).captured(0);
         if (target.string.endsWith(oldMarkup)) {
-
             // form newMarkup
             QString newMarkup;
             newMarkup.reserve(diffMPart.size());
@@ -905,7 +886,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                 d.diffIndex[len + j] = 'M';
         }
     }
-// END BEGIN HANDLING
+    // END BEGIN HANDLING
 
     // search for numbers and stuff
     pos = 0;
@@ -920,8 +901,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
         QByteArray diffMPart = d.diffIndex.mid(startPos, endPos + 1 - startPos);
 
         // the following loop extends replacement text, e.g. for 1 -> 500 cases
-        while ((++endPos < d.diffIndex.size()) && (d.diffIndex.at(endPos) == '+') &&
-               (-1 != nextPlacableIn(QString(d.diffClean.at(endPos)), 0, _)))
+        while ((++endPos < d.diffIndex.size()) && (d.diffIndex.at(endPos) == '+') && (-1 != nextPlacableIn(QString(d.diffClean.at(endPos)), 0, _)))
             diffMPart.append('+');
 
         // this is for the case when +'s preceed -'s:
@@ -960,8 +940,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     if (target.string != entry.target.string) {
         qCWarning(LOKALIZE_LOG) << "TM::targetAdapted() generated modified target to "
                                    "insert\n\tsource:"
-                                << entry.source.string << "\n\ttarget:" << entry.target.string
-                                << "\n\tdiff:" << entry.diff
+                                << entry.source.string << "\n\ttarget:" << entry.target.string << "\n\tdiff:" << entry.diff
                                 << "\n\treturned target:" << target.string;
     }
     return target;
@@ -972,7 +951,7 @@ void TMView::slotRemoveSuggestion(int i)
     if (Q_UNLIKELY(i >= m_entries.size()))
         return;
 
-    const TMEntry& e = m_entries.at(i);
+    const TMEntry &e = m_entries.at(i);
     removeEntry(e);
 }
 
@@ -999,13 +978,13 @@ void TMView::slotUseSuggestion(int i)
     QString old = m_catalog->targetWithTags(m_pos).string;
     if (!old.isEmpty()) {
         m_pos.offset = 0;
-        //FIXME test!
+        // FIXME test!
         removeTargetSubstring(m_catalog, m_pos, 0, old.size());
-        //m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
+        // m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
     qCWarning(LOKALIZE_LOG) << "1" << target.string;
 
-    //m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
+    // m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_pos, target, 0);
 
     if (m_entries.at(i).score > 9900 && !m_catalog->isApproved(m_pos.entry))

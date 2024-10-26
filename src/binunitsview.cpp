@@ -8,22 +8,22 @@
 */
 
 #include "binunitsview.h"
-#include "phaseswindow.h" //MyTreeView
 #include "catalog.h"
 #include "cmd.h"
+#include "phaseswindow.h" //MyTreeView
 #include "project.h"
 
 #include <QContextMenuEvent>
-#include <QMenu>
 #include <QFileDialog>
+#include <QMenu>
 
-#include <KLocalizedString>
+#include <KDirWatch>
 #include <KIO/JobUiDelegateFactory>
 #include <KIO/OpenUrlJob>
-#include <KDirWatch>
+#include <KLocalizedString>
 
-//BEGIN BinUnitsModel
-BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
+// BEGIN BinUnitsModel
+BinUnitsModel::BinUnitsModel(Catalog *catalog, QObject *parent)
     : QAbstractListModel(parent)
     , m_catalog(catalog)
 {
@@ -39,7 +39,7 @@ void BinUnitsModel::fileLoaded()
     endResetModel();
 }
 
-void BinUnitsModel::entryModified(const DocPosition& pos)
+void BinUnitsModel::entryModified(const DocPosition &pos)
 {
     if (pos.entry < m_catalog->numberOfEntries())
         return;
@@ -66,7 +66,7 @@ void BinUnitsModel::updateFile(QString path)
     }
 }
 
-void BinUnitsModel::setTargetFilePath(int row, const QString& path)
+void BinUnitsModel::setTargetFilePath(int row, const QString &path)
 {
     DocPosition pos(row + m_catalog->numberOfEntries());
     QString old = m_catalog->target(pos);
@@ -80,14 +80,14 @@ void BinUnitsModel::setTargetFilePath(int row, const QString& path)
     Q_EMIT dataChanged(item, item);
 }
 
-int BinUnitsModel::rowCount(const QModelIndex& parent) const
+int BinUnitsModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
     return m_catalog->binUnitsCount();
 }
 
-QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
+QVariant BinUnitsModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DecorationRole) {
         DocPosition pos(index.row() + m_catalog->numberOfEntries());
@@ -95,7 +95,7 @@ QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
             QString path = index.column() == SourceFilePath ? m_catalog->source(pos) : m_catalog->target(pos);
             if (!m_imageCache.contains(path)) {
                 QString absPath = Project::instance()->absolutePath(path);
-                KDirWatch::self()->addFile(absPath); //TODO remember watched files to react only on them in dirty() signal handler
+                KDirWatch::self()->addFile(absPath); // TODO remember watched files to react only on them in dirty() signal handler
                 m_imageCache.insert(path, QImage(absPath).scaled(128, 128, Qt::KeepAspectRatio));
             }
             return m_imageCache.value(path);
@@ -109,9 +109,12 @@ QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
     static QStringList noyes = {i18n("no"), i18n("yes")};
     DocPosition pos(index.row() + m_catalog->numberOfEntries());
     switch (index.column()) {
-    case SourceFilePath:    return m_catalog->source(pos);
-    case TargetFilePath:    return m_catalog->target(pos);
-    case Approved:          return noyes[m_catalog->isApproved(pos)];
+    case SourceFilePath:
+        return m_catalog->source(pos);
+    case TargetFilePath:
+        return m_catalog->target(pos);
+    case Approved:
+        return noyes[m_catalog->isApproved(pos)];
     }
     return QVariant();
 }
@@ -122,16 +125,18 @@ QVariant BinUnitsModel::headerData(int section, Qt::Orientation, int role) const
         return QVariant();
 
     switch (section) {
-    case SourceFilePath:    return i18nc("@title:column", "Source");
-    case TargetFilePath:    return i18nc("@title:column", "Target");
-    case Approved:          return i18nc("@title:column", "Approved");
+    case SourceFilePath:
+        return i18nc("@title:column", "Source");
+    case TargetFilePath:
+        return i18nc("@title:column", "Target");
+    case Approved:
+        return i18nc("@title:column", "Approved");
     }
     return QVariant();
 }
-//END BinUnitsModel
+// END BinUnitsModel
 
-
-BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
+BinUnitsView::BinUnitsView(Catalog *catalog, QWidget *parent)
     : QDockWidget(i18nc("@title toolview name", "Binary Units"), parent)
     , m_catalog(catalog)
     , m_model(new BinUnitsModel(catalog, this))
@@ -155,7 +160,7 @@ void BinUnitsView::fileLoaded()
     setVisible(m_catalog->binUnitsCount());
 }
 
-void BinUnitsView::selectUnit(const QString& id)
+void BinUnitsView::selectUnit(const QString &id)
 {
     QModelIndex item = m_model->index(m_catalog->unitById(id) - m_catalog->numberOfEntries());
     m_view->setCurrentIndex(item);
@@ -170,14 +175,14 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
         return;
 
     QMenu menu;
-    QAction* setTarget = menu.addAction(i18nc("@action:inmenu", "Set the file"));
-    QAction* useSource = menu.addAction(i18nc("@action:inmenu", "Use source file"));
+    QAction *setTarget = menu.addAction(i18nc("@action:inmenu", "Set the file"));
+    QAction *useSource = menu.addAction(i18nc("@action:inmenu", "Use source file"));
 
-//     menu.addSeparator();
-//     QAction* openSource=menu.addAction(i18nc("@action:inmenu","Open source file in external program"));
-//     QAction* openTarget=menu.addAction(i18nc("@action:inmenu","Open target file in external program"));
+    //     menu.addSeparator();
+    //     QAction* openSource=menu.addAction(i18nc("@action:inmenu","Open source file in external program"));
+    //     QAction* openTarget=menu.addAction(i18nc("@action:inmenu","Open target file in external program"));
 
-    QAction* result = menu.exec(event->globalPos());
+    QAction *result = menu.exec(event->globalPos());
     if (!result)
         return;
 
@@ -192,9 +197,9 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
     event->accept();
 }
 
-void BinUnitsView::mouseDoubleClicked(const QModelIndex& item)
+void BinUnitsView::mouseDoubleClicked(const QModelIndex &item)
 {
-    //FIXME child processes don't notify us about changes ;(
+    // FIXME child processes don't notify us about changes ;(
     if (item.column() < BinUnitsModel::Approved) {
         auto job = new KIO::OpenUrlJob(QUrl::fromLocalFile(Project::instance()->absolutePath(item.data().toString())));
         job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));

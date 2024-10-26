@@ -9,12 +9,12 @@
 
 #include "widgettextcaptureconfig.h"
 #include "ui_widgettextcaptureconfig.h"
-#include <klocalizedstring.h>
-#include <kconfiggroup.h>
-#include <ksharedconfig.h>
 #include <kconfig.h>
+#include <kconfiggroup.h>
+#include <klocalizedstring.h>
+#include <ksharedconfig.h>
 
-WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget* parent)
+WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui_WidgetTextCapture)
 {

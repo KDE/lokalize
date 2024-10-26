@@ -17,23 +17,22 @@
 
 #include <klocalizedstring.h>
 
-#include <QStringBuilder>
 #include <QBoxLayout>
-#include <QStackedLayout>
+#include <QComboBox>
+#include <QCompleter>
+#include <QDialogButtonBox>
+#include <QKeyEvent>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QTextBrowser>
-#include <QDialogButtonBox>
-#include <QComboBox>
-#include <QCompleter>
-#include <QKeyEvent>
+#include <QStackedLayout>
+#include <QStringBuilder>
 #include <QStringListModel>
+#include <QTextBrowser>
 
-void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
+void TextEdit::keyPressEvent(QKeyEvent *keyEvent)
 {
-    if (keyEvent->modifiers()& Qt::ControlModifier
-        && keyEvent->key() == Qt::Key_Return)
+    if (keyEvent->modifiers() & Qt::ControlModifier && keyEvent->key() == Qt::Key_Return)
         Q_EMIT accepted();
     else if (keyEvent->key() == Qt::Key_Escape)
         Q_EMIT rejected();
@@ -41,7 +40,7 @@ void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
         QPlainTextEdit::keyPressEvent(keyEvent);
 }
 
-NoteEditor::NoteEditor(QWidget* parent)
+NoteEditor::NoteEditor(QWidget *parent)
     : QWidget(parent)
     , m_from(new QComboBox(this))
     , m_fromLabel(new QLabel(i18nc("@info:label", "From:"), this))
@@ -54,14 +53,14 @@ NoteEditor::NoteEditor(QWidget* parent)
     m_from->setModel(m_authors);
     m_from->completer()->setModel(m_authors);
 
-    QVBoxLayout* main = new QVBoxLayout(this);
-    QHBoxLayout* prop = new QHBoxLayout;
+    QVBoxLayout *main = new QVBoxLayout(this);
+    QHBoxLayout *prop = new QHBoxLayout;
     main->addLayout(prop);
     prop->addWidget(m_fromLabel);
     prop->addWidget(m_from, 42);
     main->addWidget(m_edit);
 
-    QDialogButtonBox* box = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Discard, this);
+    QDialogButtonBox *box = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Discard, this);
     box->button(QDialogButtonBox::Save)->setToolTip(i18n("Ctrl+Enter"));
     box->button(QDialogButtonBox::Discard)->setToolTip(i18n("Esc"));
 
@@ -86,12 +85,13 @@ Note NoteEditor::note()
     return m_note;
 }
 
-void NoteEditor::setNote(const Note& note, int idx)
+void NoteEditor::setNote(const Note &note, int idx)
 {
     m_note = note;
     m_edit->setPlainText(note.content);
     QString from = note.from;
-    if (from.isEmpty()) from = Settings::authorName();
+    if (from.isEmpty())
+        from = Settings::authorName();
     m_from->setCurrentText(from);
     QStringList l = m_authors->stringList();
     if (!l.contains(from)) {
@@ -102,12 +102,12 @@ void NoteEditor::setNote(const Note& note, int idx)
     m_edit->setFocus();
 }
 
-void NoteEditor::setNoteAuthors(const QStringList& authors)
+void NoteEditor::setNoteAuthors(const QStringList &authors)
 {
     m_authors->setStringList(authors);
 }
 
-int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active, bool multiple)
+int displayNotes(QTextBrowser *browser, const QVector<Note> &notes, int active, bool multiple)
 {
     QTextCursor t = browser->textCursor();
     t.movePosition(QTextCursor::End);
@@ -117,14 +117,15 @@ int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active
     if (!notes.isEmpty()) {
         t.insertHtml(i18nc("@info XLIFF notes representation", "<b>Notes:</b>") + BR);
         int i = 0;
-        for (const Note& note : notes) {
+        for (const Note &note : notes) {
             if (!note.from.isEmpty())
                 t.insertHtml(QStringLiteral("<i>") + note.from + QStringLiteral(":</i> "));
 
             if (i == active)
                 realOffset = t.position();
             QString content = escapeWithLinks(note.content);
-            if (!multiple && content.contains(QLatin1Char('\n'))) content += QLatin1Char('\n');
+            if (!multiple && content.contains(QLatin1Char('\n')))
+                content += QLatin1Char('\n');
             content.replace(QLatin1Char('\n'), BR);
             content += QString(QStringLiteral(" (<a href=\"note:/%1\">")).arg(i) + i18nc("link to edit note", "edit...") + QStringLiteral("</a>)<br />");
             t.insertHtml(content);

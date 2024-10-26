@@ -10,9 +10,9 @@
 #ifndef GLOSSARYVIEW_H
 #define GLOSSARYVIEW_H
 
-#include <pos.h>
-#include <QRegularExpression>
 #include <QDockWidget>
+#include <QRegularExpression>
+#include <pos.h>
 class Catalog;
 class FlowLayout;
 class QDragEnterEvent;
@@ -28,34 +28,33 @@ namespace GlossaryNS
 class Glossary;
 
 #define GLOSSARY_SHORTCUTS 11
-class GlossaryView: public QDockWidget
+class GlossaryView : public QDockWidget
 {
     Q_OBJECT
 
 public:
-    explicit GlossaryView(QWidget*, Catalog*, const QVector<QAction*>&);
+    explicit GlossaryView(QWidget *, Catalog *, const QVector<QAction *> &);
     ~GlossaryView();
 
-
-//     void dragEnterEvent(QDragEnterEvent* event);
-//     void dropEvent(QDropEvent*);
-//     bool event(QEvent*);
+    //     void dragEnterEvent(QDragEnterEvent* event);
+    //     void dropEvent(QDropEvent*);
+    //     bool event(QEvent*);
 public Q_SLOTS:
-    //plural messages usually contain the same words...
+    // plural messages usually contain the same words...
     void slotNewEntryDisplayed();
-    void slotNewEntryDisplayed(DocPosition pos);//a little hacky, but... :)
+    void slotNewEntryDisplayed(DocPosition pos); // a little hacky, but... :)
 
 Q_SIGNALS:
-    void termInsertRequested(const QString&);
+    void termInsertRequested(const QString &);
 
 private:
     void clear();
 
 private:
-    QScrollArea* const m_browser;
-    Catalog* const m_catalog;
+    QScrollArea *const m_browser;
+    Catalog *const m_catalog;
     FlowLayout *const m_flowLayout;
-    Glossary* const m_glossary;
+    Glossary *const m_glossary;
     const QRegularExpression m_rxClean;
     const QRegularExpression m_rxSplit{QStringLiteral("\\W|\\d")};
     int m_currentIndex{-1};
@@ -63,7 +62,6 @@ private:
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo{};
-
 };
 }
 #endif

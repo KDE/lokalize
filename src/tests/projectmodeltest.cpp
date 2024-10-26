@@ -6,10 +6,10 @@
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
 
-#include <QTest>
-#include <QModelIndex>
 #include <QAtomicInt>
 #include <QCoreApplication>
+#include <QModelIndex>
+#include <QTest>
 
 #include "project/projectmodel.h"
 
@@ -29,7 +29,7 @@ void ProjectModelTest::testInvalid()
     connect(model, &ProjectModel::loadingFinished, [&loaded]() {
         loaded.fetchAndAddRelaxed(1);
     });
-    connect(model, &ProjectModel::totalsChanged, [ = ](int fuzzy, int translated, int untranslated, bool done) {
+    connect(model, &ProjectModel::totalsChanged, [=](int fuzzy, int translated, int untranslated, bool done) {
         QCOMPARE(fuzzy, 0);
         QCOMPARE(translated, 0);
         QCOMPARE(untranslated, 0);
@@ -64,7 +64,7 @@ void ProjectModelTest::testHalfTranslated()
     connect(model, &ProjectModel::loadingFinished, [&loaded]() {
         loaded.fetchAndAddRelaxed(1);
     });
-    connect(model, &ProjectModel::totalsChanged, [ = ](int fuzzy, int translated, int untranslated, bool done) {
+    connect(model, &ProjectModel::totalsChanged, [=](int fuzzy, int translated, int untranslated, bool done) {
         QCOMPARE(fuzzy, 1);
         QCOMPARE(translated, 3);
         QCOMPARE(untranslated, 2);

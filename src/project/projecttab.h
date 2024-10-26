@@ -28,11 +28,11 @@ class QProgressBar;
 /**
  * Project Overview Tab
  */
-class ProjectTab: public LokalizeSubwindowBase2
+class ProjectTab : public LokalizeSubwindowBase2
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.ProjectOverview")
-    //qdbuscpp2xml -m -s projecttab.h -o org.kde.lokalize.ProjectOverview.xml
+    // qdbuscpp2xml -m -s projecttab.h -o org.kde.lokalize.ProjectOverview.xml
 
 public:
     explicit ProjectTab(QWidget *parent);
@@ -40,11 +40,15 @@ public:
 
     void contextMenuEvent(QContextMenuEvent *event) override;
 
-    void hideDocks() override {}
-    void showDocks() override {}
-    KXMLGUIClient* guiClient() override
+    void hideDocks() override
     {
-        return (KXMLGUIClient*)this;
+    }
+    void showDocks() override
+    {
+    }
+    KXMLGUIClient *guiClient() override
+    {
+        return (KXMLGUIClient *)this;
     }
     QString currentFilePath() override;
 
@@ -58,14 +62,14 @@ Q_SIGNALS:
     void projectOpenRequested(QString path);
     void projectOpenRequested();
 
-    void fileOpenRequested(const QString&, const bool setAsActive);
+    void fileOpenRequested(const QString &, const bool setAsActive);
 
-    void searchRequested(const QStringList&);
-    void replaceRequested(const QStringList&);
-    void spellcheckRequested(const QStringList&);
+    void searchRequested(const QStringList &);
+    void replaceRequested(const QStringList &);
+    void spellcheckRequested(const QStringList &);
 
 public Q_SLOTS:
-    Q_SCRIPTABLE void setCurrentItem(const QString& url);
+    Q_SCRIPTABLE void setCurrentItem(const QString &url);
     Q_SCRIPTABLE QString currentItem() const;
     ///@returns list of selected files recursively
     Q_SCRIPTABLE QStringList selectedItems() const;
@@ -73,15 +77,15 @@ public Q_SLOTS:
     void showRealProjectOverview();
     void showWelcomeScreen();
 
-    //Q_SCRIPTABLE bool isShown() const;
+    // Q_SCRIPTABLE bool isShown() const;
 
 private Q_SLOTS:
     /**
      * @short Sets the regex used to filter the list in Project Overview.
-     * 
+     *
      * The regex accepts wildcards and matches against the relative
      * paths of the files and directories below the project directory.
-     * 
+     *
      * @author Finley Watson
      */
     void setFilterRegExp();
@@ -118,13 +122,13 @@ private Q_SLOTS:
     void pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
-    ProjectWidget* m_browser{};
-    QLineEdit* m_filterEdit{};
-    QProgressBar* m_progressBar{};
+    ProjectWidget *m_browser{};
+    QLineEdit *m_filterEdit{};
+    QProgressBar *m_progressBar{};
 
     QStackedLayout *m_stackedLayout{};
 
-    KProcess* m_pologyProcess{};
+    KProcess *m_pologyProcess{};
     bool m_pologyProcessInProgress{};
 
     int m_legacyUnitsCount{-1};

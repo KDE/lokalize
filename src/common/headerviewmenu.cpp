@@ -11,7 +11,8 @@
 #include <QAction>
 #include <QMenu>
 
-HeaderViewMenuHandler::HeaderViewMenuHandler(QHeaderView* headerView): QObject(headerView)
+HeaderViewMenuHandler::HeaderViewMenuHandler(QHeaderView *headerView)
+    : QObject(headerView)
 {
     headerView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(headerView, &QHeaderView::customContextMenuRequested, this, &HeaderViewMenuHandler::headerMenuRequested);
@@ -19,13 +20,13 @@ HeaderViewMenuHandler::HeaderViewMenuHandler(QHeaderView* headerView): QObject(h
 
 void HeaderViewMenuHandler::headerMenuRequested(QPoint pos)
 {
-    QHeaderView* headerView = static_cast<QHeaderView*>(parent());
+    QHeaderView *headerView = static_cast<QHeaderView *>(parent());
     bool allowHiding = (headerView->count() - headerView->hiddenSectionCount()) > 1;
-    QMenu* headerMenu = new QMenu(headerView);
+    QMenu *headerMenu = new QMenu(headerView);
     connect(headerMenu, &QMenu::aboutToHide, headerMenu, &QMenu::deleteLater, Qt::QueuedConnection);
     connect(headerMenu, &QMenu::triggered, this, &HeaderViewMenuHandler::headerMenuActionToggled);
     for (int i = 0; i < headerView->count(); ++i) {
-        QAction* a = headerMenu->addAction(headerView->model()->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString());
+        QAction *a = headerMenu->addAction(headerView->model()->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString());
         a->setData(i);
         a->setCheckable(true);
         a->setChecked(!headerView->isSectionHidden(i));
@@ -34,9 +35,9 @@ void HeaderViewMenuHandler::headerMenuRequested(QPoint pos)
     headerMenu->popup(headerView->mapToGlobal(pos));
 }
 
-void HeaderViewMenuHandler::headerMenuActionToggled(QAction* a)
+void HeaderViewMenuHandler::headerMenuActionToggled(QAction *a)
 {
-    QHeaderView* headerView = static_cast<QHeaderView*>(parent());
+    QHeaderView *headerView = static_cast<QHeaderView *>(parent());
     headerView->setSectionHidden(a->data().toInt(), !a->isChecked());
 }
 

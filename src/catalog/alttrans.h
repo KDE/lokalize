@@ -15,7 +15,14 @@
 
 struct AltTrans {
     ///@see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#alttranstype
-    enum Type {Proposal, PreviousVersion, Rejected, Reference, Accepted, Other};
+    enum Type {
+        Proposal,
+        PreviousVersion,
+        Rejected,
+        Reference,
+        Accepted,
+        Other,
+    };
     Type type{Other};
 
     CatalogString context;
@@ -28,12 +35,12 @@ struct AltTrans {
     QString origin;
     QString phase;
 
-    explicit AltTrans(const CatalogString& c = CatalogString(), const CatalogString& s = CatalogString(), const QString& o = QString())
+    explicit AltTrans(const CatalogString &c = CatalogString(), const CatalogString &s = CatalogString(), const QString &o = QString())
         : context(c)
         , source(s)
         , origin(o)
-    {}
+    {
+    }
 };
-
 
 #endif

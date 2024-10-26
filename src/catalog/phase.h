@@ -10,11 +10,11 @@
 #ifndef PHASE_H
 #define PHASE_H
 
-#include "version.h"
 #include "projectlocal.h"
+#include "version.h"
 
-#include <QString>
 #include <QDate>
+#include <QString>
 
 class Catalog;
 struct Phase {
@@ -29,19 +29,18 @@ struct Phase {
 
     Phase();
 
-    Phase(const Phase& rhs) = default;
-    Phase &operator=(const Phase& rhs) = default;
+    Phase(const Phase &rhs) = default;
+    Phase &operator=(const Phase &rhs) = default;
 
-    bool operator<(const Phase& other) const
+    bool operator<(const Phase &other) const
     {
         return date < other.date;
     }
-    bool operator>(const Phase& other) const
+    bool operator>(const Phase &other) const
     {
         return date > other.date;
     }
 };
-
 
 struct Tool {
     QString tool;
@@ -50,11 +49,13 @@ struct Tool {
     QString company;
 };
 
-const char* const* processes();
-ProjectLocal::PersonRole roleForProcess(const QString& phase);
-enum InitOptions {ForceAdd = 1};
+const char *const *processes();
+ProjectLocal::PersonRole roleForProcess(const QString &phase);
+enum InitOptions {
+    ForceAdd = 1,
+};
 ///@returns true if phase must be added to catalog;
-bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options = 0);
-void generatePhaseForCatalogIfNeeded(Catalog* catalog);
+bool initPhaseForCatalog(Catalog *catalog, Phase &phase, int options = 0);
+void generatePhaseForCatalogIfNeeded(Catalog *catalog);
 
 #endif

@@ -19,24 +19,26 @@ class QTextBrowser;
 class QComboBox;
 class TextEdit;
 
-int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active = 0, bool multiple = true);
-QString escapeWithLinks(const QString& text);//defined in htmlhelpers.cpp
+int displayNotes(QTextBrowser *browser, const QVector<Note> &notes, int active = 0, bool multiple = true);
+QString escapeWithLinks(const QString &text); // defined in htmlhelpers.cpp
 
-class NoteEditor: public QWidget
+class NoteEditor : public QWidget
 {
     Q_OBJECT
 public:
-    explicit NoteEditor(QWidget* parent);
-    ~NoteEditor() override {}
+    explicit NoteEditor(QWidget *parent);
+    ~NoteEditor() override
+    {
+    }
 
     Note note();
-    void setNote(const Note&, int idx);
+    void setNote(const Note &, int idx);
     int noteIndex()
     {
         return m_idx;
     }
 
-    void setNoteAuthors(const QStringList&);
+    void setNoteAuthors(const QStringList &);
     void setFromFieldVisible(bool);
 
 Q_SIGNALS:
@@ -44,21 +46,23 @@ Q_SIGNALS:
     void rejected();
 
 private:
-    QComboBox* m_from{};
-    QLabel* m_fromLabel{};
-    QStringListModel* m_authors{};
-    TextEdit* m_edit{};
+    QComboBox *m_from{};
+    QLabel *m_fromLabel{};
+    QStringListModel *m_authors{};
+    TextEdit *m_edit{};
     int m_idx{-1};
     Note m_note{};
 };
 
-
-class TextEdit: public QPlainTextEdit
+class TextEdit : public QPlainTextEdit
 {
     Q_OBJECT
 public:
-    explicit TextEdit(QWidget* parent): QPlainTextEdit(parent) {}
-    void keyPressEvent(QKeyEvent* e) override;
+    explicit TextEdit(QWidget *parent)
+        : QPlainTextEdit(parent)
+    {
+    }
+    void keyPressEvent(QKeyEvent *e) override;
 Q_SIGNALS:
     void accepted();
     void rejected();

@@ -19,17 +19,17 @@
 
 #include "metadata/filemetadata.h"
 
-class UpdateStatsJob: public QObject, public QRunnable
+class UpdateStatsJob : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
-    explicit UpdateStatsJob(const QList<KFileItem> &files, QObject* owner = nullptr);
+    explicit UpdateStatsJob(const QList<KFileItem> &files, QObject *owner = nullptr);
     ~UpdateStatsJob() override = default;
 
     int priority() const
     {
-        return 35;   //SEE jobs.h
+        return 35; // SEE jobs.h
     }
 
     void setStatus(int status);
@@ -42,7 +42,7 @@ protected:
     void run() override;
 
 Q_SIGNALS:
-    void done(UpdateStatsJob*);
+    void done(UpdateStatsJob *);
 };
 
-#endif //LOKALIZE_UPDATESTATSJOB_H
+#endif // LOKALIZE_UPDATESTATSJOB_H

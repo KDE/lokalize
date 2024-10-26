@@ -15,12 +15,11 @@
 #include "catalog_private.h"
 #include "catalogstorage.h"
 #include "cmd.h"
-#include <klocalizedstring.h>
 #include <QMultiHash>
 #include <QtAlgorithms>
+#include <klocalizedstring.h>
 
-
-MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges)
+MergeCatalog::MergeCatalog(QObject *parent, Catalog *baseCatalog, bool saveChanges)
     : Catalog(parent)
     , m_baseCatalog(baseCatalog)
 {
@@ -31,19 +30,19 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChang
     }
 }
 
-void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
+void MergeCatalog::copyFromBaseCatalog(const DocPosition &pos, int options)
 {
     const bool a = std::find(m_mergeDiffIndex.begin(), m_mergeDiffIndex.end(), pos.entry) != m_mergeDiffIndex.end();
     const bool b = std::find(m_mergeEmptyIndex.begin(), m_mergeEmptyIndex.end(), pos.entry) != m_mergeEmptyIndex.end();
     if (options & EvenIfNotInDiffIndex || !a || b) {
-        //sync changes
+        // sync changes
         DocPosition ourPos = pos;
         if ((ourPos.entry = m_map.at(ourPos.entry)) == -1)
             return;
 
-        //note the explicit use of map...
+        // note the explicit use of map...
         if (m_storage->isApproved(ourPos) != m_baseCatalog->isApproved(pos))
-            //qCWarning(LOKALIZE_LOG)<<ourPos.entry<<"MISMATCH";
+            // qCWarning(LOKALIZE_LOG)<<ourPos.entry<<"MISMATCH";
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         DocPos p(pos);
         if (!m_originalHashes.contains(p))
@@ -63,7 +62,7 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
     }
 }
 
-QString MergeCatalog::msgstr(const DocPosition& pos) const
+QString MergeCatalog::msgstr(const DocPosition &pos) const
 {
     DocPosition us = pos;
     us.entry = m_map.at(pos.entry);
@@ -76,7 +75,7 @@ bool MergeCatalog::isApproved(uint index) const
     return (m_map.at(index) == -1) ? false : Catalog::isApproved(m_map.at(index));
 }
 
-TargetState MergeCatalog::state(const DocPosition& pos) const
+TargetState MergeCatalog::state(const DocPosition &pos) const
 {
     DocPosition us = pos;
     us.entry = m_map.at(pos.entry);
@@ -84,10 +83,9 @@ TargetState MergeCatalog::state(const DocPosition& pos) const
     return (us.entry == -1) ? New : Catalog::state(us);
 }
 
-
 bool MergeCatalog::isPlural(uint index) const
 {
-    //sanity
+    // sanity
     if (m_map.at(index) == -1) {
         qCWarning(LOKALIZE_LOG) << "!!! index" << index << "m_map.at(index)" << m_map.at(index) << "numberOfEntries()" << numberOfEntries();
         return false;
@@ -96,28 +94,28 @@ bool MergeCatalog::isPlural(uint index) const
     return Catalog::isPlural(m_map.at(index));
 }
 
-bool MergeCatalog::isPresent(const int& entry) const
+bool MergeCatalog::isPresent(const int &entry) const
 {
     return m_map.at(entry) != -1;
 }
 
-MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos, const DocPosition& mergePos)
+MatchItem MergeCatalog::calcMatchItem(const DocPosition &basePos, const DocPosition &mergePos)
 {
-    CatalogStorage& baseStorage = *(m_baseCatalog->m_storage);
-    CatalogStorage& mergeStorage = *(m_storage);
+    CatalogStorage &baseStorage = *(m_baseCatalog->m_storage);
+    CatalogStorage &mergeStorage = *(m_storage);
 
     MatchItem item(mergePos.entry, basePos.entry, true, mergeStorage.target(DocPosition(mergePos.entry)).isEmpty());
-    //TODO make more robust, perhaps after XLIFF?
+    // TODO make more robust, perhaps after XLIFF?
     QStringList baseMatchData = baseStorage.matchData(basePos);
     QStringList mergeMatchData = mergeStorage.matchData(mergePos);
 
-    //compare ids
-    item.score += 40 * ((baseMatchData.isEmpty() && mergeMatchData.isEmpty()) ? baseStorage.id(basePos) == mergeStorage.id(mergePos)
-                        : baseMatchData == mergeMatchData);
+    // compare ids
+    item.score +=
+        40 * ((baseMatchData.isEmpty() && mergeMatchData.isEmpty()) ? baseStorage.id(basePos) == mergeStorage.id(mergePos) : baseMatchData == mergeMatchData);
 
-    //TODO look also for changed/new <note>s
+    // TODO look also for changed/new <note>s
 
-    //translation isn't changed
+    // translation isn't changed
     if (baseStorage.targetAllForms(basePos, true) == mergeStorage.targetAllForms(mergePos, true)) {
         item.translationIsDifferent = baseStorage.isApproved(basePos) != mergeStorage.isApproved(mergePos);
         item.score += 29 + 1 * item.translationIsDifferent;
@@ -147,25 +145,24 @@ static QString strip(QString source)
     return source;
 }
 
-int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePath)
+int MergeCatalog::loadFromUrl(const QString &filePath, const QString &saidFilePath)
 {
     int errorLine = Catalog::loadFromUrl(filePath, saidFilePath);
     if (Q_UNLIKELY(errorLine != 0))
         return errorLine;
 
-    //now calc the entry mapping
+    // now calc the entry mapping
 
-    CatalogStorage& baseStorage = *(m_baseCatalog->m_storage);
-    CatalogStorage& mergeStorage = *(m_storage);
+    CatalogStorage &baseStorage = *(m_baseCatalog->m_storage);
+    CatalogStorage &mergeStorage = *(m_storage);
 
     DocPosition i(0);
     const int size = baseStorage.size();
     const int mergeSize = mergeStorage.size();
     m_map.fill(-1, size);
-    QMultiMap<int, int> backMap; //will be used to maintain one-to-one relation
+    QMultiMap<int, int> backMap; // will be used to maintain one-to-one relation
 
-
-    //precalc for fast lookup
+    // precalc for fast lookup
     QMultiHash<QString, int> mergeMap;
     while (i.entry < mergeSize) {
         mergeMap.insert(strip(mergeStorage.source(i)), i.entry);
@@ -175,7 +172,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
     i.entry = 0;
     while (i.entry < size) {
         const QString key = strip(baseStorage.source(i));
-        const QList<int>& entries = mergeMap.values(key);
+        const QList<int> &entries = mergeMap.values(key);
         QList<MatchItem> scores;
 
         for (const auto entry : std::as_const(entries)) {
@@ -197,15 +194,14 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
         ++(i.entry);
     }
 
-
-    //maintain one-to-one relation
-    const QList<int>& mergePositions = backMap.uniqueKeys();
+    // maintain one-to-one relation
+    const QList<int> &mergePositions = backMap.uniqueKeys();
     for (int mergePosition : mergePositions) {
-        const QList<int>& basePositions = backMap.values(mergePosition);
+        const QList<int> &basePositions = backMap.values(mergePosition);
         if (basePositions.size() == 1)
             continue;
 
-        //qCDebug(LOKALIZE_LOG)<<"kv"<<mergePosition<<basePositions;
+        // qCDebug(LOKALIZE_LOG)<<"kv"<<mergePosition<<basePositions;
         QList<MatchItem> scores;
         for (int value : basePositions)
             scores << calcMatchItem(DocPosition(value), DocPosition(mergePosition));
@@ -213,12 +209,12 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
         std::sort(scores.begin(), scores.end(), std::greater<MatchItem>());
         int i = scores.size();
         while (--i > 0) {
-            //qCDebug(LOKALIZE_LOG)<<"erasing"<<scores.at(i).baseEntry<<m_map[scores.at(i).baseEntry]<<",m_map["<<scores.at(i).baseEntry<<"]=-1";
+            // qCDebug(LOKALIZE_LOG)<<"erasing"<<scores.at(i).baseEntry<<m_map[scores.at(i).baseEntry]<<",m_map["<<scores.at(i).baseEntry<<"]=-1";
             m_map[scores.at(i).baseEntry] = -1;
         }
     }
 
-    //fuzzy match unmatched entries?
+    // fuzzy match unmatched entries?
     /*    QMultiHash<QString, int>::iterator it = mergeMap.begin();
         while (it != mergeMap.end())
         {
@@ -240,12 +236,13 @@ bool MergeCatalog::isModified(DocPos pos) const
 bool MergeCatalog::save()
 {
     bool ok = !m_modified || Catalog::save();
-    if (ok) m_modified = false;
+    if (ok)
+        m_modified = false;
     m_originalHashes.clear();
     return ok;
 }
 
-void MergeCatalog::copyToBaseCatalog(DocPosition& pos)
+void MergeCatalog::copyToBaseCatalog(DocPosition &pos)
 {
     bool changeContents = m_baseCatalog->msgstr(pos) != msgstr(pos);
 
@@ -265,8 +262,8 @@ void MergeCatalog::copyToBaseCatalog(DocPosition& pos)
     bool remove = true;
     if (isPlural(pos.entry)) {
         DocPosition p = pos;
-        p.form = qMin(m_baseCatalog->numberOfPluralForms(), numberOfPluralForms()); //just sanity check
-        p.form = qMax((int)p.form, 1); //just sanity check
+        p.form = qMin(m_baseCatalog->numberOfPluralForms(), numberOfPluralForms()); // just sanity check
+        p.form = qMax((int)p.form, 1); // just sanity check
         while ((--(p.form)) >= 0 && remove)
             remove = m_baseCatalog->msgstr(p) == msgstr(p);
     }
@@ -292,13 +289,13 @@ void MergeCatalog::copyToBaseCatalog(int options)
         int formsCount = (m_baseCatalog->isPlural(entry)) ? m_baseCatalog->numberOfPluralForms() : 1;
         pos.form = 0;
         while (pos.form < formsCount) {
-            //m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0))); ?
-            //some forms may still contain translation...
+            // m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0))); ?
+            // some forms may still contain translation...
             if (!(options & EmptyOnly && !m_baseCatalog->isEmpty(pos)) /*&&
                 !(options&HigherOnly && !m_baseCatalog->isEmpty(pos) && m_baseCatalog->state(pos)>=state(pos))*/) {
                 if (!insHappened) {
-                    //stop basecatalog from sending signalEntryModified to us
-                    //when we are the ones who does the modification
+                    // stop basecatalog from sending signalEntryModified to us
+                    // when we are the ones who does the modification
                     disconnect(m_baseCatalog, &Catalog::signalEntryModified, this, &MergeCatalog::copyFromBaseCatalogIfInDiffIndex);
                     insHappened = true;
                     m_baseCatalog->beginMacro(i18nc("@item Undo action item", "Accept all new translations"));
@@ -318,7 +315,7 @@ void MergeCatalog::copyToBaseCatalog(int options)
 
     if (insHappened) {
         m_baseCatalog->endMacro();
-        //reconnect to catch all modifications coming from outside
+        // reconnect to catch all modifications coming from outside
         connect(m_baseCatalog, &Catalog::signalEntryModified, this, &MergeCatalog::copyFromBaseCatalogIfInDiffIndex);
     }
 }

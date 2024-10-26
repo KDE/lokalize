@@ -10,9 +10,9 @@
 #ifndef ACTIONPROXY_H
 #define ACTIONPROXY_H
 
-#include <QObject>
 #include <QKeySequence>
 #include <QMap>
+#include <QObject>
 #include <QVector>
 
 class QLabel;
@@ -69,25 +69,24 @@ private:
 
 #endif
 
-class StatusBarProxy: public QMap<int, QString>
+class StatusBarProxy : public QMap<int, QString>
 {
 public:
     StatusBarProxy() = default;
     ~StatusBarProxy() = default;
 
-    void insert(int, const QString&);
+    void insert(int, const QString &);
 
-    void registerStatusBar(QStatusBar*, const QVector<QLabel*>& statusBarLabels);
+    void registerStatusBar(QStatusBar *, const QVector<QLabel *> &statusBarLabels);
     void unregisterStatusBar()
     {
         m_currentStatusBar = nullptr;
     }
 
 private:
-    QStatusBar* m_currentStatusBar{nullptr};
-    QVector<QLabel*> m_statusBarLabels;
+    QStatusBar *m_currentStatusBar{nullptr};
+    QVector<QLabel *> m_statusBarLabels;
 };
-
 
 #define ID_STATUS_CURRENT 0
 #define ID_STATUS_TOTAL 1
@@ -95,8 +94,8 @@ private:
 #define ID_STATUS_UNTRANS 3
 #define ID_STATUS_ISFUZZY 4
 #define ID_STATUS_PROGRESS 5
-//#define TOTAL_ID_STATUSES 6
-//#define ID_STATUS_READONLY 6
-//#define ID_STATUS_CURSOR 7
+// #define TOTAL_ID_STATUSES 6
+// #define ID_STATUS_READONLY 6
+// #define ID_STATUS_CURSOR 7
 
 #endif

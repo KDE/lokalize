@@ -20,8 +20,7 @@
 #include <klocalizedstring.h>
 
 using namespace GlossaryNS;
-//#include <QShortcutEvent>
-
+// #include <QShortcutEvent>
 
 // TermLabel::TermLabel(QAction* action/*const QString& shortcutQWidget* parent,Qt::Key key,const QString& termTransl*/)
 //         : m_action(action)
@@ -46,11 +45,11 @@ using namespace GlossaryNS;
 
 void TermLabel::insert()
 {
-    GlossaryNS::Glossary* glossary = Project::instance()->glossary();
+    GlossaryNS::Glossary *glossary = Project::instance()->glossary();
     if (m_entryId.isEmpty())
         return;
     QString termTrans;
-    const QStringList& termTarget = glossary->terms(m_entryId, Project::instance()->targetLangCode());
+    const QStringList &termTarget = glossary->terms(m_entryId, Project::instance()->targetLangCode());
     if (termTarget.count() > 1) {
         QMenu menu;
 
@@ -60,7 +59,7 @@ void TermLabel::insert()
         for (; i < limit; ++i)
             menu.addAction(termTarget.at(i));
 
-        QAction* txt = menu.exec(mapToGlobal(QPoint(0, 0)));
+        QAction *txt = menu.exec(mapToGlobal(QPoint(0, 0)));
         if (!txt)
             return;
         termTrans = txt->text();
@@ -73,16 +72,16 @@ void TermLabel::insert()
     Q_EMIT insertTerm(termTrans);
 }
 
-void TermLabel::mousePressEvent(QMouseEvent* event)
+void TermLabel::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::RightButton) {
         QMenu menu;
 
         menu.addAction(i18nc("@action:inmenu Edit term", "Edit"));
 
-        QAction* txt = menu.exec(event->globalPosition().toPoint());
+        QAction *txt = menu.exec(event->globalPosition().toPoint());
         if (txt) {
-            GlossaryNS::GlossaryWindow* glossaryWindow = Project::instance()->showGlossary();
+            GlossaryNS::GlossaryWindow *glossaryWindow = Project::instance()->showGlossary();
             if (glossaryWindow)
                 glossaryWindow->selectEntry(m_entryId);
         }
@@ -90,17 +89,18 @@ void TermLabel::mousePressEvent(QMouseEvent* event)
         insert();
 }
 
-void TermLabel::setText(const QString& term, const QByteArray& entryId, bool capFirst)
+void TermLabel::setText(const QString &term, const QByteArray &entryId, bool capFirst)
 {
     m_entryId = entryId;
     m_capFirst = capFirst;
 
     static const QString n = QStringLiteral("  \n  ");
-    QLabel::setText(QString(term + QString(m_action ? QString(QStringLiteral(" [") + m_action->shortcut().toString(QKeySequence::NativeText) + QStringLiteral("]  \n  ")) : n) //m_shortcut
-                            + Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join(n)
-                            + n));
+    QLabel::setText(
+        QString(term
+                + QString(m_action ? QString(QStringLiteral(" [") + m_action->shortcut().toString(QKeySequence::NativeText) + QStringLiteral("]  \n  "))
+                                   : n) // m_shortcut
+                + Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join(n) + n));
 }
-
 
 #if 0
 void QueryResultBtn::insert()

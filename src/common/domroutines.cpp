@@ -22,4 +22,3 @@ void setText(QDomElement element, QString text)
     if (!text.isEmpty())
         element.appendChild(element.ownerDocument().createTextNode(text));
 }
-

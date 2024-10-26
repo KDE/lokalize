@@ -10,8 +10,8 @@
 #ifndef IMPORTPLUGINPRIVATE_H
 #define IMPORTPLUGINPRIVATE_H
 
-#include "catalogitem.h"
 #include "catalog.h"
+#include "catalogitem.h"
 
 #include <list>
 
@@ -22,7 +22,7 @@ class GettextStorage;
 class CatalogImportPluginPrivate
 {
 public:
-    GettextStorage* _catalog;
+    GettextStorage *_catalog;
     bool _updateHeader;
     bool _updateGeneratedFromDocbook;
     bool _updateCodec;
@@ -36,7 +36,6 @@ public:
     QByteArray _codec;
     QList<int> _errorList;
     QStringList _catalogExtraData;
-
 };
 
 }

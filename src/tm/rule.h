@@ -7,13 +7,12 @@
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-
 #ifndef QARULE_H
 #define QARULE_H
 
-#include <QVector>
-#include <QString>
 #include <QRegularExpression>
+#include <QString>
+#include <QVector>
 
 struct StringRule {
     QVector<QString> sources;
@@ -34,7 +33,8 @@ struct StartLen {
     explicit StartLen(short s = 0, short l = 0)
         : start(s)
         , len(l)
-    {}
+    {
+    }
 };
 
 #endif

@@ -9,7 +9,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #ifndef POEXTRACTOR_H
 #define POEXTRACTOR_H
 
@@ -17,20 +16,25 @@
 
 class POExtractor
 {
-
 public:
     POExtractor() = default;
-    FileMetaData extract(const QString& filePath);
+    FileMetaData extract(const QString &filePath);
 
 private:
     void endMessage();
-    void handleComment(const char* data, uint32_t length);
-    void handleLine(const char* data, uint32_t length);
+    void handleComment(const char *data, uint32_t length);
+    void handleLine(const char *data, uint32_t length);
 
-
-    enum PoState {COMMENT, MSGCTXT, MSGID, MSGID_PLURAL, MSGSTR, MSGSTR_PLURAL,
-                  WHITESPACE, ERROR
-                 };
+    enum PoState {
+        COMMENT,
+        MSGCTXT,
+        MSGID,
+        MSGID_PLURAL,
+        MSGSTR,
+        MSGSTR_PLURAL,
+        WHITESPACE,
+        ERROR,
+    };
     PoState state{WHITESPACE};
     int messages{0};
     int untranslated{0};

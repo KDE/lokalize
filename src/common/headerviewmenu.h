@@ -9,20 +9,20 @@
 
 #ifndef HEADERVIEWMENU_H
 #define HEADERVIEWMENU_H
+#include <QHeaderView>
 #include <QObject>
 #include <QPoint>
-#include <QHeaderView>
 
 class QAction;
 
-class HeaderViewMenuHandler: public QObject
+class HeaderViewMenuHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit HeaderViewMenuHandler(QHeaderView* parent);
+    explicit HeaderViewMenuHandler(QHeaderView *parent);
 private Q_SLOTS:
     void headerMenuRequested(QPoint);
-    void headerMenuActionToggled(QAction*);
+    void headerMenuActionToggled(QAction *);
 };
 
 #endif

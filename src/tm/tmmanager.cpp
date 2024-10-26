@@ -11,18 +11,18 @@
 
 #include "lokalize_debug.h"
 
-#include "ui_managedatabases.h"
 #include "dbfilesmodel.h"
-#include "tmtab.h"
 #include "jobs.h"
-#include "tmscanapi.h"
-#include "project.h"
 #include "languagelistmodel.h"
+#include "project.h"
+#include "tmscanapi.h"
+#include "tmtab.h"
+#include "ui_managedatabases.h"
 
-#include <QSortFilterProxyModel>
-#include <QStringBuilder>
 #include <QFileDialog>
+#include <QSortFilterProxyModel>
 #include <QStandardPaths>
+#include <QStringBuilder>
 
 #include <klocalizedstring.h>
 
@@ -50,12 +50,11 @@ TMManagerWin::TMManagerWin(QWidget *parent)
     QTimer::singleShot(100, this, &TMManagerWin::initLater);
 }
 
-
 void TMManagerWin::initLater()
 {
     connect(m_tmListWidget, &QTreeView::activated, this, &TMManagerWin::slotItemActivated);
 
-    QPersistentModelIndex* projectDBIndex = DBFilesModel::instance()->projectDBIndex();
+    QPersistentModelIndex *projectDBIndex = DBFilesModel::instance()->projectDBIndex();
     if (projectDBIndex)
         m_tmListWidget->setCurrentIndex(*projectDBIndex);
 }
@@ -71,8 +70,7 @@ void TMManagerWin::addDir()
         scanRecursive(QStringList(dir), index.sibling(index.row(), 0).data().toString());
 }
 
-
-DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
+DBPropertiesDialog::DBPropertiesDialog(QWidget *parent, const QString &dbName)
     : QDialog(parent)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
@@ -134,16 +132,16 @@ void DBPropertiesDialog::checkConnectionOptions()
     connParams.user = dbUser->text();
     connParams.passwd = dbPasswd->text();
 
-    OpenDBJob* openDBJob = new OpenDBJob(name->text(), TM::Remote, /*reconnect*/true, connParams);
+    OpenDBJob *openDBJob = new OpenDBJob(name->text(), TM::Remote, /*reconnect*/ true, connParams);
     connect(openDBJob, &OpenDBJob::done, this, &DBPropertiesDialog::openJobDone);
     threadPool()->start(openDBJob, OPENDB);
 }
 
-void DBPropertiesDialog::openJobDone(OpenDBJob* openDBJob)
+void DBPropertiesDialog::openJobDone(OpenDBJob *openDBJob)
 {
     openDBJob->deleteLater();
 
-    if (!connectionBox->isVisible()) //smth happened while we were trying to connect
+    if (!connectionBox->isVisible()) // smth happened while we were trying to connect
         return;
 
     contentBox->setVisible(openDBJob->m_connectionSuccessful);
@@ -169,7 +167,8 @@ void DBPropertiesDialog::accept()
         return;
 
     if (connectionBox->isVisible()) {
-        QFile rdb(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1Char('/') + name->text() + QLatin1String(REMOTETM_DATABASE_EXTENSION));
+        QFile rdb(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1Char('/') + name->text()
+                  + QLatin1String(REMOTETM_DATABASE_EXTENSION));
         if (!rdb.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
             return;
 
@@ -181,7 +180,7 @@ void DBPropertiesDialog::accept()
         rdbParams << dbPasswd->text() << "\n";
     }
 
-    OpenDBJob* openDBJob = new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
+    OpenDBJob *openDBJob = new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
     connect(openDBJob, &OpenDBJob::done, DBFilesModel::instance(), &DBFilesModel::updateProjectTmIndex);
 
     openDBJob->m_setParams = true;
@@ -196,7 +195,7 @@ void DBPropertiesDialog::accept()
 
 void TMManagerWin::addDB()
 {
-    DBPropertiesDialog* dialog = new DBPropertiesDialog(this);
+    DBPropertiesDialog *dialog = new DBPropertiesDialog(this);
     dialog->show();
 }
 
@@ -207,11 +206,12 @@ void TMManagerWin::removeDB()
         DBFilesModel::instance()->removeTM(index);
 }
 
-
 void TMManagerWin::importTMX()
 {
-    QString path = QFileDialog::getOpenFileName(this, i18nc("@title:window", "Select TMX file to be imported into selected database"),
-                   QString(), i18n("TMX files (*.tmx *.xml)"));
+    QString path = QFileDialog::getOpenFileName(this,
+                                                i18nc("@title:window", "Select TMX file to be imported into selected database"),
+                                                QString(),
+                                                i18n("TMX files (*.tmx *.xml)"));
 
     QModelIndex index = m_tmListWidget->currentIndex();
     if (!index.isValid())
@@ -219,19 +219,20 @@ void TMManagerWin::importTMX()
     QString dbName = index.sibling(index.row(), 0).data().toString();
 
     if (!path.isEmpty()) {
-        ImportTmxJob* j = new ImportTmxJob(path, dbName);
+        ImportTmxJob *j = new ImportTmxJob(path, dbName);
 
         threadPool()->start(j, IMPORT);
-        DBFilesModel::instance()->openDB(dbName); //update stats after it finishes
+        DBFilesModel::instance()->openDB(dbName); // update stats after it finishes
     }
 }
 
-
 void TMManagerWin::exportTMX()
 {
-    //TODO ask whether to save full paths of files, or just their names
-    QString path = QFileDialog::getSaveFileName(this, i18nc("@title:window", "Select TMX file to export selected database to"),
-                   QString(), i18n("TMX files (*.tmx *.xml)"));
+    // TODO ask whether to save full paths of files, or just their names
+    QString path = QFileDialog::getSaveFileName(this,
+                                                i18nc("@title:window", "Select TMX file to export selected database to"),
+                                                QString(),
+                                                i18n("TMX files (*.tmx *.xml)"));
 
     QModelIndex index = m_tmListWidget->currentIndex();
     if (!index.isValid())
@@ -239,14 +240,14 @@ void TMManagerWin::exportTMX()
     QString dbName = index.sibling(index.row(), 0).data().toString();
 
     if (!path.isEmpty()) {
-        ExportTmxJob* j = new ExportTmxJob(path, dbName);
+        ExportTmxJob *j = new ExportTmxJob(path, dbName);
         threadPool()->start(j, EXPORT);
     }
 }
 
-void TMManagerWin::slotItemActivated(const QModelIndex&)
+void TMManagerWin::slotItemActivated(const QModelIndex &)
 {
-    //QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
+    // QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
     /*    TMWindow* win=new TMWindow;
         win->selectDB(m_tmListWidget->currentIndex().row());
         win->show();*/

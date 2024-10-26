@@ -6,8 +6,9 @@
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
 
-  (based on Markus Stengel's GPL implementation of LCS-Delta algorithm as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition, written by Thomas H. Cormen et. al. It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem.)
-  SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+  (based on Markus Stengel's GPL implementation of LCS-Delta algorithm as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition,
+  written by Thomas H. Cormen et. al. It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem.) SPDX-License-Identifier: GPL-2.0-only
+  OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef DIFF_H
@@ -37,13 +38,10 @@ static const QString delMarkerEnd = QLatin1String("{/LokalizeDel}");
  *
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
-enum {Html = 1};
-QString userVisibleWordDiff(const QString& oldString,
-                            const QString& newString,
-                            const QString& accelRx,
-                            const QString& markupRx,
-                            int options = 0);
-
+enum {
+    Html = 1,
+};
+QString userVisibleWordDiff(const QString &oldString, const QString &newString, const QString &accelRx, const QString &markupRx, int options = 0);
 
 /**
  * This is low-level wrapper used for evaluating translation memory search results
@@ -64,7 +62,6 @@ QString wordDiff(QStringList s1, QStringList s2);
  *
  * @author Finley Watson <fin-w@tutanota.com>
  */
-QString diffToHtmlDiff(const QString& diff);
+QString diffToHtmlDiff(const QString &diff);
 
 #endif // DIFF_H
-

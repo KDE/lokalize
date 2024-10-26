@@ -11,33 +11,35 @@
 
 #include "lokalize_debug.h"
 
-#include "catalogmodel.h"
 #include "catalog.h"
-#include "project.h"
-#include "prefs.h"
+#include "catalogmodel.h"
 #include "headerviewmenu.h"
+#include "prefs.h"
+#include "project.h"
 
-#include <QActionGroup>
-#include <QLineEdit>
-#include <QTime>
-#include <QTreeView>
-#include <QHeaderView>
-#include <QModelIndex>
-#include <QToolButton>
-#include <QVBoxLayout>
 #include <QAction>
-#include <QMenu>
-#include <QShortcut>
+#include <QActionGroup>
+#include <QHeaderView>
 #include <QKeyEvent>
+#include <QLineEdit>
+#include <QMenu>
+#include <QModelIndex>
+#include <QShortcut>
+#include <QTime>
+#include <QToolButton>
+#include <QTreeView>
+#include <QVBoxLayout>
 
-#include <KLocalizedString>
 #include <KConfigGroup>
+#include <KLocalizedString>
 
-class CatalogTreeView: public QTreeView
+class CatalogTreeView : public QTreeView
 {
 public:
-    explicit CatalogTreeView(QWidget * parent)
-        : QTreeView(parent) {}
+    explicit CatalogTreeView(QWidget *parent)
+        : QTreeView(parent)
+    {
+    }
     ~CatalogTreeView() = default;
 
 protected:
@@ -50,11 +52,9 @@ protected:
             QTreeView::keyReleaseEvent(e);
         }
     }
-
 };
 
-
-CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
+CatalogView::CatalogView(QWidget *parent, Catalog *catalog)
     : QDockWidget(i18nc("@title:window aka Message Tree", "Translation Units"), parent)
     , m_browser(new CatalogTreeView(this))
     , m_lineEdit(new QLineEdit(this))
@@ -63,20 +63,19 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
 {
     setObjectName(QStringLiteral("catalogTreeView"));
 
-    QWidget* w = new QWidget(this);
-    QVBoxLayout* mainLayout = new QVBoxLayout(w);
+    QWidget *w = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout(w);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
-    QHBoxLayout* searchAndOptionsButtonLayout = new QHBoxLayout;
-    searchAndOptionsButtonLayout->setContentsMargins(
-        style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
-        style()->pixelMetric(QStyle::PM_LayoutTopMargin),
-        style()->pixelMetric(QStyle::PM_LayoutRightMargin),
-        style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+    QHBoxLayout *searchAndOptionsButtonLayout = new QHBoxLayout;
+    searchAndOptionsButtonLayout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                                                     style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                                                     style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                                                     style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
     searchAndOptionsButtonLayout->setSpacing(style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
     mainLayout->addLayout(searchAndOptionsButtonLayout);
 
-    QFrame* horizontalLine = new QFrame();
+    QFrame *horizontalLine = new QFrame();
     horizontalLine->setFrameShape(QFrame::HLine);
     mainLayout->addWidget(horizontalLine);
 
@@ -85,11 +84,10 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_lineEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L. Accepts regular expressions"));
     connect(m_lineEdit, &QLineEdit::textChanged, this, &CatalogView::setFilterRegExp, Qt::QueuedConnection);
     // QShortcut* ctrlEsc=new QShortcut(QKeySequence(Qt::META+Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);
-    QShortcut* esc = new QShortcut(QKeySequence(Qt::Key_Escape), this, nullptr, nullptr, Qt::WidgetWithChildrenShortcut);
+    QShortcut *esc = new QShortcut(QKeySequence(Qt::Key_Escape), this, nullptr, nullptr, Qt::WidgetWithChildrenShortcut);
     connect(esc, &QShortcut::activated, this, &CatalogView::escaped);
 
-
-    QToolButton* btn = new QToolButton(w);
+    QToolButton *btn = new QToolButton(w);
     btn->setPopupMode(QToolButton::InstantPopup);
     btn->setText(i18n("Options"));
     btn->setMenu(new QMenu(this));
@@ -100,7 +98,6 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     searchAndOptionsButtonLayout->addWidget(m_lineEdit);
     searchAndOptionsButtonLayout->addWidget(btn);
     mainLayout->addWidget(m_browser);
-
 
     setTabOrder(m_lineEdit, btn);
     setTabOrder(btn, m_browser);
@@ -144,11 +141,11 @@ void CatalogView::setFocus()
     m_lineEdit->selectAll();
 }
 
-void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
+void CatalogView::slotNewEntryDisplayed(const DocPosition &pos)
 {
     QModelIndex item = m_proxyModel->mapFromSource(m_model->index(pos.entry, 0));
     m_browser->setCurrentIndex(item);
-    m_browser->scrollTo(item/*,QAbstractItemView::PositionAtCenter*/);
+    m_browser->scrollTo(item /*,QAbstractItemView::PositionAtCenter*/);
     m_lastKnownDocPosition = pos.entry;
 }
 
@@ -156,7 +153,8 @@ void CatalogView::setFilterRegExp()
 {
     QString expr = m_lineEdit->text();
     if (m_proxyModel->filterRegularExpression().pattern() != expr)
-        m_proxyModel->setFilterRegularExpression(m_proxyModel->filterOptions()&CatalogTreeFilterModel::IgnoreAccel ? expr.remove(Project::instance()->accel()) : expr);
+        m_proxyModel->setFilterRegularExpression(m_proxyModel->filterOptions() & CatalogTreeFilterModel::IgnoreAccel ? expr.remove(Project::instance()->accel())
+                                                                                                                     : expr);
     refreshCurrentIndex();
 }
 
@@ -167,21 +165,22 @@ void CatalogView::refreshCurrentIndex()
     m_browser->scrollTo(newPositionOfSelectedItem);
 }
 
-void CatalogView::slotItemActivated(const QModelIndex& idx)
+void CatalogView::slotItemActivated(const QModelIndex &idx)
 {
     Q_EMIT gotoEntry(DocPosition(m_proxyModel->mapToSource(idx).row()), 0);
 }
 
-void CatalogView::filterOptionToggled(QAction* action)
+void CatalogView::filterOptionToggled(QAction *action)
 {
     if (action->data().isNull())
         return;
 
     int opt = action->data().toInt();
     if (opt > 0)
-        m_proxyModel->setFilterOptions(m_proxyModel->filterOptions()^opt);
+        m_proxyModel->setFilterOptions(m_proxyModel->filterOptions() ^ opt);
     else {
-        if (opt != -1) opt = -opt - 2;
+        if (opt != -1)
+            opt = -opt - 2;
         m_proxyModel->setFilterKeyColumn(opt);
     }
     m_filterOptionsMenu->clear();
@@ -194,8 +193,7 @@ void CatalogView::fillFilterOptionsMenu()
     if (m_proxyModel->individualRejectFilterEnabled())
         m_filterOptionsMenu->addAction(i18n("Reset individual filter"), this, SLOT(setEntriesFilteredOut()));
 
-
-    bool extStates = m_model->catalog()->capabilities()&ExtendedStates;
+    bool extStates = m_model->catalog()->capabilities() & ExtendedStates;
 
     const QStringList basicTitles = {
         i18n("Case insensitive"),
@@ -215,20 +213,23 @@ void CatalogView::fillFilterOptionsMenu()
     const QStringList extTitles = Catalog::translatedStates();
     const QStringList alltitles[2] = {basicTitles, extTitles};
 
-    QMenu* basicMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Basic"));
-    QMenu* extMenu = extStates ? m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "States")) : nullptr;
-    QMenu* allmenus[2] = {basicMenu, extMenu};
-    QMenu* columnsMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Searchable column"));
+    QMenu *basicMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Basic"));
+    QMenu *extMenu = extStates ? m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "States")) : nullptr;
+    QMenu *allmenus[2] = {basicMenu, extMenu};
+    QMenu *columnsMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Searchable column"));
 
-    QActionGroup* columnsMenuGroup = new QActionGroup(columnsMenu);
-    QAction* txt;
-    txt = m_filterOptionsMenu->addAction(i18nc("@title:inmenu", "Resort and refilter on content change"), m_proxyModel, &CatalogTreeFilterModel::setDynamicSortFilter);
+    QActionGroup *columnsMenuGroup = new QActionGroup(columnsMenu);
+    QAction *txt;
+    txt = m_filterOptionsMenu->addAction(i18nc("@title:inmenu", "Resort and refilter on content change"),
+                                         m_proxyModel,
+                                         &CatalogTreeFilterModel::setDynamicSortFilter);
     txt->setCheckable(true);
     txt->setChecked(m_proxyModel->dynamicSortFilter());
 
     for (int i = 0; (1 << i) < CatalogTreeFilterModel::MaxOption; ++i) {
         bool ext = (1 << i) >= CatalogTreeFilterModel::New;
-        if (!extStates && ext) break;
+        if (!extStates && ext)
+            break;
         txt = allmenus[ext]->addAction(alltitles[ext][i - ext * FIRSTSTATEPOSITION]);
         txt->setData(1 << i);
         txt->setCheckable(true);
@@ -239,8 +240,7 @@ void CatalogView::fillFilterOptionsMenu()
     if (!extStates)
         m_filterOptionsMenu->addSeparator();
     for (int i = -1; i < CatalogTreeModel::DisplayedColumnCount - 1; ++i) {
-        txt = columnsMenu->addAction((i == -1) ? i18nc("@item:inmenu all columns", "All") :
-                                     m_model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString());
+        txt = columnsMenu->addAction((i == -1) ? i18nc("@item:inmenu all columns", "All") : m_model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString());
         txt->setData(-i - 2);
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filterKeyColumn() == i);
@@ -255,11 +255,11 @@ void CatalogView::reset()
     m_proxyModel->setFilterOptions(CatalogTreeFilterModel::AllStates);
     m_lineEdit->clear();
     refreshCurrentIndex();
-    //Q_EMIT gotoEntry(DocPosition(m_proxyModel->mapToSource(m_browser->currentIndex()).row()),0);
+    // Q_EMIT gotoEntry(DocPosition(m_proxyModel->mapToSource(m_browser->currentIndex()).row()),0);
     slotItemActivated(m_browser->currentIndex());
 }
 
-void CatalogView::setMergeCatalogPointer(MergeCatalog* pointer)
+void CatalogView::setMergeCatalogPointer(MergeCatalog *pointer)
 {
     m_proxyModel->setMergeCatalogPointer(pointer);
 }
@@ -291,7 +291,7 @@ int CatalogView::prevEntryNumber()
     return siblingEntryNumber(-1);
 }
 
-static int edgeEntry(CatalogTreeFilterModel* m_proxyModel, int row)
+static int edgeEntry(CatalogTreeFilterModel *m_proxyModel, int row)
 {
     if (!m_proxyModel->rowCount())
         return -1;
@@ -308,7 +308,6 @@ int CatalogView::lastEntryNumber()
 {
     return edgeEntry(m_proxyModel, m_proxyModel->rowCount() - 1);
 }
-
 
 void CatalogView::setEntryFilteredOut(int entry, bool filteredOut)
 {

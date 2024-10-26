@@ -18,6 +18,7 @@ public:
 
     QString parse(const QJsonObject &obj, const QString &text);
     void setTesting(bool b);
+
 private:
     static QStringList parseSuggestion(const QJsonObject &obj);
     bool mTesting = false;

@@ -19,7 +19,7 @@
 /**
  * Hack over QDBusAbstractAdaptor to get kross active-editor-adaptor for free
  */
-class MultiEditorAdaptor: public EditorAdaptor
+class MultiEditorAdaptor : public EditorAdaptor
 {
     Q_OBJECT
 public:
@@ -29,18 +29,17 @@ public:
         /*qCWarning(LOKALIZE_LOG)<<"bye bye cruel world";*/
     }
 
-    inline EditorTab* editorTab() const
+    inline EditorTab *editorTab() const
     {
-        return static_cast<EditorTab*>(QObject::parent());
+        return static_cast<EditorTab *>(QObject::parent());
     }
 
-    void setEditorTab(EditorTab* e);
+    void setEditorTab(EditorTab *e);
 
 private Q_SLOTS:
-    void handleParentDestroy(QObject* p);
+    void handleParentDestroy(QObject *p);
 };
 
-//methosa are defined in lokalizemainwindow.cpp
-
+// methosa are defined in lokalizemainwindow.cpp
 
 #endif

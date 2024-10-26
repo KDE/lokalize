@@ -18,46 +18,46 @@
 #include <klocalizedstring.h>
 
 #include <QApplication>
-#include <QPalette>
 #include <QFontMetrics>
 #include <QIcon>
+#include <QPalette>
 
 #define DYNAMICFILTER_LIMIT 256
 
 QVector<QVariant> CatalogTreeModel::m_fonts;
 
-
-CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
+CatalogTreeModel::CatalogTreeModel(QObject *parent, Catalog *catalog)
     : QAbstractItemModel(parent)
     , m_catalog(catalog)
 {
     if (m_fonts.isEmpty()) {
         QVector<QFont> fonts(4, QApplication::font());
-        fonts[1].setItalic(true); //fuzzy
+        fonts[1].setItalic(true); // fuzzy
 
-        fonts[2].setBold(true);   //modified
+        fonts[2].setBold(true); // modified
 
-        fonts[3].setItalic(true); //fuzzy
-        fonts[3].setBold(true);   //modified
+        fonts[3].setItalic(true); // fuzzy
+        fonts[3].setBold(true); // modified
 
         m_fonts.reserve(4);
-        for (int i = 0; i < 4; i++) m_fonts << fonts.at(i);
+        for (int i = 0; i < 4; i++)
+            m_fonts << fonts.at(i);
     }
     connect(catalog, &Catalog::signalEntryModified, this, &CatalogTreeModel::reflectChanges);
     connect(catalog, qOverload<>(&Catalog::signalFileLoaded), this, &CatalogTreeModel::fileLoaded);
 }
 
-QModelIndex CatalogTreeModel::index(int row, int column, const QModelIndex& /*parent*/) const
+QModelIndex CatalogTreeModel::index(int row, int column, const QModelIndex & /*parent*/) const
 {
     return createIndex(row, column);
 }
 
-QModelIndex CatalogTreeModel::parent(const QModelIndex& /*index*/) const
+QModelIndex CatalogTreeModel::parent(const QModelIndex & /*index*/) const
 {
     return QModelIndex();
 }
 
-int CatalogTreeModel::columnCount(const QModelIndex& parent) const
+int CatalogTreeModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
     return DisplayedColumnCount;
@@ -88,7 +88,7 @@ void CatalogTreeModel::reflectChanges(DocPosition pos)
 #endif
 }
 
-int CatalogTreeModel::rowCount(const QModelIndex& parent) const
+int CatalogTreeModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
@@ -124,7 +124,7 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation
     }
 }
 
-QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
+QVariant CatalogTreeModel::data(const QModelIndex &index, int role) const
 {
     if (m_catalog->numberOfEntries() <= index.row())
         return QVariant();
@@ -132,9 +132,9 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     const CatalogModelColumns column = static_cast<CatalogModelColumns>(index.column());
 
     if (role == Qt::SizeHintRole) {
-        //no need to cache because of uniform row heights
+        // no need to cache because of uniform row heights
         return QFontMetrics(QApplication::font()).size(Qt::TextSingleLine, QString::fromLatin1("          "));
-    } else if (role == Qt::FontRole/* && index.column()==Target*/) {
+    } else if (role == Qt::FontRole /* && index.column()==Target*/) {
         bool fuzzy = !m_catalog->isApproved(index.row());
         bool modified = m_catalog->isModified(index.row());
         return m_fonts.at(fuzzy * 1 | modified * 2);
@@ -188,15 +188,16 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         default:
             role = Qt::DisplayRole;
         }
-    } else if (role == StringFilterRole) { //exclude UI strings
+    } else if (role == StringFilterRole) { // exclude UI strings
         if (column >= CatalogModelColumns::TranslationStatus)
             return QVariant();
         else if (column == CatalogModelColumns::Source || column == CatalogModelColumns::Target) {
-            QString str = column == CatalogModelColumns::Source ? m_catalog->msgidWithPlurals(DocPosition(index.row()), false) : m_catalog->msgstrWithPlurals(DocPosition(index.row()), false);
+            QString str = column == CatalogModelColumns::Source ? m_catalog->msgidWithPlurals(DocPosition(index.row()), false)
+                                                                : m_catalog->msgstrWithPlurals(DocPosition(index.row()), false);
             return m_ignoreAccel ? str.remove(Project::instance()->accel()) : str;
         }
         role = Qt::DisplayRole;
-    } else if (role == SortRole) { //exclude UI strings
+    } else if (role == SortRole) { // exclude UI strings
         if (column == CatalogModelColumns::TranslationStatus) {
             return static_cast<int>(getTranslationStatus(static_cast<int>(index.row())));
         }
@@ -205,8 +206,6 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     }
     if (role != Qt::DisplayRole)
         return QVariant();
-
-
 
     switch (column) {
     case CatalogModelColumns::Key:
@@ -248,7 +247,7 @@ CatalogTreeModel::TranslationStatus CatalogTreeModel::getTranslationStatus(int r
     }
 }
 
-CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
+CatalogTreeFilterModel::CatalogTreeFilterModel(QObject *parent)
     : QSortFilterProxyModel(parent)
     , m_filterOptions(AllStates)
     , m_individualRejectFilterEnable(false)
@@ -261,7 +260,7 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
     setDynamicSortFilter(false);
 }
 
-void CatalogTreeFilterModel::setSourceModel(QAbstractItemModel* sourceModel)
+void CatalogTreeFilterModel::setSourceModel(QAbstractItemModel *sourceModel)
 {
     QSortFilterProxyModel::setSourceModel(sourceModel);
     connect(sourceModel, &QAbstractItemModel::modelReset, this, qOverload<>(&CatalogTreeFilterModel::setEntriesFilteredOut));
@@ -281,8 +280,8 @@ void CatalogTreeFilterModel::setEntriesFilteredOut(bool filteredOut)
 
 void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
 {
-//     if (entry>=m_individualRejectFilter.size())
-//         sourceModelReset();
+    //     if (entry>=m_individualRejectFilter.size())
+    //         sourceModelReset();
     m_individualRejectFilter[entry] = filteredOut;
     m_individualRejectFilterEnable = true;
     invalidateFilter();
@@ -292,28 +291,34 @@ void CatalogTreeFilterModel::setFilterOptions(int o)
 {
     m_filterOptions = o;
     setFilterCaseSensitivity(o & CaseInsensitive ? Qt::CaseInsensitive : Qt::CaseSensitive);
-    static_cast<CatalogTreeModel*>(sourceModel())->setIgnoreAccel(o & IgnoreAccel);
+    static_cast<CatalogTreeModel *>(sourceModel())->setIgnoreAccel(o & IgnoreAccel);
     invalidateFilter();
 }
 
-bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     int filerOptions = m_filterOptions;
     bool accepts = true;
     if (bool(filerOptions & Ready) != bool(filerOptions & NotReady)) {
-        bool ready = sourceModel()->index(source_row, static_cast<int>(CatalogTreeModel::CatalogModelColumns::TranslationStatus), source_parent).data(Qt::UserRole).toBool();
+        bool ready = sourceModel()
+                         ->index(source_row, static_cast<int>(CatalogTreeModel::CatalogModelColumns::TranslationStatus), source_parent)
+                         .data(Qt::UserRole)
+                         .toBool();
         accepts = (ready == bool(filerOptions & Ready) || ready != bool(filerOptions & NotReady));
     }
     if (accepts && bool(filerOptions & NonEmpty) != bool(filerOptions & Empty)) {
-        bool untr = sourceModel()->index(source_row, static_cast<int>(CatalogTreeModel::CatalogModelColumns::IsEmpty), source_parent).data(Qt::UserRole).toBool();
+        bool untr =
+            sourceModel()->index(source_row, static_cast<int>(CatalogTreeModel::CatalogModelColumns::IsEmpty), source_parent).data(Qt::UserRole).toBool();
         accepts = (untr == bool(filerOptions & Empty) || untr != bool(filerOptions & NonEmpty));
     }
     if (accepts && bool(filerOptions & Modified) != bool(filerOptions & NonModified)) {
-        bool modified = sourceModel()->index(source_row, static_cast<int>(CatalogTreeModel::CatalogModelColumns::IsModified), source_parent).data(Qt::UserRole).toBool();
+        bool modified =
+            sourceModel()->index(source_row, static_cast<int>(CatalogTreeModel::CatalogModelColumns::IsModified), source_parent).data(Qt::UserRole).toBool();
         accepts = (modified == bool(filerOptions & Modified) || modified != bool(filerOptions & NonModified));
     }
     if (accepts && bool(filerOptions & Plural) != bool(filerOptions & NonPlural)) {
-        bool modified = sourceModel()->index(source_row, static_cast<int>(CatalogTreeModel::CatalogModelColumns::IsPlural), source_parent).data(Qt::UserRole).toBool();
+        bool modified =
+            sourceModel()->index(source_row, static_cast<int>(CatalogTreeModel::CatalogModelColumns::IsPlural), source_parent).data(Qt::UserRole).toBool();
         accepts = (modified == bool(filerOptions & Plural) || modified != bool(filerOptions & NonPlural));
     }
 
@@ -329,11 +334,8 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
         bool isPresent = m_mergeCatalog->isPresent(source_row);
         bool isDifferent = m_mergeCatalog->isDifferent(source_row);
 
-        accepts = !
-                  ((isPresent && !isDifferent && !bool(filerOptions & SameInSync))      ||
-                   (isPresent &&  isDifferent && !bool(filerOptions & DifferentInSync)) ||
-                   (!isPresent &&                 !bool(filerOptions & NotInSync))
-                  );
+        accepts = !((isPresent && !isDifferent && !bool(filerOptions & SameInSync)) || (isPresent && isDifferent && !bool(filerOptions & DifferentInSync))
+                    || (!isPresent && !bool(filerOptions & NotInSync)));
     }
 
     if (accepts && (filerOptions & STATES) != STATES) {
@@ -346,7 +348,7 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
     return accepts && QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
 }
 
-void CatalogTreeFilterModel::setMergeCatalogPointer(MergeCatalog* pointer)
+void CatalogTreeFilterModel::setMergeCatalogPointer(MergeCatalog *pointer)
 {
     m_mergeCatalog = pointer;
 }

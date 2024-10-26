@@ -20,11 +20,7 @@
 
 using namespace GlossaryNS;
 
-FlowLayout::FlowLayout(User user,
-                       QWidget *signalingWidget,
-                       const QVector<QAction*>& actions,
-                       int margin,
-                       int spacing)
+FlowLayout::FlowLayout(User user, QWidget *signalingWidget, const QVector<QAction *> &actions, int margin, int spacing)
     : QLayout()
     , m_receiver(signalingWidget)
 {
@@ -33,38 +29,36 @@ FlowLayout::FlowLayout(User user,
     setSpacing(spacing);
 
     if (user == glossary) {
-        for (QAction* action : actions) {
-            TermLabel* label = new TermLabel(action); /*this,m_keys.at(count())*/
+        for (QAction *action : actions) {
+            TermLabel *label = new TermLabel(action); /*this,m_keys.at(count())*/
             connect(action, &QAction::triggered, label, &GlossaryNS::TermLabel::insert);
-            connect(label, &GlossaryNS::TermLabel::insertTerm, (GlossaryNS::GlossaryView*)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
+            connect(label, &GlossaryNS::TermLabel::insertTerm, (GlossaryNS::GlossaryView *)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
             label->hide();
             addWidget(label);
         }
     }
 
-//     if (m_keys.isEmpty())
-//     {
-// //         Qt::Key key=Qt::Key_A;
-// //         for (;key<=Qt::Key_Z;++key)
-// //         {
-// //             if (KGlobalAccel::findActionNameSystemwide(Qt::AltModifier+key).isEmpty())
-// //             {
-// //                 keys.append(key);
-// //             }
-// //         }
-//         int i=(int)Qt::Key_A;
-//         for (;i<=(int)Qt::Key_Z;++i)
-//         {
-//             if (KGlobalAccel::findActionNameSystemwide(Qt::AltModifier+Qt::ControlModifier+(Qt::Key)i).isEmpty())
-//             {
-//                 m_keys.append((Qt::Key)i);
-//             }
-//         }
-//
-//     }
-
+    //     if (m_keys.isEmpty())
+    //     {
+    // //         Qt::Key key=Qt::Key_A;
+    // //         for (;key<=Qt::Key_Z;++key)
+    // //         {
+    // //             if (KGlobalAccel::findActionNameSystemwide(Qt::AltModifier+key).isEmpty())
+    // //             {
+    // //                 keys.append(key);
+    // //             }
+    // //         }
+    //         int i=(int)Qt::Key_A;
+    //         for (;i<=(int)Qt::Key_Z;++i)
+    //         {
+    //             if (KGlobalAccel::findActionNameSystemwide(Qt::AltModifier+Qt::ControlModifier+(Qt::Key)i).isEmpty())
+    //             {
+    //                 m_keys.append((Qt::Key)i);
+    //             }
+    //         }
+    //
+    //     }
 }
-
 
 FlowLayout::~FlowLayout()
 {
@@ -123,7 +117,7 @@ QSize FlowLayout::sizeHint() const
 QSize FlowLayout::minimumSize() const
 {
     QSize size;
-    for (QLayoutItem* item : itemList)
+    for (QLayoutItem *item : itemList)
         size = size.expandedTo(item->minimumSize());
 
     int left, top, right, bottom;
@@ -139,7 +133,7 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
     int y = rect.y();
     int lineHeight = 0;
 
-    for (QLayoutItem* item : itemList) {
+    for (QLayoutItem *item : itemList) {
         int nextX = x + item->sizeHint().width() + spacing();
         if (nextX - spacing() > rect.right() && lineHeight > 0) {
             x = rect.x();
@@ -160,24 +154,22 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
 void FlowLayout::clearTerms()
 {
     setEnabled(false);
-    for (QLayoutItem* item : std::as_const(itemList))
-        static_cast<TermLabel*>(item->widget())->hide();
+    for (QLayoutItem *item : std::as_const(itemList))
+        static_cast<TermLabel *>(item->widget())->hide();
     m_index = 0;
     setEnabled(true);
 }
 
-void FlowLayout::addTerm(const QString& term, const QByteArray& entryId, bool capFirst)
+void FlowLayout::addTerm(const QString &term, const QByteArray &entryId, bool capFirst)
 {
-    //fill layout with labels
+    // fill layout with labels
     while (m_index >= count()) {
-        TermLabel* label = new TermLabel;
-        connect(label, &TermLabel::insertTerm, (GlossaryNS::GlossaryView*)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
+        TermLabel *label = new TermLabel;
+        connect(label, &TermLabel::insertTerm, (GlossaryNS::GlossaryView *)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
         addWidget(label);
     }
-    TermLabel* label = static_cast<TermLabel*>(itemAt(m_index)->widget());
+    TermLabel *label = static_cast<TermLabel *>(itemAt(m_index)->widget());
     label->setText(term, entryId, capFirst);
     label->show();
     ++m_index;
 }
-
-

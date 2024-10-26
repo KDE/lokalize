@@ -21,20 +21,22 @@ class QAction;
  *
  * copied from 'pretty' docs
  */
-class FlowLayout: public QLayout
+class FlowLayout : public QLayout
 {
 public:
-
     enum User {
         glossary,
-        standard
+        standard,
     };
 
     /**
      * c'tor for glossary view
      */
-    explicit FlowLayout(User user = standard, QWidget *signalingWidget = nullptr,
-                        const QVector<QAction*>& actions = QVector<QAction*>(), int margin = 0, int spacing = -1);
+    explicit FlowLayout(User user = standard,
+                        QWidget *signalingWidget = nullptr,
+                        const QVector<QAction *> &actions = QVector<QAction *>(),
+                        int margin = 0,
+                        int spacing = -1);
 
     ~FlowLayout() override;
 
@@ -54,16 +56,15 @@ public:
      * @param entryId is index of entry in the Glossary list
      * @param capFirst whether the first letter should be capitalized
      */
-    void addTerm(const QString& term, const QByteArray& entryId, bool capFirst = false);
+    void addTerm(const QString &term, const QByteArray &entryId, bool capFirst = false);
     void clearTerms();
 
 private:
     int doLayout(const QRect &rect, bool testOnly) const;
 
     QList<QLayoutItem *> itemList;
-    int m_index{0}; //of the nearest free label ; or the next index of btn
+    int m_index{0}; // of the nearest free label ; or the next index of btn
     QWidget *m_receiver{nullptr};
 };
-
 
 #endif

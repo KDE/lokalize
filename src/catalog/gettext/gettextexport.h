@@ -19,7 +19,6 @@ namespace GettextCatalog
 {
 class GettextStorage;
 
-
 /**
  * @brief The class for exporting GNU gettext PO files.
  *
@@ -30,20 +29,19 @@ class GettextExportPlugin
 {
 public:
     explicit GettextExportPlugin(short wrapWidth = 1);
-    ConversionStatus save(QIODevice* device,
-                          const GettextStorage* catalog);
+    ConversionStatus save(QIODevice *device, const GettextStorage *catalog);
 
 private:
     /**
      * Write a PO comment to @p stream and take care that each comment lines start with a # character
      */
-    void writeComment(QTextStream& stream, const QString& comment) const;
+    void writeComment(QTextStream &stream, const QString &comment) const;
 
     /**
      * Write a PO keyword (msgctxt, msgid, msgstr, msgstr_plural, msgstr[0]) and the corresponding text.
      * This includes wrapping the text.
      */
-    void writeKeyword(QTextStream& stream, const QString& keyword, QString text, bool containsHtml = true, bool startedWithEmptyLine = false) const;
+    void writeKeyword(QTextStream &stream, const QString &keyword, QString text, bool containsHtml = true, bool startedWithEmptyLine = false) const;
 
 public:
     /**

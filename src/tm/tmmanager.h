@@ -10,10 +10,10 @@
 #ifndef TMMANAGER_H
 #define TMMANAGER_H
 
-#include <kmainwindow.h>
+#include <QDialog>
 #include <QModelIndex>
 #include <QTimer>
-#include <QDialog>
+#include <kmainwindow.h>
 
 class QTreeView;
 
@@ -24,7 +24,7 @@ namespace TM
 /**
  * Window for managing Translation Memory databases
  */
-class TMManagerWin: public KMainWindow
+class TMManagerWin : public KMainWindow
 {
     Q_OBJECT
 public:
@@ -39,33 +39,34 @@ private Q_SLOTS:
     void removeDB();
 
     void initLater();
-    void slotItemActivated(const QModelIndex&);
+    void slotItemActivated(const QModelIndex &);
+
 private:
-    QTreeView* m_tmListWidget{};
+    QTreeView *m_tmListWidget{};
 };
 
 class OpenDBJob;
 
-//TODO remote tms
-class DBPropertiesDialog: public QDialog, Ui_DBParams
+// TODO remote tms
+class DBPropertiesDialog : public QDialog, Ui_DBParams
 {
     Q_OBJECT
 public:
-    explicit DBPropertiesDialog(QWidget* parent, const QString& name = QString());
+    explicit DBPropertiesDialog(QWidget *parent, const QString &name = QString());
+
 private:
-    //void slotButtonClicked(int button);
+    // void slotButtonClicked(int button);
     void accept() override;
 private Q_SLOTS:
     void setConnectionBoxVisible(int type);
-    void openJobDone(OpenDBJob*);
+    void openJobDone(OpenDBJob *);
     void checkConnectionOptions();
     void feedbackRegardingAcceptable();
+
 private:
     bool m_connectionOptionsValid{};
     QTimer m_checkDelayer;
 };
-
-
 
 }
 #endif

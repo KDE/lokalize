@@ -26,40 +26,38 @@ class DynamicItemHeightQListWidget;
 class Catalog;
 class QAction;
 
-class AltTransView: public QDockWidget
+class AltTransView : public QDockWidget
 {
     Q_OBJECT
 
 public:
-    explicit AltTransView(QWidget*, Catalog*, const QVector<QAction*>&);
+    explicit AltTransView(QWidget *, Catalog *, const QVector<QAction *> &);
     ~AltTransView() override;
 
-
 public Q_SLOTS:
-    void slotNewEntryDisplayed(const DocPosition&);
+    void slotNewEntryDisplayed(const DocPosition &);
     void fileLoaded();
-    void attachAltTransFile(const QString&);
-    void addAlternateTranslation(int entry, const QString&);
+    void attachAltTransFile(const QString &);
+    void addAlternateTranslation(int entry, const QString &);
 
 private Q_SLOTS:
-    //void contextMenu(const QPoint & pos);
+    // void contextMenu(const QPoint & pos);
     void process();
     void initLater();
     void slotUseSuggestion(int);
 
 Q_SIGNALS:
     void refreshRequested();
-    void textInsertRequested(const QString&);
+    void textInsertRequested(const QString &);
 
 private:
-    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dragEnterEvent(QDragEnterEvent *event) override;
     void dropEvent(QDropEvent *event) override;
     bool event(QEvent *event) override;
 
-
 private:
-    TM::DynamicItemHeightQListWidget* m_atm_entries_list{nullptr};
-    Catalog* m_catalog;
+    TM::DynamicItemHeightQListWidget *m_atm_entries_list{nullptr};
+    Catalog *m_catalog;
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo{};
@@ -68,7 +66,7 @@ private:
     DocPos m_prevEntry;
 
     QVector<AltTrans> m_entries;
-    QVector<QAction*> m_actions; // need them to get shortcuts
+    QVector<QAction *> m_actions; // need them to get shortcuts
 };
 
 #endif

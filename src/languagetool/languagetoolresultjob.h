@@ -46,7 +46,7 @@ private:
         EmptyText,
         UrlNotDefined,
         NetworkManagerNotDefined,
-        LanguageNotDefined
+        LanguageNotDefined,
     };
 
     LanguageToolResultJob::JobError canStartError() const;

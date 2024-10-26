@@ -14,14 +14,14 @@
 
 #include "projectmodel.h"
 
-#include <QTime>
-#include <QFile>
 #include <QDir>
+#include <QFile>
+#include <QTime>
 #include <QtAlgorithms>
 
-#include <kcoreaddons_version.h>
-#include <KLocalizedString>
 #include <KDirLister>
+#include <KLocalizedString>
+#include <kcoreaddons_version.h>
 
 #include "lokalize_debug.h"
 #include "updatestatsjob.h"
@@ -57,7 +57,6 @@ ProjectModel::ProjectModel(QObject *parent)
     setUrl(QUrl(), QUrl());
 }
 
-
 ProjectModel::~ProjectModel()
 {
     m_dirsWaitingForMetadata.clear();
@@ -67,17 +66,17 @@ ProjectModel::~ProjectModel()
 
     m_activeJob = nullptr;
 
-    for (int pos = 0; pos < m_rootNode.rows.count(); pos ++)
+    for (int pos = 0; pos < m_rootNode.rows.count(); pos++)
         deleteSubtree(m_rootNode.rows.at(pos));
 }
 
 void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
 {
-    //qCDebug(LOKALIZE_LOG) << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
+    // qCDebug(LOKALIZE_LOG) << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
 
     Q_EMIT loadingAboutToStart();
 
-    //cleanup old data
+    // cleanup old data
 
     m_dirsWaitingForMetadata.clear();
 
@@ -88,7 +87,7 @@ void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
     if (m_rootNode.rows.count()) {
         beginRemoveRows(QModelIndex(), 0, m_rootNode.rows.count());
 
-        for (int pos = 0; pos < m_rootNode.rows.count(); pos ++)
+        for (int pos = 0; pos < m_rootNode.rows.count(); pos++)
             deleteSubtree(m_rootNode.rows.at(pos));
         m_rootNode.rows.clear();
         m_rootNode.poCount = 0;
@@ -97,7 +96,7 @@ void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
         endRemoveRows();
     }
 
-    //add trailing slashes to base URLs, needed for potToPo and poToPot
+    // add trailing slashes to base URLs, needed for potToPo and poToPot
     m_poUrl = poUrl.adjusted(QUrl::StripTrailingSlash);
     m_potUrl = potUrl.adjusted(QUrl::StripTrailingSlash);
 
@@ -107,8 +106,7 @@ void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
         m_potModel.dirLister()->openUrl(m_potUrl, KDirLister::Reload);
 }
 
-
-QUrl ProjectModel::beginEditing(const QModelIndex& index)
+QUrl ProjectModel::beginEditing(const QModelIndex &index)
 {
     Q_ASSERT(index.isValid());
 
@@ -119,14 +117,14 @@ QUrl ProjectModel::beginEditing(const QModelIndex& index)
         KFileItem item = m_poModel.itemForIndex(poIndex);
         return item.url();
     } else if (potIndex.isValid()) {
-        //copy over the file
+        // copy over the file
         QUrl potFile = m_potModel.itemForIndex(potIndex).url();
         QUrl poFile = potToPo(potFile);
 
-        //EditorTab::fileOpen takes care of this
-        //be careful, copy only if file does not exist already.
-        //         if (!KIO::NetAccess::exists(poFile, KIO::NetAccess::DestinationSide, NULL))
-        //             KIO::NetAccess::file_copy(potFile, poFile);
+        // EditorTab::fileOpen takes care of this
+        // be careful, copy only if file does not exist already.
+        //          if (!KIO::NetAccess::exists(poFile, KIO::NetAccess::DestinationSide, NULL))
+        //              KIO::NetAccess::file_copy(potFile, poFile);
 
         return poFile;
     } else {
@@ -140,40 +138,39 @@ void ProjectModel::reload()
     setUrl(m_poUrl, m_potUrl);
 }
 
+// Theese methds update the combined model from POT and PO model changes.
+// Quite complex stuff here, better do not change anything.
 
-//Theese methds update the combined model from POT and PO model changes.
-//Quite complex stuff here, better do not change anything.
+// TODO A comment from Viesturs Zarins 2009-05-17 20:53:11 UTC:
+// This is a design issue in projectview.cpp. The same issue happens when creating/deleting any folder in project.
+// When a node PO item is added, the existing POT node is deleted and new one created to represent both.
+// When view asks if there is more data in the new node, the POT model answers no, as all the data was already stored in POT node witch is now deleted.
+// To fix this either reuse the existing POT node or manually repopulate data form POT model.
 
-//TODO A comment from Viesturs Zarins 2009-05-17 20:53:11 UTC:
-//This is a design issue in projectview.cpp. The same issue happens when creating/deleting any folder in project.
-//When a node PO item is added, the existing POT node is deleted and new one created to represent both.
-//When view asks if there is more data in the new node, the POT model answers no, as all the data was already stored in POT node witch is now deleted.
-//To fix this either reuse the existing POT node or manually repopulate data form POT model.
-
-void ProjectModel::po_dataChanged(const QModelIndex& po_topLeft, const QModelIndex& po_bottomRight)
+void ProjectModel::po_dataChanged(const QModelIndex &po_topLeft, const QModelIndex &po_bottomRight)
 {
-    //nothing special here
-    //map from source and propagate
+    // nothing special here
+    // map from source and propagate
     QModelIndex topLeft = indexForPoIndex(po_topLeft);
     QModelIndex bottomRight = indexForPoIndex(po_bottomRight);
 
     if (topLeft.row() == bottomRight.row() && itemForIndex(topLeft).isFile()) {
-        //this code works fine only for lonely files
-        //and fails for more complex changes
-        //see bug 342959
+        // this code works fine only for lonely files
+        // and fails for more complex changes
+        // see bug 342959
         Q_EMIT dataChanged(topLeft, bottomRight);
         enqueueNodeForMetadataUpdate(nodeForIndex(topLeft.parent()));
     } else if (topLeft.row() == bottomRight.row() && itemForIndex(topLeft).isDir()) {
-        //Something happened inside this folder, nothing to do on the folder itself
+        // Something happened inside this folder, nothing to do on the folder itself
     } else if (topLeft.row() != bottomRight.row() && itemForIndex(topLeft).isDir() && itemForIndex(bottomRight).isDir()) {
-        //Something happened between two folders, no need to reload them
+        // Something happened between two folders, no need to reload them
     } else {
         qCWarning(LOKALIZE_LOG) << "Delayed reload triggered in po_dataChanged";
         m_delayedReloadTimer->start(1000);
     }
 }
 
-void ProjectModel::pot_dataChanged(const QModelIndex& pot_topLeft, const QModelIndex& pot_bottomRight)
+void ProjectModel::pot_dataChanged(const QModelIndex &pot_topLeft, const QModelIndex &pot_bottomRight)
 {
 #if 0
     //tricky here - some of the pot items may be represented by po items
@@ -200,46 +197,44 @@ void ProjectModel::pot_dataChanged(const QModelIndex& pot_topLeft, const QModelI
 #endif
 }
 
-
-void ProjectModel::po_rowsInserted(const QModelIndex& po_parent, int first, int last)
+void ProjectModel::po_rowsInserted(const QModelIndex &po_parent, int first, int last)
 {
     QModelIndex parent = indexForPoIndex(po_parent);
     QModelIndex pot_parent = potIndexForOuter(parent);
-    ProjectNode* node = nodeForIndex(parent);
+    ProjectNode *node = nodeForIndex(parent);
 
-    //insert po rows
+    // insert po rows
     beginInsertRows(parent, first, last);
 
-    for (int pos = first; pos <= last; pos ++) {
-        ProjectNode * childNode = new ProjectNode(node, pos, pos, -1);
+    for (int pos = first; pos <= last; pos++) {
+        ProjectNode *childNode = new ProjectNode(node, pos, pos, -1);
         node->rows.insert(pos, childNode);
     }
 
     node->poCount += last - first + 1;
 
-    //update rowNumber
+    // update rowNumber
     for (int pos = last + 1; pos < node->rows.count(); pos++)
         node->rows[pos]->rowNumber = pos;
 
     endInsertRows();
 
-    //remove unneeded pot rows, update PO rows
+    // remove unneeded pot rows, update PO rows
     if (pot_parent.isValid() || !parent.isValid()) {
         QVector<int> pot2PoMapping;
         generatePOTMapping(pot2PoMapping, po_parent, pot_parent);
 
-        for (int pos = node->poCount; pos < node->rows.count(); pos ++) {
-            ProjectNode* potNode = node->rows.at(pos);
+        for (int pos = node->poCount; pos < node->rows.count(); pos++) {
+            ProjectNode *potNode = node->rows.at(pos);
             int potIndex = potNode->potRowNumber;
             int poIndex = pot2PoMapping[potIndex];
 
             if (poIndex != -1) {
-                //found pot node, that now has a PO index.
-                //reparent its child nodes, otherwise they will disappear in the gui
+                // found pot node, that now has a PO index.
+                // reparent its child nodes, otherwise they will disappear in the gui
                 auto potItem = m_potModel.itemForIndex(m_potModel.index(potIndex, 0, pot_parent));
                 if (potItem.isDir()) {
-
-                    ProjectNode* poNode = node->rows.at(poIndex);
+                    ProjectNode *poNode = node->rows.at(poIndex);
 
                     auto lastRowToReparent = potNode->rows.count() - 1;
 
@@ -248,7 +243,7 @@ void ProjectModel::po_rowsInserted(const QModelIndex& po_parent, int first, int 
                     auto rowsToReparent = std::move(potNode->rows);
                     endRemoveRows();
 
-                    for (auto& rowToReparent : rowsToReparent)
+                    for (auto &rowToReparent : rowsToReparent)
                         rowToReparent->parent = poNode;
 
                     auto poModelIndex = indexForNode(poNode);
@@ -257,15 +252,15 @@ void ProjectModel::po_rowsInserted(const QModelIndex& po_parent, int first, int 
                     endInsertRows();
                 }
 
-                //remove the pot node and change the corresponding PO node
+                // remove the pot node and change the corresponding PO node
                 beginRemoveRows(parent, pos, pos);
                 node->rows.remove(pos);
                 deleteSubtree(potNode);
                 endRemoveRows();
 
                 node->rows[poIndex]->potRowNumber = potIndex;
-                //This change does not need notification
-                //dataChanged(index(poIndex, 0, parent), index(poIndex, ProjectModelColumnCount, parent));
+                // This change does not need notification
+                // dataChanged(index(poIndex, 0, parent), index(poIndex, ProjectModelColumnCount, parent));
 
                 pos--;
             }
@@ -274,47 +269,46 @@ void ProjectModel::po_rowsInserted(const QModelIndex& po_parent, int first, int 
     enqueueNodeForMetadataUpdate(node);
 }
 
-
-void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, int end)
+void ProjectModel::pot_rowsInserted(const QModelIndex &pot_parent, int start, int end)
 {
     QModelIndex parent = indexForPotIndex(pot_parent);
     QModelIndex po_parent = poIndexForOuter(parent);
-    ProjectNode* node = nodeForIndex(parent);
+    ProjectNode *node = nodeForIndex(parent);
 
     int insertedCount = end + 1 - start;
     QVector<int> newPotNodes;
 
     if (po_parent.isValid() || !parent.isValid()) {
-        //this node containts mixed items - add and merge the stuff
+        // this node containts mixed items - add and merge the stuff
 
         QVector<int> pot2PoMapping;
         generatePOTMapping(pot2PoMapping, po_parent, pot_parent);
 
-        //reassign affected PO row POT indices
-        for (int pos = 0; pos < node->poCount; pos ++) {
-            ProjectNode* n = node->rows[pos];
+        // reassign affected PO row POT indices
+        for (int pos = 0; pos < node->poCount; pos++) {
+            ProjectNode *n = node->rows[pos];
             if (n->potRowNumber >= start)
                 n->potRowNumber += insertedCount;
         }
 
-        //assign new POT indices
-        for (int potIndex = start; potIndex <= end; potIndex ++) {
+        // assign new POT indices
+        for (int potIndex = start; potIndex <= end; potIndex++) {
             int poIndex = pot2PoMapping[potIndex];
             if (poIndex != -1) {
-                //found pot node, that has a PO index.
-                //change the corresponding PO node
+                // found pot node, that has a PO index.
+                // change the corresponding PO node
                 node->rows[poIndex]->potRowNumber = potIndex;
-                //This change does not need notification
-                //dataChanged(index(poIndex, 0, parent), index(poIndex, ProjectModelColumnCount, parent));
+                // This change does not need notification
+                // dataChanged(index(poIndex, 0, parent), index(poIndex, ProjectModelColumnCount, parent));
             } else
                 newPotNodes.append(potIndex);
         }
     } else {
-        for (int pos = start; pos <= end; pos ++)
+        for (int pos = start; pos <= end; pos++)
             newPotNodes.append(pos);
     }
 
-    //insert standalone POT rows, preserving POT order
+    // insert standalone POT rows, preserving POT order
 
     int newNodesCount = newPotNodes.count();
     if (newNodesCount) {
@@ -324,15 +318,15 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
 
         beginInsertRows(parent, insertionPoint, insertionPoint + newNodesCount - 1);
 
-        for (int pos = 0; pos < newNodesCount; pos ++) {
+        for (int pos = 0; pos < newNodesCount; pos++) {
             int potIndex = newPotNodes.at(pos);
-            ProjectNode * childNode = new ProjectNode(node, insertionPoint, -1, potIndex);
+            ProjectNode *childNode = new ProjectNode(node, insertionPoint, -1, potIndex);
             node->rows.insert(insertionPoint, childNode);
             insertionPoint++;
         }
 
-        //renumber remaining POT rows
-        for (int pos = insertionPoint; pos < node->rows.count(); pos ++) {
+        // renumber remaining POT rows
+        for (int pos = insertionPoint; pos < node->rows.count(); pos++) {
             node->rows[pos]->rowNumber = pos;
             node->rows[pos]->potRowNumber += insertedCount;
         }
@@ -340,39 +334,39 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
         endInsertRows();
     }
     enqueueNodeForMetadataUpdate(node);
-    //FIXME if templates folder doesn't contain an equivalent of po folder then it's stats will be broken:
-    // one way to fix this is to explicitly force scan of the files of the child folders of the 'node'
+    // FIXME if templates folder doesn't contain an equivalent of po folder then it's stats will be broken:
+    //  one way to fix this is to explicitly force scan of the files of the child folders of the 'node'
 }
 
-void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int end)
+void ProjectModel::po_rowsRemoved(const QModelIndex &po_parent, int start, int end)
 {
     QModelIndex parent = indexForPoIndex(po_parent);
-    //QModelIndex pot_parent = potIndexForOuter(parent);
-    ProjectNode* node = nodeForIndex(parent);
+    // QModelIndex pot_parent = potIndexForOuter(parent);
+    ProjectNode *node = nodeForIndex(parent);
     int removedCount = end + 1 - start;
 
     if ((!parent.isValid()) && (node->rows.count() == 0)) {
         qCDebug(LOKALIZE_LOG) << "po_rowsRemoved fail";
-        //events after removing entire contents
+        // events after removing entire contents
         return;
     }
 
-    //remove PO rows
+    // remove PO rows
     QList<int> potRowsToInsert;
 
     beginRemoveRows(parent, start, end);
 
-    //renumber all rows after removed.
-    for (int pos = end + 1; pos < node->rows.count(); pos ++) {
-        ProjectNode* childNode = node->rows.at(pos);
+    // renumber all rows after removed.
+    for (int pos = end + 1; pos < node->rows.count(); pos++) {
+        ProjectNode *childNode = node->rows.at(pos);
         childNode->rowNumber -= removedCount;
 
         if (childNode->poRowNumber > end)
             node->rows[pos]->poRowNumber -= removedCount;
     }
 
-    //remove
-    for (int pos = end; pos >= start; pos --) {
+    // remove
+    for (int pos = end; pos >= start; pos--) {
         int potIndex = node->rows.at(pos)->potRowNumber;
         deleteSubtree(node->rows.at(pos));
         node->rows.remove(pos);
@@ -381,32 +375,31 @@ void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int e
             potRowsToInsert.append(potIndex);
     }
 
-
     node->poCount -= removedCount;
 
     endRemoveRows(); //< fires removed event - the list has to be consistent now
 
-    //add back rows that have POT files and fix row order
+    // add back rows that have POT files and fix row order
     std::sort(potRowsToInsert.begin(), potRowsToInsert.end());
 
     int insertionPoint = node->poCount;
 
-    for (int pos = 0; pos < potRowsToInsert.count(); pos ++) {
+    for (int pos = 0; pos < potRowsToInsert.count(); pos++) {
         int potIndex = potRowsToInsert.at(pos);
         while (insertionPoint < node->rows.count() && node->rows[insertionPoint]->potRowNumber < potIndex) {
             node->rows[insertionPoint]->rowNumber = insertionPoint;
-            insertionPoint ++;
+            insertionPoint++;
         }
 
         beginInsertRows(parent, insertionPoint, insertionPoint);
 
-        ProjectNode * childNode = new ProjectNode(node, insertionPoint, -1, potIndex);
+        ProjectNode *childNode = new ProjectNode(node, insertionPoint, -1, potIndex);
         node->rows.insert(insertionPoint, childNode);
         insertionPoint++;
         endInsertRows();
     }
 
-    //renumber remaining rows
+    // renumber remaining rows
     while (insertionPoint < node->rows.count()) {
         node->rows[insertionPoint]->rowNumber = insertionPoint;
         insertionPoint++;
@@ -415,42 +408,41 @@ void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int e
     enqueueNodeForMetadataUpdate(node);
 }
 
-
-void ProjectModel::pot_rowsRemoved(const QModelIndex& pot_parent, int start, int end)
+void ProjectModel::pot_rowsRemoved(const QModelIndex &pot_parent, int start, int end)
 {
     QModelIndex parent = indexForPotIndex(pot_parent);
     QModelIndex po_parent = poIndexForOuter(parent);
-    ProjectNode * node = nodeForIndex(parent);
+    ProjectNode *node = nodeForIndex(parent);
     int removedCount = end + 1 - start;
 
     if ((!parent.isValid()) && (node->rows.count() == 0)) {
-        //events after removing entire contents
+        // events after removing entire contents
         return;
     }
 
-    //First remove POT nodes
+    // First remove POT nodes
 
     int firstPOTToRemove = node->poCount;
     int lastPOTToRemove = node->rows.count() - 1;
 
     while (firstPOTToRemove <= lastPOTToRemove && node->rows[firstPOTToRemove]->potRowNumber < start)
-        firstPOTToRemove ++;
+        firstPOTToRemove++;
     while (lastPOTToRemove >= firstPOTToRemove && node->rows[lastPOTToRemove]->potRowNumber > end)
-        lastPOTToRemove --;
+        lastPOTToRemove--;
 
     if (firstPOTToRemove <= lastPOTToRemove) {
         beginRemoveRows(parent, firstPOTToRemove, lastPOTToRemove);
 
-        for (int pos = lastPOTToRemove; pos >= firstPOTToRemove; pos --) {
-            ProjectNode* childNode = node->rows.at(pos);
+        for (int pos = lastPOTToRemove; pos >= firstPOTToRemove; pos--) {
+            ProjectNode *childNode = node->rows.at(pos);
             Q_ASSERT(childNode->potRowNumber >= start);
             Q_ASSERT(childNode->potRowNumber <= end);
             deleteSubtree(childNode);
             node->rows.remove(pos);
         }
 
-        //renumber remaining rows
-        for (int pos = firstPOTToRemove; pos < node->rows.count(); pos ++) {
+        // renumber remaining rows
+        for (int pos = firstPOTToRemove; pos < node->rows.count(); pos++) {
             node->rows[pos]->rowNumber = pos;
             node->rows[pos]->potRowNumber -= removedCount;
         }
@@ -458,21 +450,21 @@ void ProjectModel::pot_rowsRemoved(const QModelIndex& pot_parent, int start, int
         endRemoveRows();
     }
 
-    //now remove POT indices form PO rows
+    // now remove POT indices form PO rows
 
     if (po_parent.isValid() || !parent.isValid()) {
-        for (int poIndex = 0; poIndex < node->poCount; poIndex ++) {
-            ProjectNode * childNode = node->rows[poIndex];
+        for (int poIndex = 0; poIndex < node->poCount; poIndex++) {
+            ProjectNode *childNode = node->rows[poIndex];
             int potIndex = childNode->potRowNumber;
 
             if (potIndex >= start && potIndex <= end) {
-                //found PO node, that has a POT index in range.
-                //change the corresponding PO node
+                // found PO node, that has a POT index in range.
+                // change the corresponding PO node
                 node->rows[poIndex]->potRowNumber = -1;
-                //this change does not affect the model
-                //dataChanged(index(poIndex, 0, parent), index(poIndex, ProjectModelColumnCount, parent));
+                // this change does not affect the model
+                // dataChanged(index(poIndex, 0, parent), index(poIndex, ProjectModelColumnCount, parent));
             } else if (childNode->potRowNumber > end) {
-                //reassign POT indices
+                // reassign POT indices
                 childNode->potRowNumber -= removedCount;
             }
         }
@@ -481,12 +473,10 @@ void ProjectModel::pot_rowsRemoved(const QModelIndex& pot_parent, int start, int
     enqueueNodeForMetadataUpdate(node);
 }
 
-
-int ProjectModel::columnCount(const QModelIndex& /*parent*/)const
+int ProjectModel::columnCount(const QModelIndex & /*parent*/) const
 {
     return ProjectModelColumnCount;
 }
-
 
 QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
 {
@@ -540,8 +530,7 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
     }
 }
 
-
-Qt::ItemFlags ProjectModel::flags(const QModelIndex & index) const
+Qt::ItemFlags ProjectModel::flags(const QModelIndex &index) const
 {
     if (static_cast<ProjectModelColumns>(index.column()) == ProjectModelColumns::FileName)
         return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
@@ -549,14 +538,12 @@ Qt::ItemFlags ProjectModel::flags(const QModelIndex & index) const
         return Qt::ItemIsSelectable;
 }
 
-
-int ProjectModel::rowCount(const QModelIndex & parent /*= QModelIndex()*/) const
+int ProjectModel::rowCount(const QModelIndex &parent /*= QModelIndex()*/) const
 {
     return nodeForIndex(parent)->rows.size();
 }
 
-
-bool ProjectModel::hasChildren(const QModelIndex & parent /*= QModelIndex()*/) const
+bool ProjectModel::hasChildren(const QModelIndex &parent /*= QModelIndex()*/) const
 {
     if (!parent.isValid())
         return true;
@@ -564,11 +551,10 @@ bool ProjectModel::hasChildren(const QModelIndex & parent /*= QModelIndex()*/) c
     QModelIndex poIndex = poIndexForOuter(parent);
     QModelIndex potIndex = potIndexForOuter(parent);
 
-    return ((poIndex.isValid() && m_poModel.hasChildren(poIndex)) ||
-            (potIndex.isValid() && m_potModel.hasChildren(potIndex)));
+    return ((poIndex.isValid() && m_poModel.hasChildren(poIndex)) || (potIndex.isValid() && m_potModel.hasChildren(potIndex)));
 }
 
-bool ProjectModel::canFetchMore(const QModelIndex & parent) const
+bool ProjectModel::canFetchMore(const QModelIndex &parent) const
 {
     if (!parent.isValid())
         return m_poModel.canFetchMore(QModelIndex()) || m_potModel.canFetchMore(QModelIndex());
@@ -576,11 +562,10 @@ bool ProjectModel::canFetchMore(const QModelIndex & parent) const
     QModelIndex poIndex = poIndexForOuter(parent);
     QModelIndex potIndex = potIndexForOuter(parent);
 
-    return ((poIndex.isValid() && m_poModel.canFetchMore(poIndex)) ||
-            (potIndex.isValid() && m_potModel.canFetchMore(potIndex)));
+    return ((poIndex.isValid() && m_poModel.canFetchMore(poIndex)) || (potIndex.isValid() && m_potModel.canFetchMore(potIndex)));
 }
 
-void ProjectModel::fetchMore(const QModelIndex & parent)
+void ProjectModel::fetchMore(const QModelIndex &parent)
 {
     if (!parent.isValid()) {
         if (m_poModel.canFetchMore(QModelIndex()))
@@ -600,8 +585,6 @@ void ProjectModel::fetchMore(const QModelIndex & parent)
     }
 }
 
-
-
 /**
  * we use QRect to pass data through QVariant tunnel
  *
@@ -609,13 +592,13 @@ void ProjectModel::fetchMore(const QModelIndex & parent)
  *          left() top() width()
  *
  */
-QVariant ProjectModel::data(const QModelIndex& index, const int role) const
+QVariant ProjectModel::data(const QModelIndex &index, const int role) const
 {
     if (!index.isValid())
         return QVariant();
 
     const auto column = static_cast<ProjectModelColumns>(index.column());
-    const ProjectNode* node = nodeForIndex(index);
+    const ProjectNode *node = nodeForIndex(index);
     const QModelIndex internalIndex = poOrPotIndexForOuter(index);
 
     if (!internalIndex.isValid())
@@ -717,11 +700,10 @@ QVariant ProjectModel::data(const QModelIndex& index, const int role) const
     }
 }
 
-
-QModelIndex ProjectModel::index(int row, int column, const QModelIndex& parent) const
+QModelIndex ProjectModel::index(int row, int column, const QModelIndex &parent) const
 {
-    ProjectNode* parentNode = nodeForIndex(parent);
-    //qCWarning(LOKALIZE_LOG)<<(sizeof(ProjectNode))<<nodeCounter;
+    ProjectNode *parentNode = nodeForIndex(parent);
+    // qCWarning(LOKALIZE_LOG)<<(sizeof(ProjectNode))<<nodeCounter;
     if (row >= parentNode->rows.size()) {
         qCWarning(LOKALIZE_LOG) << "Issues with indexes" << row << parentNode->rows.size() << itemForIndex(parent).url();
         return QModelIndex();
@@ -729,11 +711,10 @@ QModelIndex ProjectModel::index(int row, int column, const QModelIndex& parent) 
     return createIndex(row, column, parentNode->rows.at(row));
 }
 
-
-KFileItem ProjectModel::itemForIndex(const QModelIndex& index) const
+KFileItem ProjectModel::itemForIndex(const QModelIndex &index) const
 {
     if (!index.isValid()) {
-        //file item for root node.
+        // file item for root node.
         return m_poModel.itemForIndex(index);
     }
     QModelIndex poIndex = poIndexForOuter(index);
@@ -752,38 +733,35 @@ KFileItem ProjectModel::itemForIndex(const QModelIndex& index) const
     qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << index.parent().internalPointer();
     qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << index.parent().data().toString();
     qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << index.internalPointer();
-    qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" <<
-                         static_cast<ProjectNode*>(index.internalPointer())->metaData.untranslated <<
-                         static_cast<ProjectNode*>(index.internalPointer())->metaData.sourceDate;
+    qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << static_cast<ProjectNode *>(index.internalPointer())->metaData.untranslated
+                         << static_cast<ProjectNode *>(index.internalPointer())->metaData.sourceDate;
     return KFileItem();
 }
 
-
-ProjectModel::ProjectNode* ProjectModel::nodeForIndex(const QModelIndex& index) const
+ProjectModel::ProjectNode *ProjectModel::nodeForIndex(const QModelIndex &index) const
 {
     if (index.isValid()) {
-        ProjectNode * node = static_cast<ProjectNode *>(index.internalPointer());
+        ProjectNode *node = static_cast<ProjectNode *>(index.internalPointer());
         Q_ASSERT(node != nullptr);
         return node;
     } else {
-        ProjectNode * node = const_cast<ProjectNode *>(&m_rootNode);
+        ProjectNode *node = const_cast<ProjectNode *>(&m_rootNode);
         Q_ASSERT(node != nullptr);
         return node;
     }
 }
 
-
-QModelIndex ProjectModel::indexForNode(const ProjectNode* node)
+QModelIndex ProjectModel::indexForNode(const ProjectNode *node)
 {
     if (node == &m_rootNode)
         return QModelIndex();
 
     int row = node->rowNumber;
-    QModelIndex index = createIndex(row, 0, (void*)node);
+    QModelIndex index = createIndex(row, 0, (void *)node);
     return index;
 }
 
-QModelIndex ProjectModel::indexForUrl(const QUrl& url)
+QModelIndex ProjectModel::indexForUrl(const QUrl &url)
 {
     if (m_poUrl.isParentOf(url)) {
         QModelIndex poIndex = m_poModel.indexForUrl(url);
@@ -796,13 +774,13 @@ QModelIndex ProjectModel::indexForUrl(const QUrl& url)
     return QModelIndex();
 }
 
-QModelIndex ProjectModel::parent(const QModelIndex& childIndex) const
+QModelIndex ProjectModel::parent(const QModelIndex &childIndex) const
 {
     if (!childIndex.isValid())
         return QModelIndex();
 
-    ProjectNode* childNode = nodeForIndex(childIndex);
-    ProjectNode* parentNode = childNode->parent;
+    ProjectNode *childNode = nodeForIndex(childIndex);
+    ProjectNode *parentNode = childNode->parent;
 
     if (!parentNode || (childNode == &m_rootNode) || (parentNode == &m_rootNode))
         return QModelIndex();
@@ -810,12 +788,11 @@ QModelIndex ProjectModel::parent(const QModelIndex& childIndex) const
     return createIndex(parentNode->rowNumber, 0, parentNode);
 }
 
-
 /**
  * Theese methods map from project model indices to PO and POT model indices.
  * In each folder files form PO model comes first, and files from POT that do not exist in PO model come after.
  */
-QModelIndex ProjectModel::indexForOuter(const QModelIndex& outerIndex, IndexType type) const
+QModelIndex ProjectModel::indexForOuter(const QModelIndex &outerIndex, IndexType type) const
 {
     if (!outerIndex.isValid())
         return QModelIndex();
@@ -829,7 +806,7 @@ QModelIndex ProjectModel::indexForOuter(const QModelIndex& outerIndex, IndexType
             return QModelIndex();
     }
 
-    ProjectNode* node = nodeForIndex(outerIndex);
+    ProjectNode *node = nodeForIndex(outerIndex);
 
     short rowNumber = (type == PoIndex ? node->poRowNumber : node->potRowNumber);
     if (rowNumber == -1)
@@ -837,19 +814,17 @@ QModelIndex ProjectModel::indexForOuter(const QModelIndex& outerIndex, IndexType
     return (type == PoIndex ? m_poModel : m_potModel).index(rowNumber, outerIndex.column(), internalParent);
 }
 
-QModelIndex ProjectModel::poIndexForOuter(const QModelIndex& outerIndex) const
+QModelIndex ProjectModel::poIndexForOuter(const QModelIndex &outerIndex) const
 {
     return indexForOuter(outerIndex, PoIndex);
 }
 
-
-QModelIndex ProjectModel::potIndexForOuter(const QModelIndex& outerIndex) const
+QModelIndex ProjectModel::potIndexForOuter(const QModelIndex &outerIndex) const
 {
     return indexForOuter(outerIndex, PotIndex);
 }
 
-
-QModelIndex ProjectModel::poOrPotIndexForOuter(const QModelIndex& outerIndex) const
+QModelIndex ProjectModel::poOrPotIndexForOuter(const QModelIndex &outerIndex) const
 {
     if (!outerIndex.isValid())
         return QModelIndex();
@@ -867,24 +842,24 @@ QModelIndex ProjectModel::poOrPotIndexForOuter(const QModelIndex& outerIndex) co
     return potIndex;
 }
 
-QModelIndex ProjectModel::indexForPoIndex(const QModelIndex& poIndex) const
+QModelIndex ProjectModel::indexForPoIndex(const QModelIndex &poIndex) const
 {
     if (!poIndex.isValid())
         return QModelIndex();
 
     QModelIndex outerParent = indexForPoIndex(poIndex.parent());
-    int row = poIndex.row(); //keep the same row, no changes
+    int row = poIndex.row(); // keep the same row, no changes
 
     return index(row, poIndex.column(), outerParent);
 }
 
-QModelIndex ProjectModel::indexForPotIndex(const QModelIndex& potIndex) const
+QModelIndex ProjectModel::indexForPotIndex(const QModelIndex &potIndex) const
 {
     if (!potIndex.isValid())
         return QModelIndex();
 
     QModelIndex outerParent = indexForPotIndex(potIndex.parent());
-    ProjectNode* node = nodeForIndex(outerParent);
+    ProjectNode *node = nodeForIndex(outerParent);
 
     int potRow = potIndex.row();
     int row = 0;
@@ -899,13 +874,12 @@ QModelIndex ProjectModel::indexForPotIndex(const QModelIndex& potIndex) const
     return QModelIndex();
 }
 
-
 /**
  * Makes a list of indices where pot items map to poItems.
  * result[potRow] = poRow or -1 if the pot entry is not found in po.
  * Does not use internal pot and po row number cache.
  */
-void ProjectModel::generatePOTMapping(QVector<int> & result, const QModelIndex& poParent, const QModelIndex& potParent) const
+void ProjectModel::generatePOTMapping(QVector<int> &result, const QModelIndex &poParent, const QModelIndex &potParent) const
 {
     result.clear();
 
@@ -917,20 +891,19 @@ void ProjectModel::generatePOTMapping(QVector<int> & result, const QModelIndex& 
 
     QList<QUrl> poOccupiedUrls;
 
-    for (int poPos = 0; poPos < poRows; poPos ++) {
+    for (int poPos = 0; poPos < poRows; poPos++) {
         KFileItem file = m_poModel.itemForIndex(m_poModel.index(poPos, 0, poParent));
         QUrl potUrl = poToPot(file.url());
         poOccupiedUrls.append(potUrl);
     }
 
-    for (int potPos = 0; potPos < potRows; potPos ++) {
-
+    for (int potPos = 0; potPos < potRows; potPos++) {
         QUrl potUrl = m_potModel.itemForIndex(m_potModel.index(potPos, 0, potParent)).url();
         int occupiedPos = -1;
 
-        //TODO: this is slow
-        for (int poPos = 0; occupiedPos == -1 && poPos < poOccupiedUrls.count(); poPos ++) {
-            QUrl& occupiedUrl = poOccupiedUrls[poPos];
+        // TODO: this is slow
+        for (int poPos = 0; occupiedPos == -1 && poPos < poOccupiedUrls.count(); poPos++) {
+            QUrl &occupiedUrl = poOccupiedUrls[poPos];
             if (potUrl.matches(occupiedUrl, QUrl::StripTrailingSlash))
                 occupiedPos = poPos;
         }
@@ -939,8 +912,7 @@ void ProjectModel::generatePOTMapping(QVector<int> & result, const QModelIndex& 
     }
 }
 
-
-QUrl ProjectModel::poToPot(const QUrl& poPath) const
+QUrl ProjectModel::poToPot(const QUrl &poPath) const
 {
     if (!(m_poUrl.isParentOf(poPath) || m_poUrl.matches(poPath, QUrl::StripTrailingSlash))) {
         qCWarning(LOKALIZE_LOG) << "PO path not in project: " << poPath.url();
@@ -949,18 +921,18 @@ QUrl ProjectModel::poToPot(const QUrl& poPath) const
 
     QString pathToAdd = QDir(m_poUrl.path()).relativeFilePath(poPath.path());
 
-    //change ".po" into ".pot"
-    if (pathToAdd.endsWith(QLatin1String(".po"))) //TODO: what about folders ??
+    // change ".po" into ".pot"
+    if (pathToAdd.endsWith(QLatin1String(".po"))) // TODO: what about folders ??
         pathToAdd += QLatin1Char('t');
 
     QUrl potPath = m_potUrl;
     potPath.setPath(potPath.path() + QLatin1Char('/') + pathToAdd);
 
-    //qCDebug(LOKALIZE_LOG) << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
+    // qCDebug(LOKALIZE_LOG) << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
     return potPath;
 }
 
-QUrl ProjectModel::potToPo(const QUrl& potPath) const
+QUrl ProjectModel::potToPo(const QUrl &potPath) const
 {
     if (!(m_potUrl.isParentOf(potPath) || m_potUrl.matches(potPath, QUrl::StripTrailingSlash))) {
         qCWarning(LOKALIZE_LOG) << "POT path not in project: " << potPath.url();
@@ -969,24 +941,23 @@ QUrl ProjectModel::potToPo(const QUrl& potPath) const
 
     QString pathToAdd = QDir(m_potUrl.path()).relativeFilePath(potPath.path());
 
-    //change ".pot" into ".po"
-    if (pathToAdd.endsWith(QLatin1String(".pot"))) //TODO: what about folders ??
+    // change ".pot" into ".po"
+    if (pathToAdd.endsWith(QLatin1String(".pot"))) // TODO: what about folders ??
         pathToAdd = pathToAdd.left(pathToAdd.length() - 1);
 
     QUrl poPath = m_poUrl;
     poPath.setPath(poPath.path() + QLatin1Char('/') + pathToAdd);
 
-    //qCDebug(LOKALIZE_LOG) << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
+    // qCDebug(LOKALIZE_LOG) << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
     return poPath;
 }
 
+// Metadata stuff
+// For updating translation stats
 
-//Metadata stuff
-//For updating translation stats
-
-void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode* node)
+void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode *node)
 {
-    //qCWarning(LOKALIZE_LOG) << "Enqueued node for metadata Update : " << node->rowNumber;
+    // qCWarning(LOKALIZE_LOG) << "Enqueued node for metadata Update : " << node->rowNumber;
     m_doneTimer->stop();
 
     if (m_dirsWaitingForMetadata.contains(node)) {
@@ -1002,10 +973,9 @@ void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode* node)
         startNewMetadataJob();
 }
 
-
-void ProjectModel::deleteSubtree(ProjectNode* node)
+void ProjectModel::deleteSubtree(ProjectNode *node)
 {
-    for (int row = 0; row < node->rows.count(); row ++)
+    for (int row = 0; row < node->rows.count(); row++)
         deleteSubtree(node->rows.at(row));
 
     m_dirsWaitingForMetadata.remove(node);
@@ -1016,10 +986,9 @@ void ProjectModel::deleteSubtree(ProjectNode* node)
     delete node;
 }
 
-
 void ProjectModel::startNewMetadataJob()
 {
-    if (!m_completeScan) //hack for debugging
+    if (!m_completeScan) // hack for debugging
         return;
 
     m_activeJob = nullptr;
@@ -1028,18 +997,18 @@ void ProjectModel::startNewMetadataJob()
     if (m_dirsWaitingForMetadata.isEmpty())
         return;
 
-    ProjectNode* node = *m_dirsWaitingForMetadata.constBegin();
+    ProjectNode *node = *m_dirsWaitingForMetadata.constBegin();
 
-    //prepare new work
+    // prepare new work
     m_activeNode = node;
 
     QList<KFileItem> files;
 
     QModelIndex item = indexForNode(node);
 
-    for (int row = 0; row < node->rows.count(); row ++) {
+    for (int row = 0; row < node->rows.count(); row++) {
         KFileItem fileItem = itemForIndex(index(row, 0, item));
-        if (fileItem.isFile())//Do not seek items that are not files
+        if (fileItem.isFile()) // Do not seek items that are not files
             files.append(fileItem);
     }
 
@@ -1049,7 +1018,7 @@ void ProjectModel::startNewMetadataJob()
     m_threadPool->start(m_activeJob);
 }
 
-void ProjectModel::finishMetadataUpdate(UpdateStatsJob* job)
+void ProjectModel::finishMetadataUpdate(UpdateStatsJob *job)
 {
     if (job->m_status == -2) {
         delete job;
@@ -1058,29 +1027,29 @@ void ProjectModel::finishMetadataUpdate(UpdateStatsJob* job)
 
     if ((m_dirsWaitingForMetadata.contains(m_activeNode)) && (job->m_status == 0)) {
         m_dirsWaitingForMetadata.remove(m_activeNode);
-        //store the results
+        // store the results
 
         setMetadataForDir(m_activeNode, m_activeJob->m_info);
 
         QModelIndex item = indexForNode(m_activeNode);
 
-        //scan dubdirs - initiate data loading into the model.
+        // scan dubdirs - initiate data loading into the model.
         for (int row = 0; row < m_activeNode->rows.count(); row++) {
             QModelIndex child = index(row, 0, item);
 
             if (canFetchMore(child))
                 fetchMore(child);
-            //QCoreApplication::processEvents();
+            // QCoreApplication::processEvents();
         }
     }
 
-    delete m_activeJob; m_activeJob = nullptr;
+    delete m_activeJob;
+    m_activeJob = nullptr;
 
     startNewMetadataJob();
 }
 
-
-void ProjectModel::slotFileSaved(const QString& filePath)
+void ProjectModel::slotFileSaved(const QString &filePath)
 {
     QModelIndex index = indexForUrl(QUrl::fromLocalFile(filePath));
 
@@ -1090,25 +1059,25 @@ void ProjectModel::slotFileSaved(const QString& filePath)
     QList<KFileItem> files;
     files.append(itemForIndex(index));
 
-    UpdateStatsJob* j = new UpdateStatsJob(files);
+    UpdateStatsJob *j = new UpdateStatsJob(files);
     connect(j, &UpdateStatsJob::done, this, &ProjectModel::finishSingleMetadataUpdate);
 
     m_threadPool->start(j);
 }
 
-void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
+void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob *job)
 {
     if (job->m_status != 0) {
         delete job;
         return;
     }
 
-    const FileMetaData& info = job->m_info.first();
+    const FileMetaData &info = job->m_info.first();
     QModelIndex index = indexForUrl(QUrl::fromLocalFile(info.filePath));
     if (!index.isValid())
         return;
 
-    ProjectNode* node = nodeForIndex(index);
+    ProjectNode *node = nodeForIndex(index);
     node->setFileStats(job->m_info.first());
     updateDirStats(nodeForIndex(index.parent()));
 
@@ -1119,7 +1088,7 @@ void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
     delete job;
 }
 
-void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<FileMetaData>& data)
+void ProjectModel::setMetadataForDir(ProjectNode *node, const QList<FileMetaData> &data)
 {
     const QModelIndex item = indexForNode(node);
     const int dataCount = data.count();
@@ -1127,7 +1096,7 @@ void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<FileMetaData
     for (int row = 0; row < node->rows.count(); row++)
         if (itemForIndex(index(row, 0, item)).isFile())
             rowsCount++;
-    //Q_ASSERT(dataCount == rowsCount);
+    // Q_ASSERT(dataCount == rowsCount);
     if (dataCount != rowsCount) {
         m_delayedReloadTimer->start(2000);
         qCWarning(LOKALIZE_LOG) << "dataCount != rowsCount, scheduling full refresh";
@@ -1150,7 +1119,7 @@ void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<FileMetaData
     Q_EMIT dataChanged(topLeft, bottomRight);
 }
 
-void ProjectModel::updateDirStats(ProjectNode* node)
+void ProjectModel::updateDirStats(ProjectNode *node)
 {
     node->calculateDirStats();
     if (node == &m_rootNode) {
@@ -1171,7 +1140,7 @@ void ProjectModel::updateDirStats(ProjectNode* node)
     Q_EMIT dataChanged(topLeft, bottomRight);
 }
 
-bool ProjectModel::updateDone(const QModelIndex& index, const KDirModel& model)
+bool ProjectModel::updateDone(const QModelIndex &index, const KDirModel &model)
 {
     if (model.canFetchMore(index))
         return false;
@@ -1188,8 +1157,7 @@ void ProjectModel::updateTotalsChanged()
 {
     bool done = m_dirsWaitingForMetadata.isEmpty();
     if (done) {
-        done = updateDone(m_poModel.indexForUrl(m_poUrl), m_poModel) &&
-               updateDone(m_potModel.indexForUrl(m_potUrl), m_potModel);
+        done = updateDone(m_poModel.indexForUrl(m_poUrl), m_poModel) && updateDone(m_potModel.indexForUrl(m_potUrl), m_potModel);
         if (m_rootNode.fuzzyAsPerRole() + m_rootNode.translatedAsPerRole() + m_rootNode.metaData.untranslated > 0 && !done)
             m_doneTimer->start(2000);
 
@@ -1198,10 +1166,9 @@ void ProjectModel::updateTotalsChanged()
     Q_EMIT totalsChanged(m_rootNode.fuzzyAsPerRole(), m_rootNode.translatedAsPerRole(), m_rootNode.metaData.untranslated, done);
 }
 
+// ProjectNode class
 
-//ProjectNode class
-
-ProjectModel::ProjectNode::ProjectNode(ProjectNode* _parent, int _rowNum, int _poIndex, int _potIndex)
+ProjectModel::ProjectNode::ProjectNode(ProjectNode *_parent, int _rowNum, int _poIndex, int _potIndex)
     : parent(_parent)
     , rowNumber(_rowNum)
     , poRowNumber(_poIndex)
@@ -1227,7 +1194,7 @@ void ProjectModel::ProjectNode::calculateDirStats()
     metaDataStatus = ProjectNode::Status::HasStats;
 
     for (int pos = 0; pos < rows.count(); pos++) {
-        ProjectNode* child = rows.at(pos);
+        ProjectNode *child = rows.at(pos);
         if (child->metaDataStatus == ProjectNode::Status::HasStats) {
             metaData.fuzzy += child->metaData.fuzzy;
             metaData.fuzzy_reviewer += child->metaData.fuzzy_reviewer;
@@ -1240,8 +1207,7 @@ void ProjectModel::ProjectNode::calculateDirStats()
     }
 }
 
-
-void ProjectModel::ProjectNode::setFileStats(const FileMetaData& info)
+void ProjectModel::ProjectNode::setFileStats(const FileMetaData &info)
 {
     metaData = info;
     metaDataStatus = info.invalid_file ? Status::InvalidFile : Status::HasStats;

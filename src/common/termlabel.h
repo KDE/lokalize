@@ -10,20 +10,23 @@
 #ifndef TERMLABEL_H
 #define TERMLABEL_H
 
-#include <QLabel>
 #include "glossary.h"
 #include "project.h"
+#include <QLabel>
 
 namespace GlossaryNS
 {
 /**
  * flowlayout item
  */
-class TermLabel: public QLabel//QPushButton
+class TermLabel : public QLabel // QPushButton
 {
     Q_OBJECT
 public:
-    explicit TermLabel(QAction* a = nullptr): m_action(a) {}
+    explicit TermLabel(QAction *a = nullptr)
+        : m_action(a)
+    {
+    }
     ~TermLabel() override = default;
 
     /**
@@ -31,19 +34,19 @@ public:
      * @param entryId is a whole entry
      * @param capFirst whether the first letter should be capitalized
      */
-    void setText(const QString& term, const QByteArray& entryId, bool capFirst);
-    void mousePressEvent(QMouseEvent* /* event*/) override;
+    void setText(const QString &term, const QByteArray &entryId, bool capFirst);
+    void mousePressEvent(QMouseEvent * /* event*/) override;
 
 public Q_SLOTS:
     void insert();
-//     bool event(QEvent *event);
+    //     bool event(QEvent *event);
 Q_SIGNALS:
-    void insertTerm(const QString&);
+    void insertTerm(const QString &);
 
 private:
     QByteArray m_entryId;
     bool m_capFirst{false};
-    QAction* const m_action; //used only for shortcut purposes
+    QAction *const m_action; // used only for shortcut purposes
 };
 
 }

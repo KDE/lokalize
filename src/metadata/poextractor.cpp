@@ -18,7 +18,8 @@
 void POExtractor::endMessage()
 {
     messages++;
-    if (isTranslated) fuzzy += isFuzzy;
+    if (isTranslated)
+        fuzzy += isFuzzy;
     untranslated += (!isTranslated);
 
     isFuzzy = false;
@@ -26,7 +27,7 @@ void POExtractor::endMessage()
     state = WHITESPACE;
 }
 
-void POExtractor::handleComment(const char* data, uint32_t length)
+void POExtractor::handleComment(const char *data, uint32_t length)
 {
     state = COMMENT;
     if (length >= 8 && strncmp(data, "#, fuzzy", 8) == 0) { // could be better
@@ -34,13 +35,15 @@ void POExtractor::handleComment(const char* data, uint32_t length)
     }
 }
 
-void POExtractor::handleLine(const char* data, uint32_t length)
+void POExtractor::handleLine(const char *data, uint32_t length)
 {
-    if (state == ERROR) return;
+    if (state == ERROR)
+        return;
     if (state == WHITESPACE) {
-        if (length == 0) return;
+        if (length == 0)
+            return;
         if (data[0] != '#') {
-            state = COMMENT; //this allows PO files w/o comments
+            state = COMMENT; // this allows PO files w/o comments
         } else {
             handleComment(data, length);
             return;
@@ -59,25 +62,20 @@ void POExtractor::handleLine(const char* data, uint32_t length)
             state = ERROR;
         }
         return;
-    } else if (length > 1 && data[0] == '"' && data[length - 1] == '"'
-               && (state == MSGCTXT || state == MSGID || state == MSGSTR
-                   || state == MSGID_PLURAL)) {
+    } else if (length > 1 && data[0] == '"' && data[length - 1] == '"' && (state == MSGCTXT || state == MSGID || state == MSGSTR || state == MSGID_PLURAL)) {
         // continued text field
         isTranslated = state == MSGSTR && length > 2;
-    } else if (state == MSGCTXT
-               && length > 7 && strncmp("msgid \"", data, 7) == 0) {
+    } else if (state == MSGCTXT && length > 7 && strncmp("msgid \"", data, 7) == 0) {
         state = MSGID;
-    } else if (state == MSGID
-               && length > 14 && strncmp("msgid_plural \"", data, 14) == 0) {
+    } else if (state == MSGID && length > 14 && strncmp("msgid_plural \"", data, 14) == 0) {
         state = MSGID_PLURAL;
-    } else if ((state == MSGID || state == MSGID_PLURAL || state == MSGSTR)
-               && length > 8 && strncmp("msgstr", data, 6) == 0) {
+    } else if ((state == MSGID || state == MSGID_PLURAL || state == MSGSTR) && length > 8 && strncmp("msgstr", data, 6) == 0) {
         state = MSGSTR;
         isTranslated = strncmp(data + length - 3, " \"\"", 3) != 0;
     } else if (state == MSGSTR) {
         if (length == 0) {
             endMessage();
-        } else if (data[0] == '#' || data[0] == 'm') { //allow PO without empty line between entries
+        } else if (data[0] == '#' || data[0] == 'm') { // allow PO without empty line between entries
             endMessage();
             state = COMMENT;
             handleLine(data, length);
@@ -102,7 +100,7 @@ void POExtractor::handleLine(const char* data, uint32_t length)
 #endif
 }
 
-FileMetaData POExtractor::extract(const QString& filePath)
+FileMetaData POExtractor::extract(const QString &filePath)
 {
     std::ifstream fstream(QFile::encodeName(filePath).toStdString());
     if (!fstream.is_open()) {
@@ -120,9 +118,9 @@ FileMetaData POExtractor::extract(const QString& filePath)
     int lines = 0;
     FileMetaData m;
     while (std::getline(fstream, line)) {
-        //TODO add a parsed text of translation units
-        //QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
-        //result->append(QString::fromUtf8(arr));
+        // TODO add a parsed text of translation units
+        // QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
+        // result->append(QString::fromUtf8(arr));
 
         handleLine(line.c_str(), line.size());
         lines++;
@@ -140,8 +138,8 @@ FileMetaData POExtractor::extract(const QString& filePath)
             fuzzy = 0;
         }
     }
-    handleLine("", 0); //for files with non-empty last line
-    messages--;//cause header does not count
+    handleLine("", 0); // for files with non-empty last line
+    messages--; // cause header does not count
 
     /*
         result->add(Property::TranslationUnitsTotal, messages);
@@ -150,13 +148,13 @@ FileMetaData POExtractor::extract(const QString& filePath)
         result->add(Property::LineCount, lines);
     */
 
-    //TODO WordCount
-    m.fuzzy      = fuzzy;
+    // TODO WordCount
+    m.fuzzy = fuzzy;
     m.translated = messages - untranslated - fuzzy;
     m.untranslated = untranslated;
     m.filePath = filePath;
 
-    //File is invalid
+    // File is invalid
     if (messages < 0 || fuzzy < 0 || untranslated < 0) {
         m.invalid_file = true;
         m.translated = 0;
@@ -164,7 +162,7 @@ FileMetaData POExtractor::extract(const QString& filePath)
         m.fuzzy = 0;
     }
 
-    //TODO
+    // TODO
     m.translated_approver = m.translated_reviewer = m.translated;
     m.fuzzy_approver = m.fuzzy_reviewer = m.fuzzy;
 

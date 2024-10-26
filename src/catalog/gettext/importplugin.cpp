@@ -34,7 +34,7 @@ CatalogImportPlugin::~CatalogImportPlugin()
     delete d;
 }
 
-void CatalogImportPlugin::appendCatalogItem(const CatalogItem& item, const bool obsolete)
+void CatalogImportPlugin::appendCatalogItem(const CatalogItem &item, const bool obsolete)
 {
     if (item.msgid().isEmpty())
         return;
@@ -44,7 +44,7 @@ void CatalogImportPlugin::appendCatalogItem(const CatalogItem& item, const bool 
         d->_entries.push_back(item);
 }
 
-void CatalogImportPlugin::setCatalogExtraData(const QStringList& data)
+void CatalogImportPlugin::setCatalogExtraData(const QStringList &data)
 {
     d->_catalogExtraData = data;
     d->_updateCatalogExtraData = true;
@@ -56,13 +56,13 @@ void CatalogImportPlugin::setGeneratedFromDocbook(const bool generated)
     d->_updateGeneratedFromDocbook = true;
 }
 
-void CatalogImportPlugin::setErrorIndex(const QList<int>& errors)
+void CatalogImportPlugin::setErrorIndex(const QList<int> &errors)
 {
     d->_errorList = errors;
     d->_updateErrorList = true;
 }
 
-void CatalogImportPlugin::setHeader(const CatalogItem& item)
+void CatalogImportPlugin::setHeader(const CatalogItem &item)
 {
     d->_header = item;
     d->_updateHeader = true;
@@ -73,7 +73,7 @@ void CatalogImportPlugin::setCodec(const QByteArray &codec)
     d->_codec = codec;
 }
 
-ConversionStatus CatalogImportPlugin::open(QIODevice* device, GettextStorage* catalog, int* line)
+ConversionStatus CatalogImportPlugin::open(QIODevice *device, GettextStorage *catalog, int *line)
 {
     d->_catalog = catalog;
     startTransaction();
@@ -99,14 +99,14 @@ void CatalogImportPlugin::startTransaction()
 
 void CatalogImportPlugin::commitTransaction()
 {
-    GettextStorage* catalog = d->_catalog;
+    GettextStorage *catalog = d->_catalog;
 
-    //catalog->clear();
+    // catalog->clear();
 
     // fill in the entries
-    QVector<CatalogItem>& entries = catalog->m_entries;
-    entries.reserve(d->_entries.size());   //d->_catalog->setEntries( e );
-    for (std::list<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it/*,++i*/)
+    QVector<CatalogItem> &entries = catalog->m_entries;
+    entries.reserve(d->_entries.size()); // d->_catalog->setEntries( e );
+    for (std::list<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it /*,++i*/)
         entries.append(*it);
 
     // The codec is specified in the header, so it must be updated before the header is.
@@ -115,7 +115,7 @@ void CatalogImportPlugin::commitTransaction()
     catalog->m_catalogExtraData = d->_catalogExtraData;
     catalog->m_generatedFromDocbook = d->_generatedFromDocbook;
     catalog->setHeader(d->_header);
-    //if( d->_updateErrorList ) d->_catalog->setErrorIndex(d->_errorList);
+    // if( d->_updateErrorList ) d->_catalog->setErrorIndex(d->_errorList);
 
     catalog->m_maxLineLength = _maxLineLength;
 }

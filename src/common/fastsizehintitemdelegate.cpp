@@ -7,26 +7,26 @@
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-
 #include "fastsizehintitemdelegate.h"
 
+#include <QApplication>
 #include <QPainter>
 #include <QStringBuilder>
 #include <QTextDocument>
-#include <QApplication>
 
-FastSizeHintItemDelegate::FastSizeHintItemDelegate(QObject *parent, const QVector<bool>& slc, const QVector<bool>& rtc)
+FastSizeHintItemDelegate::FastSizeHintItemDelegate(QObject *parent, const QVector<bool> &slc, const QVector<bool> &rtc)
     : QItemDelegate(parent)
     , singleLineColumns(slc)
     , richTextColumns(rtc)
-{}
+{
+}
 
 void FastSizeHintItemDelegate::reset()
 {
     cache.clear();
 }
 
-QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     int lineCount = 1;
     int nPos = 20;
@@ -43,14 +43,14 @@ QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, con
     return QSize(metrics.averageCharWidth() * nPos, metrics.height() * lineCount);
 }
 
-void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+void FastSizeHintItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     painter->save();
 
     painter->setClipping(true);
     painter->setClipRect(option.rect);
     QBrush bgBrush;
-    const KColorScheme& scheme = activeScheme;
+    const KColorScheme &scheme = activeScheme;
     if (option.state & QStyle::State_MouseOver)
         bgBrush = scheme.background(KColorScheme::LinkBackground);
     else if (index.row() % 2)
@@ -60,12 +60,12 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
 
     painter->fillRect(option.rect, bgBrush);
     painter->setClipRect(option.rect.adjusted(0, 0, -2, 0));
-    //painter->setFont(option.font);
+    // painter->setFont(option.font);
 
     RowColumnUnion rc;
     rc.index.row = index.row();
     rc.index.column = index.column();
-    //TMDBModel* m=static_cast<const TMDBModel*>(index.model());
+    // TMDBModel* m=static_cast<const TMDBModel*>(index.model());
     if (!cache.contains(rc.v)) {
         QString text = index.data(FastSizeHintItemDelegate::HtmlDisplayRole).toString();
         cache.insert(rc.v, new QStaticText(text));
@@ -73,15 +73,13 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
         textOption.setWrapMode(QTextOption::NoWrap);
         cache.object(rc.v)->setTextOption(textOption);
         cache.object(rc.v)->setTextFormat(richTextColumns.at(index.column()) ? Qt::RichText : Qt::PlainText);
-
     }
     int rectWidth = option.rect.width();
-    QStaticText* staticText = cache.object(rc.v);
-    //staticText->setTextWidth(rectWidth-4);
+    QStaticText *staticText = cache.object(rc.v);
+    // staticText->setTextWidth(rectWidth-4);
     QPoint textStartPoint = option.rect.topLeft();
     textStartPoint.rx() += 2;
     painter->drawStaticText(textStartPoint, *staticText);
-
 
     if (staticText->size().width() <= rectWidth - 4) {
         painter->restore();
@@ -109,7 +107,7 @@ QString convertToHtml(QString str, bool italics)
             return str;
     */
 
-    str = Qt::convertFromPlainText(str); //FIXME use another routine (this has bugs)
+    str = Qt::convertFromPlainText(str); // FIXME use another routine (this has bugs)
 
     if (italics)
         str = QLatin1String("<p><i>") + QString::fromRawData(str.unicode() + 3, str.length() - 3 - 4) + QLatin1String("</i></p>");

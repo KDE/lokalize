@@ -17,20 +17,20 @@
 #include <klocalizedstring.h>
 #include <kstandardguiitem.h>
 
-#include <QStringBuilder>
-#include <QPushButton>
-#include <QTextBrowser>
-#include <QStringListModel>
-#include <QVBoxLayout>
-#include <QFormLayout>
-#include <QApplication>
 #include <QAbstractListModel>
+#include <QApplication>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QPushButton>
 #include <QSplitter>
 #include <QStackedLayout>
-#include <QDialogButtonBox>
+#include <QStringBuilder>
+#include <QStringListModel>
+#include <QTextBrowser>
+#include <QVBoxLayout>
 
-//BEGIN PhasesModel
-class PhasesModel: public QAbstractListModel
+// BEGIN PhasesModel
+class PhasesModel : public QAbstractListModel
 {
 public:
     enum PhasesModelColumns {
@@ -39,36 +39,37 @@ public:
         Company,
         Contact,
         ToolName,
-        ColumnCount
+        ColumnCount,
     };
 
-    PhasesModel(Catalog* catalog, QObject* parent);
-    ~PhasesModel() {}
-    QModelIndex addPhase(const Phase& phase);
-    QModelIndex activePhaseIndex()const
+    PhasesModel(Catalog *catalog, QObject *parent);
+    ~PhasesModel()
+    {
+    }
+    QModelIndex addPhase(const Phase &phase);
+    QModelIndex activePhaseIndex() const
     {
         return index(m_activePhase);
     }
-    QList<Phase> addedPhases()const;
+    QList<Phase> addedPhases() const;
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override
     {
         Q_UNUSED(parent);
         return ColumnCount;
     }
-    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const override;
+    QVariant data(const QModelIndex &, int role = Qt::DisplayRole) const override;
     QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const override;
 
-
 private:
-    Catalog* m_catalog;
+    Catalog *m_catalog;
     QList<Phase> m_phases;
     QMap<QString, Tool> m_tools;
     int m_activePhase;
 };
 
-PhasesModel::PhasesModel(Catalog* catalog, QObject* parent)
+PhasesModel::PhasesModel(Catalog *catalog, QObject *parent)
     : QAbstractListModel(parent)
     , m_catalog(catalog)
     , m_phases(catalog->allPhases())
@@ -79,7 +80,7 @@ PhasesModel::PhasesModel(Catalog* catalog, QObject* parent)
         ;
 }
 
-QModelIndex PhasesModel::addPhase(const Phase& phase)
+QModelIndex PhasesModel::addPhase(const Phase &phase)
 {
     m_activePhase = m_phases.size();
     beginInsertRows(QModelIndex(), m_activePhase, m_activePhase);
@@ -88,7 +89,7 @@ QModelIndex PhasesModel::addPhase(const Phase& phase)
     return index(m_activePhase);
 }
 
-QList<Phase> PhasesModel::addedPhases()const
+QList<Phase> PhasesModel::addedPhases() const
 {
     QList<Phase> result;
     for (int i = m_catalog->allPhases().size(); i < m_phases.size(); ++i)
@@ -97,14 +98,14 @@ QList<Phase> PhasesModel::addedPhases()const
     return result;
 }
 
-int PhasesModel::rowCount(const QModelIndex& parent) const
+int PhasesModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
     return m_phases.size();
 }
 
-QVariant PhasesModel::data(const QModelIndex& index, int role) const
+QVariant PhasesModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::FontRole && index.row() == m_activePhase) {
         QFont font = QApplication::font();
@@ -116,15 +117,19 @@ QVariant PhasesModel::data(const QModelIndex& index, int role) const
     if (role != Qt::DisplayRole)
         return QVariant();
 
-    const Phase& phase = m_phases.at(index.row());
+    const Phase &phase = m_phases.at(index.row());
     switch (index.column()) {
-    case Date:       return phase.date.toString();
-    case Process:    return phase.process;
-    case Company:    return phase.company;
-    case Contact:    return QString(phase.contact
-                                        % (phase.email.isEmpty() ? QString() : QStringLiteral(" <%1> ").arg(phase.email))
-                                        % (phase.phone.isEmpty() ? QString() : QStringLiteral(", %1").arg(phase.phone)));
-    case ToolName:       return m_tools.value(phase.tool).name;
+    case Date:
+        return phase.date.toString();
+    case Process:
+        return phase.process;
+    case Company:
+        return phase.company;
+    case Contact:
+        return QString(phase.contact % (phase.email.isEmpty() ? QString() : QStringLiteral(" <%1> ").arg(phase.email))
+                       % (phase.phone.isEmpty() ? QString() : QStringLiteral(", %1").arg(phase.phone)));
+    case ToolName:
+        return m_tools.value(phase.tool).name;
     }
     return QVariant();
 }
@@ -135,30 +140,34 @@ QVariant PhasesModel::headerData(int section, Qt::Orientation, int role) const
         return QVariant();
 
     switch (section) {
-    case Date:       return i18nc("@title:column", "Date");
-    case Process:    return i18nc("@title:column", "Process");
-    case Company:    return i18nc("@title:column", "Company");
-    case Contact:    return i18nc("@title:column", "Person");
-    case ToolName:   return i18nc("@title:column", "Tool");
+    case Date:
+        return i18nc("@title:column", "Date");
+    case Process:
+        return i18nc("@title:column", "Process");
+    case Company:
+        return i18nc("@title:column", "Company");
+    case Contact:
+        return i18nc("@title:column", "Person");
+    case ToolName:
+        return i18nc("@title:column", "Tool");
     }
     return QVariant();
 }
-//END PhasesModel
+// END PhasesModel
 
-
-//BEGIN PhaseEditDialog
-class PhaseEditDialog: public QDialog
+// BEGIN PhaseEditDialog
+class PhaseEditDialog : public QDialog
 {
 public:
     explicit PhaseEditDialog(QWidget *parent);
     ~PhaseEditDialog() = default;
 
-    Phase phase()const;
-    ProjectLocal::PersonRole role()const;
-private:
-    KComboBox* m_process{nullptr};
-};
+    Phase phase() const;
+    ProjectLocal::PersonRole role() const;
 
+private:
+    KComboBox *m_process{nullptr};
+};
 
 PhaseEditDialog::PhaseEditDialog(QWidget *parent)
     : QDialog(parent)
@@ -168,10 +177,10 @@ PhaseEditDialog::PhaseEditDialog(QWidget *parent)
     processes << i18n("Translation") << i18n("Review") << i18n("Approval");
     m_process->setModel(new QStringListModel(processes, this));
 
-    QFormLayout* l = new QFormLayout(this);
+    QFormLayout *l = new QFormLayout(this);
     l->addRow(i18nc("noun", "Process (this will also change your role):"), m_process);
 
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &PhaseEditDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &PhaseEditDialog::reject);
     l->addRow(buttonBox);
@@ -189,8 +198,7 @@ ProjectLocal::PersonRole PhaseEditDialog::role() const
     return (ProjectLocal::PersonRole)m_process->currentIndex();
 }
 
-
-PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
+PhasesWindow::PhasesWindow(Catalog *catalog, QWidget *parent)
     : QDialog(parent)
     , m_catalog(catalog)
     , m_model(new PhasesModel(catalog, this))
@@ -198,26 +206,25 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     , m_browser(new QTextBrowser(this))
 {
     connect(this, &PhasesWindow::accepted, this, &PhasesWindow::handleResult);
-    //setAttribute(Qt::WA_DeleteOnClose, true);
-    QVBoxLayout* l = new QVBoxLayout(this);
-    QHBoxLayout* btns = new QHBoxLayout;
+    // setAttribute(Qt::WA_DeleteOnClose, true);
+    QVBoxLayout *l = new QVBoxLayout(this);
+    QHBoxLayout *btns = new QHBoxLayout;
     l->addLayout(btns);
 
-    QPushButton* add = new QPushButton(this);
+    QPushButton *add = new QPushButton(this);
     KGuiItem::assign(add, KStandardGuiItem::add());
 
     connect(add, &QPushButton::clicked, this, &PhasesWindow::addPhase);
     btns->addWidget(add);
     btns->addStretch(5);
 
-    QSplitter* splitter = new QSplitter(this);
+    QSplitter *splitter = new QSplitter(this);
     l->addWidget(splitter);
 
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
     connect(m_buttonBox, &QDialogButtonBox::accepted, this, &PhasesWindow::accept);
     connect(m_buttonBox, &QDialogButtonBox::rejected, this, &PhasesWindow::reject);
     l->addWidget(m_buttonBox);
-
 
     m_view->setRootIsDecorated(false);
     m_view->setModel(m_model);
@@ -228,7 +235,6 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     if (m_model->rowCount())
         m_view->setCurrentIndex(m_model->activePhaseIndex());
     connect(m_view, &MyTreeView::currentIndexChanged, this, &PhasesWindow::displayPhaseNotes);
-
 
     m_noteView = new QWidget(this);
     m_noteView->hide();
@@ -251,12 +257,12 @@ void PhasesWindow::handleResult()
 
     Phase last;
     const auto addedPhases = m_model->addedPhases();
-    for (const Phase& phase : addedPhases)
-        static_cast<QUndoStack*>(m_catalog)->push(new UpdatePhaseCmd(m_catalog, last = phase));
+    for (const Phase &phase : addedPhases)
+        static_cast<QUndoStack *>(m_catalog)->push(new UpdatePhaseCmd(m_catalog, last = phase));
     Project::instance()->local()->setRole(roleForProcess(last.process));
     m_catalog->setActivePhase(last.name, roleForProcess(last.process));
 
-    QMapIterator<QString, QVector<Note> > i(m_phaseNotes);
+    QMapIterator<QString, QVector<Note>> i(m_phaseNotes);
     while (i.hasNext()) {
         i.next();
         m_catalog->setPhaseNotes(i.key(), i.value());
@@ -279,7 +285,7 @@ void PhasesWindow::addPhase()
     m_buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
-static QString phaseNameFromView(QTreeView* view)
+static QString phaseNameFromView(QTreeView *view)
 {
     return view->currentIndex().data(Qt::UserRole).toString();
 }
@@ -301,9 +307,7 @@ void PhasesWindow::anchorClicked(QUrl link)
         else {
             int pos = path.toInt();
             QString phaseName = phaseNameFromView(m_view);
-            QVector<Note> notes = m_phaseNotes.contains(phaseName) ?
-                                  m_phaseNotes.value(phaseName)
-                                  : m_catalog->phaseNotes(phaseName);
+            QVector<Note> notes = m_phaseNotes.contains(phaseName) ? m_phaseNotes.value(phaseName) : m_catalog->phaseNotes(phaseName);
             m_editor->setNote(notes.at(pos), pos);
         }
         m_stackedLayout->setCurrentIndex(1);
@@ -316,7 +320,7 @@ void PhasesWindow::noteEditAccepted()
     if (!m_phaseNotes.contains(phaseName))
         m_phaseNotes.insert(phaseName, m_catalog->phaseNotes(phaseName));
 
-    //QVector<Note> notes=m_phaseNotes.value(phaseName);
+    // QVector<Note> notes=m_phaseNotes.value(phaseName);
     if (m_editor->noteIndex() == -1)
         m_phaseNotes[phaseName].append(m_editor->note());
     else
@@ -331,13 +335,11 @@ void PhasesWindow::noteEditRejected()
     m_stackedLayout->setCurrentIndex(0);
 }
 
-void PhasesWindow::displayPhaseNotes(const QModelIndex& current)
+void PhasesWindow::displayPhaseNotes(const QModelIndex &current)
 {
     m_browser->clear();
     QString phaseName = current.data(Qt::UserRole).toString();
-    QVector<Note> notes = m_phaseNotes.contains(phaseName) ?
-                          m_phaseNotes.value(phaseName)
-                          : m_catalog->phaseNotes(phaseName);
+    QVector<Note> notes = m_phaseNotes.contains(phaseName) ? m_phaseNotes.value(phaseName) : m_catalog->phaseNotes(phaseName);
     displayNotes(m_browser, notes);
     m_noteView->show();
     m_stackedLayout->setCurrentIndex(0);

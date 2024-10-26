@@ -14,19 +14,19 @@
 #ifndef CATALOG_PRIVATE_H
 #define CATALOG_PRIVATE_H
 
+#include "alttrans.h"
+#include "pos.h"
 #include "projectlocal.h"
 #include "state.h"
-#include "pos.h"
-#include "alttrans.h"
 
 #include <kautosavefile.h>
 
 #include <QList>
-#include <QStringList>
-#include <QVector>
 #include <QMap>
 #include <QSet>
+#include <QStringList>
 #include <QTimer>
+#include <QVector>
 
 #include <list>
 
@@ -35,7 +35,6 @@ class Catalog;
 
 class CatalogPrivate
 {
-
 public:
     /** url of the po-file, that belongs to this catalog */
     QString _filePath;
@@ -48,12 +47,12 @@ public:
     int _numberOfPluralForms{-1};
 
     QTimer _autoSaveTimer;
-    KAutoSaveFile* _autoSave{};
+    KAutoSaveFile *_autoSave{};
     bool _autoSaveDirty{true};
     bool _autoSaveRecovered{false};
 
     bool _readOnly{false};
-    //for wrapping
+    // for wrapping
     short _maxLineLength{80};
 
     std::list<int> _nonApprovedIndex;
@@ -65,28 +64,27 @@ public:
 
     QVector<std::list<int>> _statesIndex;
 
-    std::list<Catalog*> _altTransCatalogs;
+    std::list<Catalog *> _altTransCatalogs;
     QMap<int, AltTrans> _altTranslations;
 
-    //for undo/redo
-    //keeps pos of the entry that was last modified
+    // for undo/redo
+    // keeps pos of the entry that was last modified
     DocPosition _lastModifiedPos{};
 
-    QSet<DocPos> _modifiedEntries;//just for the nice gui
+    QSet<DocPos> _modifiedEntries; // just for the nice gui
 
     QString _phase;
     ProjectLocal::PersonRole _phaseRole{ProjectLocal::Undefined};
 
-    explicit CatalogPrivate(QObject* parent)
+    explicit CatalogPrivate(QObject *parent)
         : _autoSave(new KAutoSaveFile(parent))
     {
         Q_UNUSED(parent)
         _statesIndex.resize(StateCount);
     }
 
-    bool addToEmptyIndexIfAppropriate(CatalogStorage*, const DocPosition& pos, bool alreadyEmpty);
-    bool removeFromUntransIndexIfAppropriate(CatalogStorage*, const DocPosition& pos);
+    bool addToEmptyIndexIfAppropriate(CatalogStorage *, const DocPosition &pos, bool alreadyEmpty);
+    bool removeFromUntransIndexIfAppropriate(CatalogStorage *, const DocPosition &pos);
 };
-
 
 #endif // CATALOG_PRIVATE_H

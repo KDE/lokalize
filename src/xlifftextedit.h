@@ -8,31 +8,30 @@
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-
 #ifndef XLIFFTEXTEDITOR_H
 #define XLIFFTEXTEDITOR_H
 
-#include "pos.h"
 #include "catalogstring.h"
+#include "pos.h"
 
 #include <ktextedit.h>
 class QMouseEvent;
-class SyntaxHighlighter;//TODO rename
+class SyntaxHighlighter; // TODO rename
 class KCompletionBox;
 class MyCompletionBox;
 
-class TranslationUnitTextEdit: public KTextEdit
+class TranslationUnitTextEdit : public KTextEdit
 {
     Q_OBJECT
 public:
-    explicit TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent = nullptr);
+    explicit TranslationUnitTextEdit(Catalog *catalog, DocPosition::Part part, QWidget *parent = nullptr);
     ~TranslationUnitTextEdit() override;
-    //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
+    // NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
     QString toPlainText();
 
     ///@returns targetWithTags for the sake of not calling XliffStorage/doContent twice
-    CatalogString showPos(DocPosition pos, const CatalogString& refStr = CatalogString(), bool keepCursor = true);
-    DocPosition currentPos()const
+    CatalogString showPos(DocPosition pos, const CatalogString &refStr = CatalogString(), bool keepCursor = true);
+    DocPosition currentPos() const
     {
         return m_currentPos;
     }
@@ -67,17 +66,17 @@ public Q_SLOTS:
     void spellReplace();
     void launchLanguageTool();
 
-    void emitCursorPositionChanged();//for leds
+    void emitCursorPositionChanged(); // for leds
 
     void doExplicitCompletion();
     void zoomRequestedSlot(qreal fontSize);
 
 protected:
     void keyPressEvent(QKeyEvent *keyEvent) override;
-    void keyReleaseEvent(QKeyEvent* e) override;
-    QMimeData* createMimeDataFromSelection() const override;
-    void insertFromMimeData(const QMimeData* source) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
+    void keyReleaseEvent(QKeyEvent *e) override;
+    QMimeData *createMimeDataFromSelection() const override;
+    void insertFromMimeData(const QMimeData *source) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
     void dropEvent(QDropEvent *event) override;
     void dragEnterEvent(QDragEnterEvent *event) override;
 
@@ -87,9 +86,9 @@ protected:
 
 private:
     ///@a refStr is for proper numbering
-    void setContent(const CatalogString& catStr, const CatalogString& refStr = CatalogString());
+    void setContent(const CatalogString &catStr, const CatalogString &refStr = CatalogString());
 
-    int strForMicePosIfUnderTag(QPoint mice, CatalogString& str, bool tryHarder = false);
+    int strForMicePosIfUnderTag(QPoint mice, CatalogString &str, bool tryHarder = false);
 
     void requestToggleApprovement();
 
@@ -98,9 +97,9 @@ private:
     void doCompletion(int pos);
 
 private Q_SLOTS:
-    //for Undo/Redo tracking
+    // for Undo/Redo tracking
     void contentsChanged(int position, int charsRemoved, int charsAdded);
-    void completionActivated(const QString&);
+    void completionActivated(const QString &);
     void fileLoaded();
 
     void slotLanguageToolFinished(const QString &result);
@@ -123,17 +122,16 @@ Q_SIGNALS:
     void gotoNextUntranslatedRequested();
     void gotoPrevFuzzyUntrRequested();
     void gotoNextFuzzyUntrRequested();
-    void gotoEntryRequested(const DocPosition&);
+    void gotoEntryRequested(const DocPosition &);
     void zoomRequested(qreal);
 
+    void tagInsertRequested(const InlineTag &tag);
 
-    void tagInsertRequested(const InlineTag& tag);
+    void binaryUnitSelectRequested(const QString &);
+    void languageToolChanged(const QString &);
+    void tmLookupRequested(DocPosition::Part, const QString &);
 
-    void binaryUnitSelectRequested(const QString&);
-    void languageToolChanged(const QString&);
-    void tmLookupRequested(DocPosition::Part, const QString&);
-
-    void contentsModified(const DocPosition&);
+    void contentsModified(const DocPosition &);
     void approvedEntryDisplayed();
     void nonApprovedEntryDisplayed();
     void translatedEntryDisplayed();
@@ -141,31 +139,29 @@ Q_SIGNALS:
     void cursorPositionChanged(int column);
 
 private:
-    int m_currentUnicodeNumber{}; //alt+NUM thing
-    bool m_langUsesSpaces{true}; //e.g. Chinese doesn't
+    int m_currentUnicodeNumber{}; // alt+NUM thing
+    bool m_langUsesSpaces{true}; // e.g. Chinese doesn't
 
-    Catalog* m_catalog{};
+    Catalog *m_catalog{};
     DocPosition::Part m_part{};
     DocPosition m_currentPos{};
-    SyntaxHighlighter* m_highlighter{};
+    SyntaxHighlighter *m_highlighter{};
     bool m_enabled{};
 
-    MyCompletionBox* m_completionBox{};
+    MyCompletionBox *m_completionBox{};
 
-    //for undo/redo tracking
+    // for undo/redo tracking
     QString _oldMsgstr;
-    QString _oldMsgstrAscii; //HACK to workaround #218246
+    QString _oldMsgstrAscii; // HACK to workaround #218246
 
-    //For text move with mouse
+    // For text move with mouse
     int m_cursorSelectionStart{};
     int m_cursorSelectionEnd{};
 
-    //For LanguageTool timer
-    QTimer* m_languageToolTimer{};
+    // For LanguageTool timer
+    QTimer *m_languageToolTimer{};
 };
 
-
-void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr = CatalogString(), bool insertText = true);
-
+void insertContent(QTextCursor &cursor, const CatalogString &catStr, const CatalogString &refStr = CatalogString(), bool insertText = true);
 
 #endif

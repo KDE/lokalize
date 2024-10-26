@@ -19,16 +19,13 @@
 
 class Catalog;
 
-
-
 /**
  * MVC wrapper for Catalog
  */
-class CatalogTreeModel: public QAbstractItemModel
+class CatalogTreeModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-
     enum class CatalogModelColumns {
         Key = 0,
         Source,
@@ -62,17 +59,17 @@ public:
         SortRole = Qt::UserRole + 2,
     };
 
-    explicit CatalogTreeModel(QObject* parent, Catalog* catalog);
+    explicit CatalogTreeModel(QObject *parent, Catalog *catalog);
     ~CatalogTreeModel() override = default;
 
-    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex())const override;
-    QModelIndex parent(const QModelIndex&) const override;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const override;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex &) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &, int role = Qt::DisplayRole) const override;
     QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const override;
 
-    Catalog* catalog()const
+    Catalog *catalog() const
     {
         return m_catalog;
     }
@@ -89,21 +86,14 @@ public Q_SLOTS:
 private:
     TranslationStatus getTranslationStatus(int row) const;
 
-    Catalog* const m_catalog;
+    Catalog *const m_catalog;
     bool m_ignoreAccel{true};
 
     static QVector<QVariant> m_fonts;
-    //DocPos m_prevChanged;
+    // DocPos m_prevChanged;
 };
 
-
-
-
-
-
-
-
-class CatalogTreeFilterModel: public QSortFilterProxyModel
+class CatalogTreeFilterModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
@@ -124,7 +114,7 @@ public:
         Plural = 1 << 11,
         NonPlural = 1 << 12,
 
-        //states (see defines below)
+        // states (see defines below)
         New = 1 << 13,
         NeedsTranslation = 1 << 14,
         NeedsL10n = 1 << 15,
@@ -136,25 +126,26 @@ public:
         Final = 1 << 21,
         SignedOff = 1 << 22,
         MaxOption = 1 << 23,
-        AllStates = MaxOption - 1
+        AllStates = MaxOption - 1,
     };
 
-#define STATES ((0xffff<<13)&(AllStates))
+#define STATES ((0xffff << 13) & (AllStates))
 #define FIRSTSTATEPOSITION 13
 
+    explicit CatalogTreeFilterModel(QObject *parent);
+    ~CatalogTreeFilterModel()
+    {
+    }
 
-    explicit CatalogTreeFilterModel(QObject* parent);
-    ~CatalogTreeFilterModel() {}
-
-    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
     void setFilterOptions(int o);
-    int filterOptions()const
+    int filterOptions() const
     {
         return m_filterOptions;
     }
 
-    void setSourceModel(QAbstractItemModel* sourceModel) override;
+    void setSourceModel(QAbstractItemModel *sourceModel) override;
 
     bool individualRejectFilterEnabled()
     {
@@ -162,7 +153,7 @@ public:
     }
     void setEntryFilteredOut(int entry, bool filteredOut);
 
-    void setMergeCatalogPointer(MergeCatalog* pointer);
+    void setMergeCatalogPointer(MergeCatalog *pointer);
 
 public Q_SLOTS:
     void setEntriesFilteredOut();
@@ -175,11 +166,8 @@ public Q_SLOTS:
 private:
     int m_filterOptions;
     bool m_individualRejectFilterEnable;
-    QVector<bool> m_individualRejectFilter; //used from kross scripts
-    MergeCatalog* m_mergeCatalog;
+    QVector<bool> m_individualRejectFilter; // used from kross scripts
+    MergeCatalog *m_mergeCatalog;
 };
-
-
-
 
 #endif

@@ -10,18 +10,18 @@
 
 #include "gettextheaderparser.h"
 #include "lokalize_debug.h"
-#include <QStringList>
-#include <QRegularExpression>
-#include <QLocale>
 #include <QDate>
 #include <QDebug>
+#include <QLocale>
+#include <QRegularExpression>
+#include <QStringList>
 
 const QString GetTextHeaderParser::sCurrentYear = QLocale(QLocale::C).toString(QDate::currentDate(), QStringLiteral("yyyy"));
 
 QRegularExpression copyrightRegExp()
 {
-    static auto regexp = QRegularExpression(
-        QStringLiteral("#[ ]*"
+    static auto regexp = QRegularExpression(QStringLiteral(
+        "#[ ]*"
         "(SPDX-FileCopyrightText:|[cC]opyright(\\s*:?\\s+\\([cC]\\))|(?<![cC]opyright )\\([cC]\\)|[cC]opyright\\s+©|(?<![cC]opyright )©|[cC]opyright(\\s*:)?)?"
         "[, ]+"
         "(?<years>([0-9]+(-[0-9]+| - [0-9]+| to [0-9]+|,[ ]?[0-9]+)*|YEAR))?"
@@ -31,8 +31,7 @@ QRegularExpression copyrightRegExp()
         "[, ]*"
         "(?<contact>[^\\s,]*)"
         "[, ]*"
-        "(?<yearssuffix>([0-9]+(-[0-9]+| - [0-9]+| to [0-9]+|,[ ]?[0-9]+)*|YEAR))?"
-        ));
+        "(?<yearssuffix>([0-9]+(-[0-9]+| - [0-9]+| to [0-9]+|,[ ]?[0-9]+)*|YEAR))?"));
     return regexp;
 }
 
@@ -63,12 +62,12 @@ QString GetTextHeaderParser::updateAuthorCopyrightLine(const QString &line)
         // handle traditional statements from Lokalize
         if (years.isEmpty() && !yearssuffix.isEmpty()) {
             years = yearssuffix;
-        } else  if (!years.isEmpty() && !yearssuffix.isEmpty()) {
+        } else if (!years.isEmpty() && !yearssuffix.isEmpty()) {
             years = years + QStringLiteral(", ") + yearssuffix;
             qCDebug(LOKALIZE_LOG) << "Unexpected double copyright year statement detected, try to handle gracefully:" << line;
         }
         // handle year update
-        if (years.isEmpty()){
+        if (years.isEmpty()) {
             years = sCurrentYear;
         }
         if (!years.contains(sCurrentYear)) {
@@ -85,7 +84,7 @@ void GetTextHeaderParser::updateLastTranslator(QStringList &headerList, const QS
     const QString outputString = QStringLiteral("Last-Translator: ") + joinAuthor(authorName, authorEmail) + QStringLiteral("\\n");
 
     const QRegularExpression regex(QStringLiteral("^ *Last-Translator:.*"));
-    auto needle = std::find_if(headerList.begin(), headerList.end(), [regex](const QString &line){
+    auto needle = std::find_if(headerList.begin(), headerList.end(), [regex](const QString &line) {
         return line.contains(regex);
     });
     if (Q_LIKELY(needle != headerList.end())) {
@@ -100,7 +99,7 @@ void GetTextHeaderParser::updateGeneralCopyrightYear(QStringList &commentList)
     const QLocale cLocale(QLocale::C);
     // U+00A9 is the Copyright sign
     const QRegularExpression regex(QStringLiteral("^# *Copyright (\\(C\\)|\\x00a9).*This file is copyright:"));
-    auto needle = std::find_if(commentList.begin(), commentList.end(), [regex](const QString &line){
+    auto needle = std::find_if(commentList.begin(), commentList.end(), [regex](const QString &line) {
         return line.contains(regex);
     });
     if (needle != commentList.end()) {
@@ -111,34 +110,32 @@ void GetTextHeaderParser::updateGeneralCopyrightYear(QStringList &commentList)
 void GetTextHeaderParser::updateAuthors(QStringList &commentList, const QString &authorName, const QString &authorEmail)
 {
     // cleanup template parameters and obsolete information
-    commentList.erase(
-        std::remove_if(commentList.begin(), commentList.end(), [](const QString &line){
-            const QRegularExpression regexpYearAlone(QStringLiteral("^# , \\d{4}.?\\s*$"));
-            if (line.contains(QRegularExpression(QStringLiteral("#, *fuzzy")))
-                // We have found a year number that is preceded by a comma.
-                // That is typical of KBabel 1.10 (and earlier?) when there is neither an author name nor an email
-                // Remove the entry
-                || line.contains(regexpYearAlone)
-                || line.contains(QStringLiteral("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."))
-                || line.contains(QStringLiteral("# SOME DESCRIPTIVE TITLE"))) {
-                qCDebug(LOKALIZE_LOG) << "Removing line:" << line;
-                return true;
-            }
-            return false;
-        }),
-        commentList.end()
-    );
+    commentList.erase(std::remove_if(commentList.begin(),
+                                     commentList.end(),
+                                     [](const QString &line) {
+                                         const QRegularExpression regexpYearAlone(QStringLiteral("^# , \\d{4}.?\\s*$"));
+                                         if (line.contains(QRegularExpression(QStringLiteral("#, *fuzzy")))
+                                             // We have found a year number that is preceded by a comma.
+                                             // That is typical of KBabel 1.10 (and earlier?) when there is neither an author name nor an email
+                                             // Remove the entry
+                                             || line.contains(regexpYearAlone) || line.contains(QStringLiteral("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."))
+                                             || line.contains(QStringLiteral("# SOME DESCRIPTIVE TITLE"))) {
+                                             qCDebug(LOKALIZE_LOG) << "Removing line:" << line;
+                                             return true;
+                                         }
+                                         return false;
+                                     }),
+                      commentList.end());
 
     // update author or add as new
-    auto authorLine = std::find_if(commentList.begin(), commentList.end(), [authorName, authorEmail](const QString &line){
+    auto authorLine = std::find_if(commentList.begin(), commentList.end(), [authorName, authorEmail](const QString &line) {
         static const QRegularExpression regExp = copyrightRegExp();
         QString lineTrimmed = line.trimmed();
         if (lineTrimmed.endsWith(QStringLiteral("."))) { // remove tailing "." if exists
             lineTrimmed = lineTrimmed.left(lineTrimmed.length() - 1);
         }
         const auto match = regExp.match(lineTrimmed);
-        if (match.hasMatch()
-            && (line.contains(authorName) || line.contains(authorEmail))) {
+        if (match.hasMatch() && (line.contains(authorName) || line.contains(authorEmail))) {
             return true;
         }
         return false;

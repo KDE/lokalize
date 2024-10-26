@@ -3,13 +3,13 @@
     SPDX-FileCopyrightText: 2022 Andreas Cord-Landwehr <cordlandwehr@kde.org>
 */
 
-#include <QTest>
-#include <QFile>
-#include <QString>
-#include <QStringList>
-#include <QLocale>
 #include "test_gettextheaderparser.h"
 #include "catalog/gettextheaderparser.h"
+#include <QFile>
+#include <QLocale>
+#include <QString>
+#include <QStringList>
+#include <QTest>
 
 const QString TestGetTextHeaderParser::sCurrentYear = QLocale(QLocale::C).toString(QDate::currentDate(), QStringLiteral("yyyy"));
 
@@ -113,7 +113,7 @@ void TestGetTextHeaderParser::updateAuthors()
         // new author is expected to be appended
         const QString expected = QStringLiteral("# SPDX-FileCopyrightText: ") + sCurrentYear + QStringLiteral(" Jane Doe <jane.doe@example.com>");
         QCOMPARE(header.last(), expected);
-        auto john = std::find_if(header.begin(), header.end(), [](const QString &line){
+        auto john = std::find_if(header.begin(), header.end(), [](const QString &line) {
             return line.contains(QStringLiteral("John Doe"));
         });
         QVERIFY(john != header.end()); // check that no author was removed

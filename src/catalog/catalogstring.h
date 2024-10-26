@@ -12,10 +12,10 @@
 
 #include <QList>
 #include <QMap>
-#include <QString>
 #include <QMetaType>
+#include <QString>
 
-//#define TAGRANGE_IMAGE_SYMBOL 65532
+// #define TAGRANGE_IMAGE_SYMBOL 65532
 #define TAGRANGE_IMAGE_SYMBOL QChar::ObjectReplacementCharacter
 
 /**
@@ -28,26 +28,25 @@
  * start==end for non-paired tags
  */
 struct InlineTag {
-    //sub       = can contain <sub>-flow tag
-    //recursive = can contain other inline markup tags
+    // sub       = can contain <sub>-flow tag
+    // recursive = can contain other inline markup tags
     ///@see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html
     enum InlineElement {
         _unknown,
-        bpt,    //sub
-        ept,    //sub
-        ph,     //sub
-        it,     //sub
+        bpt, // sub
+        ept, // sub
+        ph, // sub
+        it, // sub
         //_subContainersDelimiter,
-        mrk,    //recursive, no id
-        g,      //recursive
-        sub,    //recursive, no id
+        mrk, // recursive, no id
+        g, // recursive
+        sub, // recursive, no id
         _pairedXmlTagDelimiter,
-        x,      //empty
-        bx,     //empty
-        ex,     //empty
-        InlineElementCount
+        x, // empty
+        bx, // empty
+        ex, // empty
+        InlineElementCount,
     };
-
 
     int start{-1};
     int end{-1};
@@ -59,8 +58,22 @@ struct InlineTag {
 
     explicit InlineTag() = default;
 
-    InlineTag(int start_, int end_, InlineElement type_, QString id_ = QString(), QString xid_ = QString(), QString equivText_ = QString(), QString ctype_ = QString())
-        : start(start_), end(end_), type(type_), id(id_), xid(xid_), equivText(equivText_), ctype(ctype_) {}
+    InlineTag(int start_,
+              int end_,
+              InlineElement type_,
+              QString id_ = QString(),
+              QString xid_ = QString(),
+              QString equivText_ = QString(),
+              QString ctype_ = QString())
+        : start(start_)
+        , end(end_)
+        , type(type_)
+        , id(id_)
+        , xid(xid_)
+        , equivText(equivText_)
+        , ctype(ctype_)
+    {
+    }
 
     /**
      * for situations when target doesn't contain tag
@@ -70,7 +83,7 @@ struct InlineTag {
      *
      * @see getPlaceholder()
      */
-    bool isEmpty()const
+    bool isEmpty() const
     {
         return start == -1;
     }
@@ -85,13 +98,13 @@ struct InlineTag {
     InlineTag getPlaceholder() const;
 
     ///@returns 0 if type is unknown
-    static InlineElement getElementType(const QByteArray&);
-    static const char* getElementName(InlineElement type);
-    const char* getElementName()const
+    static InlineElement getElementType(const QByteArray &);
+    static const char *getElementName(InlineElement type);
+    const char *getElementName() const
     {
         return getElementName(type);
     }
-    const char* name()const
+    const char *name() const
     {
         return getElementName();
     }
@@ -99,27 +112,25 @@ struct InlineTag {
     {
         return type < InlineTag::_pairedXmlTagDelimiter;
     }
-    bool isPaired()const
+    bool isPaired() const
     {
         return isPaired(type);
     }
 
     QString displayName() const;
 
-    bool operator<(const InlineTag& other)const
+    bool operator<(const InlineTag &other) const
     {
         return start < other.start;
     }
 
-    bool operator>(const InlineTag& other)const
+    bool operator>(const InlineTag &other) const
     {
         return start > other.start;
     }
-
 };
 Q_DECLARE_METATYPE(InlineTag)
 Q_DECLARE_METATYPE(QList<InlineTag>)
-
 
 /**
  * data structure used to pass info about inline elements
@@ -134,15 +145,18 @@ struct CatalogString {
     QList<InlineTag> tags;
 
     CatalogString() = default;
-    explicit CatalogString(QString str): string(str) {}
+    explicit CatalogString(QString str)
+        : string(str)
+    {
+    }
     CatalogString(QString str, QByteArray tagsByteArray);
-    QMap<QString, int> tagIdToIndex() const; //assigns same indexes for tags with same ids
+    QMap<QString, int> tagIdToIndex() const; // assigns same indexes for tags with same ids
 
-    QByteArray tagsAsByteArray()const;
+    QByteArray tagsAsByteArray() const;
 
     void remove(int position, int len);
-    void insert(int position, const QString& str);
-    void replace(int position, int len, const QString& str)
+    void insert(int position, const QString &str);
+    void replace(int position, int len, const QString &str)
     {
         remove(position, len);
         insert(position, str);
@@ -159,16 +173,13 @@ struct CatalogString {
 };
 Q_DECLARE_METATYPE(CatalogString)
 
-
 #include <QDataStream>
 QDataStream &operator<<(QDataStream &out, const InlineTag &myObj);
 QDataStream &operator>>(QDataStream &in, InlineTag &myObj);
 QDataStream &operator<<(QDataStream &out, const CatalogString &myObj);
 QDataStream &operator>>(QDataStream &in, CatalogString &myObj);
 
-
 /// prepares @arg target for using it as @arg ref translation
-void adaptCatalogString(CatalogString& target, const CatalogString& ref);
-
+void adaptCatalogString(CatalogString &target, const CatalogString &ref);
 
 #endif
