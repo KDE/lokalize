@@ -384,7 +384,7 @@ public:
     void finish()
     {
         emitResult();
-        Q_EMIT Project::instance() -> sourceFilePathsAreReady();
+        Q_EMIT Project::instance()->sourceFilePathsAreReady();
     }
 
 protected:
