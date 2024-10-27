@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-25 00:42+0000\n"
-"PO-Revision-Date: 2024-10-14 15:46+0200\n"
+"POT-Creation-Date: 2024-10-27 00:42+0000\n"
+"PO-Revision-Date: 2024-10-26 19:17+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -109,13 +109,13 @@ msgstr "Сливане в ODF"
 msgid "Generates translated version of ODF document"
 msgstr "Генерира преведена версия на ODF документ"
 
-#: src/alttransview.cpp:40 src/alttransview.cpp:42
+#: src/alttransview.cpp:40 src/alttransview.cpp:43
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "Алтернативни преводи"
 
-#: src/alttransview.cpp:150
+#: src/alttransview.cpp:154
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -134,58 +134,43 @@ msgstr ""
 "\n"
 "Искате ли да покажете изгледа с данните?"
 
-#: src/alttransview.cpp:154
+#: src/alttransview.cpp:158
 #, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Налични са алтернативни преводи"
 
-#: src/alttransview.cpp:155
+#: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr "Изглед \"данни\""
 
-#: src/alttransview.cpp:171
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#: src/alttransview.cpp:175
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Папка за други преводи:"
+msgstr "От папка с алтернативни преводи"
 
-#: src/alttransview.cpp:196
+#: src/alttransview.cpp:198
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "Сравнение с предишно съдържание:"
 
-#: src/alttransview.cpp:214
+#: src/alttransview.cpp:213
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "Сравнение с предишен източник:"
 
-#: src/alttransview.cpp:291
+#: src/alttransview.cpp:284
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Произход: %1"
 
-#: src/alttransview.cpp:299
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#: src/alttransview.cpp:291
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -198,18 +183,18 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>Понякога, ако изходният текст се промени, неговият превод се обезсилва. и "
-"се маркира като <emphasis>нуждаещ се от&nbspпреглед</emphasis> (т.е. губи "
-"статуса си на одобрение) или (само в случай на XLIFF файл) се премества в "
-"<emphasis>алтернативни&nbsp;преводи</emphasis> в раздела, придружаващ блока."
-"</p><p>Този преглед на инструменти показва също така разликата между текущия "
-"и предишния изходен низ, така че лесно можете да видите кои промени трябва "
-"да се приложат към съществуващия превод, за да отговаря на актуалния код</"
-"p><p>Двойно щракване върху която и да е дума в тази рамка с инструменти я "
-"вмъква в превода.</p><p>Завлечете файл с превод  втази рамка с инструменти, "
-"за да го използвате като източник за допълнителни алтернативни преводи.</p>"
+"Понякога, ако изходният текст се промени, неговият превод се обезсилва. и се "
+"маркира като нуждаещ се от преглед (т.е. губи статуса си на одобрен) или "
+"(само в случай на XLIFF файл) се премества алтернативни преводи в раздела, "
+"придружаващ блока.Този преглед на инструменти показва също така разликата "
+"между текущия и предишния изходен низ, така че лесно можете да видите кои "
+"промени трябва да се приложат към съществуващия превод, за да отговаря на "
+"актуалния код. Двойно щракване върху която и да е дума в тази рамка с "
+"инструменти я вмъква в превода.Завлечете файл с превод  в тази рамка с "
+"инструменти, за да го използвате като източник за допълнителни алтернативни "
+"преводи."
 
-#: src/alttransview.cpp:331
+#: src/alttransview.cpp:323
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -225,37 +210,37 @@ msgstr "не"
 msgid "yes"
 msgstr "да"
 
-#: src/binunitsview.cpp:125
+#: src/binunitsview.cpp:129
 #, kde-format
 msgctxt "@title:column"
 msgid "Source"
 msgstr "Оригинал"
 
-#: src/binunitsview.cpp:126
+#: src/binunitsview.cpp:131
 #, kde-format
 msgctxt "@title:column"
 msgid "Target"
 msgstr "Превод"
 
-#: src/binunitsview.cpp:127
+#: src/binunitsview.cpp:133
 #, kde-format
 msgctxt "@title:column"
 msgid "Approved"
 msgstr "Одобрен"
 
-#: src/binunitsview.cpp:135
+#: src/binunitsview.cpp:140
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Binary Units"
 msgstr "Двоични единици"
 
-#: src/binunitsview.cpp:173
+#: src/binunitsview.cpp:178
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set the file"
 msgstr "Задаване на файла"
 
-#: src/binunitsview.cpp:174
+#: src/binunitsview.cpp:179
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"
@@ -291,12 +276,12 @@ msgstr "XLIFF (*.xlf *.xliff)"
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "New"
 msgstr "Нов"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Needs translation"
 msgstr "Трябва да се преведе"
@@ -306,108 +291,108 @@ msgstr "Трябва да се преведе"
 msgid "Needs full localization"
 msgstr "Трябва да се преведе изцяло"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Трябва да приспособи"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Translated"
 msgstr "Преведен"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Needs translation review"
 msgstr "Трябва да се прегледа"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:65
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Трябва да се прегледа изцяло"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:66
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Трябва да се провери приспособяването"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:67
 #, kde-format
 msgid "Final"
 msgstr "Краен"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:68
 #, kde-format
 msgid "Signed-off"
 msgstr "Подписано"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:57
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "Начало на сдвоен таг"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:58
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "Край на сдвоения таг"
 
-#: src/catalog/catalogstring.cpp:64
+#: src/catalog/catalogstring.cpp:59
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "Самостоятелен таг"
 
-#: src/catalog/catalogstring.cpp:65
+#: src/catalog/catalogstring.cpp:60
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "Изолиран таг"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "Маркер"
 
-#: src/catalog/catalogstring.cpp:68
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "Общ групов заместител"
 
-#: src/catalog/catalogstring.cpp:69
+#: src/catalog/catalogstring.cpp:64
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "Подпоток"
 
-#: src/catalog/catalogstring.cpp:71
+#: src/catalog/catalogstring.cpp:66
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "Общ заместител"
 
-#: src/catalog/catalogstring.cpp:72
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "Начало на сдвоения заместител"
 
-#: src/catalog/catalogstring.cpp:73
+#: src/catalog/catalogstring.cpp:68
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "Край на сдвоения символ на мястото"
 
-#: src/catalog/catalogstring.cpp:120
+#: src/catalog/catalogstring.cpp:112
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "съкращение"
 
-#: src/catalog/catalogstring.cpp:121
+#: src/catalog/catalogstring.cpp:113
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -417,7 +402,7 @@ msgstr ""
 "съкратен термин: съкратена форма на термина, получена в резултат на "
 "пропускане на един или повече елементи на термина"
 
-#: src/catalog/catalogstring.cpp:122
+#: src/catalog/catalogstring.cpp:115
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -428,7 +413,7 @@ msgstr ""
 "един или повече елементи на термина или срички (напр. \"прил\" за "
 "\"прилагателно\")"
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:117
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -440,7 +425,7 @@ msgstr ""
 "многословен термин, обединени в последователност, която се произнася "
 "самостоятелно (напр. \"radar\" за \"radio detecting and ranging\")"
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:119
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -450,7 +435,7 @@ msgstr ""
 "наименование: термин за собствено име, като например наименование на агенция "
 "или друга подобна структура"
 
-#: src/catalog/catalogstring.cpp:125
+#: src/catalog/catalogstring.cpp:121
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -464,7 +449,7 @@ msgstr ""
 "едновременно в рамките на едно изказване или макар и да не е задължително да "
 "поддържат непосредствена близост помежду си"
 
-#: src/catalog/catalogstring.cpp:126
+#: src/catalog/catalogstring.cpp:123
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -474,13 +459,13 @@ msgstr ""
 "общоприето наименование: синоним на международен научен термин, който се "
 "използва в в общия дискурс на даден език"
 
-#: src/catalog/catalogstring.cpp:127
+#: src/catalog/catalogstring.cpp:124
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "дата и/или час"
 
-#: src/catalog/catalogstring.cpp:128
+#: src/catalog/catalogstring.cpp:126
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -492,7 +477,7 @@ msgstr ""
 "твърдение например, че два математически израза са равни, както е определено "
 "от знак за равенство (=), или са отнесени едно към друго с подобен знак"
 
-#: src/catalog/catalogstring.cpp:129
+#: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -502,7 +487,7 @@ msgstr ""
 "разширена форма: Пълното представяне на даден термин, за който има съкратена "
 "форма"
 
-#: src/catalog/catalogstring.cpp:130
+#: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -512,7 +497,7 @@ msgstr ""
 "формула: фигури, символи или други подобни, използвани за кратко изразяване "
 "на дадено понятие, като математическа или химическа формула"
 
-#: src/catalog/catalogstring.cpp:131
+#: src/catalog/catalogstring.cpp:130
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -536,7 +521,7 @@ msgstr ""
 "елементи, които изграждат сложен термин, когато тези букви се произнасят "
 "индивидуално (напр.\"ГСE\" за \"говежди спонгиформна енцефалопатия\")"
 
-#: src/catalog/catalogstring.cpp:133
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -546,7 +531,7 @@ msgstr ""
 "международен научен термин: термин, който е част от международен научна "
 "номенклатура, приета от съответен научен орган"
 
-#: src/catalog/catalogstring.cpp:134
+#: src/catalog/catalogstring.cpp:137
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -556,7 +541,7 @@ msgstr ""
 "международен термин: термин, който има еднакъв или почти еднакъв правописен "
 "или фонетична форма в много езици"
 
-#: src/catalog/catalogstring.cpp:135
+#: src/catalog/catalogstring.cpp:139
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -568,19 +553,19 @@ msgstr ""
 "математически или логически отношения, като например твърдения за "
 "неравенство, множество отношения, булеви операции и други подобни"
 
-#: src/catalog/catalogstring.cpp:136
+#: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr "единица за управление на материали: единица за проследяване на обект"
 
-#: src/catalog/catalogstring.cpp:137
+#: src/catalog/catalogstring.cpp:142
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "име"
 
-#: src/catalog/catalogstring.cpp:138
+#: src/catalog/catalogstring.cpp:144
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -592,7 +577,7 @@ msgstr ""
 "като друг термин на същия език, но за който взаимозаменяемостта е ограничена "
 "до някои контексти и неприложима в други"
 
-#: src/catalog/catalogstring.cpp:139
+#: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -602,13 +587,13 @@ msgstr ""
 "номер на част: уникално буквено-цифрово обозначение, присвоено на обект в "
 "производствена система"
 
-#: src/catalog/catalogstring.cpp:140
+#: src/catalog/catalogstring.cpp:147
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "phrase"
 msgstr "фраза"
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:149
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -620,13 +605,13 @@ msgstr ""
 "значение на която често не може да бъде изведено въз основа на комбинираното "
 "значение на думи, съставляващи фразеологизма"
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:151
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr "защитен: маркираният текст не трябва да се превежда"
 
-#: src/catalog/catalogstring.cpp:143
+#: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -636,19 +621,19 @@ msgstr ""
 "романизирана форма: форма на термин, получена в резултат на операция, при "
 "която не селатинските писмени системи се преобразуват в латинска азбука"
 
-#: src/catalog/catalogstring.cpp:144
+#: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr "сегмент: маркираният текст представлява сегмент"
 
-#: src/catalog/catalogstring.cpp:145
+#: src/catalog/catalogstring.cpp:155
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr "set phrase\": фиксирана, лексикализирана фраз"
 
-#: src/catalog/catalogstring.cpp:146
+#: src/catalog/catalogstring.cpp:157
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -661,7 +646,7 @@ msgstr ""
 "\"Междуправителствена Група на двадесет и четирите по международни валутни "
 "въпроси"
 
-#: src/catalog/catalogstring.cpp:147
+#: src/catalog/catalogstring.cpp:160
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -671,13 +656,13 @@ msgstr ""
 "инвентарна единица: инвентарна единица, идентифицирана с уникален буквено-"
 "цифров обозначение, присвоено на обекта в системата за контрол на запасите"
 
-#: src/catalog/catalogstring.cpp:148
+#: src/catalog/catalogstring.cpp:161
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
 msgstr "стандартен текст: фиксирана част от повтарящ се текст"
 
-#: src/catalog/catalogstring.cpp:149
+#: src/catalog/catalogstring.cpp:162
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -687,7 +672,7 @@ msgstr ""
 "символ: обозначение на понятие с букви, цифри, пиктограми или други "
 "комбинация от тях"
 
-#: src/catalog/catalogstring.cpp:150
+#: src/catalog/catalogstring.cpp:163
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -697,7 +682,7 @@ msgstr ""
 "синоним: термин, който представлява същото или много подобно понятие като "
 "основният термин на вписването в даден запис на термин"
 
-#: src/catalog/catalogstring.cpp:151
+#: src/catalog/catalogstring.cpp:165
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -707,13 +692,13 @@ msgstr ""
 "синонимна фраза: фразеологична единица в даден език, която изразява същото "
 "семантично съдържание като друга фраза на същия език"
 
-#: src/catalog/catalogstring.cpp:152
+#: src/catalog/catalogstring.cpp:166
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "term"
 msgstr "термин"
 
-#: src/catalog/catalogstring.cpp:153
+#: src/catalog/catalogstring.cpp:168
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -727,7 +712,7 @@ msgstr ""
 "писмената система, като се взема предвид произношението на символите "
 "конвертиран"
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:171
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -739,7 +724,7 @@ msgstr ""
 "при която символите на една азбучна писмена система се представят със знаци "
 "от друга азбучна писмена система"
 
-#: src/catalog/catalogstring.cpp:155
+#: src/catalog/catalogstring.cpp:174
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -750,78 +735,78 @@ msgstr ""
 "пропускане на един или повече елементи на термина или срички (напр. \"грип\" "
 "за \"грип\")"
 
-#: src/catalog/catalogstring.cpp:156
+#: src/catalog/catalogstring.cpp:176
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "вариант: една от алтернативните форми на даден термин\""
 
-#: src/catalog/cmd.cpp:80
+#: src/catalog/cmd.cpp:81
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "Вмъкване"
 
-#: src/catalog/cmd.cpp:123
+#: src/catalog/cmd.cpp:121
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "Изтриване"
 
-#: src/catalog/cmd.cpp:176
+#: src/catalog/cmd.cpp:170
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "Превключване на одобрението"
 
-#: src/catalog/cmd.cpp:194
+#: src/catalog/cmd.cpp:188
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "Вмъкване на Markup"
 
-#: src/catalog/cmd.cpp:216
+#: src/catalog/cmd.cpp:211
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "Изтриване на Markup:"
 
-#: src/catalog/cmd.cpp:237
+#: src/catalog/cmd.cpp:233
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "Настройка на бележка"
 
-#: src/catalog/cmd.cpp:270
+#: src/catalog/cmd.cpp:268
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "Актуализиране/добавяне на фаза на работния процес"
 
-#: src/catalog/cmd.cpp:291
+#: src/catalog/cmd.cpp:287
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "Настройки на еквивалентност на превода"
 
-#: src/catalog/cmd.cpp:360
+#: src/catalog/cmd.cpp:346
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Премахване на текст с маркиране"
 
-#: src/catalog/cmd.cpp:412 src/xlifftextedit.cpp:630
+#: src/catalog/cmd.cpp:399 src/xlifftextedit.cpp:635
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Вмъкване на текст с маркиране"
 
-#: src/catalog/gettext/gettextstorage.cpp:110
+#: src/catalog/gettext/gettextstorage.cpp:107
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "разделител за алтернативни низове с различна дължина"
 
-#: src/catalog/gettext/gettextstorage.cpp:293
+#: src/catalog/gettext/gettextstorage.cpp:291
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -830,29 +815,29 @@ msgstr ""
 "Предишна стойност на източника, запазена от Gettext по време на преминаване "
 "към по-нов ПОТшаблон"
 
-#: src/catalog/gettextheader.cpp:480
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Липсва име на автор"
 
-#: src/catalog/gettextheader.cpp:480
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgid "Your name:"
 msgstr "Златко Попов"
 
-#: src/catalog/gettextheader.cpp:490
+#: src/catalog/gettextheader.cpp:481
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Липсва имейл на автора"
 
-#: src/catalog/gettextheader.cpp:490
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgid "Your email:"
 msgstr "zlatkopopov@fsa-bg.org"
 
-#: src/catalog/ts/tsstorage.cpp:423
+#: src/catalog/ts/tsstorage.cpp:444
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Предишна стойност на източника, запазена от инструмента lupdate"
@@ -863,120 +848,120 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Преводни единици"
 
-#: src/cataloglistview/cataloglistview.cpp:84
-#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
+#: src/cataloglistview/cataloglistview.cpp:83
+#: src/glossary/glossarywindow.cpp:219 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
 msgstr "Бързо търсене..."
 
-#: src/cataloglistview/cataloglistview.cpp:85
-#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:115
+#: src/cataloglistview/cataloglistview.cpp:84
+#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Активиране с Ctrl+L. Приема регулярни изрази"
 
-#: src/cataloglistview/cataloglistview.cpp:94
+#: src/cataloglistview/cataloglistview.cpp:92
 #, kde-format
 msgid "Options"
 msgstr "Опции"
 
-#: src/cataloglistview/cataloglistview.cpp:195
+#: src/cataloglistview/cataloglistview.cpp:194
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Нулиране на индивидуалния филтър"
 
-#: src/cataloglistview/cataloglistview.cpp:201 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:199 src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Case insensitive"
 msgstr "Чувствителен регистър"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:202 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:200 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Игнориране на ускорителите"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Ready"
 msgstr "Готово"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Non-ready"
 msgstr "Неодобрен"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Non-empty"
 msgstr "Непразен"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Empty"
 msgstr "Празно"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Changed since file open"
 msgstr "Променен от последното отваряне"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Непроменен от последното отваряне"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Same in sync file"
 msgstr "Същото в синхронизирания файл"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
 msgid "Different in sync file"
 msgstr "Различен във файла за синхронизиране"
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Not in sync file"
 msgstr "Не е в синхронизирания файл"
 
-#: src/cataloglistview/cataloglistview.cpp:212
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgid "Plural"
 msgstr "Множествено число"
 
-#: src/cataloglistview/cataloglistview.cpp:213
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgid "Non-plural"
 msgstr "Без множествено число"
 
-#: src/cataloglistview/cataloglistview.cpp:218
+#: src/cataloglistview/cataloglistview.cpp:216
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Основен"
 
-#: src/cataloglistview/cataloglistview.cpp:219
+#: src/cataloglistview/cataloglistview.cpp:217
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Състояние"
 
-#: src/cataloglistview/cataloglistview.cpp:221
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Колона за търсене"
 
-#: src/cataloglistview/cataloglistview.cpp:225
+#: src/cataloglistview/cataloglistview.cpp:223
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Премахване и повторно филтриране при промяна на съдържанието"
 
-#: src/cataloglistview/cataloglistview.cpp:242
+#: src/cataloglistview/cataloglistview.cpp:243
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -988,18 +973,17 @@ msgctxt "@title:column"
 msgid "Entry"
 msgstr "Запис"
 
-#. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:332 src/glossary/glossary.cpp:200
-#: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:60
+#: src/filesearch/filesearchtab.cpp:315 src/glossary/glossary.cpp:198
+#: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:59
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "Оригинал"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:333 src/glossary/glossary.cpp:201
-#: src/tm/tmtab.cpp:61
+#: src/filesearch/filesearchtab.cpp:317 src/glossary/glossary.cpp:201
+#: src/tm/tmtab.cpp:60
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -1011,7 +995,7 @@ msgctxt "@title:column"
 msgid "Notes"
 msgstr "Бележки"
 
-#: src/cataloglistview/catalogmodel.cpp:113 src/tm/tmtab.cpp:62
+#: src/cataloglistview/catalogmodel.cpp:113 src/tm/tmtab.cpp:61
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
@@ -1024,7 +1008,7 @@ msgid "Files"
 msgstr "Файлове"
 
 #: src/cataloglistview/catalogmodel.cpp:117
-#: src/filesearch/filesearchtab.cpp:336 src/tm/tmtab.cpp:64
+#: src/filesearch/filesearchtab.cpp:322 src/tm/tmtab.cpp:63
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -1042,60 +1026,60 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Дължина на целта"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1044
-#: src/editortab.cpp:1247 src/tm/tmtab.cpp:229
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1056
+#: src/editortab.cpp:1256 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Преведен"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1045
-#: src/editortab.cpp:1242 src/tm/tmtab.cpp:230
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1058
+#: src/editortab.cpp:1251 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Трябва да се прегледа"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1043
-#: src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1054
+#: src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
 msgstr "Непреведен"
 
-#: src/common/languagelistmodel.cpp:93
+#: src/common/languagelistmodel.cpp:96
 #, kde-format
 msgctxt "%1 is a language name, e.g. Irish, %2 is language code, e.g. ga"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: src/common/languagelistmodel.cpp:134 src/tm/dbparams.ui:146
+#: src/common/languagelistmodel.cpp:136 src/tm/dbparams.ui:146
 #, kde-format
 msgid "Target language:"
 msgstr "Език на превода:"
 
-#: src/common/termlabel.cpp:81
+#: src/common/termlabel.cpp:80
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Редактиране"
 
-#: src/editortab.cpp:126
+#: src/editortab.cpp:122
 #, kde-format
 msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Текущ: %1"
 
-#: src/editortab.cpp:127 src/editortab.cpp:812
-#: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:505
-#: src/tm/tmtab.cpp:592
+#: src/editortab.cpp:123 src/editortab.cpp:811
+#: src/filesearch/filesearchtab.cpp:760 src/project/projecttab.cpp:521
+#: src/tm/tmtab.cpp:591
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
 msgstr "Общо: %1"
 
-#: src/editortab.cpp:128 src/editortab.cpp:138
+#: src/editortab.cpp:124 src/editortab.cpp:134
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -1103,131 +1087,131 @@ msgctxt ""
 msgid "Not ready: %1"
 msgstr "За проверка: %1"
 
-#: src/editortab.cpp:129 src/editortab.cpp:146
+#: src/editortab.cpp:125 src/editortab.cpp:142
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "Непреведени: %1"
 
-#: src/editortab.cpp:140 src/editortab.cpp:148
+#: src/editortab.cpp:136 src/editortab.cpp:144
 #, kde-format
 msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:174 src/lokalizemainwindow.cpp:442
+#: src/editortab.cpp:170 src/lokalizemainwindow.cpp:467
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
 msgstr "Файл"
 
-#: src/editortab.cpp:175 src/project/projecttab.cpp:146
+#: src/editortab.cpp:171 src/project/projecttab.cpp:146
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
 msgstr "Навигация"
 
-#: src/editortab.cpp:176
+#: src/editortab.cpp:172
 #, kde-format
 msgctxt "@title actions category"
 msgid "Editing"
 msgstr "Редактиране"
 
-#: src/editortab.cpp:177
+#: src/editortab.cpp:173
 #, kde-format
 msgid "Synchronization 1"
 msgstr "Синхронизиране 1"
 
-#: src/editortab.cpp:178
+#: src/editortab.cpp:174
 #, kde-format
 msgid "Synchronization 2"
 msgstr "Синхронизиране 2"
 
-#: src/editortab.cpp:179
+#: src/editortab.cpp:175
 #, kde-format
 msgid "Translation Memory"
 msgstr "Запаметени преводи"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:180 src/lokalizemainwindow.cpp:444
+#: src/editortab.cpp:176 src/lokalizemainwindow.cpp:469
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
 msgstr "Речник"
 
-#: src/editortab.cpp:205
+#: src/editortab.cpp:190
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
 msgstr "Вмъкване на алтернативен превод #%1"
 
-#: src/editortab.cpp:252
+#: src/editortab.cpp:253
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a note"
 msgstr "Добавяне на бележка"
 
-#: src/editortab.cpp:273
+#: src/editortab.cpp:263
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert TM suggestion #%1"
 msgstr "Вмъкване на предложение за ЗП #%1"
 
-#: src/editortab.cpp:278
+#: src/editortab.cpp:268
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove TM suggestion #%1"
 msgstr "Премахване на предложение за ЗП #%1"
 
-#: src/editortab.cpp:327
+#: src/editortab.cpp:321
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
 msgstr "Вмъкване на превод на термина #%1"
 
-#: src/editortab.cpp:338
+#: src/editortab.cpp:332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Define new term"
 msgstr "Нов термин"
 
-#: src/editortab.cpp:379
+#: src/editortab.cpp:368
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
 msgstr "Фази..."
 
-#: src/editortab.cpp:382
+#: src/editortab.cpp:371
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Word count"
 msgstr "Брояч на думите"
 
-#: src/editortab.cpp:385
+#: src/editortab.cpp:374
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
 msgstr "Изчистване на всички преводни записи"
 
-#: src/editortab.cpp:388
+#: src/editortab.cpp:377
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
 msgstr "Стартиране на командата на Pology за този файл"
 
-#: src/editortab.cpp:392
+#: src/editortab.cpp:381
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
 msgstr "Сливане на превода в  версия на OpenDocument"
 
-#: src/editortab.cpp:413
+#: src/editortab.cpp:401
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Change searching direction"
 msgstr "Промяна посоката на търсене"
 
-#: src/editortab.cpp:423
+#: src/editortab.cpp:410
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1235,103 +1219,103 @@ msgctxt ""
 msgid "Approved"
 msgstr "Одобрен"
 
-#: src/editortab.cpp:442
+#: src/editortab.cpp:429
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and go to next"
 msgstr "Одобряване и преминаване към следващия"
 
-#: src/editortab.cpp:451
+#: src/editortab.cpp:436
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent translation"
 msgstr "Еквивалентни преводи"
 
-#: src/editortab.cpp:466
+#: src/editortab.cpp:447
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
 msgstr "Копиране на оригинала в превода"
 
-#: src/editortab.cpp:469
+#: src/editortab.cpp:450
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "Разгъване на целта"
 
-#: src/editortab.cpp:474 src/filesearch/filesearchtab.cpp:92
+#: src/editortab.cpp:455 src/filesearch/filesearchtab.cpp:92
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
 msgstr "Изчистване"
 
-#: src/editortab.cpp:478
+#: src/editortab.cpp:459
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
 msgstr "Вмъкване на етикет"
 
-#: src/editortab.cpp:482
+#: src/editortab.cpp:463
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
 msgstr "Проверка на тази единица с помощта на LanguageTool"
 
-#: src/editortab.cpp:486
+#: src/editortab.cpp:467
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
 msgstr "Вмъкване на следващ етикет"
 
-#: src/editortab.cpp:490
+#: src/editortab.cpp:471
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
 msgstr "Преминаване към следващия текст без етикет"
 
-#: src/editortab.cpp:494
+#: src/editortab.cpp:475
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "Завършване"
 
-#: src/editortab.cpp:498
+#: src/editortab.cpp:479
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "Най-добро предложение от проверката на правопис"
 
-#: src/editortab.cpp:505
+#: src/editortab.cpp:486
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "&Следващ"
 
-#: src/editortab.cpp:510
+#: src/editortab.cpp:491
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "&Предишен"
 
-#: src/editortab.cpp:516
+#: src/editortab.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "&Първи"
 
-#: src/editortab.cpp:522
+#: src/editortab.cpp:503
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "По&следен"
 
-#: src/editortab.cpp:528
+#: src/editortab.cpp:509
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Запис номер"
 
-#: src/editortab.cpp:530 src/project/projecttab.cpp:154
+#: src/editortab.cpp:512 src/project/projecttab.cpp:161
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1339,7 +1323,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Предишен преведен, но неодобрен"
 
-#: src/editortab.cpp:535 src/project/projecttab.cpp:157
+#: src/editortab.cpp:520 src/project/projecttab.cpp:167
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1347,19 +1331,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Следващ преведен, но неодобрен"
 
-#: src/editortab.cpp:540 src/project/projecttab.cpp:160
+#: src/editortab.cpp:527 src/project/projecttab.cpp:173
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Предишен непреведен"
 
-#: src/editortab.cpp:545 src/project/projecttab.cpp:163
+#: src/editortab.cpp:532 src/project/projecttab.cpp:179
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Следващ непреведен"
 
-#: src/editortab.cpp:550 src/project/projecttab.cpp:148
+#: src/editortab.cpp:538 src/project/projecttab.cpp:149
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1367,7 +1351,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Предишен неодобрен"
 
-#: src/editortab.cpp:555 src/project/projecttab.cpp:151
+#: src/editortab.cpp:546 src/project/projecttab.cpp:155
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1375,49 +1359,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "Следващ неодобрен"
 
-#: src/editortab.cpp:562
+#: src/editortab.cpp:555
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Фокусирайте реда за търсене в изгледа на единиците за превод"
 
-#: src/editortab.cpp:568
+#: src/editortab.cpp:560
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "Отмятане на съобщението"
 
-#: src/editortab.cpp:574
+#: src/editortab.cpp:566
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "Предишна отметка"
 
-#: src/editortab.cpp:578
+#: src/editortab.cpp:570
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "Следваща отметка"
 
-#: src/editortab.cpp:586
+#: src/editortab.cpp:578
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "Попълване с всички точни преводи"
 
-#: src/editortab.cpp:590
-#, no-c-format, kde-format
+#: src/editortab.cpp:583
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Попълване с всички точни преводи и маркиране като \"неясен\""
 
-#: src/editortab.cpp:595
+#: src/editortab.cpp:589
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Отваряне на файл за синхронизиране/сливане"
 
-#: src/editortab.cpp:596 src/editortab.cpp:653
+#: src/editortab.cpp:590 src/editortab.cpp:648
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1427,13 +1411,13 @@ msgstr ""
 "Отваряне на каталога, който трябва да се слее с текущия или да се репликират "
 "промените в основния файл"
 
-#: src/editortab.cpp:602 src/editortab.cpp:659
+#: src/editortab.cpp:596 src/editortab.cpp:654
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "Предишен различен"
 
-#: src/editortab.cpp:603 src/editortab.cpp:660
+#: src/editortab.cpp:598 src/editortab.cpp:656
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1443,13 +1427,13 @@ msgstr ""
 "Предишен запис, който е преведен по различен начин в сливания файл, "
 "включително празни преводи в източника за сливане"
 
-#: src/editortab.cpp:612 src/editortab.cpp:667
+#: src/editortab.cpp:607 src/editortab.cpp:663
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "Следващ различен"
 
-#: src/editortab.cpp:613 src/editortab.cpp:668
+#: src/editortab.cpp:609 src/editortab.cpp:665
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1459,55 +1443,55 @@ msgstr ""
 "Следващ запис, който е преведен по различен начин в сливания файл, "
 "включително празни преводи в източника на сливане"
 
-#: src/editortab.cpp:621
+#: src/editortab.cpp:617
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "Следваща одобрена разлика"
 
-#: src/editortab.cpp:627 src/editortab.cpp:675
+#: src/editortab.cpp:623 src/editortab.cpp:672
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Копиране от източника на сливане"
 
-#: src/editortab.cpp:634 src/editortab.cpp:680
+#: src/editortab.cpp:630 src/editortab.cpp:677
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Копиране на всички нови преводи"
 
-#: src/editortab.cpp:635
+#: src/editortab.cpp:631
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "Това променя само празните и неподготвените записи в основния файл"
 
-#: src/editortab.cpp:644 src/editortab.cpp:687
+#: src/editortab.cpp:640 src/editortab.cpp:684
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Копиране в източника на сливане"
 
-#: src/editortab.cpp:652
+#: src/editortab.cpp:647
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "Отваряне на втори източник за синхронизиране"
 
-#: src/editortab.cpp:681
+#: src/editortab.cpp:678
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Това променя само празни записи"
 
-#: src/editortab.cpp:709
+#: src/editortab.cpp:706
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(възстановено)"
 
-#: src/editortab.cpp:752 src/editortab.cpp:928
+#: src/editortab.cpp:748 src/editortab.cpp:940
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1517,38 +1501,38 @@ msgstr ""
 "Документът е променен.\n"
 "Искате ли промените да бъдат записани?"
 
-#: src/editortab.cpp:754 src/editortab.cpp:930 src/editortab.cpp:1363
-#: src/glossary/glossarywindow.cpp:492
+#: src/editortab.cpp:750 src/editortab.cpp:942 src/editortab.cpp:1371
+#: src/glossary/glossarywindow.cpp:484
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: src/editortab.cpp:776 src/mergemode/mergeview.cpp:187
+#: src/editortab.cpp:773 src/mergemode/mergeview.cpp:183
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Избиране на файл за превод"
 
-#: src/editortab.cpp:861
+#: src/editortab.cpp:863
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Грешка при отваряне на файл %1, ред: %2"
 
-#: src/editortab.cpp:862
+#: src/editortab.cpp:865
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Грешка при отваряне на файл %1"
 
-#: src/editortab.cpp:869
+#: src/editortab.cpp:873
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Запазване на файла като"
 
-#: src/editortab.cpp:894
+#: src/editortab.cpp:903
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1558,13 +1542,13 @@ msgstr ""
 "Грешка при записването на файла %1\n"
 "Искате ли да запишете в друг файл или да отмените?"
 
-#: src/editortab.cpp:896
+#: src/editortab.cpp:906
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Грешка"
 
-#: src/editortab.cpp:904
+#: src/editortab.cpp:916
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1574,73 +1558,73 @@ msgstr ""
 "Не може да се извърши автоматично запазване на файла.\n"
 "Целевият файл беше %1."
 
-#: src/editortab.cpp:959
+#: src/editortab.cpp:971
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Прескачане до"
 
-#: src/editortab.cpp:960
+#: src/editortab.cpp:972
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Въведете номера на реда:"
 
-#: src/editortab.cpp:1031
+#: src/editortab.cpp:1041
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Текущ: %1"
 
-#: src/editortab.cpp:1220
+#: src/editortab.cpp:1232
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Преведен"
 
-#: src/editortab.cpp:1221
+#: src/editortab.cpp:1233
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Подписано"
 
-#: src/editortab.cpp:1222
+#: src/editortab.cpp:1234
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Одобрен"
 
-#: src/editortab.cpp:1225
+#: src/editortab.cpp:1235
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Прави се превод (и може да е необходима проверка)"
 
-#: src/editortab.cpp:1226
+#: src/editortab.cpp:1236
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Преводът е получил положителна рецензия"
 
-#: src/editortab.cpp:1227
+#: src/editortab.cpp:1237
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Записът е напълно преведен"
 
-#: src/editortab.cpp:1339 src/project/projecttab.cpp:362
+#: src/editortab.cpp:1347 src/project/projecttab.cpp:387
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Проверката на Pology вече е в ход."
 
-#: src/editortab.cpp:1339 src/editortab.cpp:1347 src/editortab.cpp:1351
-#: src/project/projecttab.cpp:362 src/project/projecttab.cpp:370
-#: src/project/projecttab.cpp:374
+#: src/editortab.cpp:1347 src/editortab.cpp:1355 src/editortab.cpp:1359
+#: src/project/projecttab.cpp:387 src/project/projecttab.cpp:395
+#: src/project/projecttab.cpp:399
 #, kde-format
 msgid "Pology error"
 msgstr "Грешка на Pology"
 
-#: src/editortab.cpp:1347 src/project/projecttab.cpp:370
+#: src/editortab.cpp:1355 src/project/projecttab.cpp:395
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1649,17 +1633,17 @@ msgstr ""
 "Проверката на Pology се срина неочаквано:\n"
 "%1"
 
-#: src/editortab.cpp:1349 src/project/projecttab.cpp:372
+#: src/editortab.cpp:1357 src/project/projecttab.cpp:397
 #, kde-format
 msgid "Pology success"
 msgstr "Успех на Pology"
 
-#: src/editortab.cpp:1349
+#: src/editortab.cpp:1357
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Проверката на Pology е успешна."
 
-#: src/editortab.cpp:1351 src/project/projecttab.cpp:374
+#: src/editortab.cpp:1359 src/project/projecttab.cpp:399
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1668,7 +1652,7 @@ msgstr ""
 "Проверката на Pology върна грешка:\n"
 "%1"
 
-#: src/editortab.cpp:1361
+#: src/editortab.cpp:1369
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1678,49 +1662,49 @@ msgstr ""
 "Това ще изтрие всички преводи от файла.\n"
 "Наистина ли искате да изчистите всички преведени записи?"
 
-#: src/editortab.cpp:1399
+#: src/editortab.cpp:1407
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Думи от изходния текст: %1<br/>Думи на целевия текст: %2"
 
-#: src/editortab.cpp:1400
+#: src/editortab.cpp:1408
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Брояч на думи"
 
-#: src/editortab.cpp:1493
+#: src/editortab.cpp:1498
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Искате ли да търсите изходния файл локално или чрез lxr.kde.org?"
 
-#: src/editortab.cpp:1494
+#: src/editortab.cpp:1499
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Търсене на изходния файл"
 
-#: src/editortab.cpp:1495
+#: src/editortab.cpp:1500
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Локално търсене"
 
-#: src/editortab.cpp:1496 src/editortab.cpp:1540
+#: src/editortab.cpp:1501 src/editortab.cpp:1545
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "Търсене на lxr.kde.org"
 
-#: src/editortab.cpp:1499 src/editortab.cpp:1543
+#: src/editortab.cpp:1504 src/editortab.cpp:1549
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Избиране на базова папка на Project за търсене на изходния файл"
 
-#: src/editortab.cpp:1536
+#: src/editortab.cpp:1541
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1730,19 +1714,19 @@ msgstr ""
 "Не може да намери изходен файл в посочената папка.\n"
 "Искате ли да промените папката за изходни файлове?"
 
-#: src/editortab.cpp:1538
+#: src/editortab.cpp:1543
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Търсене на изходния файл"
 
-#: src/editortab.cpp:1539
+#: src/editortab.cpp:1544
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Избор на папка"
 
-#: src/editortab.cpp:1579
+#: src/editortab.cpp:1586
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1757,57 +1741,57 @@ msgstr ""
 "се към Lokalize наръчник за примери за скриптове и как да ги включите в "
 "проекта си."
 
-#: src/editortab.cpp:1593 src/project/project.cpp:467
-#: src/project/project.cpp:472
+#: src/editortab.cpp:1600 src/project/project.cpp:461
+#: src/project/project.cpp:466
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Инсталирайте пакета translate-toolkit и опитайте отново"
 
-#: src/editortab.cpp:1599
+#: src/editortab.cpp:1605
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Инсталирайте пакета translate-toolkit и опитайте отново."
 
-#: src/editortab.cpp:1608
+#: src/editortab.cpp:1613
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Изберете оригинален OpenDocument, на който е базиран файла XLIFF"
 
-#: src/editortab.cpp:1610 src/project/project.cpp:477
+#: src/editortab.cpp:1615 src/project/project.cpp:473
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Файлове OpenDocument (*.odt *.ods)"
 
-#: src/editortab.cpp:1655
+#: src/editortab.cpp:1663
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Инсталирайте пакета python-uno за допълнителна функционалност."
 
-#: src/editortab.cpp:1779
+#: src/editortab.cpp:1784
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
 msgstr "Задаване на текст на единицата"
 
-#: src/editortab_findreplace.cpp:463
+#: src/editortab_findreplace.cpp:450
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "Замяна"
 
-#: src/editortab_findreplace.cpp:535
+#: src/editortab_findreplace.cpp:519
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr "Достигнат е края на документа. Искате ли да продължите отначалото?"
 
-#: src/editortab_findreplace.cpp:536 src/editortab_findreplace.cpp:544
+#: src/editortab_findreplace.cpp:520 src/editortab_findreplace.cpp:528
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "Проверка на правописа"
 
-#: src/editortab_findreplace.cpp:544
+#: src/editortab_findreplace.cpp:528
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Проверката на правописа завърши"
@@ -1879,31 +1863,31 @@ msgstr "Видими &инструменти"
 msgid "Main Toolbar"
 msgstr "Основна лента с инструменти"
 
-#: src/editorview.cpp:46
+#: src/editorview.cpp:47
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "За проверка:"
 
-#: src/editorview.cpp:48
+#: src/editorview.cpp:49
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "Непреведен:"
 
-#: src/editorview.cpp:59
+#: src/editorview.cpp:60
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "Скриване"
 
-#: src/editorview.cpp:69
+#: src/editorview.cpp:70
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "Колона: %1"
 
-#: src/editorview.cpp:81
+#: src/editorview.cpp:82
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1914,13 +1898,13 @@ msgstr ""
 "<p>Тази част от прозореца показва оригиналното съобщение\n"
 "на текущото съобщение.</p></qt>"
 
-#: src/editorview.cpp:179
+#: src/editorview.cpp:177
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Мн. число %1"
 
-#: src/editorview.cpp:250
+#: src/editorview.cpp:247
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1992,52 +1976,51 @@ msgstr "Зачитане на регистъра"
 msgid "&Search"
 msgstr "&Търсене"
 
-#: src/filesearch/filesearchtab.cpp:74
+#: src/filesearch/filesearchtab.cpp:75
 #, kde-format
 msgctxt "@title:window"
 msgid "File List"
 msgstr "Списък с файлове"
 
-#: src/filesearch/filesearchtab.cpp:76
+#: src/filesearch/filesearchtab.cpp:77
 #, kde-format
 msgid "Drop translation files here..."
 msgstr "Завличане на файлове с преводи тук..."
 
-#. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:335 src/tm/tmtab.cpp:63
+#: src/filesearch/filesearchtab.cpp:320 src/tm/tmtab.cpp:62
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
 msgstr "Файл"
 
-#: src/filesearch/filesearchtab.cpp:432
+#: src/filesearch/filesearchtab.cpp:417
 #, kde-format
 msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr "Търсене и заместване във файлове"
 
-#: src/filesearch/filesearchtab.cpp:466 src/tm/tmtab.cpp:401
+#: src/filesearch/filesearchtab.cpp:450 src/tm/tmtab.cpp:400
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Копиране на оригинала в системния буфер"
 
-#: src/filesearch/filesearchtab.cpp:472 src/tm/tmtab.cpp:407
+#: src/filesearch/filesearchtab.cpp:456 src/tm/tmtab.cpp:406
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Копиране на превода в системния буфер"
 
-#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:413
+#: src/filesearch/filesearchtab.cpp:462 src/tm/tmtab.cpp:412
 #, kde-format
 msgid "Open file"
 msgstr "Отваряне на файл"
 
-#: src/filesearch/filesearchtab.cpp:517
+#: src/filesearch/filesearchtab.cpp:501
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr "Търсене и заместване във файлове"
 
-#: src/filesearch/filesearchtab.cpp:798
+#: src/filesearch/filesearchtab.cpp:775
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"
@@ -2067,21 +2050,21 @@ msgstr "Предварителен преглед"
 msgid "Mass Replace"
 msgstr "Замяна на всички"
 
-#: src/glossary/glossary.cpp:202
+#: src/glossary/glossary.cpp:203
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Тема"
 
-#: src/glossary/glossaryview.cpp:36 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:405 src/glossary/glossarywindow.cpp:432
-#: src/glossary/glossarywindow.cpp:447 src/glossary/glossarywindow.cpp:465
+#: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
+#: src/glossary/glossarywindow.cpp:398 src/glossary/glossarywindow.cpp:424
+#: src/glossary/glossarywindow.cpp:439 src/glossary/glossarywindow.cpp:457
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
 msgstr "Речник"
 
-#: src/glossary/glossaryview.cpp:53
+#: src/glossary/glossaryview.cpp:54
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2096,19 +2079,19 @@ msgstr ""
 "изберете думи в полетата за оригинал и превод преди да извикате "
 "<интерфейс>Дефинирай&nbsp;нов&nbsp;термин</интерфейс>).</p>"
 
-#: src/glossary/glossarywindow.cpp:238
+#: src/glossary/glossarywindow.cpp:236
 #, kde-format
 msgctxt "@action:button reloads glossary from disk"
 msgid "Restore from disk"
 msgstr "Възстановяване от диска"
 
-#: src/glossary/glossarywindow.cpp:239
+#: src/glossary/glossarywindow.cpp:237
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "Презареждане на речника от диска, отмяна на промените"
 
-#: src/glossary/glossarywindow.cpp:490
+#: src/glossary/glossarywindow.cpp:482
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2209,7 +2192,7 @@ msgstr "Игнориране на ускорителите"
 msgid "Include notes"
 msgstr "Включително бележките"
 
-#: src/languagetool/languagetoolgrammarerror.cpp:39
+#: src/languagetool/languagetoolgrammarerror.cpp:38
 #, kde-format
 msgid "Suggestions:"
 msgstr "Предложения:"
@@ -2219,128 +2202,128 @@ msgstr "Предложения:"
 msgid "No errors"
 msgstr "Няма грешки"
 
-#: src/lokalizemainwindow.cpp:108
+#: src/lokalizemainwindow.cpp:109
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Не бяха открити модули Qt Sql. Преводната памет няма да работи."
 
-#: src/lokalizemainwindow.cpp:351 src/project/project.cpp:292
+#: src/lokalizemainwindow.cpp:369 src/project/project.cpp:288
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Запаметените преводи изискват Qt модул SQLite."
 
-#: src/lokalizemainwindow.cpp:351 src/project/project.cpp:292
+#: src/lokalizemainwindow.cpp:369 src/project/project.cpp:288
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Няма наличен модул SQLite"
 
-#: src/lokalizemainwindow.cpp:445 src/tm/tmtab.cpp:490
+#: src/lokalizemainwindow.cpp:470 src/tm/tmtab.cpp:489
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Запаметени преводи"
 
-#: src/lokalizemainwindow.cpp:446 src/project/projecttab.cpp:190
+#: src/lokalizemainwindow.cpp:471 src/project/projecttab.cpp:214
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Проект"
 
-#: src/lokalizemainwindow.cpp:473
+#: src/lokalizemainwindow.cpp:496
 #, kde-format
 msgid "Next tab"
 msgstr "Следващ раздел"
 
-#: src/lokalizemainwindow.cpp:476
+#: src/lokalizemainwindow.cpp:499
 #, kde-format
 msgid "Previous tab"
 msgstr "Предишен раздел"
 
-#: src/lokalizemainwindow.cpp:479
+#: src/lokalizemainwindow.cpp:502
 #, kde-format
 msgid "Previously active tab"
 msgstr "Предишен активен подпрозорец"
 
-#: src/lokalizemainwindow.cpp:485
+#: src/lokalizemainwindow.cpp:508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Речник"
 
-#: src/lokalizemainwindow.cpp:489
+#: src/lokalizemainwindow.cpp:512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Запаметени преводи"
 
-#: src/lokalizemainwindow.cpp:493 src/tm/tmtab.cpp:493
+#: src/lokalizemainwindow.cpp:516 src/tm/tmtab.cpp:492
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Управление на запаметени преводи"
 
-#: src/lokalizemainwindow.cpp:497
+#: src/lokalizemainwindow.cpp:520
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Преглед на проект"
 
-#: src/lokalizemainwindow.cpp:501
+#: src/lokalizemainwindow.cpp:524
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Конфигуриране на проект..."
 
-#: src/lokalizemainwindow.cpp:504
+#: src/lokalizemainwindow.cpp:527
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Създаване на проект за превод на софтуер..."
 
-#: src/lokalizemainwindow.cpp:507
+#: src/lokalizemainwindow.cpp:530
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "Създаване на проект за превод на OpenDocument..."
 
-#: src/lokalizemainwindow.cpp:510
+#: src/lokalizemainwindow.cpp:533
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Отваряне на проект..."
 
-#: src/lokalizemainwindow.cpp:514
+#: src/lokalizemainwindow.cpp:537
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Затваряне на проект"
 
-#: src/lokalizemainwindow.cpp:517
+#: src/lokalizemainwindow.cpp:540
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Последни проекти"
 
-#: src/lokalizemainwindow.cpp:525
+#: src/lokalizemainwindow.cpp:550
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Търсене и заместване във файлове"
 
-#: src/lokalizemainwindow.cpp:528
+#: src/lokalizemainwindow.cpp:553
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Следващо търсене във файлове"
 
-#: src/lokalizemainwindow.cpp:532
+#: src/lokalizemainwindow.cpp:557
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Заснемане и разпознаване на текст"
 
-#: src/lokalizemainwindow.cpp:709
+#: src/lokalizemainwindow.cpp:734
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2362,13 +2345,13 @@ msgstr "П&роект"
 msgid "&Scripts"
 msgstr "&Скриптове"
 
-#: src/main.cpp:55
+#: src/main.cpp:54
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
 msgstr "Lokalize"
 
-#: src/main.cpp:56
+#: src/main.cpp:55
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2377,7 +2360,7 @@ msgstr ""
 "Инструмент за превод. \n"
 "Не превеждайте вече преведеното."
 
-#: src/main.cpp:58
+#: src/main.cpp:57
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2389,12 +2372,12 @@ msgstr ""
 "(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 Разработчиците на KBabel"
 
-#: src/main.cpp:59
+#: src/main.cpp:58
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:60
+#: src/main.cpp:59
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc."
@@ -2404,151 +2387,145 @@ msgstr "Google Inc."
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "спонсорирано от Google Summer Of Code"
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "NLNet Foundation"
 msgstr "Фондация NLNet"
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr "спонсорирана работа, свързана с XLIFF"
 
-#: src/main.cpp:62
+#: src/main.cpp:64
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "Translate-toolkit"
 
-#: src/main.cpp:62
+#: src/main.cpp:65
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "предостави отлични скриптове за конвертиране на различни формати"
 
-#: src/main.cpp:63
+#: src/main.cpp:68
 #, kde-format
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/main.cpp:63
+#: src/main.cpp:68
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr "програма за проверка на граматиката, стила и правописа"
 
-#: src/main.cpp:64
+#: src/main.cpp:69
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:64
+#: src/main.cpp:69
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr "дърво на проекта, обединяващо превод+шаблони"
 
-#: src/main.cpp:65
+#: src/main.cpp:70
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach"
 
-#: src/main.cpp:65 src/main.cpp:66 src/main.cpp:69
+#: src/main.cpp:70 src/main.cpp:71 src/main.cpp:74
 #, kde-format
 msgid "bug fixing patches"
 msgstr "поправки на грешки и кръпки"
 
-#: src/main.cpp:66
+#: src/main.cpp:71
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
-#: src/main.cpp:67
+#: src/main.cpp:72
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:67
+#: src/main.cpp:72
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "изпробване и поправки на грешки"
 
-#: src/main.cpp:68
+#: src/main.cpp:73
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:68
+#: src/main.cpp:73
 #, kde-format
 msgid "patches"
 msgstr "кръпки"
 
-#: src/main.cpp:69
+#: src/main.cpp:74
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:70
+#: src/main.cpp:75
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: src/main.cpp:70
+#: src/main.cpp:75
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "подобрения на XLIFF"
 
-#: src/main.cpp:71
+#: src/main.cpp:76
 #, kde-format
 msgid "Simon Depiets"
 msgstr "Simon Depiets"
 
-#: src/main.cpp:71 src/main.cpp:72
+#: src/main.cpp:76 src/main.cpp:77 src/main.cpp:78
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr "поправки на грешки и кръпки"
 
-#: src/main.cpp:72
+#: src/main.cpp:77
 #, kde-format
 msgid "Karl Ove Hufthammer"
 msgstr "Karl Ove Hufthammer"
 
-#: src/main.cpp:73
+#: src/main.cpp:78
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
-
-#: src/main.cpp:73
-#, fuzzy, kde-format
-#| msgid "bug fixing and improvements"
-msgid "bug fixing and improvments"
-msgstr "поправки на грешки и кръпки"
+msgstr "Finley Watson"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:78
+#: src/main.cpp:83
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "Да не се претърсват файловете на проекта."
 
-#: src/main.cpp:79
+#: src/main.cpp:84
 #, kde-format
 msgid "Load specified project."
 msgstr "Зареждане на указания проект."
 
-#: src/main.cpp:80
+#: src/main.cpp:85
 #, kde-format
 msgid "Document to open"
 msgstr "Документ за отваряне"
 
-#: src/mergemode/mergecatalog.cpp:252
+#: src/mergemode/mergecatalog.cpp:249
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "Приемане на промяната на превода"
 
-#: src/mergemode/mergecatalog.cpp:304
+#: src/mergemode/mergecatalog.cpp:301
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "Приемане на всички нови преводи"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:34
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2556,7 +2533,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "Първи източник на синхронизиране"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2564,7 +2541,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "Втори източник на синхронизиране"
 
-#: src/mergemode/mergeview.cpp:40
+#: src/mergemode/mergeview.cpp:41
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2574,7 +2551,7 @@ msgstr ""
 "Завлечете файла, който трябва да бъде обединен в/синхронизиран с текущия "
 "тук, след което вижте опции на контекстното меню"
 
-#: src/mergemode/mergeview.cpp:227
+#: src/mergemode/mergeview.cpp:224
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2582,7 +2559,7 @@ msgid ""
 "line: %2"
 msgstr "Грешка при отваряне на <filename>%1</filename> за синхронизация (%2)"
 
-#: src/mergemode/mergeview.cpp:354
+#: src/mergemode/mergeview.cpp:350
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2598,73 +2575,73 @@ msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Метаданни за единицата"
 
-#: src/msgctxtview.cpp:95
+#: src/msgctxtview.cpp:93
 #, kde-format
 msgctxt ""
 "@info notes to translation unit which expire when the catalog is closed"
 msgid "<b>Temporary notes:</b>"
 msgstr "<b>Временни бележки:</b>"
 
-#: src/msgctxtview.cpp:104
+#: src/msgctxtview.cpp:102
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
 msgstr "<b>Бележки на Pology:</b>"
 
-#: src/msgctxtview.cpp:113
+#: src/msgctxtview.cpp:111
 #, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
 msgstr "<b>Бележки LanguageTool:</b>"
 
-#: src/msgctxtview.cpp:125
+#: src/msgctxtview.cpp:123
 #, kde-format
 msgctxt "@info translation unit metadata"
 msgid "<b>Phase:</b><br>"
 msgstr "<b>Фаза:</b><br>"
 
-#: src/msgctxtview.cpp:149
+#: src/msgctxtview.cpp:147
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Files:</b><br>"
 msgstr "<br><b>Файлове:</b><br>"
 
-#: src/msgctxtview.cpp:157
+#: src/msgctxtview.cpp:155
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Context:</b><br>"
 msgstr "<br><b>Контекст:</b><br>"
 
-#: src/msgctxtview.cpp:230
+#: src/msgctxtview.cpp:226
 #, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
 msgstr "(празно)"
 
-#: src/noteeditor.cpp:47
+#: src/noteeditor.cpp:46
 #, kde-format
 msgctxt "@info:label"
 msgid "From:"
 msgstr "От:"
 
-#: src/noteeditor.cpp:51
+#: src/noteeditor.cpp:50
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Save empty note to remove it"
 msgstr "Премахване на празна бележка"
 
-#: src/noteeditor.cpp:52
+#: src/noteeditor.cpp:51
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Author of this note"
 msgstr "Автор на тази бележка"
 
-#: src/noteeditor.cpp:65
+#: src/noteeditor.cpp:64
 #, kde-format
 msgid "Ctrl+Enter"
 msgstr "Ctrl+Enter"
 
-#: src/noteeditor.cpp:66
+#: src/noteeditor.cpp:65
 #, kde-format
 msgid "Esc"
 msgstr "Esc"
@@ -2675,76 +2652,76 @@ msgctxt "@info XLIFF notes representation"
 msgid "<b>Notes:</b>"
 msgstr "<b>Бележки:</b>"
 
-#: src/noteeditor.cpp:129
+#: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit..."
 msgstr "редактиране..."
 
-#: src/noteeditor.cpp:134
+#: src/noteeditor.cpp:135
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add..."
 msgstr "Добавяне..."
 
-#: src/noteeditor.cpp:136
+#: src/noteeditor.cpp:137
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add a note..."
 msgstr "Добавяне на бележка..."
 
-#: src/phaseswindow.cpp:138
+#: src/phaseswindow.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Date"
 msgstr "Дата"
 
-#: src/phaseswindow.cpp:139
+#: src/phaseswindow.cpp:146
 #, kde-format
 msgctxt "@title:column"
 msgid "Process"
 msgstr "Процес"
 
-#: src/phaseswindow.cpp:140
+#: src/phaseswindow.cpp:148
 #, kde-format
 msgctxt "@title:column"
 msgid "Company"
 msgstr "Компания"
 
-#: src/phaseswindow.cpp:141
+#: src/phaseswindow.cpp:150
 #, kde-format
 msgctxt "@title:column"
 msgid "Person"
 msgstr "Човек"
 
-#: src/phaseswindow.cpp:142
+#: src/phaseswindow.cpp:152
 #, kde-format
 msgctxt "@title:column"
 msgid "Tool"
 msgstr "Инструмент"
 
-#: src/phaseswindow.cpp:168
+#: src/phaseswindow.cpp:177
 #, kde-format
 msgid "Translation"
 msgstr "Превод"
 
-#: src/phaseswindow.cpp:168
+#: src/phaseswindow.cpp:177
 #, kde-format
 msgid "Review"
 msgstr "Преглед"
 
-#: src/phaseswindow.cpp:168
+#: src/phaseswindow.cpp:177
 #, kde-format
 msgid "Approval"
 msgstr "Одобрение"
 
-#: src/phaseswindow.cpp:172
+#: src/phaseswindow.cpp:181
 #, kde-format
 msgctxt "noun"
 msgid "Process (this will also change your role):"
 msgstr "Процес (това също ще промени ролята ви):"
 
-#: src/phaseswindow.cpp:250
+#: src/phaseswindow.cpp:256
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Edit phases"
@@ -2839,13 +2816,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr "Шрифт (съобщения)"
 
-#: src/prefs/prefs.cpp:97
+#: src/prefs/prefs.cpp:96
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "Самоличност"
 
-#: src/prefs/prefs.cpp:107
+#: src/prefs/prefs.cpp:106
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2855,49 +2832,49 @@ msgstr ""
 "Налични са следните параметри\\%1 - Път на изходния файл\n"
 "%2 - Номер на реда"
 
-#: src/prefs/prefs.cpp:109 src/prefs/prefs.cpp:242
+#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:240
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "Общи"
 
-#: src/prefs/prefs.cpp:115
+#: src/prefs/prefs.cpp:113
 #, kde-format
 msgctxt "@title:tab"
 msgid "Editing"
 msgstr "Редактиране"
 
-#: src/prefs/prefs.cpp:121
+#: src/prefs/prefs.cpp:119
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Изглед"
 
-#: src/prefs/prefs.cpp:127
+#: src/prefs/prefs.cpp:125
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "Запаметени преводи"
 
-#: src/prefs/prefs.cpp:133
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:139
+#: src/prefs/prefs.cpp:137
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:148
+#: src/prefs/prefs.cpp:145
 #, kde-format
 msgctxt "@title:tab"
 msgid "Spellcheck"
 msgstr "Проверка на правописа"
 
-#: src/prefs/prefs.cpp:174
+#: src/prefs/prefs.cpp:167
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2906,47 +2883,47 @@ msgstr ""
 "Получили сте достъп до функция, която изисква да бъде зареден проект. Можете "
 "ли да искате да създадете нов проект или да отворите съществуващ проект?"
 
-#: src/prefs/prefs.cpp:175
+#: src/prefs/prefs.cpp:168
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "Изисква се проект"
 
-#: src/prefs/prefs.cpp:176
+#: src/prefs/prefs.cpp:169
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
 msgstr "Създаване на проект"
 
-#: src/prefs/prefs.cpp:177
+#: src/prefs/prefs.cpp:170
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Отваряне на проект"
 
-#: src/prefs/prefs.cpp:192 src/prefs/prefs.cpp:209
+#: src/prefs/prefs.cpp:187 src/prefs/prefs.cpp:207
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Проект за превод на Lokalize (*.lokalize)"
 
-#: src/prefs/prefs.cpp:209
+#: src/prefs/prefs.cpp:205
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "Изберете папка с Gettext .po файлове за превод"
 
-#: src/prefs/prefs.cpp:230
+#: src/prefs/prefs.cpp:229
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "Първо създайте софтуерен или OpenDocument проект за превод."
 
-#: src/prefs/prefs.cpp:290
+#: src/prefs/prefs.cpp:285
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Разширени"
 
-#: src/prefs/prefs.cpp:301
+#: src/prefs/prefs.cpp:296
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3765,17 +3742,17 @@ msgstr "Проект"
 msgid "Language-Team:"
 msgstr "Преводачески екип:"
 
-#: src/project/project.cpp:440
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Сканиране на папки с изходни файлове"
 
-#: src/project/project.cpp:441
+#: src/project/project.cpp:438
 #, kde-format
 msgid "Editor"
 msgstr "Редактор"
 
-#: src/project/project.cpp:484
+#: src/project/project.cpp:480
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3828,13 +3805,13 @@ msgstr "Основната директория за РОТ файловете (
 msgid "Project's glossary"
 msgstr "Кратък речник нa специалните думи на проекта"
 
-#: src/project/projectmodel.cpp:513
+#: src/project/projectmodel.cpp:503
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Име"
 
-#: src/project/projectmodel.cpp:515
+#: src/project/projectmodel.cpp:505
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3842,55 +3819,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "Графика"
 
-#: src/project/projectmodel.cpp:517
+#: src/project/projectmodel.cpp:507
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "Общо"
 
-#: src/project/projectmodel.cpp:519
+#: src/project/projectmodel.cpp:509
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Преведени"
 
-#: src/project/projectmodel.cpp:521
+#: src/project/projectmodel.cpp:511
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "За проверка"
 
-#: src/project/projectmodel.cpp:523
+#: src/project/projectmodel.cpp:513
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Непреведени"
 
-#: src/project/projectmodel.cpp:525
+#: src/project/projectmodel.cpp:515
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "Непълни"
 
-#: src/project/projectmodel.cpp:527
+#: src/project/projectmodel.cpp:517
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Последен превод"
 
-#: src/project/projectmodel.cpp:529
+#: src/project/projectmodel.cpp:519
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "Коментари"
 
-#: src/project/projectmodel.cpp:531
+#: src/project/projectmodel.cpp:521
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Версия на шаблон"
 
-#: src/project/projectmodel.cpp:533
+#: src/project/projectmodel.cpp:523
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -3921,24 +3898,24 @@ msgstr ""
 "нужда от повече информация или документация, тогава отидете на <a href="
 "\"%2\"> %2 </a> и ще ви се предостави това, от което се нуждаете. </html>"
 
-#: src/project/projecttab.cpp:77
+#: src/project/projecttab.cpp:78
 #, kde-format
 msgid "&Configure Lokalize"
 msgstr "&Конфигуриране на Lokalize"
 
-#: src/project/projecttab.cpp:78 src/project/projecttab.cpp:193
+#: src/project/projecttab.cpp:79 src/project/projecttab.cpp:217
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
 msgstr "Отваряне на проект"
 
-#: src/project/projecttab.cpp:79
+#: src/project/projecttab.cpp:80
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate software"
 msgstr "Превеждане на софтуер"
 
-#: src/project/projecttab.cpp:80
+#: src/project/projecttab.cpp:81
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
@@ -3952,49 +3929,49 @@ msgctxt ""
 msgid "%p%"
 msgstr "%p%"
 
-#: src/project/projecttab.cpp:166
+#: src/project/projecttab.cpp:185
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "Само предишния шаблон"
 
-#: src/project/projecttab.cpp:169
+#: src/project/projecttab.cpp:191
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "Само следващия шаблон"
 
-#: src/project/projecttab.cpp:172
+#: src/project/projecttab.cpp:196
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "Само предишния превод"
 
-#: src/project/projecttab.cpp:175
+#: src/project/projecttab.cpp:199
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "Само следващ превод"
 
-#: src/project/projecttab.cpp:179
+#: src/project/projecttab.cpp:203
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr "Скриване на завършени елементи"
 
-#: src/project/projecttab.cpp:180
+#: src/project/projecttab.cpp:204
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "Скриване на напълно преведени файлове и папки"
 
-#: src/project/projecttab.cpp:246
+#: src/project/projecttab.cpp:267
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Отваряне на избраните файлове"
 
-#: src/project/projecttab.cpp:249
+#: src/project/projecttab.cpp:270
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
@@ -4006,59 +3983,59 @@ msgstr "Отваряне"
 #. menu.addSeparator();
 #. menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
 #.
-#: src/project/projecttab.cpp:258
+#: src/project/projecttab.cpp:279
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Добавяне към паметта на преводите"
 
-#: src/project/projecttab.cpp:260
+#: src/project/projecttab.cpp:281
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "Търсене във файлове"
 
-#: src/project/projecttab.cpp:261
+#: src/project/projecttab.cpp:282
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Добавяне на коментар"
 
-#: src/project/projecttab.cpp:263
+#: src/project/projecttab.cpp:284
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr "Стартиране на Pology във файлове"
 
-#: src/project/projecttab.cpp:266
+#: src/project/projecttab.cpp:287
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "Търсене във файлове (включително шаблони)"
 
-#: src/project/projecttab.cpp:300
+#: src/project/projecttab.cpp:321
 #, kde-format
 msgid "Project file comment"
 msgstr "Коментар на файла на проекта"
 
-#: src/project/projecttab.cpp:300
+#: src/project/projecttab.cpp:321
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr "Въведете коментар за този файл на проекта:"
 
-#: src/project/projecttab.cpp:372
+#: src/project/projecttab.cpp:397
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Проверката на Pology е успешна"
 
-#: src/project/projecttab.cpp:391
+#: src/project/projecttab.cpp:416
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "Предстои ви да отворите %1 файл"
 msgstr[1] "Предстои ви да отворите %1 файл"
 
-#: src/project/projecttab.cpp:392
+#: src/project/projecttab.cpp:417
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4067,49 +4044,49 @@ msgstr ""
 "Едновременното отваряне на голям брой файлове може да накара Lokalize да да "
 "не реагира."
 
-#: src/project/projecttab.cpp:394
+#: src/project/projecttab.cpp:418
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "Сигурни ли сте, че искате да отворите толкова много файлове?"
 
-#: src/project/projecttab.cpp:396
+#: src/project/projecttab.cpp:419
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
 msgstr[0] "&Отваряне на %1 файл"
 msgstr[1] "&Отваряне на %1 файла"
 
-#: src/tm/dbfilesmodel.cpp:97
+#: src/tm/dbfilesmodel.cpp:96
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
 msgstr "Име"
 
-#: src/tm/dbfilesmodel.cpp:98
+#: src/tm/dbfilesmodel.cpp:97
 #, kde-format
 msgctxt "@title:column"
 msgid "Source language"
 msgstr "Език на оригинала"
 
-#: src/tm/dbfilesmodel.cpp:99
+#: src/tm/dbfilesmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
 msgstr "Език на превода"
 
-#: src/tm/dbfilesmodel.cpp:100
+#: src/tm/dbfilesmodel.cpp:99
 #, kde-format
 msgctxt "@title:column"
 msgid "Pairs"
 msgstr "Двойки"
 
-#: src/tm/dbfilesmodel.cpp:101
+#: src/tm/dbfilesmodel.cpp:100
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
 msgstr "Уникални оригинални записи"
 
-#: src/tm/dbfilesmodel.cpp:102
+#: src/tm/dbfilesmodel.cpp:101
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique translations"
@@ -4217,25 +4194,25 @@ msgstr "Експортиране в TMX"
 msgid "Remove"
 msgstr "Премахване"
 
-#: src/tm/qamodel.cpp:93
+#: src/tm/qamodel.cpp:95
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
 msgstr "Фалшиви приятели"
 
-#: src/tm/qaview.cpp:22
+#: src/tm/qaview.cpp:20
 #, kde-format
 msgctxt "@title:window"
 msgid "Quality Assurance"
 msgstr "Контрол на качеството"
 
-#: src/tm/qaview.cpp:36
+#: src/tm/qaview.cpp:34
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add"
 msgstr "Добавяне"
 
-#: src/tm/qaview.cpp:40
+#: src/tm/qaview.cpp:38
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove"
@@ -4307,31 +4284,31 @@ msgctxt "@title:window"
 msgid "Translation Memories"
 msgstr "Запаметени преводи"
 
-#: src/tm/tmmanager.cpp:69
+#: src/tm/tmmanager.cpp:68
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Directory to be scanned"
 msgstr "Изберете директория, която да бъде претърсена"
 
-#: src/tm/tmmanager.cpp:79
+#: src/tm/tmmanager.cpp:77
 #, kde-format
 msgctxt "@title:window"
 msgid "New Translation Memory"
 msgstr "Нов запаметен превод"
 
-#: src/tm/tmmanager.cpp:79
+#: src/tm/tmmanager.cpp:77
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
 msgstr "Свойства на запаметен превод"
 
-#: src/tm/tmmanager.cpp:213
+#: src/tm/tmmanager.cpp:212
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr "Изберете файл TMX за внасяне в базата от данни"
 
-#: src/tm/tmmanager.cpp:214 src/tm/tmmanager.cpp:234
+#: src/tm/tmmanager.cpp:214 src/tm/tmmanager.cpp:235
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
 msgstr "TMX файлове (*.tmx *.xml)"
@@ -4347,179 +4324,177 @@ msgstr "Изберете файл TMX, в който да се изнесе ба
 msgid "Adding files to Lokalize translation memory"
 msgstr "Добавяне на файлове към паметта за превод на Lokalize"
 
-#: src/tm/tmscanapi.cpp:81
+#: src/tm/tmscanapi.cpp:80
 #, kde-format
 msgid "TM"
 msgstr "ЗП"
 
-#: src/tm/tmtab.cpp:73
+#: src/tm/tmtab.cpp:72
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr "Оригинал: %1"
 
-#: src/tm/tmtab.cpp:78
+#: src/tm/tmtab.cpp:77
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "Превод: %1"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:358
 #, kde-format
 msgid "Substring"
 msgstr "Подниз"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:358
 #, kde-format
 msgid "Google-like"
 msgstr "Подобно на Google"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:358
 #, kde-format
 msgid "Wildcard"
 msgstr "Заместващ знак"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:365
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "Интервалът е оператор AND. Нечувствителен към големи и малки букви."
 
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:366
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Shell globs (* и ?). Чувствителни към размера на буквите."
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:379 src/tm/tmview.cpp:194 src/tm/tmview.cpp:199
+#: src/tm/tmtab.cpp:378 src/tm/tmview.cpp:186 src/tm/tmview.cpp:191
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "Запаметени преводи"
 
-#: src/tm/tmtab.cpp:594
+#: src/tm/tmtab.cpp:593
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Общо: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:633
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:620
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "Файлът %1 не съществува, той е премахнат от паметта за превод."
 
-#: src/tm/tmview.cpp:230
+#: src/tm/tmview.cpp:226
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Щракенете два пъти с мишката върху дума, за да я добавите към превода"
 
-#: src/tm/tmview.cpp:343
+#: src/tm/tmview.cpp:333
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Запълване на паметта на автоматични преводи"
 
-#: src/tm/tmview.cpp:346
+#: src/tm/tmview.cpp:336
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Автоматичният превод е завършен."
 
-#: src/tm/tmview.cpp:352
+#: src/tm/tmview.cpp:342
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Не са намерени точни съвпадения."
 
-#: src/tm/tmview.cpp:372 src/tm/tmview.cpp:387
+#: src/tm/tmview.cpp:362 src/tm/tmview.cpp:377
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Автоматичният превод е плануван."
 
-#: src/tm/tmview.cpp:507
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (перфектно съвпадение)"
 
-#: src/tm/tmview.cpp:511
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#: src/tm/tmview.cpp:500
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:515
+#: src/tm/tmview.cpp:506
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Среща се %1 път"
+msgstr[1] "Среща се %1 пъти"
 
-#: src/tm/tmview.cpp:524
+#: src/tm/tmview.cpp:516
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
-#: src/tm/tmview.cpp:528
+#: src/tm/tmview.cpp:524
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
-#: src/tm/tmview.cpp:585
+#: src/tm/tmview.cpp:576
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "това"
 
-#: src/tm/tmview.cpp:586
+#: src/tm/tmview.cpp:577
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Файл: %1<br />Дата на добавяне: %2"
 
-#: src/tm/tmview.cpp:590
+#: src/tm/tmview.cpp:579
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Дата на последната промяна: %1"
 
-#: src/tm/tmview.cpp:594
+#: src/tm/tmview.cpp:581
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Автор на последната промяна: %1"
 
-#: src/tm/tmview.cpp:596
+#: src/tm/tmview.cpp:582
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br/>ЗП: %1"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />вече не присъства във файла"
 
-#: src/tm/tmview.cpp:614
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4528,31 +4503,31 @@ msgstr ""
 "<html>Наистина ли искате да премахнете записа :<br/><i>%1</i><br/>от паметта "
 "на преводите %2?</html>"
 
-#: src/tm/tmview.cpp:615
+#: src/tm/tmview.cpp:602
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Премахване на запис от паметта на преводите"
 
-#: src/tm/tmview.cpp:656
+#: src/tm/tmview.cpp:647
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Премахване на записа"
 
-#: src/tm/tmview.cpp:659
+#: src/tm/tmview.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Отваряне на файла, съдържащ записа"
 
-#: src/tm/tmview.cpp:671
+#: src/tm/tmview.cpp:660
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Премахнете този липсващ файл от TM"
 
-#: src/tm/tmview.cpp:688
+#: src/tm/tmview.cpp:674
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4561,13 +4536,13 @@ msgstr ""
 "<html>Наистина ли искате да премахнете този липсващ файл :<br/><i>%1</i><br/"
 ">от запаметен превод %2?</html>"
 
-#: src/tm/tmview.cpp:691
+#: src/tm/tmview.cpp:678
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Премахване на липсващ файл от запаметен превод"
 
-#: src/tm/tmview.cpp:997
+#: src/tm/tmview.cpp:976
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4638,27 +4613,31 @@ msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Търсене на избрания текст в запаметените преводи"
 
-#: src/xlifftextedit.cpp:981 src/xlifftextedit.cpp:1059
+#: src/xlifftextedit.cpp:981 src/xlifftextedit.cpp:1062
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Замяна на текст"
 
-#: src/xlifftextedit.cpp:1096
+#: src/xlifftextedit.cpp:1102
 #, kde-format
 msgid "no spellcheck available"
 msgstr "няма налична проверка на правописа"
 
-#: src/xlifftextedit.cpp:1110
+#: src/xlifftextedit.cpp:1118
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Съобщение за грешка:%1"
 
-#: src/xlifftextedit.cpp:1264
+#: src/xlifftextedit.cpp:1284
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Копиране на оригинала в превода"
+
+#~| msgid "bug fixing and improvements"
+#~ msgid "bug fixing and improvments"
+#~ msgstr "поправки на грешки и кръпки"
 
 #~ msgctxt "%1 is the number of times this TM entry has been found"
 #~ msgid "(1 time)"
