@@ -4587,8 +4587,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopier kilden til oversettelsen"
-
-#, fuzzy
-#~| msgid "bug fixing patches"
-#~ msgid "bug fixing and improvments"
-#~ msgstr "feilrettelser"
