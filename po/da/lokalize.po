@@ -7,30 +7,33 @@
 # Martin Schlander <mschlander@opensuse.org>, 2008.
 # Martin Schlander <mschlander@opensuse.org>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2020.
 # Anders Lund <anders@alweb.dk>, 2008.
+# SPDX-FileCopyrightText: 2024 rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-27 00:42+0000\n"
-"PO-Revision-Date: 2020-11-17 19:30+0100\n"
-"Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
+"PO-Revision-Date: 2024-10-30 11:40+0100\n"
+"Last-Translator: rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Rune Rønde Møller,Martin Schlander,Anders Lund"
+msgstr "Rune Rønde Møller,Martin Schlander,Anders Lund,Rasmus Rosendahl-Kaa"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "runermoeller@gmail.com,mschlander@opensuse.org,anders@alweb.dk"
+msgstr ""
+"runermoeller@gmail.com,mschlander@opensuse.org,anders@alweb.dk,"
+"rasmus@rosendahl-kaa.name"
 
 #. i18n: tag collection attribute text
 #. i18n: tag collection attribute comment
@@ -138,36 +141,33 @@ msgstr ""
 "Vil du have visningen med disse data?"
 
 #: src/alttransview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Alternative oversættelser"
+msgstr "Alternative oversættelser tilgængelige"
 
 #: src/alttransview.cpp:159
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Vis datavisning"
 
 #: src/alttransview.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Mappe med alternative oversættelser:"
+msgstr "Fra alternative oversættelser"
 
 #: src/alttransview.cpp:198
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "Sammenligning med tidligere kontekst:"
 
 #: src/alttransview.cpp:213
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "Sammenligning med tidligere kilde:"
 
 #: src/alttransview.cpp:284
 #, kde-format
@@ -277,10 +277,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:46
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "Alle understøttede filer (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Alle understøttede filer (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:47
 #, kde-format
@@ -875,18 +874,15 @@ msgstr "Hurtigsøg..."
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Accepterer regulære udtryk"
+msgstr "Aktiveret med Ctrl+L. Accepterer regulære udtryk"
 
 #: src/cataloglistview/cataloglistview.cpp:92
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
-msgstr "indstillinger"
+msgstr "Indstillinger"
 
 #: src/cataloglistview/cataloglistview.cpp:194
 #, kde-format
@@ -1293,7 +1289,7 @@ msgstr "Indsæt næste mærke"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Spring til næste ikke-mærket tekst"
 
 #: src/editortab.cpp:475
 #, kde-format
@@ -1508,12 +1504,10 @@ msgid "This changes only empty entries"
 msgstr "Dette ændrer kun uoversatte tekster"
 
 #: src/editortab.cpp:706
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(gendannet)"
+msgstr " (gendannet)"
 
 #: src/editortab.cpp:748 src/editortab.cpp:940
 #, kde-format
@@ -1706,26 +1700,22 @@ msgid ""
 msgstr "Vil du søge efter kildefilen lokalt eller via lxr.kde.org?"
 
 #: src/editortab.cpp:1499
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Opslag af kildefil"
 
 #: src/editortab.cpp:1500
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Lokalt"
+msgstr "Søg lokalt"
 
 #: src/editortab.cpp:1501 src/editortab.cpp:1545
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Søg på lxr.kde.org"
 
 #: src/editortab.cpp:1504 src/editortab.cpp:1549
 #, kde-format
@@ -1749,11 +1739,10 @@ msgid "Source file lookup"
 msgstr "Opslag af kildefil"
 
 #: src/editortab.cpp:1544
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Vælg en mappe:"
+msgstr "Vælg mappe:"
 
 #: src/editortab.cpp:1586
 #, kde-format
@@ -2520,12 +2509,12 @@ msgstr "Fejlrettelser og forbedringer"
 #: src/main.cpp:77
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #: src/main.cpp:78
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
 #: src/main.cpp:83
@@ -2602,9 +2591,7 @@ msgstr ""
 "Ikke-matchede indgange: %2"
 
 #: src/msgctxtview.cpp:37
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Metadata for enhed"
@@ -2917,24 +2904,19 @@ msgstr ""
 "et ny projekt eller åbne et eksisterende?"
 
 #: src/prefs/prefs.cpp:168
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Projektoversigt"
+msgstr "Projekt krævet"
 
 #: src/prefs/prefs.cpp:169
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Opret nyt projekt"
+msgstr "Opret projekt"
 
 #: src/prefs/prefs.cpp:170
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Åbn projekt"
@@ -3436,16 +3418,13 @@ msgstr "Føj automatisk filer til oversættelseshukommelsen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, fuzzy, kde-format
-#| msgid ""
-#| "Delete missing files from translation memory on Rescan or when clicking a "
-#| "missing entry"
+#, kde-format
 msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
 msgstr ""
 "Slet manglende filer fra oversættelseshukommelsen ved genscanning eller når "
-"der klikkes på en manglende indgang"
+"der højreklikkes på en manglende indgang"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -3937,15 +3916,7 @@ msgid "Project Overview"
 msgstr "Projektoversigt"
 
 #: src/project/projecttab.cpp:56
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -3956,12 +3927,12 @@ msgid ""
 "what you need.</html>"
 msgstr ""
 "<html>Man behøver ikke at være programmør for at være med i KDE-holdet. Du "
-"kan deltage i de nationale hold der oversætter programmernes brugerflader. "
-"Du kan hjælpe med grafik, temaer, lyde og forbedret dokumentation. Du "
-"bestemmer!<br /><br /> Besøg <a href=\"%1\">%1</a> for information om nogle "
-"projekter du kan deltage i.<br /><br /> Hvis du mangler mere information "
-"eller dokumentation, så besøg <a href=\"%2\">%2</a> hvor du vil finde hvad "
-"du har brug for.</html>"
+"kan deltage i de sproghold, der oversætter programmernes brugerflader. Du "
+"kan hjælpe med grafik, temaer, lyde og forbedret dokumentation. Du bestemmer!"
+"<br /><br /> Besøg <a href=\"%1\">%1</a> for information om nogle projekter "
+"du kan deltage i.<br /><br /> Hvis du mangler mere information eller "
+"dokumentation, så besøg <a href=\"%2\">%2</a> hvor du vil finde hvad du har "
+"brug for.</html>"
 
 #: src/project/projecttab.cpp:78
 #, kde-format
@@ -3987,14 +3958,12 @@ msgid "Translate OpenDocument"
 msgstr "Oversæt OpenDocument"
 
 #: src/project/projecttab.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:185
 #, kde-format
@@ -4395,18 +4364,16 @@ msgid "TM"
 msgstr "OH"
 
 #: src/tm/tmtab.cpp:72
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Originalstreng:"
+msgstr "Originalstreng: %1"
 
 #: src/tm/tmtab.cpp:77
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Oversættelse:"
+msgstr "Oversættelse: %1"
 
 #: src/tm/tmtab.cpp:358
 #, kde-format
@@ -4490,12 +4457,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (perfekt match)"
 
 #: src/tm/tmview.cpp:500
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4509,8 +4474,8 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Forekom %1 gang"
+msgstr[1] "Forekom %1 gange"
 
 #: src/tm/tmview.cpp:516
 #, kde-format
@@ -4518,7 +4483,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:524
 #, kde-format
@@ -4526,7 +4491,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:576
 #, kde-format
