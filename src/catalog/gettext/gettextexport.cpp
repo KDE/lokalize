@@ -197,7 +197,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
     if (m_wrapWidth == -1) { // Special wrapping for KDE PO Summit (trunk/l10n-support/$(LANG)/summit)
         QString realText(text);
         realText.remove(QLatin1Char('\n'));
-        const QRegularExpression rx(QLatin1String(R"(<[^<>]*>|\\n|\\\\n)"), QRegularExpression::CaseInsensitiveOption);
+        const QRegularExpression rx(QLatin1String(R"(<(?!!)([^<>]+)>|\\n|\\\\n)"), QRegularExpression::CaseInsensitiveOption);
         QStringList list;
         int pos = 0;
         int startPos = 0;
