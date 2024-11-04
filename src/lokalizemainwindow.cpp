@@ -474,10 +474,10 @@ void LokalizeMainWindow::setupActions()
 
     // File
     // KStandardAction::open(this, SLOT(fileOpen()), ac);
-    file->addAction(KStandardAction::Open, this, SLOT(fileOpen()));
+    file->addAction(KStandardActions::Open, this, qOverload<>(&LokalizeMainWindow::fileOpen));
     m_openRecentFileAction = KStandardAction::openRecent(this, SLOT(fileOpen(QUrl)), ac);
 
-    file->addAction(KStandardAction::Quit, qApp, SLOT(closeAllWindows()));
+    file->addAction(KStandardActions::Quit, qApp, &QApplication::closeAllWindows);
 
     // Settings
     SettingsController *sc = SettingsController::instance();
@@ -512,7 +512,7 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_tm", i18nc("@action:inmenu", "Translation memory"), Qt::Key_F7)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::showTM);
 
-    action = tm->addAction(QStringLiteral("tools_tm_manage"), project, SLOT(showTMManager()));
+    action = tm->addAction(QStringLiteral("tools_tm_manage"), project, &Project::showTMManager);
     action->setText(i18nc("@action:inmenu", "Manage translation memories"));
 
     // Project
@@ -520,20 +520,20 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("project_overview", i18nc("@action:inmenu", "Project overview"), Qt::Key_F4)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::showProjectOverview);
 
-    action = proj->addAction(QStringLiteral("project_configure"), sc, SLOT(projectConfigure()));
+    action = proj->addAction(QStringLiteral("project_configure"), sc, &SettingsController::projectConfigure);
     action->setText(i18nc("@action:inmenu", "Configure project..."));
 
-    action = proj->addAction(QStringLiteral("project_create"), sc, SLOT(projectCreate()));
+    action = proj->addAction(QStringLiteral("project_create"), sc, &SettingsController::projectCreate);
     action->setText(i18nc("@action:inmenu", "Create software translation project..."));
 
-    action = proj->addAction(QStringLiteral("project_create_odf"), Project::instance(), SLOT(projectOdfCreate()));
+    action = proj->addAction(QStringLiteral("project_create_odf"), Project::instance(), &Project::projectOdfCreate);
     action->setText(i18nc("@action:inmenu", "Create OpenDocument translation project..."));
 
-    action = proj->addAction(QStringLiteral("project_open"), this, SLOT(openProject()));
+    action = proj->addAction(QStringLiteral("project_open"), this, qOverload<>(&LokalizeMainWindow::openProject));
     action->setText(i18nc("@action:inmenu", "Open project..."));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
 
-    action = proj->addAction(QStringLiteral("project_close"), this, SLOT(closeProject()));
+    action = proj->addAction(QStringLiteral("project_close"), this, &LokalizeMainWindow::closeProject);
     action->setText(i18nc("@action:inmenu", "Close project"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-close")));
 
@@ -553,7 +553,7 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_filesearch_next", i18nc("@action:inmenu", "Find next in files"), Qt::META | Qt::Key_F3)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::fileSearchNext);
 
-    action = ac->addAction(QStringLiteral("tools_widgettextcapture"), this, SLOT(widgetTextCapture()));
+    action = ac->addAction(QStringLiteral("tools_widgettextcapture"), this, &LokalizeMainWindow::widgetTextCapture);
     action->setText(i18nc("@action:inmenu", "Widget text capture"));
 
     setupGUI(Default, QStringLiteral("lokalizemainwindowui.rc"));

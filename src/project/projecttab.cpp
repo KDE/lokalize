@@ -209,11 +209,11 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     //    ADD_ACTION_SHORTCUT_ICON("edit_find",i18nc("@action:inmenu","Find in files"),Qt::AltModifier+Qt::Key_Down,"nextpo")
     // connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTransOnly);
-    action = nav->addAction(KStandardAction::Find, this, SLOT(findTriggered()));
+    action = nav->addAction(KStandardActions::Find, this, &ProjectTab::findTriggered);
 
     KActionCategory *proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
 
-    action = proj->addAction(QStringLiteral("project_open"), this, SIGNAL(projectOpenRequested()));
+    action = proj->addAction(QStringLiteral("project_open"), this, qOverload<>(&ProjectTab::projectOpenRequested));
     action->setText(i18nc("@action:inmenu", "Open project"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
 

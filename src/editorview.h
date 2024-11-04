@@ -80,6 +80,8 @@ private:
     QTabBar *m_pluralTabBar{};
     LedsWidget *m_leds{};
 
+    friend class EditorTab;
+
 public:
     bool m_modifiedAfterFind{}; // for F3-search reset
 
