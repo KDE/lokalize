@@ -30,14 +30,10 @@ void TmJobsTest::testImportJob()
     QThreadPool pool;
     QString dbName = QStringLiteral("en_US-fr");
     TM::OpenDBJob *openDBJob = new TM::OpenDBJob(dbName);
-    QString connectionName;
-    connect(openDBJob, &TM::OpenDBJob::done, [dbName, &connectionName] {
-        connectionName = dbName + QString::number((long)QThread::currentThreadId());
-    });
     pool.start(openDBJob);
     QThread::sleep(2);
 
-    TM::ImportTmxJob *importJob = new TM::ImportTmxJob(tmxFile, connectionName);
+    TM::ImportTmxJob *importJob = new TM::ImportTmxJob(tmxFile, dbName);
     pool.start(importJob);
     // Give 2 seconds to import the data
     QThread::sleep(2);

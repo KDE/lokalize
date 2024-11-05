@@ -50,9 +50,46 @@ void TM::cancelAllJobs()
 {
     stop = true;
 }
-static const QString getConnectionName(const QString dbName)
+
+// A note about databases and threads:
+// QSqlDatabase connections can only be used in the thread they have been created.
+// In this code we create database connections either in OpenDBJob by calling QSqlDatabase::addDatabase
+// or in getDataBaseForCurrentThread by cloning an existing connection to the current thread
+//
+// The database code is run in QRunnable in a QThreadPool so in each job we need to call
+// getDataBaseForCurrentThread to make sure we use a connection for the current thread.
+
+static const QString getPartialConnectionName(const QString &dbName)
 {
-    return dbName + QString::number((long)QThread::currentThreadId());
+    return dbName + QStringLiteral("_lokalize_connection_");
+}
+
+static const QString getConnectionNameForCurrentThread(const QString &dbName)
+{
+    return getPartialConnectionName(dbName) + QString::number((long)QThread::currentThreadId());
+}
+
+QSqlDatabase getDataBaseForCurrentThread(const QString &dbName)
+{
+    const QString connectionName = getConnectionNameForCurrentThread(dbName);
+
+    QSqlDatabase db = QSqlDatabase::database(connectionName);
+    if (Q_UNLIKELY(!db.isValid() || !db.isOpen())) {
+        const QStringList existingConnections = QSqlDatabase::connectionNames();
+        const QString partialConnectionName = getPartialConnectionName(dbName);
+        for (const QString &existingConnection : existingConnections) {
+            if (existingConnection.startsWith(partialConnectionName)) {
+                db = QSqlDatabase::cloneDatabase(existingConnection, connectionName);
+                if (!db.open()) {
+                    qWarning() << "Failed to open cloned database of" << existingConnection;
+                }
+                return db;
+            }
+        }
+        qWarning() << "Could not get an existing database connection for" << dbName;
+    }
+
+    return db;
 }
 
 static qlonglong newTMSourceEntryCount = 0;
@@ -959,7 +996,7 @@ void OpenDBJob::run()
 {
     QElapsedTimer a;
     a.start();
-    const QString connectionName = getConnectionName(m_dbName);
+    const QString connectionName = getConnectionNameForCurrentThread(m_dbName);
     if (!QSqlDatabase::contains(connectionName) || m_reconnect) {
         QThread::currentThread()->setPriority(QThread::IdlePriority);
 
@@ -1063,10 +1100,14 @@ CloseDBJob::~CloseDBJob()
 
 void CloseDBJob::run()
 {
-    const QString connectionName = getConnectionName(m_dbName);
-    if (!connectionName.isEmpty())
-        QSqlDatabase::removeDatabase(connectionName);
-    qCDebug(LOKALIZE_LOG) << "closedb " << connectionName;
+    const QStringList existingConnections = QSqlDatabase::connectionNames();
+    const QString partialConnectionName = getPartialConnectionName(m_dbName);
+    for (const QString &existingConnection : existingConnections) {
+        if (existingConnection.startsWith(partialConnectionName)) {
+            QSqlDatabase::removeDatabase(existingConnection);
+        }
+    }
+    qCDebug(LOKALIZE_LOG) << "closedb " << m_dbName;
     Q_EMIT done(this);
 }
 
@@ -1416,7 +1457,6 @@ bool SelectJob::doSelect(QSqlDatabase &db,
 
 void SelectJob::run()
 {
-    const QString connectionName = getConnectionName(m_dbName);
     // qCDebug(LOKALIZE_LOG)<<"select started"<<m_dbName<<m_source.string;
     if (m_source.isEmpty() || stop) { // sanity check
         Q_EMIT done(this);
@@ -1425,11 +1465,7 @@ void SelectJob::run()
     // thread()->setPriority(QThread::IdlePriority);
     //     QTime a; a.start();
 
-    if (Q_UNLIKELY(!QSqlDatabase::contains(connectionName))) {
-        Q_EMIT done(this);
-        return;
-    }
-    QSqlDatabase db = QSqlDatabase::database(connectionName);
+    QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
     if (Q_UNLIKELY(!db.isValid() || !db.isOpen())) {
         Q_EMIT done(this);
         return;
@@ -1491,8 +1527,7 @@ ScanJob::ScanJob(const QString &filePath, const QString &dbName)
 
 void ScanJob::run()
 {
-    const QString connectionName = getConnectionName(m_dbName);
-    if (stop || !QSqlDatabase::contains(connectionName)) {
+    if (stop) {
         return;
     }
     qCDebug(LOKALIZE_LOG) << "scan job started for" << m_filePath << m_dbName << stop << m_dbName;
@@ -1500,7 +1535,7 @@ void ScanJob::run()
     QElapsedTimer a;
     a.start();
 
-    QSqlDatabase db = QSqlDatabase::database(connectionName);
+    QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
     if (!db.isOpen())
         return;
     // initSqliteDb(db);
@@ -1590,9 +1625,8 @@ RemoveMissingFilesJob::~RemoveMissingFilesJob()
 
 void RemoveMissingFilesJob::run()
 {
-    const QString connectionName = getConnectionName(m_dbName);
     //    qCDebug(LOKALIZE_LOG)<<m_dbName;
-    QSqlDatabase db = QSqlDatabase::database(connectionName);
+    QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
 
     doRemoveMissingFiles(db, m_dbName, this);
 
@@ -1616,9 +1650,8 @@ RemoveFileJob::~RemoveFileJob()
 
 void RemoveFileJob::run()
 {
-    const QString connectionName = getConnectionName(m_dbName);
     //    qCDebug(LOKALIZE_LOG)<<m_dbName;
-    QSqlDatabase db = QSqlDatabase::database(connectionName);
+    QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
 
     if (!doRemoveFile(m_filePath, db)) {
         qCWarning(LOKALIZE_LOG) << "error while removing file" << m_dbName << m_filePath;
@@ -1644,7 +1677,7 @@ RemoveJob::~RemoveJob()
 void RemoveJob::run()
 {
     //    qCDebug(LOKALIZE_LOG)<<m_entry.dbName;
-    QSqlDatabase db = QSqlDatabase::database(m_entry.dbName);
+    QSqlDatabase db = getDataBaseForCurrentThread(m_entry.dbName);
 
     // cleaning regexps for word index update
     TMConfig c = getConfig(db);
@@ -1678,9 +1711,8 @@ UpdateJob::UpdateJob(const QString &filePath,
 
 void UpdateJob::run()
 {
-    const QString connectionName = getConnectionName(m_dbName);
     qCDebug(LOKALIZE_LOG) << "UpdateJob run" << m_english.string << m_newTarget.string;
-    QSqlDatabase db = QSqlDatabase::database(connectionName);
+    QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
 
     // cleaning regexps for word index update
     TMConfig c = getConfig(db);
@@ -1762,7 +1794,7 @@ private:
 };
 
 TmxParser::TmxParser(const QString &dbName)
-    : db(QSqlDatabase::database(dbName))
+    : db(getDataBaseForCurrentThread(dbName))
     , m_state(null)
     , m_lang(Null)
     , m_dbLangCode(Project::instance()->langCode().toLower())
@@ -1962,7 +1994,6 @@ ExportTmxJob::~ExportTmxJob()
 
 void ExportTmxJob::run()
 {
-    const QString connectionName = getConnectionName(m_dbName);
     QElapsedTimer a;
     a.start();
 
@@ -1988,7 +2019,7 @@ void ExportTmxJob::run()
 
     QString dbLangCode = Project::instance()->langCode();
 
-    QSqlDatabase db = QSqlDatabase::database(connectionName);
+    QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
     QSqlQuery query1(db);
 
     if (Q_UNLIKELY(!query1.exec(QStringLiteral("SELECT main.id, main.ctxt, main.date, main.bits, "
@@ -2096,10 +2127,9 @@ ExecQueryJob::~ExecQueryJob()
 
 void ExecQueryJob::run()
 {
-    const QString connectionName = getConnectionName(m_dbName);
     m_dbOperationMutex->lock();
-    QSqlDatabase db = QSqlDatabase::database(connectionName);
-    qCDebug(LOKALIZE_LOG) << "ExecQueryJob " << m_dbName << " " << connectionName << " db.isOpen() =" << db.isOpen();
+    QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
+    qCDebug(LOKALIZE_LOG) << "ExecQueryJob " << m_dbName << " " << db.connectionName() << " db.isOpen() =" << db.isOpen();
     // temporarily:
     if (!db.isOpen())
         qCWarning(LOKALIZE_LOG) << "ExecQueryJob db.open()=" << db.open();
