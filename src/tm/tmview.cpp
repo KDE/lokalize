@@ -693,7 +693,7 @@ void TMView::contextMenu(const QPoint &pos)
 static int nextPlacableIn(const QString &old, int start, QString &cap)
 {
     static const QRegularExpression rxNum(QStringLiteral("[\\d\\.\\%]+"));
-    static const QRegularExpression rxAbbr(QStringLiteral("\\w+"));
+    static const QRegularExpression rxAbbr(QStringLiteral("\\w+"), QRegularExpression::UseUnicodePropertiesOption);
 
     const auto numMatch = rxNum.match(old, start);
     //    int abbrPos=rxAbbr.indexIn(old,start);
@@ -795,6 +795,7 @@ CatalogString TM::targetAdapted(const TMEntry &entry, const CatalogString &ref)
     // TODO further improvement: spaces, punct marked as 0
     // BEGIN BEGIN HANDLING
     QRegularExpression rxNonTranslatable;
+    rxNonTranslatable.setPatternOptions(QRegularExpression::UseUnicodePropertiesOption);
     if (tryMarkup)
         rxNonTranslatable.setPattern(QStringLiteral("^((") + entry.markupExpr + QStringLiteral(")|(\\W|\\d)+)+"));
     else
