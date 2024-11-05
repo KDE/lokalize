@@ -29,7 +29,7 @@ public:
     QStringList makeCompletion(const QString &) const;
 
 public:
-    QRegularExpression rxSplit{QStringLiteral("\\W+|\\d+")};
+    const QRegularExpression rxSplit{QStringLiteral("\\W+|\\d+"), QRegularExpression::UseUnicodePropertiesOption};
 
 private:
     QMap<QString, int> m_words; // how many occurencies a word has

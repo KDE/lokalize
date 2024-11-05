@@ -56,7 +56,7 @@ private:
     FlowLayout *const m_flowLayout;
     Glossary *const m_glossary;
     const QRegularExpression m_rxClean;
-    const QRegularExpression m_rxSplit{QStringLiteral("\\W|\\d")};
+    const QRegularExpression m_rxSplit{QStringLiteral("\\W|\\d"), QRegularExpression::UseUnicodePropertiesOption};
     int m_currentIndex{-1};
 
     QString m_normTitle;

@@ -114,7 +114,7 @@ static qlonglong reusedTMSourceEntryCount = 0;
  **/
 static void doSplit(QString &cleanEn, QStringList &words, QRegularExpression &rxClean1, const QString &accel)
 {
-    static const QRegularExpression rxSplit(QStringLiteral("\\W+|\\d+"));
+    static const QRegularExpression rxSplit(QStringLiteral("\\W+|\\d+"), QRegularExpression::UseUnicodePropertiesOption);
 
     if (!rxClean1.pattern().isEmpty())
         cleanEn.replace(rxClean1, QStringLiteral(" "));
@@ -1223,7 +1223,7 @@ bool SelectJob::doSelect(QSqlDatabase &db,
     QString tmp = c.markup;
     if (!c.markup.isEmpty())
         tmp += QLatin1Char('|');
-    const QRegularExpression rxSplit(QLatin1Char('(') + tmp + QStringLiteral("\\W+|\\d+)+"));
+    const QRegularExpression rxSplit(QLatin1Char('(') + tmp + QStringLiteral("\\W+|\\d+)+"), QRegularExpression::UseUnicodePropertiesOption);
 
     QString sourceClean(m_source.string);
     sourceClean.remove(c.accel);

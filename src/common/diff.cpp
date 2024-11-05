@@ -310,7 +310,7 @@ static void prepareLists(QString str, QStringList &main, QStringList &space, con
 
     if (!markup.isEmpty())
         markup += QLatin1Char('|');
-    const QRegularExpression rxSplit(QLatin1String("(\x08?") + markup + QLatin1String("\\W+|\\d+)+"));
+    const QRegularExpression rxSplit(QLatin1String("(\x08?") + markup + QLatin1String("\\W+|\\d+)+"), QRegularExpression::UseUnicodePropertiesOption);
 
     main = str.split(rxSplit, Qt::SkipEmptyParts);
     main.prepend(QStringLiteral("\t")); // little hack
