@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-27 00:42+0000\n"
-"PO-Revision-Date: 2024-10-26 19:17+0200\n"
+"PO-Revision-Date: 2024-11-10 14:56+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -517,9 +517,9 @@ msgid ""
 "'BSE' for 'bovine spongiform encephalopathy')"
 msgstr ""
 "инициализъм: съкратена форма на термин, състоящ се от някои от "
-"първоначалнитебукви от думите, съставляващи многословен термин или словни "
+"първоначалните букви от думите, съставляващи многословен термин или словни "
 "елементи, които изграждат сложен термин, когато тези букви се произнасят "
-"индивидуално (напр.\"ГСE\" за \"говежди спонгиформна енцефалопатия\")"
+"индивидуално (напр.\"ГСE\" за \"говежда спонгиформна енцефалопатия\")"
 
 #: src/catalog/catalogstring.cpp:136
 #, kde-format
@@ -574,8 +574,8 @@ msgid ""
 "limited to some contexts and inapplicable in others"
 msgstr ""
 "близък синоним: термин, който представя същото или много подобно понятие "
-"като друг термин на същия език, но за който взаимозаменяемостта е ограничена "
-"до някои контексти и неприложима в други"
+"като друг термин на същия език, но за който взаимнозаменяемостта е "
+"ограничена до някои контексти и неприложима в други"
 
 #: src/catalog/catalogstring.cpp:146
 #, kde-format
@@ -2749,7 +2749,7 @@ msgstr "Локализирано име"
 #: src/prefs/lokalize.kcfg:22
 #, kde-format
 msgid "Translator's name in target language"
-msgstr "Името на преводача на съответняи език"
+msgstr "Името на преводача на съответния език"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:28
@@ -3110,7 +3110,7 @@ msgid ""
 "Fill in your identity and information about your translation team. This "
 "information is used when updating the header of a file."
 msgstr ""
-"Попълнете информац ията за себе си и екипа. Тази информация се изпозлва в "
+"Попълнете информацията за себе си и екипа. Тази информация се използва в "
 "заглавните части на файла."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
@@ -4241,7 +4241,7 @@ msgstr ""
 #: src/tm/queryoptions.ui:105 src/tm/queryoptions.ui:115
 #, kde-format
 msgid "Show results that do not match search expression"
-msgstr "Показване на резултаттите, които не съвпадат с изразите"
+msgstr "Показване на резултатите, които не съвпадат с изразите"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
@@ -4390,7 +4390,7 @@ msgstr "Файлът %1 не съществува, той е премахнат 
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
-msgstr "Щракенете два пъти с мишката върху дума, за да я добавите към превода"
+msgstr "Щракнете два пъти с мишката върху дума, за да я добавите към превода"
 
 #: src/tm/tmview.cpp:333
 #, kde-format
