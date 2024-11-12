@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:42+0000\n"
+"POT-Creation-Date: 2024-11-12 02:37+0000\n"
 "PO-Revision-Date: 2024-09-20 09:57+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -845,26 +845,26 @@ msgstr ""
 "Προηγούμενη τιμή πηγής, αποθηκευμένη από το Gettext κατά τη μετάβαση σε ένα "
 "νεότερο POT πρότυπο"
 
-#: src/catalog/gettextheader.cpp:469
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Το όνομα του συγγραφέα λείπει"
 
-#: src/catalog/gettextheader.cpp:470
+#: src/catalog/gettextheader.cpp:471
 #, kde-format
 msgid "Your name:"
 msgstr ""
 "Σπύρος Γεωργαράς, Τούσης Μανώλης, Γιώργος Πάντσης, Πέτρος Βιδάλης, Φαμέλης "
 "Γιώργος"
 
-#: src/catalog/gettextheader.cpp:481
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Το email του συγγραφέα λείπει"
 
-#: src/catalog/gettextheader.cpp:482
+#: src/catalog/gettextheader.cpp:483
 #, kde-format
 msgid "Your email:"
 msgstr ""

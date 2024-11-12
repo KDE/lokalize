@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:42+0000\n"
+"POT-Creation-Date: 2024-11-12 02:37+0000\n"
 "PO-Revision-Date: 2024-10-30 11:40+0100\n"
 "Last-Translator: rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -833,24 +833,24 @@ msgid ""
 msgstr ""
 "Forrige kildeværdi, gemt af Gettext under overgang til en nyere POT-skabelon"
 
-#: src/catalog/gettextheader.cpp:469
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Ophavsmands navn mangler"
 
-#: src/catalog/gettextheader.cpp:470
+#: src/catalog/gettextheader.cpp:471
 #, kde-format
 msgid "Your name:"
 msgstr "Dit navn:"
 
-#: src/catalog/gettextheader.cpp:481
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Ophavsmands e-mail mangler"
 
-#: src/catalog/gettextheader.cpp:482
+#: src/catalog/gettextheader.cpp:483
 #, kde-format
 msgid "Your email:"
 msgstr "Din e-mail:"

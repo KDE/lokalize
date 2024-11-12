@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:42+0000\n"
+"POT-Creation-Date: 2024-11-12 02:37+0000\n"
 "PO-Revision-Date: 2024-02-09 23:19+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -842,24 +842,24 @@ msgstr ""
 "Предыдущий исходный фрагмент, сохранённый программой gettext при переходе на "
 "новый шаблон POT"
 
-#: src/catalog/gettextheader.cpp:469
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Отсутствует имя автора"
 
-#: src/catalog/gettextheader.cpp:470
+#: src/catalog/gettextheader.cpp:471
 #, kde-format
 msgid "Your name:"
 msgstr "Ваше имя:"
 
-#: src/catalog/gettextheader.cpp:481
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Отсутствует эл. почта автора"
 
-#: src/catalog/gettextheader.cpp:482
+#: src/catalog/gettextheader.cpp:483
 #, kde-format
 msgid "Your email:"
 msgstr "Ваш адрес эл. почты:"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:42+0000\n"
+"POT-Creation-Date: 2024-11-12 02:37+0000\n"
 "PO-Revision-Date: 2024-10-14 20:27+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -813,24 +813,24 @@ msgid ""
 "template"
 msgstr "قيمة المصدر السّابقة، حفظتها «غَت‌تكست» أثناء النّقل إلى قالب POT جديد"
 
-#: src/catalog/gettextheader.cpp:469
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "اسم المؤلّف ناقص"
 
-#: src/catalog/gettextheader.cpp:470
+#: src/catalog/gettextheader.cpp:471
 #, kde-format
 msgid "Your name:"
 msgstr "اسمك:"
 
-#: src/catalog/gettextheader.cpp:481
+#: src/catalog/gettextheader.cpp:482
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "بريد المؤلف ناقص"
 
-#: src/catalog/gettextheader.cpp:482
+#: src/catalog/gettextheader.cpp:483
 #, kde-format
 msgid "Your email:"
 msgstr "بريدك الإلكتروني:"
