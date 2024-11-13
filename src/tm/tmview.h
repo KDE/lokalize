@@ -47,7 +47,6 @@ public:
         return QSize(300, 100);
     }
 Q_SIGNALS:
-    //     void textReplaceRequested(const QString&);
     void refreshRequested();
     void textInsertRequested(const QString &);
     void fileOpenRequested(const QString &filePath, const QString &str, const QString &ctxt, const bool setAsActive);

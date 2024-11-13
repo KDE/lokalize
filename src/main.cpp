@@ -7,11 +7,10 @@
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-#include "lokalize_debug.h"
-
 #include "catalogstring.h"
 #include "editortab.h"
 #include "jobs.h"
+#include "lokalize_debug.h"
 #include "lokalizemainwindow.h"
 #include "pos.h"
 #include "prefs.h"
@@ -29,10 +28,10 @@
 #include <QMetaType>
 #include <QString>
 
+#include <KAboutData>
 #include <KCrash>
 #include <KDBusService>
-#include <kaboutdata.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 int main(int argc, char **argv)
 {
@@ -79,14 +78,12 @@ int main(int argc, char **argv)
     KAboutData::setApplicationData(about);
     KCrash::initialize();
     about.setupCommandLine(&parser);
-    // parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
     parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("noprojectscan"), i18n("Do not scan files of the project.")));
     parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("project"), i18n("Load specified project."), QStringLiteral("filename")));
     parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("+[URL]"), i18n("Document to open")));
     parser.process(app);
     about.processCommandLine(&parser);
 
-    // qCDebug(LOKALIZE_LOG) is important as it avoids compile 'optimization'.
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPosition>();
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPos>();
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<InlineTag>();
@@ -127,9 +124,6 @@ int main(int argc, char **argv)
 
         if (urls.size())
             new DelayedFileOpener(urls, lmw);
-
-        // Project::instance()->model()->setCompleteScan(parser.isSet("noprojectscan"));// TODO: negate check (and ensure nobody passes the no-op
-        // --noprojectscan argument)
     }
     int code = app.exec();
 
@@ -152,7 +146,6 @@ int main(int argc, char **argv)
         Project::instance()->model()->threadPool()->waitForDone(1000);
         TM::threadPool()->waitForDone(1000);
         QThreadPool::globalInstance()->waitForDone(1000);
-        // qCDebug(LOKALIZE_LOG)<<"QCoreApplication::processEvents()...";
         QCoreApplication::processEvents();
         QCoreApplication::sendPostedEvents(nullptr, 0);
     }

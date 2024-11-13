@@ -10,16 +10,16 @@
 #ifndef LOKALIZESUBWINDOWBASE_H
 #define LOKALIZESUBWINDOWBASE_H
 
+#include "actionproxy.h"
+
 #include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
 #include <QHash>
 #include <QString>
 
-#include "actionproxy.h"
-
-#include <kmainwindow.h>
-#include <kxmlguiclient.h>
+#include <KMainWindow>
+#include <KXMLGUIClient>
 
 /**
  * Interface for LokalizeMainWindow
@@ -43,7 +43,6 @@ public:
     // interface for LokalizeMainWindow
     virtual void hideDocks() = 0;
     virtual void showDocks() = 0;
-    // bool queryClose();
 
     virtual QString currentFilePath()
     {
@@ -58,7 +57,6 @@ Q_SIGNALS:
     void aboutToBeClosed();
 
 public:
-    // QHash<QString,ActionProxy*> supportedActions;
     StatusBarProxy statusBarItems;
 
 protected:

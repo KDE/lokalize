@@ -49,7 +49,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     , m_filterEdit(new QLineEdit(this))
 
 {
-    setWindowTitle(i18nc("@title:window", "Project Overview")); // setCaption(i18nc("@title:window","Project"),false);
+    setWindowTitle(i18nc("@title:window", "Project Overview"));
     // BEGIN setup welcome widget
     QWidget *welcomeWidget = new QWidget(this);
     QVBoxLayout *wl = new QVBoxLayout(welcomeWidget);
@@ -207,8 +207,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_T));
     connect(action, &QAction::triggered, this, &ProjectTab::toggleTranslatedFiles);
 
-    //    ADD_ACTION_SHORTCUT_ICON("edit_find",i18nc("@action:inmenu","Find in files"),Qt::AltModifier+Qt::Key_Down,"nextpo")
-    // connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTransOnly);
     action = nav->addAction(KStandardAction::Find, this, SLOT(findTriggered()));
 
     KActionCategory *proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
@@ -270,12 +268,6 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
         menu->addAction(i18nc("@action:inmenu", "Open"), this, &ProjectTab::openFile);
         menu->addSeparator();
     }
-    /*menu.addAction(i18nc("@action:inmenu","Find in files"),this,&ProjectTab::findInFiles);
-    menu.addAction(i18nc("@action:inmenu","Replace in files"),this,&ProjectTab::replaceInFiles);
-    menu.addAction(i18nc("@action:inmenu","Spellcheck files"),this,&ProjectTab::spellcheckFiles);
-    menu.addSeparator();
-    menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
-    */
     menu->addAction(i18nc("@action:inmenu", "Add to translation memory"), this, &ProjectTab::scanFilesToTM);
 
     menu->addAction(i18nc("@action:inmenu", "Search in files"), this, &ProjectTab::searchInFiles);
@@ -286,13 +278,6 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
     if (QDir(Project::instance()->templatesRoot()).exists())
         menu->addAction(i18nc("@action:inmenu", "Search in files (including templates)"), this, &ProjectTab::searchInFilesInclTempl);
 
-    //     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
-    //             )
-    //     {
-    //         menu.addSeparator();
-    //         menu.addAction(i18n("Force Scanning"),this,&ProjectTab::slotForceStats);
-    //
-    //     }
     menu->popup(event->globalPos());
 }
 
@@ -540,7 +525,5 @@ void ProjectTab::setLegacyUnitsCount(int to)
     m_currentUnitsCount = to;
     initStatusBarProgress();
 }
-
-// bool ProjectTab::isShown() const {return isVisible();}
 
 #include "moc_projecttab.cpp"

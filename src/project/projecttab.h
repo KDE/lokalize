@@ -16,7 +16,6 @@
 
 #include <KMainWindow>
 #include <KProcess>
-
 #include <KXMLGUIClient>
 
 class QStackedLayout;
@@ -76,8 +75,6 @@ public Q_SLOTS:
     Q_SCRIPTABLE bool currentItemIsTranslationFile() const;
     void showRealProjectOverview();
     void showWelcomeScreen();
-
-    // Q_SCRIPTABLE bool isShown() const;
 
 private Q_SLOTS:
     /**

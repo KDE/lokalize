@@ -10,34 +10,26 @@
 */
 
 #include "editortab.h"
-
-#include "xlifftextedit.h"
-
-#include "lokalize_debug.h"
-
 #include "actionproxy.h"
-#include "catalog.h"
-#include "cmd.h"
-#include "editorview.h"
-
-#include "completionstorage.h"
-
-// views
 #include "alttransview.h"
 #include "binunitsview.h"
+#include "catalog.h"
 #include "cataloglistview.h"
+#include "cmd.h"
+#include "completionstorage.h"
+#include "editorview.h"
 #include "glossaryview.h"
+#include "languagelistmodel.h"
+#include "lokalize_debug.h"
 #include "mergeview.h"
 #include "msgctxtview.h"
-#include "tmview.h"
-
 #include "phaseswindow.h"
-#include "projectlocal.h"
-
-#include "languagelistmodel.h"
 #include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"
+#include "projectlocal.h"
+#include "tmview.h"
+#include "xlifftextedit.h"
 
 #include <KActionCategory>
 #include <KActionCollection>
@@ -71,8 +63,6 @@ EditorTab::EditorTab(QWidget *parent, bool valid)
     , m_view(new EditorView(this, m_catalog /*,new keyEventHandler(this,m_catalog)*/))
     , m_valid(valid)
 {
-    // QTime chrono;chrono.start();
-
     setAcceptDrops(true);
     setCentralWidget(m_view);
     setupStatusBar(); //--NOT called from initLater() !
@@ -91,10 +81,6 @@ EditorTab::EditorTab(QWidget *parent, bool valid)
     connect(this, &EditorTab::fileOpened, this, &EditorTab::indexWordsForCompletion, Qt::QueuedConnection);
 
     connect(m_catalog, &Catalog::signalFileAutoSaveFailed, this, &EditorTab::fileAutoSaveFailedWarning);
-
-    // defer some work to make window appear earlier (~200 msec on my Core Duo)
-    // QTimer::singleShot(0,this,SLOT(initLater()));
-    // qCWarning(LOKALIZE_LOG)<<chrono.elapsed();
 }
 
 void EditorTab::initLater()
@@ -174,7 +160,6 @@ void EditorTab::setupActions()
     KActionCategory *sync2 = new KActionCategory(i18n("Synchronization 2"), ac);
     KActionCategory *tm = new KActionCategory(i18n("Translation Memory"), ac);
     KActionCategory *glossary = new KActionCategory(i18nc("@title actions category", "Glossary"), ac);
-    // KActionCategory* tools=new KActionCategory(i18nc("@title actions category","Tools"), ac);
 
 #ifndef Q_OS_DARWIN
     QLocale::Language systemLang = QLocale::system().language();
@@ -249,7 +234,6 @@ void EditorTab::setupActions()
     connect(m_view->viewPort(), &TranslationUnitTextEdit::languageToolChanged, m_notesView, &MsgCtxtView::languageTool);
 
     action = edit->addAction(QStringLiteral("edit_addnote"), m_notesView, SLOT(addNoteUI()));
-    // action->setShortcut(Qt::ControlModifier+glist[i]);
     action->setText(i18nc("@action:inmenu", "Add a note"));
 
     QVector<QAction *> tmactions_insert(TM_SHORTCUTS);
@@ -257,7 +241,6 @@ void EditorTab::setupActions()
     const Qt::Key tmlist[TM_SHORTCUTS] = {Qt::Key_1, Qt::Key_2, Qt::Key_3, Qt::Key_4, Qt::Key_5, Qt::Key_6, Qt::Key_7, Qt::Key_8, Qt::Key_9, Qt::Key_0};
     QAction *tmaction;
     for (int i = 0; i < TM_SHORTCUTS; ++i) {
-        //         action->setVisible(false);
         tmaction = tm->addAction(QStringLiteral("tmquery_insert_%1").arg(i));
         ac->setDefaultShortcut(tmaction, QKeySequence(Qt::ControlModifier | tmlist[i]));
         tmaction->setText(i18nc("@action:inmenu", "Insert TM suggestion #%1", i + 1));
@@ -344,15 +327,9 @@ void EditorTab::setupActions()
 
     // File
     action = file->addAction(KStandardAction::Save, this, SLOT(saveFile()));
-    //    action->setEnabled(false);
-    //    connect (m_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
     connect(m_catalog, &Catalog::cleanChanged, this, &EditorTab::setModificationSign);
     file->addAction(KStandardAction::SaveAs, this, SLOT(saveFileAs()));
-    // action = KStandardAction::quit(qApp, SLOT(quit()), ac);
-    // action->setText(i18nc("@action:inmenu","Close all Lokalize windows"));
 
-    // KStandardAction::quit(kapp, SLOT(quit()), ac);
-    // KStandardAction::quit(this, SLOT(deleteLater()), ac);
 #define ADD_ACTION_SHORTCUT_ICON(_name, _text, _shortcut, _icon)                                                                                               \
     action = actionCategory->addAction(QStringLiteral(_name));                                                                                                 \
     action->setText(_text);                                                                                                                                    \
@@ -477,8 +454,6 @@ void EditorTab::setupActions()
     action = edit->addAction(QStringLiteral("edit_spellreplace"), m_view->viewPort(), SLOT(spellReplace()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_Equal));
     action->setText(i18nc("@action:inmenu", "Replace with best spellcheck suggestion"));
-    //     action = ac->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
-    //     action->setText(i18nc("@action:inmenu","Define new term"));
 
     // Go
     actionCategory = nav;
@@ -556,10 +531,8 @@ void EditorTab::setupActions()
 
     // Bookmarks
     action = nav->addAction(KStandardAction::AddBookmark, m_view, SLOT(toggleBookmark(bool)));
-    // action = ac->addAction("bookmark_do");
     action->setText(i18nc("@option:check", "Bookmark message"));
     action->setCheckable(true);
-    // connect(action, SIGNAL(triggered(bool)),m_view,SLOT(toggleBookmark(bool)));
     connect(this, &EditorTab::signalBookmarkDisplayed, action, &QAction::setChecked);
 
     action = nav->addAction(QStringLiteral("bookmark_prior"), this, SLOT(gotoPrevBookmark()));
@@ -634,7 +607,6 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::AltModifier | Qt::Key_A));
     connect(m_syncView, &MergeView::mergeCatalogAvailable, action, &QAction::setEnabled);
     m_syncView->addAction(action);
-    // action->setShortcut(Qt::AltModifier+Qt::Key_E);
 
     action = sync1->addAction(QStringLiteral("merge_back"), m_syncView, SLOT(mergeBack()));
     action->setText(i18nc("@action:inmenu", "Copy to merging source"));
@@ -766,16 +738,10 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
 
     QString saidPath;
     if (filePath.isEmpty()) {
-        // Prevent crashes
-        // Project::instance()->model()->weaver()->suspend();
-        // KDE5PORT use mutex if the crash is still there with kfilemetadata library
         filePath = QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(),
                                                 i18nc("@title:window", "Select translation file"),
                                                 suggestedDirPath,
                                                 Catalog::supportedFileTypes(true)); //" text/x-gettext-translation-template");
-        // Project::instance()->model()->weaver()->resume();
-        // TODO application/x-xliff, windows: just extensions
-        // originalPath=url.path(); never used
     } else if (!QFile::exists(filePath) && Project::instance()->isLoaded()) {
         // check if we are opening template
         QString newPath = filePath;
@@ -840,8 +806,6 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
 
                 if (m_catalog->targetLangCode().isEmpty() /*&& m_project->targetLangCode().length()*/)
                     m_catalog->setTargetLangCode(getTargetLangCode(fileInfo.fileName()));
-
-                //_project->setLangCode(m_catalog->targetLangCode());
             }
         }
         if (m_catalog->targetLangCode().isEmpty() /*&& m_project->targetLangCode().length()*/)
@@ -925,7 +889,6 @@ EditorState EditorTab::state()
     state.filePath = m_catalog->url();
     state.mergeFilePath = m_syncView->filePath();
     state.entry = m_currentPos.entry;
-    // state.offset=_currentPos.offset;
     return state;
 }
 
@@ -1009,8 +972,6 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
     if (pos.part == DocPosition::UndefPart)
         m_currentPos.part = DocPosition::Target;
 
-    // QTime time; time.start();
-
     if (newEntry) {
         m_currentPos = pos;
         if (true) {
@@ -1039,7 +1000,6 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
     }
 
     statusBarItems.insert(ID_STATUS_CURRENT, i18nc("@info:status", "Current: %1", m_currentPos.entry + 1));
-    // qCDebug(LOKALIZE_LOG)<<"ELA "<<time.elapsed();
 }
 
 void EditorTab::msgStrChanged()

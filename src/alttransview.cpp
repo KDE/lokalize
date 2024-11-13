@@ -10,12 +10,10 @@
 */
 
 #include "alttransview.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "cmd.h"
 #include "diff.h"
+#include "lokalize_debug.h"
 #include "mergecatalog.h"
 #include "prefs_lokalize.h"
 #include "project.h"

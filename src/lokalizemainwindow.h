@@ -12,8 +12,8 @@
 
 #include "pos.h"
 
-#include <kconfiggroup.h>
-#include <kxmlguiwindow.h>
+#include <KConfigGroup>
+#include <KXmlGuiWindow>
 
 #include <QDBusObjectPath>
 #include <QMap>
@@ -117,7 +117,6 @@ public Q_SLOTS:
     Q_SCRIPTABLE QString dbusName();
 
     Q_SCRIPTABLE void busyCursor(bool busy);
-    // Q_SCRIPTABLE void processEvents();
 
     // returns 0 if error
     EditorTab *fileOpen_(QString url, const bool setAsActive);
@@ -159,8 +158,6 @@ private:
     EditorTab *m_spareEditor{};
     MultiEditorAdaptor *m_multiEditorAdaptor{};
 
-    // using QPointer switches it.value() to 0 before we get to destroyed() handler
-    // typedef QMap<QUrl, QPointer<QMdiSubWindow> > FileToEditor;
     typedef QMap<QString, QMdiSubWindow *> FileToEditor;
     FileToEditor m_fileToEditor;
 };

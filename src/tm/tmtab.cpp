@@ -48,7 +48,6 @@
 #endif
 
 using namespace TM;
-// static int BIG_COUNTER=0;
 
 // TODO do things for case when user explicitly wants to find & accel mark
 
@@ -374,7 +373,6 @@ TMTab::TMTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_proxyModel(new TMResultsSortFilterProxyModel(this))
 {
-    // setCaption(i18nc("@title:window","Translation Memory"),false);
     setWindowTitle(i18nc("@title:window", "Translation Memory"));
     setAcceptDrops(true);
 
@@ -415,11 +413,6 @@ TMTab::TMTab(QWidget *parent)
     connect(a, &QAction::triggered, this, &TMTab::openFile);
     connect(view, &QTreeView::activated, this, &TMTab::openFile);
     view->addAction(a);
-
-    // view->addAction(KStandardAction::copy(this),this,SLOT(),this);
-    // QKeySequence::Copy?
-    // QShortcut* shortcut = new QShortcut(Qt::ControlModifier | Qt::Key_P,view,0,0,Qt::WidgetWithChildrenShortcut);
-    // connect(shortcut,SIGNAL(activated()), this, SLOT(copyText()));
 
     m_model = new TMDBModel(this);
     m_model->setDB(Project::instance()->projectID());
@@ -545,7 +538,6 @@ void TMTab::handleResults()
 {
     QApplication::restoreOverrideCursor();
     QString filemask = ui_queryOptions->filemask->text();
-    // ui_queryOptions->regexSource->text(),ui_queryOptions->regexTarget->text()
     m_model->m_dbOperationMutex.lock();
     int rowCount = m_model->rowCount();
     m_model->m_dbOperationMutex.unlock();
@@ -646,54 +638,10 @@ void TMTab::setQAMode(bool enable)
 
     m_proxyModel->setRules(m_qaView->rules());
 
-    /*QDomElement docElem = m_categories.at(0).toElement();
-
-    QDomNode n = docElem.firstChildElement();
-    while(!n.isNull())
-    {
-        QDomElement e = n.toElement();
-        qCDebug(LOKALIZE_LOG) << e.tagName();
-        n = n.nextSiblingElement();
-    }*/
-
     performQuery();
 }
 
 // END TMWindow
-
-#if 0
-bool QueryResultDelegate::editorEvent(QEvent* event,
-                                      QAbstractItemModel* model,
-                                      const QStyleOptionViewItem& /*option*/,
-                                      const QModelIndex& index)
-{
-    qCWarning(LOKALIZE_LOG) << "QEvent" << event;
-    if (event->type() == QEvent::Shortcut) {
-        qCWarning(LOKALIZE_LOG) << "QEvent::Shortcut" << index.data().canConvert(QVariant::String);
-        if (static_cast<QShortcutEvent*>(event)->key().matches(QKeySequence::Copy)
-            && index.data().canConvert(QVariant::String)) {
-            QApplication::clipboard()->setText(index.data().toString());
-            qCWarning(LOKALIZE_LOG) << "index.data().toString()";
-        }
-    } else if (event->type() == QEvent::MouseButtonRelease) {
-        QMouseEvent* mEvent = static_cast<QMouseEvent*>(event);
-        if (mEvent->button() == Qt::MiddleButton) {
-        }
-    } else if (event->type() == QEvent::KeyPress) {
-        QKeyEvent* kEvent = static_cast<QKeyEvent*>(event);
-        if (kEvent->key() == Qt::Key_Return) {
-            if (kEvent->modifiers() == Qt::NoModifier) {
-            }
-        }
-    } else
-        return false;
-
-    event->accept();
-    return true;
-
-}
-
-#endif
 
 void TMTab::dragEnterEvent(QDragEnterEvent *event)
 {
@@ -744,11 +692,6 @@ void TMTab::lookup(QString source, QString target)
     ui_queryOptions->queryStyle->setCurrentIndex(TMDBModel::SubStr);
     performQuery();
 }
-
-// void TMTab::lookup(DocPosition::Part part, QString text)
-// {
-//     lookup(part==DocPosition::Source?text:QString(),part==DocPosition::Target?text:QString());
-// }
 
 bool TMTab::findGuiTextPackage(QString text, QString package)
 {

@@ -179,13 +179,7 @@ bool SettingsController::ensureProjectIsLoaded()
 QString SettingsController::projectOpen(QString path, bool doOpen)
 {
     if (path.isEmpty()) {
-        // Project::instance()->model()->weaver()->suspend();
-        // KDE5PORT mutex if needed
-        path = QFileDialog::getOpenFileName(m_mainWindowPtr,
-                                            QString(),
-                                            QDir::homePath() /*_catalog->url().directory()*/,
-                                            i18n("Lokalize translation project (*.lokalize)") /*"text/x-lokalize-project"*/);
-        // Project::instance()->model()->weaver()->resume();
+        path = QFileDialog::getOpenFileName(m_mainWindowPtr, QString(), QDir::homePath(), i18n("Lokalize translation project (*.lokalize)"));
     }
 
     if (!path.isEmpty() && doOpen)
@@ -196,16 +190,13 @@ QString SettingsController::projectOpen(QString path, bool doOpen)
 
 bool SettingsController::projectCreate()
 {
-    // Project::instance()->model()->weaver()->suspend();
-    // KDE5PORT mutex if needed
     QString desirablePath = Project::instance()->desirablePath();
     if (desirablePath.isEmpty())
         desirablePath = QDir::homePath() + QStringLiteral("/index.lokalize");
     QString path = QFileDialog::getSaveFileName(m_mainWindowPtr,
                                                 i18nc("@window:title", "Select folder with Gettext .po files to translate"),
                                                 desirablePath,
-                                                i18n("Lokalize translation project (*.lokalize)") /*"text/x-lokalize-project"*/);
-    // Project::instance()->model()->weaver()->resume();
+                                                i18n("Lokalize translation project (*.lokalize)"));
     if (path.isEmpty())
         return false;
 
@@ -216,8 +207,6 @@ bool SettingsController::projectCreate()
         projectId = projectFolder.dirName() + QLatin1Char('-') + projectId;
     ;
     Project::instance()->load(path, QString(), projectId);
-    // Project::instance()->setDefaults(); //NOTE will this be an obstacle?
-    // Project::instance()->setProjectID();
 
     QTimer::singleShot(500, this, &SettingsController::projectConfigure);
     return true;

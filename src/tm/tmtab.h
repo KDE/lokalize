@@ -71,7 +71,6 @@ public Q_SLOTS:
     }
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
     Q_SCRIPTABLE void lookup(QString source, QString target);
-    // void lookup(DocPosition::Part, QString text);
 
 public Q_SLOTS:
     void performQuery();
@@ -127,7 +126,6 @@ public:
     enum Roles {
         FullPathRole = Qt::UserRole,
         TransStateRole = Qt::UserRole + 1,
-        // HtmlDisplayRole=FastSizeHintItemDelegate::HtmlDisplayRole
     };
 
     explicit TMDBModel(QObject *parent);
@@ -170,9 +168,6 @@ private:
 public:
     mutable QMutex m_dbOperationMutex;
 };
-
-// const QString& sourceRefine, const QString& targetRefine
-
 }
 
 #endif

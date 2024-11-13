@@ -10,23 +10,19 @@
 */
 
 #include "project.h"
-
-#include "lokalize_debug.h"
-
-#include "projectlocal.h"
-
 #include "dbfilesmodel.h"
 #include "editortab.h"
 #include "glossary.h"
 #include "glossarywindow.h"
 #include "jobs.h"
+#include "lokalize_debug.h"
 #include "prefs.h"
+#include "projectlocal.h"
+#include "projectmodel.h"
 #include "qamodel.h"
 #include "tmmanager.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-
+#include <QDBusArgument>
 #include <QDir>
 #include <QElapsedTimer>
 #include <QFileInfo>
@@ -35,16 +31,13 @@
 #include <QTime>
 #include <QTimer>
 
-#include "projectmodel.h"
-
-#include <knotification.h>
-
+#include <KIO/Global>
 #include <KIO/JobTracker>
-#include <kio/global.h>
-#include <kjob.h>
-#include <kjobtrackerinterface.h>
-
-#include <QDBusArgument>
+#include <KJob>
+#include <KJobTrackerInterface>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KNotification>
 
 QString getMailingList()
 {
@@ -102,48 +95,17 @@ Project::Project()
     , m_glossary(new GlossaryNS::Glossary(this))
 {
     setDefaults();
-    /*
-        qRegisterMetaType<DocPosition>("DocPosition");
-        qDBusRegisterMetaType<DocPosition>();
-    */
-    // QTimer::singleShot(66,this,SLOT(initLater()));
 }
-/*
-void Project::initLater()
-{
-    if (isLoaded())
-        return;
-
-    KConfig cfg;
-    KConfigGroup gr(&cfg,"State");
-    QString file=gr.readEntry("Project");
-    if (!file.isEmpty())
-        load(file);
-
-}
-*/
 
 Project::~Project()
 {
     delete m_localConfig;
-    // Project::save()
 }
 
 void Project::load(const QString &newProjectPath, const QString &forcedTargetLangCode, const QString &forcedProjectId)
 {
-    //     QElapsedTimer a; a.start();
-
     TM::threadPool()->clear();
     qCDebug(LOKALIZE_LOG) << "loading" << newProjectPath << "finishing tm jobs...";
-
-    // It is not necessary to close the TM Databases, as they are opened by default for statistics purposes
-    // This just causes issues when changing project because the previous TM is closed
-    /*if (!m_path.isEmpty()) {
-        TM::CloseDBJob* closeDBJob = new TM::CloseDBJob(projectID());
-        closeDBJob->setAutoDelete(true);
-        TM::threadPool()->start(closeDBJob, CLOSEDB);
-    }
-    TM::threadPool()->waitForDone(500);//more safety*/
 
     setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
     if (!QFileInfo::exists(newProjectPath))
@@ -165,13 +127,8 @@ void Project::load(const QString &newProjectPath, const QString &forcedTargetLan
     if (!forcedProjectId.isEmpty())
         setProjectID(forcedProjectId);
 
-    // KConfig config;
-    // delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
-
     populateDirModel();
 
-    // put 'em into thread?
-    // QTimer::singleShot(0,this,SLOT(populateGlossary()));
     populateGlossary(); // we cant postpone it because project load can be called from define new term function
 
     m_sourceFilePaths.clear();
@@ -195,10 +152,7 @@ void Project::load(const QString &newProjectPath, const QString &forcedTargetLan
     m_projectFileWatcher->addPath(newProjectPath);
     connect(m_projectFileWatcher, &QFileSystemWatcher::fileChanged, Project::instance(), &KCoreConfigSkeleton::load);
 
-    // qCDebug(LOKALIZE_LOG)<<"until emitting signal"<<a.elapsed();
-
     Q_EMIT loaded();
-    // qCDebug(LOKALIZE_LOG)<<"loaded!"<<a.elapsed();
 }
 
 void Project::reinit()
@@ -384,7 +338,7 @@ public:
     void finish()
     {
         emitResult();
-        Q_EMIT Project::instance()->sourceFilePathsAreReady();
+        Q_EMIT Project::instance() -> sourceFilePathsAreReady();
     }
 
 protected:

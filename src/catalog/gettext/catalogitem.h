@@ -118,33 +118,6 @@ public:
         return d._valid;
     }
 
-#if 0
-    /**
-     * @return the list of all errors of this item
-     */
-    QStringList errors() const;
-
-    QString nextError() const;
-    void clearErrors();
-    void removeError(const QString& error);
-    void appendError(const QString& error);
-
-    /**
-     * makes some sanity checks and set status accordingly
-     * @return the new status of this item
-     * @see CatalogItem::Error
-     * @param accelMarker a char, that marks the keyboard accelerators
-     * @param contextInfo a regular expression, that determines what is
-     * the context information
-     * @param singularPlural a regular expression, that determines what is
-     * string with singular and plural form
-     * @param neededLines how many lines a string with singular-plural form
-     * must have
-     */
-    int checkErrors(QChar accelMarker, const QRegExp& contextInfo
-                    , const QRegExp& singularPlural, const int neededLines);
-
-#endif
     inline void operator=(const CatalogItem &rhs)
     {
         d.assign(rhs.d);
@@ -157,7 +130,6 @@ private:
     void setFuzzy();
     void unsetFuzzy();
 };
-
 }
 
 #endif // CATALOGITEM_H

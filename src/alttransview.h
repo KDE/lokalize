@@ -41,7 +41,6 @@ public Q_SLOTS:
     void addAlternateTranslation(int entry, const QString &);
 
 private Q_SLOTS:
-    // void contextMenu(const QPoint & pos);
     void process();
     void initLater();
     void slotUseSuggestion(int);
