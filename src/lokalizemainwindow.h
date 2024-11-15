@@ -27,7 +27,6 @@ class QActionGroup;
 class LokalizeMdiArea;
 class KRecentFilesAction;
 class EditorTab;
-class MultiEditorAdaptor;
 class FileSearchTab;
 namespace TM
 {
@@ -71,7 +70,6 @@ private Q_SLOTS:
     void projectSettingsChanged();
 
     void editorClosed(QObject *obj);
-    void resetMultiEditorAdaptor();
 
     void openProject(const QUrl &url)
     {
@@ -156,7 +154,6 @@ private:
 
     // used for kross API
     EditorTab *m_spareEditor{};
-    MultiEditorAdaptor *m_multiEditorAdaptor{};
 
     typedef QMap<QString, QMdiSubWindow *> FileToEditor;
     FileToEditor m_fileToEditor;

@@ -13,7 +13,6 @@
 #include "filesearchtab.h"
 #include "jobs.h"
 #include "lokalize_debug.h"
-#include "multieditoradaptor.h"
 #include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"
@@ -49,7 +48,6 @@ LokalizeMainWindow::LokalizeMainWindow()
     , m_editorActions(new QActionGroup(this))
     , m_managerActions(new QActionGroup(this))
     , m_spareEditor(new EditorTab(this, false))
-    , m_multiEditorAdaptor(new MultiEditorAdaptor(m_spareEditor))
 {
     m_spareEditor->hide();
     m_mdiArea->setViewMode(QMdiArea::TabbedView);
@@ -116,14 +114,12 @@ LokalizeMainWindow::~LokalizeMainWindow()
         stateGroup.writeEntry("DefaultDockWidgets", m_lastEditorState);
     }
     saveProjectState(stateGroup);
-    m_multiEditorAdaptor->deleteLater();
 
     // Disconnect the signals pointing to this MainWindow object
     for (int i = 0; i < m_fileToEditor.values().count(); i++) {
         QMdiSubWindow *sw = m_fileToEditor.values().at(i);
         disconnect(sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
         EditorTab *w = static_cast<EditorTab *>(sw->widget());
-        disconnect(w, &EditorTab::aboutToBeClosed, this, &LokalizeMainWindow::resetMultiEditorAdaptor);
         disconnect(w,
                    qOverload<const QString &, const QString &, const QString &, const bool>(&EditorTab::fileOpenRequested),
                    this,
@@ -164,8 +160,6 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow *w)
 
         EditorState state = win->state();
         m_lastEditorState = state.dockWidgets.toBase64();
-
-        m_multiEditorAdaptor->setEditorTab(win);
 
         QTabBar *tw = m_mdiArea->findChild<QTabBar *>();
         if (tw)
@@ -275,7 +269,6 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
         w->mergeOpen(mergeFile);
 
     connect(sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
-    connect(w, &EditorTab::aboutToBeClosed, this, &LokalizeMainWindow::resetMultiEditorAdaptor);
     connect(w,
             qOverload<const QString &, const QString &, const QString &, const bool>(&EditorTab::fileOpenRequested),
             this,
@@ -299,11 +292,6 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     sw->setAttribute(Qt::WA_DeleteOnClose, true);
     Q_EMIT editorAdded();
     return w;
-}
-
-void LokalizeMainWindow::resetMultiEditorAdaptor()
-{
-    m_multiEditorAdaptor->setEditorTab(m_spareEditor); // it will be reparented shortly if there are other editors
 }
 
 void LokalizeMainWindow::editorClosed(QObject *obj)
@@ -844,30 +832,6 @@ void LokalizeMdiArea::activatePreviousSubWindow()
     this->setActivationOrder(QMdiArea::ActivationHistoryOrder);
 }
 
-MultiEditorAdaptor::MultiEditorAdaptor(EditorTab *parent)
-    : EditorAdaptor(parent)
-{
-    setObjectName(QStringLiteral("MultiEditorAdaptor"));
-    connect(parent, qOverload<QObject *>(&EditorTab::destroyed), this, qOverload<QObject *>(&MultiEditorAdaptor::handleParentDestroy));
-}
-
-void MultiEditorAdaptor::setEditorTab(EditorTab *e)
-{
-    if (parent())
-        disconnect(parent(), qOverload<QObject *>(&EditorTab::destroyed), this, qOverload<QObject *>(&MultiEditorAdaptor::handleParentDestroy));
-    if (e)
-        connect(e, qOverload<QObject *>(&EditorTab::destroyed), this, qOverload<QObject *>(&MultiEditorAdaptor::handleParentDestroy));
-    setParent(e);
-    setAutoRelaySignals(false);
-    setAutoRelaySignals(true);
-}
-
-void MultiEditorAdaptor::handleParentDestroy(QObject *p)
-{
-    Q_UNUSED(p);
-    setParent(nullptr);
-}
-
 // END DBus interface
 
 DelayedFileOpener::DelayedFileOpener(const QVector<QString> &urls, LokalizeMainWindow *lmw)
@@ -890,4 +854,3 @@ void DelayedFileOpener::doOpen()
 
 #include "moc_lokalizemainwindow.cpp"
 #include "moc_lokalizesubwindowbase.cpp"
-#include "moc_multieditoradaptor.cpp"
