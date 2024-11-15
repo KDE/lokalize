@@ -39,7 +39,7 @@ void TestGetTextHeaderParser::updateLastTranslator()
 void TestGetTextHeaderParser::updateGenericCopyrightYear()
 {
     QFile example(QStringLiteral(":/faketemplate.pot"));
-    QVERIFY(example.open(QIODevice::ReadOnly));
+    QVERIFY(example.open(QIODevice::ReadOnly | QIODevice::Text));
     QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
     GetTextHeaderParser::updateGeneralCopyrightYear(header);
     QCOMPARE(header.at(1), QStringLiteral("# Copyright (C) ") + sCurrentYear + QStringLiteral(" This file is copyright:"));
