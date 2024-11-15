@@ -47,9 +47,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     , m_mdiArea(new LokalizeMdiArea)
     , m_editorActions(new QActionGroup(this))
     , m_managerActions(new QActionGroup(this))
-    , m_spareEditor(new EditorTab(this, false))
 {
-    m_spareEditor->hide();
     m_mdiArea->setViewMode(QMdiArea::TabbedView);
     m_mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
     m_mdiArea->setDocumentMode(true);

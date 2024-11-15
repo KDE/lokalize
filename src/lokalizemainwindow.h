@@ -152,9 +152,6 @@ private:
 
     QByteArray m_lastEditorState;
 
-    // used for kross API
-    EditorTab *m_spareEditor{};
-
     typedef QMap<QString, QMdiSubWindow *> FileToEditor;
     FileToEditor m_fileToEditor;
 };
