@@ -17,4 +17,4 @@ Dependencies:
     'frameworks/kcrash': '@stable-kf6'
 
 Options:
-  require-passing-tests-on: ['Linux', 'FreeBSD']
+  require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
