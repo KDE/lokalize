@@ -59,9 +59,21 @@ void TM::cancelAllJobs()
 // The database code is run in QRunnable in a QThreadPool so in each job we need to call
 // getDataBaseForCurrentThread to make sure we use a connection for the current thread.
 
+static constexpr QLatin1StringView lokalizeConnectionMarker{"_lokalize_connection_"};
+
+static const QString getDbNameFromConnectionName(const QString &connectionName)
+{
+    const int markerPos = connectionName.lastIndexOf(lokalizeConnectionMarker);
+    if (markerPos < 0) {
+        Q_ASSERT(false);
+        return connectionName;
+    }
+    return connectionName.left(markerPos);
+}
+
 static const QString getPartialConnectionName(const QString &dbName)
 {
-    return dbName + QStringLiteral("_lokalize_connection_");
+    return dbName + lokalizeConnectionMarker;
 }
 
 static const QString getConnectionNameForCurrentThread(const QString &dbName)
@@ -1269,7 +1281,7 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                 // e.date=queryFetch.value(4).toString();
                 e.markupExpr = c.markup;
                 e.accelExpr = c.accel;
-                e.dbName = db.connectionName();
+                e.dbName = getDbNameFromConnectionName(db.connectionName());
 
                 // BEGIN calc score
                 QString str = e.source.string;
