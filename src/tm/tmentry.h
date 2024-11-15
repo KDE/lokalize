@@ -35,6 +35,7 @@ struct TMEntry {
     short score : 16; // 100.00%==10000
     ushort hits : 15;
     bool obsolete : 1;
+    // This is the clean dbName, not the connectionName
     QString dbName;
 
     QString diff;
