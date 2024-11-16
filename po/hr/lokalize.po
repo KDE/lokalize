@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-12 02:37+0000\n"
+"POT-Creation-Date: 2024-11-16 02:38+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -4458,7 +4458,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Uklanjanje unosa iz prijevodne memorije"
 
-#: src/tm/tmview.cpp:976
+#: src/tm/tmview.cpp:977
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
