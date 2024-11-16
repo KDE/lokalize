@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-14 00:42+0000\n"
+"POT-Creation-Date: 2024-11-16 00:43+0000\n"
 "PO-Revision-Date: 2024-10-24 19:35+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1063,7 +1063,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:454
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:440
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1096,7 +1096,7 @@ msgstr "同步 2"
 msgid "Translation Memory"
 msgstr "翻譯記憶體"
 
-#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:455
+#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:441
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -2150,128 +2150,128 @@ msgstr "建議："
 msgid "No errors"
 msgstr "沒有錯誤"
 
-#: src/lokalizemainwindow.cpp:104
+#: src/lokalizemainwindow.cpp:100
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "沒有找到 Qt Sql 模組。翻譯記憶體可能無法運作。"
 
-#: src/lokalizemainwindow.cpp:360 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "翻譯記憶體工具需要 SQLite Qt 模組。"
 
-#: src/lokalizemainwindow.cpp:360 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr "找不到 SQLite 模組"
 
-#: src/lokalizemainwindow.cpp:456 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:442 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "翻譯記憶體"
 
-#: src/lokalizemainwindow.cpp:457 src/project/projecttab.cpp:212
+#: src/lokalizemainwindow.cpp:443 src/project/projecttab.cpp:212
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "專案"
 
-#: src/lokalizemainwindow.cpp:478
+#: src/lokalizemainwindow.cpp:464
 #, kde-format
 msgid "Next tab"
 msgstr "下一個分頁"
 
-#: src/lokalizemainwindow.cpp:481
+#: src/lokalizemainwindow.cpp:467
 #, kde-format
 msgid "Previous tab"
 msgstr "上一個分頁"
 
-#: src/lokalizemainwindow.cpp:484
+#: src/lokalizemainwindow.cpp:470
 #, kde-format
 msgid "Previously active tab"
 msgstr "上一個使用中分頁"
 
-#: src/lokalizemainwindow.cpp:490
+#: src/lokalizemainwindow.cpp:476
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "詞彙表"
 
-#: src/lokalizemainwindow.cpp:494
+#: src/lokalizemainwindow.cpp:480
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "翻譯記憶體"
 
-#: src/lokalizemainwindow.cpp:498 src/tm/tmtab.cpp:485
+#: src/lokalizemainwindow.cpp:484 src/tm/tmtab.cpp:485
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "管理翻譯記憶體"
 
-#: src/lokalizemainwindow.cpp:502
+#: src/lokalizemainwindow.cpp:488
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "專案概觀"
 
-#: src/lokalizemainwindow.cpp:506
+#: src/lokalizemainwindow.cpp:492
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "設定專案..."
 
-#: src/lokalizemainwindow.cpp:509
+#: src/lokalizemainwindow.cpp:495
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "建立軟體翻譯專案..."
 
-#: src/lokalizemainwindow.cpp:512
+#: src/lokalizemainwindow.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "建立 OpenDocument 翻譯專案..."
 
-#: src/lokalizemainwindow.cpp:515
+#: src/lokalizemainwindow.cpp:501
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "開啟專案..."
 
-#: src/lokalizemainwindow.cpp:519
+#: src/lokalizemainwindow.cpp:505
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "關閉專案"
 
-#: src/lokalizemainwindow.cpp:522
+#: src/lokalizemainwindow.cpp:508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "開啟最近的專案"
 
-#: src/lokalizemainwindow.cpp:532
+#: src/lokalizemainwindow.cpp:518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "在檔案中的搜尋與取代"
 
-#: src/lokalizemainwindow.cpp:535
+#: src/lokalizemainwindow.cpp:521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "在檔案中尋找下一個"
 
-#: src/lokalizemainwindow.cpp:539
+#: src/lokalizemainwindow.cpp:525
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "元件文字擷取"
 
-#: src/lokalizemainwindow.cpp:704
+#: src/lokalizemainwindow.cpp:690
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4414,7 +4414,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "移除翻譯記憶體遺失檔案"
 
-#: src/tm/tmview.cpp:976
+#: src/tm/tmview.cpp:977
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

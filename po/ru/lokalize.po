@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-14 00:42+0000\n"
+"POT-Creation-Date: 2024-11-16 00:43+0000\n"
 "PO-Revision-Date: 2024-02-09 23:19+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1129,7 +1129,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:454
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:440
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1162,7 +1162,7 @@ msgstr "Синхронизация 2"
 msgid "Translation Memory"
 msgstr "Память переводов"
 
-#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:455
+#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:441
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -2238,128 +2238,128 @@ msgstr "Предложения:"
 msgid "No errors"
 msgstr "Ошибки не найдены"
 
-#: src/lokalizemainwindow.cpp:104
+#: src/lokalizemainwindow.cpp:100
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Модули Qt Sql отсутствуют. Память переводов не будет работать."
 
-#: src/lokalizemainwindow.cpp:360 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Для работы памяти переводов требуется модуль Qt SQLite ."
 
-#: src/lokalizemainwindow.cpp:360 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Модуль  SQLite не доступен"
 
-#: src/lokalizemainwindow.cpp:456 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:442 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Память переводов"
 
-#: src/lokalizemainwindow.cpp:457 src/project/projecttab.cpp:212
+#: src/lokalizemainwindow.cpp:443 src/project/projecttab.cpp:212
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Проект"
 
-#: src/lokalizemainwindow.cpp:478
+#: src/lokalizemainwindow.cpp:464
 #, kde-format
 msgid "Next tab"
 msgstr "Следующая вкладка"
 
-#: src/lokalizemainwindow.cpp:481
+#: src/lokalizemainwindow.cpp:467
 #, kde-format
 msgid "Previous tab"
 msgstr "Предыдущая вкладка"
 
-#: src/lokalizemainwindow.cpp:484
+#: src/lokalizemainwindow.cpp:470
 #, kde-format
 msgid "Previously active tab"
 msgstr "Предыдущая активная вкладка"
 
-#: src/lokalizemainwindow.cpp:490
+#: src/lokalizemainwindow.cpp:476
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Глоссарий"
 
-#: src/lokalizemainwindow.cpp:494
+#: src/lokalizemainwindow.cpp:480
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Память переводов"
 
-#: src/lokalizemainwindow.cpp:498 src/tm/tmtab.cpp:485
+#: src/lokalizemainwindow.cpp:484 src/tm/tmtab.cpp:485
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Управление памятью переводов"
 
-#: src/lokalizemainwindow.cpp:502
+#: src/lokalizemainwindow.cpp:488
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Обзор проекта"
 
-#: src/lokalizemainwindow.cpp:506
+#: src/lokalizemainwindow.cpp:492
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Настроить проект..."
 
-#: src/lokalizemainwindow.cpp:509
+#: src/lokalizemainwindow.cpp:495
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Создать проект по переводу ПО..."
 
-#: src/lokalizemainwindow.cpp:512
+#: src/lokalizemainwindow.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "Создать проект по переводу OpenDocument..."
 
-#: src/lokalizemainwindow.cpp:515
+#: src/lokalizemainwindow.cpp:501
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Открыть проект..."
 
-#: src/lokalizemainwindow.cpp:519
+#: src/lokalizemainwindow.cpp:505
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Закрыть проект"
 
-#: src/lokalizemainwindow.cpp:522
+#: src/lokalizemainwindow.cpp:508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Последние проекты"
 
-#: src/lokalizemainwindow.cpp:532
+#: src/lokalizemainwindow.cpp:518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Поиск и замена в файлах"
 
-#: src/lokalizemainwindow.cpp:535
+#: src/lokalizemainwindow.cpp:521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Найти далее в файлах"
 
-#: src/lokalizemainwindow.cpp:539
+#: src/lokalizemainwindow.cpp:525
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Захват текста из виджета"
 
-#: src/lokalizemainwindow.cpp:704
+#: src/lokalizemainwindow.cpp:690
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4622,7 +4622,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Удаление несуществующего файла из памяти переводов"
 
-#: src/tm/tmview.cpp:976
+#: src/tm/tmview.cpp:977
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

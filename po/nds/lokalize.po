@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-14 00:42+0000\n"
+"POT-Creation-Date: 2024-11-16 00:43+0000\n"
 "PO-Revision-Date: 2011-12-18 07:38+0100\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -1121,7 +1121,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:454
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:440
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1154,7 +1154,7 @@ msgstr "Synkroniseren 2"
 msgid "Translation Memory"
 msgstr "Översettenspieker"
 
-#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:455
+#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:441
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -2279,76 +2279,76 @@ msgstr ""
 msgid "No errors"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:104
+#: src/lokalizemainwindow.cpp:100
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 "Keen SQLite-Modulen för Qt funnen. De Översettenspieker funkscheneert nich."
 
-#: src/lokalizemainwindow.cpp:360 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Översettenspieker bruukt SQLite-Moduul för Qt."
 
-#: src/lokalizemainwindow.cpp:360 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Keen SQLite-Moduul verföögbor"
 
-#: src/lokalizemainwindow.cpp:456 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:442 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Översettenspieker"
 
-#: src/lokalizemainwindow.cpp:457 src/project/projecttab.cpp:212
+#: src/lokalizemainwindow.cpp:443 src/project/projecttab.cpp:212
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Projekt"
 
-#: src/lokalizemainwindow.cpp:478
+#: src/lokalizemainwindow.cpp:464
 #, kde-format
 msgid "Next tab"
 msgstr "Nakamen Paneel"
 
-#: src/lokalizemainwindow.cpp:481
+#: src/lokalizemainwindow.cpp:467
 #, kde-format
 msgid "Previous tab"
 msgstr "Verleden Paneel"
 
-#: src/lokalizemainwindow.cpp:484
+#: src/lokalizemainwindow.cpp:470
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previously active tab"
 msgstr "Verleden Paneel"
 
-#: src/lokalizemainwindow.cpp:490
+#: src/lokalizemainwindow.cpp:476
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Begreeplist"
 
-#: src/lokalizemainwindow.cpp:494
+#: src/lokalizemainwindow.cpp:480
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Översettenspieker"
 
-#: src/lokalizemainwindow.cpp:498 src/tm/tmtab.cpp:485
+#: src/lokalizemainwindow.cpp:484 src/tm/tmtab.cpp:485
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Översettenspiekers plegen"
 
-#: src/lokalizemainwindow.cpp:502
+#: src/lokalizemainwindow.cpp:488
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Projekt-Översicht"
 
-#: src/lokalizemainwindow.cpp:506
+#: src/lokalizemainwindow.cpp:492
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
@@ -2356,20 +2356,20 @@ msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Projekt instellen"
 
-#: src/lokalizemainwindow.cpp:509
+#: src/lokalizemainwindow.cpp:495
 #, fuzzy, kde-format
 #| msgid "Choose location of your software translation project"
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "En Steed för't Software-Översettenprojekt utsöken"
 
-#: src/lokalizemainwindow.cpp:512
+#: src/lokalizemainwindow.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:515
+#: src/lokalizemainwindow.cpp:501
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2377,7 +2377,7 @@ msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Projekt opmaken"
 
-#: src/lokalizemainwindow.cpp:519
+#: src/lokalizemainwindow.cpp:505
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2385,19 +2385,19 @@ msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Projekt opmaken"
 
-#: src/lokalizemainwindow.cpp:522
+#: src/lokalizemainwindow.cpp:508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Verleden Projekt opmaken"
 
-#: src/lokalizemainwindow.cpp:532
+#: src/lokalizemainwindow.cpp:518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:535
+#: src/lokalizemainwindow.cpp:521
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Find in files"
@@ -2405,14 +2405,14 @@ msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "In Dateien söken"
 
-#: src/lokalizemainwindow.cpp:539
+#: src/lokalizemainwindow.cpp:525
 #, fuzzy, kde-format
 #| msgid "Widget text capture"
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Böversiet-Text infangen"
 
-#: src/lokalizemainwindow.cpp:704
+#: src/lokalizemainwindow.cpp:690
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4683,7 +4683,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Översettenspieker-Indrag wegmaken"
 
-#: src/tm/tmview.cpp:976
+#: src/tm/tmview.cpp:977
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
