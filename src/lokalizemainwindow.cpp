@@ -21,8 +21,18 @@
 #include "tmtab.h"
 #include "tools/widgettextcaptureconfig.h"
 
+#include <kcolorscheme_version.h>
+#include <kconfigwidgets_version.h>
+
+#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+#include <KStyleManager>
+#endif
+
 #include <KActionCategory>
 #include <KActionCollection>
+#include <KActionMenu>
+#include <KColorSchemeManager>
+#include <KColorSchemeMenu>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNotification>
@@ -588,6 +598,20 @@ void LokalizeMainWindow::setupActions()
 
     action = ac->addAction(QStringLiteral("tools_widgettextcapture"), this, SLOT(widgetTextCapture()));
     action->setText(i18nc("@action:inmenu", "Widget text capture"));
+
+#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    ac->addAction(QStringLiteral("settings_style"), KStyleManager::createConfigureAction(this));
+#endif
+
+    // Load themes
+#if KCOLORSCHEME_VERSION < QT_VERSION_CHECK(6, 6, 0)
+    KColorSchemeManager *manager = new KColorSchemeManager(this);
+#else
+    KColorSchemeManager *manager = KColorSchemeManager::instance();
+#endif
+    auto *colorSelectionMenu = KColorSchemeMenu::createMenu(manager, this);
+    colorSelectionMenu->menu()->setTitle(i18n("&Window Color Scheme"));
+    ac->addAction(QStringLiteral("colorscheme_menu"), colorSelectionMenu);
 
     setupGUI(Default, QStringLiteral("lokalizemainwindowui.rc"));
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="LokalizeMainWindow" version="9">
+<gui name="LokalizeMainWindow" version="10">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_new"/>
@@ -46,6 +46,8 @@
     <Merge/>
   </Menu>
   <Menu name="settings">
+    <Action name="settings_style"/>
+    <Action name="colorscheme_menu"/>
     <Menu name="toolviews"><text>Tool&amp;views</text>
     </Menu>
     <Merge/>
