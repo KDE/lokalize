@@ -12,7 +12,6 @@
 #include "projecttab.h"
 #include "catalog.h"
 #include "lokalize_debug.h"
-#include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "projectwidget.h"
@@ -50,63 +49,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
 {
     setWindowTitle(i18nc("@title:window", "Project Overview"));
-    // BEGIN setup welcome widget
-    QWidget *welcomeWidget = new QWidget(this);
-    QVBoxLayout *wl = new QVBoxLayout(welcomeWidget);
-    QLabel *about = new QLabel(i18n("<html>" // copied from kaboutkdedialog_p.cpp
-                                    "You do not have to be a software developer to be a member of the "
-                                    "KDE team. You can join the language teams that translate "
-                                    "program interfaces. You can provide graphics, themes, sounds, and "
-                                    "improved documentation. You decide!"
-                                    "<br /><br />"
-                                    "Visit "
-                                    "<a href=\"%1\">%1</a> "
-                                    "for information on some projects in which you can participate."
-                                    "<br /><br />"
-                                    "If you need more information or documentation, then a visit to "
-                                    "<a href=\"%2\">%2</a> "
-                                    "will provide you with what you need.</html>",
-                                    QLatin1String("https://community.kde.org/Get_Involved"),
-                                    QLatin1String("https://techbase.kde.org/")),
-                               welcomeWidget);
-    about->setAlignment(Qt::AlignCenter);
-    about->setWordWrap(true);
-    about->setOpenExternalLinks(true);
-    about->setTextInteractionFlags(Qt::TextBrowserInteraction);
-    about->setTextFormat(Qt::RichText);
-
-    QPushButton *conf = new QPushButton(i18n("&Configure Lokalize"), welcomeWidget);
-    QPushButton *openProject = new QPushButton(i18nc("@action:inmenu", "Open project"), welcomeWidget);
-    QPushButton *createProject = new QPushButton(i18nc("@action:inmenu", "Translate software"), welcomeWidget);
-    QPushButton *createOdfProject = new QPushButton(i18nc("@action:inmenu", "Translate OpenDocument"), welcomeWidget);
-    connect(conf, &QPushButton::clicked, SettingsController::instance(), &SettingsController::showSettingsDialog);
-    connect(openProject, &QPushButton::clicked, this, qOverload<>(&ProjectTab::projectOpenRequested));
-    connect(createProject, &QPushButton::clicked, SettingsController::instance(), &SettingsController::projectCreate);
-    connect(createOdfProject, &QPushButton::clicked, Project::instance(), &Project::projectOdfCreate);
-    QHBoxLayout *wbtnl = new QHBoxLayout();
-    wbtnl->addStretch(1);
-    wbtnl->addWidget(conf);
-    wbtnl->addWidget(openProject);
-    wbtnl->addWidget(createProject);
-    wbtnl->addWidget(createOdfProject);
-    wbtnl->addStretch(1);
-
-    wl->addStretch(1);
-    wl->addWidget(about);
-    wl->addStretch(1);
-    wl->addLayout(wbtnl);
-    wl->addStretch(1);
-
-    // END setup welcome widget
-    QWidget *baseWidget = new QWidget(this);
-    m_stackedLayout = new QStackedLayout(baseWidget);
     QWidget *w = new QWidget(this);
-    m_stackedLayout->addWidget(welcomeWidget);
-    m_stackedLayout->addWidget(w);
-    connect(Project::instance(), &Project::loaded, this, &ProjectTab::showRealProjectOverview);
-    if (Project::instance()->isLoaded()) // for --project cmd option
-        showRealProjectOverview();
-
     QVBoxLayout *l = new QVBoxLayout(w);
 
     m_filterEdit->setClearButtonEnabled(true);
@@ -122,7 +65,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectTab::updateStatusBar);
     connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectTab::initStatusBarProgress);
 
-    setCentralWidget(baseWidget);
+    setCentralWidget(w);
     QStatusBar *statusBar = static_cast<LokalizeSubwindowBase2 *>(parent)->statusBar();
 
     m_progressBar = new QProgressBar(nullptr);
@@ -218,15 +161,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     int i = 6;
     while (--i > ID_STATUS_PROGRESS)
         statusBarItems.insert(i, QString());
-}
-
-void ProjectTab::showRealProjectOverview()
-{
-    m_stackedLayout->setCurrentIndex(1);
-}
-void ProjectTab::showWelcomeScreen()
-{
-    m_stackedLayout->setCurrentIndex(0);
 }
 
 void ProjectTab::toggleTranslatedFiles()

@@ -19,6 +19,7 @@
 #include <QMap>
 #include <QMdiArea>
 #include <QPointer>
+#include <QStackedLayout>
 #include <QUrl>
 
 class QLabel;
@@ -79,6 +80,8 @@ private Q_SLOTS:
     {
         openProject(QString());
     }
+    void showTabs();
+    void showWelcome();
 
 public Q_SLOTS:
     /**
@@ -137,7 +140,18 @@ Q_SIGNALS:
     Q_SCRIPTABLE void editorActivated();
 
 private:
+    /*
+     * @short All the tabs: project, editor etc.
+     */
     LokalizeMdiArea *m_mdiArea;
+    /*
+     * @short Contains all tabs on one layer, and the welcome widget on another.
+     */
+    QStackedLayout *m_welcomePageAndTabsPage;
+    /*
+     * @short Contains the welcome text and some buttons for getting started.
+     */
+    QWidget *m_welcomePage;
     QPointer<QMdiSubWindow> m_prevSubWindow{};
     QPointer<QMdiSubWindow> m_projectSubWindow{};
     QPointer<QMdiSubWindow> m_translationMemorySubWindow{};

@@ -33,18 +33,21 @@
 
 #include <QActionGroup>
 #include <QApplication>
+#include <QBoxLayout>
 #include <QElapsedTimer>
 #include <QIcon>
 #include <QLabel>
 #include <QMdiSubWindow>
 #include <QMenu>
 #include <QMenuBar>
+#include <QPushButton>
 #include <QStatusBar>
 #include <QTabBar>
 
 LokalizeMainWindow::LokalizeMainWindow()
     : KXmlGuiWindow()
     , m_mdiArea(new LokalizeMdiArea)
+    , m_welcomePage(new QWidget(this))
     , m_editorActions(new QActionGroup(this))
     , m_managerActions(new QActionGroup(this))
 {
@@ -54,7 +57,60 @@ LokalizeMainWindow::LokalizeMainWindow()
     m_mdiArea->setTabsMovable(true);
     m_mdiArea->setTabsClosable(true);
 
-    setCentralWidget(m_mdiArea);
+    // BEGIN set up welcome widget
+    QVBoxLayout *wl = new QVBoxLayout(m_welcomePage);
+    QLabel *about = new QLabel(i18n("<html>" // copied from kaboutkdedialog_p.cpp
+                                    "You do not have to be a software developer to be a member of "
+                                    "the KDE team. You can join the language teams that translate "
+                                    "program interfaces. You can provide graphics, themes, sounds, "
+                                    "and improved documentation. You decide!"
+                                    "<br /><br />"
+                                    "Visit "
+                                    "<a href=\"%1\">%1</a> "
+                                    "for information on some projects in which you can participate."
+                                    "<br /><br />"
+                                    "If you need more information or documentation, then a visit to "
+                                    "<a href=\"%2\">%2</a> "
+                                    "will provide you with what you need.</html>",
+                                    QLatin1String("https://community.kde.org/Get_Involved"),
+                                    QLatin1String("https://techbase.kde.org/")),
+                               m_welcomePage);
+    about->setAlignment(Qt::AlignCenter);
+    about->setWordWrap(true);
+    about->setOpenExternalLinks(true);
+    about->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    about->setTextFormat(Qt::RichText);
+
+    QPushButton *conf = new QPushButton(i18n("&Configure Lokalize"), m_welcomePage);
+    QPushButton *openProject = new QPushButton(i18nc("@action:inmenu", "Open project"), m_welcomePage);
+    QPushButton *createProject = new QPushButton(i18nc("@action:inmenu", "Translate software"), m_welcomePage);
+    QPushButton *createOdfProject = new QPushButton(i18nc("@action:inmenu", "Translate OpenDocument"), m_welcomePage);
+    connect(conf, &QPushButton::clicked, SettingsController::instance(), &SettingsController::showSettingsDialog);
+    connect(openProject, &QPushButton::clicked, this, qOverload<>(&LokalizeMainWindow::openProject));
+    connect(createProject, &QPushButton::clicked, SettingsController::instance(), &SettingsController::projectCreate);
+    connect(createOdfProject, &QPushButton::clicked, Project::instance(), &Project::projectOdfCreate);
+    QHBoxLayout *wbtnl = new QHBoxLayout();
+    wbtnl->addStretch(1);
+    wbtnl->addWidget(conf);
+    wbtnl->addWidget(openProject);
+    wbtnl->addWidget(createProject);
+    wbtnl->addWidget(createOdfProject);
+    wbtnl->addStretch(1);
+
+    wl->addStretch(1);
+    wl->addWidget(about);
+    wl->addStretch(1);
+    wl->addLayout(wbtnl);
+    wl->addStretch(1);
+    // END set up welcome widget
+
+    QWidget *wrapperWidget = new QWidget(this);
+    m_welcomePageAndTabsPage = new QStackedLayout(wrapperWidget);
+    m_welcomePageAndTabsPage->addWidget(m_welcomePage);
+    m_welcomePageAndTabsPage->addWidget(m_mdiArea);
+    setCentralWidget(wrapperWidget);
+
+    connect(Project::instance(), &Project::loaded, this, &LokalizeMainWindow::showTabs);
     connect(m_mdiArea, &QMdiArea::subWindowActivated, this, &LokalizeMainWindow::slotSubWindowActivated);
     setupActions();
 
@@ -129,6 +185,16 @@ LokalizeMainWindow::~LokalizeMainWindow()
     }
 
     qCWarning(LOKALIZE_LOG) << "MainWindow destroyed";
+}
+
+void LokalizeMainWindow::showTabs()
+{
+    m_welcomePageAndTabsPage->setCurrentIndex(1);
+}
+
+void LokalizeMainWindow::showWelcome()
+{
+    m_welcomePageAndTabsPage->setCurrentIndex(0);
 }
 
 void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow *w)
@@ -544,7 +610,7 @@ bool LokalizeMainWindow::closeProject()
             m_mdiArea->removeSubWindow(subwindow);
             subwindow->deleteLater();
         } else if (subwindow == m_projectSubWindow && m_projectSubWindow)
-            static_cast<ProjectTab *>(m_projectSubWindow->widget())->showWelcomeScreen();
+            showWelcome();
     }
     Project::instance()->load(QString());
     // TODO scripts

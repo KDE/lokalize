@@ -73,8 +73,6 @@ public Q_SLOTS:
     ///@returns list of selected files recursively
     Q_SCRIPTABLE QStringList selectedItems() const;
     Q_SCRIPTABLE bool currentItemIsTranslationFile() const;
-    void showRealProjectOverview();
-    void showWelcomeScreen();
 
 private Q_SLOTS:
     /**
@@ -122,8 +120,6 @@ private:
     ProjectWidget *m_browser{};
     QLineEdit *m_filterEdit{};
     QProgressBar *m_progressBar{};
-
-    QStackedLayout *m_stackedLayout{};
 
     KProcess *m_pologyProcess{};
     bool m_pologyProcessInProgress{};
