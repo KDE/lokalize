@@ -38,7 +38,7 @@ class ExecQueryJob;
 /**
  * Translation Memory tab
  */
-class TMTab : public LokalizeSubwindowBase2
+class TMTab : public LokalizeTabPageBase
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.TranslationMemory")

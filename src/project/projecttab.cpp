@@ -43,7 +43,7 @@
 #include <QVBoxLayout>
 
 ProjectTab::ProjectTab(QWidget *parent)
-    : LokalizeSubwindowBase2(parent)
+    : LokalizeTabPageBase(parent)
     , m_browser(new ProjectWidget(this))
     , m_filterEdit(new QLineEdit(this))
 
@@ -66,7 +66,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectTab::initStatusBarProgress);
 
     setCentralWidget(w);
-    QStatusBar *statusBar = static_cast<LokalizeSubwindowBase2 *>(parent)->statusBar();
+    QStatusBar *statusBar = static_cast<LokalizeTabPageBase *>(parent)->statusBar();
 
     m_progressBar = new QProgressBar(nullptr);
     m_progressBar->setVisible(false);

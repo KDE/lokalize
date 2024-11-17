@@ -41,7 +41,7 @@ class Ui_FileSearchOptions;
 /**
  * Global file search/repalce tab
  */
-class FileSearchTab : public LokalizeSubwindowBase2
+class FileSearchTab : public LokalizeTabPageBase
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.FileSearch")

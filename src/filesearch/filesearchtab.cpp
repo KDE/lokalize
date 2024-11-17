@@ -441,7 +441,7 @@ void FileSearchModel::setReplacePreview(const QRegularExpression &s, const QStri
 
 // BEGIN FileSearchTab
 FileSearchTab::FileSearchTab(QWidget *parent)
-    : LokalizeSubwindowBase2(parent)
+    : LokalizeTabPageBase(parent)
     , m_model(new FileSearchModel(this))
 {
     setWindowTitle(i18nc("@title:window", "Search and replace in files"));

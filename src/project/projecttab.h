@@ -27,7 +27,7 @@ class QProgressBar;
 /**
  * Project Overview Tab
  */
-class ProjectTab : public LokalizeSubwindowBase2
+class ProjectTab : public LokalizeTabPageBase
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.ProjectOverview")

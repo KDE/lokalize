@@ -83,7 +83,7 @@ public:
  *
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
-class EditorTab : public LokalizeSubwindowBase2
+class EditorTab : public LokalizeTabPageBase
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.Editor")

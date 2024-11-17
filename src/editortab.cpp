@@ -57,7 +57,7 @@
 #include <QTime>
 
 EditorTab::EditorTab(QWidget *parent, bool valid)
-    : LokalizeSubwindowBase2(parent)
+    : LokalizeTabPageBase(parent)
     , m_project(Project::instance())
     , m_catalog(new Catalog(this))
     , m_view(new EditorView(this, m_catalog /*,new keyEventHandler(this,m_catalog)*/))
@@ -1284,7 +1284,7 @@ void EditorTab::paintEvent(QPaintEvent *event)
         if (sw->mdiArea()->currentSubWindow() != sw)
             return;
     }
-    LokalizeSubwindowBase2::paintEvent(event);
+    LokalizeTabPageBase::paintEvent(event);
 }
 
 void EditorTab::indexWordsForCompletion()

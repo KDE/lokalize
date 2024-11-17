@@ -206,7 +206,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow *w)
 
     if (m_prevSubWindow) {
         m_prevSubWindow->setUpdatesEnabled(false);
-        LokalizeSubwindowBase *prevEditor = static_cast<LokalizeSubwindowBase2 *>(m_prevSubWindow->widget());
+        LokalizeSubwindowBase *prevEditor = static_cast<LokalizeTabPageBase *>(m_prevSubWindow->widget());
         prevEditor->hideDocks();
         guiFactory()->removeClient(prevEditor->guiClient());
         prevEditor->statusBarItems.unregisterStatusBar();
@@ -216,7 +216,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow *w)
             m_lastEditorState = state.dockWidgets.toBase64();
         }
     }
-    LokalizeSubwindowBase *editor = static_cast<LokalizeSubwindowBase2 *>(w->widget());
+    LokalizeSubwindowBase *editor = static_cast<LokalizeTabPageBase *>(w->widget());
 
     editor->reloadUpdatedXML();
     if (auto win = qobject_cast<EditorTab *>(editor)) {

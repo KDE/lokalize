@@ -66,15 +66,15 @@ protected:
 /**
  * C++ casting workaround
  */
-class LokalizeSubwindowBase2 : public LokalizeSubwindowBase, public KXMLGUIClient
+class LokalizeTabPageBase : public LokalizeSubwindowBase, public KXMLGUIClient
 {
 public:
-    explicit LokalizeSubwindowBase2(QWidget *parent)
+    explicit LokalizeTabPageBase(QWidget *parent)
         : LokalizeSubwindowBase(parent)
         , KXMLGUIClient()
     {
     }
-    ~LokalizeSubwindowBase2() override = default;
+    ~LokalizeTabPageBase() override = default;
 
     KXMLGUIClient *guiClient() override
     {
