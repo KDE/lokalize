@@ -28,10 +28,18 @@
 #include <QMetaType>
 #include <QString>
 
+#include <kiconthemes_version.h>
+
+#define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
+#if HAVE_STYLE_MANAGER
+#include <KStyleManager>
+#endif
+
 #include <KAboutData>
 #include <KCrash>
 #include <KDBusService>
 #include <KLocalizedString>
+#include <KIconTheme>
 
 int main(int argc, char **argv)
 {
@@ -43,10 +51,21 @@ int main(int argc, char **argv)
     qputenv("QT_QPA_PLATFORM", "xcb");
 #endif
 
+#if KICONTHEMES_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    KIconTheme::initTheme();
+#endif
+
     TM::threadPool()->setMaxThreadCount(1);
     TM::threadPool()->setExpiryTimeout(-1);
     QThreadPool::globalInstance()->setMaxThreadCount(1);
+
     QApplication app(argc, argv);
+
+#if HAVE_STYLE_MANAGER
+    KStyleManager::initStyle();
+#endif
+
+
     KLocalizedString::setApplicationDomain("lokalize");
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("lokalize")));
     QCommandLineParser parser;
