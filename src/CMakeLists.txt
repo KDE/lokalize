@@ -267,6 +267,7 @@ target_link_libraries(liblokalize
     KF6::DBusAddons
     KF6::Crash
     KF6::XmlGui
+    KF6::IconThemes
     KF6::ConfigWidgets
     Qt::Sql
 )
