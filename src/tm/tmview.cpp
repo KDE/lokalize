@@ -184,7 +184,7 @@ void DynamicItemHeightQListWidget::updateListItemHeights()
 
 TMView::TMView(QWidget *parent, Catalog *catalog, const QVector<QAction *> &actions_insert, const QVector<QAction *> &actions_remove)
     : QDockWidget(i18nc("@title:window", "Translation Memory"), parent)
-    , m_tm_entries_list(new DynamicItemHeightQListWidget(this))
+    , m_entriesList(new DynamicItemHeightQListWidget(this))
     , m_catalog(catalog)
     , m_actions_insert(actions_insert)
     , m_actions_remove(actions_remove)
@@ -192,7 +192,7 @@ TMView::TMView(QWidget *parent, Catalog *catalog, const QVector<QAction *> &acti
     , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
 {
     setObjectName(QStringLiteral("TMView"));
-    setWidget(m_tm_entries_list);
+    setWidget(m_entriesList);
 
     QTimer::singleShot(0, this, &TMView::initLater);
     connect(m_catalog, qOverload<const QString &>(&Catalog::signalFileLoaded), this, &TMView::slotFileLoaded);
@@ -398,7 +398,7 @@ void TMView::slotNewEntryDisplayed(const DocPosition &pos)
 
     if (pos.entry != -1)
         m_pos = pos;
-    m_tm_entries_list->clear();
+    m_entriesList->clear();
     if (Settings::prefetchTM() && m_cache.contains(DocPos(m_pos))) {
         QTimer::singleShot(0, this, &TMView::displayFromCache);
     }
@@ -475,8 +475,8 @@ void TMView::slotSuggestionsCame(SelectJob *j)
     }
 
     setUpdatesEnabled(false);
-    m_tm_entries_list->viewport()->setUpdatesEnabled(false);
-    m_tm_entries_list->clear();
+    m_entriesList->viewport()->setUpdatesEnabled(false);
+    m_entriesList->clear();
     int i = 0;
     QString keyboardShortcut;
     QString occurrences;
@@ -548,8 +548,8 @@ void TMView::slotSuggestionsCame(SelectJob *j)
                                                                                                 "<li>%3</li>"
                                                                                                 "</ul>")
                                                                                      .arg(metadata, source, target));
-        m_tm_entries_list->addItem(translationMemoryEntryItem);
-        m_tm_entries_list->setItemWidget(translationMemoryEntryItem, label);
+        m_entriesList->addItem(translationMemoryEntryItem);
+        m_entriesList->setItemWidget(translationMemoryEntryItem, label);
         // Double-clicking words in a TM entry should add the selected
         // word to the current translation target at the cursor position.
         connect(label, &DoubleClickToInsertTextQLabel::textInsertRequested, this, &TMView::textInsertRequested);
@@ -559,8 +559,8 @@ void TMView::slotSuggestionsCame(SelectJob *j)
         if (Q_UNLIKELY(++i >= limit))
             break;
     }
-    m_tm_entries_list->updateListItemHeights();
-    m_tm_entries_list->viewport()->setUpdatesEnabled(true);
+    m_entriesList->updateListItemHeights();
+    m_entriesList->viewport()->setUpdatesEnabled(true);
     setUpdatesEnabled(true);
 }
 
@@ -568,8 +568,8 @@ bool TMView::event(QEvent *event)
 {
     if (event->type() == QEvent::ToolTip) {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        for (int i = 0; i < m_tm_entries_list->count(); ++i) {
-            if (m_tm_entries_list->itemWidget(m_tm_entries_list->item(i))->underMouse()) {
+        for (int i = 0; i < m_entriesList->count(); ++i) {
+            if (m_entriesList->itemWidget(m_entriesList->item(i))->underMouse()) {
                 const TMEntry &tmEntry = m_entries.at(i);
                 QString file = tmEntry.file;
                 if (file == m_catalog->url())
@@ -586,8 +586,8 @@ bool TMView::event(QEvent *event)
                 return true;
             }
         }
-    } else if (event->type() == QEvent::Resize && m_tm_entries_list->count() > 0) {
-        m_tm_entries_list->updateListItemHeights();
+    } else if (event->type() == QEvent::Resize && m_entriesList->count() > 0) {
+        m_entriesList->updateListItemHeights();
     }
     return QDockWidget::event(event);
 }
@@ -634,8 +634,8 @@ void TMView::runJobs()
 
 void TMView::contextMenu(const QPoint &pos)
 {
-    for (int i = 0; i < m_tm_entries_list->count(); ++i) {
-        QWidget *entry = m_tm_entries_list->itemWidget(m_tm_entries_list->item(i));
+    for (int i = 0; i < m_entriesList->count(); ++i) {
+        QWidget *entry = m_entriesList->itemWidget(m_entriesList->item(i));
         if (entry->underMouse()) {
             const TMEntry *tmEntry = &m_entries.at(i);
             enum {

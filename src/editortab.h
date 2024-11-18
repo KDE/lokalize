@@ -353,7 +353,7 @@ private:
     AltTransView *m_altTransView{};
     // END views
 
-    QString _captionPath;
+    QString m_relativeOrAbsoluteFilePath;
 
     bool m_srcFileOpenRequestAccepted{};
 

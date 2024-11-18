@@ -690,25 +690,25 @@ void EditorTab::setFullPathShown(bool fullPathShown)
 
 void EditorTab::setModificationSign()
 {
-    setProperCaption(_captionPath, !isClean());
+    setProperCaption(m_relativeOrAbsoluteFilePath, !isClean());
 }
 
 void EditorTab::updateCaptionPath()
 {
     QString url = m_catalog->url();
     if (!m_project->isLoaded()) {
-        _captionPath = url;
+        m_relativeOrAbsoluteFilePath = url;
         return;
     }
     if (!m_fullPathShown) {
-        _captionPath = QFileInfo(url).fileName();
+        m_relativeOrAbsoluteFilePath = QFileInfo(url).fileName();
         return;
     }
-    _captionPath = QDir(QFileInfo(m_project->path()).absolutePath()).relativeFilePath(url);
-    if (_captionPath.contains(QLatin1String("../..")))
-        _captionPath = url;
-    else if (_captionPath.startsWith(QLatin1String("./")))
-        _captionPath = _captionPath.mid(2);
+    m_relativeOrAbsoluteFilePath = QDir(QFileInfo(m_project->path()).absolutePath()).relativeFilePath(url);
+    if (m_relativeOrAbsoluteFilePath.contains(QLatin1String("../..")))
+        m_relativeOrAbsoluteFilePath = url;
+    else if (m_relativeOrAbsoluteFilePath.startsWith(QLatin1String("./")))
+        m_relativeOrAbsoluteFilePath = m_relativeOrAbsoluteFilePath.mid(2);
 }
 
 bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, QMdiSubWindow *> openedFiles, bool silent)

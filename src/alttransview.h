@@ -55,7 +55,7 @@ private:
     bool event(QEvent *event) override;
 
 private:
-    TM::DynamicItemHeightQListWidget *m_atm_entries_list{nullptr};
+    TM::DynamicItemHeightQListWidget *m_entriesList{nullptr};
     Catalog *m_catalog;
     QString m_normTitle;
     QString m_hasInfoTitle;

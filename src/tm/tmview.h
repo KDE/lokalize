@@ -82,7 +82,7 @@ private:
     void runJobs();
 
 private:
-    DynamicItemHeightQListWidget *m_tm_entries_list{nullptr};
+    DynamicItemHeightQListWidget *m_entriesList{nullptr};
     Catalog *m_catalog{nullptr};
     DocPosition m_pos;
 

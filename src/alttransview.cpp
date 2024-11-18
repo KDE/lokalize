@@ -36,14 +36,14 @@
 
 AltTransView::AltTransView(QWidget *parent, Catalog *catalog, const QVector<QAction *> &actions)
     : QDockWidget(i18nc("@title:window", "Alternate Translations"), parent)
-    , m_atm_entries_list(new TM::DynamicItemHeightQListWidget(this))
+    , m_entriesList(new TM::DynamicItemHeightQListWidget(this))
     , m_catalog(catalog)
     , m_normTitle(i18nc("@title:window", "Alternate Translations"))
     , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
     , m_actions(actions)
 {
     setObjectName(QStringLiteral("msgIdDiff"));
-    setWidget(m_atm_entries_list);
+    setWidget(m_entriesList);
     QTimer::singleShot(0, this, &AltTransView::initLater);
 }
 
@@ -124,7 +124,7 @@ void AltTransView::process()
     if (m_entry == m_prevEntry)
         return;
     if (m_catalog->numberOfEntries() <= m_entry.entry) {
-        m_atm_entries_list->clear();
+        m_entriesList->clear();
         return; // because of Qt::QueuedConnection
     }
 
@@ -138,7 +138,7 @@ void AltTransView::process()
             m_hasInfo = false;
             setWindowTitle(m_normTitle);
         }
-        m_atm_entries_list->clear();
+        m_entriesList->clear();
         return;
     }
     if (!m_hasInfo) {
@@ -166,8 +166,8 @@ void AltTransView::process()
     QString context = m_catalog->context(m_entry.toDocPosition()).first();
 
     setUpdatesEnabled(false);
-    m_atm_entries_list->viewport()->setUpdatesEnabled(false);
-    m_atm_entries_list->clear();
+    m_entriesList->viewport()->setUpdatesEnabled(false);
+    m_entriesList->clear();
     int i = 0;
     int limit = entries.size();
     QString translationDetails = i18n("From alternate translations folder");
@@ -242,8 +242,8 @@ void AltTransView::process()
             QListWidgetItem *translationMemoryEntryItem = new QListWidgetItem();
             TM::DoubleClickToInsertTextQLabel *label =
                 new TM::DoubleClickToInsertTextQLabel(QStringLiteral("%1%2%3%4").arg(metadata, contextString, targetString, sourceString));
-            m_atm_entries_list->addItem(translationMemoryEntryItem);
-            m_atm_entries_list->setItemWidget(translationMemoryEntryItem, label);
+            m_entriesList->addItem(translationMemoryEntryItem);
+            m_entriesList->setItemWidget(translationMemoryEntryItem, label);
 
             // Double-clicking words in a TM entry should add the selected
             // word to the current translation target at the cursor position.
@@ -262,8 +262,8 @@ void AltTransView::process()
         group.writeEntry("EverShown", true);
     }
 
-    m_atm_entries_list->updateListItemHeights();
-    m_atm_entries_list->viewport()->setUpdatesEnabled(true);
+    m_entriesList->updateListItemHeights();
+    m_entriesList->viewport()->setUpdatesEnabled(true);
     setUpdatesEnabled(true);
 }
 
@@ -272,8 +272,8 @@ bool AltTransView::event(QEvent *event)
     if (event->type() == QEvent::ToolTip) {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
 
-        for (int i = 0; i < m_atm_entries_list->count(); ++i) {
-            if (m_atm_entries_list->itemWidget(m_atm_entries_list->item(i))->underMouse()) {
+        for (int i = 0; i < m_entriesList->count(); ++i) {
+            if (m_entriesList->itemWidget(m_entriesList->item(i))->underMouse()) {
                 if (i >= m_entries.size())
                     return false;
                 QString origin = m_entries.at(i).origin;
@@ -296,8 +296,8 @@ bool AltTransView::event(QEvent *event)
                                 "toolview to use it as a source for additional alternate translations.");
         QToolTip::showText(helpEvent->globalPos(), tooltip);
         return true;
-    } else if (event->type() == QEvent::Resize && m_atm_entries_list->count() > 0) {
-        m_atm_entries_list->updateListItemHeights();
+    } else if (event->type() == QEvent::Resize && m_entriesList->count() > 0) {
+        m_entriesList->updateListItemHeights();
     }
     return QDockWidget::event(event);
 }
