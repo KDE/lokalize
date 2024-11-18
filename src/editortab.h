@@ -305,6 +305,13 @@ private:
 
     void findNext(const DocPosition &startingPos);
     void replaceNext(const DocPosition &);
+    /*
+     * @short Checks editor tab is ready to close
+     * @return false if a part of the editor tab has
+     * unsaved data.
+     * @author Finley Watson
+     */
+    bool isClean();
 
 private:
     Project *m_project{};

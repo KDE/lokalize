@@ -690,8 +690,7 @@ void EditorTab::setFullPathShown(bool fullPathShown)
 
 void EditorTab::setModificationSign()
 {
-    bool clean = m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified();
-    setProperCaption(_captionPath, !clean);
+    setProperCaption(_captionPath, !isClean());
 }
 
 void EditorTab::updateCaptionPath()
@@ -847,8 +846,7 @@ bool EditorTab::saveFileAs(const QString &defaultPath)
 
 bool EditorTab::saveFile(const QString &filePath)
 {
-    bool clean = m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified() && filePath == m_catalog->url();
-    if (clean)
+    if (isClean() && filePath == m_catalog->url())
         return true;
     if (m_catalog->isClean() && filePath.isEmpty()) {
         Q_EMIT m_catalog->signalFileSaved();
@@ -894,8 +892,7 @@ EditorState EditorTab::state()
 
 bool EditorTab::queryClose()
 {
-    const bool clean = m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified();
-    if (clean)
+    if (isClean())
         return true;
 
     switch (KMessageBox::warningTwoActionsCancel(this,
@@ -912,6 +909,11 @@ bool EditorTab::queryClose()
     default:
         return false;
     }
+}
+
+bool EditorTab::isClean()
+{
+    return m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified();
 }
 
 void EditorTab::undo()
