@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-16 00:43+0000\n"
+"POT-Creation-Date: 2024-11-18 00:42+0000\n"
 "PO-Revision-Date: 2007-08-03 07:58-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -765,13 +765,13 @@ msgid "Translation Units"
 msgstr "Aonaid Aistriúcháin"
 
 #: src/cataloglistview/cataloglistview.cpp:83
-#: src/glossary/glossarywindow.cpp:219 src/project/projecttab.cpp:113
+#: src/glossary/glossarywindow.cpp:219 src/project/projecttab.cpp:56
 #, kde-format
 msgid "Quick search..."
 msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:84
-#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
+#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:57
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
@@ -999,7 +999,7 @@ msgid "Current: %1"
 msgstr "Reatha: %1"
 
 #: src/editortab.cpp:109 src/editortab.cpp:777
-#: src/filesearch/filesearchtab.cpp:705 src/project/projecttab.cpp:506
+#: src/filesearch/filesearchtab.cpp:705 src/project/projecttab.cpp:440
 #: src/tm/tmtab.cpp:583
 #, kde-format
 msgctxt "@info:status message entries"
@@ -1026,13 +1026,13 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:440
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:506
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
 msgstr "Comhad"
 
-#: src/editortab.cpp:157 src/project/projecttab.cpp:146
+#: src/editortab.cpp:157 src/project/projecttab.cpp:89
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
@@ -1059,7 +1059,7 @@ msgstr "Sioncrónú 2"
 msgid "Translation Memory"
 msgstr "Cuimhne Aistriúcháin"
 
-#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:441
+#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:507
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1252,7 +1252,7 @@ msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Iontráil de réir uimhreach"
 
-#: src/editortab.cpp:487 src/project/projecttab.cpp:161
+#: src/editortab.cpp:487 src/project/projecttab.cpp:104
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1260,7 +1260,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr ""
 
-#: src/editortab.cpp:495 src/project/projecttab.cpp:167
+#: src/editortab.cpp:495 src/project/projecttab.cpp:110
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1268,19 +1268,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr ""
 
-#: src/editortab.cpp:502 src/project/projecttab.cpp:173
+#: src/editortab.cpp:502 src/project/projecttab.cpp:116
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Tcht gan aistriúchán roimhe seo"
 
-#: src/editortab.cpp:507 src/project/projecttab.cpp:179
+#: src/editortab.cpp:507 src/project/projecttab.cpp:122
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "An chéad tcht eile gan aistriúchán"
 
-#: src/editortab.cpp:513 src/project/projecttab.cpp:149
+#: src/editortab.cpp:513 src/project/projecttab.cpp:92
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1288,7 +1288,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Tcht roimhe seo gan cheadú"
 
-#: src/editortab.cpp:521 src/project/projecttab.cpp:155
+#: src/editortab.cpp:521 src/project/projecttab.cpp:98
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1558,26 +1558,26 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr ""
 
-#: src/editortab.cpp:1307 src/project/projecttab.cpp:372
+#: src/editortab.cpp:1307 src/project/projecttab.cpp:306
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
 #: src/editortab.cpp:1307 src/editortab.cpp:1315 src/editortab.cpp:1319
-#: src/project/projecttab.cpp:372 src/project/projecttab.cpp:380
-#: src/project/projecttab.cpp:384
+#: src/project/projecttab.cpp:306 src/project/projecttab.cpp:314
+#: src/project/projecttab.cpp:318
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1315 src/project/projecttab.cpp:380
+#: src/editortab.cpp:1315 src/project/projecttab.cpp:314
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1317 src/project/projecttab.cpp:382
+#: src/editortab.cpp:1317 src/project/projecttab.cpp:316
 #, kde-format
 msgid "Pology success"
 msgstr ""
@@ -1587,7 +1587,7 @@ msgstr ""
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1319 src/project/projecttab.cpp:384
+#: src/editortab.cpp:1319 src/project/projecttab.cpp:318
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -2125,75 +2125,129 @@ msgstr ""
 msgid "No errors"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:100
+#: src/lokalizemainwindow.cpp:62
+#, fuzzy, kde-format
+#| msgid ""
+#| "<html>You do not have to be a software developer to be a member of the "
+#| "KDE team. You can join the national teams that translate program "
+#| "interfaces. You can provide graphics, themes, sounds, and improved "
+#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
+#| "information on some projects in which you can participate.<br /><br />If "
+#| "you need more information or documentation, then a visit to <a href="
+#| "\"%2\">%2</a> will provide you with what you need.</html>"
+msgid ""
+"<html>You do not have to be a software developer to be a member of the KDE "
+"team. You can join the language teams that translate program interfaces. You "
+"can provide graphics, themes, sounds, and improved documentation. You decide!"
+"<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
+"which you can participate.<br /><br />If you need more information or "
+"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
+"what you need.</html>"
+msgstr ""
+"<html>Ní gá duit a bheith i d'fhorbróir bogearraí chun cabhrú le KDE. Má tá "
+"Gaeilge mhaith agat, cláraigh leis an bhfoireann aistriúcháin agus cabhraigh "
+"linn an comhéadan KDE a aistriú. Nó is féidir leat grafaic, téamaí, "
+"fuaimeanna, agus doiciméadú a sholáthar. Is leatsa an rogha!<br /><br /"
+">Tabhair cuairt ar <a href=\"%1\">%1</a> chun tuilleadh eolais a fháil "
+"maidir le tionscadail eile ar féidir leat cabhrú leo.<br /><br />Má tá "
+"tuilleadh eolais nó doiciméadú de dhíth ort, tabhair cuairt ar <a href="
+"\"%2\">%2</a> agus aimseoidh tú an rud atá de dhíth ort.</html>"
+
+#: src/lokalizemainwindow.cpp:84
+#, fuzzy, kde-format
+#| msgid "&Configure %1..."
+msgid "&Configure Lokalize"
+msgstr "&Cumraigh %1..."
+
+#: src/lokalizemainwindow.cpp:85 src/project/projecttab.cpp:158
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project"
+msgstr "Oscail tionscadal"
+
+#: src/lokalizemainwindow.cpp:86
+#, fuzzy, kde-format
+#| msgid "Translator"
+msgctxt "@action:inmenu"
+msgid "Translate software"
+msgstr "Aistritheoir"
+
+#: src/lokalizemainwindow.cpp:87
+#, fuzzy, kde-format
+#| msgid "Translate a document"
+msgctxt "@action:inmenu"
+msgid "Translate OpenDocument"
+msgstr "Aistrigh cáipéis"
+
+#: src/lokalizemainwindow.cpp:156
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:412 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:412 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:442 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:508 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Cuimhne Aistriúcháin"
 
-#: src/lokalizemainwindow.cpp:443 src/project/projecttab.cpp:212
+#: src/lokalizemainwindow.cpp:509 src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Tionscadal"
 
-#: src/lokalizemainwindow.cpp:464
+#: src/lokalizemainwindow.cpp:530
 #, kde-format
 msgid "Next tab"
 msgstr "An chéad chluaisín eile"
 
-#: src/lokalizemainwindow.cpp:467
+#: src/lokalizemainwindow.cpp:533
 #, kde-format
 msgid "Previous tab"
 msgstr "An cluaisín roimhe seo"
 
-#: src/lokalizemainwindow.cpp:470
+#: src/lokalizemainwindow.cpp:536
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previously active tab"
 msgstr "An cluaisín roimhe seo"
 
-#: src/lokalizemainwindow.cpp:476
+#: src/lokalizemainwindow.cpp:542
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Gluais"
 
-#: src/lokalizemainwindow.cpp:480
+#: src/lokalizemainwindow.cpp:546
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Cuimhne aistriúcháin"
 
-#: src/lokalizemainwindow.cpp:484 src/tm/tmtab.cpp:485
+#: src/lokalizemainwindow.cpp:550 src/tm/tmtab.cpp:485
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Bainistigh cuimhne aistriúcháin"
 
-#: src/lokalizemainwindow.cpp:488
+#: src/lokalizemainwindow.cpp:554
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Foramharc an tionscadail"
 
-#: src/lokalizemainwindow.cpp:492
+#: src/lokalizemainwindow.cpp:558
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
@@ -2201,20 +2255,20 @@ msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Cumraigh tionscadal"
 
-#: src/lokalizemainwindow.cpp:495
+#: src/lokalizemainwindow.cpp:561
 #, fuzzy, kde-format
 #| msgid "*.lokalize|Lokalize translation project"
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
 
-#: src/lokalizemainwindow.cpp:498
+#: src/lokalizemainwindow.cpp:564
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:501
+#: src/lokalizemainwindow.cpp:567
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2222,7 +2276,7 @@ msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Oscail tionscadal"
 
-#: src/lokalizemainwindow.cpp:505
+#: src/lokalizemainwindow.cpp:571
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2230,31 +2284,31 @@ msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Oscail tionscadal"
 
-#: src/lokalizemainwindow.cpp:508
+#: src/lokalizemainwindow.cpp:574
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Oscail tionscadal le déanaí"
 
-#: src/lokalizemainwindow.cpp:518
+#: src/lokalizemainwindow.cpp:584
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:521
+#: src/lokalizemainwindow.cpp:587
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:525
+#: src/lokalizemainwindow.cpp:591
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:690
+#: src/lokalizemainwindow.cpp:756
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -3738,67 +3792,13 @@ msgctxt "@title:column"
 msgid "Last Translator"
 msgstr "Aistritheoir Is Déanaí"
 
-#: src/project/projecttab.cpp:52
+#: src/project/projecttab.cpp:51
 #, kde-format
 msgctxt "@title:window"
 msgid "Project Overview"
 msgstr "Foramharc an Tionscadail"
 
-#: src/project/projecttab.cpp:56
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
-msgid ""
-"<html>You do not have to be a software developer to be a member of the KDE "
-"team. You can join the language teams that translate program interfaces. You "
-"can provide graphics, themes, sounds, and improved documentation. You decide!"
-"<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
-"which you can participate.<br /><br />If you need more information or "
-"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
-"what you need.</html>"
-msgstr ""
-"<html>Ní gá duit a bheith i d'fhorbróir bogearraí chun cabhrú le KDE. Má tá "
-"Gaeilge mhaith agat, cláraigh leis an bhfoireann aistriúcháin agus cabhraigh "
-"linn an comhéadan KDE a aistriú. Nó is féidir leat grafaic, téamaí, "
-"fuaimeanna, agus doiciméadú a sholáthar. Is leatsa an rogha!<br /><br /"
-">Tabhair cuairt ar <a href=\"%1\">%1</a> chun tuilleadh eolais a fháil "
-"maidir le tionscadail eile ar féidir leat cabhrú leo.<br /><br />Má tá "
-"tuilleadh eolais nó doiciméadú de dhíth ort, tabhair cuairt ar <a href="
-"\"%2\">%2</a> agus aimseoidh tú an rud atá de dhíth ort.</html>"
-
-#: src/project/projecttab.cpp:78
-#, fuzzy, kde-format
-#| msgid "&Configure %1..."
-msgid "&Configure Lokalize"
-msgstr "&Cumraigh %1..."
-
-#: src/project/projecttab.cpp:79 src/project/projecttab.cpp:215
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Open project"
-msgstr "Oscail tionscadal"
-
-#: src/project/projecttab.cpp:80
-#, fuzzy, kde-format
-#| msgid "Translator"
-msgctxt "@action:inmenu"
-msgid "Translate software"
-msgstr "Aistritheoir"
-
-#: src/project/projecttab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Translate a document"
-msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
-msgstr "Aistrigh cáipéis"
-
-#: src/project/projecttab.cpp:131
+#: src/project/projecttab.cpp:74
 #, fuzzy, kde-format
 #| msgctxt "percentages in statusbar"
 #| msgid " (%1%)"
@@ -3808,68 +3808,68 @@ msgctxt ""
 msgid "%p%"
 msgstr " (%1%)"
 
-#: src/project/projecttab.cpp:185
+#: src/project/projecttab.cpp:128
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "An teimpléad roimhe seo amháin"
 
-#: src/project/projecttab.cpp:191
+#: src/project/projecttab.cpp:134
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "An chéad teimpléad eile amháin"
 
-#: src/project/projecttab.cpp:196
+#: src/project/projecttab.cpp:139
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "An t-aistriúchán roimhe seo amháin"
 
-#: src/project/projecttab.cpp:199
+#: src/project/projecttab.cpp:142
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "An chéad aistriúchán eile amháin"
 
-#: src/project/projecttab.cpp:203
+#: src/project/projecttab.cpp:146
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr ""
 
-#: src/project/projecttab.cpp:204
+#: src/project/projecttab.cpp:147
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr ""
 
-#: src/project/projecttab.cpp:265
+#: src/project/projecttab.cpp:199
 #, fuzzy, kde-format
 #| msgid "Select file:"
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Roghnaigh comhad:"
 
-#: src/project/projecttab.cpp:268
+#: src/project/projecttab.cpp:202
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "Oscail"
 
-#: src/project/projecttab.cpp:271
+#: src/project/projecttab.cpp:205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Cuir le cuimhne aistriúcháin"
 
-#: src/project/projecttab.cpp:273
+#: src/project/projecttab.cpp:207
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "Cuardaigh i gcomhaid"
 
-#: src/project/projecttab.cpp:274
+#: src/project/projecttab.cpp:208
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add a note"
@@ -3877,34 +3877,34 @@ msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Cuir nóta leis"
 
-#: src/project/projecttab.cpp:276
+#: src/project/projecttab.cpp:210
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr ""
 
-#: src/project/projecttab.cpp:279
+#: src/project/projecttab.cpp:213
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "Cuardaigh i gcomhaid (teimpléid san áireamh)"
 
-#: src/project/projecttab.cpp:306
+#: src/project/projecttab.cpp:240
 #, kde-format
 msgid "Project file comment"
 msgstr ""
 
-#: src/project/projecttab.cpp:306
+#: src/project/projecttab.cpp:240
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr ""
 
-#: src/project/projecttab.cpp:382
+#: src/project/projecttab.cpp:316
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:401
+#: src/project/projecttab.cpp:335
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
@@ -3914,19 +3914,19 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: src/project/projecttab.cpp:402
+#: src/project/projecttab.cpp:336
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:403
+#: src/project/projecttab.cpp:337
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:404
+#: src/project/projecttab.cpp:338
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "&Open %1 File"

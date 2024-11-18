@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-16 00:43+0000\n"
+"POT-Creation-Date: 2024-11-18 00:42+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -891,13 +891,13 @@ msgid "Translation Units"
 msgstr "Unidades de Tradução"
 
 #: src/cataloglistview/cataloglistview.cpp:83
-#: src/glossary/glossarywindow.cpp:219 src/project/projecttab.cpp:113
+#: src/glossary/glossarywindow.cpp:219 src/project/projecttab.cpp:56
 #, kde-format
 msgid "Quick search..."
 msgstr "Pesquisa rápida..."
 
 #: src/cataloglistview/cataloglistview.cpp:84
-#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
+#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:57
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
@@ -1115,7 +1115,7 @@ msgid "Current: %1"
 msgstr "Actual: %1"
 
 #: src/editortab.cpp:109 src/editortab.cpp:777
-#: src/filesearch/filesearchtab.cpp:705 src/project/projecttab.cpp:506
+#: src/filesearch/filesearchtab.cpp:705 src/project/projecttab.cpp:440
 #: src/tm/tmtab.cpp:583
 #, kde-format
 msgctxt "@info:status message entries"
@@ -1142,13 +1142,13 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:440
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:506
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
 msgstr "Ficheiro"
 
-#: src/editortab.cpp:157 src/project/projecttab.cpp:146
+#: src/editortab.cpp:157 src/project/projecttab.cpp:89
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
@@ -1175,7 +1175,7 @@ msgstr "Sincronização 2"
 msgid "Translation Memory"
 msgstr "Memória de Traduções"
 
-#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:441
+#: src/editortab.cpp:162 src/lokalizemainwindow.cpp:507
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1357,7 +1357,7 @@ msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Item pelo número"
 
-#: src/editortab.cpp:487 src/project/projecttab.cpp:161
+#: src/editortab.cpp:487 src/project/projecttab.cpp:104
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1365,7 +1365,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Não-vazia mas não-pronta anterior"
 
-#: src/editortab.cpp:495 src/project/projecttab.cpp:167
+#: src/editortab.cpp:495 src/project/projecttab.cpp:110
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1373,19 +1373,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Não-vazia mas não-pronta seguinte"
 
-#: src/editortab.cpp:502 src/project/projecttab.cpp:173
+#: src/editortab.cpp:502 src/project/projecttab.cpp:116
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Não-traduzida anterior"
 
-#: src/editortab.cpp:507 src/project/projecttab.cpp:179
+#: src/editortab.cpp:507 src/project/projecttab.cpp:122
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Não-traduzida seguinte"
 
-#: src/editortab.cpp:513 src/project/projecttab.cpp:149
+#: src/editortab.cpp:513 src/project/projecttab.cpp:92
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1393,7 +1393,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Não-pronta anterior"
 
-#: src/editortab.cpp:521 src/project/projecttab.cpp:155
+#: src/editortab.cpp:521 src/project/projecttab.cpp:98
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1655,19 +1655,19 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "O item está completamente traduzido (i.e., final)"
 
-#: src/editortab.cpp:1307 src/project/projecttab.cpp:372
+#: src/editortab.cpp:1307 src/project/projecttab.cpp:306
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Já está uma verificação do Pology em curso."
 
 #: src/editortab.cpp:1307 src/editortab.cpp:1315 src/editortab.cpp:1319
-#: src/project/projecttab.cpp:372 src/project/projecttab.cpp:380
-#: src/project/projecttab.cpp:384
+#: src/project/projecttab.cpp:306 src/project/projecttab.cpp:314
+#: src/project/projecttab.cpp:318
 #, kde-format
 msgid "Pology error"
 msgstr "Erro do Pology"
 
-#: src/editortab.cpp:1315 src/project/projecttab.cpp:380
+#: src/editortab.cpp:1315 src/project/projecttab.cpp:314
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1676,7 +1676,7 @@ msgstr ""
 "A verificação do Pology estoirou de forma inesperada:\n"
 "%1"
 
-#: src/editortab.cpp:1317 src/project/projecttab.cpp:382
+#: src/editortab.cpp:1317 src/project/projecttab.cpp:316
 #, kde-format
 msgid "Pology success"
 msgstr "Sucesso do Pology"
@@ -1686,7 +1686,7 @@ msgstr "Sucesso do Pology"
 msgid "The Pology check has succeeded."
 msgstr "A verificação do Pology terminou com sucesso."
 
-#: src/editortab.cpp:1319 src/project/projecttab.cpp:384
+#: src/editortab.cpp:1319 src/project/projecttab.cpp:318
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -2252,7 +2252,58 @@ msgstr "Sugestões:"
 msgid "No errors"
 msgstr "Sem erros"
 
-#: src/lokalizemainwindow.cpp:100
+#: src/lokalizemainwindow.cpp:62
+#, fuzzy, kde-format
+#| msgid ""
+#| "<html>You do not have to be a software developer to be a member of the "
+#| "KDE team. You can join the national teams that translate program "
+#| "interfaces. You can provide graphics, themes, sounds, and improved "
+#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
+#| "information on some projects in which you can participate.<br /><br />If "
+#| "you need more information or documentation, then a visit to <a href="
+#| "\"%2\">%2</a> will provide you with what you need.</html>"
+msgid ""
+"<html>You do not have to be a software developer to be a member of the KDE "
+"team. You can join the language teams that translate program interfaces. You "
+"can provide graphics, themes, sounds, and improved documentation. You decide!"
+"<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
+"which you can participate.<br /><br />If you need more information or "
+"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
+"what you need.</html>"
+msgstr ""
+"<html>Não tem de ser um programador para ser membro da equipa do KDE. Pode "
+"juntar-se à equipa que traduz os programas para Português (<a href=\"http://"
+"kde-pt.homelinux.org/\">http://kde-pt.homelinux.org/</a>). Pode contribuir "
+"com gráficos, temas, sons e documentação melhorada. Você é que decide!<br/"
+"><br/> Visite <a href=\"%1\">%1</a> para saber em que projectos é que pode "
+"participar.<br/><br/>Se necessitar de mais informações ou de documentação, "
+"então uma visita a <a href=\"%2\">%2</a> poderá fornecer o que necessitar.</"
+"html>"
+
+#: src/lokalizemainwindow.cpp:84
+#, kde-format
+msgid "&Configure Lokalize"
+msgstr "&Configurar o Lokalize"
+
+#: src/lokalizemainwindow.cpp:85 src/project/projecttab.cpp:158
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project"
+msgstr "Abrir o projecto"
+
+#: src/lokalizemainwindow.cpp:86
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate software"
+msgstr "Tradutor de aplicações"
+
+#: src/lokalizemainwindow.cpp:87
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate OpenDocument"
+msgstr "Traduzir um OpenDocument"
+
+#: src/lokalizemainwindow.cpp:156
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
@@ -2260,122 +2311,122 @@ msgstr ""
 "Não foram encontrados módulos de SQL do Qt. A memória de traduções não ira "
 "funcionar."
 
-#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:412 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "A funcionalidade de MT necessita do módulo de SQLite para o Qt."
 
-#: src/lokalizemainwindow.cpp:346 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:412 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Não está disponível o módulo do SQLite"
 
-#: src/lokalizemainwindow.cpp:442 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:508 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Memória de Traduções"
 
-#: src/lokalizemainwindow.cpp:443 src/project/projecttab.cpp:212
+#: src/lokalizemainwindow.cpp:509 src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Projecto"
 
-#: src/lokalizemainwindow.cpp:464
+#: src/lokalizemainwindow.cpp:530
 #, kde-format
 msgid "Next tab"
 msgstr "Página seguinte"
 
-#: src/lokalizemainwindow.cpp:467
+#: src/lokalizemainwindow.cpp:533
 #, kde-format
 msgid "Previous tab"
 msgstr "Página anterior"
 
-#: src/lokalizemainwindow.cpp:470
+#: src/lokalizemainwindow.cpp:536
 #, kde-format
 msgid "Previously active tab"
 msgstr "Página activa anterior"
 
-#: src/lokalizemainwindow.cpp:476
+#: src/lokalizemainwindow.cpp:542
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Glossário"
 
-#: src/lokalizemainwindow.cpp:480
+#: src/lokalizemainwindow.cpp:546
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Memória de traduções"
 
-#: src/lokalizemainwindow.cpp:484 src/tm/tmtab.cpp:485
+#: src/lokalizemainwindow.cpp:550 src/tm/tmtab.cpp:485
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Gerir as memórias de tradução"
 
-#: src/lokalizemainwindow.cpp:488
+#: src/lokalizemainwindow.cpp:554
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Visão geral do projecto"
 
-#: src/lokalizemainwindow.cpp:492
+#: src/lokalizemainwindow.cpp:558
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Configurar o projecto..."
 
-#: src/lokalizemainwindow.cpp:495
+#: src/lokalizemainwindow.cpp:561
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Criar um projecto de traduções de aplicações..."
 
-#: src/lokalizemainwindow.cpp:498
+#: src/lokalizemainwindow.cpp:564
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "Criar um projecto de tradução em OpenDocument..."
 
-#: src/lokalizemainwindow.cpp:501
+#: src/lokalizemainwindow.cpp:567
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Abrir um projecto..."
 
-#: src/lokalizemainwindow.cpp:505
+#: src/lokalizemainwindow.cpp:571
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Fechar o projecto"
 
-#: src/lokalizemainwindow.cpp:508
+#: src/lokalizemainwindow.cpp:574
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Abrir um projecto recente"
 
-#: src/lokalizemainwindow.cpp:518
+#: src/lokalizemainwindow.cpp:584
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Procurar e substituir nos ficheiros"
 
-#: src/lokalizemainwindow.cpp:521
+#: src/lokalizemainwindow.cpp:587
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Procurar o seguinte nos ficheiros"
 
-#: src/lokalizemainwindow.cpp:525
+#: src/lokalizemainwindow.cpp:591
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Captura do texto do elemento"
 
-#: src/lokalizemainwindow.cpp:690
+#: src/lokalizemainwindow.cpp:756
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -3968,64 +4019,13 @@ msgctxt "@title:column"
 msgid "Last Translator"
 msgstr "Último Tradutor"
 
-#: src/project/projecttab.cpp:52
+#: src/project/projecttab.cpp:51
 #, kde-format
 msgctxt "@title:window"
 msgid "Project Overview"
 msgstr "Visão Geral do Projecto"
 
-#: src/project/projecttab.cpp:56
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
-msgid ""
-"<html>You do not have to be a software developer to be a member of the KDE "
-"team. You can join the language teams that translate program interfaces. You "
-"can provide graphics, themes, sounds, and improved documentation. You decide!"
-"<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
-"which you can participate.<br /><br />If you need more information or "
-"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
-"what you need.</html>"
-msgstr ""
-"<html>Não tem de ser um programador para ser membro da equipa do KDE. Pode "
-"juntar-se à equipa que traduz os programas para Português (<a href=\"http://"
-"kde-pt.homelinux.org/\">http://kde-pt.homelinux.org/</a>). Pode contribuir "
-"com gráficos, temas, sons e documentação melhorada. Você é que decide!<br/"
-"><br/> Visite <a href=\"%1\">%1</a> para saber em que projectos é que pode "
-"participar.<br/><br/>Se necessitar de mais informações ou de documentação, "
-"então uma visita a <a href=\"%2\">%2</a> poderá fornecer o que necessitar.</"
-"html>"
-
-#: src/project/projecttab.cpp:78
-#, kde-format
-msgid "&Configure Lokalize"
-msgstr "&Configurar o Lokalize"
-
-#: src/project/projecttab.cpp:79 src/project/projecttab.cpp:215
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Open project"
-msgstr "Abrir o projecto"
-
-#: src/project/projecttab.cpp:80
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Translate software"
-msgstr "Tradutor de aplicações"
-
-#: src/project/projecttab.cpp:81
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
-msgstr "Traduzir um OpenDocument"
-
-#: src/project/projecttab.cpp:131
+#: src/project/projecttab.cpp:74
 #, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
@@ -4033,107 +4033,107 @@ msgctxt ""
 msgid "%p%"
 msgstr "%p%"
 
-#: src/project/projecttab.cpp:185
+#: src/project/projecttab.cpp:128
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "Apenas o modelo anterior"
 
-#: src/project/projecttab.cpp:191
+#: src/project/projecttab.cpp:134
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "Apenas o modelo seguinte"
 
-#: src/project/projecttab.cpp:196
+#: src/project/projecttab.cpp:139
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "Apenas a tradução anterior"
 
-#: src/project/projecttab.cpp:199
+#: src/project/projecttab.cpp:142
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "Apenas a tradução seguinte"
 
-#: src/project/projecttab.cpp:203
+#: src/project/projecttab.cpp:146
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr "Esconder os itens completos"
 
-#: src/project/projecttab.cpp:204
+#: src/project/projecttab.cpp:147
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "Esconder os ficheiros e pastas completamente traduzidos"
 
-#: src/project/projecttab.cpp:265
+#: src/project/projecttab.cpp:199
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Abrir os ficheiros seleccionados"
 
-#: src/project/projecttab.cpp:268
+#: src/project/projecttab.cpp:202
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "Abrir"
 
-#: src/project/projecttab.cpp:271
+#: src/project/projecttab.cpp:205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Adicionar à memória de traduções"
 
-#: src/project/projecttab.cpp:273
+#: src/project/projecttab.cpp:207
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "Procurar nos ficheiros"
 
-#: src/project/projecttab.cpp:274
+#: src/project/projecttab.cpp:208
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
 
-#: src/project/projecttab.cpp:276
+#: src/project/projecttab.cpp:210
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr "Lançar o Pology sobre os ficheiros"
 
-#: src/project/projecttab.cpp:279
+#: src/project/projecttab.cpp:213
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "Procurar nos ficheiros (incluindo os modelos)"
 
-#: src/project/projecttab.cpp:306
+#: src/project/projecttab.cpp:240
 #, kde-format
 msgid "Project file comment"
 msgstr "Comentário do ficheiro do projecto"
 
-#: src/project/projecttab.cpp:306
+#: src/project/projecttab.cpp:240
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr "Indique um comentário para este ficheiro de projecto:"
 
-#: src/project/projecttab.cpp:382
+#: src/project/projecttab.cpp:316
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "A verificação do Pology terminou com sucesso"
 
-#: src/project/projecttab.cpp:401
+#: src/project/projecttab.cpp:335
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "Está prestes a abrir %1 ficheiro"
 msgstr[1] "Está prestes a abrir %1 ficheiros"
 
-#: src/project/projecttab.cpp:402
+#: src/project/projecttab.cpp:336
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4142,12 +4142,12 @@ msgstr ""
 "A abertura de um grande número de ficheiros ao mesmo tempo poderá fazer com "
 "que o Lokalize deixe de responder."
 
-#: src/project/projecttab.cpp:403
+#: src/project/projecttab.cpp:337
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "Tem a certeza que deseja abrir tantos ficheiros?"
 
-#: src/project/projecttab.cpp:404
+#: src/project/projecttab.cpp:338
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
