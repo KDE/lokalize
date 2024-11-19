@@ -176,16 +176,16 @@ void EditorTab::setupActions()
         altactions[i] = altaction;
     }
 
-    m_altTransView = new AltTransView(this, m_catalog, altactions);
-    addDockWidget(Qt::BottomDockWidgetArea, m_altTransView);
-    ac->addAction(QStringLiteral("showmsgiddiff_action"), m_altTransView->toggleViewAction());
+    m_alternateTranslationView = new AltTransView(this, m_catalog, altactions);
+    addDockWidget(Qt::BottomDockWidgetArea, m_alternateTranslationView);
+    ac->addAction(QStringLiteral("showmsgiddiff_action"), m_alternateTranslationView->toggleViewAction());
     connect(this,
             qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed),
-            m_altTransView,
+            m_alternateTranslationView,
             qOverload<const DocPosition &>(&AltTransView::slotNewEntryDisplayed));
-    connect(m_altTransView, &AltTransView::textInsertRequested, m_view, &EditorView::insertTerm);
-    connect(m_altTransView, &AltTransView::refreshRequested, m_view, qOverload<>(&EditorView::gotoEntry), Qt::QueuedConnection);
-    connect(m_catalog, qOverload<>(&Catalog::signalFileLoaded), m_altTransView, &AltTransView::fileLoaded);
+    connect(m_alternateTranslationView, &AltTransView::textInsertRequested, m_view, &EditorView::insertTerm);
+    connect(m_alternateTranslationView, &AltTransView::refreshRequested, m_view, qOverload<>(&EditorView::gotoEntry), Qt::QueuedConnection);
+    connect(m_catalog, qOverload<>(&Catalog::signalFileLoaded), m_alternateTranslationView, &AltTransView::fileLoaded);
 
     m_syncView = new MergeView(this, m_catalog, true);
     addDockWidget(Qt::BottomDockWidgetArea, m_syncView);
@@ -260,18 +260,18 @@ void EditorTab::setupActions()
                                                       << QKeySequence(Qt::ControlModifier | Qt::AltModifier | Qt::Key_Plus));
     }
 #endif
-    TM::TMView *_tmView = new TM::TMView(this, m_catalog, tmactions_insert, tmactions_remove);
-    addDockWidget(Qt::BottomDockWidgetArea, _tmView);
-    tm->addAction(QStringLiteral("showtmqueryview_action"), _tmView->toggleViewAction());
-    connect(_tmView, &TM::TMView::refreshRequested, m_view, qOverload<>(&EditorView::gotoEntry), Qt::QueuedConnection);
-    connect(_tmView, &TM::TMView::refreshRequested, this, &EditorTab::msgStrChanged, Qt::QueuedConnection);
-    connect(_tmView, &TM::TMView::textInsertRequested, m_view, &EditorView::insertTerm);
-    connect(_tmView, &TM::TMView::fileOpenRequested, this, &EditorTab::fileOpenRequested);
+    m_translationMemoryView = new TM::TMView(this, m_catalog, tmactions_insert, tmactions_remove);
+    addDockWidget(Qt::BottomDockWidgetArea, m_translationMemoryView);
+    tm->addAction(QStringLiteral("showtmqueryview_action"), m_translationMemoryView->toggleViewAction());
+    connect(m_translationMemoryView, &TM::TMView::refreshRequested, m_view, qOverload<>(&EditorView::gotoEntry), Qt::QueuedConnection);
+    connect(m_translationMemoryView, &TM::TMView::refreshRequested, this, &EditorTab::msgStrChanged, Qt::QueuedConnection);
+    connect(m_translationMemoryView, &TM::TMView::textInsertRequested, m_view, &EditorView::insertTerm);
+    connect(m_translationMemoryView, &TM::TMView::fileOpenRequested, this, &EditorTab::fileOpenRequested);
     connect(this, &EditorTab::fileAboutToBeClosed, m_catalog, &Catalog::flushUpdateDBBuffer);
     connect(this, &EditorTab::signalNewEntryDisplayed, m_catalog, &Catalog::flushUpdateDBBuffer);
     connect(this,
             &EditorTab::signalNewEntryDisplayed,
-            _tmView,
+            m_translationMemoryView,
             qOverload<const DocPosition &>(&TM::TMView::slotNewEntryDisplayed)); // do this after flushUpdateDBBuffer
 
     QVector<QAction *> gactions(GLOSSARY_SHORTCUTS);
@@ -549,13 +549,13 @@ void EditorTab::setupActions()
     actionCategory = tm;
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch", i18nc("@action:inmenu", "Fill in all exact suggestions"), Qt::ControlModifier | Qt::AltModifier | Qt::Key_B)
-    connect(action, &QAction::triggered, _tmView, &TM::TMView::slotBatchTranslate);
+    connect(action, &QAction::triggered, m_translationMemoryView, &TM::TMView::slotBatchTranslate);
 
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",
                         i18nc("@action:inmenu", "Fill in all exact suggestions and mark as fuzzy"),
                         Qt::ControlModifier | Qt::AltModifier | Qt::Key_N)
-    connect(action, &QAction::triggered, _tmView, &TM::TMView::slotBatchTranslateFuzzy);
+    connect(action, &QAction::triggered, m_translationMemoryView, &TM::TMView::slotBatchTranslateFuzzy);
 
     // MergeMode
     action = sync1->addAction(QStringLiteral("merge_open"), m_syncView, SLOT(mergeOpen()));
@@ -1729,15 +1729,15 @@ void EditorTab::addTemporaryEntryNote(int entry, const QString &note)
 
 void EditorTab::addAlternateTranslation(int entry, const QString &translation)
 {
-    m_altTransView->addAlternateTranslation(entry, translation);
+    m_alternateTranslationView->addAlternateTranslation(entry, translation);
 }
 void EditorTab::addTemporaryAlternateTranslation(int entry, const QString &translation)
 {
-    m_altTransView->addAlternateTranslation(entry, translation);
+    m_alternateTranslationView->addAlternateTranslation(entry, translation);
 }
 void EditorTab::attachAlternateTranslationFile(const QString &path)
 {
-    m_altTransView->attachAltTransFile(path);
+    m_alternateTranslationView->attachAltTransFile(path);
 }
 
 void EditorTab::setEntryTarget(int entry, int form, const QString &content)

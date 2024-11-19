@@ -30,6 +30,10 @@ namespace Sonnet
 {
 class BackgroundChecker;
 }
+namespace TM
+{
+class TMView;
+}
 
 #include <kxmlguiclient.h>
 
@@ -350,7 +354,8 @@ private:
     MergeView *m_syncViewSecondary{};
     CatalogView *m_transUnitsView{};
     MsgCtxtView *m_notesView{};
-    AltTransView *m_altTransView{};
+    AltTransView *m_alternateTranslationView{};
+    TM::TMView *m_translationMemoryView{};
     // END views
 
     QString m_relativeOrAbsoluteFilePath;
