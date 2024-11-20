@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-19 00:42+0000\n"
+"POT-Creation-Date: 2024-11-20 00:42+0000\n"
 "PO-Revision-Date: 2024-10-31 16:18+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -2385,13 +2385,13 @@ msgstr "&Projekts"
 msgid "&Scripts"
 msgstr "&Skripti"
 
-#: src/main.cpp:53
+#: src/main.cpp:72
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
 msgstr "Lokalize"
 
-#: src/main.cpp:54
+#: src/main.cpp:73
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2400,7 +2400,7 @@ msgstr ""
 "Datorizētās tulkošanas sistēma.\n"
 "Ļaut netulkot to, kas jau reiz ir iztulkots."
 
-#: src/main.cpp:56
+#: src/main.cpp:75
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2412,142 +2412,142 @@ msgstr ""
 "(c) 2007—2015 Nick Shaforostoff\n"
 "(c) 1999—2006 „KBabel“ izstrādātāji"
 
-#: src/main.cpp:57
+#: src/main.cpp:76
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:58
+#: src/main.cpp:77
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc."
 
-#: src/main.cpp:59
+#: src/main.cpp:78
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "sponsorēja izstrādi „Google Summer Of Code“ programmas ietvaros"
 
-#: src/main.cpp:62
+#: src/main.cpp:81
 #, kde-format
 msgid "NLNet Foundation"
 msgstr "NLNet Foundation"
 
-#: src/main.cpp:62
+#: src/main.cpp:81
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr "sponsorēja ar XLIFF saistītu darbu"
 
-#: src/main.cpp:63
+#: src/main.cpp:82
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "Translate-toolkit"
 
-#: src/main.cpp:64
+#: src/main.cpp:83
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "nodrošināja lieliskus starpformātu pārveidošanas skriptus"
 
-#: src/main.cpp:67
+#: src/main.cpp:86
 #, kde-format
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/main.cpp:67
+#: src/main.cpp:86
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr "gramatika, stils un pareizrakstības pārbaude"
 
-#: src/main.cpp:68
+#: src/main.cpp:87
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:68
+#: src/main.cpp:87
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr "tulkojumu un sagatavju sapludināšana projektu kokā"
 
-#: src/main.cpp:69
+#: src/main.cpp:88
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach"
 
-#: src/main.cpp:69 src/main.cpp:70 src/main.cpp:73
+#: src/main.cpp:88 src/main.cpp:89 src/main.cpp:92
 #, kde-format
 msgid "bug fixing patches"
 msgstr "kļūdu labošanas ielāpi"
 
-#: src/main.cpp:70
+#: src/main.cpp:89
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
-#: src/main.cpp:71
+#: src/main.cpp:90
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:71
+#: src/main.cpp:90
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "testēšana un kļūdu labošana"
 
-#: src/main.cpp:72
+#: src/main.cpp:91
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:72
+#: src/main.cpp:91
 #, kde-format
 msgid "patches"
 msgstr "ielāpi"
 
-#: src/main.cpp:73
+#: src/main.cpp:92
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:74
+#: src/main.cpp:93
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: src/main.cpp:74
+#: src/main.cpp:93
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "XLIFF uzlabojumi"
 
-#: src/main.cpp:75
+#: src/main.cpp:94
 #, kde-format
 msgid "Simon Depiets"
 msgstr "Simon Depiets"
 
-#: src/main.cpp:75 src/main.cpp:76 src/main.cpp:77
+#: src/main.cpp:94 src/main.cpp:95 src/main.cpp:96
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr "kļūdu labojumi un uzlabojumi"
 
-#: src/main.cpp:76
+#: src/main.cpp:95
 #, kde-format
 msgid "Karl Ove Hufthammer"
 msgstr "Karl Ove Hufthammer"
 
-#: src/main.cpp:77
+#: src/main.cpp:96
 #, kde-format
 msgid "Finley Watson"
 msgstr "Finley Watson"
 
-#: src/main.cpp:81
+#: src/main.cpp:100
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "Neskenēt projekta datnes."
 
-#: src/main.cpp:82
+#: src/main.cpp:101
 #, kde-format
 msgid "Load specified project."
 msgstr "Atvērt noradīto projektu."
 
-#: src/main.cpp:83
+#: src/main.cpp:102
 #, kde-format
 msgid "Document to open"
 msgstr "Atveramais dokuments"
