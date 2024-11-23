@@ -33,6 +33,12 @@ class AltTransView : public QDockWidget
 public:
     explicit AltTransView(QWidget *, Catalog *, const QVector<QAction *> &);
     ~AltTransView() override;
+    /*
+     * @short Triggered for each show / hide event.
+     * Resizes the items in the view so that when the view
+     * is first shown, its items are laid out correctly.
+     */
+    void showEvent(QShowEvent *event) override;
 
 public Q_SLOTS:
     void slotNewEntryDisplayed(const DocPosition &);
