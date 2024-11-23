@@ -72,7 +72,7 @@ AltTransView::~AltTransView()
 void AltTransView::showEvent(QShowEvent *event)
 {
     if (event->type() == QShowEvent::Show)
-        m_entriesList->updateListItemHeights();
+        m_atm_entries_list->updateListItemHeights();
     QWidget::showEvent(event);
 }
 

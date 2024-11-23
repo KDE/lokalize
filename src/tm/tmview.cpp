@@ -420,7 +420,7 @@ void TMView::displayFromCache()
 void TMView::showEvent(QShowEvent *event)
 {
     if (event->type() == QShowEvent::Show)
-        m_entriesList->updateListItemHeights();
+        m_tm_entries_list->updateListItemHeights();
     QWidget::showEvent(event);
 }
 
