@@ -46,6 +46,13 @@ public:
     {
         return QSize(300, 100);
     }
+    /*
+     * @short Triggered for each show / hide event.
+     * Resizes the items in the view so that when the view
+     * is first shown, its items are laid out correctly.
+     */
+    void showEvent(QShowEvent *event) override;
+
 Q_SIGNALS:
     void refreshRequested();
     void textInsertRequested(const QString &);

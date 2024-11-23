@@ -417,6 +417,13 @@ void TMView::displayFromCache()
     m_prevCachePos = m_pos;
 }
 
+void TMView::showEvent(QShowEvent *event)
+{
+    if (event->type() == QShowEvent::Show)
+        m_entriesList->updateListItemHeights();
+    QWidget::showEvent(event);
+}
+
 void TMView::slotSuggestionsCame(SelectJob *j)
 {
     SelectJob &job = *j;

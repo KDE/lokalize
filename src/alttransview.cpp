@@ -67,6 +67,13 @@ AltTransView::~AltTransView()
 {
 }
 
+void AltTransView::showEvent(QShowEvent *event)
+{
+    if (event->type() == QShowEvent::Show)
+        m_entriesList->updateListItemHeights();
+    QWidget::showEvent(event);
+}
+
 void AltTransView::dragEnterEvent(QDragEnterEvent *event)
 {
     if (event->mimeData()->hasUrls() && Catalog::extIsSupported(event->mimeData()->urls().first().path()))
