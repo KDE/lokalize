@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-16 02:38+0000\n"
+"POT-Creation-Date: 2024-11-24 02:36+0000\n"
 "PO-Revision-Date: 2024-10-25 22:10+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -117,7 +117,7 @@ msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "תרגומים חלופיים"
 
-#: src/alttransview.cpp:154
+#: src/alttransview.cpp:161
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -135,42 +135,42 @@ msgstr ""
 "\n"
 "להציג את התצוגה עם הנתונים?"
 
-#: src/alttransview.cpp:158
+#: src/alttransview.cpp:165
 #, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "יש תרגומים חלופיים"
 
-#: src/alttransview.cpp:159
+#: src/alttransview.cpp:166
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr "הצגת תצוגת נתונים"
 
-#: src/alttransview.cpp:175
+#: src/alttransview.cpp:182
 #, kde-format
 msgid "From alternate translations folder"
 msgstr "מתיקיית תרגומים חלופית"
 
-#: src/alttransview.cpp:198
+#: src/alttransview.cpp:205
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr "השוואה עם ההקשר הקודם:"
 
-#: src/alttransview.cpp:213
+#: src/alttransview.cpp:220
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
 msgstr "השוואה עם המקור הקודם:"
 
-#: src/alttransview.cpp:284
+#: src/alttransview.cpp:291
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "מקור: %1"
 
-#: src/alttransview.cpp:291
+#: src/alttransview.cpp:298
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -192,7 +192,7 @@ msgstr ""
 "התצוגה הזה מוסיפה אותה לתרגום. יש לגרור קובץ תרגום לכלי התצוגה הזה כדי "
 "להשתמש בו כמקור לתרגומים חלופיים נוספים."
 
-#: src/alttransview.cpp:323
+#: src/alttransview.cpp:330
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -4307,7 +4307,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "סה״כ: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:620
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:627
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4344,7 +4344,7 @@ msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "תרגום במרוכז תוזמן."
 
-#: src/tm/tmview.cpp:495
+#: src/tm/tmview.cpp:502
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
@@ -4352,7 +4352,7 @@ msgctxt ""
 msgid "100% (perfect match)"
 msgstr "100% (התאמה מדויקת)"
 
-#: src/tm/tmview.cpp:500
+#: src/tm/tmview.cpp:507
 #, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
@@ -4360,7 +4360,7 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:506
+#: src/tm/tmview.cpp:513
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
@@ -4372,7 +4372,7 @@ msgstr[1] "מופיע פעמיים"
 msgstr[2] "מופיע %1 פעמים"
 msgstr[3] "מופיע %1 פעמים"
 
-#: src/tm/tmview.cpp:516
+#: src/tm/tmview.cpp:523
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
@@ -4380,7 +4380,7 @@ msgctxt ""
 msgid "%1 • %2 • %3"
 msgstr "%1 • %2 • %3"
 
-#: src/tm/tmview.cpp:524
+#: src/tm/tmview.cpp:531
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
@@ -4388,43 +4388,43 @@ msgctxt ""
 msgid "%1 • %2"
 msgstr "%1 • %2"
 
-#: src/tm/tmview.cpp:576
+#: src/tm/tmview.cpp:583
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "זה"
 
-#: src/tm/tmview.cpp:577
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "קובץ: %1<br />תאריך הוספה: %2"
 
-#: src/tm/tmview.cpp:579
+#: src/tm/tmview.cpp:586
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />תאריך השינוי האחרון: %1"
 
-#: src/tm/tmview.cpp:581
+#: src/tm/tmview.cpp:588
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />יוצר השינוי האחרון: %1"
 
-#: src/tm/tmview.cpp:582
+#: src/tm/tmview.cpp:589
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />זיכרון תרגום: %1"
 
-#: src/tm/tmview.cpp:584
+#: src/tm/tmview.cpp:591
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />לא קיים עוד בקובץ"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:606
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4432,31 +4432,31 @@ msgid ""
 msgstr ""
 "<html>להסיר את הרשומה הזאת:<br/><i>%1</i><br/>מזיכרון התרגום %2?</html>"
 
-#: src/tm/tmview.cpp:602
+#: src/tm/tmview.cpp:609
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "הסרת רשומה בזיכרון התרגום"
 
-#: src/tm/tmview.cpp:647
+#: src/tm/tmview.cpp:654
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "הסרת הרשומה הזאת"
 
-#: src/tm/tmview.cpp:650
+#: src/tm/tmview.cpp:657
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "פתיחת קובץ שמכיל את הרשומה הזאת"
 
-#: src/tm/tmview.cpp:660
+#: src/tm/tmview.cpp:667
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "להסיר את הקובץ החסר הזה מזיכרון התרגום"
 
-#: src/tm/tmview.cpp:674
+#: src/tm/tmview.cpp:681
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4464,13 +4464,13 @@ msgid ""
 msgstr ""
 "<html>להסיר את הקובץ החסר הזה:<br/><i>%1</i><br/>מזיכרון התרגום %2?</html>"
 
-#: src/tm/tmview.cpp:678
+#: src/tm/tmview.cpp:685
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "הסרת קובץ חסר מזיכרון תרגום"
 
-#: src/tm/tmview.cpp:977
+#: src/tm/tmview.cpp:984
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

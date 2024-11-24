@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-16 02:38+0000\n"
+"POT-Creation-Date: 2024-11-24 02:36+0000\n"
 "PO-Revision-Date: 2024-08-20 00:32+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -114,7 +114,7 @@ msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "대체 번역"
 
-#: src/alttransview.cpp:154
+#: src/alttransview.cpp:161
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -133,44 +133,44 @@ msgstr ""
 "\n"
 "해당 데이터를 보시겠습니까?"
 
-#: src/alttransview.cpp:158
+#: src/alttransview.cpp:165
 #, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "대체 번역 사용 가능"
 
-#: src/alttransview.cpp:159
+#: src/alttransview.cpp:166
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr "데이터 보기 표시"
 
-#: src/alttransview.cpp:175
+#: src/alttransview.cpp:182
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox"
 #| msgid "Alternate translations folder:"
 msgid "From alternate translations folder"
 msgstr "대체 번역 폴더:"
 
-#: src/alttransview.cpp:198
+#: src/alttransview.cpp:205
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr ""
 
-#: src/alttransview.cpp:213
+#: src/alttransview.cpp:220
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
 msgstr ""
 
-#: src/alttransview.cpp:284
+#: src/alttransview.cpp:291
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "원본: %1"
 
-#: src/alttransview.cpp:291
+#: src/alttransview.cpp:298
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid ""
@@ -205,7 +205,7 @@ msgstr ""
 "합니다.</p><p>도구 보기에 번역 파일을 끌어다 놓으면 추가적인 대체 번역 원본으"
 "로 사용합니다.</p>"
 
-#: src/alttransview.cpp:323
+#: src/alttransview.cpp:330
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -4303,7 +4303,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "합계: %1(%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:620
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:627
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4340,7 +4340,7 @@ msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "일괄 번역이 예약되었습니다."
 
-#: src/tm/tmview.cpp:495
+#: src/tm/tmview.cpp:502
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
@@ -4348,7 +4348,7 @@ msgctxt ""
 msgid "100% (perfect match)"
 msgstr ""
 
-#: src/tm/tmview.cpp:500
+#: src/tm/tmview.cpp:507
 #, fuzzy, kde-format
 #| msgctxt "%1 is the TM entry score in percentage"
 #| msgid "%1%"
@@ -4358,7 +4358,7 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:506
+#: src/tm/tmview.cpp:513
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
@@ -4367,7 +4367,7 @@ msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
 msgstr[0] ""
 
-#: src/tm/tmview.cpp:516
+#: src/tm/tmview.cpp:523
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
@@ -4375,7 +4375,7 @@ msgctxt ""
 msgid "%1 • %2 • %3"
 msgstr ""
 
-#: src/tm/tmview.cpp:524
+#: src/tm/tmview.cpp:531
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
@@ -4383,43 +4383,43 @@ msgctxt ""
 msgid "%1 • %2"
 msgstr ""
 
-#: src/tm/tmview.cpp:576
+#: src/tm/tmview.cpp:583
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "현재"
 
-#: src/tm/tmview.cpp:577
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "파일: %1<br />추가한 날짜: %2"
 
-#: src/tm/tmview.cpp:579
+#: src/tm/tmview.cpp:586
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />마지막 변경 날짜: %1"
 
-#: src/tm/tmview.cpp:581
+#: src/tm/tmview.cpp:588
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />마지막 변경자: %1"
 
-#: src/tm/tmview.cpp:582
+#: src/tm/tmview.cpp:589
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />번역 메모리: %1"
 
-#: src/tm/tmview.cpp:584
+#: src/tm/tmview.cpp:591
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />파일에 더 이상 없음"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:606
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4427,31 +4427,31 @@ msgid ""
 msgstr ""
 "<html>번역 메모리 %2에서 다음 항목을 삭제하시겠습니까?<br/> <i>%1</i></html>"
 
-#: src/tm/tmview.cpp:602
+#: src/tm/tmview.cpp:609
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "번역 메모리 항목 삭제"
 
-#: src/tm/tmview.cpp:647
+#: src/tm/tmview.cpp:654
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "이 항목 삭제"
 
-#: src/tm/tmview.cpp:650
+#: src/tm/tmview.cpp:657
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "이 파일이 들어 있는 항목 열기"
 
-#: src/tm/tmview.cpp:660
+#: src/tm/tmview.cpp:667
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "번역 메모리에서 이 없는 파일 삭제"
 
-#: src/tm/tmview.cpp:674
+#: src/tm/tmview.cpp:681
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4460,13 +4460,13 @@ msgstr ""
 "<html>번역 메모리 %2에서 다음 없는 파일을 삭제하시겠습니까?<br/> <i>%1</i></"
 "html>"
 
-#: src/tm/tmview.cpp:678
+#: src/tm/tmview.cpp:685
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "번역 메모리에서 없는 파일 삭제"
 
-#: src/tm/tmview.cpp:977
+#: src/tm/tmview.cpp:984
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
