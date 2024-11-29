@@ -17,14 +17,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-24 00:43+0000\n"
-"PO-Revision-Date: 2024-10-24 19:35+0900\n"
+"PO-Revision-Date: 2024-11-28 16:03+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -2231,7 +2231,7 @@ msgstr "上一個分頁"
 #: src/lokalizemainwindow.cpp:536
 #, kde-format
 msgid "Previously active tab"
-msgstr "上一個使用中分頁"
+msgstr "上次使用的分頁"
 
 #: src/lokalizemainwindow.cpp:542
 #, kde-format
