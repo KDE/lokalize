@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-24 00:43+0000\n"
-"PO-Revision-Date: 2024-10-14 20:27+0400\n"
+"PO-Revision-Date: 2024-11-29 06:31+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -155,23 +155,21 @@ msgid "Show Data View"
 msgstr "أظهر عرض البيانات"
 
 #: src/alttransview.cpp:180
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "مجلّد الترجمات البديلة:"
+msgstr "من مجلّد الترجمات البديلة"
 
 #: src/alttransview.cpp:203
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "مقارنة مع السياق السابق:"
 
 #: src/alttransview.cpp:218
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "مقارنة مع المصدر السابق:"
 
 #: src/alttransview.cpp:289
 #, kde-format
@@ -180,20 +178,7 @@ msgid "Origin: %1"
 msgstr "الأصل: %1"
 
 #: src/alttransview.cpp:296
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -206,14 +191,12 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>أحيانًا، إن تغيّر النّصّ المصدر تصبح الترجمة بائدة وتُعلّم أمّا بِ‍ "
-"<emphasis>تحتاج&nbsp;إلى&nbsp;مراجعة</emphasis> (أي تفقد حالة الموثوقيّة)، أو "
-"(وهذا فقط لملفّات XLIFF) تُنقل إلى قسم <emphasis>الترجمات&nbsp;البديلة</"
-"emphasis> المصاحب للوحدة.</p><p>يعرض منظور الأدوات هذا أيضًا الفرق بين نصّ "
-"المصدر الحاليّ والسّابق، ليسّهل رؤية التّغييرات التي يجب تطبيقها على الترجمة "
-"الحاليّة لتعكس المصدر الحاليّ.</p><p>النّقر مزدوجًا على أيّة كلمة في منظور "
-"الأدوات يُدرجها في الترجمة.</p><p>أسقط ملفّ ترجمة في منظور الأدوات لاستخدامه "
-"مصدرًا لترجمات بديلة أخرى.</p>"
+"أحيانًا، إن تغيّر النّصّ المصدر تصبح الترجمة بائدة وتُعلّم أمّا بِ‍تحتاج إلى مراجعة "
+"(أي تفقد حالة الموثوقيّة)، أو (وهذا فقط لملفّات XLIFF) تُنقل إلى قسم الترجمات "
+"البديلة المصاحب للوحدة.يعرض منظور الأدوات هذا أيضًا الفرق بين نصّ المصدر "
+"الحاليّ والسّابق، ليسّهل رؤية التّغييرات التي يجب تطبيقها على الترجمة الحاليّة "
+"لتعكس المصدر الحاليّ.النّقر مزدوجًا على أيّة كلمة في منظور الأدوات يُدرجها في "
+"الترجمة.أسقط ملفّ ترجمة في منظور الأدوات لاستخدامه مصدرًا لترجمات بديلة أخرى."
 
 #: src/alttransview.cpp:328
 #, kde-format
@@ -2529,7 +2512,7 @@ msgstr "كارل أوف هوفثامر"
 #: src/main.cpp:96
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "فينلي واتسون"
 
 #: src/main.cpp:100
 #, kde-format
@@ -4380,12 +4363,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (تطابق تام)"
 
 #: src/tm/tmview.cpp:507
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4399,12 +4380,12 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "لا توجد"
+msgstr[1] "توجد مرة واحدة"
+msgstr[2] "توجد مرتين"
+msgstr[3] "توجد %1 مرات"
+msgstr[4] "توجد %1 مرة"
+msgstr[5] "توجد %1 مرة"
 
 #: src/tm/tmview.cpp:523
 #, kde-format
@@ -4412,7 +4393,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:531
 #, kde-format
@@ -4420,7 +4401,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:583
 #, kde-format
