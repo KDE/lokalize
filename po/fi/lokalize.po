@@ -1,6 +1,6 @@
 # Copyright © 2010, 2011, 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kdesdk package.
-# Tommi Nieminen <translator@legisign.org>, 2010, 2011, 2018, 2019, 2020, 2021, 2023, 2024.
+# SPDX-FileCopyrightText: 2010, 2011, 2018, 2019, 2020, 2021, 2023, 2024 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017.
 #
 # KDE Finnish translation sprint participants:
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-24 00:43+0000\n"
-"PO-Revision-Date: 2024-02-14 19:00+0200\n"
+"PO-Revision-Date: 2024-11-07 17:05+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -19,8 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2012-12-01 22:25:34+0000\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -151,23 +150,21 @@ msgid "Show Data View"
 msgstr "Näytä tietonäkymä"
 
 #: src/alttransview.cpp:180
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Vaihtoehtoisten käännösten kansio:"
+msgstr "Vaihtoehtoisten käännösten kansiosta"
 
 #: src/alttransview.cpp:203
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "Vertailu edelliseen kontekstiin:"
 
 #: src/alttransview.cpp:218
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "Vertailu edelliseen lähteeseen:"
 
 #: src/alttransview.cpp:289
 #, kde-format
@@ -176,20 +173,7 @@ msgid "Origin: %1"
 msgstr "Alkuperä: %1"
 
 #: src/alttransview.cpp:296
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -202,16 +186,14 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>Joskus lähdetekstin muuttuessa sen käännös vanhentuu ja se merkitään joko "
-"<emphasis>tarkistusta&nbsp;vaativaksi</emphasis> (ts. hyväksynnän tilaa "
-"heikennetään) tai (vain XLIFF-tiedostoissa) se siirretään yksikön "
-"<emphasis>vaihtoehtoisiin&nbsp;käännöksiin</emphasis>.</p><p>Tämä "
-"työkalunäkymä näyttää myös uuden ja vanhan lähdetekstin erot, jotta voit "
-"helposti nähdä, mitä muutoksia käännökseen on tehtävä, jotta se vastaisi "
-"nykyistä lähdetekstiä.</p><p>Lisää mikä tahansa sana käännökseen "
-"kaksoisnapsauttamalla sitä tässä työkalunäkymässä.</p> <p>Käännöstiedoston "
-"saa käyttöön vaihtoehtoisten käännösten pohjaksi pudottamalla sen tähän "
-"työkalunäkymään.</p>"
+"Lähdetekstin muuttuessa käännös joskus vanhenee ja merkitään joko "
+"tarkistettavaksi (ts. menettää hyväksyntänsä) tai – vain XLIFF-tiedostoissa "
+"– siirretään yksikön vaihtoehtoisiin käännöksiin. Tässä työkalunäkymässä "
+"esitetään uuden ja vanhan lähdetekstin erot, jotta voi helposti nähdä, mitä "
+"käännökselle olisi tehtävä, jotta se vastaisi nykyistä lähdetekstiä. Lisää "
+"mikä tahansa sana käännökseen kaksoisnapsauttamalla sitä tässä näkymässä. "
+"Käännöstiedoston saa käyttöön vaihtoehtoisten käännösten pohjaksi "
+"pudottamalla sen näkymään."
 
 #: src/alttransview.cpp:328
 #, kde-format
@@ -876,8 +858,7 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Aktivoituu Ctrl+L:llä. Hyväksyy säännölliset lausekkeet"
 
 #: src/cataloglistview/cataloglistview.cpp:92
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
 msgstr "Valinnat"
 
@@ -1293,7 +1274,7 @@ msgstr "Lisää seuraava tunniste"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Hyppää seuraavaan ei-tunnistetekstiin"
 
 #: src/editortab.cpp:452
 #, kde-format
@@ -2559,12 +2540,12 @@ msgstr "virheenkorjauksia ja parannuksia"
 #: src/main.cpp:95
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #: src/main.cpp:96
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:100
 #, kde-format
@@ -2640,9 +2621,7 @@ msgstr ""
 "Vastineettomia tietueita: %2"
 
 #: src/msgctxtview.cpp:37
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Yksikön metatieto"
@@ -3470,16 +3449,13 @@ msgstr "Lisää avoimet tiedostot käännösmuistiin automaattisesti"
 # Jonoa ei rivitetä automaattisesti, ja pitkä käännös leventää kyselyikkunaa: pakotettu katkaisu kuitenkin toimii
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, fuzzy, kde-format
-#| msgid ""
-#| "Delete missing files from translation memory on Rescan or when clicking a "
-#| "missing entry"
+#, kde-format
 msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
 msgstr ""
-"Poista puuttuvat tiedostot käännösmuistista tarkistettaessa tiedostoja\n"
-"tai napsautettaessa puuttuvaa yksikköä"
+"Poista käännösmuistista puuttuvat tiedostot tarkistettaessa tai "
+"napsautettaessa puuttuvaa hiiren oikealla painikkeella"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -4443,12 +4419,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100 % (täydellinen vastaavuus)"
 
 #: src/tm/tmview.cpp:507
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4462,8 +4436,8 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Esiintyi kerran"
+msgstr[1] "Esiintyi %1 kertaa"
 
 #: src/tm/tmview.cpp:523
 #, kde-format
@@ -4471,7 +4445,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:531
 #, kde-format
@@ -4479,7 +4453,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:583
 #, kde-format
