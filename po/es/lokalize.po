@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-24 00:43+0000\n"
-"PO-Revision-Date: 2024-10-24 17:08+0200\n"
+"PO-Revision-Date: 2024-12-09 00:46+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -2092,7 +2092,7 @@ msgid ""
 "calling <interface>Define&nbsp;new&nbsp;term</interface>).</p>"
 msgstr ""
 "<p>Aquí aparecen las traducciones de términos comunes.</p><p>Pulse sobre el "
-"acceso rápido mostrado junto al término para insertar su traducción.</"
+"atajo de teclado mostrado junto al término para insertar su traducción.</"
 "p><p>Use el menú de contexto para añadir nuevas entradas (consejo:&nbsp;"
 "seleccione palabras en los campos original y de traducción antes de llamar a "
 "la función <interface>Definir&nbsp;nuevo&nbsp;término</interface>).</p>"
@@ -3149,14 +3149,14 @@ msgstr "Restaurar los archivos abiertos previamente al lanzar Lokalize"
 #, kde-format
 msgid "Defines the behavior of the next/previous tab shortcuts"
 msgstr ""
-"Define el comportamiento de los accesos rápidos para siguiente/anterior "
+"Define el comportamiento de los atajos de teclado para siguiente/anterior "
 "pestaña"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:57
 #, kde-format
 msgid "Next/previous tab shortcut behavior"
-msgstr "Comportamiento del acceso rápido para siguiente/anterior pestaña"
+msgstr "Comportamiento del atajo de teclado para siguiente/anterior pestaña"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
 #: src/prefs/prefs_general.ui:68

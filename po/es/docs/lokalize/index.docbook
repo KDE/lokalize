@@ -200,7 +200,7 @@
 ><guimenuitem
 >Borrar todas las entradas traducidas</guimenuitem
 ></menuchoice
-> o usar el acceso rápido <keycombo
+> o usar el atajo de teclado <keycombo
 >&Ctrl;&Alt;<keycap
 >D</keycap
 ></keycombo
@@ -255,31 +255,31 @@
 
 <sect1 id="shortcut-keys">
 <title
->Teclas de accesos rápidos de teclado</title>
+>Teclas de atajos de teclado</title>
 <para
->Puede ahorrar tiempo usando teclas de acceso rápido durante la traducción. Para configurar las teclas de acceso rápido, utilice <menuchoice
+>Puede ahorrar tiempo usando atajos de teclado durante la traducción. Para configurar los atajos de teclado, use <menuchoice
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar los accesos rápidos...</guimenuitem
+>Configurar los atajos de teclado...</guimenuitem
 ></menuchoice
 > en el menú principal. </para>
 <screenshot>
 <screeninfo
->Configurar los accesos rápidos</screeninfo>
+>Configurar los atajos de teclado</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="configure_shortcuts.png" format="PNG"/>
     </imageobject>
     <textobject>
       <phrase
->Aquí puede configurar las teclas de los accesos rápidos de teclado.</phrase>
+>Aquí puede configurar las teclas de los atajos de teclado.</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 <para
 >Para mayor información lea la sección sobre los <ulink url="help:/fundamentals/config.html#shortcuts"
->Accesos rápidos de teclado</ulink
+>Atajos de teclado</ulink
 > de los Fundamentos de &kde;.</para>
 </sect1>
 
@@ -295,7 +295,7 @@
 ><guimenuitem
 >Crear nuevo proyecto</guimenuitem
 ></menuchoice
-> para que el asistente descargue los archivos de traducción para su idioma y cree el proyecto por usted. </para>
+> para que el asistente descargue los archivos de traducción para su idioma y cree el proyecto. </para>
 
 <tip>
 <para
@@ -428,7 +428,7 @@
 >Resumen del proyecto</guilabel
 > usando el botón <guibutton
 >Ocultar los elementos completados</guibutton
-> que hay en la barra de herramientas principal o pulsando el acceso rápido de teclado por omisión <keycombo
+> que hay en la barra de herramientas principal o pulsando el atajo de teclado por omisión <keycombo
 >&Ctrl;<keycap
 >T</keycap
 ></keycombo
@@ -457,7 +457,7 @@
 <para
 >¿Alguna vez ha estado cansado de teclear la misma secuencia de texto largo varias veces solo porque le cuesta más trabajo encontrarlo en la traducción para copiarlo y pegarlo? Ahora solo tendrá que encontrar la secuencia de palabras (frecuente) en la <guilabel
 >Glosario</guilabel
->, y se insertará pulsando un acceso rápido. </para>
+>, y se insertará pulsando un atajo de teclado. </para>
 
 <para
 >Por supuesto el glosario deberá poblarse primero con secuencias de palabras. &lokalize; incluye un editor de glosario manual que permite una búsqueda explícita sobre el glosario completo. </para>
@@ -612,7 +612,7 @@
 >&Alt; <keycap
 >Arriba</keycap
 ></keycombo
-> (recuerde que los accesos rápidos pueden modificarse de la misma forma que para las demás aplicaciones de &kde;) para navegar a través de las entradas que son diferentes. </para>
+> (recuerde que los atajos de teclado pueden modificarse de la misma forma que para las demás aplicaciones de &kde;) para navegar a través de las entradas que son diferentes. </para>
 <screenshot>
 <screeninfo
 >&lokalize; utilizado para fusionar cambios en las traducciones</screeninfo>
@@ -694,7 +694,7 @@
 >Creación de scripts en &lokalize;</title>
 
 <para
->&lokalize; se puede extender mediante el uso de scripts en varios lenguajes interpretados, incluyendo Python y &javascript;. Los scripts suelen estar integrados en la interfaz de &lokalize; como acciones del menú (a las que puede asignar un acceso rápido de teclado). La ubicación y la entrada del menú para un script se define en su correspondiente archivo .rc. Cada vez que abra un proyecto, &lokalize; explora la carpeta <filename
+>&lokalize; se puede extender mediante el uso de scripts en varios lenguajes interpretados, incluyendo Python y &javascript;. Los scripts suelen estar integrados en la interfaz de &lokalize; como acciones del menú (a las que puede asignar un atajo de teclado). La ubicación y la entrada del menú para un script se define en su correspondiente archivo .rc. Cada vez que abra un proyecto, &lokalize; explora la carpeta <filename
 >CARPETADELPROYECTO/lokalize-scripts</filename
 > en busca de archivos .rc y los añade a un archivo de <emphasis
 >caché</emphasis
@@ -798,7 +798,7 @@
 ><guimenuitem
 >Comprobar esta unidad usando LanguageTool</guimenuitem
 ></menuchoice
-> o use el acceso rápido de teclado <keycombo
+> o use el atajo de teclado <keycombo
 >&Ctrl;<keycap
 >J</keycap
 ></keycombo
