@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-24 02:36+0000\n"
-"PO-Revision-Date: 2024-12-13 22:56+0100\n"
+"PO-Revision-Date: 2024-12-16 01:06+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -756,7 +756,7 @@ msgstr "Inserción"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
-msgstr "Borrado"
+msgstr "Eliminación"
 
 #: src/catalog/cmd.cpp:170
 #, kde-format
@@ -774,7 +774,7 @@ msgstr "Inserción de etiquetas"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
-msgstr "Borrado de etiquetas"
+msgstr "Eliminación de etiquetas"
 
 #: src/catalog/cmd.cpp:233
 #, kde-format
@@ -3924,7 +3924,7 @@ msgstr "Traducir programas"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
-msgstr "Traducir un ficheiro OpenDocument"
+msgstr "Traducir un OpenDocument"
 
 #: src/project/projecttab.cpp:131
 #, kde-format
