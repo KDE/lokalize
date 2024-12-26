@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-24 20:39+0530\n"
+"PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -88,7 +88,7 @@ msgstr ""
 #: scripts/msgmerge.rc:3
 #, kde-format
 msgid "File"
-msgstr "संचिका"
+msgstr "सञ्चिका"
 
 #. i18n: tag script attribute text
 #: scripts/msgmerge.rc:4
@@ -1076,7 +1076,7 @@ msgstr " (%1%)"
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
-msgstr "संचिका"
+msgstr "सञ्चिका"
 
 #: src/editortab.cpp:157 src/project/projecttab.cpp:89
 #, kde-format
@@ -1961,7 +1961,7 @@ msgstr "अनुवादसञ्चिकाः अत्र पातयन�
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
-msgstr "संचिका"
+msgstr "सञ्चिका"
 
 #: src/filesearch/filesearchtab.cpp:447
 #, kde-format
@@ -2914,7 +2914,7 @@ msgstr "अनुवाद परियोजना स्थानीयकर�
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
-msgstr "अनुवादार्थं Gettext .po सञ्चिकाभिः सह फोल्डर् चिनोतु"
+msgstr "अनुवादार्थं Gettext .po सञ्चिकाभिः सह समुच्चय चिनोतु"
 
 #: src/prefs/prefs.cpp:218
 #, kde-format
@@ -3591,7 +3591,7 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
-"इदं Root Folder इत्यस्य सदृशसंरचनायुक्तस्य फोल्डर् इत्यस्य मार्गे सेट् कुर्वन्तु ।\n"
+"इदं Root Folder इत्यस्य सदृशसंरचनायुक्तस्य समुच्चय इत्यस्य मार्गे सेट् कुर्वन्तु ।\n"
 "\n"
 "प्रत्येकं अनुवादसञ्चिकां उद्घाटिते, Alternate translations निर्देशिकायां तत्सम्बद्धसञ्चिका "
 "अवलोकिता भविष्यति तथा च,\n"
