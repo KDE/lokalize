@@ -285,10 +285,13 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition &pos) const
         }
     }
 
+    // Return an empty QVector if no component part of the AltTrans entry contains data.
     QVector<AltTrans> result;
-    result << AltTrans(CatalogString(msgctxtOld),
-                       CatalogString(msgidOld.isEmpty() ? msgidpluralOld : msgidOld),
-                       i18n("Previous source value, saved by Gettext during transition to a newer POT template"));
+    if (!msgctxtOld.isEmpty() || !msgidOld.isEmpty() || !msgidpluralOld.isEmpty()) {
+        result << AltTrans(CatalogString(msgctxtOld),
+                           CatalogString(msgidOld.isEmpty() ? msgidpluralOld : msgidOld),
+                           i18n("Previous source value, saved by Gettext during transition to a newer POT template"));
+    }
     return result;
 }
 
