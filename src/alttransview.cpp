@@ -240,22 +240,17 @@ void AltTransView::process()
         } else {
             targetString.clear();
         }
-        // Only show an entry when there is data to show:
-        // see https://bugs.kde.org/show_bug.cgi?id=494500
-        // We should clean up the data being fed to this
-        // function to prevent duplicate data, but in the
-        // mean time this is a work-around.
-        if (!contextString.isEmpty() || !sourceString.isEmpty() || !targetString.isEmpty()) {
-            QListWidgetItem *translationMemoryEntryItem = new QListWidgetItem();
-            TM::DoubleClickToInsertTextQLabel *label =
-                new TM::DoubleClickToInsertTextQLabel(QStringLiteral("%1%2%3%4").arg(metadata, contextString, targetString, sourceString));
-            m_entriesList->addItem(translationMemoryEntryItem);
-            m_entriesList->setItemWidget(translationMemoryEntryItem, label);
+        Q_ASSERT(!contextString.isEmpty() || !sourceString.isEmpty() || !targetString.isEmpty());
+        QListWidgetItem *translationMemoryEntryItem = new QListWidgetItem();
+        TM::DoubleClickToInsertTextQLabel *label =
+            new TM::DoubleClickToInsertTextQLabel(QStringLiteral("%1%2%3%4").arg(metadata, contextString, targetString, sourceString));
+        m_entriesList->addItem(translationMemoryEntryItem);
+        m_entriesList->setItemWidget(translationMemoryEntryItem, label);
 
-            // Double-clicking words in a TM entry should add the selected
-            // word to the current translation target at the cursor position.
-            connect(label, &TM::DoubleClickToInsertTextQLabel::textInsertRequested, this, &AltTransView::textInsertRequested);
-        }
+        // Double-clicking words in a TM entry should add the selected
+        // word to the current translation target at the cursor position.
+        connect(label, &TM::DoubleClickToInsertTextQLabel::textInsertRequested, this, &AltTransView::textInsertRequested);
+
         if (Q_UNLIKELY(++i >= limit))
             break;
     }
