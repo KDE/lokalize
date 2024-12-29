@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 00:43+0000\n"
+"POT-Creation-Date: 2024-12-29 00:44+0000\n"
 "PO-Revision-Date: 2024-10-30 11:40+0100\n"
 "Last-Translator: rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -169,13 +169,13 @@ msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
 msgstr "Sammenligning med tidligere kilde:"
 
-#: src/alttransview.cpp:289
+#: src/alttransview.cpp:284
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Oprindelse: %1"
 
-#: src/alttransview.cpp:296
+#: src/alttransview.cpp:291
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid ""
@@ -214,7 +214,7 @@ msgstr ""
 "oversættelsesfiler på denne værktøjsvisning for at bruge dem som kilder til "
 "yderligere alternative oversættelser.</p>"
 
-#: src/alttransview.cpp:328
+#: src/alttransview.cpp:323
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -825,7 +825,7 @@ msgstr "Indsæt tekst med opmærkning"
 msgid "separator for different-length string alternatives"
 msgstr "separator for strengalternativer med forskellig længde"
 
-#: src/catalog/gettext/gettextstorage.cpp:291
+#: src/catalog/gettext/gettextstorage.cpp:293
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "

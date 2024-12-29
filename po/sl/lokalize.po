@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 00:43+0000\n"
+"POT-Creation-Date: 2024-12-29 00:44+0000\n"
 "PO-Revision-Date: 2024-10-24 07:27+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -165,13 +165,13 @@ msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
 msgstr "Primerjava s prejšnjim virom:"
 
-#: src/alttransview.cpp:289
+#: src/alttransview.cpp:284
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Izvor: %1"
 
-#: src/alttransview.cpp:296
+#: src/alttransview.cpp:291
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -194,7 +194,7 @@ msgstr ""
 "vstavite v prevod. Spustite datoteko s prevodi na ta prikaz orodja, da jo "
 "uporabite kot vir za alternativne prevode."
 
-#: src/alttransview.cpp:328
+#: src/alttransview.cpp:323
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -798,7 +798,7 @@ msgstr "Vstavi besedilo z oznakami"
 msgid "separator for different-length string alternatives"
 msgstr "ločilnik za različno dolge alternativne nize"
 
-#: src/catalog/gettext/gettextstorage.cpp:291
+#: src/catalog/gettext/gettextstorage.cpp:293
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
