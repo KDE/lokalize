@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-29 00:44+0000\n"
-"PO-Revision-Date: 2024-12-27 17:40+0100\n"
+"PO-Revision-Date: 2024-12-29 12:45+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -70,7 +70,7 @@ msgid ""
 "Template modification time: %1 (%2 days ago)."
 msgstr ""
 "Kunfandado finiĝis.\n"
-"Modiftempo de ŝablono: %1 (antaŭ %2 tagoj)."
+"Modifodato de ŝablono: %1 (antaŭ %2 tagoj)."
 
 #: scripts/msgmerge.py:74
 msgid "Merge failed."
@@ -1262,7 +1262,7 @@ msgstr "Enigi Sekvan Etikedon"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Salti al sekva neetikeda teksto"
 
 #: src/editortab.cpp:452
 #, kde-format
@@ -2522,12 +2522,12 @@ msgstr "korektado de cimoj kaj plibonigoj"
 #: src/main.cpp:95
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #: src/main.cpp:96
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:100
 #, kde-format
@@ -4429,7 +4429,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:583
 #, kde-format
