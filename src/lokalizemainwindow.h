@@ -152,6 +152,7 @@ private:
      * @short Contains the welcome text and some buttons for getting started.
      */
     QWidget *m_welcomePage;
+    bool m_translationMemoryTabIsVisible;
     QPointer<QMdiSubWindow> m_prevSubWindow{};
     QPointer<QMdiSubWindow> m_projectSubWindow{};
     QPointer<QMdiSubWindow> m_translationMemorySubWindow{};

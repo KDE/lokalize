@@ -125,7 +125,6 @@ LokalizeMainWindow::LokalizeMainWindow()
     connect(Project::instance(), &Project::configChanged, this, &LokalizeMainWindow::projectSettingsChanged);
     connect(Project::instance(), &Project::closed, this, &LokalizeMainWindow::closeProject);
     showProjectOverview();
-    showTranslationMemory(); // fix for #342558
 
     for (int i = ID_STATUS_CURRENT; i <= ID_STATUS_ISFUZZY; i++) {
         m_statusBarLabels.append(new QLabel());
@@ -414,6 +413,7 @@ TM::TMTab *LokalizeMainWindow::showTM()
     }
 
     if (!m_translationMemorySubWindow) {
+        m_translationMemoryTabIsVisible = true;
         TM::TMTab *w = new TM::TMTab(this);
         m_translationMemorySubWindow = m_mdiArea->addSubWindow(w);
         w->showMaximized();
@@ -635,7 +635,7 @@ void LokalizeMainWindow::saveProperties(KConfigGroup &stateGroup)
 
 void LokalizeMainWindow::saveProjectState(KConfigGroup &stateGroup)
 {
-    QList<QMdiSubWindow *> editors = m_mdiArea->subWindowList();
+    QList<QMdiSubWindow *> tabs = m_mdiArea->subWindowList();
 
     QStringList files;
     QStringList mergeFiles;
@@ -643,14 +643,18 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup &stateGroup)
     QList<int> entries;
     QMdiSubWindow *activeSW = m_mdiArea->currentSubWindow();
     int activeSWIndex = -1;
-    int i = editors.size();
+    int i = tabs.size();
+    m_translationMemoryTabIsVisible = false;
 
     while (--i >= 0) {
-        if (!editors.at(i) || !qobject_cast<EditorTab *>(editors.at(i)->widget()))
+        if (tabs.at(i) && qobject_cast<TM::TMTab *>(tabs.at(i)->widget())) {
+            m_translationMemoryTabIsVisible = true;
+            continue;
+        } else if (!tabs.at(i) || !qobject_cast<EditorTab *>(tabs.at(i)->widget()))
             continue;
 
-        EditorState state = static_cast<EditorTab *>(editors.at(i)->widget())->state();
-        if (editors.at(i) == activeSW) {
+        EditorState state = static_cast<EditorTab *>(tabs.at(i)->widget())->state();
+        if (tabs.at(i) == activeSW) {
             activeSWIndex = files.size();
             m_lastEditorState = state.dockWidgets.toBase64();
         }
@@ -672,6 +676,7 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup &stateGroup)
     projectStateGroup.writeEntry("MergeFiles", mergeFiles);
     projectStateGroup.writeEntry("DockWidgets", dockWidgets);
     projectStateGroup.writeEntry("Entries", entries);
+    projectStateGroup.writeEntry("TranslationMemoryTabIsVisible", m_translationMemoryTabIsVisible);
     if (m_projectSubWindow) {
         ProjectTab *w = static_cast<ProjectTab *>(m_projectSubWindow->widget());
         if (w->unitsCount() > 0)
@@ -734,6 +739,11 @@ void LokalizeMainWindow::projectLoaded()
                     tw->setTabToolTip(i, Project::instance()->path());
     }
     entries = projectStateGroup.readEntry("Entries", entries);
+
+    m_translationMemoryTabIsVisible = projectStateGroup.readEntry("TranslationMemoryTabIsVisible", false);
+
+    if (m_translationMemoryTabIsVisible)
+        showTM();
 
     if (Settings::self()->restoreRecentFilesOnStartup())
         files = projectStateGroup.readEntry("Files", files);
