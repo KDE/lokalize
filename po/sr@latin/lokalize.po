@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-29 00:44+0000\n"
+"POT-Creation-Date: 2025-01-01 00:43+0000\n"
 "PO-Revision-Date: 2017-09-28 18:00+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -2308,18 +2308,18 @@ msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "Prevodi otvoreni dokument"
 
-#: src/lokalizemainwindow.cpp:156
+#: src/lokalizemainwindow.cpp:155
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Nije nađen nijedan SQL modul za Qt. Prevodilačka memorija neće raditi."
 
-#: src/lokalizemainwindow.cpp:412 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:411 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Prevodilačka memorija zahteva modul SQLitea za Qt."
 
-#: src/lokalizemainwindow.cpp:412 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:411 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Nema modula SQLitea"
@@ -2432,7 +2432,7 @@ msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Zahvati tekst vidžeta"
 
-#: src/lokalizemainwindow.cpp:756
+#: src/lokalizemainwindow.cpp:766
 #, kde-format
 msgctxt "@info"
 msgid ""

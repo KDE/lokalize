@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-29 00:44+0000\n"
+"POT-Creation-Date: 2025-01-01 00:43+0000\n"
 "PO-Revision-Date: 2024-10-24 09:24+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2247,18 +2247,18 @@ msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "Переклад документа OpenDocument"
 
-#: src/lokalizemainwindow.cpp:156
+#: src/lokalizemainwindow.cpp:155
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Не знайдено модулів SQL Qt. Пам’ять перекладів не працюватиме."
 
-#: src/lokalizemainwindow.cpp:412 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:411 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Для роботи з пам’яттю перекладів потрібен модуль SQLite Qt."
 
-#: src/lokalizemainwindow.cpp:412 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:411 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Не вдалося виявити модуль SQLite"
@@ -2368,7 +2368,7 @@ msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Захопити текст віджетів"
 
-#: src/lokalizemainwindow.cpp:756
+#: src/lokalizemainwindow.cpp:766
 #, kde-format
 msgctxt "@info"
 msgid ""
