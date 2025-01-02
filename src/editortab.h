@@ -18,6 +18,7 @@
 #include "pos.h"
 
 #include <KProcess>
+
 #include <QHash>
 #include <QMap>
 #include <QMdiSubWindow>

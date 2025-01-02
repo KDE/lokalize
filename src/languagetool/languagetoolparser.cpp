@@ -6,7 +6,6 @@
 
 #include "languagetoolparser.h"
 #include "languagetoolgrammarerror.h"
-#include "lokalize_debug.h"
 
 #include <klocalizedstring.h>
 
@@ -17,7 +16,6 @@ QString LanguageToolParser::parseResult(const QJsonObject &obj, const QString &t
     QString infos;
     const QJsonArray array = obj.value(QLatin1String("matches")).toArray();
     for (const QJsonValue &current : array) {
-        // qDebug() << " current " << current;
         if (current.type() == QJsonValue::Object) {
             const QJsonObject languageToolObject = current.toObject();
             LanguageToolGrammarError error;
@@ -28,20 +26,3 @@ QString LanguageToolParser::parseResult(const QJsonObject &obj, const QString &t
         infos = i18n("No errors");
     return infos;
 }
-/*QVector<GrammarError> LanguageToolParser::parseResult(const QJsonObject &obj) const
-{
-    QVector<GrammarError> infos;
-    const QJsonArray array = obj.value(QLatin1String("matches")).toArray();
-    for (const QJsonValue &current : array) {
-        //qDebug() << " current " << current;
-        if (current.type() == QJsonValue::Object) {
-            const QJsonObject languageToolObject = current.toObject();
-            LanguageToolGrammarError error;
-            error.parse(languageToolObject, 0);
-            if (error.isValid()) {
-                infos.append(error);
-            }
-        }
-    }
-    return infos;
-}*/

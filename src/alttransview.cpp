@@ -160,7 +160,7 @@ void AltTransView::process()
                      "For Gettext PO files it displays difference between current source text "
                      "and the source text corresponding to the fuzzy translation found by msgmerge when updating PO based on POT template.\n\n"
                      "Do you want to show the view with the data?"),
-                i18nc("@title", "Alternative Translations Available"),
+                i18nc("@title", "Alternate Translations Available"),
                 KGuiItem(i18nc("@action", "Show Data View")),
                 KStandardGuiItem::cancel())) {
             show();
@@ -200,7 +200,7 @@ void AltTransView::process()
                 // characters used in the messages.)
                 prevMsgCtxt.replace(QStringLiteral("\n"), QString());
                 currentMsgCtxt.replace(QStringLiteral("\n"), QString());
-                QString contextHeader = i18nc("Title for an alternative translation entry context diff.", "Comparison with previous context:");
+                QString contextHeader = i18nc("Title for an alternate translation entry context diff.", "Comparison with previous context:");
                 contextString = QStringLiteral("<strong>%1</strong><br>%2<br>")
                                     .arg(contextHeader,
                                          userVisibleWordDiff(prevMsgCtxt, currentMsgCtxt, Project::instance()->accel(), Project::instance()->markup(), Html));
@@ -215,7 +215,7 @@ void AltTransView::process()
                 // characters used in the messages.)
                 prevMsgId.replace(QStringLiteral("\n"), QString());
                 currentMsgId.replace(QStringLiteral("\n"), QString());
-                QString sourceHeader = i18nc("Title for alternative translation source diff.", "Comparison with previous source:");
+                QString sourceHeader = i18nc("Title for alternate translation source diff.", "Comparison with previous source:");
                 sourceString =
                     QStringLiteral("<strong>%1</strong><br>%2<br>")
                         .arg(sourceHeader, userVisibleWordDiff(prevMsgId, currentMsgId, Project::instance()->accel(), Project::instance()->markup(), Html));
@@ -225,7 +225,7 @@ void AltTransView::process()
             sourceString.clear();
         }
         // Here we are working with different data to the context and id above:
-        // an example of the translation into an alternative language. As such,
+        // an example of the translation into an alternate language. As such,
         // display a translation entry like those in the Translation Memory.
         if (!entry.target.isEmpty()) {
             m_actions.at(i)->setStatusTip(entry.target.string);

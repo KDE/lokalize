@@ -49,6 +49,12 @@
 
 using namespace TM;
 
+static void copy(Ui_QueryOptions *ui_queryOptions, int column)
+{
+    QApplication::clipboard()->setText(
+        ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(), column).data().toString());
+}
+
 // TODO do things for case when user explicitly wants to find & accel mark
 
 // BEGIN TMDBModel
@@ -584,12 +590,6 @@ void TMTab::displayTotalResultCount()
     else
         statusBarItems.insert(1, i18nc("@info:status message entries", "Total: %1 (%2)", filtered, total));
     m_model->m_dbOperationMutex.unlock();
-}
-
-static void copy(Ui_QueryOptions *ui_queryOptions, int column)
-{
-    QApplication::clipboard()->setText(
-        ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(), column).data().toString());
 }
 
 void TMTab::copySource()

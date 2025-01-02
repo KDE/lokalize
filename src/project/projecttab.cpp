@@ -76,7 +76,6 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     setXMLFile(QStringLiteral("projectmanagerui.rc"), true);
     setUpdatedXMLFile();
-    // QAction* action = KStandardAction::find(Project::instance(),&ProjectTab::showTM,actionCollection());
 
 #define ADD_ACTION_SHORTCUT_ICON(_name, _text, _shortcut, _icon)                                                                                               \
     action = nav->addAction(QStringLiteral(_name));                                                                                                            \

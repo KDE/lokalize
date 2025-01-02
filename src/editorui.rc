@@ -125,7 +125,7 @@
         <Action name="tmquery_remove_11"/>
         <Action name="tmquery_remove_12"/>
     </Menu>
-    <Menu name="alttrans"><text>Alternative Translations</text>
+    <Menu name="alttrans"><text>Alternate Translations</text>
         <Action name="alttrans_attach"/>
         <Separator/>
         <Action name="alttrans_insert_0"/>

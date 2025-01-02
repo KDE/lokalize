@@ -60,7 +60,7 @@ EditorTab::EditorTab(QWidget *parent, bool valid)
     : LokalizeTabPageBase(parent)
     , m_project(Project::instance())
     , m_catalog(new Catalog(this))
-    , m_view(new EditorView(this, m_catalog /*,new keyEventHandler(this,m_catalog)*/))
+    , m_view(new EditorView(this, m_catalog))
     , m_valid(valid)
 {
     setAcceptDrops(true);
@@ -298,7 +298,6 @@ void EditorTab::setupActions()
                                                Qt::Key_Apostrophe};
     QAction *gaction;
     for (int i = 0; i < GLOSSARY_SHORTCUTS; ++i) {
-        //         action->setVisible(false);
         gaction = glossary->addAction(QStringLiteral("glossary_insert_%1").arg(i));
         ac->setDefaultShortcut(gaction, QKeySequence(Qt::ControlModifier | glist[i]));
         gaction->setText(i18nc("@action:inmenu", "Insert term translation #%1", QString::number(i)));
@@ -740,7 +739,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
         filePath = QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(),
                                                 i18nc("@title:window", "Select translation file"),
                                                 suggestedDirPath,
-                                                Catalog::supportedFileTypes(true)); //" text/x-gettext-translation-template");
+                                                Catalog::supportedFileTypes(true));
     } else if (!QFile::exists(filePath) && Project::instance()->isLoaded()) {
         // check if we are opening template
         QString newPath = filePath;
@@ -803,11 +802,11 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
                 if (m_project->desirablePath().isEmpty())
                     m_project->setDesirablePath(fileInfo.absolutePath() + QStringLiteral("/index.lokalize"));
 
-                if (m_catalog->targetLangCode().isEmpty() /*&& m_project->targetLangCode().length()*/)
+                if (m_catalog->targetLangCode().isEmpty())
                     m_catalog->setTargetLangCode(getTargetLangCode(fileInfo.fileName()));
             }
         }
-        if (m_catalog->targetLangCode().isEmpty() /*&& m_project->targetLangCode().length()*/)
+        if (m_catalog->targetLangCode().isEmpty())
             m_catalog->setTargetLangCode(Project::instance()->targetLangCode());
 
         gotoEntry(pos);
@@ -1018,9 +1017,6 @@ void EditorTab::msgStrChanged()
         msg = i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
     else
         msg = i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
-
-    /*    else
-            statusBar()->changeItem("",ID_STATUS_ISFUZZY);*/
 
     statusBarItems.insert(ID_STATUS_ISFUZZY, msg);
 
@@ -1574,7 +1570,7 @@ void EditorTab::mergeIntoOpenDocument()
         originalOdfFilePath = QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(),
                                                            i18n("Select original OpenDocument on which current XLIFF file is based"),
                                                            xliffFolder,
-                                                           i18n("OpenDocument files (*.odt *.ods)") /*"text/x-lokalize-project"*/);
+                                                           i18n("OpenDocument files (*.odt *.ods)"));
         if (originalOdfFilePath.length())
             m_catalog->setOriginalOdfFilePath(originalOdfFilePath);
     }
@@ -1599,39 +1595,34 @@ void EditorTab::mergeIntoOpenDocument()
     if (!QFile::exists(args.at(1)))
         return;
 
-    // if (originalOdfFileInfo.suffix().toLower()==QLatin1String(".odt"))
-    {
-        const QString lowriter = QStandardPaths::findExecutable(QStringLiteral("soffice"));
-        if (lowriter.isEmpty()) {
-            return;
-        }
+    const QString lowriter = QStandardPaths::findExecutable(QStringLiteral("soffice"));
+    if (lowriter.isEmpty()) {
+        return;
+    }
 
-        if (QProcess::execute(lowriter, QStringList(QStringLiteral("--version"))) == -2) {
-            // TODO
-            // KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
-            return;
-        }
-        QProcess::startDetached(lowriter, QStringList(args.at(1)));
-        QString reloaderScript = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("scripts/odf/xliff2odf-standalone.py"));
-        if (reloaderScript.length()) {
-            QString python = QStandardPaths::findExecutable(QStringLiteral("python"));
+    if (QProcess::execute(lowriter, QStringList(QStringLiteral("--version"))) == -2) {
+        return;
+    }
+    QProcess::startDetached(lowriter, QStringList(args.at(1)));
+    QString reloaderScript = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("scripts/odf/xliff2odf-standalone.py"));
+    if (reloaderScript.length()) {
+        QString python = QStandardPaths::findExecutable(QStringLiteral("python"));
+        QStringList unoArgs(QStringLiteral("-c"));
+        unoArgs.append(QStringLiteral("import uno"));
+        if (python.isEmpty() || QProcess::execute(python, unoArgs) != 0) {
+            python = QStandardPaths::findExecutable(QStringLiteral("python3"));
             QStringList unoArgs(QStringLiteral("-c"));
             unoArgs.append(QStringLiteral("import uno"));
             if (python.isEmpty() || QProcess::execute(python, unoArgs) != 0) {
-                python = QStandardPaths::findExecutable(QStringLiteral("python3"));
-                QStringList unoArgs(QStringLiteral("-c"));
-                unoArgs.append(QStringLiteral("import uno"));
-                if (python.isEmpty() || QProcess::execute(python, unoArgs) != 0) {
-                    KMessageBox::information(SettingsController::instance()->mainWindowPtr(), i18n("Install python-uno package for additional functionality."));
-                    return;
-                }
+                KMessageBox::information(SettingsController::instance()->mainWindowPtr(), i18n("Install python-uno package for additional functionality."));
+                return;
             }
-
-            QStringList reloaderArgs(reloaderScript);
-            reloaderArgs.append(args.at(1));
-            reloaderArgs.append(currentEntryId());
-            QProcess::execute(python, reloaderArgs);
         }
+
+        QStringList reloaderArgs(reloaderScript);
+        reloaderArgs.append(args.at(1));
+        reloaderArgs.append(currentEntryId());
+        QProcess::execute(python, reloaderArgs);
     }
 }
 

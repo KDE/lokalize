@@ -11,8 +11,6 @@
 
 #include "gettextheader.h"
 #include "prefs_lokalize.h"
-#include "project.h"
-#include "version.h"
 
 #include <QElapsedTimer>
 #include <QList>
@@ -305,17 +303,14 @@ static QString doContent(QDomElement elem, int startingPos, TsContentEditingData
                 int localStartPos = data->pos - startingPos;
 
                 // BEGIN DELETE TEXT
-                if (data->actionType == TsContentEditingData::DeleteText) { //(data->lengthOfStringToRemove!=-1)
+                if (data->actionType == TsContentEditingData::DeleteText) {
                     if (localStartPos + data->lengthOfStringToRemove > cData.size()) {
                         // text is fragmented into several QDomCData
                         int localDelLen = cData.size() - localStartPos;
                         c.deleteData(localStartPos, localDelLen);
                         // setup data for future iterations
                         data->lengthOfStringToRemove = data->lengthOfStringToRemove - localDelLen;
-                        // data->pos=startingPos;
-                        // qCWarning(LOKALIZE_LOG)<<"\tsetup:"<<data->pos<<data->lengthOfStringToRemove;
                     } else {
-                        // qCWarning(LOKALIZE_LOG)<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
                         c.deleteData(localStartPos, data->lengthOfStringToRemove);
                         data->actionType = TsContentEditingData::CheckLength;
                         return QStringLiteral("a"); // so it exits 100%
@@ -459,7 +454,6 @@ QStringList TsStorage::sourceFiles(const DocPosition &pos) const
 
         elem = elem.nextSiblingElement(attrnames[LocationAttr]);
     }
-    // qSort(result);
 
     return result;
 }
@@ -509,7 +503,6 @@ Note TsStorage::setNote(DocPosition pos, const Note &note)
         elem.appendChild(Settings::self()->convertXMLChars() ? m_doc.createTextNode(QString()) : m_doc.createCDATASection(QString()));
     } else {
         QDomNodeList list = unit.elementsByTagName(names[NoteTag]);
-        // if (pos.form==-1) pos.form=list.size()-1;
         if (pos.form < list.size()) {
             elem = unit.elementsByTagName(names[NoteTag]).at(pos.form).toElement();
             QDomNode n = elem.firstChild();
@@ -548,8 +541,6 @@ QStringList TsStorage::context(const DocPosition &pos) const
 
     QDomElement unit = unitForPos(pos.entry);
     QDomElement context = unit.parentNode().toElement();
-    // if (context.isNull())
-    //     return result;
 
     QDomElement name = context.firstChildElement(names[NameTag]);
     if (name.isNull())
@@ -616,14 +607,13 @@ bool TsStorage::isEmpty(const DocPosition &pos) const
 bool TsStorage::isEquivTrans(const DocPosition &pos) const
 {
     Q_UNUSED(pos)
-    return true; // targetForPos(pos.entry).attribute("equiv-trans")!="no";
+    return true;
 }
 
 void TsStorage::setEquivTrans(const DocPosition &pos, bool equivTrans)
 {
     Q_UNUSED(pos)
     Q_UNUSED(equivTrans)
-    // targetForPos(pos.entry).setAttribute("equiv-trans",noyes[equivTrans]);
 }
 
 QDomElement TsStorage::unitForPos(int pos) const
