@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-24 02:36+0000\n"
-"PO-Revision-Date: 2024-07-27 14:20+0200\n"
+"PO-Revision-Date: 2024-12-29 12:45+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -70,7 +70,7 @@ msgid ""
 "Template modification time: %1 (%2 days ago)."
 msgstr ""
 "Kunfandado finiĝis.\n"
-"Modiftempo de ŝablono: %1 (antaŭ %2 tagoj)."
+"Modifodato de ŝablono: %1 (antaŭ %2 tagoj)."
 
 #: scripts/msgmerge.py:74
 msgid "Merge failed."
@@ -146,23 +146,21 @@ msgid "Show Data View"
 msgstr "Montri Datenvidon"
 
 #: src/alttransview.cpp:182
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Dosierujo de alternativa tradukado:"
+msgstr "El dosierujo de alternativaj tradukoj"
 
 #: src/alttransview.cpp:205
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "Komparo kun antaŭa kunteksto:"
 
 #: src/alttransview.cpp:220
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "Komparo kun antaŭa fonto:"
 
 #: src/alttransview.cpp:291
 #, kde-format
@@ -171,20 +169,7 @@ msgid "Origin: %1"
 msgstr "Origino: %1"
 
 #: src/alttransview.cpp:298
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -197,22 +182,21 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>Foje, se fontoteksto estas ŝanĝita, ĝia traduko fariĝas malrekomendita "
-"kaj estas aŭ markita kiel <emphasis>bezonanta revizion</emphasis> (t.e. "
-"perdas aprobstatuson), aŭ (nur en kazo de XLIFF-dosiero) movita al la "
-"<emphasis>alternaj tradukoj</emphasis> sekcio akompananta la unuon.</p><p>Ĉi "
-"tiu ilvido ankaŭ montras la diferencon inter nuna fontĉeno kaj la antaŭa "
-"fontĉeno, tiel ke vi povas facile vidi kiuj ŝanĝoj devus esti aplikitaj al "
-"ekzistanta traduko al fari ĝin reflekti nunan fonton.</p><p>Duoble alklaki "
-"iun ajn vorton en ĉi tiu ilovido enigas ĝin en tradukon.</p><p>Faligi "
-"tradukdosieron sur ĉi tiun ilaron por uzi ĝin kiel fonton por pliaj alternaj "
-"tradukoj.</p>"
+"Foje, se fontoteksto estas ŝanĝita, ĝia traduko fariĝas malrekomendita kaj "
+"estas aŭ markita kiel bezonanta revizion (t.s. perdas aprobstatuson), aŭ "
+"(nur en kazo de XLIFF-dosiero) movita al la sekcio de alternativaj tradukoj "
+"akompananta la unuon. Ĉi tiu ilvido ankaŭ montras la diferencon inter nuna "
+"fontĉeno kaj la antaŭa fontĉeno, tiel ke vi povas facile vidi kiuj ŝanĝoj "
+"devus esti aplikitaj al ekzistanta traduko por igi ĝin speguli aktualan "
+"fonton. Duobla klako al iu ajn vorto en ĉi tiu ilovido enigas ĝin en "
+"tradukon. Faligu tradukdosieron sur ĉi tiu ilvido por uzi ĝin kiel fonton "
+"por pliaj alternativaj tradukoj."
 
 #: src/alttransview.cpp:330
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
-msgstr "Uzi alternan tradukon"
+msgstr "Uzi alternativan tradukon"
 
 #: src/binunitsview.cpp:109
 #, kde-format
@@ -1279,7 +1263,7 @@ msgstr "Enigi Sekvan Etikedon"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Salti al sekva neetikeda teksto"
 
 #: src/editortab.cpp:475
 #, kde-format
@@ -2497,12 +2481,12 @@ msgstr "korektado de cimoj kaj plibonigoj"
 #: src/main.cpp:77
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #: src/main.cpp:78
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
 #: src/main.cpp:83
@@ -2555,8 +2539,8 @@ msgid ""
 "Drop file to be merged into / synced with the current one here, then see "
 "context menu options"
 msgstr ""
-"Faligi dosieron por esti kunfandita en / sinkronigi kun la nuna ĉi tie, tiam "
-"vidu opciojn de kunteksta menuo"
+"Faligu dosieron kunfandendan en / sinkronigendan kun la nuna ĉi tie, tiam "
+"vidu elekteblojn de kunteksta menuo"
 
 #: src/mergemode/mergeview.cpp:224
 #, kde-format
@@ -2579,12 +2563,10 @@ msgstr ""
 "Nekongruaj enskriboj: %2"
 
 #: src/msgctxtview.cpp:37
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
-msgstr "Unuometadatenoj"
+msgstr "Metadatenoj de Unuo"
 
 #: src/msgctxtview.cpp:93
 #, kde-format
@@ -2597,7 +2579,7 @@ msgstr "<b>Provizoraj notoj:</b>"
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
-msgstr "<b>Pologiaj notoj:</b>"
+msgstr "<b>Pology-notoj:</b>"
 
 #: src/msgctxtview.cpp:111
 #, kde-format
@@ -3021,14 +3003,14 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
-"<html>Kiam ĉi tiu opcio estas ebligita, la musrado estas uzata por iri al la "
-"antaŭa aŭ sekva tradukunuo (sen modifklavoj). Modifi klavojn povas esti "
-"uzataj por ŝanĝi ĉi tiun konduton. Uzu:<ul><li><b>Shift</b> por rulumi ene "
-"de la teksto de la nuna unuo,</li><li><b>Ktrl+Shift</b> por iri al antaŭa aŭ "
-"sekva ne-preta unuo,</li><li><b>Ktrl</b> por iri al antaŭa aŭ sekva nepreta "
-"ne malplena unuo,</li><li><b>Alt</b> por iri al antaŭa aŭ sekva netradukita "
-"unuo.</li></ul>Kiam la opcio estas malŝaltita, la musrado ruliĝas ene de la "
-"teksto de la nuna tradukunuo.</html>"
+"<html>Kiam ĉi tiu elekteblo estas ebligita, la musrado estas uzata por iri "
+"al la antaŭa aŭ sekva tradukunuo (sen modifklavoj). Modifi klavojn povas "
+"esti uzataj por ŝanĝi ĉi tiun konduton. Uzu:<ul><li><b>Shift</b> por rulumi "
+"ene de la teksto de la nuna unuo,</li><li><b>Ktrl+Shift</b> por iri al "
+"antaŭa aŭ sekva ne-preta unuo,</li><li><b>Ktrl</b> por iri al antaŭa aŭ "
+"sekva nepreta ne malplena unuo,</li><li><b>Alt</b> por iri al antaŭa aŭ "
+"sekva netradukita unuo.</li></ul>Kiam la elekteblo estas malŝaltita, la "
+"musrado ruliĝas ene de la teksto de la nuna tradukunuo.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -3407,16 +3389,13 @@ msgstr "Aldoni malfermitajn dosierojn al tradukmemoro aŭtomate"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, fuzzy, kde-format
-#| msgid ""
-#| "Delete missing files from translation memory on Rescan or when clicking a "
-#| "missing entry"
+#, kde-format
 msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
 msgstr ""
-"Forigi mankantajn dosierojn el tradukmemoro ĉe Rescan aŭ klakante mankantan "
-"enskribon"
+"Forigi mankantajn dosierojn el tradukmemoro je reskanado aŭ klako al "
+"mankanta enskribo"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -4425,12 +4404,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (perfekta kongruo)"
 
 #: src/tm/tmview.cpp:507
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4444,8 +4421,8 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Okazis %1 fojon"
+msgstr[1] "Okazis %1 fojojn"
 
 #: src/tm/tmview.cpp:523
 #, kde-format
@@ -4453,7 +4430,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:531
 #, kde-format
@@ -4461,7 +4438,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:583
 #, kde-format
@@ -4640,46 +4617,3 @@ msgstr "Eraro estis raportita: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopii fonton al celo"
-
-#, fuzzy
-#~| msgid "bug fixing and improvements"
-#~ msgid "bug fixing and improvments"
-#~ msgstr "korektado de cimoj kaj plibonigoj"
-
-#~ msgctxt "%1 is the number of times this TM entry has been found"
-#~ msgid "(1 time)"
-#~ msgid_plural "(%1 times)"
-#~ msgstr[0] "(1 fojon)"
-#~ msgstr[1] "(%1 fojojn)"
-
-#~ msgid "Text colors for the changes in the message."
-#~ msgstr "Tekstaj koloroj por la ŝanĝoj en la mesaĝo."
-
-#~ msgid "String Matching"
-#~ msgstr "Kordo Kongruo"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text added in the newer string:"
-#~ msgstr "Teksto aldonita en la pli nova ĉeno:"
-
-#~ msgid "Change the color for the new text added"
-#~ msgstr "Ŝanĝi la koloron por la nova teksto aldonita"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was added to the "
-#~ "string."
-#~ msgstr ""
-#~ "Vi povas agordi alian koloron por vidi la tekston aldonitan al la ĉeno."
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text removed in the newer string:"
-#~ msgstr "Teksto forigita en la pli nova ĉeno:"
-
-#~ msgid "Change the color for the text removed"
-#~ msgstr "Ŝanĝi la koloron por la teksto forigita"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was removed from the "
-#~ "string."
-#~ msgstr ""
-#~ "Vi povas agordi alian koloron por vidi la tekston forigitan de la ĉeno."
