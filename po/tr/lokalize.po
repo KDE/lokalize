@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 02:36+0000\n"
+"POT-Creation-Date: 2025-01-03 02:34+0000\n"
 "PO-Revision-Date: 2024-12-11 22:19+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -111,13 +111,13 @@ msgstr "ODF içerisine birleştir"
 msgid "Generates translated version of ODF document"
 msgstr "ODF belgesinin çevrilmiş halini oluşturur"
 
-#: src/alttransview.cpp:40 src/alttransview.cpp:43
+#: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "Alternatif Çeviriler"
 
-#: src/alttransview.cpp:161
+#: src/alttransview.cpp:159
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -136,42 +136,42 @@ msgstr ""
 "\n"
 "Verilerle birlikte görüntülemek istiyor musunuz?"
 
-#: src/alttransview.cpp:165
+#: src/alttransview.cpp:163
 #, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Alternatif Çeviriler Kullanılabilir"
 
-#: src/alttransview.cpp:166
+#: src/alttransview.cpp:164
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr "Veri Görünümünü Göster"
 
-#: src/alttransview.cpp:182
+#: src/alttransview.cpp:180
 #, kde-format
 msgid "From alternate translations folder"
 msgstr "Alternatif çeviriler klasöründen"
 
-#: src/alttransview.cpp:205
+#: src/alttransview.cpp:203
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr "Önceki bağlamla karşılaştırma:"
 
-#: src/alttransview.cpp:220
+#: src/alttransview.cpp:218
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
 msgstr "Önceki kaynakla karşılaştırma:"
 
-#: src/alttransview.cpp:291
+#: src/alttransview.cpp:284
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Köken: %1"
 
-#: src/alttransview.cpp:298
+#: src/alttransview.cpp:291
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -195,7 +195,7 @@ msgstr ""
 "bu araç görünümüne bırakarak alternatif çeviriler için bir kaynak olarak "
 "kullanabilirsiniz."
 
-#: src/alttransview.cpp:330
+#: src/alttransview.cpp:323
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -797,7 +797,7 @@ msgstr "İmleme dili kullanılan metin ekle"
 msgid "separator for different-length string alternatives"
 msgstr "farklı uzunluktaki dizi alternatifleri için ayraç"
 
-#: src/catalog/gettext/gettextstorage.cpp:291
+#: src/catalog/gettext/gettextstorage.cpp:293
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "

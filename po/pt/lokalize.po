@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 02:36+0000\n"
+"POT-Creation-Date: 2025-01-03 02:34+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -135,13 +135,13 @@ msgstr "Reunir no ODF"
 msgid "Generates translated version of ODF document"
 msgstr "Gera uma versão traduzida do documento ODF"
 
-#: src/alttransview.cpp:40 src/alttransview.cpp:43
+#: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "Traduções Alternativas"
 
-#: src/alttransview.cpp:161
+#: src/alttransview.cpp:159
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -160,44 +160,44 @@ msgstr ""
 "\n"
 "Deseja ver a vista com os dados?"
 
-#: src/alttransview.cpp:165
+#: src/alttransview.cpp:163
 #, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Traduções Alternativas Disponíveis"
 
-#: src/alttransview.cpp:166
+#: src/alttransview.cpp:164
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr "Mostrar a Vista de Dados"
 
-#: src/alttransview.cpp:182
+#: src/alttransview.cpp:180
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox"
 #| msgid "Alternate translations folder:"
 msgid "From alternate translations folder"
 msgstr "Pasta de traduções alternativas:"
 
-#: src/alttransview.cpp:205
+#: src/alttransview.cpp:203
 #, kde-format
 msgctxt "Title for an alternative translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr ""
 
-#: src/alttransview.cpp:220
+#: src/alttransview.cpp:218
 #, kde-format
 msgctxt "Title for alternative translation source diff."
 msgid "Comparison with previous source:"
 msgstr ""
 
-#: src/alttransview.cpp:291
+#: src/alttransview.cpp:284
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
 msgstr "Origem: %1"
 
-#: src/alttransview.cpp:298
+#: src/alttransview.cpp:291
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid ""
@@ -236,7 +236,7 @@ msgstr ""
 "traduções nesta área de ferramentas para a usar como texto original para as "
 "traduções alternativas.</p>"
 
-#: src/alttransview.cpp:330
+#: src/alttransview.cpp:323
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
@@ -848,7 +848,7 @@ msgstr "Inserir o texto com a formatação"
 msgid "separator for different-length string alternatives"
 msgstr "separador para as alternativas de diferentes tamanhos"
 
-#: src/catalog/gettext/gettextstorage.cpp:291
+#: src/catalog/gettext/gettextstorage.cpp:293
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
