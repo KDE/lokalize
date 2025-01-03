@@ -8,9 +8,6 @@
 */
 
 #include "tmmanager.h"
-
-#include "lokalize_debug.h"
-
 #include "dbfilesmodel.h"
 #include "jobs.h"
 #include "languagelistmodel.h"
@@ -20,6 +17,7 @@
 #include "ui_managedatabases.h"
 
 #include <QFileDialog>
+#include <QHeaderView>
 #include <QSortFilterProxyModel>
 #include <QStandardPaths>
 #include <QStringBuilder>
@@ -39,6 +37,9 @@ TMManagerWin::TMManagerWin(QWidget *parent)
 
     ui_tmManager.list->setModel(DBFilesModel::instance());
     ui_tmManager.list->setRootIndex(DBFilesModel::instance()->rootIndex());
+    ui_tmManager.list->header()->resizeSections(QHeaderView::ResizeToContents);
+    ui_tmManager.list->resizeColumnToContents(0);
+    ui_tmManager.list->setMinimumSize(800, 250);
     m_tmListWidget = ui_tmManager.list;
 
     connect(ui_tmManager.addData, &QPushButton::clicked, this, &TMManagerWin::addDir);
