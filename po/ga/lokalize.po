@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-03 00:43+0000\n"
+"POT-Creation-Date: 2025-01-04 00:43+0000\n"
 "PO-Revision-Date: 2007-08-03 07:58-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -4155,42 +4155,42 @@ msgstr ""
 msgid "&Rescan project files"
 msgstr ""
 
-#: src/tm/tmmanager.cpp:35
+#: src/tm/tmmanager.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memories"
 msgstr "Cuimhní Aistriúcháin"
 
-#: src/tm/tmmanager.cpp:68
+#: src/tm/tmmanager.cpp:69
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Directory to be scanned"
 msgstr "Roghnaigh Comhadlann le scanadh"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "New Translation Memory"
 msgstr "Cuimhne Aistriúcháin Nua"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
 msgstr "Airíonna an Chuimhne Aistriúcháin"
 
-#: src/tm/tmmanager.cpp:212
+#: src/tm/tmmanager.cpp:213
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr ""
 
-#: src/tm/tmmanager.cpp:214 src/tm/tmmanager.cpp:235
+#: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:236
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
 msgstr ""
 
-#: src/tm/tmmanager.cpp:233
+#: src/tm/tmmanager.cpp:234
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"

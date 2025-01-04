@@ -5,13 +5,13 @@
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # obsoleteman <tulliana@gmail.com>, 2008-2010,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014, 2015, 2017, 2020.
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-03 00:43+0000\n"
-"PO-Revision-Date: 2024-12-11 22:19+0300\n"
+"POT-Creation-Date: 2025-01-04 00:43+0000\n"
+"PO-Revision-Date: 2025-01-03 20:33+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -24,12 +24,14 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Serdar Soytetir, H. İbrahim Güngör, Volkan Gezer"
+msgstr "Serdar Soytetir, H. İbrahim Güngör, Volkan Gezer, Emir SARI"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "tulliana@gmail.com, ibrahim@pardus.org.tr, volkangezer@gmail.com"
+msgstr ""
+"tulliana@gmail.com, ibrahim@pardus.org.tr, volkangezer@gmail.com, "
+"emir_sari@icloud.com"
 
 #. i18n: tag collection attribute text
 #. i18n: tag collection attribute comment
@@ -137,9 +139,7 @@ msgstr ""
 "Verilerle birlikte görüntülemek istiyor musunuz?"
 
 #: src/alttransview.cpp:163
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternate Translations Available"
 msgstr "Kullanılabilir Alternatif Çeviriler"
@@ -156,17 +156,13 @@ msgid "From alternate translations folder"
 msgstr "Alternatif çeviriler klasöründen"
 
 #: src/alttransview.cpp:203
-#, fuzzy, kde-format
-#| msgctxt "Title for an alternative translation entry context diff."
-#| msgid "Comparison with previous context:"
+#, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr "Önceki bağlamla karşılaştırma:"
 
 #: src/alttransview.cpp:218
-#, fuzzy, kde-format
-#| msgctxt "Title for alternative translation source diff."
-#| msgid "Comparison with previous source:"
+#, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
 msgstr "Önceki kaynakla karşılaştırma:"
@@ -1819,9 +1815,7 @@ msgstr "Çeviri &Belleği"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Alternatif Çeviriler"
 
@@ -4268,42 +4262,42 @@ msgstr ""
 msgid "&Rescan project files"
 msgstr "&Proje Dosyalarını Yeniden Tara"
 
-#: src/tm/tmmanager.cpp:35
+#: src/tm/tmmanager.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memories"
 msgstr "Çeviri Bellekleri"
 
-#: src/tm/tmmanager.cpp:68
+#: src/tm/tmmanager.cpp:69
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Directory to be scanned"
 msgstr "Taranacak Dizini Seç"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "New Translation Memory"
 msgstr "Yeni Çeviri Belleği"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
 msgstr "Çeviri Belleği Özellikleri"
 
-#: src/tm/tmmanager.cpp:212
+#: src/tm/tmmanager.cpp:213
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr "TMX Dosyası İçe Aktar"
 
-#: src/tm/tmmanager.cpp:214 src/tm/tmmanager.cpp:235
+#: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:236
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
 msgstr "TMX dosyaları (*.tmx *.xml)"
 
-#: src/tm/tmmanager.cpp:233
+#: src/tm/tmmanager.cpp:234
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"

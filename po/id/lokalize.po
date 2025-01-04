@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-03 00:43+0000\n"
+"POT-Creation-Date: 2025-01-04 00:43+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -4361,42 +4361,42 @@ msgstr ""
 msgid "&Rescan project files"
 msgstr "&Pindai ulang file proyek"
 
-#: src/tm/tmmanager.cpp:35
+#: src/tm/tmmanager.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memories"
 msgstr "Memori-memori Terjemahan"
 
-#: src/tm/tmmanager.cpp:68
+#: src/tm/tmmanager.cpp:69
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Directory to be scanned"
 msgstr "Pilih Direktori yang untuk dipindai"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "New Translation Memory"
 msgstr "Memori Terjemahan Baru"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
 msgstr "Properti Memori Terjemahan"
 
-#: src/tm/tmmanager.cpp:212
+#: src/tm/tmmanager.cpp:213
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr "Pilih file TMX untuk diimpor ke dalam basis-data terpilih"
 
-#: src/tm/tmmanager.cpp:214 src/tm/tmmanager.cpp:235
+#: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:236
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
 msgstr "File TMX (*.tmx *.xml)"
 
-#: src/tm/tmmanager.cpp:233
+#: src/tm/tmmanager.cpp:234
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-03 00:43+0000\n"
+"POT-Creation-Date: 2025-01-04 00:43+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -4381,42 +4381,42 @@ msgstr ""
 msgid "&Rescan project files"
 msgstr "Sonda&r de novo os ficheiros do projecto"
 
-#: src/tm/tmmanager.cpp:35
+#: src/tm/tmmanager.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memories"
 msgstr "Memórias de Traduções"
 
-#: src/tm/tmmanager.cpp:68
+#: src/tm/tmmanager.cpp:69
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Directory to be scanned"
 msgstr "Seleccionar a Pasta a Processar"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "New Translation Memory"
 msgstr "Nova Memória de Tradução"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
 msgstr "Propriedades da Memória de Traduções"
 
-#: src/tm/tmmanager.cpp:212
+#: src/tm/tmmanager.cpp:213
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr "Seleccionar o ficheiro TMX a importar na base de dados seleccionada"
 
-#: src/tm/tmmanager.cpp:214 src/tm/tmmanager.cpp:235
+#: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:236
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
 msgstr "Ficheiros TMX (*.tmx *.xml)"
 
-#: src/tm/tmmanager.cpp:233
+#: src/tm/tmmanager.cpp:234
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-03 00:43+0000\n"
+"POT-Creation-Date: 2025-01-04 00:43+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -132,12 +132,10 @@ msgstr ""
 "您想要在该视图中显示这些数据吗？"
 
 #: src/alttransview.cpp:163
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternate Translations Available"
-msgstr "备选翻译"
+msgstr ""
 
 #: src/alttransview.cpp:164
 #, kde-format
@@ -1734,9 +1732,7 @@ msgstr "翻译记忆(&M)"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "备选翻译"
 
@@ -4090,42 +4086,42 @@ msgstr "读取全部项目文件到翻译记忆，更新旧条目。扫描将在
 msgid "&Rescan project files"
 msgstr "重新扫描项目文件(&R)"
 
-#: src/tm/tmmanager.cpp:35
+#: src/tm/tmmanager.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memories"
 msgstr "翻译记忆"
 
-#: src/tm/tmmanager.cpp:68
+#: src/tm/tmmanager.cpp:69
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Directory to be scanned"
 msgstr "选择要扫描的目录"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "New Translation Memory"
 msgstr "新建翻译记忆"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
 msgstr "翻译记忆属性"
 
-#: src/tm/tmmanager.cpp:212
+#: src/tm/tmmanager.cpp:213
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr "选择要导入到选定数据库的 TMX 文件"
 
-#: src/tm/tmmanager.cpp:214 src/tm/tmmanager.cpp:235
+#: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:236
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
 msgstr "TMX 文件 (*.tmx *.xml)"
 
-#: src/tm/tmmanager.cpp:233
+#: src/tm/tmmanager.cpp:234
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
@@ -4438,6 +4434,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
-
-#~ msgid "Alternative Translations"
-#~ msgstr "备选翻译"

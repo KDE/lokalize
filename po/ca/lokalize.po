@@ -1,24 +1,24 @@
 # Translation of lokalize.po to Catalan
-# Copyright (C) 2009-2024 This_file_is_part_of_KDE
+# Copyright (C) 2009-2025 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2 or later.
 #
 # Orestes Mas <orestes@tsc.upc.edu>, 2009.
-# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 # Manuel Tortosa <manutortosa@chakra-project.org>, 2011, 2012.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2012, 2015, 2016, 2017, 2018, 2019, 2020.
+# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-03 00:43+0000\n"
-"PO-Revision-Date: 2024-10-24 10:48+0200\n"
+"POT-Creation-Date: 2025-01-04 00:43+0000\n"
+"PO-Revision-Date: 2025-01-03 10:08+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -138,9 +138,7 @@ msgstr ""
 "Voleu que es mostri la vista amb les dades?"
 
 #: src/alttransview.cpp:163
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternate Translations Available"
 msgstr "Traduccions alternatives disponibles"
@@ -157,17 +155,13 @@ msgid "From alternate translations folder"
 msgstr "Des de la carpeta de traduccions alternatives"
 
 #: src/alttransview.cpp:203
-#, fuzzy, kde-format
-#| msgctxt "Title for an alternative translation entry context diff."
-#| msgid "Comparison with previous context:"
+#, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr "Comparació amb el context anterior:"
 
 #: src/alttransview.cpp:218
-#, fuzzy, kde-format
-#| msgctxt "Title for alternative translation source diff."
-#| msgid "Comparison with previous source:"
+#, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
 msgstr "Comparació amb l'origen anterior:"
@@ -1841,9 +1835,7 @@ msgstr "&Memòria de traducció"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Traduccions alternatives"
 
@@ -4308,43 +4300,43 @@ msgstr ""
 msgid "&Rescan project files"
 msgstr "&Torna a explorar els fitxers del projecte"
 
-#: src/tm/tmmanager.cpp:35
+#: src/tm/tmmanager.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memories"
 msgstr "Memòries de traducció"
 
-#: src/tm/tmmanager.cpp:68
+#: src/tm/tmmanager.cpp:69
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Directory to be scanned"
 msgstr "Seleccioneu la carpeta a explorar"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "New Translation Memory"
 msgstr "Memòria de traducció nova"
 
-#: src/tm/tmmanager.cpp:77
+#: src/tm/tmmanager.cpp:78
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
 msgstr "Propietats de la memòria de traducció"
 
-#: src/tm/tmmanager.cpp:212
+#: src/tm/tmmanager.cpp:213
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr ""
 "Seleccioneu un fitxer TMX per a importar-lo a la base de dades seleccionada"
 
-#: src/tm/tmmanager.cpp:214 src/tm/tmmanager.cpp:235
+#: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:236
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
 msgstr "Fitxers TMX (*.tmx *.xml)"
 
-#: src/tm/tmmanager.cpp:233
+#: src/tm/tmmanager.cpp:234
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
