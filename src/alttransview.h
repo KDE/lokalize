@@ -39,6 +39,14 @@ public:
      * is first shown, its items are laid out correctly.
      */
     void showEvent(QShowEvent *event) override;
+    /*
+     * @short Open a dialogue when data is available.
+     * When there is data in the Alternative Translation View
+     * but the view is hidden, inform the user that displaying
+     * the view might be useful, and allow the user to show it.
+     * @author Finley Watson
+     */
+    void conditionallyPromptToDisplay();
 
 public Q_SLOTS:
     void slotNewEntryDisplayed(const DocPosition &);
@@ -66,7 +74,7 @@ private:
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo{};
-    bool m_everShown{};
+    bool m_everCheckedAboutPromptingToShow{};
     DocPos m_entry;
     DocPos m_prevEntry;
 

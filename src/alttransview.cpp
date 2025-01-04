@@ -15,7 +15,6 @@
 #include "diff.h"
 #include "lokalize_debug.h"
 #include "mergecatalog.h"
-#include "prefs_lokalize.h"
 #include "project.h"
 #include "projectbase.h"
 #include "tmview.h" // For the DynamicItemHeightQListWidget and other functionality
@@ -29,6 +28,7 @@
 #include <QStringBuilder>
 #include <QStringLiteral>
 #include <QToolTip>
+#include <QtAssert>
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -44,16 +44,13 @@ AltTransView::AltTransView(QWidget *parent, Catalog *catalog, const QVector<QAct
 {
     setObjectName(QStringLiteral("msgIdDiff"));
     setWidget(m_entriesList);
+    m_everCheckedAboutPromptingToShow = false;
     QTimer::singleShot(0, this, &AltTransView::initLater);
 }
 
 void AltTransView::initLater()
 {
     setAcceptDrops(true);
-
-    KConfig config;
-    KConfigGroup group(&config, QStringLiteral("AltTransView"));
-    m_everShown = group.readEntry("EverShown", false);
 
     int i = m_actions.size();
     while (--i >= 0) {
@@ -152,22 +149,8 @@ void AltTransView::process()
         m_hasInfo = true;
         setWindowTitle(m_hasInfoTitle);
     }
-    if (!isVisible() && !Settings::altTransViewEverShownWithData()) {
-        if (KMessageBox::PrimaryAction
-            == KMessageBox::questionTwoActions(
-                this,
-                i18n("There is useful data available in Alternate Translations view.\n\n"
-                     "For Gettext PO files it displays difference between current source text "
-                     "and the source text corresponding to the fuzzy translation found by msgmerge when updating PO based on POT template.\n\n"
-                     "Do you want to show the view with the data?"),
-                i18nc("@title", "Alternate Translations Available"),
-                KGuiItem(i18nc("@action", "Show Data View")),
-                KStandardGuiItem::cancel())) {
-            show();
-        }
 
-        Settings::setAltTransViewEverShownWithData(true);
-    }
+    conditionallyPromptToDisplay();
 
     CatalogString source = m_catalog->sourceWithTags(m_entry.toDocPosition());
     QString context = m_catalog->context(m_entry.toDocPosition()).first();
@@ -255,18 +238,35 @@ void AltTransView::process()
             break;
     }
 
-    if (!m_everShown) {
-        m_everShown = true;
-        show();
-
-        KConfig config;
-        KConfigGroup group(&config, QStringLiteral("AltTransView"));
-        group.writeEntry("EverShown", true);
-    }
-
     m_entriesList->updateListItemHeights();
     m_entriesList->viewport()->setUpdatesEnabled(true);
     setUpdatesEnabled(true);
+}
+
+void AltTransView::conditionallyPromptToDisplay()
+{
+    if (m_everCheckedAboutPromptingToShow)
+        return;
+    m_everCheckedAboutPromptingToShow = true;
+
+    Q_ASSERT(!m_catalog->altTrans(m_entry.toDocPosition()).isEmpty());
+
+    // The prompt will not show if the user has ticked "Do not show again". In this case whatever
+    // choice the user made at that time will be used i.e. can always show if data is available.
+    if (!isVisible()
+        && KMessageBox::PrimaryAction
+            == KMessageBox::questionTwoActions(this,
+                                               i18n("There is useful data available in Alternate Translations view.\n\n"
+                                                    "For Gettext PO files it displays difference between current source "
+                                                    "text and the source text corresponding to the fuzzy translation "
+                                                    "found by msgmerge when updating PO based on POT template.\n\n"
+                                                    "Do you want to show the view with the data?"),
+                                               i18nc("@title", "Alternative Translations Available"),
+                                               KGuiItem(i18nc("@action", "Show Data View")),
+                                               KStandardGuiItem::cancel(),
+                                               QStringLiteral("ResponseToShowAlternateTranslationsViewDialogWhenDataPresent"))) {
+        show();
+    }
 }
 
 bool AltTransView::event(QEvent *event)
