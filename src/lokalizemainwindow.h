@@ -35,7 +35,7 @@ class TMTab;
 }
 
 /**
- * @short Lokalize MDI (tabbed) window.
+ * @short Lokalize tabbed window.
  *
  * Sets up actions, and maintains their connection with active subwindow via ActionProxy
  * As such, it handles the menus, toolbars, and status bars.
@@ -58,6 +58,11 @@ public:
 protected:
     void saveProjectState(KConfigGroup &);
     void saveProperties(KConfigGroup &stateGroup) override;
+    /*
+     * @short Check if all parts of Lokalize are OK with closing.
+     * For example check if files are saved. There are other
+     * methods with the same name in tab classes.
+     */
     bool queryClose() override;
     void readProperties(const KConfigGroup &stateGroup) override;
     void registerDBusAdaptor();
@@ -87,12 +92,16 @@ public Q_SLOTS:
     /**
      * Adds new editor with @param path loaded,
      * or just activates already existing editor with this file.
+     * Returns dbus id or -1 on widget creation failure.
      */
     Q_SCRIPTABLE int openFileInEditor(const QString &path);
     Q_SCRIPTABLE int openFileInEditorAt(const QString &path, const QString &source, const QString &ctxt);
     int lookupInTranslationMemory(DocPosition::Part part, const QString &text);
     Q_SCRIPTABLE int lookupInTranslationMemory(const QString &source, const QString &target);
     Q_SCRIPTABLE int showTranslationMemory();
+    /*
+     * @short Creates and / or activates the Project Overview tab if there is project data.
+     */
     Q_SCRIPTABLE void showProjectOverview();
     Q_SCRIPTABLE QObject *projectOverview();
 
@@ -120,6 +129,9 @@ public Q_SLOTS:
     Q_SCRIPTABLE void busyCursor(bool busy);
 
     // returns 0 if error
+    /*
+     * @short Runs when a file is clicked from Project Overview, calls fileOpen()
+     */
     EditorTab *fileOpen_(QString url, const bool setAsActive);
     EditorTab *fileOpen(QString url = QString(), int entry = 0, bool setAsActive = true, const QString &mergeFile = QString(), bool silent = false);
     EditorTab *fileOpen(const QString &url, const QString &source, const QString &ctxt, const bool setAsActive);
@@ -143,7 +155,7 @@ private:
     /*
      * @short All the tabs: project, editor etc.
      */
-    LokalizeMdiArea *m_mdiArea;
+    LokalizeMdiArea *m_mainTabs;
     /*
      * @short Contains all tabs on one layer, and the welcome widget on another.
      */
