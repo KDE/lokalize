@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-04 00:43+0000\n"
+"POT-Creation-Date: 2025-01-05 00:43+0000\n"
 "PO-Revision-Date: 2025-01-03 12:25+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -117,7 +117,24 @@ msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "Traducciones alternativas"
 
-#: src/alttransview.cpp:159
+#: src/alttransview.cpp:163
+#, kde-format
+msgid "From alternate translations folder"
+msgstr "De la carpeta de traducciones alternativas"
+
+#: src/alttransview.cpp:186
+#, kde-format
+msgctxt "Title for an alternate translation entry context diff."
+msgid "Comparison with previous context:"
+msgstr "Comparación con el contexto anterior:"
+
+#: src/alttransview.cpp:201
+#, kde-format
+msgctxt "Title for alternate translation source diff."
+msgid "Comparison with previous source:"
+msgstr "Comparación con el origen anterior:"
+
+#: src/alttransview.cpp:259
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -137,34 +154,19 @@ msgstr ""
 "\n"
 "¿Desea mostrar esta vista con dichos datos?"
 
-#: src/alttransview.cpp:163
-#, kde-format
+#: src/alttransview.cpp:264
+#, fuzzy, kde-format
+#| msgctxt "@title"
+#| msgid "Alternate Translations Available"
 msgctxt "@title"
-msgid "Alternate Translations Available"
+msgid "Alternative Translations Available"
 msgstr "Traducciones alternativas disponibles"
 
-#: src/alttransview.cpp:164
+#: src/alttransview.cpp:265
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr "Mostrar la vista de datos"
-
-#: src/alttransview.cpp:180
-#, kde-format
-msgid "From alternate translations folder"
-msgstr "De la carpeta de traducciones alternativas"
-
-#: src/alttransview.cpp:203
-#, kde-format
-msgctxt "Title for an alternate translation entry context diff."
-msgid "Comparison with previous context:"
-msgstr "Comparación con el contexto anterior:"
-
-#: src/alttransview.cpp:218
-#, kde-format
-msgctxt "Title for alternate translation source diff."
-msgid "Comparison with previous source:"
-msgstr "Comparación con el origen anterior:"
 
 #: src/alttransview.cpp:284
 #, kde-format

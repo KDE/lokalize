@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-04 00:43+0000\n"
+"POT-Creation-Date: 2025-01-05 00:43+0000\n"
 "PO-Revision-Date: 2024-09-15 06:03+0900\n"
 "Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -123,7 +123,26 @@ msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "その他の翻訳"
 
-#: src/alttransview.cpp:159
+#: src/alttransview.cpp:163
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Alternate translations folder:"
+msgid "From alternate translations folder"
+msgstr "その他の翻訳のフォルダ:"
+
+#: src/alttransview.cpp:186
+#, kde-format
+msgctxt "Title for an alternate translation entry context diff."
+msgid "Comparison with previous context:"
+msgstr ""
+
+#: src/alttransview.cpp:201
+#, kde-format
+msgctxt "Title for alternate translation source diff."
+msgid "Comparison with previous source:"
+msgstr ""
+
+#: src/alttransview.cpp:259
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -142,38 +161,19 @@ msgstr ""
 "\n"
 "ビューにデータを表示しますか？"
 
-#: src/alttransview.cpp:163
+#: src/alttransview.cpp:264
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "Alternative Translations Available"
 msgctxt "@title"
-msgid "Alternate Translations Available"
+msgid "Alternative Translations Available"
 msgstr "別の翻訳も利用可能"
 
-#: src/alttransview.cpp:164
+#: src/alttransview.cpp:265
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr "データビューを表示"
-
-#: src/alttransview.cpp:180
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
-msgid "From alternate translations folder"
-msgstr "その他の翻訳のフォルダ:"
-
-#: src/alttransview.cpp:203
-#, kde-format
-msgctxt "Title for an alternate translation entry context diff."
-msgid "Comparison with previous context:"
-msgstr ""
-
-#: src/alttransview.cpp:218
-#, kde-format
-msgctxt "Title for alternate translation source diff."
-msgid "Comparison with previous source:"
-msgstr ""
 
 #: src/alttransview.cpp:284
 #, kde-format

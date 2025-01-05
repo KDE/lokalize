@@ -9,13 +9,13 @@
 # Khaled Hosny <khaledhosny@eglug.org>, 2007, 2008.
 # Abdalrahim Fakhouri <abdilra7eem@yahoo.com>, 2012.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2014, 2017.
-# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-04 00:43+0000\n"
-"PO-Revision-Date: 2024-11-29 06:31+0400\n"
+"POT-Creation-Date: 2025-01-05 00:43+0000\n"
+"PO-Revision-Date: 2025-01-04 17:10+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -124,7 +124,24 @@ msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "ترجمات بديلة"
 
-#: src/alttransview.cpp:159
+#: src/alttransview.cpp:163
+#, kde-format
+msgid "From alternate translations folder"
+msgstr "من مجلّد الترجمات البديلة"
+
+#: src/alttransview.cpp:186
+#, kde-format
+msgctxt "Title for an alternate translation entry context diff."
+msgid "Comparison with previous context:"
+msgstr "مقارنة مع السياق السابق:"
+
+#: src/alttransview.cpp:201
+#, kde-format
+msgctxt "Title for alternate translation source diff."
+msgid "Comparison with previous source:"
+msgstr "مقارنة مع المصدر السابق:"
+
+#: src/alttransview.cpp:259
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -142,40 +159,19 @@ msgstr ""
 "\n"
 "أتريد عرض هذا المنظور وفيه هذه البيانات؟"
 
-#: src/alttransview.cpp:163
+#: src/alttransview.cpp:264
 #, fuzzy, kde-format
 #| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#| msgid "Alternate Translations Available"
 msgctxt "@title"
-msgid "Alternate Translations Available"
-msgstr "توفر الترجمات البديلة"
+msgid "Alternative Translations Available"
+msgstr "ترجمات البديلة المتوفرة"
 
-#: src/alttransview.cpp:164
+#: src/alttransview.cpp:265
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr "أظهر عرض البيانات"
-
-#: src/alttransview.cpp:180
-#, kde-format
-msgid "From alternate translations folder"
-msgstr "من مجلّد الترجمات البديلة"
-
-#: src/alttransview.cpp:203
-#, fuzzy, kde-format
-#| msgctxt "Title for an alternative translation entry context diff."
-#| msgid "Comparison with previous context:"
-msgctxt "Title for an alternate translation entry context diff."
-msgid "Comparison with previous context:"
-msgstr "مقارنة مع السياق السابق:"
-
-#: src/alttransview.cpp:218
-#, fuzzy, kde-format
-#| msgctxt "Title for alternative translation source diff."
-#| msgid "Comparison with previous source:"
-msgctxt "Title for alternate translation source diff."
-msgid "Comparison with previous source:"
-msgstr "مقارنة مع المصدر السابق:"
 
 #: src/alttransview.cpp:284
 #, kde-format
@@ -1805,11 +1801,9 @@ msgstr "&ذاكرة الترجمة"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
-msgstr "ترجمات بديلة"
+msgstr "الترجمات البديلة"
 
 #. i18n: ectx: Menu (go)
 #: src/editorui.rc:146 src/project/projectmanagerui.rc:5

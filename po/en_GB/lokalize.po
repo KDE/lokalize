@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-04 00:43+0000\n"
+"POT-Creation-Date: 2025-01-05 00:43+0000\n"
 "PO-Revision-Date: 2024-11-01 13:59+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -115,7 +115,28 @@ msgctxt "@title:window"
 msgid "Alternate Translations"
 msgstr "Alternate Translations"
 
-#: src/alttransview.cpp:159
+#: src/alttransview.cpp:163
+#, kde-format
+msgid "From alternate translations folder"
+msgstr "From alternate translations folder"
+
+#: src/alttransview.cpp:186
+#, fuzzy, kde-format
+#| msgctxt "Title for an alternative translation entry context diff."
+#| msgid "Comparison with previous context:"
+msgctxt "Title for an alternate translation entry context diff."
+msgid "Comparison with previous context:"
+msgstr "Comparison with previous context:"
+
+#: src/alttransview.cpp:201
+#, fuzzy, kde-format
+#| msgctxt "Title for alternative translation source diff."
+#| msgid "Comparison with previous source:"
+msgctxt "Title for alternate translation source diff."
+msgid "Comparison with previous source:"
+msgstr "Comparison with previous source:"
+
+#: src/alttransview.cpp:259
 #, kde-format
 msgid ""
 "There is useful data available in Alternate Translations view.\n"
@@ -134,40 +155,19 @@ msgstr ""
 "\n"
 "Do you want to show the view with the data?"
 
-#: src/alttransview.cpp:163
+#: src/alttransview.cpp:264
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "Alternative Translations Available"
 msgctxt "@title"
-msgid "Alternate Translations Available"
+msgid "Alternative Translations Available"
 msgstr "Alternative Translations Available"
 
-#: src/alttransview.cpp:164
+#: src/alttransview.cpp:265
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
 msgstr "Show Data View"
-
-#: src/alttransview.cpp:180
-#, kde-format
-msgid "From alternate translations folder"
-msgstr "From alternate translations folder"
-
-#: src/alttransview.cpp:203
-#, fuzzy, kde-format
-#| msgctxt "Title for an alternative translation entry context diff."
-#| msgid "Comparison with previous context:"
-msgctxt "Title for an alternate translation entry context diff."
-msgid "Comparison with previous context:"
-msgstr "Comparison with previous context:"
-
-#: src/alttransview.cpp:218
-#, fuzzy, kde-format
-#| msgctxt "Title for alternative translation source diff."
-#| msgid "Comparison with previous source:"
-msgctxt "Title for alternate translation source diff."
-msgid "Comparison with previous source:"
-msgstr "Comparison with previous source:"
 
 #: src/alttransview.cpp:284
 #, kde-format
