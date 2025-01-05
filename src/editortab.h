@@ -132,6 +132,9 @@ public:
                   QString suggestedDirPath = QString(),
                   QMap<QString, QMdiSubWindow *> openedFiles = QMap<QString, QMdiSubWindow *>(),
                   bool silent = false);
+    QIcon m_defaultTabIcon;
+    QIcon m_unsavedTabIcon;
+
 public Q_SLOTS:
     // for undo/redo, views
     void gotoEntry(DocPosition pos);

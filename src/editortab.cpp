@@ -63,6 +63,9 @@ EditorTab::EditorTab(QWidget *parent, bool valid)
     , m_view(new EditorView(this, m_catalog))
     , m_valid(valid)
 {
+    m_defaultTabIcon = QIcon::fromTheme(QLatin1String("translate"));
+    m_unsavedTabIcon = QIcon::fromTheme(QLatin1String("document-save"));
+    m_tabIcon = m_defaultTabIcon;
     setAcceptDrops(true);
     setCentralWidget(m_view);
     setupStatusBar(); //--NOT called from initLater() !

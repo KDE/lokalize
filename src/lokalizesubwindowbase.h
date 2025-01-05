@@ -100,6 +100,8 @@ public:
             }
         }
     }
+    QString m_tabLabel;
+    QIcon m_tabIcon;
 };
 
 #endif
