@@ -144,8 +144,6 @@ msgstr ""
 
 #: src/alttransview.cpp:180
 #, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
 msgid "From alternate translations folder"
 msgstr "Mappe for andre oversettelser"
 
@@ -169,19 +167,6 @@ msgstr "Opprinnelse: %1"
 
 #: src/alttransview.cpp:291
 #, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -2562,8 +2547,6 @@ msgstr ""
 
 #: src/msgctxtview.cpp:37
 #, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Enhetsmetadata"
@@ -4378,8 +4361,6 @@ msgstr ""
 
 #: src/tm/tmview.cpp:507
 #, fuzzy, kde-format
-#| msgctxt "percentages in statusbar"
-#| msgid " (%1%)"
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
