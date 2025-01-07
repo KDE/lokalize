@@ -25,9 +25,19 @@ include(ECMAddTests)
 include(KDEClangFormat)
 include(KDEGitCommitHooks)
 
+option(BUILD_DOC "Whether to build the documentation" ON)
+
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Sql Test)
 
-find_package(KF6 ${KF_MIN_VERSION} REQUIRED I18n TextWidgets KIO XmlGui Notifications Config CoreAddons DocTools Sonnet DBusAddons Crash IconThemes)
+find_package(KF6 ${KF_MIN_VERSION} REQUIRED I18n TextWidgets KIO XmlGui Notifications Config CoreAddons Sonnet DBusAddons Crash IconThemes)
+
+if(BUILD_DOC)
+    find_package(KF6DocTools ${KF_MIN_VERSION})
+    set_package_properties(KF6DocTools PROPERTIES
+        DESCRIPTION "Tools to generate documentation"
+        TYPE REQUIRED
+    )
+endif()
 
 find_package(HUNSPELL)
 set_package_properties(
@@ -37,7 +47,6 @@ set_package_properties(
     TYPE        REQUIRED
     PURPOSE     "Required to build Lokalize.")
 
-add_subdirectory(doc)
 add_subdirectory(src)
 add_subdirectory(scripts)
 add_subdirectory(icons)
@@ -50,7 +59,11 @@ kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
 
 install(FILES org.kde.lokalize.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
+if(BUILD_DOC)
+    add_subdirectory(doc)
+    kdoctools_install(po)
+endif()
+
 ki18n_install(po)
-kdoctools_install(po)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
