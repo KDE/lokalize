@@ -1903,9 +1903,7 @@ msgid "File"
 msgstr "文件"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "在多个文件中查找和替换"
@@ -3739,9 +3737,7 @@ msgid "Last Translator"
 msgstr "最后翻译者"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "项目概况"
