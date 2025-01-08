@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-06 00:43+0000\n"
-"PO-Revision-Date: 2025-01-05 08:11+0200\n"
+"PO-Revision-Date: 2025-01-06 09:38+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1961,9 +1961,7 @@ msgid "File"
 msgstr "קובץ"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "חיפוש והחלפה בקבצים"
@@ -3843,9 +3841,7 @@ msgid "Last Translator"
 msgstr "מתרגם אחרון"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "סקירת מיזם"
