@@ -4,23 +4,21 @@
   SPDX-FileCopyrightText: 2007-2015 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2019 Karl Ove Hufthammer <karl@huftis.org>
-  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2024-2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "projectwidget.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "headerviewmenu.h"
+#include "lokalize_debug.h"
 #include "project.h"
 
-#include <kcolorscheme.h>
-#include <kdirlister.h>
-#include <kdirsortfilterproxymodel.h>
-#include <kstringhandler.h>
+#include <KColorScheme>
+#include <KDirLister>
+#include <KDirSortFilterProxyModel>
+#include <KStringHandler>
 
 #include <QApplication>
 #include <QCollator>
@@ -32,6 +30,7 @@
 #include <QPainter>
 #include <QStyledItemDelegate>
 #include <QTimer>
+#include <QtAssert>
 
 class PoItemDelegate : public QStyledItemDelegate
 {
@@ -250,10 +249,9 @@ bool ProjectOverviewSortFilterProxyModel::lessThan(const QModelIndex &left, cons
     }
 }
 
-ProjectWidget::ProjectWidget(/*Catalog* catalog, */ QWidget *parent)
+ProjectWidget::ProjectWidget(QWidget *parent)
     : QTreeView(parent)
     , m_proxyModel(new ProjectOverviewSortFilterProxyModel(this))
-//     , m_catalog(catalog)
 {
     PoItemDelegate *delegate = new PoItemDelegate(this);
     setItemDelegate(delegate);
@@ -261,38 +259,34 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */ QWidget *parent)
     connect(this, &ProjectWidget::activated, this, &ProjectWidget::slotItemActivated);
 
     m_proxyModel->setSourceModel(Project::instance()->model());
-    // m_proxyModel->setDynamicSortFilter(true);
     setModel(m_proxyModel);
     connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectWidget::modelAboutToReload);
     connect(Project::instance()->model(), &ProjectModel::loadingFinished, this, &ProjectWidget::modelReloaded, Qt::QueuedConnection);
 
     setUniformRowHeights(true);
     setAllColumnsShowFocus(true);
-    int widthDefaults[] = {6, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4};
-    // FileName, Graph, TotalCount, TranslatedCount, FuzzyCount, UntranslatedCount, IncompleteCount, Comment, SourceDate, TranslationDate, LastTranslator
-    int i = sizeof(widthDefaults) / sizeof(int);
-    int baseWidth = columnWidth(0);
-    while (--i >= 0)
-        setColumnWidth(i, baseWidth * widthDefaults[i] / 2);
-
     setSortingEnabled(true);
     sortByColumn(0, Qt::AscendingOrder);
-
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setSelectionBehavior(QAbstractItemView::SelectRows);
-    //    QTimer::singleShot(0,this,SLOT(initLater()));
 
     new HeaderViewMenuHandler(header());
 
     KConfig config;
     KConfigGroup stateGroup(&config, QStringLiteral("ProjectWindow"));
-    header()->restoreState(QByteArray::fromBase64(stateGroup.readEntry("ListHeaderState", QByteArray())));
-    i = sizeof(widthDefaults) / sizeof(int);
-    while (--i >= 0) {
-        if (columnWidth(i) > 5 * baseWidth * widthDefaults[i]) {
-            // The column width is more than 5 times its normal width
-            setColumnWidth(i, 5 * baseWidth * widthDefaults[i]);
-        }
+    const bool stateRestoreIsSuccessful = (stateGroup.exists() && stateGroup.hasKey("ListHeaderState")
+                                           && header()->restoreState(QByteArray::fromBase64(stateGroup.readEntry("ListHeaderState", QByteArray()))));
+    if (!stateRestoreIsSuccessful) {
+        // FileName, Graph, TotalCount, TranslatedCount, FuzzyCount, UntranslatedCount, IncompleteCount, Comment, SourceDate, TranslationDate, LastTranslator
+        static const int widthDefaults[] = {3, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2};
+        int i = sizeof(widthDefaults) / sizeof(int);
+        Q_ASSERT(i == header()->count());
+        int baseWidth = columnWidth(0);
+
+        header()->resizeSections(QHeaderView::ResizeToContents);
+        while (--i >= 0)
+            if (widthDefaults[i])
+                setColumnWidth(i, baseWidth * widthDefaults[i]);
     }
 }
 
