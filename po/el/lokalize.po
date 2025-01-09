@@ -166,9 +166,7 @@ msgstr ""
 "Θέλετε να το εμφανίζεται με τα δεδομένα;"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Υπάρχουν διαθέσιμες εναλλακτικές μεταφράσεις"
@@ -1861,9 +1859,7 @@ msgstr "Μετα&φραστική μνήμη"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Εναλλακτικές μεταφράσεις"
 
@@ -2035,9 +2031,7 @@ msgid "File"
 msgstr "Αρχείο"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Εύρεση και αντικατάσταση σε αρχεία"
@@ -4010,9 +4004,7 @@ msgid "Last Translator"
 msgstr "Τελευταίος μεταφραστής"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Επισκόπηση έργου"

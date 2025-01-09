@@ -159,9 +159,7 @@ msgstr ""
 "Haluatko, että tiedot sisältävä näkymä näytetään?"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Vaihtoehtoisia käännöksiä saatavilla"

@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2012, 2013, 2016, 2020, 2021, 2022, 2023, 2024 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2012, 2013, 2016, 2020, 2021, 2022, 2023, 2024, 2025 Giovanni Sora <g.sora@tiscali.it>
 # giovanni <g.sora@tiscali.it>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-06 00:43+0000\n"
-"PO-Revision-Date: 2024-10-24 12:09+0200\n"
+"PO-Revision-Date: 2025-01-08 15:28+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -121,17 +121,13 @@ msgid "From alternate translations folder"
 msgstr "Ex dossier de traductiones alternative"
 
 #: src/alttransview.cpp:186
-#, fuzzy, kde-format
-#| msgctxt "Title for an alternative translation entry context diff."
-#| msgid "Comparison with previous context:"
+#, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr "Comparation con previe contexto:"
 
 #: src/alttransview.cpp:201
-#, fuzzy, kde-format
-#| msgctxt "Title for alternative translation source diff."
-#| msgid "Comparison with previous source:"
+#, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
 msgstr "Comparation con previe fonte:"
@@ -156,9 +152,7 @@ msgstr ""
 "Tu vole monstrar le vista con le datos?"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Traductiones Alternative disponibile"
@@ -1833,9 +1827,7 @@ msgstr "&Memoria de Traduction"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Traductiones alterne"
 
@@ -2007,9 +1999,7 @@ msgid "File"
 msgstr "File"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Cerca e reimplacia in files"
@@ -3941,9 +3931,7 @@ msgid "Last Translator"
 msgstr "Ultime traductor"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Vista general  de Projecto"
