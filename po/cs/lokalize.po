@@ -154,9 +154,7 @@ msgstr ""
 "Chcete tuto sekci zobrazit i s informacemi?"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Jsou dostupné alternativní překlady"
