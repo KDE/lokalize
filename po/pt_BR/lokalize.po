@@ -7,22 +7,22 @@
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2008, 2009, 2010, 2018, 2019, 2020, 2021, 2023.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019, 2020.
 # Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>, 2009, 2010, 2012.
-# Frederico Gonçalves Guimarães <frederico@teia.bio.br>, 2020.
+# SPDX-FileCopyrightText: 2020, 2025 Frederico Gonçalves Guimarães <frederico@teia.bio.br>
 # SPDX-FileCopyrightText: 2023, 2024 Geraldo Simiao <geraldosimiao@fedoraproject.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-03 02:34+0000\n"
-"PO-Revision-Date: 2024-11-22 23:20-0300\n"
-"Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
+"PO-Revision-Date: 2025-01-13 11:12-0300\n"
+"Last-Translator: Frederico Goncalves Guimaraes <frederico@teia.bio.br>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -83,7 +83,7 @@ msgstr ""
 
 #: scripts/msgmerge.py:74
 msgid "Merge failed."
-msgstr "Falha na mesclagem."
+msgstr "Não foi possível fazer a mesclagem."
 
 #: scripts/msgmerge.py:74
 msgid ""
@@ -136,9 +136,9 @@ msgid ""
 msgstr ""
 "Existem dados úteis disponíveis na área de exibição Traduções alternativas.\n"
 "\n"
-"Para arquivos PO do Gettext, mostra as diferenças entre o texto de origem "
-"atual e o texto de origem correspondente à tradução não pronta detectada "
-"pelo comando 'msgmerge' ao atualizar o PO com base no modelo POT.\n"
+"Para arquivos PO do Gettext, ela mostra as diferenças entre o texto de "
+"origem atual e o texto de origem correspondente à tradução não pronta "
+"detectada pelo comando 'msgmerge' ao atualizar o PO com base no modelo POT.\n"
 "\n"
 "Deseja ver a área de exibição com os dados?"
 
@@ -194,12 +194,12 @@ msgstr ""
 "Às vezes, se o texto de origem for alterado, sua tradução se torna obsoleta "
 "e é marcada como necessitando de revisão (ou seja, perde o status de "
 "aprovação) ou (apenas no caso de arquivo XLIFF) movida para a seção de "
-"traduções alternativas que acompanha a unidade. Esta toolview também mostra "
-"a diferença entre a string de origem atual e a string de origem anterior, "
-"para que você possa ver facilmente quais alterações devem ser aplicadas à "
-"tradução existente para fazê-la refletir a fonte atual. Clicar duas vezes em "
-"qualquer palavra nesta toolview a insere na tradução. Solte o arquivo de "
-"tradução nesta toolview para usá-lo como uma fonte para traduções "
+"traduções alternativas que acompanha a unidade. Esta área de visualização "
+"também mostra a diferença entre a string de origem atual e a string de "
+"origem anterior, para que você possa ver facilmente quais alterações devem "
+"ser aplicadas à tradução existente para fazê-la refletir a fonte atual. "
+"Clicar duas vezes em qualquer palavra nesta área a insere na tradução. Solte "
+"o arquivo de tradução nesta área para usá-lo como uma fonte para traduções "
 "alternativas adicionais."
 
 #: src/alttransview.cpp:323
@@ -317,7 +317,7 @@ msgstr "Necessita revisão da tradução"
 #: src/catalog/catalog.cpp:65
 #, kde-format
 msgid "Needs full localization review"
-msgstr "Necessita revisão da tradução completa"
+msgstr "Necessita revisão completa da localização"
 
 #: src/catalog/catalog.cpp:66
 #, kde-format
@@ -2572,8 +2572,8 @@ msgid ""
 "Error opening the file <filename>%1</filename> for synchronization, error "
 "line: %2"
 msgstr ""
-"Erro ao abrir o arquivo <filename>%1</filename> para o sincronização; linha "
-"do erro: %2"
+"Erro ao abrir o arquivo <filename>%1</filename> para sincronização, linha do "
+"erro: %2"
 
 #: src/mergemode/mergeview.cpp:350
 #, kde-format
