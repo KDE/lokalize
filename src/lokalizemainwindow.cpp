@@ -163,21 +163,20 @@ LokalizeMainWindow::~LokalizeMainWindow()
 
     KConfig config;
     KConfigGroup stateGroup(&config, QStringLiteral("State"));
-    if (!m_lastEditorState.isEmpty()) {
+    if (!m_lastEditorState.isEmpty())
         stateGroup.writeEntry("DefaultDockWidgets", m_lastEditorState);
-    }
     saveProjectState(stateGroup);
 
     // Disconnect the signals pointing to this MainWindow object
     for (int i = 0; i < m_fileToEditor.values().count(); i++) {
         QMdiSubWindow *sw = m_fileToEditor.values().at(i);
         disconnect(sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
-        EditorTab *w = static_cast<EditorTab *>(sw->widget());
-        disconnect(w,
+        EditorTab *editorTabToDelete = static_cast<EditorTab *>(sw->widget());
+        disconnect(editorTabToDelete,
                    qOverload<const QString &, const QString &, const QString &, const bool>(&EditorTab::fileOpenRequested),
                    this,
                    qOverload<const QString &, const QString &, const QString &, const bool>(&LokalizeMainWindow::fileOpen));
-        disconnect(w,
+        disconnect(editorTabToDelete,
                    qOverload<const QString &, const QString &>(&EditorTab::tmLookupRequested),
                    this,
                    qOverload<const QString &, const QString &>(&LokalizeMainWindow::lookupInTranslationMemory));
@@ -279,12 +278,12 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     }
 
     QByteArray state = m_lastEditorState;
-    EditorTab *w = new EditorTab(this);
+    EditorTab *newEditorTab = new EditorTab(this);
 
     QMdiSubWindow *sw = nullptr;
     // create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
     if (!filePath.isEmpty())
-        sw = m_mainTabs->addSubWindow(w);
+        sw = m_mainTabs->addSubWindow(newEditorTab);
 
     QString suggestedDirPath;
     QMdiSubWindow *activeSW = m_mainTabs->currentSubWindow();
@@ -294,32 +293,32 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
             suggestedDirPath = QFileInfo(fp).absolutePath();
     }
 
-    if (!w->fileOpen(filePath, suggestedDirPath, m_fileToEditor, silent)) {
+    if (!newEditorTab->fileOpen(filePath, suggestedDirPath, m_fileToEditor, silent)) {
         if (sw) {
             m_mainTabs->removeSubWindow(sw);
             sw->deleteLater();
         }
-        w->deleteLater();
+        newEditorTab->deleteLater();
         return nullptr;
     }
-    filePath = w->currentFilePath();
+    filePath = newEditorTab->currentFilePath();
     m_openRecentFileAction->addUrl(QUrl::fromLocalFile(filePath));
 
     if (!sw)
-        sw = m_mainTabs->addSubWindow(w);
-    w->showMaximized();
+        sw = m_mainTabs->addSubWindow(newEditorTab);
+    newEditorTab->showMaximized();
     sw->showMaximized();
 
     if (!state.isEmpty()) {
-        w->restoreState(QByteArray::fromBase64(state));
+        newEditorTab->restoreState(QByteArray::fromBase64(state));
         m_lastEditorState = state;
     } else {
         // Dummy restore to "initialize" widgets
-        w->restoreState(w->saveState());
+        newEditorTab->restoreState(newEditorTab->saveState());
     }
 
     if (entry)
-        w->gotoEntry(DocPosition(entry));
+        newEditorTab->gotoEntry(DocPosition(entry));
     if (setAsActive) {
         m_toBeActiveSubWindow = sw;
         QTimer::singleShot(0, this, &LokalizeMainWindow::applyToBeActiveSubWindow);
@@ -329,14 +328,14 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     }
 
     if (!mergeFile.isEmpty())
-        w->mergeOpen(mergeFile);
+        newEditorTab->mergeOpen(mergeFile);
 
     connect(sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
-    connect(w,
+    connect(newEditorTab,
             qOverload<const QString &, const QString &, const QString &, const bool>(&EditorTab::fileOpenRequested),
             this,
             qOverload<const QString &, const QString &, const QString &, const bool>(&LokalizeMainWindow::fileOpen));
-    connect(w,
+    connect(newEditorTab,
             qOverload<const QString &, const QString &>(&EditorTab::tmLookupRequested),
             this,
             qOverload<const QString &, const QString &>(&LokalizeMainWindow::lookupInTranslationMemory));
@@ -346,7 +345,7 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     while (i != m_fileToEditor.constEnd()) {
         if (i.key().endsWith(fnSlashed)) {
             static_cast<EditorTab *>(i.value()->widget())->setFullPathShown(true);
-            w->setFullPathShown(true);
+            newEditorTab->setFullPathShown(true);
         }
         ++i;
     }
@@ -354,7 +353,7 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
 
     sw->setAttribute(Qt::WA_DeleteOnClose, true);
     Q_EMIT editorAdded();
-    return w;
+    return newEditorTab;
 }
 
 void LokalizeMainWindow::editorClosed(QObject *obj)
@@ -533,7 +532,7 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("prev-tab", i18n("Previous tab"), Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_Tab)
     connect(action, &QAction::triggered, m_mainTabs, &LokalizeMdiArea::activatePreviousSubWindow);
 
-    ADD_ACTION_SHORTCUT("prev-active-tab", i18n("Previously active tab"), Qt::ControlModifier | Qt::Key_BracketLeft)
+    ADD_ACTION_SHORTCUT("prev-active-tab", i18n("Previously active tab"), Qt::ControlModifier | Qt::Key_BracketLeft) // Ctrl+[
     connect(action, &QAction::triggered, m_mainTabs, &QMdiArea::activatePreviousSubWindow);
 
     // Tools
