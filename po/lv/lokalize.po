@@ -7,20 +7,20 @@
 # Maris Nartiss <maris.kde@gmail.com>, 2009.
 # Einars Sprugis <einars8@gmail.com>, 2010, 2012.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
-# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
+# SPDX-FileCopyrightText: 2024, 2025 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-06 00:43+0000\n"
-"PO-Revision-Date: 2024-10-31 16:18+0200\n"
+"POT-Creation-Date: 2025-02-02 00:44+0000\n"
+"PO-Revision-Date: 2025-01-30 16:49+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.12.1\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -127,17 +127,13 @@ msgid "From alternate translations folder"
 msgstr "No alternatīvu tulkojumu mapes"
 
 #: src/alttransview.cpp:186
-#, fuzzy, kde-format
-#| msgctxt "Title for an alternative translation entry context diff."
-#| msgid "Comparison with previous context:"
+#, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr "Salīdzinājums ar iepriekšējo kontekstu:"
 
 #: src/alttransview.cpp:201
-#, fuzzy, kde-format
-#| msgctxt "Title for alternative translation source diff."
-#| msgid "Comparison with previous source:"
+#, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
 msgstr "Salīdzinājums ar iepriekšējo avota tekstu:"
@@ -162,9 +158,7 @@ msgstr ""
 "Vai vēlaties atvērt skatu ar šo informāciju?"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Ir pieejami alternatīvi tulkojumi"
@@ -1028,7 +1022,7 @@ msgstr "Avota teksta garums"
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
-msgstr "Mērķa garums"
+msgstr "Tulkojuma garums"
 
 #: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1020
 #: src/editortab.cpp:1217 src/tm/tmtab.cpp:237
@@ -1061,7 +1055,7 @@ msgstr "%1 (%2)"
 #: src/common/languagelistmodel.cpp:136 src/tm/dbparams.ui:146
 #, kde-format
 msgid "Target language:"
-msgstr "Mērķa valoda:"
+msgstr "Tulkojuma valoda:"
 
 #: src/common/termlabel.cpp:80
 #, kde-format
@@ -1103,7 +1097,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1 %)"
 
-#: src/editortab.cpp:159 src/lokalizemainwindow.cpp:506
+#: src/editortab.cpp:159 src/lokalizemainwindow.cpp:505
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1136,7 +1130,7 @@ msgstr "Sinhronizēšana 2"
 msgid "Translation Memory"
 msgstr "Tulkošanas atmiņa"
 
-#: src/editortab.cpp:165 src/lokalizemainwindow.cpp:507
+#: src/editortab.cpp:165 src/lokalizemainwindow.cpp:506
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1238,7 +1232,7 @@ msgstr "Vienādā tulkošana"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
-msgstr "Kopēt avota tekstu uz mērķi"
+msgstr "Kopēt avota tekstu uz tulkojumu"
 
 #: src/editortab.cpp:429
 #, kde-format
@@ -1558,7 +1552,7 @@ msgid ""
 "Could not perform file autosaving.\n"
 "The target file was %1."
 msgstr ""
-"Neizdevās izpildīt datnes autosaglabāšanu.\n"
+"Neizdevās izpildīt datnes automātisko saglabāšanu.\n"
 "Mērķa datne bija „%1“."
 
 #: src/editortab.cpp:938
@@ -1669,7 +1663,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
-msgstr "Avota teksta vārdi: %1<br/>Mērķa teksta vārdi: %2"
+msgstr "Avota teksta vārdi: %1<br/>Tulkojuma teksta vārdi: %2"
 
 #: src/editortab.cpp:1369
 #, kde-format
@@ -1738,7 +1732,7 @@ msgid ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 msgstr ""
-"Nevar atvērt mērķa avota teksta datni. Mērķa avota teksta datne nav relatīva "
+"Nevar atvērt mērķa avota teksta datni. Avota teksta mērķa datne nav relatīva "
 "pašreizējai tulkojuma datnei, kā arī nav ielādēti nekādi skripti, lai "
 "apstrādātu avota teksta datnes pielāgotajos ceļos. Apskatiet „Lokalize“ "
 "rokasgrāmatu skriptu paraugiem un to, kā tos pievienot projektam."
@@ -1826,9 +1820,7 @@ msgstr "Tulkošanas at&miņa"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Alternatīvie tulkojumi"
 
@@ -1967,7 +1959,7 @@ msgstr "Regulārās izteiksmes"
 #: src/filesearch/filesearchoptions.ui:63 src/tm/queryoptions.ui:95
 #, kde-format
 msgid "Target:"
-msgstr "Mērķis:"
+msgstr "Tulkojums:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, matchCase)
 #: src/filesearch/filesearchoptions.ui:73
@@ -2000,9 +1992,7 @@ msgid "File"
 msgstr "Datne"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Meklēt un aizvietot datnēs"
@@ -2133,7 +2123,7 @@ msgstr "−"
 #: src/glossary/termedit.ui:47
 #, kde-format
 msgid "Corresponding target language synonyms:"
-msgstr "Atbilstošie mērķa valodas sinonīmi:"
+msgstr "Atbilstošie tulkojuma valodas sinonīmi:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:73
@@ -2258,122 +2248,122 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "„Qt Sql“ moduļi nav atrasti. Tulkošanas atmiņa nedarbosies."
 
-#: src/lokalizemainwindow.cpp:411 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:410 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "TA funkcijai nepieciešams „SQLite Qt“ modulis."
 
-#: src/lokalizemainwindow.cpp:411 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:410 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr "„SQLite“ modulis nav pieejams"
 
-#: src/lokalizemainwindow.cpp:508 src/tm/tmtab.cpp:490
+#: src/lokalizemainwindow.cpp:507 src/tm/tmtab.cpp:490
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Tulkošanas atmiņa"
 
-#: src/lokalizemainwindow.cpp:509 src/project/projecttab.cpp:156
+#: src/lokalizemainwindow.cpp:508 src/project/projecttab.cpp:156
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Projekts"
 
-#: src/lokalizemainwindow.cpp:530
+#: src/lokalizemainwindow.cpp:529
 #, kde-format
 msgid "Next tab"
 msgstr "Nākamā cilne"
 
-#: src/lokalizemainwindow.cpp:533
+#: src/lokalizemainwindow.cpp:532
 #, kde-format
 msgid "Previous tab"
 msgstr "Iepriekšējā cilne"
 
-#: src/lokalizemainwindow.cpp:536
+#: src/lokalizemainwindow.cpp:535
 #, kde-format
 msgid "Previously active tab"
 msgstr "Iepriekš aktīvā cilne"
 
-#: src/lokalizemainwindow.cpp:542
+#: src/lokalizemainwindow.cpp:541
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Glosārijs"
 
-#: src/lokalizemainwindow.cpp:546
+#: src/lokalizemainwindow.cpp:545
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Tulkošanas atmiņa"
 
-#: src/lokalizemainwindow.cpp:550 src/tm/tmtab.cpp:493
+#: src/lokalizemainwindow.cpp:549 src/tm/tmtab.cpp:493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Pārvaldīt tulkošanas atmiņas"
 
-#: src/lokalizemainwindow.cpp:554
+#: src/lokalizemainwindow.cpp:553
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Projekta kopskats"
 
-#: src/lokalizemainwindow.cpp:558
+#: src/lokalizemainwindow.cpp:557
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Konfigurēt projektu..."
 
-#: src/lokalizemainwindow.cpp:561
+#: src/lokalizemainwindow.cpp:560
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Izveidot programmatūras tulkojuma projektu..."
 
-#: src/lokalizemainwindow.cpp:564
+#: src/lokalizemainwindow.cpp:563
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "Izveidot „OpenDocument“ tulkojuma projektu..."
 
-#: src/lokalizemainwindow.cpp:567
+#: src/lokalizemainwindow.cpp:566
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Atvērt projektu..."
 
-#: src/lokalizemainwindow.cpp:571
+#: src/lokalizemainwindow.cpp:570
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Aizvērt projektu"
 
-#: src/lokalizemainwindow.cpp:574
+#: src/lokalizemainwindow.cpp:573
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Atvērt nesenu projektu"
 
-#: src/lokalizemainwindow.cpp:584
+#: src/lokalizemainwindow.cpp:583
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Meklēt un aizvietot datnēs"
 
-#: src/lokalizemainwindow.cpp:587
+#: src/lokalizemainwindow.cpp:586
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Meklēt nākamo datnēs"
 
-#: src/lokalizemainwindow.cpp:591
+#: src/lokalizemainwindow.cpp:590
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Logdaļu teksta tveršana"
 
-#: src/lokalizemainwindow.cpp:766
+#: src/lokalizemainwindow.cpp:765
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -3703,7 +3693,7 @@ msgstr "Glosārijs:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Target language:"
-msgstr "Mērķa valoda:"
+msgstr "Tulkojuma valoda:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:46
@@ -3725,7 +3715,7 @@ msgstr ""
 #: src/project/prefs_projectmain.ui:59
 #, kde-format
 msgid "Target language of the project."
-msgstr "Projekta mērķa valoda."
+msgstr "Projekta tulkojuma valoda."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_projectmain.ui:82
@@ -3749,7 +3739,7 @@ msgid ""
 "for your project (or a subproject for your target language)."
 msgstr ""
 "Šis ir galvenais iestatījums. Iestatiet to uz mapi ar jūsu projekta\n"
-"tulkojuma datnēm (vai ar apakšprojektu mērķa valodai)."
+"tulkojuma datnēm (vai ar apakšprojektu tulkojuma valodai)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:141
@@ -3914,9 +3904,7 @@ msgid "Last Translator"
 msgstr "Pēdējais tulkotājs"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Projekta kopskats"
@@ -4067,7 +4055,7 @@ msgstr "Avota valoda"
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
-msgstr "Mērķa valoda"
+msgstr "Tulkojuma valoda"
 
 #: src/tm/dbfilesmodel.cpp:99
 #, kde-format
@@ -4333,7 +4321,7 @@ msgstr "Avots: %1"
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Mērķis: %1"
+msgstr "Tulkojums: %1"
 
 #: src/tm/tmtab.cpp:363
 #, kde-format
