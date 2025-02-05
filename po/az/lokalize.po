@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-02 00:44+0000\n"
+"POT-Creation-Date: 2025-02-05 00:44+0000\n"
 "PO-Revision-Date: 2024-08-09 15:51+0400\n"
 "Last-Translator: Khayyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1106,7 +1106,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:159 src/lokalizemainwindow.cpp:505
+#: src/editortab.cpp:159 src/lokalizemainwindow.cpp:515
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1139,7 +1139,7 @@ msgstr "Sinxronizasiya 2"
 msgid "Translation Memory"
 msgstr "Tərcümə yaddaşı"
 
-#: src/editortab.cpp:165 src/lokalizemainwindow.cpp:506
+#: src/editortab.cpp:165 src/lokalizemainwindow.cpp:516
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1860,7 +1860,7 @@ msgid "&Secondary sync source"
 msgstr "İkinci dərəcəli &sinxronizasiya mənbəyi"
 
 #. i18n: ectx: Menu (toolviews)
-#: src/editorui.rc:213 src/lokalizemainwindowui.rc:49
+#: src/editorui.rc:213 src/lokalizemainwindowui.rc:51
 #, kde-format
 msgid "Tool&views"
 msgstr "Alətlər &paneli"
@@ -2213,7 +2213,7 @@ msgstr "Təkliflər:"
 msgid "No errors"
 msgstr "Səhv yoxdur"
 
-#: src/lokalizemainwindow.cpp:62
+#: src/lokalizemainwindow.cpp:72
 #, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
@@ -2234,151 +2234,156 @@ msgstr ""
 "zaman <a href=\"%2\">%2</a> daxil olun və burada siz lazımi bilikləri əldə "
 "edə bilərsiniz.</html>"
 
-#: src/lokalizemainwindow.cpp:84
+#: src/lokalizemainwindow.cpp:94
 #, kde-format
 msgid "&Configure Lokalize"
 msgstr "Lokalize-ni &tənzimləmək"
 
-#: src/lokalizemainwindow.cpp:85 src/project/projecttab.cpp:159
+#: src/lokalizemainwindow.cpp:95 src/project/projecttab.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
 msgstr "Layihəni açmaq"
 
-#: src/lokalizemainwindow.cpp:86
+#: src/lokalizemainwindow.cpp:96
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate software"
 msgstr "Proqram təminatının tərcüməsi"
 
-#: src/lokalizemainwindow.cpp:87
+#: src/lokalizemainwindow.cpp:97
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "OpenDocument tərcüməsi"
 
-#: src/lokalizemainwindow.cpp:155
+#: src/lokalizemainwindow.cpp:165
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Qt Sql modulları tapılmadı. Tərcümə yaddaşı işlıməyəcək."
 
-#: src/lokalizemainwindow.cpp:410 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:420 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "TY-nın işləməsi üçün SQLite Qt modulu tələb olunur."
 
-#: src/lokalizemainwindow.cpp:410 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:420 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr "SQLite modulu mövcud deyil"
 
-#: src/lokalizemainwindow.cpp:507 src/tm/tmtab.cpp:490
+#: src/lokalizemainwindow.cpp:517 src/tm/tmtab.cpp:490
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Tərcümə Yaddaşı"
 
-#: src/lokalizemainwindow.cpp:508 src/project/projecttab.cpp:156
+#: src/lokalizemainwindow.cpp:518 src/project/projecttab.cpp:156
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Layihə"
 
-#: src/lokalizemainwindow.cpp:529
+#: src/lokalizemainwindow.cpp:539
 #, kde-format
 msgid "Next tab"
 msgstr "Növbəti vərəq"
 
-#: src/lokalizemainwindow.cpp:532
+#: src/lokalizemainwindow.cpp:542
 #, kde-format
 msgid "Previous tab"
 msgstr "Əvvəlki vərəq"
 
-#: src/lokalizemainwindow.cpp:535
+#: src/lokalizemainwindow.cpp:545
 #, kde-format
 msgid "Previously active tab"
 msgstr "Növbəti aktiv vərəq"
 
-#: src/lokalizemainwindow.cpp:541
+#: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Lüğət"
 
-#: src/lokalizemainwindow.cpp:545
+#: src/lokalizemainwindow.cpp:555
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Tərcümə yaddaşı"
 
-#: src/lokalizemainwindow.cpp:549 src/tm/tmtab.cpp:493
+#: src/lokalizemainwindow.cpp:559 src/tm/tmtab.cpp:493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Tərcümə yaddaşlarının idarə edilməsi"
 
-#: src/lokalizemainwindow.cpp:553
+#: src/lokalizemainwindow.cpp:563
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Layihənin icmalı"
 
-#: src/lokalizemainwindow.cpp:557
+#: src/lokalizemainwindow.cpp:567
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Layihəni tənzimləmək..."
 
-#: src/lokalizemainwindow.cpp:560
+#: src/lokalizemainwindow.cpp:570
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Proqram Təminatı tərcüməsi layihəsi yaratmaq..."
 
-#: src/lokalizemainwindow.cpp:563
+#: src/lokalizemainwindow.cpp:573
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "OpenDocument tərcüməsi üzrə layihə yaratmaq..."
 
-#: src/lokalizemainwindow.cpp:566
+#: src/lokalizemainwindow.cpp:576
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Layihəni açmaq..."
 
-#: src/lokalizemainwindow.cpp:570
+#: src/lokalizemainwindow.cpp:580
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Layihəni bağlamaq..."
 
-#: src/lokalizemainwindow.cpp:573
+#: src/lokalizemainwindow.cpp:583
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Sonuncu layihələr"
 
-#: src/lokalizemainwindow.cpp:583
+#: src/lokalizemainwindow.cpp:593
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Fayllarda axtarmaq və saxlamaq"
 
-#: src/lokalizemainwindow.cpp:586
+#: src/lokalizemainwindow.cpp:596
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Sonrakını fayllarda tapmaq"
 
-#: src/lokalizemainwindow.cpp:590
+#: src/lokalizemainwindow.cpp:600
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Vidjetdəki mətni çıxarmaq"
 
-#: src/lokalizemainwindow.cpp:765
+#: src/lokalizemainwindow.cpp:613
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr ""
+
+#: src/lokalizemainwindow.cpp:789
 #, kde-format
 msgctxt "@info"
 msgid ""

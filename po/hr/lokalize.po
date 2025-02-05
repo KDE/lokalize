@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-02 00:44+0000\n"
+"POT-Creation-Date: 2025-02-05 00:44+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -1039,7 +1039,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:159 src/lokalizemainwindow.cpp:505
+#: src/editortab.cpp:159 src/lokalizemainwindow.cpp:515
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1072,7 +1072,7 @@ msgstr "Sinkronizacija 2"
 msgid "Translation Memory"
 msgstr "Prijevodna memorija"
 
-#: src/editortab.cpp:165 src/lokalizemainwindow.cpp:506
+#: src/editortab.cpp:165 src/lokalizemainwindow.cpp:516
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1800,7 +1800,7 @@ msgid "&Secondary sync source"
 msgstr ""
 
 #. i18n: ectx: Menu (toolviews)
-#: src/editorui.rc:213 src/lokalizemainwindowui.rc:49
+#: src/editorui.rc:213 src/lokalizemainwindowui.rc:51
 #, kde-format
 msgid "Tool&views"
 msgstr ""
@@ -2151,7 +2151,7 @@ msgstr ""
 msgid "No errors"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:62
+#: src/lokalizemainwindow.cpp:72
 #, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
@@ -2163,102 +2163,102 @@ msgid ""
 "what you need.</html>"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:84
+#: src/lokalizemainwindow.cpp:94
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
 msgid "&Configure Lokalize"
 msgstr "Podešavanje projekta"
 
-#: src/lokalizemainwindow.cpp:85 src/project/projecttab.cpp:159
+#: src/lokalizemainwindow.cpp:95 src/project/projecttab.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
 msgstr "Otvaranje projekta"
 
-#: src/lokalizemainwindow.cpp:86
+#: src/lokalizemainwindow.cpp:96
 #, fuzzy, kde-format
 #| msgid "Translator"
 msgctxt "@action:inmenu"
 msgid "Translate software"
 msgstr "Prevoditelj"
 
-#: src/lokalizemainwindow.cpp:87
+#: src/lokalizemainwindow.cpp:97
 #, fuzzy, kde-format
 #| msgid "Translate a document"
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "Prevesti dokument"
 
-#: src/lokalizemainwindow.cpp:155
+#: src/lokalizemainwindow.cpp:165
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:410 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:420 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:410 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:420 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:507 src/tm/tmtab.cpp:490
+#: src/lokalizemainwindow.cpp:517 src/tm/tmtab.cpp:490
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Prijevodna memorija"
 
-#: src/lokalizemainwindow.cpp:508 src/project/projecttab.cpp:156
+#: src/lokalizemainwindow.cpp:518 src/project/projecttab.cpp:156
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Projekt"
 
-#: src/lokalizemainwindow.cpp:529
+#: src/lokalizemainwindow.cpp:539
 #, kde-format
 msgid "Next tab"
 msgstr "Sljedeća kartica"
 
-#: src/lokalizemainwindow.cpp:532
+#: src/lokalizemainwindow.cpp:542
 #, kde-format
 msgid "Previous tab"
 msgstr "Prethodna kartica"
 
-#: src/lokalizemainwindow.cpp:535
+#: src/lokalizemainwindow.cpp:545
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previously active tab"
 msgstr "Prethodna kartica"
 
-#: src/lokalizemainwindow.cpp:541
+#: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Pojmovnik"
 
-#: src/lokalizemainwindow.cpp:545
+#: src/lokalizemainwindow.cpp:555
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Prijevodna memorija"
 
-#: src/lokalizemainwindow.cpp:549 src/tm/tmtab.cpp:493
+#: src/lokalizemainwindow.cpp:559 src/tm/tmtab.cpp:493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Upravljanje prijevodnim memorijama"
 
-#: src/lokalizemainwindow.cpp:553
+#: src/lokalizemainwindow.cpp:563
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Pregled projekta"
 
-#: src/lokalizemainwindow.cpp:557
+#: src/lokalizemainwindow.cpp:567
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
@@ -2266,20 +2266,20 @@ msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Podešavanje projekta"
 
-#: src/lokalizemainwindow.cpp:560
+#: src/lokalizemainwindow.cpp:570
 #, fuzzy, kde-format
 #| msgid "Choose location of your software translation project"
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Izaberite lokaciju vašeg projekta prevođenja softvera"
 
-#: src/lokalizemainwindow.cpp:563
+#: src/lokalizemainwindow.cpp:573
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:566
+#: src/lokalizemainwindow.cpp:576
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2287,7 +2287,7 @@ msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Otvaranje projekta"
 
-#: src/lokalizemainwindow.cpp:570
+#: src/lokalizemainwindow.cpp:580
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2295,32 +2295,37 @@ msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Otvaranje projekta"
 
-#: src/lokalizemainwindow.cpp:573
+#: src/lokalizemainwindow.cpp:583
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Otvaranje nedavnog projekta"
 
-#: src/lokalizemainwindow.cpp:583
+#: src/lokalizemainwindow.cpp:593
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:586
+#: src/lokalizemainwindow.cpp:596
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:590
+#: src/lokalizemainwindow.cpp:600
 #, fuzzy, kde-format
 #| msgid "Widget text capture"
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Widget za hvatanje teksta"
 
-#: src/lokalizemainwindow.cpp:765
+#: src/lokalizemainwindow.cpp:613
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr ""
+
+#: src/lokalizemainwindow.cpp:789
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid "Error opening the following files:"
