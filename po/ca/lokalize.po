@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-05 00:44+0000\n"
-"PO-Revision-Date: 2025-01-19 12:55+0100\n"
+"PO-Revision-Date: 2025-02-05 13:17+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2382,7 +2382,7 @@ msgstr "Captura el text d'un giny"
 #: src/lokalizemainwindow.cpp:613
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "Esquema de color de les &finestres"
 
 #: src/lokalizemainwindow.cpp:789
 #, kde-format
@@ -4664,63 +4664,3 @@ msgstr "S'ha notificat un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia l'origen a la destinació"
-
-#~ msgid "Alternative Translations"
-#~ msgstr "Traduccions alternatives"
-
-#~ msgid "bug fixing and improvments"
-#~ msgstr "Esmena d'errors i millores"
-
-#~ msgctxt "%1 is the number of times this TM entry has been found"
-#~ msgid "(1 time)"
-#~ msgid_plural "(%1 times)"
-#~ msgstr[0] "(1 vegada)"
-#~ msgstr[1] "(%1 vegades)"
-
-#~ msgid "Text colors for the changes in the message."
-#~ msgstr "Colors del text per als canvis al missatge."
-
-#~ msgid "String Matching"
-#~ msgstr "Cadenes coincidents"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text added in the newer string:"
-#~ msgstr "Text afegit a la cadena nova:"
-
-#~ msgid "Change the color for the new text added"
-#~ msgstr "Canvia el color per al text nou afegit"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was added to the "
-#~ "string."
-#~ msgstr ""
-#~ "Podeu establir un altre color per a veure el text que s'ha afegit a la "
-#~ "cadena."
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text removed in the newer string:"
-#~ msgstr "Text eliminat a la cadena nova:"
-
-#~ msgid "Change the color for the text removed"
-#~ msgstr "Canvia el color per al text eliminat"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was removed from the "
-#~ "string."
-#~ msgstr ""
-#~ "Podeu establir un altre color per a veure el text que s'ha eliminat de la "
-#~ "cadena."
-
-#~ msgid "Locally"
-#~ msgstr "Localment"
-
-#~ msgid "lxr.kde.org"
-#~ msgstr "lxr.kde.org"
-
-#~ msgctxt "@action"
-#~ msgid "New"
-#~ msgstr "Nou"
-
-#~ msgctxt "@action"
-#~ msgid "Open"
-#~ msgstr "Obre"

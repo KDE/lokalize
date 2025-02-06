@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-05 00:44+0000\n"
-"PO-Revision-Date: 2025-01-11 12:21+0100\n"
+"PO-Revision-Date: 2025-02-05 16:54+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -2363,7 +2363,7 @@ msgstr "Hämta text från grafiska komponenter"
 #: src/lokalizemainwindow.cpp:613
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "&Fönsterfärgschema"
 
 #: src/lokalizemainwindow.cpp:789
 #, kde-format
