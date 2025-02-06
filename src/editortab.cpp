@@ -329,7 +329,7 @@ void EditorTab::setupActions()
 
     // File
     action = file->addAction(KStandardAction::Save, this, SLOT(saveFile()));
-    connect(m_catalog, &Catalog::cleanChanged, this, &EditorTab::setModificationSign);
+    connect(m_catalog, &Catalog::cleanChanged, this, &EditorTab::updateTabLabelAndIcon);
     file->addAction(KStandardAction::SaveAs, this, SLOT(saveFileAs()));
 
 #define ADD_ACTION_SHORTCUT_ICON(_name, _text, _shortcut, _icon)                                                                                               \
@@ -674,25 +674,28 @@ void EditorTab::showDocks()
 {
 }
 
-void EditorTab::setProperCaption(QString title, bool modified)
-{
-    if (m_catalog->autoSaveRecovered())
-        title += i18nc("editor tab title addition", " (recovered)");
-    setWindowTitle(title + QStringLiteral(" [*]"));
-    setWindowModified(modified);
-}
-
 void EditorTab::setFullPathShown(bool fullPathShown)
 {
     m_fullPathShown = fullPathShown;
 
     updateCaptionPath();
-    setModificationSign();
+    updateTabLabelAndIcon();
 }
 
-void EditorTab::setModificationSign()
+void EditorTab::updateTabLabelAndIcon()
 {
-    setProperCaption(m_relativeOrAbsoluteFilePath, !isClean());
+    m_tabIcon = isClean() ? m_defaultTabIcon : m_unsavedTabIcon;
+    m_tabLabel = m_relativeOrAbsoluteFilePath;
+    if (m_catalog->autoSaveRecovered())
+        m_tabLabel += i18nc("editor tab title addition", " (recovered)");
+
+    // TODO The visible tab label is set for a tab, but not the visible icon. In the future the signal
+    // will go into a slot that updates the tab bar label and icon which are visible to the user. For
+    // now, the internal variables are correctly set, ready for the slot to use.
+
+    setWindowTitle(m_tabLabel + QLatin1String(" [*]"));
+    setWindowModified(!isClean());
+    Q_EMIT signalUpdatedTabLabelAndIconAvailable(qobject_cast<LokalizeTabPageBase *>(this));
 }
 
 void EditorTab::updateCaptionPath()
@@ -815,7 +818,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
         gotoEntry(pos);
 
         updateCaptionPath();
-        setModificationSign();
+        updateTabLabelAndIcon();
 
         // OK!!!
         Q_EMIT xliffFileOpened(m_catalog->type() == Xliff);
@@ -856,7 +859,7 @@ bool EditorTab::saveFile(const QString &filePath)
     }
     if (m_catalog->saveToUrl(filePath)) {
         updateCaptionPath();
-        setModificationSign();
+        updateTabLabelAndIcon();
         Q_EMIT fileSaved(filePath);
         return true;
     }

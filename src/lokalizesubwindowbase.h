@@ -17,6 +17,7 @@
 #include <QFileInfo>
 #include <QHash>
 #include <QString>
+#include <qtmetamacros.h>
 
 #include <KMainWindow>
 #include <KXMLGUIClient>
@@ -68,6 +69,7 @@ protected:
  */
 class LokalizeTabPageBase : public LokalizeSubwindowBase, public KXMLGUIClient
 {
+    Q_OBJECT
 public:
     explicit LokalizeTabPageBase(QWidget *parent)
         : LokalizeSubwindowBase(parent)
@@ -102,6 +104,9 @@ public:
     }
     QString m_tabLabel;
     QIcon m_tabIcon;
+
+Q_SIGNALS:
+    void signalUpdatedTabLabelAndIconAvailable(LokalizeTabPageBase *);
 };
 
 #endif

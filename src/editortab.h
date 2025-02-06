@@ -104,7 +104,6 @@ public:
     void showDocks() override;
     QString currentFilePath() override;
     void setFullPathShown(bool);
-    void setProperCaption(QString, bool); // reimpl to remove ' - Lokalize'
 public Q_SLOTS:
     void setProperFocus();
 
@@ -238,8 +237,7 @@ private Q_SLOTS:
     void numberOfUntranslatedChanged();
     // fuzzy, untr [statusbar] indication
     void msgStrChanged();
-    // modif [caption] indication
-    void setModificationSign();
+    void updateTabLabelAndIcon();
     void updateCaptionPath();
 
     // gui
