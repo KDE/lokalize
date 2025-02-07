@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-05 00:44+0000\n"
+"POT-Creation-Date: 2025-02-07 00:44+0000\n"
 "PO-Revision-Date: 2025-01-30 16:49+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -1024,21 +1024,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Tulkojuma garums"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1020
-#: src/editortab.cpp:1217 src/tm/tmtab.cpp:237
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1023
+#: src/editortab.cpp:1220 src/tm/tmtab.cpp:237
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Gatavs"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1022
-#: src/editortab.cpp:1212 src/tm/tmtab.cpp:238
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1025
+#: src/editortab.cpp:1215 src/tm/tmtab.cpp:238
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Nepieciešams pārbaudīt"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1018
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1021
 #: src/tm/tmtab.cpp:239
 #, kde-format
 msgctxt "@info:status"
@@ -1069,7 +1069,7 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Aktīvais: %1"
 
-#: src/editortab.cpp:112 src/editortab.cpp:778
+#: src/editortab.cpp:112 src/editortab.cpp:781
 #: src/filesearch/filesearchtab.cpp:707 src/project/projecttab.cpp:441
 #: src/tm/tmtab.cpp:591
 #, kde-format
@@ -1482,13 +1482,13 @@ msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Izmaina tikai tukšos ierakstus"
 
-#: src/editortab.cpp:680
+#: src/editortab.cpp:690
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (atjaunots)"
 
-#: src/editortab.cpp:721 src/editortab.cpp:902
+#: src/editortab.cpp:724 src/editortab.cpp:905
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1498,38 +1498,38 @@ msgstr ""
 "Šajā dokumentā ir izdarītas vēl nesaglabātas izmaiņas.\n"
 "Vai vēlaties tās saglabāt vai izmest?"
 
-#: src/editortab.cpp:723 src/editortab.cpp:904 src/editortab.cpp:1332
+#: src/editortab.cpp:726 src/editortab.cpp:907 src/editortab.cpp:1335
 #: src/glossary/glossarywindow.cpp:484
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Brīdinājums"
 
-#: src/editortab.cpp:743 src/mergemode/mergeview.cpp:183
+#: src/editortab.cpp:746 src/mergemode/mergeview.cpp:183
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Atlasīt tulkojamo datni"
 
-#: src/editortab.cpp:828
+#: src/editortab.cpp:831
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Kļūda atverot datni „%1“, rinda: %2"
 
-#: src/editortab.cpp:830
+#: src/editortab.cpp:833
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Kļūda, atverot datni „%1“"
 
-#: src/editortab.cpp:838
+#: src/editortab.cpp:841
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Saglabāt datni kā"
 
-#: src/editortab.cpp:867
+#: src/editortab.cpp:870
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1539,13 +1539,13 @@ msgstr ""
 "Kļūda saglabājot datni „%1“\n"
 "Vai vēlaties saglabāt citā datnē vai atcelt?"
 
-#: src/editortab.cpp:870
+#: src/editortab.cpp:873
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Kļūda"
 
-#: src/editortab.cpp:880
+#: src/editortab.cpp:883
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1555,73 +1555,73 @@ msgstr ""
 "Neizdevās izpildīt datnes automātisko saglabāšanu.\n"
 "Mērķa datne bija „%1“."
 
-#: src/editortab.cpp:938
+#: src/editortab.cpp:941
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Iet uz ierakstu"
 
-#: src/editortab.cpp:939
+#: src/editortab.cpp:942
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Ievadiet ieraksta numuru:"
 
-#: src/editortab.cpp:1006
+#: src/editortab.cpp:1009
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Aktīvais: %1"
 
-#: src/editortab.cpp:1193
+#: src/editortab.cpp:1196
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Iztulkots"
 
-#: src/editortab.cpp:1194
+#: src/editortab.cpp:1197
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Nodots izmantošanai"
 
-#: src/editortab.cpp:1195
+#: src/editortab.cpp:1198
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Apstiprināts"
 
-#: src/editortab.cpp:1196
+#: src/editortab.cpp:1199
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Tulkošana ir pabeigta (bet vēl noderētu caurskatīšana)"
 
-#: src/editortab.cpp:1197
+#: src/editortab.cpp:1200
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Tulkojums saņēmis pozitīvu apstiprinājumu"
 
-#: src/editortab.cpp:1198
+#: src/editortab.cpp:1201
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Ieraksts ir pilnībā lokalizēts (t. i., fināls)"
 
-#: src/editortab.cpp:1308 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1311 src/project/projecttab.cpp:307
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "„Pology“ pārbaude jau notiek."
 
-#: src/editortab.cpp:1308 src/editortab.cpp:1316 src/editortab.cpp:1320
+#: src/editortab.cpp:1311 src/editortab.cpp:1319 src/editortab.cpp:1323
 #: src/project/projecttab.cpp:307 src/project/projecttab.cpp:315
 #: src/project/projecttab.cpp:319
 #, kde-format
 msgid "Pology error"
 msgstr "„Pology“ kļūda"
 
-#: src/editortab.cpp:1316 src/project/projecttab.cpp:315
+#: src/editortab.cpp:1319 src/project/projecttab.cpp:315
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1630,17 +1630,17 @@ msgstr ""
 "„Pology“ pārbaude ir negaidīti avarējusi:\n"
 "%1"
 
-#: src/editortab.cpp:1318 src/project/projecttab.cpp:317
+#: src/editortab.cpp:1321 src/project/projecttab.cpp:317
 #, kde-format
 msgid "Pology success"
 msgstr "„Pology“ izdevās"
 
-#: src/editortab.cpp:1318
+#: src/editortab.cpp:1321
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "„Pology“ pārbaude ir izdevusies."
 
-#: src/editortab.cpp:1320 src/project/projecttab.cpp:319
+#: src/editortab.cpp:1323 src/project/projecttab.cpp:319
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1649,7 +1649,7 @@ msgstr ""
 "„Pology“ pārbaude ir atgriezusi kļūdu:\n"
 "%1"
 
-#: src/editortab.cpp:1330
+#: src/editortab.cpp:1333
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1659,49 +1659,49 @@ msgstr ""
 "Šī darbība dzēsīs visus datnē esošos tulkojumus.\n"
 "Vai tiešām vēlaties dzēst visus tulkojuma ierakstus?"
 
-#: src/editortab.cpp:1368
+#: src/editortab.cpp:1371
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Avota teksta vārdi: %1<br/>Tulkojuma teksta vārdi: %2"
 
-#: src/editortab.cpp:1369
+#: src/editortab.cpp:1372
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Vārdu skaits"
 
-#: src/editortab.cpp:1459
+#: src/editortab.cpp:1462
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Vai vēlaties avota teksta datni meklēt lokāli vai caur „lxr.kde.org“?"
 
-#: src/editortab.cpp:1460
+#: src/editortab.cpp:1463
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Avota teksta datnes uzmeklēšana"
 
-#: src/editortab.cpp:1461
+#: src/editortab.cpp:1464
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Meklēt lokāli"
 
-#: src/editortab.cpp:1462 src/editortab.cpp:1506
+#: src/editortab.cpp:1465 src/editortab.cpp:1509
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "Meklēt „lxr.kde.org“"
 
-#: src/editortab.cpp:1465 src/editortab.cpp:1510
+#: src/editortab.cpp:1468 src/editortab.cpp:1513
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Atlasīt projekta pamatmapi avota teksta datnes uzmeklēšanai"
 
-#: src/editortab.cpp:1502
+#: src/editortab.cpp:1505
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1711,19 +1711,19 @@ msgstr ""
 "Norādītajā mapē neizdevās atrast avota teksta datni.\n"
 "Vai vēlaties mainīt avota datņu mapi?"
 
-#: src/editortab.cpp:1504
+#: src/editortab.cpp:1507
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Avota teksta datnes uzmeklēšana"
 
-#: src/editortab.cpp:1505
+#: src/editortab.cpp:1508
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Atlasiet mapi"
 
-#: src/editortab.cpp:1547
+#: src/editortab.cpp:1550
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1737,34 +1737,34 @@ msgstr ""
 "apstrādātu avota teksta datnes pielāgotajos ceļos. Apskatiet „Lokalize“ "
 "rokasgrāmatu skriptu paraugiem un to, kā tos pievienot projektam."
 
-#: src/editortab.cpp:1561 src/project/project.cpp:415
+#: src/editortab.cpp:1564 src/project/project.cpp:415
 #: src/project/project.cpp:420
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instalējiet „translate-toolkit“ pakotni un mēģiniet vēlreiz"
 
-#: src/editortab.cpp:1566
+#: src/editortab.cpp:1569
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Instalējiet „translate-toolkit“ pakotni un mēģiniet vēlreiz."
 
-#: src/editortab.cpp:1574
+#: src/editortab.cpp:1577
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "Atlasiet oriģinālo „OpenDocument“, uz kura pamata ir izveidota šī XLIFF datne"
 
-#: src/editortab.cpp:1576 src/project/project.cpp:427
+#: src/editortab.cpp:1579 src/project/project.cpp:427
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "„OpenDocument“ datnes (*.odt *.ods)"
 
-#: src/editortab.cpp:1620
+#: src/editortab.cpp:1623
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Instalējiet „python-uno“ pakotni, lai iegūtu papildu funkcijas."
 
-#: src/editortab.cpp:1740
+#: src/editortab.cpp:1743
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
