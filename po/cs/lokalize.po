@@ -116,11 +116,9 @@ msgid "Alternate Translations"
 msgstr "Alternativní překlady"
 
 #: src/alttransview.cpp:163
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Alternativní složka s překlady:"
+msgstr ""
 
 #: src/alttransview.cpp:186
 #, kde-format
@@ -172,20 +170,7 @@ msgid "Origin: %1"
 msgstr "Původ: %1"
 
 #: src/alttransview.cpp:291
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -198,17 +183,6 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>Někdy, pokud dojde ke změně zdrojového kódu, přestane překlad odpovídat "
-"skutečnosti a je buď označen jako <emphasis>vyžadující&nbsp;kontrolu</"
-"emphasis> (čili ztratí schválení), nebo (pouze v případě souboru XLIFF) "
-"přesunut mezi <emphasis>alternativní&nbsp;překlady</emphasis> doprovázející "
-"jednotku.</p><p>Tento pohled na nástroje rovněž zobrazuje rozdíl mezi "
-"současným zdrojovým řetězcem a předchozím zdrojovým řetězcem, takže můžete "
-"snadno vidět, které změny je potřeba na překladu provést aby odpovídal "
-"současným zdrojovým souborům.</p><p>Dvojitým kliknutím na jakékoliv slovo v "
-"tomto pohledu jej vložíte do překladu.</p><p>Pokud to tohoto pohledu "
-"upustíte soubor překladu, bude použit jako zdroj pro dodatečné alternativní "
-"překlady.</p>"
 
 #: src/alttransview.cpp:323
 #, kde-format
@@ -1760,11 +1734,9 @@ msgstr "Pa&měť překladu"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
-msgstr "Alternativní překlady"
+msgstr ""
 
 #. i18n: ectx: Menu (go)
 #: src/editorui.rc:146 src/project/projectmanagerui.rc:5
@@ -1931,12 +1903,10 @@ msgid "File"
 msgstr "Soubor"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
-msgstr "Hledat a nahradit v souborech"
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:406
 #, kde-format
@@ -2300,7 +2270,7 @@ msgstr "Zachycování textu ve widgetu"
 #: src/lokalizemainwindow.cpp:613
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "Barevné sc&héma okna"
 
 #: src/lokalizemainwindow.cpp:789
 #, kde-format
@@ -3761,12 +3731,10 @@ msgid "Last Translator"
 msgstr "Poslední překladatel"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
-msgstr "Přehled projektu"
+msgstr ""
 
 #: src/project/projecttab.cpp:76
 #, kde-format
@@ -4261,14 +4229,12 @@ msgid "100% (perfect match)"
 msgstr ""
 
 #: src/tm/tmview.cpp:507
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
 msgid "%1%"
-msgstr "%1%"
+msgstr ""
 
 #: src/tm/tmview.cpp:513
 #, kde-format
@@ -4462,18 +4428,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Zkopírovat zdroj do cíle"
-
-#~ msgid "Alternative Translations"
-#~ msgstr "Alternativní překlady"
-
-#, fuzzy
-#~| msgid "bug fixing and improvements"
-#~ msgid "bug fixing and improvments"
-#~ msgstr "opravy chyb a vylepšení"
-
-#~ msgctxt "%1 is the number of times this TM entry has been found"
-#~ msgid "(1 time)"
-#~ msgid_plural "(%1 times)"
-#~ msgstr[0] "(1 krát)"
-#~ msgstr[1] "(%1 krát)"
-#~ msgstr[2] "(%1 krát)"
