@@ -118,7 +118,6 @@ EditorView::EditorView(QWidget *parent, Catalog *catalog /*,keyEventHandler* kh*
     QWidget::setTabOrder(m_targetTextEdit, m_sourceTextEdit);
     QWidget::setTabOrder(m_sourceTextEdit, m_targetTextEdit);
     setFocusProxy(m_targetTextEdit);
-    //     QTimer::singleShot(3000,this,SLOT(setupWhatsThis()));
     settingsChanged();
 }
 

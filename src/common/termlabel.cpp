@@ -102,27 +102,4 @@ void TermLabel::setText(const QString &term, const QByteArray &entryId, bool cap
                 + Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join(n) + n));
 }
 
-#if 0
-void QueryResultBtn::insert()
-{
-//     qCWarning(LOKALIZE_LOG)<<"ins "<<text();
-    Q_EMIT insertText(m_text);
-}
-
-QueryResultBtn::QueryResultBtn(QAction* a)
-    : QLabel()
-    , m_action(a)
-{
-    setWordWrap(true);
-//     qCWarning(LOKALIZE_LOG)<<"ctor";
-    //connect(this,SIGNAL(clicked(bool)),this,SLOT(insert()));
-}
-
-void QueryResultBtn::mousePressEvent(QMouseEvent*/* event*/)
-{
-    Q_EMIT insertText(m_text);
-}
-
-#endif
-
 #include "moc_termlabel.cpp"

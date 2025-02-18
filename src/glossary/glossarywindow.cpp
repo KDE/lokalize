@@ -278,11 +278,6 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     m_definition = ui_termEdit.definition;
     m_definitionLang = ui_termEdit.definitionLang;
 
-    // connect (m_english,SIGNAL(textChanged()),   this,SLOT(applyEntryChange()));
-    // connect (m_target,SIGNAL(textChanged()),    this,SLOT(applyEntryChange()));
-    // connect (m_definition,SIGNAL(editingFinished()),this,SLOT(applyEntryChange()));
-    // connect (m_definition,SIGNAL(textChanged()),this,SLOT(applyEntryChange()));
-    // connect (m_subjectField,SIGNAL(editTextChanged(QString)),this,SLOT(applyEntryChange()));
     connect(m_subjectField->lineEdit(), &QLineEdit::editingFinished, this, &GlossaryWindow::applyEntryChange);
 
     // m_subjectField->addItems(Project::instance()->glossary()->subjectFields());
@@ -300,7 +295,6 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     m_definitionLang->setCurrentIndex(LanguageListModel::emptyLangInstance()->sortModelRowForLangCode(m_defLang)); // empty lang
 
     // TODO
-    // connect(m_targetTermsModel,SIGNAL(dataChanged(QModelIndex,QModelIndex)),m_browser,SLOT(setFocus()));
 
     setAutoSaveSettings(QLatin1String("GlossaryWindow"), true);
     // Glossary* glossary=Project::instance()->glossary();

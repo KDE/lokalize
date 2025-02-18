@@ -138,23 +138,7 @@ void SettingsController::showSettingsDialog()
 
     connect(dialog, &KConfigDialog::settingsChanged, this, &SettingsController::generalSettingsChanged);
 
-// Spellcheck
-#if 0
-    w = new Sonnet::ConfigWidget(Settings::self()->config(), dialog);
-    w->setParent(this);
-    dialog->addPage(w, i18nc("@title:tab", "Spellcheck"), "spellcheck_setting");
-    connect(dialog, SIGNAL(okClicked()), w, SLOT(save()));
-    connect(dialog, SIGNAL(applyClicked()), w, SLOT(save()));
-    connect(dialog, SIGNAL(defaultClicked()), w, SLOT(slotDefault()));
-#endif
-
-    // connect(dialog,SIGNAL(settingsChanged(const QString&)),m_view, SLOT(settingsChanged()));
-
     dialog->show();
-    //    dialog->addPage(new General(0, "General"), i18n("General") );
-    //    dialog->addPage(new Appearance(0, "Style"), i18n("Appearance") );
-    //    connect(dialog, SIGNAL(settingsChanged(const QString&)), mainWidget, SLOT(loadSettings()));
-    //    connect(dialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(loadSettings()));
 }
 
 bool SettingsController::ensureProjectIsLoaded()

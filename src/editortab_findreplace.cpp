@@ -482,12 +482,7 @@ void EditorTab::spellcheck()
         connect(m_sonnetDialog, &Sonnet::Dialog::stop, this, &EditorTab::spellcheckStop);
         connect(m_sonnetDialog, &Sonnet::Dialog::cancel, this, &EditorTab::spellcheckCancel);
 
-        connect(m_sonnetDialog /*m_sonnetChecker*/, &Sonnet::Dialog::misspelling, this, &EditorTab::spellcheckShow);
-        //         disconnect(/*m_sonnetDialog*/m_sonnetChecker,SIGNAL(misspelling(QString,int)),
-        //             m_sonnetDialog,SLOT(slotMisspelling(QString,int)));
-        //
-        //     connect( d->checker, SIGNAL(misspelling(const QString&, int)),
-        //              SLOT(slotMisspelling(const QString&, int)) );
+        connect(m_sonnetDialog, &Sonnet::Dialog::misspelling, this, &EditorTab::spellcheckShow);
     }
 
     QString text = m_catalog->msgstr(m_currentPos);
