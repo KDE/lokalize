@@ -182,9 +182,7 @@ void ProjectTab::setFocus()
 
 void ProjectTab::setFilterRegExp()
 {
-    QRegularExpression newRegex(QRegularExpression::wildcardToRegularExpression(m_filterEdit->text(), QRegularExpression::UnanchoredWildcardConversion),
-                                QRegularExpression::InvertedGreedinessOption);
-    m_browser->proxyModel()->setFilterRegularExpression(newRegex);
+    m_browser->proxyModel()->setFilterRegularExpression(QRegularExpression(m_filterEdit->text()));
     if (m_filterEdit->text().size() > 2)
         m_browser->expandItems();
     else
