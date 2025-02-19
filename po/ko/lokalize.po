@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-07 00:44+0000\n"
+"POT-Creation-Date: 2025-02-19 00:43+0000\n"
 "PO-Revision-Date: 2024-12-24 17:53+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -821,107 +821,107 @@ msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Ctrl+L 키를 누르면 활성화됩니다. 정규 표현식을 사용할 수 있습니다"
 
-#: src/cataloglistview/cataloglistview.cpp:92
+#: src/cataloglistview/cataloglistview.cpp:91
 #, kde-format
 msgid "Options"
 msgstr "옵션"
 
-#: src/cataloglistview/cataloglistview.cpp:194
+#: src/cataloglistview/cataloglistview.cpp:193
 #, kde-format
 msgid "Reset individual filter"
 msgstr "개별 필터 초기화"
 
-#: src/cataloglistview/cataloglistview.cpp:199 src/tm/tmtab.cpp:369
+#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:369
 #, kde-format
 msgid "Case insensitive"
 msgstr "대소문자 구분 안 함"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:200 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "가속기 키 무시"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Ready"
 msgstr "준비"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Non-ready"
 msgstr "준비되지 않음"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Non-empty"
 msgstr "내용이 있음"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Empty"
 msgstr "비어 있음"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Changed since file open"
 msgstr "연 이후로 변경됨"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "연 이후로 변경되지 않음"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Same in sync file"
 msgstr "동기화 파일에서 같음"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Different in sync file"
 msgstr "동기화 파일에서 다름"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
 msgid "Not in sync file"
 msgstr "동기화 파일에 없음"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Plural"
 msgstr "복수"
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgid "Non-plural"
 msgstr "단수"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "기본"
 
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:216
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "상태"
 
-#: src/cataloglistview/cataloglistview.cpp:219
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "검색 가능한 열"
 
-#: src/cataloglistview/cataloglistview.cpp:223
+#: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "내용 변경 시 다시 정렬하고 필터 다시 적용"
 
-#: src/cataloglistview/cataloglistview.cpp:243
+#: src/cataloglistview/cataloglistview.cpp:242
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -1455,7 +1455,7 @@ msgstr ""
 "변경 사항을 저장하거나 무시하시겠습니까?"
 
 #: src/editortab.cpp:726 src/editortab.cpp:907 src/editortab.cpp:1335
-#: src/glossary/glossarywindow.cpp:484
+#: src/glossary/glossarywindow.cpp:478
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1731,19 +1731,19 @@ msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "바꾸기"
 
-#: src/editortab_findreplace.cpp:519
+#: src/editortab_findreplace.cpp:514
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr "문서의 끝에 도달했습니다. 처음부터 다시 시작하시겠습니까?"
 
-#: src/editortab_findreplace.cpp:520 src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:515 src/editortab_findreplace.cpp:523
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "맞춤법 검사"
 
-#: src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:523
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize에서 맞춤법 검사를 끝냄"
@@ -1851,13 +1851,13 @@ msgstr ""
 "<qt><p><b>원문</b></p>\n"
 "<p>이 부분은 현재 표시된 항목의 원문을 표시합니다.</p></qt>"
 
-#: src/editorview.cpp:177
+#: src/editorview.cpp:176
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "복수 형태 %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:246
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -2012,8 +2012,8 @@ msgid "Subject Field"
 msgstr "제목 필드"
 
 #: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:398 src/glossary/glossarywindow.cpp:424
-#: src/glossary/glossarywindow.cpp:439 src/glossary/glossarywindow.cpp:457
+#: src/glossary/glossarywindow.cpp:392 src/glossary/glossarywindow.cpp:418
+#: src/glossary/glossarywindow.cpp:433 src/glossary/glossarywindow.cpp:451
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
@@ -2045,7 +2045,7 @@ msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "변경 사항을 무시하고 디스크에서 용어집 읽어오기"
 
-#: src/glossary/glossarywindow.cpp:482
+#: src/glossary/glossarywindow.cpp:476
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2830,7 +2830,7 @@ msgstr ""
 "%1 - 소스 파일 경로\n"
 "%2 - 줄 번호"
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:229
+#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2866,13 +2866,7 @@ msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool 플러그인"
 
-#: src/prefs/prefs.cpp:145
-#, kde-format
-msgctxt "@title:tab"
-msgid "Spellcheck"
-msgstr "맞춤법 검사"
-
-#: src/prefs/prefs.cpp:167
+#: src/prefs/prefs.cpp:151
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2881,47 +2875,47 @@ msgstr ""
 "프로젝트를 불러와야 사용할 수 있는 기능을 호출했습니다. 새 프로젝트를 만들거"
 "나 기존 프로젝트를 불러오시겠습니까?"
 
-#: src/prefs/prefs.cpp:168
+#: src/prefs/prefs.cpp:152
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "프로젝트가 필요함"
 
-#: src/prefs/prefs.cpp:169
+#: src/prefs/prefs.cpp:153
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
 msgstr "프로젝트 만들기"
 
-#: src/prefs/prefs.cpp:170
+#: src/prefs/prefs.cpp:154
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "프로젝트 열기"
 
-#: src/prefs/prefs.cpp:182 src/prefs/prefs.cpp:199
+#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Lokalize 번역 프로젝트 (*.lokalize)"
 
-#: src/prefs/prefs.cpp:197
+#: src/prefs/prefs.cpp:181
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "번역할 Gettext .po 파일이 있는 폴더 선택"
 
-#: src/prefs/prefs.cpp:218
+#: src/prefs/prefs.cpp:202
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "소프트웨어 및 OpenDocument 번역 프로젝트를 만드십시오."
 
-#: src/prefs/prefs.cpp:274
+#: src/prefs/prefs.cpp:258
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "고급"
 
-#: src/prefs/prefs.cpp:285
+#: src/prefs/prefs.cpp:269
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -4542,6 +4536,10 @@ msgstr "오류 발생: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "원본을 대상으로 복사"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Spellcheck"
+#~ msgstr "맞춤법 검사"
 
 #~ msgid "Alternative Translations"
 #~ msgstr "대체 번역"

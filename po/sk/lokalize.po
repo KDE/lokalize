@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-07 00:44+0000\n"
+"POT-Creation-Date: 2025-02-19 00:43+0000\n"
 "PO-Revision-Date: 2023-12-06 19:07+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -874,108 +874,108 @@ msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Prijíma regulárne výrazy"
 
-#: src/cataloglistview/cataloglistview.cpp:92
+#: src/cataloglistview/cataloglistview.cpp:91
 #, fuzzy, kde-format
 #| msgid "options"
 msgid "Options"
 msgstr "Voľby"
 
-#: src/cataloglistview/cataloglistview.cpp:194
+#: src/cataloglistview/cataloglistview.cpp:193
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Vynulovať individuálny filter"
 
-#: src/cataloglistview/cataloglistview.cpp:199 src/tm/tmtab.cpp:369
+#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:369
 #, kde-format
 msgid "Case insensitive"
 msgstr "Nerozlišovať veľkosť písmen"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:200 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Ignorovať značky akcelerátora"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Ready"
 msgstr "Pripravené"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Non-ready"
 msgstr "Nepripravené"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Non-empty"
 msgstr "S obsahom"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Empty"
 msgstr "Prázdne"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Changed since file open"
 msgstr "Zmenené od otvorenia súboru"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Nezmenené od otvorenia súboru"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Same in sync file"
 msgstr "Je rovnaký v súbore synchronizácie"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Different in sync file"
 msgstr "Je rozdielny v synchronizovanom súbore"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
 msgid "Not in sync file"
 msgstr "Nenachádza sa v synchronizovanom súbore"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Plural"
 msgstr "Množné číslo"
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgid "Non-plural"
 msgstr "Jednotné číslo"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Základné"
 
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:216
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Stavy"
 
-#: src/cataloglistview/cataloglistview.cpp:219
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Prehľadávateľný stĺpec"
 
-#: src/cataloglistview/cataloglistview.cpp:223
+#: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Znovu zoradiť a prefiltrovať pri zmene obsahu"
 
-#: src/cataloglistview/cataloglistview.cpp:243
+#: src/cataloglistview/cataloglistview.cpp:242
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -1514,7 +1514,7 @@ msgstr ""
 "Chcete uložiť alebo zahodiť zmeny?"
 
 #: src/editortab.cpp:726 src/editortab.cpp:907 src/editortab.cpp:1335
-#: src/glossary/glossarywindow.cpp:484
+#: src/glossary/glossarywindow.cpp:478
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1793,19 +1793,19 @@ msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "Nahradiť"
 
-#: src/editortab_findreplace.cpp:519
+#: src/editortab_findreplace.cpp:514
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr "Lokalize dosiahol koniec dokumentu. Chcete pokračovať od začiatku?"
 
-#: src/editortab_findreplace.cpp:520 src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:515 src/editortab_findreplace.cpp:523
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "Kontrola pravopisu"
 
-#: src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:523
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize ukončil kontrolu pravopisu"
@@ -1914,13 +1914,13 @@ msgstr ""
 "<p>Táto časť okna zobrazuje pôvodnú správu\n"
 "aktuálne zobrazenej položky.</p></qt>"
 
-#: src/editorview.cpp:177
+#: src/editorview.cpp:176
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Forma plurálu %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:246
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -2075,8 +2075,8 @@ msgid "Subject Field"
 msgstr "Pole predmetu"
 
 #: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:398 src/glossary/glossarywindow.cpp:424
-#: src/glossary/glossarywindow.cpp:439 src/glossary/glossarywindow.cpp:457
+#: src/glossary/glossarywindow.cpp:392 src/glossary/glossarywindow.cpp:418
+#: src/glossary/glossarywindow.cpp:433 src/glossary/glossarywindow.cpp:451
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
@@ -2109,7 +2109,7 @@ msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "Znovu načítať slovník z disku, zahodiť všetky zmeny"
 
-#: src/glossary/glossarywindow.cpp:482
+#: src/glossary/glossarywindow.cpp:476
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2898,7 +2898,7 @@ msgstr ""
 "%1 - Cesta k zdrojovému súboru\n"
 "%2 - Číslo riadka"
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:229
+#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2934,13 +2934,7 @@ msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:145
-#, kde-format
-msgctxt "@title:tab"
-msgid "Spellcheck"
-msgstr "Kontrola pravopisu"
-
-#: src/prefs/prefs.cpp:167
+#: src/prefs/prefs.cpp:151
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2949,7 +2943,7 @@ msgstr ""
 "Spustili ste funkciu, ktorá vyžaduje načítaný projekt. Chcete vytvoriť nový "
 "projekt alebo otvoriť existujúci projekt?"
 
-#: src/prefs/prefs.cpp:168
+#: src/prefs/prefs.cpp:152
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Project overview"
@@ -2957,41 +2951,41 @@ msgctxt "@title"
 msgid "Project Required"
 msgstr "Prehľad projektu"
 
-#: src/prefs/prefs.cpp:169
+#: src/prefs/prefs.cpp:153
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
 msgstr "Vytvoriť projekt"
 
-#: src/prefs/prefs.cpp:170
+#: src/prefs/prefs.cpp:154
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Otvoriť projekt"
 
-#: src/prefs/prefs.cpp:182 src/prefs/prefs.cpp:199
+#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Projekt prekladov Lokalize (*.lokalize)"
 
-#: src/prefs/prefs.cpp:197
+#: src/prefs/prefs.cpp:181
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "Výber priečinka so súbormi Gettext .po na preklad"
 
-#: src/prefs/prefs.cpp:218
+#: src/prefs/prefs.cpp:202
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "Najprv vytvorte projekt prekladu softvéru alebo OpenDocument."
 
-#: src/prefs/prefs.cpp:274
+#: src/prefs/prefs.cpp:258
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Pokročilé"
 
-#: src/prefs/prefs.cpp:285
+#: src/prefs/prefs.cpp:269
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -4674,6 +4668,10 @@ msgstr "Bola nahlásená chyba: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopírovať zdroj do cieľa"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Spellcheck"
+#~ msgstr "Kontrola pravopisu"
 
 #~ msgid "Alternative Translations"
 #~ msgstr "Alternatívne preklady"

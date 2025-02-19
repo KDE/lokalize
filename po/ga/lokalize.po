@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-07 00:44+0000\n"
+"POT-Creation-Date: 2025-02-19 00:43+0000\n"
 "PO-Revision-Date: 2007-08-03 07:58-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -777,111 +777,111 @@ msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:92
+#: src/cataloglistview/cataloglistview.cpp:91
 #, fuzzy, kde-format
 #| msgid "options"
 msgid "Options"
 msgstr "roghanna"
 
-#: src/cataloglistview/cataloglistview.cpp:194
+#: src/cataloglistview/cataloglistview.cpp:193
 #, kde-format
 msgid "Reset individual filter"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:199 src/tm/tmtab.cpp:369
+#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:369
 #, kde-format
 msgid "Case insensitive"
 msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:200 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Ná bac le carachtair aicearra"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Ready"
 msgstr "Réidh"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Non-ready"
 msgstr "Gan cheadú"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Non-empty"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Empty"
 msgstr "Folamh"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Changed since file open"
 msgstr "Athraíodh an comhad ó osclaíodh é"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Comhad gan athrú ó osclaíodh é"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:206
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Search in files"
 msgid "Same in sync file"
 msgstr "Cuardaigh i gcomhaid"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Different in sync file"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
 msgid "Not in sync file"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Plural"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:210
 #, fuzzy, kde-format
 #| msgid "Non-ready"
 msgid "Non-plural"
 msgstr "Gan cheadú"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:216
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:219
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:223
+#: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:243
+#: src/cataloglistview/cataloglistview.cpp:242
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -1436,7 +1436,7 @@ msgstr ""
 "An bhfuil fonn ort do chuid athruithe a shábháil?"
 
 #: src/editortab.cpp:726 src/editortab.cpp:907 src/editortab.cpp:1335
-#: src/glossary/glossarywindow.cpp:484
+#: src/glossary/glossarywindow.cpp:478
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1716,19 +1716,19 @@ msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "Ionadaigh"
 
-#: src/editortab_findreplace.cpp:519
+#: src/editortab_findreplace.cpp:514
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr ""
 
-#: src/editortab_findreplace.cpp:520 src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:515 src/editortab_findreplace.cpp:523
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "Seiceáil Litrithe"
 
-#: src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:523
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr ""
@@ -1834,13 +1834,13 @@ msgid ""
 "of the currently displayed entry.</p></qt>"
 msgstr ""
 
-#: src/editorview.cpp:177
+#: src/editorview.cpp:176
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Foirm Iolra %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:246
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1989,8 +1989,8 @@ msgid "Subject Field"
 msgstr "Réimse Ábhair"
 
 #: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:398 src/glossary/glossarywindow.cpp:424
-#: src/glossary/glossarywindow.cpp:439 src/glossary/glossarywindow.cpp:457
+#: src/glossary/glossarywindow.cpp:392 src/glossary/glossarywindow.cpp:418
+#: src/glossary/glossarywindow.cpp:433 src/glossary/glossarywindow.cpp:451
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
@@ -2018,7 +2018,7 @@ msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "Athluchtaigh an ghluais ón diosca, agus faigh réidh le haon athruithe"
 
-#: src/glossary/glossarywindow.cpp:482
+#: src/glossary/glossarywindow.cpp:476
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2835,7 +2835,7 @@ msgid ""
 "%2 - Line number"
 msgstr ""
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:229
+#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2872,20 +2872,14 @@ msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "Teanga"
 
-#: src/prefs/prefs.cpp:145
-#, kde-format
-msgctxt "@title:tab"
-msgid "Spellcheck"
-msgstr "Seiceáil Litrithe"
-
-#: src/prefs/prefs.cpp:167
+#: src/prefs/prefs.cpp:151
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
 "want to create a new project or open an existing project?"
 msgstr ""
 
-#: src/prefs/prefs.cpp:168
+#: src/prefs/prefs.cpp:152
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Project overview"
@@ -2893,14 +2887,14 @@ msgctxt "@title"
 msgid "Project Required"
 msgstr "Foramharc an tionscadail"
 
-#: src/prefs/prefs.cpp:169
+#: src/prefs/prefs.cpp:153
 #, fuzzy, kde-format
 #| msgid "Create new project"
 msgctxt "@action"
 msgid "Create Project"
 msgstr "Cruthaigh tionscadal nua"
 
-#: src/prefs/prefs.cpp:170
+#: src/prefs/prefs.cpp:154
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2908,31 +2902,31 @@ msgctxt "@action"
 msgid "Open Project"
 msgstr "Oscail tionscadal"
 
-#: src/prefs/prefs.cpp:182 src/prefs/prefs.cpp:199
+#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
 #, fuzzy, kde-format
 #| msgid "*.lokalize|Lokalize translation project"
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
 
-#: src/prefs/prefs.cpp:197
+#: src/prefs/prefs.cpp:181
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr ""
 
-#: src/prefs/prefs.cpp:218
+#: src/prefs/prefs.cpp:202
 #, fuzzy, kde-format
 #| msgid "*.lokalize|Lokalize translation project"
 msgid "Create software or OpenDocument translation project first."
 msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
 
-#: src/prefs/prefs.cpp:274
+#: src/prefs/prefs.cpp:258
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Casta"
 
-#: src/prefs/prefs.cpp:285
+#: src/prefs/prefs.cpp:269
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -4513,6 +4507,10 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr ""
+
+#~ msgctxt "@title:tab"
+#~ msgid "Spellcheck"
+#~ msgstr "Seiceáil Litrithe"
 
 #~ msgid "Alternative Translations"
 #~ msgstr "Aistriúcháin Mhalartacha"

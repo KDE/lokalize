@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-07 00:44+0000\n"
+"POT-Creation-Date: 2025-02-19 00:43+0000\n"
 "PO-Revision-Date: 2025-02-05 13:17+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -866,107 +866,107 @@ msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "S'activa amb «Ctrl+L». Accepta expressions regulars"
 
-#: src/cataloglistview/cataloglistview.cpp:92
+#: src/cataloglistview/cataloglistview.cpp:91
 #, kde-format
 msgid "Options"
 msgstr "Opcions"
 
-#: src/cataloglistview/cataloglistview.cpp:194
+#: src/cataloglistview/cataloglistview.cpp:193
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Reinicia el filtre individual"
 
-#: src/cataloglistview/cataloglistview.cpp:199 src/tm/tmtab.cpp:369
+#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:369
 #, kde-format
 msgid "Case insensitive"
 msgstr "No distingisques majúscules de minúscules"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:200 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Ignora els marcadors dels acceleradors"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Ready"
 msgstr "Llesta"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Non-ready"
 msgstr "No enllestida"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Non-empty"
 msgstr "No buida"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Empty"
 msgstr "Buida"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Changed since file open"
 msgstr "Canviada des que s'ha obert el fitxer"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "No canviada des que s'ha obert el fitxer"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Same in sync file"
 msgstr "El mateix en el fitxer de sincronització"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Different in sync file"
 msgstr "Diferent en el fitxer de sincronització"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
 msgid "Not in sync file"
 msgstr "No en el fitxer de sincronització"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Plural"
 msgstr "Plural"
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgid "Non-plural"
 msgstr "Sense plural"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Bàsic"
 
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:216
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Estats"
 
-#: src/cataloglistview/cataloglistview.cpp:219
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Columna buscable"
 
-#: src/cataloglistview/cataloglistview.cpp:223
+#: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Torna a ordenar i a filtrar en canviar el contingut"
 
-#: src/cataloglistview/cataloglistview.cpp:243
+#: src/cataloglistview/cataloglistview.cpp:242
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -1507,7 +1507,7 @@ msgstr ""
 "Voleu guardar els canvis o descartar-los?"
 
 #: src/editortab.cpp:726 src/editortab.cpp:907 src/editortab.cpp:1335
-#: src/glossary/glossarywindow.cpp:484
+#: src/glossary/glossarywindow.cpp:478
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1790,7 +1790,7 @@ msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "Substituïx"
 
-#: src/editortab_findreplace.cpp:519
+#: src/editortab_findreplace.cpp:514
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
@@ -1798,13 +1798,13 @@ msgstr ""
 "Lokalize ha arribat al final del document. Voleu continuar des del "
 "començament?"
 
-#: src/editortab_findreplace.cpp:520 src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:515 src/editortab_findreplace.cpp:523
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "Verificació ortogràfica"
 
-#: src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:523
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize ha finalitzat la verificació ortogràfica"
@@ -1911,13 +1911,13 @@ msgstr ""
 "<p>Esta part de la finestra mostra el missatge\n"
 "original de l'entrada mostrada actualment.</p></qt>"
 
-#: src/editorview.cpp:177
+#: src/editorview.cpp:176
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Forma plural %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:246
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -2070,8 +2070,8 @@ msgid "Subject Field"
 msgstr "Camp de l'assumpte"
 
 #: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:398 src/glossary/glossarywindow.cpp:424
-#: src/glossary/glossarywindow.cpp:439 src/glossary/glossarywindow.cpp:457
+#: src/glossary/glossarywindow.cpp:392 src/glossary/glossarywindow.cpp:418
+#: src/glossary/glossarywindow.cpp:433 src/glossary/glossarywindow.cpp:451
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
@@ -2104,7 +2104,7 @@ msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "Torna a carregar el glossari des del disc, descarta'n qualsevol canvi"
 
-#: src/glossary/glossarywindow.cpp:482
+#: src/glossary/glossarywindow.cpp:476
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2898,7 +2898,7 @@ msgstr ""
 "%1 - Camí cap al fitxer de codi font\n"
 "%2 - Número de línia"
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:229
+#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2934,13 +2934,7 @@ msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:145
-#, kde-format
-msgctxt "@title:tab"
-msgid "Spellcheck"
-msgstr "Verificació ortogràfica"
-
-#: src/prefs/prefs.cpp:167
+#: src/prefs/prefs.cpp:151
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2949,47 +2943,47 @@ msgstr ""
 "Heu accedit a una característica que requerix que es carregue un projecte. "
 "Voleu crear un projecte nou o obrir-ne un que existisca?"
 
-#: src/prefs/prefs.cpp:168
+#: src/prefs/prefs.cpp:152
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "Es requerix un projecte"
 
-#: src/prefs/prefs.cpp:169
+#: src/prefs/prefs.cpp:153
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
 msgstr "Crea un projecte"
 
-#: src/prefs/prefs.cpp:170
+#: src/prefs/prefs.cpp:154
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Obri un projecte"
 
-#: src/prefs/prefs.cpp:182 src/prefs/prefs.cpp:199
+#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Projecte de traducció de Lokalize (*.lokalize)"
 
-#: src/prefs/prefs.cpp:197
+#: src/prefs/prefs.cpp:181
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "Seleccioneu la carpeta amb fitxers .po de Gettext que s'han de traduir"
 
-#: src/prefs/prefs.cpp:218
+#: src/prefs/prefs.cpp:202
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "Primer creeu un projecte de traducció de programari o d'OpenDocument."
 
-#: src/prefs/prefs.cpp:274
+#: src/prefs/prefs.cpp:258
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Avançat"
 
-#: src/prefs/prefs.cpp:285
+#: src/prefs/prefs.cpp:269
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -4676,3 +4670,7 @@ msgstr "S'ha notificat un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia l'origen a la destinació"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Spellcheck"
+#~ msgstr "Verificació ortogràfica"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-07 00:44+0000\n"
+"POT-Creation-Date: 2025-02-19 00:43+0000\n"
 "PO-Revision-Date: 2024-07-21 22:25-0500\n"
 "Last-Translator: aalam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -781,108 +781,108 @@ msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "ਨਿਯਮਤ ਸਮੀਕਰਨ ਮਨਜ਼ੂਰ"
 
-#: src/cataloglistview/cataloglistview.cpp:92
+#: src/cataloglistview/cataloglistview.cpp:91
 #, fuzzy, kde-format
 #| msgid "options"
 msgid "Options"
 msgstr "ਚੋਣਾਂ"
 
-#: src/cataloglistview/cataloglistview.cpp:194
+#: src/cataloglistview/cataloglistview.cpp:193
 #, kde-format
 msgid "Reset individual filter"
 msgstr "ਵੱਖ ਵੱਖ ਫਿਲਟਰ ਮੁੜ-ਸੈੱਟ"
 
-#: src/cataloglistview/cataloglistview.cpp:199 src/tm/tmtab.cpp:369
+#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:369
 #, kde-format
 msgid "Case insensitive"
 msgstr "ਅੱਖਰ ਅਕਾਰ ਉੱਤੇ ਨਿਰਭਰ"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:200 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "ਐਕਸਲੇਟਰ ਨਿਸ਼ਾਨ ਅਣਡਿੱਠਾ"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Ready"
 msgstr "ਤਿਆਰ"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Non-ready"
 msgstr "ਤਿਆਰ ਨਹੀਂ"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Non-empty"
 msgstr "ਖਾਲੀ ਨਹੀਂ"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Empty"
 msgstr "ਖਾਲੀ"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Changed since file open"
 msgstr "ਫਾਇਲ ਖੋਲ੍ਹਣ ਤੋਂ ਬਾਅਦ ਬਦਲੇ"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "ਫਾਇਲ ਖੋਲ੍ਹਣ ਬਾਅਦ ਨਾ-ਬਦਲੇ"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Same in sync file"
 msgstr "ਸਿੰਕ ਫਾਇਲ ਵਾਂਗ"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Different in sync file"
 msgstr "ਸਿੰਕ ਫਾਇਲਾਂ ਵਿੱਚ ਫ਼ਰਕ"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
 msgid "Not in sync file"
 msgstr "ਸਿੰਕ ਫਾਇਲ ਵਿੱਚ ਨਹੀਂ"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Plural"
 msgstr "ਬਹੁ-ਵਚਨ"
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgid "Non-plural"
 msgstr "ਗ਼ੈਰ-ਬਹੁ-ਵਚਨ"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "ਮੁੱਢਲਾ"
 
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:216
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "ਹਾਲਤ"
 
-#: src/cataloglistview/cataloglistview.cpp:219
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "ਖੋਜ ਯੋਗ ਕਾਲਮ"
 
-#: src/cataloglistview/cataloglistview.cpp:223
+#: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:243
+#: src/cataloglistview/cataloglistview.cpp:242
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -1417,7 +1417,7 @@ msgstr ""
 "ਕੀ ਤੁਸੀਂ ਆਪਣੇ ਬਦਲਾ ਸੰਭਾਲਣੇ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਅਣਡਿੱਠੇ ਕਰਨੇ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: src/editortab.cpp:726 src/editortab.cpp:907 src/editortab.cpp:1335
-#: src/glossary/glossarywindow.cpp:484
+#: src/glossary/glossarywindow.cpp:478
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1686,19 +1686,19 @@ msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "ਤਬਦੀਲ ਕਰੋ"
 
-#: src/editortab_findreplace.cpp:519
+#: src/editortab_findreplace.cpp:514
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr "ਲੋਕਾਲਾਈਜ਼ ਡੌਕੂਮੈਂਟ ਦੇ ਅੰਤ ਉੱਤੇ ਅੱਪੜ ਗਿਆ ਹੈ। ਕੀ ਤੁਸੀਂ ਸ਼ੁਰੂ ਤੋਂ ਫੇਰ ਸ਼ੁਰੂ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: src/editortab_findreplace.cpp:520 src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:515 src/editortab_findreplace.cpp:523
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "ਸਪੈਲ-ਚੈੱਕ"
 
-#: src/editortab_findreplace.cpp:528
+#: src/editortab_findreplace.cpp:523
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "ਲੋਕਾਲਾਈਜ਼ ਨੇ ਸਪੈਲ-ਚੈੱਕ ਪੂਰੀ ਕੀਤਾ"
@@ -1807,13 +1807,13 @@ msgstr ""
 "<p>ਵਿੰਡੋ ਦਾ ਇਹ ਭਾਗ ਇਸ ਸਮੇਂ ਵੇਖਾਈ ਜਾ ਰਹੀ ਐਂਟਰੀ ਦਾ ਅਸਲੀ\n"
 "ਸੁਨੇਹਾ ਵੇਖਾਉਂਦਾ ਹੈ।</p></qt>"
 
-#: src/editorview.cpp:177
+#: src/editorview.cpp:176
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "ਬਹੁ-ਵਚਨ ਫਾਰਮ %1"
 
-#: src/editorview.cpp:247
+#: src/editorview.cpp:246
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1968,8 +1968,8 @@ msgid "Subject Field"
 msgstr "ਵਿਸ਼ਾ ਖੇਤਰ"
 
 #: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:398 src/glossary/glossarywindow.cpp:424
-#: src/glossary/glossarywindow.cpp:439 src/glossary/glossarywindow.cpp:457
+#: src/glossary/glossarywindow.cpp:392 src/glossary/glossarywindow.cpp:418
+#: src/glossary/glossarywindow.cpp:433 src/glossary/glossarywindow.cpp:451
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
@@ -1997,7 +1997,7 @@ msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "ਡਿਸਕ ਤੋਂ ਸ਼ਬਦਾਵਲੀ ਫਿਰ-ਲੋਡ ਕਰੋ, ਕੋਈ ਵੀ ਬਦਲਾਅ ਅਣਡਿੱਠਾ ਕਰ ਦਿਓ"
 
-#: src/glossary/glossarywindow.cpp:482
+#: src/glossary/glossarywindow.cpp:476
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2778,7 +2778,7 @@ msgid ""
 "%2 - Line number"
 msgstr ""
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:229
+#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2814,13 +2814,7 @@ msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:145
-#, kde-format
-msgctxt "@title:tab"
-msgid "Spellcheck"
-msgstr "ਸਪੈਲ-ਚੈੱਕ"
-
-#: src/prefs/prefs.cpp:167
+#: src/prefs/prefs.cpp:151
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2829,48 +2823,48 @@ msgstr ""
 "ਤੁਸੀਂ ਫੀਚਰ ਵਰਤਣਾ ਚਾਹੁੰਦੇ ਹੋ, ਜਿਸ ਲਈ ਪਰੋਜੈਕਟ ਲੋਡ ਕੀਤਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। ਕੀ ਤੁਸੀਂ ਨਵਾਂ ਪਰੋਜੈਕਟ "
 "ਬਣਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਮੌਜੂਦਾ ਪਰੋਜੈਕਟ ਖੋਲ੍ਹਣਾ?"
 
-#: src/prefs/prefs.cpp:168
+#: src/prefs/prefs.cpp:152
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "ਪਰੋਜੈਕਟ ਚਾਹੀਦਾ ਹੈ"
 
-#: src/prefs/prefs.cpp:169
+#: src/prefs/prefs.cpp:153
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
 msgstr "ਪਰੋਜੈਕਟ ਬਣਾਓ"
 
-#: src/prefs/prefs.cpp:170
+#: src/prefs/prefs.cpp:154
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "ਪਰੋਜੈਕਟ ਖੋਲ੍ਹੋ"
 
-#: src/prefs/prefs.cpp:182 src/prefs/prefs.cpp:199
+#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "ਲੋਕਾਲਾਈਜ਼ ਅਨੁਵਾਦ ਪਰੋਜੈਕਟ (*.lokalize)"
 
-#: src/prefs/prefs.cpp:197
+#: src/prefs/prefs.cpp:181
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr ""
 
-#: src/prefs/prefs.cpp:218
+#: src/prefs/prefs.cpp:202
 #, fuzzy, kde-format
 #| msgid "Choose location of your software translation project"
 msgid "Create software or OpenDocument translation project first."
 msgstr "ਆਪਣੇ ਸਾਫਟਵੇਅਰ ਅਨੁਵਾਦ ਪਰੋਜੈਕਟ ਦਾ ਟਿਕਾਣਾ ਚੁਣੋ"
 
-#: src/prefs/prefs.cpp:274
+#: src/prefs/prefs.cpp:258
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "ਤਕਨੀਕੀ"
 
-#: src/prefs/prefs.cpp:285
+#: src/prefs/prefs.cpp:269
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -4477,6 +4471,10 @@ msgstr "ਗਲਤੀ ਬਾਰੇ ਰਿਪੋਰਟ ਮਿਲੀ: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "ਸਰੋਤ ਤੋਂ ਟਾਰਗੇਟ ਵਿੱਚ ਕਾਪੀ ਕਰੋ"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Spellcheck"
+#~ msgstr "ਸਪੈਲ-ਚੈੱਕ"
 
 #~ msgid "Alternative Translations"
 #~ msgstr "ਬਦਲਵੇਂ ਅਨੁਵਾਦ"
