@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-19 00:43+0000\n"
+"POT-Creation-Date: 2025-02-20 00:43+0000\n"
 "PO-Revision-Date: 2007-08-03 07:58-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -999,7 +999,7 @@ msgid "Current: %1"
 msgstr "Reatha: %1"
 
 #: src/editortab.cpp:112 src/editortab.cpp:781
-#: src/filesearch/filesearchtab.cpp:707 src/project/projecttab.cpp:441
+#: src/filesearch/filesearchtab.cpp:707 src/project/projecttab.cpp:439
 #: src/tm/tmtab.cpp:591
 #, kde-format
 msgctxt "@info:status message entries"
@@ -1558,26 +1558,26 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr ""
 
-#: src/editortab.cpp:1311 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1311 src/project/projecttab.cpp:305
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
 #: src/editortab.cpp:1311 src/editortab.cpp:1319 src/editortab.cpp:1323
-#: src/project/projecttab.cpp:307 src/project/projecttab.cpp:315
-#: src/project/projecttab.cpp:319
+#: src/project/projecttab.cpp:305 src/project/projecttab.cpp:313
+#: src/project/projecttab.cpp:317
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1319 src/project/projecttab.cpp:315
+#: src/editortab.cpp:1319 src/project/projecttab.cpp:313
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1321 src/project/projecttab.cpp:317
+#: src/editortab.cpp:1321 src/project/projecttab.cpp:315
 #, kde-format
 msgid "Pology success"
 msgstr ""
@@ -1587,7 +1587,7 @@ msgstr ""
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1323 src/project/projecttab.cpp:319
+#: src/editortab.cpp:1323 src/project/projecttab.cpp:317
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -3849,32 +3849,32 @@ msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr ""
 
-#: src/project/projecttab.cpp:200
+#: src/project/projecttab.cpp:198
 #, fuzzy, kde-format
 #| msgid "Select file:"
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Roghnaigh comhad:"
 
-#: src/project/projecttab.cpp:203
+#: src/project/projecttab.cpp:201
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "Oscail"
 
-#: src/project/projecttab.cpp:206
+#: src/project/projecttab.cpp:204
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Cuir le cuimhne aistriúcháin"
 
-#: src/project/projecttab.cpp:208
+#: src/project/projecttab.cpp:206
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "Cuardaigh i gcomhaid"
 
-#: src/project/projecttab.cpp:209
+#: src/project/projecttab.cpp:207
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add a note"
@@ -3882,34 +3882,34 @@ msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Cuir nóta leis"
 
-#: src/project/projecttab.cpp:211
+#: src/project/projecttab.cpp:209
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr ""
 
-#: src/project/projecttab.cpp:214
+#: src/project/projecttab.cpp:212
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "Cuardaigh i gcomhaid (teimpléid san áireamh)"
 
-#: src/project/projecttab.cpp:241
+#: src/project/projecttab.cpp:239
 #, kde-format
 msgid "Project file comment"
 msgstr ""
 
-#: src/project/projecttab.cpp:241
+#: src/project/projecttab.cpp:239
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr ""
 
-#: src/project/projecttab.cpp:317
+#: src/project/projecttab.cpp:315
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:336
+#: src/project/projecttab.cpp:334
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
@@ -3919,19 +3919,19 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: src/project/projecttab.cpp:337
+#: src/project/projecttab.cpp:335
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:338
+#: src/project/projecttab.cpp:336
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:339
+#: src/project/projecttab.cpp:337
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "&Open %1 File"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-19 00:43+0000\n"
+"POT-Creation-Date: 2025-02-20 00:43+0000\n"
 "PO-Revision-Date: 2024-12-24 17:53+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1032,7 +1032,7 @@ msgid "Current: %1"
 msgstr "현재: %1"
 
 #: src/editortab.cpp:112 src/editortab.cpp:781
-#: src/filesearch/filesearchtab.cpp:707 src/project/projecttab.cpp:441
+#: src/filesearch/filesearchtab.cpp:707 src/project/projecttab.cpp:439
 #: src/tm/tmtab.cpp:591
 #, kde-format
 msgctxt "@info:status message entries"
@@ -1565,19 +1565,19 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "항목이 완전히 번역됨(최종본)"
 
-#: src/editortab.cpp:1311 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1311 src/project/projecttab.cpp:305
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Pology 검사가 진행 중입니다."
 
 #: src/editortab.cpp:1311 src/editortab.cpp:1319 src/editortab.cpp:1323
-#: src/project/projecttab.cpp:307 src/project/projecttab.cpp:315
-#: src/project/projecttab.cpp:319
+#: src/project/projecttab.cpp:305 src/project/projecttab.cpp:313
+#: src/project/projecttab.cpp:317
 #, kde-format
 msgid "Pology error"
 msgstr "Pology 오류"
 
-#: src/editortab.cpp:1319 src/project/projecttab.cpp:315
+#: src/editortab.cpp:1319 src/project/projecttab.cpp:313
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1586,7 +1586,7 @@ msgstr ""
 "Pology 검사가 예상하지 못하게 충돌했습니다:\n"
 "%1"
 
-#: src/editortab.cpp:1321 src/project/projecttab.cpp:317
+#: src/editortab.cpp:1321 src/project/projecttab.cpp:315
 #, kde-format
 msgid "Pology success"
 msgstr "Pology 성공"
@@ -1596,7 +1596,7 @@ msgstr "Pology 성공"
 msgid "The Pology check has succeeded."
 msgstr "Pology 검사가 성공했습니다."
 
-#: src/editortab.cpp:1323 src/project/projecttab.cpp:319
+#: src/editortab.cpp:1323 src/project/projecttab.cpp:317
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -3882,82 +3882,82 @@ msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "완전히 번역된 파일과 폴더 숨기기"
 
-#: src/project/projecttab.cpp:200
+#: src/project/projecttab.cpp:198
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "선택한 파일 열기"
 
-#: src/project/projecttab.cpp:203
+#: src/project/projecttab.cpp:201
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "열기"
 
-#: src/project/projecttab.cpp:206
+#: src/project/projecttab.cpp:204
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "번역 메모리에 추가"
 
-#: src/project/projecttab.cpp:208
+#: src/project/projecttab.cpp:206
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "파일에서 찾기"
 
-#: src/project/projecttab.cpp:209
+#: src/project/projecttab.cpp:207
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "주석 추가"
 
-#: src/project/projecttab.cpp:211
+#: src/project/projecttab.cpp:209
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr "파일에 Pology 실행"
 
-#: src/project/projecttab.cpp:214
+#: src/project/projecttab.cpp:212
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "파일에서 찾기(템플릿 포함)"
 
-#: src/project/projecttab.cpp:241
+#: src/project/projecttab.cpp:239
 #, kde-format
 msgid "Project file comment"
 msgstr "프로젝트 파일 주석"
 
-#: src/project/projecttab.cpp:241
+#: src/project/projecttab.cpp:239
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr "이 프로젝트 파일의 주석을 입력하십시오:"
 
-#: src/project/projecttab.cpp:317
+#: src/project/projecttab.cpp:315
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Pology 검사 성공"
 
-#: src/project/projecttab.cpp:336
+#: src/project/projecttab.cpp:334
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "파일 %1개를 열 것입니다"
 
-#: src/project/projecttab.cpp:337
+#: src/project/projecttab.cpp:335
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr "한 번에 너무 많은 파일을 열면 Lokalize가 응답하지 않을 수도 있습니다."
 
-#: src/project/projecttab.cpp:338
+#: src/project/projecttab.cpp:336
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "이 파일을 모두 여시겠습니까?"
 
-#: src/project/projecttab.cpp:339
+#: src/project/projecttab.cpp:337
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
