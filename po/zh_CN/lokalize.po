@@ -4433,7 +4433,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Spellcheck"
-#~ msgstr "拼写检查"
