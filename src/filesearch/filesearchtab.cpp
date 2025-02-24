@@ -446,7 +446,6 @@ FileSearchTab::FileSearchTab(QWidget *parent)
 {
     m_tabLabel = i18nc("@title:tab", "Search and replace in files");
     m_tabIcon = QIcon::fromTheme(QLatin1String("edit-find-replace"));
-    setWindowTitle(m_tabLabel);
     setAcceptDrops(true);
 
     QWidget *w = new QWidget(this);

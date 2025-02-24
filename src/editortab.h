@@ -21,7 +21,6 @@
 
 #include <QHash>
 #include <QMap>
-#include <QMdiSubWindow>
 
 namespace Sonnet
 {
@@ -104,11 +103,11 @@ public:
     void showDocks() override;
     QString currentFilePath() override;
     void setFullPathShown(bool);
+
 public Q_SLOTS:
     void setProperFocus();
 
 public:
-    bool queryClose() override;
     EditorState state();
     KXMLGUIClient *guiClient() override
     {
@@ -129,8 +128,18 @@ public:
 
     bool fileOpen(QString filePath = QString(),
                   QString suggestedDirPath = QString(),
-                  QMap<QString, QMdiSubWindow *> openedFiles = QMap<QString, QMdiSubWindow *>(),
+                  QMap<QString, EditorTab *> openedFiles = QMap<QString, EditorTab *>(),
                   bool silent = false);
+
+    void setModificationSign();
+    /*
+     * @short Checks editor tab is ready to close
+     * @return false if a part of the editor tab has
+     * unsaved data.
+     * @author Finley Watson
+     */
+    bool isClean();
+
     QIcon m_defaultTabIcon;
     QIcon m_unsavedTabIcon;
 
@@ -301,9 +310,6 @@ private Q_SLOTS:
 
     void pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
-protected:
-    void paintEvent(QPaintEvent *event) override;
-
 private:
     void setupAccel();
     void setupActions();
@@ -311,13 +317,6 @@ private:
 
     void findNext(const DocPosition &startingPos);
     void replaceNext(const DocPosition &);
-    /*
-     * @short Checks editor tab is ready to close
-     * @return false if a part of the editor tab has
-     * unsaved data.
-     * @author Finley Watson
-     */
-    bool isClean();
 
 private:
     Project *m_project{};

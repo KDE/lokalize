@@ -381,7 +381,6 @@ TMTab::TMTab(QWidget *parent)
 {
     m_tabLabel = i18nc("@title:tab", "Translation Memory");
     m_tabIcon = QIcon::fromTheme(QLatin1String("server-database"));
-    setWindowTitle(m_tabLabel);
     setAcceptDrops(true);
 
     ui_queryOptions = new Ui_QueryOptions;

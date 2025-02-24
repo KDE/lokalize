@@ -50,7 +50,6 @@ ProjectTab::ProjectTab(QWidget *parent)
 {
     m_tabLabel = i18nc("@title:tab", "Project Overview");
     m_tabIcon = QIcon::fromTheme(QStringLiteral("project-open"));
-    setWindowTitle(m_tabLabel);
     QWidget *w = new QWidget(this);
     QVBoxLayout *l = new QVBoxLayout(w);
 

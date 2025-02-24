@@ -10,22 +10,27 @@
 #ifndef LOKALIZEMAINWINDOW_H
 #define LOKALIZEMAINWINDOW_H
 
+#include "filesearchtab.h"
+#include "lokalizesubwindowbase.h"
 #include "pos.h"
+#include "projecttab.h"
+#include "tmtab.h"
 
 #include <KConfigGroup>
+#include <KXMLGUIClient>
 #include <KXmlGuiWindow>
 
 #include <QDBusObjectPath>
 #include <QMap>
-#include <QMdiArea>
 #include <QPointer>
 #include <QStackedLayout>
+#include <QTabWidget>
 #include <QUrl>
+#include <QWidget>
+#include <qtmetamacros.h>
 
 class QLabel;
-class QMdiSubWindow;
 class QActionGroup;
-class LokalizeMdiArea;
 class KRecentFilesAction;
 class EditorTab;
 class FileSearchTab;
@@ -55,6 +60,8 @@ public:
     LokalizeMainWindow();
     ~LokalizeMainWindow() override;
 
+    StatusBarProxy mainWindowStatusBarItems;
+
 protected:
     void saveProjectState(KConfigGroup &);
     void saveProperties(KConfigGroup &stateGroup) override;
@@ -69,13 +76,9 @@ protected:
     void setupActions();
 
 private Q_SLOTS:
-    void slotSubWindowActivated(QMdiSubWindow *);
     void initLater();
-    void applyToBeActiveSubWindow();
     void projectLoaded();
     void projectSettingsChanged();
-
-    void editorClosed(QObject *obj);
 
     void openProject(const QUrl &url)
     {
@@ -87,6 +90,30 @@ private Q_SLOTS:
     }
     void showTabs();
     void showWelcome();
+
+    bool queryCloseAllTabs();
+    bool queryCloseTabByPageWidget(QWidget *widget);
+    /*
+     * @short Checks if the tab is safe to close, and potentially saves file.
+     * Does not close a tab, but checks if it is safe to do so.
+     * Files with unsaved changes prompt to be saved. Unsaved
+     * changes still present after calling this method can be
+     * lost when the tab closes.
+     * @author Finley Watson
+     */
+    bool queryCloseTabAtIndex(int index);
+    void queryAndCloseTabAtIndex(int index);
+    void queryAndCloseCurrentTab();
+    void closeTabByPageWidget(QWidget *widget);
+    /*
+     * @short Destroys a tab and deletes the tab page data.
+     * This assumes queryCloseTabAtIndex() has already been
+     * called and will delete unsaved data. Call the query
+     * before this method.
+     * @author Finley Watson
+     */
+    void closeTabAtIndex(int index);
+    void closeCurrentTab();
 
 public Q_SLOTS:
     /**
@@ -105,7 +132,8 @@ public Q_SLOTS:
     Q_SCRIPTABLE void showProjectOverview();
     Q_SCRIPTABLE QObject *projectOverview();
 
-    Q_SCRIPTABLE bool closeProject();
+    Q_SCRIPTABLE bool queryAndCloseProject();
+    Q_SCRIPTABLE void closeProject();
     Q_SCRIPTABLE void openProject(QString path);
     Q_SCRIPTABLE QString currentProject();
 
@@ -145,17 +173,49 @@ public Q_SLOTS:
     void showFileSearchAction();
     void fileSearchNext();
     void addFilesToSearch(const QStringList &);
-
+    /*
+     * @short Focus a tab page by index.
+     * Also sets up the status bar and other essential
+     * parts, and tracks previous editor states. Handles
+     * correct transition between tab pages and connects
+     * and disconnects keyboard shortcuts.
+     * @author Finley Watson
+     */
+    void activateTabAtIndex(int i);
+    /*
+     * @short Focus a tab page by its widget.
+     * See activateTabAtIndex(int i) for details.
+     * @author Finley Watson
+     */
+    void activateTabByPageWidget(QWidget *w);
+    void activateTabToLeftOfCurrent();
+    void activateTabToRightOfCurrent();
+    void activatePreviousTab();
+    void updateTabDetailsByPageWidget(LokalizeTabPageBase *pageWidget);
     void widgetTextCapture();
 Q_SIGNALS:
     Q_SCRIPTABLE void editorAdded();
     Q_SCRIPTABLE void editorActivated();
 
 private:
+    int previousActiveTabIndex;
+    KXMLGUIClient *m_activeTabPageKeyboardShortcuts{};
+    QActionGroup *m_editorActions{};
+    QActionGroup *m_managerActions{};
+    KRecentFilesAction *m_openRecentFileAction{};
+    KRecentFilesAction *m_openRecentProjectAction{};
+    QVector<QLabel *> m_statusBarLabels;
+
     /*
-     * @short All the tabs: project, editor etc.
+     * @short The state of the editor that was last in focus.
+     * When a new file is opened it will default to this state
+     * (dock widget layout etc.) and when a project is closed
+     * this is the editor state saved to disk.
      */
-    LokalizeMdiArea *m_mainTabs;
+    QByteArray m_lastEditorState;
+
+    typedef QMap<QString, EditorTab *> FileToEditor;
+    FileToEditor m_fileToEditor;
     /*
      * @short Contains all tabs on one layer, and the welcome widget on another.
      */
@@ -164,31 +224,14 @@ private:
      * @short Contains the welcome text and some buttons for getting started.
      */
     QWidget *m_welcomePage;
+    /*
+     * @short All the tabs: project, editor etc.
+     */
+    QTabWidget *m_mainTabs;
+    ProjectTab *m_projectTab{};
+    TM::TMTab *m_translationMemoryTab{};
+    FileSearchTab *m_fileSearchTab{};
     bool m_translationMemoryTabIsVisible;
-    QPointer<QMdiSubWindow> m_prevSubWindow{};
-    QPointer<QMdiSubWindow> m_projectSubWindow{};
-    QPointer<QMdiSubWindow> m_translationMemorySubWindow{};
-    QPointer<QMdiSubWindow> m_fileSearchSubWindow{};
-    QPointer<QMdiSubWindow> m_toBeActiveSubWindow{}; // used during session restore
-
-    QActionGroup *m_editorActions{};
-    QActionGroup *m_managerActions{};
-    KRecentFilesAction *m_openRecentFileAction{};
-    KRecentFilesAction *m_openRecentProjectAction{};
-    QVector<QLabel *> m_statusBarLabels;
-
-    QByteArray m_lastEditorState;
-
-    typedef QMap<QString, QMdiSubWindow *> FileToEditor;
-    FileToEditor m_fileToEditor;
-};
-
-class LokalizeMdiArea : public QMdiArea
-{
-    Q_OBJECT
-public Q_SLOTS:
-    void activateNextSubWindow();
-    void activatePreviousSubWindow();
 };
 
 class DelayedFileOpener : public QObject

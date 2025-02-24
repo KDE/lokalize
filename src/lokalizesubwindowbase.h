@@ -103,6 +103,7 @@ public:
         }
     }
     QString m_tabLabel;
+    QString m_tabToolTip;
     QIcon m_tabIcon;
 
 Q_SIGNALS:

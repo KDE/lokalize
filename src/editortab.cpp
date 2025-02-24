@@ -49,8 +49,8 @@
 #include <QFileDialog>
 #include <QIcon>
 #include <QInputDialog>
-#include <QMdiArea>
 #include <QMenuBar>
+#include <QObject>
 #include <QProcess>
 #include <QStandardPaths>
 #include <QStringBuilder>
@@ -685,22 +685,18 @@ void EditorTab::setFullPathShown(bool fullPathShown)
 void EditorTab::updateTabLabelAndIcon()
 {
     m_tabIcon = isClean() ? m_defaultTabIcon : m_unsavedTabIcon;
+    m_tabToolTip = m_catalog->url();
     m_tabLabel = m_relativeOrAbsoluteFilePath;
     if (m_catalog->autoSaveRecovered())
         m_tabLabel += i18nc("editor tab title addition", " (recovered)");
 
-    // TODO The visible tab label is set for a tab, but not the visible icon. In the future the signal
-    // will go into a slot that updates the tab bar label and icon which are visible to the user. For
-    // now, the internal variables are correctly set, ready for the slot to use.
-
-    setWindowTitle(m_tabLabel + QLatin1String(" [*]"));
-    setWindowModified(!isClean());
     Q_EMIT signalUpdatedTabLabelAndIconAvailable(qobject_cast<LokalizeTabPageBase *>(this));
 }
 
 void EditorTab::updateCaptionPath()
 {
     QString url = m_catalog->url();
+    m_tabToolTip = url;
     if (!m_project->isLoaded()) {
         m_relativeOrAbsoluteFilePath = url;
         return;
@@ -716,7 +712,7 @@ void EditorTab::updateCaptionPath()
         m_relativeOrAbsoluteFilePath = m_relativeOrAbsoluteFilePath.mid(2);
 }
 
-bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, QMdiSubWindow *> openedFiles, bool silent)
+bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, EditorTab *> openedFiles, bool silent)
 {
     if (!m_catalog->isClean()) {
         switch (KMessageBox::warningTwoActionsCancel(SettingsController::instance()->mainWindowPtr(),
@@ -757,7 +753,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
     }
     if (filePath.isEmpty())
         return false;
-    QMap<QString, QMdiSubWindow *>::const_iterator it = openedFiles.constFind(filePath);
+    QMap<QString, EditorTab *>::const_iterator it = openedFiles.constFind(filePath);
     if (it != openedFiles.constEnd()) {
         qCWarning(LOKALIZE_LOG) << "already opened:" << filePath;
         return false;
@@ -893,27 +889,6 @@ EditorState EditorTab::state()
     state.mergeFilePath = m_syncView->filePath();
     state.entry = m_currentPos.entry;
     return state;
-}
-
-bool EditorTab::queryClose()
-{
-    if (isClean())
-        return true;
-
-    switch (KMessageBox::warningTwoActionsCancel(this,
-                                                 i18nc("@info",
-                                                       "The document contains unsaved changes.\n"
-                                                       "Do you want to save your changes or discard them?"),
-                                                 i18nc("@title:window", "Warning"),
-                                                 KStandardGuiItem::save(),
-                                                 KStandardGuiItem::discard())) {
-    case KMessageBox::PrimaryAction:
-        return saveFile();
-    case KMessageBox::SecondaryAction:
-        return true;
-    default:
-        return false;
-    }
 }
 
 bool EditorTab::isClean()
@@ -1279,16 +1254,6 @@ void EditorTab::gotoNextBookmark()
 void EditorTab::mergeOpen(QString mergeFilePath)
 {
     m_syncView->mergeOpen(mergeFilePath);
-}
-
-// HACK to prevent redundant repaintings when widget isn't visible
-void EditorTab::paintEvent(QPaintEvent *event)
-{
-    if (QMdiSubWindow *sw = qobject_cast<QMdiSubWindow *>(parent())) {
-        if (sw->mdiArea()->currentSubWindow() != sw)
-            return;
-    }
-    LokalizeTabPageBase::paintEvent(event);
 }
 
 void EditorTab::indexWordsForCompletion()
