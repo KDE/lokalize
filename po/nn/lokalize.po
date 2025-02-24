@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-20 00:43+0000\n"
-"PO-Revision-Date: 2024-10-27 14:51+0100\n"
+"PO-Revision-Date: 2025-02-20 22:33+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.03.70\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -122,13 +122,13 @@ msgid "From alternate translations folder"
 msgstr "Frå mappe for jamføringsomsetjingar"
 
 #: src/alttransview.cpp:186
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr "Jamføring med førre kontekst:"
 
 #: src/alttransview.cpp:201
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
 msgstr "Jamføring med førre kjelde:"
@@ -1811,7 +1811,7 @@ msgstr "Omsetjings&minne"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Jamføringsomsetjingar"
 
@@ -1983,9 +1983,7 @@ msgid "File"
 msgstr "Fil"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Søk og byt ut i filer"
@@ -2358,7 +2356,7 @@ msgstr "Hent tekst frå skjermelement"
 #: src/lokalizemainwindow.cpp:613
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "Fargetema for &vindauge"
 
 #: src/lokalizemainwindow.cpp:789
 #, kde-format
@@ -3900,9 +3898,7 @@ msgid "Last Translator"
 msgstr "Siste omsetjar"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Prosjektoversikt"
