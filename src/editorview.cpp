@@ -45,9 +45,9 @@ LedsWidget::LedsWidget(QWidget *parent)
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addStretch();
     layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy", "Not ready:"), this));
-    layout->addWidget(ledFuzzy = new KLed(colorScheme.foreground(KColorScheme::NeutralText).color() /*Qt::green*/, KLed::Off, KLed::Sunken, KLed::Rectangular));
+    layout->addWidget(ledFuzzy = new KLed(colorScheme.foreground(KColorScheme::NeutralText).color(), KLed::Off, KLed::Sunken, KLed::Rectangular));
     layout->addWidget(new QLabel(i18nc("@label whether entry is untranslated", "Untranslated:"), this));
-    layout->addWidget(ledUntr = new KLed(colorScheme.foreground(KColorScheme::NegativeText).color() /*Qt::red*/, KLed::Off, KLed::Sunken, KLed::Rectangular));
+    layout->addWidget(ledUntr = new KLed(colorScheme.foreground(KColorScheme::NegativeText).color(), KLed::Off, KLed::Sunken, KLed::Rectangular));
     layout->addSpacing(1);
     layout->addWidget(lblColumn = new QLabel(this));
     layout->addStretch();
@@ -70,7 +70,7 @@ void LedsWidget::cursorPositionChanged(int column)
     lblColumn->setText(i18nc("@info:label cursor position", "Column: %1", column));
 }
 
-EditorView::EditorView(QWidget *parent, Catalog *catalog /*,keyEventHandler* kh*/)
+EditorView::EditorView(QWidget *parent, Catalog *catalog)
     : QSplitter(Qt::Vertical, parent)
     , m_catalog(catalog)
     , m_sourceTextEdit(new TranslationUnitTextEdit(catalog, DocPosition::Source, this))
@@ -133,7 +133,6 @@ void EditorView::resetFindForCurrent(const DocPosition &pos)
 
 void EditorView::settingsChanged()
 {
-    // Settings::self()->config()->setGroup("Editor");
     m_sourceTextEdit->document()->setDefaultFont(Settings::msgFont());
     m_targetTextEdit->document()->setDefaultFont(Settings::msgFont());
     m_sourceTextEdit->setVisualizeSeparators(Settings::self()->visualizeSeparators());
@@ -164,8 +163,6 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     bool refresh = (pos.entry == -1);
     if (refresh)
         pos = m_targetTextEdit->currentPos();
-    // qCWarning(LOKALIZE_LOG)<<"refresh"<<refresh;
-    // qCWarning(LOKALIZE_LOG)<<"offset"<<pos.offset;
     // TODO trigger refresh directly via Catalog signal
 
     if (Q_UNLIKELY(m_catalog->isPlural(pos.entry))) {
@@ -185,18 +182,14 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     } else
         m_pluralTabBar->hide();
 
-    // bool keepCursor=DocPos(pos)==DocPos(_msgidEdit->currentPos());
     bool keepCursor = false;
     CatalogString sourceWithTags = m_sourceTextEdit->showPos(pos, CatalogString(), keepCursor);
 
-    // qCWarning(LOKALIZE_LOG)<<"calling showPos";
     QString targetString = m_targetTextEdit->showPos(pos, sourceWithTags, keepCursor).string;
-    // qCWarning(LOKALIZE_LOG)<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
     m_sourceTextEdit->cursorToStart();
     m_targetTextEdit->cursorToStart();
 
     bool untrans = targetString.isEmpty();
-    // qCWarning(LOKALIZE_LOG)<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
 
     if (pos.offset || selection) {
         TranslationUnitTextEdit *msgEdit = (pos.part == DocPosition::Source ? m_sourceTextEdit : m_targetTextEdit);
@@ -222,8 +215,6 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
         }
         m_targetTextEdit->setTextCursor(t);
     }
-    // qCWarning(LOKALIZE_LOG)<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
-    // qCWarning(LOKALIZE_LOG)<<"anchor"<<t.anchor()<<"pos"<<t.position();
     m_targetTextEdit->setFocus();
     setUpdatesEnabled(true);
 }
@@ -299,7 +290,6 @@ void EditorView::toggleBookmark(bool checked)
 
 void EditorView::toggleApprovement()
 {
-    // qCWarning(LOKALIZE_LOG)<<"called";
     if (Q_UNLIKELY(m_targetTextEdit->currentPos().entry == -1))
         return;
 

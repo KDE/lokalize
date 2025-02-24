@@ -121,14 +121,9 @@ struct FileSearchResult {
 
     bool isApproved{};
     TargetState state;
-    // Phase activePhase;
 
     QVector<StartLen> sourcePositions;
     QVector<StartLen> targetPositions;
-
-    // int matchedQaRule;
-    // short notePos;
-    // char  noteindex;
 };
 
 typedef QMap<QString, QVector<FileSearchResult>> FileSearchResults;

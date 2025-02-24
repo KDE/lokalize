@@ -291,7 +291,6 @@ void GettextExportPlugin::writeKeyword(QTextStream &stream, const QString &keywo
                 // Restore the max variable to the m_wordWrap - 2 value
                 max = m_wrapWidth - 2;
             }
-            // itm=list.insert(itm,itm->left(pos));
             QString t = *itm;
             itm = list.insert(itm, t);
             ++itm;

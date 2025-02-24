@@ -55,7 +55,7 @@ public:
     void setProperFocus();
 
 public Q_SLOTS:
-    void gotoEntry(DocPosition pos, int selection /*, bool updateHistory=true*/);
+    void gotoEntry(DocPosition pos, int selection);
     void gotoEntry();
     void toggleApprovement();
     void setState(TargetState);
@@ -67,10 +67,6 @@ public Q_SLOTS:
     void unwrap();
     void unwrap(TranslationUnitTextEdit *editor);
 
-    /*
-        void dragEnterEvent(QDragEnterEvent* event);
-        void dropEvent(QDropEvent*);
-    */
 private:
     Catalog *m_catalog{};
 
@@ -91,7 +87,6 @@ Q_SIGNALS:
     void binaryUnitSelectRequested(const QString &id);
     void gotoEntryRequested(const DocPosition &);
     void tmLookupRequested(DocPosition::Part, const QString &);
-    // void tmLookupRequested(const QString& source, const QString& target);
     void findRequested();
     void findNextRequested();
     void replaceRequested();

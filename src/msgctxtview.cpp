@@ -285,8 +285,6 @@ void MsgCtxtView::noteEditAccepted()
 
     m_prevEntry.entry = -1;
     process();
-    // m_stackedLayout->setCurrentIndex(0);
-    // m_unfinishedNotes.remove(m_entry);
     noteEditRejected();
 }
 void MsgCtxtView::noteEditRejected()

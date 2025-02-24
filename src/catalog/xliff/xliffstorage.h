@@ -14,7 +14,6 @@
 #include <QMap>
 #include <QSet>
 #include <QVector>
-// class QDomDocument;
 
 class XliffStorage : public CatalogStorage
 {

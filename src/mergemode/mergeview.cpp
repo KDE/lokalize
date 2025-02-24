@@ -97,7 +97,6 @@ void MergeView::slotNewEntryDisplayed(const DocPosition &pos)
             m_hasInfo = false;
             setWindowTitle(m_normTitle);
             m_browser->clear();
-            //             m_browser->viewport()->setBackgroundRole(QPalette::Base);
         }
         Q_EMIT signalEntryWithMergeDisplayed(false);
 
@@ -113,19 +112,6 @@ void MergeView::slotNewEntryDisplayed(const DocPosition &pos)
 
     QString result =
         userVisibleWordDiff(m_baseCatalog->msgstr(pos), m_mergeCatalog->msgstr(pos), Project::instance()->accel(), Project::instance()->markup(), Html);
-#if 0
-    int i = -1;
-    bool inTag = false;
-    while (++i < result.size()) { //dynamic
-        if (!inTag) {
-            if (result.at(i) == '<')
-                inTag = true;
-            else if (result.at(i) == ' ')
-                result.replace(i, 1, "&sp;");
-        } else if (result.at(i) == '>')
-            inTag = false;
-    }
-#endif
 
     if (!m_mergeCatalog->isApproved(pos.entry)) {
         result.prepend(QLatin1String("<i>"));
@@ -138,7 +124,6 @@ void MergeView::slotNewEntryDisplayed(const DocPosition &pos)
     }
     result.replace(QLatin1Char(' '), QChar::Nbsp);
     m_browser->setHtml(result);
-    // qCDebug(LOKALIZE_LOG)<<"ELA "<<time.elapsed();
 }
 
 void MergeView::cleanup()
@@ -178,10 +163,8 @@ void MergeView::mergeOpen(QString mergeFilePath)
     }
 
     if (mergeFilePath.isEmpty()) {
-        // Project::instance()->model()->weaver()->suspend();
         // KDE5PORT use mutex if needed
         mergeFilePath = QFileDialog::getOpenFileName(this, i18nc("@title:window", "Select translation file"), QString(), Catalog::supportedFileTypes(false));
-        // Project::instance()->model()->weaver()->resume();
     }
     if (mergeFilePath.isEmpty())
         return;
@@ -217,7 +200,6 @@ void MergeView::mergeOpen(QString mergeFilePath)
             slotNewEntryDisplayed(m_pos);
         show();
     } else {
-        // KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         cleanup();
         if (errorLine > 0) {
             KMessageBox::error(this,
@@ -334,7 +316,7 @@ void MergeView::mergeAcceptAllForEmpty()
 
     const bool containsBefore = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry)
         != m_mergeCatalog->differentEntries().end();
-    m_mergeCatalog->copyToBaseCatalog(/*MergeCatalog::EmptyOnly*/ MergeCatalog::HigherOnly);
+    m_mergeCatalog->copyToBaseCatalog(MergeCatalog::HigherOnly);
     const bool containsAfter = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry)
         != m_mergeCatalog->differentEntries().end();
     if (containsBefore != containsAfter)

@@ -43,7 +43,7 @@ int XliffStorage::load(QIODevice *device)
 
     QString errorMsg;
     int errorLine{}; //+errorColumn;
-    bool success = m_doc.setContent(&reader, false, &errorMsg, &errorLine /*,errorColumn*/);
+    bool success = m_doc.setContent(&reader, false, &errorMsg, &errorLine);
 
     QString FILE = QStringLiteral("file");
     if (!success || m_doc.elementsByTagName(FILE).isEmpty()) {
@@ -66,8 +66,6 @@ int XliffStorage::load(QIODevice *device)
     m_map.reserve(nodeListSize);
     for (int i = 0; i < nodeListSize; ++i) {
         QDomElement parentElement = entries.at(i).parentNode().toElement();
-        // if (Q_UNLIKELY( e.isNull() ))//sanity
-        //       continue;
         m_map << i;
         m_unitsById[entries.at(i).toElement().attribute(QStringLiteral("id"))] = i;
 
@@ -89,26 +87,6 @@ int XliffStorage::load(QIODevice *device)
     int offset = m_map.size();
     for (int i = 0; i < nodeListSize; ++i)
         m_unitsById[binEntries.at(i).toElement().attribute(QStringLiteral("id"))] = offset + i;
-
-    //    entries=m_doc.elementsByTagName("body");
-    //     uint i=0;
-    //     uint lim=size();
-    //     while (i<lim)
-    //     {
-    //         CatalogItem& item=m_entries[i];
-    //         if (item.isPlural()
-    //             && item.msgstrPlural().count()<m_numberOfPluralForms
-    //            )
-    //         {
-    //             QVector<QString> msgstr(item.msgstrPlural());
-    //             while (msgstr.count()<m_numberOfPluralForms)
-    //                 msgstr.append(QString());
-    //             item.setMsgstr(msgstr);
-    //
-    //         }
-    //         ++i;
-    //
-    //     }
 
     QDomElement header = file.firstChildElement(QStringLiteral("header"));
     if (header.isNull())
@@ -255,14 +233,10 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
                     if (localStartPos + data->lengthOfStringToRemove > cData.size()) {
                         // text is fragmented into several QDomCharacterData
                         int localDelLen = cData.size() - localStartPos;
-                        // qCWarning(LOKALIZE_LOG)<<"text is fragmented into several QDomCharacterData. localDelLen:"<<localDelLen<<"cData:"<<cData;
                         c.deleteData(localStartPos, localDelLen);
                         // setup data for future iterations
                         data->lengthOfStringToRemove = data->lengthOfStringToRemove - localDelLen;
-                        // data->pos=startingPos;
-                        // qCWarning(LOKALIZE_LOG)<<"\tsetup:"<<data->pos<<data->lengthOfStringToRemove;
                     } else {
-                        // qCWarning(LOKALIZE_LOG)<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
                         c.deleteData(localStartPos, data->lengthOfStringToRemove);
                         data->actionType = ContentEditingData::CheckLength;
                         return QStringLiteral("a"); // so it exits 100%
@@ -288,17 +262,14 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
                         newNode.setAttribute(QStringLiteral("xid"), tag.xid);
 
                     if (tag.isPaired() && tag.end > (tag.start + 1)) {
-                        // qCWarning(LOKALIZE_LOG)<<"isPaired";
                         int len = tag.end - tag.start - 1; //-image symbol
                         int localLen = qMin(len, mid.size());
                         if (localLen) { // appending text
-                            // qCWarning(LOKALIZE_LOG)<<"localLen. appending"<<localLen<<mid.left(localLen);
                             newNode.appendChild(elem.ownerDocument().createTextNode(mid.left(localLen)));
                             mid = mid.mid(localLen);
                         }
                         if (len - localLen) { // need to eat more (strings or elements) into newNode
                             int missingLen = len - localLen;
-                            // qCWarning(LOKALIZE_LOG)<<"len-localLen";
                             // iterate over siblings until we get childrenCumulativeLen>missingLen (or siblings end)
                             int childrenCumulativeLen = 0;
                             QDomNode sibling = newNode.nextSibling();
@@ -317,8 +288,6 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
                                     childrenCumulativeLen += subContent.size();
                                 } else if (tmp.isCharacterData())
                                     childrenCumulativeLen += tmp.toCharacterData().data().size();
-                                // qCWarning(LOKALIZE_LOG)<<"brbr"<<tmp.nodeName()<<tmp.nodeValue()
-                                //<<childrenCumulativeLen<<missingLen;
 
                                 if (childrenCumulativeLen > missingLen) {
                                     if (tmp.isCharacterData()) {
@@ -327,7 +296,6 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
                                         QString last = endData.left(endData.size() - (childrenCumulativeLen - missingLen));
                                         newNode.appendChild(elem.ownerDocument().createTextNode(last));
                                         tmp.toCharacterData().deleteData(0, last.size());
-                                        // qCWarning(LOKALIZE_LOG)<<"end of add"<<last;
                                     }
                                     break;
                                 }
@@ -348,9 +316,6 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
                 // END INSERT TAG
                 cData = c.data();
             }
-            // else
-            //     if (data&&data->pos!=-1/*&& n.nextSibling().isNull()*/)
-            //         qCWarning(LOKALIZE_LOG)<<"arg!"<<startingPos<<"data->pos"<<data->pos;
 
             result += cData;
             startingPos += cData.size();
@@ -358,7 +323,6 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
             QDomElement el = n.toElement();
             // BEGIN DELETE TAG
             if (data && data->actionType == ContentEditingData::DeleteTag && data->pos == startingPos) {
-                // qCWarning(LOKALIZE_LOG)<<"start deleting tag";
                 data->tags.append(InlineTag(startingPos,
                                             -1,
                                             InlineTag::getElementType(el.tagName().toUtf8()),
@@ -369,7 +333,6 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
                     ContentEditingData subData(ContentEditingData::Get);
                     QString subContent = doContent(el, startingPos, &subData);
                     data->tags[0].end = 1 + startingPos + subContent.size(); // tagsymbol+text
-                    // qCWarning(LOKALIZE_LOG)<<"get end position"<<startingPos<<subContent.size();
 
                     // move children upper
                     QDomNode local = n.firstChild();
@@ -378,7 +341,6 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
                         QDomNode tmp = local;
                         local = local.nextSibling();
                         if (!tmp.isAttr()) {
-                            // qCWarning(LOKALIZE_LOG)<<"here is another child"<<tmp.nodeType()<<tmp.nodeName()<<tmp.nodeValue();
                             refNode = elem.insertAfter(tmp, refNode);
                         }
                     }
@@ -423,7 +385,6 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
                 if (i == InlineTag::mrk) // TODO attr map
                     id = el.attribute(QStringLiteral("mtype"));
 
-                // qCWarning(LOKALIZE_LOG)<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
                 data->tags.append(InlineTag(oldStartingPos - 1, startingPos - 1, i, id, el.attribute(QStringLiteral("xid"))));
             }
         }
@@ -512,7 +473,6 @@ void XliffStorage::targetDelete(const DocPosition &pos, int count)
 
 void XliffStorage::targetInsert(const DocPosition &pos, const QString &arg)
 {
-    // qCWarning(LOKALIZE_LOG)<<"targetinsert"<<pos.entry<<arg;
     QDomElement targetEl = targetForPos(pos.entry);
     // BEGIN add <*target>
     if (targetEl.isNull()) {
@@ -647,7 +607,6 @@ Phase XliffStorage::updatePhase(const Phase &phase)
         phaseElem.setAttribute(QStringLiteral("company-name"), phase.company);
     phaseElem.setAttribute(QStringLiteral("contact-name"), phase.contact);
     phaseElem.setAttribute(QStringLiteral("contact-email"), phase.email);
-    // Q_ASSERT(phase.contact.length()); //is empty when exiting w/o saving
     if (!phase.phone.isEmpty())
         phaseElem.setAttribute(QLatin1String("contact-phone"), phase.phone);
     phaseElem.setAttribute(QStringLiteral("tool-id"), phase.tool);
@@ -722,7 +681,6 @@ QStringList XliffStorage::sourceFiles(const DocPosition &pos) const
 
         elem = elem.nextSiblingElement(QStringLiteral("context-group"));
     }
-    // qSort(result);
 
     return result;
 }
@@ -766,7 +724,6 @@ QVector<Note> XliffStorage::developerNotes(const DocPosition &pos) const
 
 Note XliffStorage::setNote(DocPosition pos, const Note &note)
 {
-    // qCWarning(LOKALIZE_LOG)<<int(pos.form)<<note.content;
     QDomElement unit = unitForPos(pos.entry);
     QDomElement elem;
     Note oldNote;
@@ -776,7 +733,6 @@ Note XliffStorage::setNote(DocPosition pos, const Note &note)
         elem.appendChild(m_doc.createTextNode(QString()));
     } else {
         QDomNodeList list = unit.elementsByTagName(NOTE);
-        // if (pos.form==-1) pos.form=list.size()-1;
         if (pos.form < list.size()) {
             elem = unit.elementsByTagName(NOTE).at(pos.form).toElement();
             initNoteFromElement(oldNote, elem);
@@ -904,17 +860,6 @@ bool XliffStorage::isPlural(const DocPosition &pos) const
 {
     return m_plurals.contains(pos.entry);
 }
-/*
-bool XliffStorage::isApproved(const DocPosition& pos) const
-{
-    return entries.at(m_map.at(pos.entry)).toElement().attribute("approved")=="yes";
-}
-void XliffStorage::setApproved(const DocPosition& pos, bool approved)
-{
-    static const char* const noyes[]={"no","yes"};
-    entries.at(m_map.at(pos.entry)).toElement().setAttribute("approved",noyes[approved]);
-}
-*/
 
 static const QString xliff_states[] = {QStringLiteral("new"),
                                        QStringLiteral("needs-translation"),

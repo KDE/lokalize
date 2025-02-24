@@ -319,7 +319,6 @@ static void fillFilePathsRecursive(const QDir &dir, QMultiMap<QByteArray, QByteA
     QByteArray absDirPath = dir.absolutePath().toUtf8();
     absDirPath.squeeze();
     while (--i >= 0) {
-        // qCDebug(LOKALIZE_LOG)<<files.at(i)<<absDirPath;
         QByteArray fn = files.at(i).toUtf8();
         fn.squeeze();
         auto it = sourceFilePaths.constFind(fn);
@@ -338,7 +337,7 @@ public:
     void finish()
     {
         emitResult();
-        Q_EMIT Project::instance() -> sourceFilePathsAreReady();
+        Q_EMIT Project::instance()->sourceFilePathsAreReady();
     }
 
 protected:
@@ -421,10 +420,8 @@ void Project::projectOdfCreate()
         return;
     }
 
-    QString odfPath = QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(),
-                                                   QString(),
-                                                   QDir::homePath() /*_catalog->url().directory()*/,
-                                                   i18n("OpenDocument files (*.odt *.ods)") /*"text/x-lokalize-project"*/);
+    QString odfPath =
+        QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(), QString(), QDir::homePath(), i18n("OpenDocument files (*.odt *.ods)"));
     if (odfPath.isEmpty())
         return;
 

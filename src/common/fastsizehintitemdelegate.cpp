@@ -60,12 +60,10 @@ void FastSizeHintItemDelegate::paint(QPainter *painter, const QStyleOptionViewIt
 
     painter->fillRect(option.rect, bgBrush);
     painter->setClipRect(option.rect.adjusted(0, 0, -2, 0));
-    // painter->setFont(option.font);
 
     RowColumnUnion rc;
     rc.index.row = index.row();
     rc.index.column = index.column();
-    // TMDBModel* m=static_cast<const TMDBModel*>(index.model());
     if (!cache.contains(rc.v)) {
         QString text = index.data(FastSizeHintItemDelegate::HtmlDisplayRole).toString();
         cache.insert(rc.v, new QStaticText(text));
@@ -76,7 +74,6 @@ void FastSizeHintItemDelegate::paint(QPainter *painter, const QStyleOptionViewIt
     }
     int rectWidth = option.rect.width();
     QStaticText *staticText = cache.object(rc.v);
-    // staticText->setTextWidth(rectWidth-4);
     QPoint textStartPoint = option.rect.topLeft();
     textStartPoint.rx() += 2;
     painter->drawStaticText(textStartPoint, *staticText);

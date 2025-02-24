@@ -431,8 +431,6 @@ static bool doInsertEntry(CatalogString source,
                           qlonglong priorId,
                           qlonglong &mainId)
 {
-    //     QTime a; a.start();
-
     mainId = -1;
 
     if (Q_UNLIKELY(source.isEmpty())) {
@@ -479,7 +477,6 @@ static bool doInsertEntry(CatalogString source,
     qlonglong sourceId;
     if (!query1.next()) {
         // BEGIN insert source anew
-        // qCDebug(LOKALIZE_LOG) <<"insert source anew";;
         ++newTMSourceEntryCount;
 
         QString sql = QStringLiteral("INSERT INTO source_strings (source, source_markup, source_accel) VALUES (?, ?, ?)");
@@ -506,7 +503,6 @@ static bool doInsertEntry(CatalogString source,
     } else {
         sourceId = query1.value(0).toLongLong();
         ++reusedTMSourceEntryCount;
-        // qCDebug(LOKALIZE_LOG)<<"SOURCE ALREADY PRESENT"<<source.string<<sourceId;
     }
     query1.clear();
     // END get sourceId
@@ -531,14 +527,11 @@ static bool doInsertEntry(CatalogString source,
     qlonglong bits = 0;
     // BEGIN target update
     if (query1.next()) {
-        // qCDebug(LOKALIZE_LOG)<<target.string<<": update instead of adding record to main";
         mainId = query1.value(0).toLongLong();
         bits = query1.value(2).toLongLong();
         bits = bits & (0xff - 1); // clear obsolete bit
         qlonglong targetId = query1.value(1).toLongLong();
         query1.clear();
-
-        // qCWarning(LOKALIZE_LOG)<<"8... "<<a.elapsed();
 
         bool dbApproved = !(bits & TM_NOTAPPROVED);
         bool approvalChanged = dbApproved != approved;
@@ -618,7 +611,6 @@ static bool doInsertEntry(CatalogString source,
         }
         // else -> there will be new record insertion and main table update below
     }
-    // qCDebug(LOKALIZE_LOG)<<target.string<<": update instead of adding record to main NOT"<<query1.executedQuery();
     query1.clear();
     // END target update
 
@@ -677,7 +669,6 @@ static bool doInsertEntry(CatalogString source,
         query1.bindValue(0, targetId);
         query1.bindValue(1, bits);
         bool ok = query1.exec();
-        // qCDebug(LOKALIZE_LOG)<<"ok?"<<ok;
         if (!ok)
             qCWarning(LOKALIZE_LOG) << "doInsertEntry: main update failed" << query1.lastError().text();
         return ok;
@@ -697,9 +688,6 @@ static bool doInsertEntry(CatalogString source,
 
     query1.prepare(sql);
 
-    //     query1.prepare(QString("INSERT INTO main (source, target, file, ctxt, bits%1) "
-    //                    "VALUES (?, ?, ?, ?, ?%2)").arg((priorId!=-1)?", prior":"").arg((priorId!=-1)?", ?":""));
-
     query1.bindValue(0, sourceId);
     query1.bindValue(1, targetId);
     query1.bindValue(2, fileId);
@@ -710,7 +698,6 @@ static bool doInsertEntry(CatalogString source,
     mainId = qpsql ? (query1.next(), query1.value(0).toLongLong()) : query1.lastInsertId().toLongLong();
     if (!ok)
         qCWarning(LOKALIZE_LOG) << "doInsertEntry: main insert failed" << query1.lastError().text();
-    // qCDebug(LOKALIZE_LOG)<<"ok?"<<ok;
     return ok;
 }
 
@@ -779,17 +766,6 @@ static bool initSqliteDb(QSqlDatabase &db)
                        "date DEFAULT CURRENT_DATE " // last edit date when last scanned
                        ")"));
 
-    /* NOTE //"don't implement it till i'm sure it is actually useful"
-        //this is used to prevent readding translations that were removed by user
-        queryMain.exec("CREATE TABLE IF NOT EXISTS tm_removed ("
-                       "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "
-                       "english BLOB, "//qChecksum
-                       "target BLOB, "
-                       "ctxt TEXT, "//context; delimiter is \b
-                       "date DEFAULT CURRENT_DATE, "
-                       "hits NUMERIC DEFAULT 0"
-                       ")");*/
-
     // we create indexes manually, in a customized way
     // OR: SELECT (tm_links.id) FROM tm_links,words WHERE tm_links.wordid==words.wordid AND (words.word) IN ("africa","abidjan");
     queryMain.exec(
@@ -807,14 +783,6 @@ static bool initSqliteDb(QSqlDatabase &db)
 
     bool ok = queryMain.exec(QStringLiteral("select * from main limit 1"));
     return ok || !queryMain.lastError().text().contains(QLatin1String("database disk image is malformed"));
-
-    // queryMain.exec("CREATE TEMP TRIGGER set_user_id_trigger AFTER UPDATE ON main FOR EACH ROW BEGIN UPDATE main SET change_author = 0 WHERE main.id=NEW.id;
-    // END;"); CREATE TEMP TRIGGER set_user_id_trigger INSTEAD OF UPDATE ON main FOR EACH ROW BEGIN UPDATE main SET ctxt = 'test', source=NEW.source,
-    // target=NEW.target,  WHERE main.id=NEW.id; END;
-    // config:
-    // accel
-    // markup
-    //(see a little below)
 }
 
 // special SQL for PostgreSQL
@@ -917,7 +885,6 @@ static void setConfig(QSqlDatabase &db, const TMConfig &c)
 
     query.addBindValue(0);
     query.addBindValue(c.markup);
-    // qCDebug(LOKALIZE_LOG)<<"setting tm db config:"<<query.exec();
     bool ok = query.exec();
     if (!ok)
         qCWarning(LOKALIZE_LOG) << "setting tm db config failed";
@@ -940,7 +907,6 @@ static void setConfig(QSqlDatabase &db, const TMConfig &c)
 static TMConfig getConfig(QSqlDatabase &db, bool useCache = true) // int& emptyTargetId
 {
     if (useCache && tmConfigCache.contains(db.databaseName())) {
-        // qCDebug(LOKALIZE_LOG)<<"using config cache for"<<db.databaseName();
         return tmConfigCache.value(db.databaseName());
     }
 
@@ -1001,7 +967,6 @@ OpenDBJob::OpenDBJob(const QString &name, DbType type, bool reconnect, const Con
     , m_connParams(connParams)
 {
     setAutoDelete(false);
-    // qCWarning(LOKALIZE_LOG)<<"OpenDBJob ctor"<<m_dbName;
 }
 
 void OpenDBJob::run()
@@ -1157,7 +1122,6 @@ SelectJob::SelectJob(const CatalogString &source, const QString &ctxt, const QSt
     , m_dbName(dbName)
 {
     setAutoDelete(false);
-    // qCDebug(LOKALIZE_LOG)<<"selectjob"<<dbName<<m_source.string;
 }
 
 inline QMultiMap<uint, qlonglong> invertMap(const QMap<qlonglong, uint> &source)
@@ -1211,8 +1175,6 @@ bool SelectJob::doSelect(QSqlDatabase &db,
             }
         }
 
-        // qCWarning(LOKALIZE_LOG) <<"SelectJob: idsForWord.size() "<<idsForWord.size()<<endl;
-
         // iterate over ids: this computes hit count for each id
         for (QVector<qlonglong>::const_iterator i = idsForWord.constBegin(); i != idsForWord.constEnd(); i++)
             occurencies[*i]++; // 0 is default value
@@ -1236,7 +1198,6 @@ bool SelectJob::doSelect(QSqlDatabase &db,
         QRegularExpression::wildcardToRegularExpression(delMarkerStart + QStringLiteral("*") + delMarkerEnd, QRegularExpression::UnanchoredWildcardConversion),
         QRegularExpression::InvertedGreedinessOption);
 
-    // QList<uint> concordanceLevels=sortedUniqueValues(occurencies); //we start from entries with higher word-concordance level
     QMultiMap<uint, qlonglong> concordanceLevelToIds = invertMap(occurencies);
     if (concordanceLevelToIds.isEmpty())
         return false;
@@ -1276,9 +1237,6 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                     if (!e.source.tags.size())
                         qCWarning(LOKALIZE_LOG) << "problem:" << queryFetch.value(3).toByteArray().size() << queryFetch.value(3).toByteArray();
                 }
-                // e.target=queryFetch.value(2).toString();
-                // QStringList e_ctxt=queryFetch.value(3).toString().split('\b',Qt::SkipEmptyParts);
-                // e.date=queryFetch.value(4).toString();
                 e.markupExpr = c.markup;
                 e.accelExpr = c.accel;
                 e.dbName = getDbNameFromConnectionName(db.connectionName());
@@ -1292,7 +1250,6 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                     continue;
                 // sugg is 'old' --translator has to adapt its translation to 'new'--current
                 QString result = wordDiff(englishSuggList, englishList);
-                // qCWarning(LOKALIZE_LOG) <<"SelectJob: doin "<<j<<" "<<result;
 
                 int pos = 0;
                 int delSubStrCount = 0;
@@ -1303,7 +1260,6 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                         break;
                     }
                     pos = match.capturedStart();
-                    // qCWarning(LOKALIZE_LOG) <<"SelectJob:  match del "<<delPart.cap(0);
                     delLen += match.capturedLength() - 23;
                     ++delSubStrCount;
                     pos += match.capturedLength();
@@ -1331,19 +1287,11 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                 if (!possibleExactMatch) {
                     // del is better than add
                     if (addLen) {
-                        // qCWarning(LOKALIZE_LOG) <<"SelectJob:  addLen:"<<addLen<<" "<<9500*(pow(float(commonLen)/float(allLen),0.20))<<" / "
-                        //<<pow(float(addLen*addSubStrCount),0.2)<<" "
-                        //<<endl;
-
                         float score = 9500 * (pow(float(commonLen) / float(allLen), 0.12f)) // this was < 1 so we have increased it
                                                                                             // this was > 1 so we have decreased it, and increased result:
                             / exp(0.014 * float(addLen) * log10(3.0f + addSubStrCount));
 
                         if (delLen) {
-                            // qCWarning(LOKALIZE_LOG) <<"SelectJob:  delLen:"<<delLen<<" / "
-                            //<<pow(float(delLen*delSubStrCount),0.1)<<" "
-                            //<<endl;
-
                             float a = exp(0.008 * float(delLen) * log10(3.0f + delSubStrCount));
 
                             if (a != 0.0)
@@ -1352,7 +1300,6 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                         e.score = (int)score;
 
                     } else { //==to adapt, only deletion is needed
-                        // qCWarning(LOKALIZE_LOG) <<"SelectJob:  b "<<int(pow(float(delLen*delSubStrCount),0.10));
                         float score = 9900 * (pow(float(commonLen) / float(allLen), 0.15f)) / exp(0.008 * float(delLen) * log10(3.0f + delSubStrCount));
                         e.score = (int)score;
                     }
@@ -1391,7 +1338,6 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                                                          "target_strings.target NOTNULL"),
                                     db); // ORDER BY tm_main.id ?
                 queryRest.exec();
-                // qCDebug(LOKALIZE_LOG)<<"main select error"<<queryRest.lastError().text();
                 QMultiMap<TMEntry, bool> sortedEntryList; // to eliminate same targets from different files
                 while (queryRest.next()) {
                     e.id = queryRest.value(0).toLongLong();
@@ -1421,21 +1367,16 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                         if (matchData.at(0) == m_ctxt)
                             e.score += 33;
                     }
-                    // qCWarning(LOKALIZE_LOG)<<"m_pos"<<QString::number(m_pos.form);
-                    //                    bool pluralMatches=false;
                     if (matchData.size() > 1) {
                         int form = matchData.at(1).toInt();
 
-                        // pluralMatches=(form&&form==m_pos.form);
                         if (form && form == (int)m_pos.form) {
-                            // qCWarning(LOKALIZE_LOG)<<"this"<<matchData.at(1);
                             e.score += 33;
                         }
                     }
                     if (e.file == m_file)
                         e.score += 33;
                     // END exact match score++
-                    // qCWarning(LOKALIZE_LOG)<<"appending"<<e.target;
                     sortedEntryList.insert(e, false);
                 }
                 queryRest.clear();
@@ -1469,20 +1410,16 @@ bool SelectJob::doSelect(QSqlDatabase &db,
 
 void SelectJob::run()
 {
-    // qCDebug(LOKALIZE_LOG)<<"select started"<<m_dbName<<m_source.string;
     if (m_source.isEmpty() || stop) { // sanity check
         Q_EMIT done(this);
         return;
     }
-    // thread()->setPriority(QThread::IdlePriority);
-    //     QTime a; a.start();
 
     QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
     if (Q_UNLIKELY(!db.isValid() || !db.isOpen())) {
         Q_EMIT done(this);
         return;
     }
-    // qCDebug(LOKALIZE_LOG)<<"select started 2"<<m_dbName<<m_source.string;
 
     TMConfig c = getConfig(db);
     QRegularExpression rxClean1(c.markup, QRegularExpression::InvertedGreedinessOption);
@@ -1501,7 +1438,6 @@ void SelectJob::run()
     if (!doSelect(db, words, isShort))
         doSelect(db, words, !isShort);
 
-    // qCWarning(LOKALIZE_LOG) <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
     std::sort(m_entries.begin(), m_entries.end(), std::greater<TMEntry>());
     const int limit = qMin(Settings::suggCount(), m_entries.size());
     const int minScore = Settings::suggScore() * 100;
@@ -1543,14 +1479,12 @@ void ScanJob::run()
         return;
     }
     qCDebug(LOKALIZE_LOG) << "scan job started for" << m_filePath << m_dbName << stop << m_dbName;
-    // QThread::currentThread()->setPriority(QThread::IdlePriority);
     QElapsedTimer a;
     a.start();
 
     QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
     if (!db.isOpen())
         return;
-    // initSqliteDb(db);
     TMConfig c = getConfig(db, true);
     QRegularExpression rxClean1(c.markup, QRegularExpression::InvertedGreedinessOption);
 
@@ -1564,12 +1498,10 @@ void ScanJob::run()
         qlonglong priorId = -1;
 
         QSqlQuery queryBegin(QStringLiteral("BEGIN"), db);
-        // qCWarning(LOKALIZE_LOG) <<"queryBegin error: " <<queryBegin.lastError().text();
 
         qlonglong fileId = getFileId(m_filePath, db);
         // mark everything as obsolete
         queryBegin.exec(QStringLiteral("UPDATE main SET bits=(bits|1) WHERE file=") + QString::number(fileId));
-        // qCWarning(LOKALIZE_LOG) <<"UPDATE error: " <<queryBegin.lastError().text();
 
         int numberOfEntries = catalog.numberOfEntries();
         DocPosition pos(0);
@@ -1578,11 +1510,6 @@ void ScanJob::run()
             if (catalog.isPlural(pos.entry)) {
                 DocPosition ppos = pos;
                 for (ppos.form = 0; ppos.form < catalog.numberOfPluralForms(); ++ppos.form) {
-                    /*
-                                        QString target;
-                                        if ( catalog.isApproved(i) && !catalog.isUntranslated(pos))
-                                            target=catalog.target(pos);
-                    */
                     ok = ok
                         && doInsertEntry(catalog.sourceWithTags(ppos),
                                          catalog.targetWithTags(ppos),
@@ -1596,11 +1523,6 @@ void ScanJob::run()
                                          priorId);
                 }
             } else {
-                /*
-                                QString target;
-                                if ( catalog.isApproved(i) && !catalog.isUntranslated(i))
-                                    target=catalog.target(i);
-                */
                 ok = doInsertEntry(catalog.sourceWithTags(pos),
                                    catalog.targetWithTags(pos),
                                    catalog.context(pos).first(),
@@ -1618,7 +1540,6 @@ void ScanJob::run()
         QSqlQuery queryEnd(QStringLiteral("END"), db);
         qCDebug(LOKALIZE_LOG) << "ScanJob: done " << a.elapsed() << "new source entries:" << newTMSourceEntryCount << "reused:" << reusedTMSourceEntryCount;
     }
-    // qCWarning(LOKALIZE_LOG) <<"Done scanning "<<m_url.prettyUrl();
     m_time = a.elapsed();
 }
 
@@ -1637,7 +1558,6 @@ RemoveMissingFilesJob::~RemoveMissingFilesJob()
 
 void RemoveMissingFilesJob::run()
 {
-    //    qCDebug(LOKALIZE_LOG)<<m_dbName;
     QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
 
     doRemoveMissingFiles(db, m_dbName, this);
@@ -1662,7 +1582,6 @@ RemoveFileJob::~RemoveFileJob()
 
 void RemoveFileJob::run()
 {
-    //    qCDebug(LOKALIZE_LOG)<<m_dbName;
     QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
 
     if (!doRemoveFile(m_filePath, db)) {
@@ -1688,7 +1607,6 @@ RemoveJob::~RemoveJob()
 
 void RemoveJob::run()
 {
-    //    qCDebug(LOKALIZE_LOG)<<m_entry.dbName;
     QSqlDatabase db = getDataBaseForCurrentThread(m_entry.dbName);
 
     // cleaning regexps for word index update
@@ -1819,7 +1737,6 @@ TmxParser::TmxParser(const QString &dbName)
 
 bool TmxParser::startDocument()
 {
-    // initSqliteDb(db);
     m_fileIds.clear();
 
     QSqlQuery queryBegin(QLatin1String("BEGIN"), db);
@@ -1986,7 +1903,6 @@ void ImportTmxJob::run()
     if (reader.hasError())
         qCWarning(LOKALIZE_LOG) << "failed to load" << m_filename;
 
-    // qCWarning(LOKALIZE_LOG) <<"Done scanning "<<m_url.prettyUrl();
     m_time = a.elapsed();
 }
 
@@ -2126,7 +2042,6 @@ ExecQueryJob::ExecQueryJob(const QString &queryString, const QString &dbName, QM
     , m_dbOperationMutex(dbOperation)
 {
     setAutoDelete(false);
-    // qCDebug(LOKALIZE_LOG)<<"ExecQueryJob"<<dbName<<queryString;
 }
 
 ExecQueryJob::~ExecQueryJob()

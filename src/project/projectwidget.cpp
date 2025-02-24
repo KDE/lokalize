@@ -96,7 +96,6 @@ void PoItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         if (fuzzy) {
             brush = m_colorScheme.foreground(KColorScheme::NeutralText);
             painter->fillRect(myRect, brush);
-            // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
         }
 
         myRect.setLeft(myRect.left() + myRect.width());
@@ -106,7 +105,6 @@ void PoItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         // esle: paint what is left with the last brush used - blank, positive or neutral
 
         painter->fillRect(myRect, brush);
-        // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
     } else if (total == -1)
         painter->fillRect(option.rect, Qt::transparent);
     else if (total == 0)
@@ -156,8 +154,6 @@ bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const
 bool ProjectOverviewSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
     static QCollator collator;
-    //     qCWarning(LOKALIZE_LOG)<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
-    //<<left.data().toString()<<right.data().toString()
     ProjectModel *projectModel = static_cast<ProjectModel *>(sourceModel());
     const KFileItem leftFileItem = projectModel->itemForIndex(left);
     const KFileItem rightFileItem = projectModel->itemForIndex(right);

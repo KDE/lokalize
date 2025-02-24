@@ -33,7 +33,7 @@ public:
         return 0;
     }
 
-    int load(QIODevice *device /*, bool readonly=false*/) override;
+    int load(QIODevice *device) override;
     bool save(QIODevice *device, bool belongsToProject = false) override;
 
     int size() const override;

@@ -66,7 +66,6 @@ private:
     uint nT : 31; // we're using 1d vector as 2d
     bool haveSpaces : 1; //"word: sfdfs" space is ": "
     QVector<LCSMarker> *b;
-    // QStringList::iterator it1Space, it2Space;
 };
 
 inline QStringList LCSprinter::operator()()
@@ -113,7 +112,6 @@ static QStringList prepareForInternalDiff(const QString &str)
 
 void LCSprinter::printLCS(uint index)
 {
-    // fprintf(stderr,"%2d. %2d. %2d. %2d\n",(uint)(*b)[index],nT,index%nT, index);
     if (index % nT == 0 || index < nT) {
         // original LCS algo does not have to deal with ins before first common
         uint bound = index % nT;
@@ -134,9 +132,6 @@ void LCSprinter::printLCS(uint index)
     if (ARROW_UP_LEFT == b->at(index)) {
         printLCS(index - nT - 1);
         if (it1 != s1.constEnd()) {
-            // qCWarning(LOKALIZE_LOG) << "upleft '" << *it1 <<"'";
-            // qCWarning(LOKALIZE_LOG) << "upleft 1s" << *it1Space;
-            // qCWarning(LOKALIZE_LOG) << "upleft 2s" << *it2Space;
             if (haveSpaces) {
                 if ((*it1) == (*it2)) // case and accels
                     resultString.push_back(*it1);
@@ -155,7 +150,6 @@ void LCSprinter::printLCS(uint index)
                     QStringList word2 = prepareForInternalDiff(*it2Space);
 
                     QStringList empty;
-                    // empty=calcLCS(word1,word2,empty,empty);
                     //???this is not really good if we use diff result in autosubst
 
                     empty = calcLCS(word2, word1, empty, empty);
@@ -170,7 +164,6 @@ void LCSprinter::printLCS(uint index)
                 }
                 ++it1Space;
                 ++it2Space;
-                // qCWarning(LOKALIZE_LOG) << " common " << *it1;
             } else
                 resultString.push_back(*it1); // we may guess that this is a batch job, i.e. TM search
             ++it1;
@@ -178,26 +171,20 @@ void LCSprinter::printLCS(uint index)
         }
     } else if (ARROW_UP == b->at(index)) {
         printLCS(index - nT);
-        //         if (it1!=s1.end())
-        {
-            // qCWarning(LOKALIZE_LOG)<<"APPENDDEL "<<*it1;
-            // qCWarning(LOKALIZE_LOG)<<"APPENDDEL "<<*it1Space;
-            resultString.push_back(delMarkerStart);
-            resultString.push_back(*it1);
-            ++it1;
-            if (haveSpaces) {
-                resultString.push_back(*it1Space);
-                ++it1Space;
-            }
-            resultString.push_back(delMarkerEnd);
+        resultString.push_back(delMarkerStart);
+        resultString.push_back(*it1);
+        ++it1;
+        if (haveSpaces) {
+            resultString.push_back(*it1Space);
+            ++it1Space;
         }
+        resultString.push_back(delMarkerEnd);
     } else {
         printLCS(index - 1);
         resultString.push_back(addMarkerStart);
         resultString.push_back(*it2);
         ++it2;
         if (haveSpaces) {
-            // qCWarning(LOKALIZE_LOG) << "add2 " << *it2;
             resultString.push_back(*it2Space);
             ++it2Space;
         }
@@ -228,21 +215,6 @@ QStringList calcLCS(const QStringList &s1Words, const QStringList &s2Words, cons
             s1[i] = s1.at(i).toLower();
         for (i = 0; i < nY; ++i)
             s2[i] = s2.at(i).toLower();
-#if 0 // i'm too lazy...
-        QString accel(Project::instance()->accel());
-        i = mX;
-        while (--i > 0) {
-            if ((s1Space.at(i) == accel)) {
-                s1[i] += s1[i + 1];
-                s1.removeAt(i + 1);
-                s1Space.removeAt(i);
-                s1Words[i] += s1[i + 1];
-                s1Words.removeAt(i + 1);
-                --mX;
-                --nY;
-            }
-        }
-#endif
     }
 
     uint mT = mX + 1;

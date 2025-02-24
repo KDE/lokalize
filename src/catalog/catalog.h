@@ -94,7 +94,6 @@ public Q_SLOTS: // DBus interface
     QStringList noteAuthors() const;
     QVector<AltTrans> altTrans(const DocPosition &pos) const;
     QStringList sourceFiles(const DocPosition &pos) const;
-    // QString msgctxt(uint index) const;
     // the result is guaranteed to have at least 1 string
     QStringList context(const DocPosition &pos) const;
     QString id(const DocPosition &pos) const;
@@ -324,7 +323,6 @@ protected:
     friend class MassReplaceJob;
 
 public:
-    // static QString supportedMimeFilters;
     static QString supportedFileTypes(bool includeTemplates = true);
 
 Q_SIGNALS:

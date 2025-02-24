@@ -39,7 +39,6 @@ void LokalizeUnitCmd::redo()
     setJumpingPos();
     doRedo();
     _firstModificationForThisEntry = _catalog->setModified(DocPos(_pos), true);
-    //    _prevPhase=setPhaseForPart(_catalog,_catalog->activePhase(),_pos,DocPosition::UndefPart);
 }
 
 void LokalizeUnitCmd::undo()
@@ -48,7 +47,6 @@ void LokalizeUnitCmd::undo()
     doUndo();
     if (_firstModificationForThisEntry)
         _catalog->setModified(DocPos(_pos), false);
-    //    setPhaseForPart(_catalog,_prevPhase,_pos,DocPosition::UndefPart);
 }
 
 void LokalizeUnitCmd::setJumpingPos()
@@ -150,8 +148,6 @@ void DelTextCmd::doRedo()
 }
 void DelTextCmd::doUndo()
 {
-    // DocPosition pos=_pos; //pos.offset+=_str.size();
-    //_catalog.setLastModifiedPos(pos);
     _catalog->targetInsert(_pos, _str);
 }
 // END DelTextCmd
@@ -312,10 +308,8 @@ bool fillTagPlaces(QMap<int, int> &tagPlaces, const CatalogString &catalogString
 
     int i = catalogString.tags.size();
     while (--i >= 0) {
-        // qCWarning(LOKALIZE_LOG)<<catalogString.ranges.at(i).getElementName();
         const InlineTag &tag = catalogString.tags.at(i);
         if (tagPlaces.contains(tag.start) && tagPlaces.contains(tag.end)) {
-            // qCWarning(LOKALIZE_LOG)<<"start"<<catalogString.ranges.at(i).start<<"end"<<catalogString.ranges.at(i).end;
             tagPlaces[tag.end] = 2;
             tagPlaces[tag.start] = 1;
         }
@@ -346,8 +340,6 @@ bool removeTargetSubstring(Catalog *catalog, DocPosition pos, int delStart, int 
     catalog->beginMacro(i18nc("@item Undo action item", "Remove text with markup"));
 
     // all indexes are ok (or target is just plain text)
-    // modified=true;
-    // qCWarning(LOKALIZE_LOG)<<"all indexes are ok";
     QMapIterator<int, int> it(tagPlaces);
     it.toBack();
     while (it.hasPrevious()) {
@@ -362,7 +354,6 @@ bool removeTargetSubstring(Catalog *catalog, DocPosition pos, int delStart, int 
         tmp.replace(TAGRANGE_IMAGE_SYMBOL, u'*');
         qCDebug(LOKALIZE_LOG) << "\tdeleting at" << it.key() << "current string:" << tmp << "delLen" << delLen;
     }
-    // charsRemoved-=lenDecrement;
     QString tmp = catalog->targetWithTags(pos).string;
     tmp.replace(TAGRANGE_IMAGE_SYMBOL, u'*');
     qCDebug(LOKALIZE_LOG) << "offset" << delStart << delLen << "current string:" << tmp;
@@ -389,8 +380,6 @@ void insertCatalogString(Catalog *catalog, DocPosition pos, const CatalogString 
     bool containsMarkup = i;
     while (--i >= 0) {
         const InlineTag &tag = catStr.tags.at(i);
-        // qCWarning(LOKALIZE_LOG)<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
-        // qCWarning(LOKALIZE_LOG)<<"\ttag"<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
         posToTag.insert(tag.start, i);
         posToTag.insert(tag.end, i);
     }

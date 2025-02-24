@@ -173,7 +173,6 @@ QString GNUPluralForms(const QString &lang)
 
     msginit.waitForStarted(5000);
     if (Q_UNLIKELY(msginit.state() != QProcess::Running)) {
-        // qCWarning(LOKALIZE_LOG)<<"msginit error";
         return def;
     }
 
@@ -206,14 +205,12 @@ QString GNUPluralForms(const QString &lang)
     QByteArray result = msginit.readAll();
     int pos = result.indexOf("Plural-Forms: ");
     if (Q_UNLIKELY(pos == -1)) {
-        // qCWarning(LOKALIZE_LOG)<<"msginit error"<<result;
         return def;
     }
     pos += 14;
 
     int end = result.indexOf('"', pos);
     if (Q_UNLIKELY(pos == -1)) {
-        // qCWarning(LOKALIZE_LOG)<<"msginit error"<<result;
         return def;
     }
 
@@ -286,7 +283,6 @@ void updateHeader(QString &header,
         headerList.append(temp);
 
     temp = QStringLiteral("Project-Id-Version: ") + CatalogProjectId + BACKSLASH_N;
-    // temp.replace( "@PACKAGE@", packageName());
     const QRegularExpression projectIdVer(QStringLiteral("^ *Project-Id-Version:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(projectIdVer);
@@ -362,7 +358,6 @@ void updateHeader(QString &header,
         found = match.hasMatch();
         if (found && match.captured(1).isEmpty())
             *it = temp;
-        // if (found) qCWarning(LOKALIZE_LOG)<<"got explicit lang code:"<<langCodeRegExp.cap(1);
     }
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
@@ -395,7 +390,6 @@ void updateHeader(QString &header,
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
 
-    // qCDebug(LOKALIZE_LOG)<<"testing for GNUPluralForms";
     //  update plural form header
     const QRegularExpression pfRe(QStringLiteral("^ *Plural-Forms:"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it)
@@ -403,7 +397,6 @@ void updateHeader(QString &header,
     if (found) {
         --it;
 
-        // qCDebug(LOKALIZE_LOG)<<"GNUPluralForms found";
         int num = numberOfPluralFormsFromHeader(header);
         if (!num) {
             if (generatedFromDocbook)
@@ -411,7 +404,6 @@ void updateHeader(QString &header,
             else {
                 qCDebug(LOKALIZE_LOG) << "No plural form info in header, using project-defined one" << langCode;
                 QString t = GNUPluralForms(langCode);
-                // qCWarning(LOKALIZE_LOG)<<"generated: " << t;
                 if (!t.isEmpty()) {
                     static const QRegularExpression pf(QStringLiteral("^ *Plural-Forms:\\s*nplurals.*\\\\n"), QRegularExpression::InvertedGreedinessOption);
                     temp = QStringLiteral("Plural-Forms: %1\\n").arg(t);
@@ -426,9 +418,7 @@ void updateHeader(QString &header,
         numberOfPluralForms = num;
 
     } else if (!generatedFromDocbook) {
-        // qCDebug(LOKALIZE_LOG)<<"generating GNUPluralForms"<<langCode;
         QString t = GNUPluralForms(langCode);
-        // qCDebug(LOKALIZE_LOG)<<"here it is:";
         if (!t.isEmpty()) {
             const QString pluralFormLine = QStringLiteral("Plural-Forms: %1\\n").arg(t);
             headerList.append(pluralFormLine);
@@ -451,7 +441,6 @@ void updateHeader(QString &header,
 
     // BEGIN comment = description, copyrights
     GetTextHeaderParser::updateGeneralCopyrightYear(commentList);
-    // qCDebug(LOKALIZE_LOG) << "HEADER COMMENT: " << commentList;
 
     GetTextHeaderParser::updateAuthors(commentList, Settings::authorName(), Settings::authorEmail());
     comment = commentList.join(QStringLiteral("\n"));

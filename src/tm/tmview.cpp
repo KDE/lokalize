@@ -312,7 +312,6 @@ void TMView::slotBatchSelectDone()
             bool forceFuzzy = (suggList.size() > 1 && suggList.at(1).score >= 10000) || entry.score < 10000;
             bool ctxtMatches = entry.score == 1001;
             if (!m_catalog->isApproved(pos.entry)) {
-                /// m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
                 removeTargetSubstring(m_catalog, pos, 0, m_catalog->targetWithTags(pos).string.size());
                 insertCatalogString(m_catalog, pos, entry.target, 0);
                 if (ctxtMatches || !(m_markAsFuzzy || forceFuzzy))
@@ -323,7 +322,6 @@ void TMView::slotBatchSelectDone()
             } else {
                 insertCatalogString(m_catalog, pos, entry.target, 0);
             }
-            /// m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
 
             if (Q_UNLIKELY(m_pos.entry == pos.entry && pos.form == m_pos.form))
                 Q_EMIT refreshRequested();
@@ -391,10 +389,6 @@ void TMView::slotNewEntryDisplayed(const DocPosition &pos)
     for (auto job : std::as_const(m_jobs)) {
         [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
     }
-
-    // update DB
-    // m_catalog->flushUpdateDBBuffer();
-    // this is called via subscribtion
 
     if (pos.entry != -1)
         m_pos = pos;
@@ -703,10 +697,8 @@ static int nextPlacableIn(const QString &old, int start, QString &cap)
     static const QRegularExpression rxAbbr(QStringLiteral("\\w+"), QRegularExpression::UseUnicodePropertiesOption);
 
     const auto numMatch = rxNum.match(old, start);
-    //    int abbrPos=rxAbbr.indexIn(old,start);
     QRegularExpressionMatch abbrMatch;
     int abbrPos = start;
-    // qCWarning(LOKALIZE_LOG)<<"seeing"<<old.size()<<old;
     while (true) {
         abbrMatch = rxAbbr.match(old, abbrPos);
         if (!abbrMatch.hasMatch()) {
@@ -729,13 +721,7 @@ static int nextPlacableIn(const QString &old, int start, QString &cap)
     if (pos == -1)
         pos = qMax(numMatch.capturedStart(), abbrPos);
 
-    //     if (pos==numMatch.capturedStart())
-    //         cap=numMatch.captured(0);
-    //     else
-    //         cap=rxAbbr.cap(0);
-
     cap = pos == numMatch.capturedStart() ? numMatch.captured(0) : abbrMatch.captured(0);
-    // qCWarning(LOKALIZE_LOG)<<cap;
 
     return pos;
 }
@@ -970,14 +956,6 @@ void TMView::slotUseSuggestion(int i)
 
     CatalogString target = targetAdapted(m_entries.at(i), m_catalog->sourceWithTags(m_pos));
 
-#if 0
-    QString tmp = target.string;
-    tmp.replace(TAGRANGE_IMAGE_SYMBOL, '*');
-    qCWarning(LOKALIZE_LOG) << "targetAdapted" << tmp;
-
-    foreach (InlineTag tag, target.tags)
-        qCWarning(LOKALIZE_LOG) << "tag" << tag.start << tag.end;
-#endif
     if (Q_UNLIKELY(target.isEmpty()))
         return;
 
@@ -988,11 +966,9 @@ void TMView::slotUseSuggestion(int i)
         m_pos.offset = 0;
         // FIXME test!
         removeTargetSubstring(m_catalog, m_pos, 0, old.size());
-        // m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
     qCWarning(LOKALIZE_LOG) << "1" << target.string;
 
-    // m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_pos, target, 0);
 
     if (m_entries.at(i).score > 9900 && !m_catalog->isApproved(m_pos.entry))

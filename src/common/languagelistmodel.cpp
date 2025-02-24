@@ -54,11 +54,6 @@ LanguageListModel::LanguageListModel(ModelType type, QObject *parent)
 
     if (type == WithEmptyLang)
         insertRows(rowCount(), 1);
-#if 0 // KDE5PORT
-    KIconLoader::global()->addExtraDesktopThemes();
-#endif
-    // qCWarning(LOKALIZE_LOG)<<KIconLoader::global()->hasContext(KIconLoader::International);
-    // qCDebug(LOKALIZE_LOG)<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
     m_sortModel->setSourceModel(this);
     m_sortModel->setSortLocaleAware(true);
     m_sortModel->sort(0);
@@ -67,27 +62,10 @@ LanguageListModel::LanguageListModel(ModelType type, QObject *parent)
 QVariant LanguageListModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DecorationRole) {
-#if 0 // #
-        static QMap<QString, QVariant> iconCache;
-
-        QString langCode = stringList().at(index.row());
-        if (!iconCache.contains(langCode)) {
-            QString code = QLocale(langCode).name();
-            QString path;
-            if (code.contains('_')) code = QString::fromRawData(code.unicode() + 3, 2).toLower();
-            if (code != "C") {
-                static const QString flagPath("l10n/%1/flag.png");
-                path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + flagPath.arg(code));
-            }
-            iconCache[langCode] = QIcon(path);
-        }
-        return iconCache.value(langCode);
-#endif
     } else if (role == Qt::DisplayRole) {
         QString code = stringList().at(index.row());
         if (code.isEmpty())
             return code;
-        // qCDebug(LOKALIZE_LOG)<<"languageCodeToName"<<code;
         static QVector<QString> displayNames(stringList().size());
         if (displayNames.at(index.row()).length())
             return displayNames.at(index.row());

@@ -63,7 +63,7 @@ public:
     }
 
 private:
-    QByteArray codecForDevice(QIODevice * /*, bool* hadCodec*/);
+    QByteArray codecForDevice(QIODevice *);
     ConversionStatus readEntryRaw(QTextStream &stream);
     ConversionStatus readEntry(QTextStream &stream);
 

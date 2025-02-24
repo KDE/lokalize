@@ -72,8 +72,6 @@ ProjectModel::~ProjectModel()
 
 void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
 {
-    // qCDebug(LOKALIZE_LOG) << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
-
     Q_EMIT loadingAboutToStart();
 
     // cleanup old data
@@ -121,11 +119,6 @@ QUrl ProjectModel::beginEditing(const QModelIndex &index)
         QUrl potFile = m_potModel.itemForIndex(potIndex).url();
         QUrl poFile = potToPo(potFile);
 
-        // EditorTab::fileOpen takes care of this
-        // be careful, copy only if file does not exist already.
-        //          if (!KIO::NetAccess::exists(poFile, KIO::NetAccess::DestinationSide, NULL))
-        //              KIO::NetAccess::file_copy(potFile, poFile);
-
         return poFile;
     } else {
         Q_ASSERT(false);
@@ -172,29 +165,10 @@ void ProjectModel::po_dataChanged(const QModelIndex &po_topLeft, const QModelInd
 
 void ProjectModel::pot_dataChanged(const QModelIndex &pot_topLeft, const QModelIndex &pot_bottomRight)
 {
-#if 0
-    //tricky here - some of the pot items may be represented by po items
-    //let's propagate that all subitems changed
-
-
-    QModelIndex pot_parent = pot_topLeft.parent();
-    QModelIndex parent = indexForPotIndex(pot_parent);
-
-    ProjectNode* node = nodeForIndex(parent);
-    int count = node->rows.count();
-
-    QModelIndex topLeft = index(0, pot_topLeft.column(), parent);
-    QModelIndex bottomRight = index(count - 1, pot_bottomRight.column(), parent);
-
-    Q_EMIT dataChanged(topLeft, bottomRight);
-
-    enqueueNodeForMetadataUpdate(nodeForIndex(topLeft.parent()));
-#else
     Q_UNUSED(pot_topLeft)
     Q_UNUSED(pot_bottomRight)
     qCWarning(LOKALIZE_LOG) << "Delayed reload triggered in pot_dataChanged";
     m_delayedReloadTimer->start(1000);
-#endif
 }
 
 void ProjectModel::po_rowsInserted(const QModelIndex &po_parent, int first, int last)
@@ -259,9 +233,6 @@ void ProjectModel::po_rowsInserted(const QModelIndex &po_parent, int first, int 
                 endRemoveRows();
 
                 node->rows[poIndex]->potRowNumber = potIndex;
-                // This change does not need notification
-                // dataChanged(index(poIndex, 0, parent), index(poIndex, ProjectModelColumnCount, parent));
-
                 pos--;
             }
         }
@@ -298,8 +269,6 @@ void ProjectModel::pot_rowsInserted(const QModelIndex &pot_parent, int start, in
                 // found pot node, that has a PO index.
                 // change the corresponding PO node
                 node->rows[poIndex]->potRowNumber = potIndex;
-                // This change does not need notification
-                // dataChanged(index(poIndex, 0, parent), index(poIndex, ProjectModelColumnCount, parent));
             } else
                 newPotNodes.append(potIndex);
         }
@@ -341,7 +310,6 @@ void ProjectModel::pot_rowsInserted(const QModelIndex &pot_parent, int start, in
 void ProjectModel::po_rowsRemoved(const QModelIndex &po_parent, int start, int end)
 {
     QModelIndex parent = indexForPoIndex(po_parent);
-    // QModelIndex pot_parent = potIndexForOuter(parent);
     ProjectNode *node = nodeForIndex(parent);
     int removedCount = end + 1 - start;
 
@@ -461,8 +429,6 @@ void ProjectModel::pot_rowsRemoved(const QModelIndex &pot_parent, int start, int
                 // found PO node, that has a POT index in range.
                 // change the corresponding PO node
                 node->rows[poIndex]->potRowNumber = -1;
-                // this change does not affect the model
-                // dataChanged(index(poIndex, 0, parent), index(poIndex, ProjectModelColumnCount, parent));
             } else if (childNode->potRowNumber > end) {
                 // reassign POT indices
                 childNode->potRowNumber -= removedCount;
@@ -473,7 +439,7 @@ void ProjectModel::pot_rowsRemoved(const QModelIndex &pot_parent, int start, int
     enqueueNodeForMetadataUpdate(node);
 }
 
-int ProjectModel::columnCount(const QModelIndex & /*parent*/) const
+int ProjectModel::columnCount(/*parent*/ const QModelIndex &) const
 {
     return ProjectModelColumnCount;
 }
@@ -538,12 +504,12 @@ Qt::ItemFlags ProjectModel::flags(const QModelIndex &index) const
         return Qt::ItemIsSelectable;
 }
 
-int ProjectModel::rowCount(const QModelIndex &parent /*= QModelIndex()*/) const
+int ProjectModel::rowCount(const QModelIndex &parent) const
 {
     return nodeForIndex(parent)->rows.size();
 }
 
-bool ProjectModel::hasChildren(const QModelIndex &parent /*= QModelIndex()*/) const
+bool ProjectModel::hasChildren(const QModelIndex &parent) const
 {
     if (!parent.isValid())
         return true;
@@ -703,7 +669,6 @@ QVariant ProjectModel::data(const QModelIndex &index, const int role) const
 QModelIndex ProjectModel::index(int row, int column, const QModelIndex &parent) const
 {
     ProjectNode *parentNode = nodeForIndex(parent);
-    // qCWarning(LOKALIZE_LOG)<<(sizeof(ProjectNode))<<nodeCounter;
     if (row >= parentNode->rows.size()) {
         qCWarning(LOKALIZE_LOG) << "Issues with indexes" << row << parentNode->rows.size() << itemForIndex(parent).url();
         return QModelIndex();
@@ -928,7 +893,6 @@ QUrl ProjectModel::poToPot(const QUrl &poPath) const
     QUrl potPath = m_potUrl;
     potPath.setPath(potPath.path() + QLatin1Char('/') + pathToAdd);
 
-    // qCDebug(LOKALIZE_LOG) << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
     return potPath;
 }
 
@@ -948,7 +912,6 @@ QUrl ProjectModel::potToPo(const QUrl &potPath) const
     QUrl poPath = m_poUrl;
     poPath.setPath(poPath.path() + QLatin1Char('/') + pathToAdd);
 
-    // qCDebug(LOKALIZE_LOG) << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
     return poPath;
 }
 
@@ -957,7 +920,6 @@ QUrl ProjectModel::potToPo(const QUrl &potPath) const
 
 void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode *node)
 {
-    // qCWarning(LOKALIZE_LOG) << "Enqueued node for metadata Update : " << node->rowNumber;
     m_doneTimer->stop();
 
     if (m_dirsWaitingForMetadata.contains(node)) {
@@ -1039,7 +1001,6 @@ void ProjectModel::finishMetadataUpdate(UpdateStatsJob *job)
 
             if (canFetchMore(child))
                 fetchMore(child);
-            // QCoreApplication::processEvents();
         }
     }
 
@@ -1096,7 +1057,6 @@ void ProjectModel::setMetadataForDir(ProjectNode *node, const QList<FileMetaData
     for (int row = 0; row < node->rows.count(); row++)
         if (itemForIndex(index(row, 0, item)).isFile())
             rowsCount++;
-    // Q_ASSERT(dataCount == rowsCount);
     if (dataCount != rowsCount) {
         m_delayedReloadTimer->start(2000);
         qCWarning(LOKALIZE_LOG) << "dataCount != rowsCount, scheduling full refresh";

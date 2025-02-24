@@ -55,7 +55,6 @@ public:
     explicit DBPropertiesDialog(QWidget *parent, const QString &name = QString());
 
 private:
-    // void slotButtonClicked(int button);
     void accept() override;
 private Q_SLOTS:
     void setConnectionBoxVisible(int type);

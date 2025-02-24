@@ -326,11 +326,9 @@ void AltTransView::slotUseSuggestion(int i)
     if (!old.isEmpty()) {
         // FIXME test!
         removeTargetSubstring(m_catalog, m_entry.toDocPosition(), 0, old.size());
-        // m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
     qCWarning(LOKALIZE_LOG) << "1" << target.string;
 
-    // m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_entry.toDocPosition(), target, 0);
 
     m_catalog->endMacro();

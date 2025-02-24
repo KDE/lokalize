@@ -144,7 +144,7 @@ void CatalogView::slotNewEntryDisplayed(const DocPosition &pos)
 {
     QModelIndex item = m_proxyModel->mapFromSource(m_model->index(pos.entry, 0));
     m_browser->setCurrentIndex(item);
-    m_browser->scrollTo(item /*,QAbstractItemView::PositionAtCenter*/);
+    m_browser->scrollTo(item);
     m_lastKnownDocPosition = pos.entry;
 }
 
@@ -254,7 +254,6 @@ void CatalogView::reset()
     m_proxyModel->setFilterOptions(CatalogTreeFilterModel::AllStates);
     m_lineEdit->clear();
     refreshCurrentIndex();
-    // Q_EMIT gotoEntry(DocPosition(m_proxyModel->mapToSource(m_browser->currentIndex()).row()),0);
     slotItemActivated(m_browser->currentIndex());
 }
 

@@ -178,10 +178,6 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
     QAction *setTarget = menu.addAction(i18nc("@action:inmenu", "Set the file"));
     QAction *useSource = menu.addAction(i18nc("@action:inmenu", "Use source file"));
 
-    //     menu.addSeparator();
-    //     QAction* openSource=menu.addAction(i18nc("@action:inmenu","Open source file in external program"));
-    //     QAction* openTarget=menu.addAction(i18nc("@action:inmenu","Open target file in external program"));
-
     QAction *result = menu.exec(event->globalPos());
     if (!result)
         return;

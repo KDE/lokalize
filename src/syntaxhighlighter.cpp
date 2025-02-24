@@ -30,21 +30,9 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 {
     highlightingRules.reserve(NUM_OF_RULES);
     HighlightingRule rule;
-    // rule.format.setFontItalic(true);
-    //     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
     setAutomatic(false);
 
     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
-
-    // QTextCharFormat format;
-    // tagFormat.setForeground(Qt::darkBlue);
-    //     if (!docbook) //support multiline tags
-    //     {
-    //         rule.format = tagFormat;
-    //         rule.pattern = QRegExp("<.+>");
-    //         rule.pattern.setMinimal(true);
-    //         highlightingRules.append(rule);
-    //     }
 
     // entity
     rule.format.setForeground(tagBrush.brush(QApplication::palette()));
@@ -106,17 +94,6 @@ void SyntaxHighlighter::settingsChanged()
     }
 }
 
-/*
-void SyntaxHighlighter::setFuzzyState(bool fuzzy)
-{
-    return;
-    int i=NUM_OF_RULES;
-    while(--i>=0)
-        highlightingRules[i].format.setFontItalic(fuzzy);
-
-    tagFormat.setFontItalic(fuzzy);
-}*/
-
 void SyntaxHighlighter::highlightBlock(const QString &text)
 {
     int currentBlockState = STATE_NORMAL;
@@ -125,24 +102,21 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
     setFormat(0, text.length(), f);
 
     tagFormat.setFontItalic(!m_approved);
-    // if (fromDocbook)
-    {
-        int startIndex = STATE_NORMAL;
-        if (previousBlockState() != STATE_TAG)
-            startIndex = text.indexOf(QLatin1Char('<'));
+    int startIndex = STATE_NORMAL;
+    if (previousBlockState() != STATE_TAG)
+        startIndex = text.indexOf(QLatin1Char('<'));
 
-        while (startIndex >= 0) {
-            int endIndex = text.indexOf(QLatin1Char('>'), startIndex);
-            int commentLength;
-            if (endIndex == -1) {
-                currentBlockState = STATE_TAG;
-                commentLength = text.length() - startIndex;
-            } else {
-                commentLength = endIndex - startIndex + 1 /*+ commentEndExpression.matchedLength()*/;
-            }
-            setFormat(startIndex, commentLength, tagFormat);
-            startIndex = text.indexOf(QLatin1Char('<'), startIndex + commentLength);
+    while (startIndex >= 0) {
+        int endIndex = text.indexOf(QLatin1Char('>'), startIndex);
+        int commentLength;
+        if (endIndex == -1) {
+            currentBlockState = STATE_TAG;
+            commentLength = text.length() - startIndex;
+        } else {
+            commentLength = endIndex - startIndex + 1;
         }
+        setFormat(startIndex, commentLength, tagFormat);
+        startIndex = text.indexOf(QLatin1Char('<'), startIndex + commentLength);
     }
 
     for (const HighlightingRule &rule : std::as_const(highlightingRules)) {
@@ -161,29 +135,6 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         Sonnet::Highlighter::highlightBlock(text); // Resets current block state
     setCurrentBlockState(currentBlockState);
 }
-
-#if 0
-void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QTextCharFormat f)
-{
-    QVector<bool> underLines(count);
-    for (int i = 0; i < count; ++i)
-        underLines[i] = format(start + i).fontUnderline();
-
-    setFormat(start, count, f);
-
-    f.setFontUnderline(true);
-    int prevStart = -1;
-    bool isPrevUnderLined = false;
-    for (int i = 0; i < count; ++i) {
-        if (!underLines.at(i) && prevStart != -1)
-            setFormat(start + isPrevUnderLined, i - prevStart, f);
-        else if (underLines.at(i) && !isPrevUnderLined)
-            prevStart = i;
-
-        isPrevUnderLined = underLines.at(i);
-    }
-}
-#endif
 
 void SyntaxHighlighter::setMisspelled(int start, int count)
 {

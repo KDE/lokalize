@@ -13,7 +13,6 @@
 #include <QDomNodeList>
 #include <QMap>
 #include <QVector>
-// class QDomDocument;
 
 class TsStorage : public CatalogStorage
 {

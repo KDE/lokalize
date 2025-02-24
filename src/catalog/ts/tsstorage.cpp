@@ -89,7 +89,7 @@ int TsStorage::load(QIODevice *device)
 
     QString errorMsg;
     int errorLine{}; //+errorColumn;
-    bool success = m_doc.setContent(&reader, false, &errorMsg, &errorLine /*,errorColumn*/);
+    bool success = m_doc.setContent(&reader, false, &errorMsg, &errorLine);
 
     if (!success) {
         qCWarning(LOKALIZE_LOG) << "parse error" << errorMsg << errorLine;

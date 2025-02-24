@@ -47,12 +47,12 @@ CatalogTreeModel::CatalogTreeModel(QObject *parent, Catalog *catalog)
     connect(catalog, qOverload<>(&Catalog::signalFileLoaded), this, &CatalogTreeModel::fileLoaded);
 }
 
-QModelIndex CatalogTreeModel::index(int row, int column, const QModelIndex & /*parent*/) const
+QModelIndex CatalogTreeModel::index(int row, int column, /*parent*/ const QModelIndex &) const
 {
     return createIndex(row, column);
 }
 
-QModelIndex CatalogTreeModel::parent(const QModelIndex & /*index*/) const
+QModelIndex CatalogTreeModel::parent(/*index*/ const QModelIndex &) const
 {
     return QModelIndex();
 }
@@ -72,20 +72,6 @@ void CatalogTreeModel::fileLoaded()
 void CatalogTreeModel::reflectChanges(DocPosition pos)
 {
     Q_EMIT dataChanged(index(pos.entry, 0), index(pos.entry, DisplayedColumnCount - 1));
-
-#if 0
-    I disabled dynamicSortFilter function
-    //lazy sorting/filtering
-    if (rowCount() < DYNAMICFILTER_LIMIT || m_prevChanged != pos) {
-        qCWarning(LOKALIZE_LOG) << "first dataChanged emitment" << pos.entry;
-        Q_EMIT dataChanged(index(pos.entry, 0), index(pos.entry, DisplayedColumnCount - 1));
-        if (!(rowCount() < DYNAMICFILTER_LIMIT)) {
-            qCWarning(LOKALIZE_LOG) << "second dataChanged emitment" << m_prevChanged.entry;
-            Q_EMIT dataChanged(index(m_prevChanged.entry, 0), index(m_prevChanged.entry, DisplayedColumnCount - 1));
-        }
-    }
-    m_prevChanged = pos;
-#endif
 }
 
 int CatalogTreeModel::rowCount(const QModelIndex &parent) const
@@ -95,7 +81,7 @@ int CatalogTreeModel::rowCount(const QModelIndex &parent) const
     return m_catalog->numberOfEntries();
 }
 
-QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation*/, int role) const
+QVariant CatalogTreeModel::headerData(int section, Qt::Orientation, int role) const
 {
     if (role != Qt::DisplayRole)
         return QVariant();
@@ -134,7 +120,7 @@ QVariant CatalogTreeModel::data(const QModelIndex &index, int role) const
     if (role == Qt::SizeHintRole) {
         // no need to cache because of uniform row heights
         return QFontMetrics(QApplication::font()).size(Qt::TextSingleLine, QString::fromLatin1("          "));
-    } else if (role == Qt::FontRole /* && index.column()==Target*/) {
+    } else if (role == Qt::FontRole) {
         bool fuzzy = !m_catalog->isApproved(index.row());
         bool modified = m_catalog->isModified(index.row());
         return m_fonts.at(fuzzy * 1 | modified * 2);
@@ -280,8 +266,6 @@ void CatalogTreeFilterModel::setEntriesFilteredOut(bool filteredOut)
 
 void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
 {
-    //     if (entry>=m_individualRejectFilter.size())
-    //         sourceModelReset();
     m_individualRejectFilter[entry] = filteredOut;
     m_individualRejectFilterEnable = true;
     invalidateFilter();

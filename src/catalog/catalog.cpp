@@ -112,7 +112,6 @@ Catalog::Catalog(QObject *parent)
 Catalog::~Catalog()
 {
     clear();
-    // delete m_storage; //deleted in clear();
 }
 
 void Catalog::clear()
@@ -134,11 +133,6 @@ void Catalog::clear()
         d._altTransCatalogs.pop_front();
     }
     d._altTranslations.clear();
-    /*
-        d.msgidDiffList.clear();
-        d.msgstr2MsgidDiffList.clear();
-        d.diffCache.clear();
-        */
 }
 
 void Catalog::push(QUndoCommand *cmd)
@@ -654,23 +648,9 @@ bool Catalog::saveToUrl(QString localFilePath)
         d._autoSave->setManagedFile(QUrl::fromLocalFile(localFilePath));
     }
 
-    // Settings::self()->setCurrentGroup("Bookmarks");
-    // Settings::self()->addItemIntList(d._filePath.url(),d._bookmarkIndex);
-
     Q_EMIT signalFileSaved();
     Q_EMIT signalFileSaved(localFilePath);
     return true;
-    /*
-        else if (status==NO_PERMISSIONS)
-        {
-            if (KMessageBox::warningContinueCancel(this,
-             i18n("You do not have permission to write to file:\n%1\n"
-              "Do you want to save to another file or cancel?", _currentURL.prettyUrl()),
-             i18n("Error"),KStandardGuiItem::save())==KMessageBox::Continue)
-                return fileSaveAs();
-
-        }
-    */
 }
 
 void Catalog::doAutoSave()
@@ -717,9 +697,7 @@ static void updateDB(const QString &filePath,
                      const CatalogString &newTarget,
                      int form,
                      bool approved,
-                     const QString &dbName
-                     // const DocPosition&,//for back tracking
-)
+                     const QString &dbName)
 {
     TM::UpdateJob *j = new TM::UpdateJob(filePath, ctxt, english, newTarget, form, approved, dbName);
     TM::threadPool()->start(j);
@@ -746,7 +724,6 @@ void Catalog::flushUpdateDBBuffer()
     DocPosition pos = d._lastModifiedPos;
     if (pos.entry == -1 || pos.entry >= numberOfEntries()) {
         // nothing to flush
-        // qCWarning(LOKALIZE_LOG)<<"nothing to flush or new file opened";
         return;
     }
     QString dbName;

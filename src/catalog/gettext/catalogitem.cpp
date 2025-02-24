@@ -117,9 +117,6 @@ void CatalogItem::setMsgstr(const QStringList &msg, bool prependEmptyLine)
 void CatalogItem::setComment(const QString &com)
 {
     {
-        // static QMutex reMutex;
-        // QMutexLocker reLock(&reMutex); //avoid crash #281033
-        // now we have a bigger scale mutex in GettextStorage
         static const QRegularExpression fuzzyRegExp(QStringLiteral("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy"));
         d._fuzzyCached = com.contains(fuzzyRegExp);
     }
@@ -136,82 +133,6 @@ bool CatalogItem::isUntranslated(uint form) const
 {
     return d.isUntranslated(form);
 }
-
-#if 0
-QStringList CatalogItem::errors() const
-{
-    return d._errors;
-}
-
-bool CatalogItem::isCformat() const
-{
-    // Allow "possible-c-format" (from xgettext --debug) or "c-format"
-    // Note the regexp (?: ) is similar to () but it does not capture (so it is faster)
-    return d._comment.indexOf(QRegExp(",\\s*(?:possible-)c-format")) == -1;
-}
-
-bool CatalogItem::isNoCformat() const
-{
-    return d._comment.indexOf(QRegExp(",\\s*no-c-format")) == -1;
-}
-
-bool CatalogItem::isQtformat() const
-{
-    return d._comment.indexOf(QRegExp(",\\s*qt-format")) == -1;
-}
-
-bool CatalogItem::isNoQtformat() const
-{
-    return d._comment.indexOf(QRegExp(",\\s*no-qt-format")) == -1;
-}
-
-bool CatalogItem::isUntranslated() const
-{
-    return d._msgstr.first().isEmpty();
-}
-
-int CatalogItem::totalLines() const
-{
-    int lines = 0;
-    if (!d._comment.isEmpty()) {
-        lines = d._comment.count('\n') + 1;
-    }
-    int msgctxtLines = 0;
-    if (!d._msgctxt.isEmpty()) {
-        msgctxtLines = d._msgctxt.count('\n') + 1;
-    }
-    int msgidLines = 0;
-    QStringList::ConstIterator it;
-    for (it = d._msgid.begin(); it != d._msgid.end(); ++it) {
-        msgidLines += (*it).count('\n') + 1;
-    }
-    int msgstrLines = 0;
-    for (it = d._msgstr.begin(); it != d._msgstr.end(); ++it) {
-        msgstrLines += (*it).count('\n') + 1;
-    }
-
-    if (msgctxtLines > 1)
-        msgctxtLines++;
-    if (msgidLines > 1)
-        msgidLines++;
-    if (msgstrLines > 1)
-        msgstrLines++;
-
-    lines += (msgctxtLines + msgidLines + msgstrLines);
-
-    return lines;
-}
-
-
-void CatalogItem::setSyntaxError(bool on)
-{
-    if (on && !d._errors.contains("syntax error"))
-        d._errors.append("syntax error");
-    else
-        d._errors.removeAll("syntax error");
-}
-
-#endif
 
 QStringList CatalogItem::msgstrAsList() const
 {
@@ -279,28 +200,3 @@ void CatalogItem::unsetFuzzy()
     d._comment.remove(QRegularExpression(QStringLiteral("#\\s*\n")));
     d._comment.remove(QRegularExpression(QStringLiteral("^#\\s*\n")));
 }
-
-#if 0
-QString CatalogItem::nextError() const
-{
-    return d._errors.first();
-}
-
-void CatalogItem::clearErrors()
-{
-    d._errors.clear();
-}
-
-void CatalogItem::appendError(const QString& error)
-{
-    if (!d._errors.contains(error))
-        d._errors.append(error);
-}
-
-void CatalogItem::removeError(const QString& error)
-{
-    d._errors.removeAt(d._errors.indexOf(error));
-}
-#endif
-
-// kate: space-indent on; indent-width 4; replace-tabs on;

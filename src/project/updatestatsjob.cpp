@@ -40,8 +40,6 @@ static void initDataBase(QSqlDatabase &db)
                        "metadata BLOB, " // XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
                        "changedate INTEGER"
                        ")"));
-
-    // queryMain.exec("CREATE INDEX IF NOT EXISTS filepath_index ON metainfo ("filepath)");
 }
 #endif
 

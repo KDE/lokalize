@@ -513,7 +513,7 @@ void EditorTab::setupActions()
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",
                              i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"),
-                             Qt::ControlModifier | Qt::ShiftModifier /*ALT*/ | Qt::Key_PageUp,
+                             Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageUp,
                              "prevfuzzyuntrans")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzyUntr);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyUntrRequested, this, &EditorTab::gotoPrevFuzzyUntr);
@@ -780,7 +780,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
 
         m_currentPos.entry = -1; // so the signals are emitted
         DocPosition pos(0);
-        // we delay gotoEntry(pos) until project is loaded;
+        // we delay gotoEntry(pos) until project is loaded
 
         // Project
         if (!m_project->isLoaded()) {

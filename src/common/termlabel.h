@@ -35,11 +35,10 @@ public:
      * @param capFirst whether the first letter should be capitalized
      */
     void setText(const QString &term, const QByteArray &entryId, bool capFirst);
-    void mousePressEvent(QMouseEvent * /* event*/) override;
+    void mousePressEvent(QMouseEvent *) override;
 
 public Q_SLOTS:
     void insert();
-    //     bool event(QEvent *event);
 Q_SIGNALS:
     void insertTerm(const QString &);
 

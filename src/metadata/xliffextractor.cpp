@@ -24,7 +24,6 @@ public:
     bool startElement(const QString &localName, const QXmlStreamAttributes &atts);
     bool endElement(const QString &localName);
     bool characters(const QString &);
-    // void endAnalysis(bool complete);
 
     int total{0};
     int untranslated{0};
@@ -48,9 +47,6 @@ TargetState stringToState(const QString &state);
 
 bool XliffHandler::startElement(const QString &localName, const QXmlStreamAttributes &atts)
 {
-    // if (fileType == Unknown)
-    //     fileType = strcmp(localname, "xliff") ? Other : XLF;
-
     if (localName == QLatin1String("source"))
         total++;
     else if (localName == QLatin1String("target")) {
@@ -153,7 +149,6 @@ FileMetaData XliffExtractor::extract(const QString &filePath)
     m.untranslated = handler.untranslated;
     m.filePath = filePath;
 
-    // qCDebug(LOKALIZE_LOG)<<"parsed"<<filePath<<m.fuzzy<<m.translated<<m.untranslated<<handler.fuzzy_approver<<handler.fuzzy_reviewer;
     Q_ASSERT(m.fuzzy >= 0 && m.untranslated >= 0 && handler.total >= 0);
 
     m.translated_approver = handler.total - handler.untranslated - handler.fuzzy_approver;

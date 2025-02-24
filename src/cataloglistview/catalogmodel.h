@@ -90,7 +90,6 @@ private:
     bool m_ignoreAccel{true};
 
     static QVector<QVariant> m_fonts;
-    // DocPos m_prevChanged;
 };
 
 class CatalogTreeFilterModel : public QSortFilterProxyModel

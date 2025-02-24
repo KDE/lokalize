@@ -36,9 +36,6 @@ public:
     explicit GlossaryView(QWidget *, Catalog *, const QVector<QAction *> &);
     ~GlossaryView();
 
-    //     void dragEnterEvent(QDragEnterEvent* event);
-    //     void dropEvent(QDropEvent*);
-    //     bool event(QEvent*);
 public Q_SLOTS:
     // plural messages usually contain the same words...
     void slotNewEntryDisplayed();

@@ -74,7 +74,6 @@ public:
     QString filePath;
     QString mergeFilePath;
     int entry;
-    // int offset;
 };
 
 /**
@@ -262,12 +261,6 @@ private Q_SLOTS:
     void replaceNext(); // internal
     void doReplace(const QString &, int, int, int); // internal
     void cleanupReplace(); // internal
-
-    //     void selectAll();
-    //     void deselectAll();
-    //     void clear();
-    //     void search2msgstr();
-    //     void plural2msgstr();
 
     void gotoEntry();
 

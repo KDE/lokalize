@@ -11,11 +11,10 @@
 
 #include "lokalize_debug.h"
 
-#include "stemming.h"
-// #include "tbxparser.h"
 #include "domroutines.h"
 #include "prefs_lokalize.h"
 #include "project.h"
+#include "stemming.h"
 
 #include <QApplication>
 #include <QBuffer>
@@ -56,7 +55,6 @@ bool Glossary::load(const QString &newPath)
     QIODevice *device = new QFile(newPath);
     if (!device->open(QFile::ReadOnly | QFile::Text)) {
         delete device;
-        // return;
         device = new QBuffer();
         static_cast<QBuffer *>(device)->setData(
             QByteArray("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -75,7 +73,7 @@ bool Glossary::load(const QString &newPath)
     QDomDocument newDoc;
     QString errorMsg;
     int errorLine{}; //+errorColumn;
-    bool success = newDoc.setContent(&reader, false, &errorMsg, &errorLine /*,errorColumn*/);
+    bool success = newDoc.setContent(&reader, false, &errorMsg, &errorLine);
 
     delete device;
 
@@ -87,7 +85,6 @@ bool Glossary::load(const QString &newPath)
     m_path = newPath;
     m_doc = newDoc;
 
-    // QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
     m_entries = m_doc.elementsByTagName(QStringLiteral("termEntry"));
     for (int i = 0; i < m_entries.size(); i++)
         hashTermEntry(m_entries.at(i).toElement());
@@ -137,7 +134,6 @@ void GlossarySortFilterProxyModel::setFilterRegExp(const QString &s)
     if (!sourceModel())
         return;
 
-    // static const QRegExp lettersOnly("^[a-z]");
     QSortFilterProxyModel::setFilterRegularExpression(s);
 
     fetchMore(QModelIndex());
@@ -187,13 +183,12 @@ int GlossaryModel::rowCount(const QModelIndex &parent) const
     return m_glossary->size(); // m_visibleCount;
 }
 
-QVariant GlossaryModel::headerData(int section, Qt::Orientation /*orientation*/, int role) const
+QVariant GlossaryModel::headerData(int section, Qt::Orientation, int role) const
 {
     if (role != Qt::DisplayRole)
         return QVariant();
 
     switch (section) {
-    // case ID: return i18nc("@title:column","ID");
     case English:
         return i18nc("@title:column Original text", "Source");
         ;
@@ -207,9 +202,6 @@ QVariant GlossaryModel::headerData(int section, Qt::Orientation /*orientation*/,
 
 QVariant GlossaryModel::data(const QModelIndex &index, int role) const
 {
-    // if (role==Qt::SizeHintRole)
-    //     return QVariant(QSize(50, 30));
-
     if (role != Qt::DisplayRole)
         return QVariant();
 
@@ -231,28 +223,10 @@ QVariant GlossaryModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-/*
-QModelIndex GlossaryModel::index (int row,int column,const QModelIndex& parent) const
-{
-    return createIndex (row, column);
-}
-*/
-
 int GlossaryModel::columnCount(const QModelIndex &) const
 {
     return GlossaryModelColumnCount;
 }
-
-/*
-Qt::ItemFlags GlossaryModel::flags ( const QModelIndex & index ) const
-{
-    return Qt::ItemIsSelectable|Qt::ItemIsEnabled;
-    //if (index.column()==FuzzyFlag)
-    //    return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
-    //return QAbstractItemModel::flags(index);
-}
-*/
-
 // END MODEL general (GlossaryModel continues below)
 
 // BEGIN EDITING
@@ -363,7 +337,6 @@ static void getElementsForTermLangIndex(QDomElement termEntry,
             }
             QDomElement tigElem = n.firstChildElement(tig);
             while (!tigElem.isNull()) {
-                // qCDebug(LOKALIZE_LOG)<<i<<tigElem.firstChildElement(term).text();
                 if (i == index) {
                     tigElement = tigElem;
                     termElement = tigElem.firstChildElement(term);
@@ -397,12 +370,6 @@ void Glossary::setTerm(const QByteArray &id, QString lang, int index, const QStr
         lang.replace(QLatin1Char('_'), QLatin1Char('-'));
         ourLangSetElement.setAttribute(xmlLang, lang);
     }
-    /*
-        QDomElement ntigElement=ourLangSetElement.appendChild( document.createElement(ntig)).toElement();
-        QDomElement termGrpElement=ntigElement.appendChild( document.createElement(termGrp)).toElement();
-        termElement=termGrpElement.appendChild( document.createElement(term)).toElement();
-        termElement.appendChild( document.createTextNode(termText));
-    */
     tigElement = ourLangSetElement.appendChild(document.createElement(tig)).toElement();
     termElement = tigElement.appendChild(document.createElement(term)).toElement();
     termElement.appendChild(document.createTextNode(termText));
@@ -564,26 +531,6 @@ void Glossary::unhashTermEntry(const QDomElement &termEntry)
     }
 }
 
-#if 0
-void Glossary::hashTermEntry(int index)
-{
-    Q_ASSERT(index < termList.size());
-    foreach (const QString& term, termList_.at(index).english) {
-        foreach (const QString& word, term.split(' ', Qt::SkipEmptyParts))
-            wordHash_.insert(stem(Project::instance()->sourceLangCode(), word), index);
-    }
-}
-
-void Glossary::unhashTermEntry(int index)
-{
-    Q_ASSERT(index < termList.size());
-    foreach (const QString& term, termList_.at(index).english) {
-        foreach (const QString& word, term.split(' ', Qt::SkipEmptyParts))
-            wordHash_.remove(stem(Project::instance()->sourceLangCode(), word), index);
-    }
-}
-#endif
-
 void Glossary::removeEntry(const QByteArray &id)
 {
     if (!m_entriesById.contains(id))
@@ -627,8 +574,6 @@ QByteArray Glossary::append(const QStringList &sourceTerms, const QStringList &t
     QDomElement termEntry = m_doc.createElement(QStringLiteral("termEntry"));
     m_doc.elementsByTagName(QStringLiteral("body")).at(0).appendChild(termEntry);
 
-    // m_entries=m_doc.elementsByTagName("termEntry");
-
     QByteArray newId = generateNewId();
     termEntry.setAttribute(::id, QString::fromLatin1(newId));
 
@@ -658,7 +603,6 @@ void Glossary::append(const QString &_english, const QString &_target)
 void Glossary::clear()
 {
     setClean(true);
-    // path.clear();
     idsByLangWord.clear();
     m_entriesById.clear();
     m_idsForEntriesById.clear();
@@ -687,10 +631,6 @@ bool GlossaryModel::removeRows(int row, int count, const QModelIndex &parent)
     return true;
 }
 
-// bool GlossaryModel::insertRows(int row,int count,const QModelIndex& parent)
-// {
-//     if (row!=rowCount())
-//         return false;
 QByteArray GlossaryModel::appendRow(const QString &_english, const QString &_target)
 {
     bool notify = !canFetchMore(QModelIndex());

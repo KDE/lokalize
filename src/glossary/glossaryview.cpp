@@ -68,20 +68,6 @@ GlossaryView::~GlossaryView()
 {
 }
 
-// TODO define new term by dragging some text.
-//  void GlossaryView::dragEnterEvent(QDragEnterEvent* event)
-//  {
-//      /*    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
-//          {
-//              event->acceptProposedAction();
-//          };*/
-//  }
-//
-//  void GlossaryView::dropEvent(QDropEvent *event)
-//  {
-//          event->acceptProposedAction();*/
-//  }
-
 void GlossaryView::slotNewEntryDisplayed()
 {
     slotNewEntryDisplayed(DocPosition());
@@ -89,7 +75,6 @@ void GlossaryView::slotNewEntryDisplayed()
 
 void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 {
-    // qCWarning(LOKALIZE_LOG)<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
     if (pos.entry == -1)
         pos.entry = m_currentIndex;
     else
@@ -97,8 +82,6 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
     if (pos.entry == -1 || m_catalog->numberOfEntries() <= pos.entry)
         return; // because of Qt::QueuedConnection
-    // if (!toggleViewAction()->isChecked())
-    //   return;
 
     Glossary &glossary = *m_glossary;
 
@@ -108,23 +91,12 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     msg.remove(m_rxClean);
     QString msgStemmed;
 
-    //     QRegExp accel(Project::instance()->accel());
-    //     qCWarning(LOKALIZE_LOG)<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl;
-    //     int pos=0;
-    //     while ((pos=accel.indexIn(msg,pos))!=-1)
-    //     {
-    //         msg.remove(accel.pos(1),accel.cap(1).size());
-    //         pos=accel.pos(1);
-    //     }
-
     QString sourceLangCode = Project::instance()->sourceLangCode();
     QList<QByteArray> termIds;
     const auto ws = msg.split(m_rxSplit, Qt::SkipEmptyParts);
     for (const QString &w : ws) {
         QString word = stem(sourceLangCode, w);
         QList<QByteArray> indexes = glossary.idsForLangWord(sourceLangCode, word);
-        // if (indexes.size())
-        // qCWarning(LOKALIZE_LOG)<<"found entry for:" <<word;
         termIds += indexes;
         msgStemmed += word + QLatin1Char(' ');
     }
@@ -138,7 +110,6 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
         m_flowLayout->clearTerms();
 
     bool found = false;
-    // m_flowLayout->setEnabled(false);
     const QSet<QByteArray> termIdSet(termIds.begin(), termIds.end());
     for (const QByteArray &termId : termIdSet) {
         // now check which of them are really hits...
@@ -162,7 +133,6 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
             }
         }
     }
-    // m_flowLayout->setEnabled(true);
 
     if (!found)
         clear();

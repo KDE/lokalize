@@ -14,11 +14,9 @@
 using namespace GettextCatalog;
 
 CatalogExportPlugin::CatalogExportPlugin()
-//    : d(new CatalogExportPluginPrivate)
 {
 }
 
 CatalogExportPlugin::~CatalogExportPlugin()
 {
-    //    delete d;
 }

@@ -42,10 +42,6 @@ GlossaryTreeView::GlossaryTreeView(QWidget *parent)
     sortByColumn(GlossaryModel::English, Qt::AscendingOrder);
     setItemsExpandable(false);
     setAllColumnsShowFocus(true);
-
-    /*
-        setSelectionMode(QAbstractItemView::ExtendedSelection);
-        setSelectionBehavior(QAbstractItemView::SelectRows);*/
 }
 
 static QByteArray modelIndexToId(const QModelIndex &item)
@@ -53,11 +49,9 @@ static QByteArray modelIndexToId(const QModelIndex &item)
     return item.sibling(item.row(), 0).data(Qt::DisplayRole).toByteArray();
 }
 
-void GlossaryTreeView::currentChanged(const QModelIndex &current, const QModelIndex & /* previous*/)
+void GlossaryTreeView::currentChanged(const QModelIndex &current, /*previous*/ const QModelIndex &)
 {
     if (current.isValid()) {
-        // QModelIndex item=static_cast<QSortFilterProxyModel*>(model())->mapToSource(current);
-        // Q_EMIT currentChanged(item.row());
         Q_EMIT currentChanged(modelIndexToId(current));
         scrollTo(current);
     }
@@ -68,120 +62,10 @@ void GlossaryTreeView::selectRow(int i)
     QSortFilterProxyModel *proxyModel = static_cast<QSortFilterProxyModel *>(model());
     GlossaryModel *sourceModel = static_cast<GlossaryModel *>(proxyModel->sourceModel());
 
-    // sourceModel->forceReset();
     setCurrentIndex(proxyModel->mapFromSource(sourceModel->index(i, 0)));
 }
 
 // END GlossaryTreeView
-
-// BEGIN SubjectFieldModel
-// typedef QStringListModel SubjectFieldModel;
-
-#if 0
-class SubjectFieldModel: public QAbstractItemModel
-{
-public:
-
-    //Q_OBJECT
-
-    SubjectFieldModel(QObject* parent);
-    ~SubjectFieldModel() {}
-
-    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
-    QModelIndex parent(const QModelIndex&) const;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const;
-    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const;
-    bool setData(const QModelIndex&, const QVariant&, int role = Qt::EditRole);
-    bool setItemData(const QModelIndex& index, const QMap<int, QVariant>& roles);
-    bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex());
-    Qt::ItemFlags flags(const QModelIndex&) const;
-
-    /*private:
-        Catalog* m_catalog;*/
-};
-
-inline
-SubjectFieldModel::SubjectFieldModel(QObject* parent)
-    : QAbstractItemModel(parent)
-// , m_catalog(catalog)
-{
-}
-
-QModelIndex SubjectFieldModel::index(int row, int column, const QModelIndex& /*parent*/) const
-{
-    return createIndex(row, column);
-}
-
-Qt::ItemFlags SubjectFieldModel::flags(const QModelIndex&) const
-{
-    return Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled;
-}
-
-QModelIndex SubjectFieldModel::parent(const QModelIndex& /*index*/) const
-{
-    return QModelIndex();
-}
-
-int SubjectFieldModel::columnCount(const QModelIndex& parent) const
-{
-    if (parent.isValid())
-        return 0;
-    return 1;
-}
-/*
-inline
-Qt::ItemFlags SubjectFieldModel::flags ( const QModelIndex & index ) const
-{
-    if (index.column()==FuzzyFlag)
-        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
-    return QAbstractItemModel::flags(index);
-}*/
-
-int SubjectFieldModel::rowCount(const QModelIndex& parent) const
-{
-    if (parent.isValid())
-        return 0;
-    return Project::instance()->glossary()->subjectFields.size();
-}
-
-QVariant SubjectFieldModel::data(const QModelIndex& index, int role) const
-{
-    if (role == Qt::DisplayRole || role == Qt::EditRole)
-        return Project::instance()->glossary()->subjectFields.at(index.row());
-    return QVariant();
-}
-
-bool SubjectFieldModel::insertRows(int row, int count, const QModelIndex& parent)
-{
-    beginInsertRows(parent, row, row + count - 1);
-
-    QStringList& subjectFields = Project::instance()->glossary()->subjectFields;
-
-    while (--count >= 0)
-        subjectFields.insert(row + count, QString());
-
-    endInsertRows();
-    return true;
-}
-
-bool SubjectFieldModel::setData(const QModelIndex& index, const QVariant& value, int role)
-{
-    QStringList& subjectFields = Project::instance()->glossary()->subjectFields;
-    subjectFields[index.row()] = value.toString();
-    return true;
-}
-
-bool SubjectFieldModel::setItemData(const QModelIndex& index, const QMap<int, QVariant>& roles)
-{
-    if (roles.contains(Qt::EditRole)) {
-        QStringList& subjectFields = Project::instance()->glossary()->subjectFields;
-        subjectFields[index.row()] = roles.value(Qt::EditRole).toString();
-    }
-    return true;
-}
-#endif
-// END SubjectFieldModel
 
 // BEGIN GlossaryWindow
 
@@ -191,7 +75,6 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     , m_proxyModel(new GlossarySortFilterProxyModel(this))
     , m_reactOnSignals(true)
 {
-    // setAttribute(Qt::WA_DeleteOnClose, true);
     setAttribute(Qt::WA_DeleteOnClose, false);
 
     QSplitter *splitter = new QSplitter(Qt::Horizontal, this);
@@ -244,7 +127,6 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
         btnsLayout->addWidget(restoreBtn);
 
         layout->addWidget(btns);
-        // QWidget::setTabOrder(m_browser,addBtn);
         QWidget::setTabOrder(addBtn, rmBtn);
         QWidget::setTabOrder(rmBtn, restoreBtn);
         QWidget::setTabOrder(restoreBtn, m_filterEdit);
@@ -280,8 +162,6 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
 
     connect(m_subjectField->lineEdit(), &QLineEdit::editingFinished, this, &GlossaryWindow::applyEntryChange);
 
-    // m_subjectField->addItems(Project::instance()->glossary()->subjectFields());
-    // m_subjectField->setModel(new SubjectFieldModel(this));
     QStringList subjectFields = Project::instance()->glossary()->subjectFields();
     std::sort(subjectFields.begin(), subjectFields.end());
     QStringListModel *subjectFieldsModel = new QStringListModel(this);
@@ -297,10 +177,6 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     // TODO
 
     setAutoSaveSettings(QLatin1String("GlossaryWindow"), true);
-    // Glossary* glossary=Project::instance()->glossary();
-    /*setCaption(i18nc("@title:window","Glossary"),
-              !glossary->changedIds.isEmpty()||!glossary->addedIds.isEmpty()||!glossary->removedIds.isEmpty());
-              */
 }
 
 void GlossaryWindow::setFocus()
@@ -338,9 +214,6 @@ void GlossaryWindow::showEntryInEditor(const QByteArray &id)
 
     m_sourceTermsModel->setEntry(id);
     m_targetTermsModel->setEntry(id);
-
-    // m_sourceTermsModel->setStringList(glossary->terms(id,project->sourceLangCode()));
-    // m_targetTermsModel->setStringList(glossary->terms(id,project->targetLangCode()));
 
     m_reactOnSignals = true;
 }
@@ -382,8 +255,6 @@ void GlossaryWindow::applyEntryChange()
     if (prevFocusWidget)
         prevFocusWidget->setFocus();
 
-    //  QSortFilterProxyModel* proxyModel=static_cast<QSortFilterProxyModel*>(model());
-    // GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
     const QModelIndex &idx = m_proxyModel->mapToSource(m_browser->currentIndex());
     if (!idx.isValid())
         return;
@@ -432,7 +303,6 @@ void GlossaryWindow::rmTermEntry(int i)
 {
     setCaption(i18nc("@title:window", "Glossary"), true);
 
-    // QSortFilterProxyModel* proxyModel=static_cast<QSortFilterProxyModel*>(model());
     GlossaryModel *sourceModel = static_cast<GlossaryModel *>(m_proxyModel->sourceModel());
 
     if (i == -1) {

@@ -87,7 +87,6 @@ QVariant QaModel::headerData(int section, Qt::Orientation, int role) const
         return QVariant();
 
     switch (section) {
-    // case ID: return i18nc("@title:column","ID");
     case Source:
         return i18nc("@title:column Original text", "Source");
         ;
@@ -164,7 +163,6 @@ bool QaModel::saveRules(QString filename)
     QTextStream stream(&device);
     m_doc.save(stream, 2);
 
-    // setClean(true);
     return true;
 }
 

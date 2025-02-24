@@ -25,7 +25,7 @@ public:
         ColumnCount,
     };
 
-    explicit QaModel(QObject *parent = nullptr /*, Glossary* glossary*/);
+    explicit QaModel(QObject *parent = nullptr);
     ~QaModel() override;
 
     bool loadRules(const QString &filename);

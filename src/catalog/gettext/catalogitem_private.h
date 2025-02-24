@@ -47,8 +47,6 @@ public:
     QVector<QString> _msgidPlural;
     QVector<QString> _msgstrPlural;
 
-    // QVector<QString> _errors;
-
     CatalogItemPrivate()
         : _plural(false)
         , _valid(true)
@@ -74,7 +72,6 @@ inline void CatalogItemPrivate::clear()
     _msgctxt.clear();
     _msgidPlural.clear();
     _msgstrPlural.clear();
-    //_errors.clear();
 }
 
 inline void CatalogItemPrivate::assign(const CatalogItemPrivate &other)
@@ -84,7 +81,6 @@ inline void CatalogItemPrivate::assign(const CatalogItemPrivate &other)
     _msgidPlural = other._msgidPlural;
     _msgstrPlural = other._msgstrPlural;
     _valid = other._valid;
-    //_errors=other._errors;
     _plural = other._plural;
     _fuzzyCached = other._fuzzyCached;
 }

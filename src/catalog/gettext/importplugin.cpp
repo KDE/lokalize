@@ -101,12 +101,10 @@ void CatalogImportPlugin::commitTransaction()
 {
     GettextStorage *catalog = d->_catalog;
 
-    // catalog->clear();
-
     // fill in the entries
     QVector<CatalogItem> &entries = catalog->m_entries;
     entries.reserve(d->_entries.size()); // d->_catalog->setEntries( e );
-    for (std::list<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it /*,++i*/)
+    for (std::list<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it)
         entries.append(*it);
 
     // The codec is specified in the header, so it must be updated before the header is.
@@ -115,7 +113,6 @@ void CatalogImportPlugin::commitTransaction()
     catalog->m_catalogExtraData = d->_catalogExtraData;
     catalog->m_generatedFromDocbook = d->_generatedFromDocbook;
     catalog->setHeader(d->_header);
-    // if( d->_updateErrorList ) d->_catalog->setErrorIndex(d->_errorList);
 
     catalog->m_maxLineLength = _maxLineLength;
 }

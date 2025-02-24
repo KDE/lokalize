@@ -58,7 +58,6 @@ void LanguageToolResultJob::start()
     QNetworkRequest request(QUrl::fromUserInput(mUrl));
     addRequestAttribute(request);
     const QByteArray ba = "text=" + mText.toUtf8() + "&language=" + mLanguage.toLatin1();
-    // qCWarning(LOKALIZE_LOG) << "Sending LT query" << ba;
     QNetworkReply *reply = mNetworkAccessManager->post(request, ba);
     connect(reply, &QNetworkReply::finished, this, &LanguageToolResultJob::slotCheckGrammarFinished);
     connect(mNetworkAccessManager, &QNetworkAccessManager::finished, this, &LanguageToolResultJob::slotFinish);

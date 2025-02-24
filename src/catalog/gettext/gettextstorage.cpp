@@ -26,15 +26,12 @@
 
 QMutex regExMutex;
 
-// static QString GNUPluralForms(const QString& lang);
-
 using namespace GettextCatalog;
 
 // BEGIN OPEN/SAVE
 
-int GettextStorage::load(QIODevice *device /*, bool readonly*/)
+int GettextStorage::load(QIODevice *device)
 {
-    // GettextImportPlugin importer=GettextImportPlugin(readonly?(new ExtraDataSaver()):(new ExtraDataListSaver()));
     GettextImportPlugin importer;
     ConversionStatus status = OK;
     int errorLine{};
@@ -57,7 +54,6 @@ int GettextStorage::load(QIODevice *device /*, bool readonly*/)
         }
         ++i;
     }
-    // qCompress(m_storage->m_catalogExtraData.join("\n\n").toUtf8(),9);
 
     return status == OK ? 0 : (errorLine + 1);
 }
@@ -66,27 +62,25 @@ bool GettextStorage::save(QIODevice *device, bool belongsToProject)
 {
     QString header = m_header.msgstr();
     QString comment = m_header.comment();
-    QString catalogProjectId; //=m_url.fileName();
-    // catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
-    {
-        QMutexLocker locker(&regExMutex);
-        updateHeader(header,
-                     comment,
-                     m_targetLangCode,
-                     m_numberOfPluralForms,
-                     catalogProjectId,
-                     m_generatedFromDocbook,
-                     belongsToProject,
-                     /*forSaving*/ true,
-                     QStringLiteral("UTF-8")); // we unconditionally write out as UTF-8
-    }
+    QString catalogProjectId;
+    static const bool isForSaving = true;
+    QMutexLocker locker(&regExMutex);
+    updateHeader(header,
+                 comment,
+                 m_targetLangCode,
+                 m_numberOfPluralForms,
+                 catalogProjectId,
+                 m_generatedFromDocbook,
+                 belongsToProject,
+                 isForSaving,
+                 QStringLiteral("UTF-8")); // we unconditionally write out as UTF-8
     m_header.setMsgstr(header);
     m_header.setComment(comment);
 
     GettextExportPlugin exporter(Project::instance()->wordWrap());
 
     ConversionStatus status = OK;
-    status = exporter.save(device /*x-gettext-translation*/, this);
+    status = exporter.save(device, this);
 
     return status == OK;
 }
@@ -297,14 +291,12 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition &pos) const
 
 Note GettextStorage::setNote(DocPosition pos, const Note &note)
 {
-    // qCWarning(LOKALIZE_LOG)<<"s"<<m_entries.at(pos.entry).comment();
     Note oldNote;
     QVector<Note> l = notes(pos);
     if (l.size())
         oldNote = l.first();
 
     QStringList comment = m_entries.at(pos.entry).comment().split(QLatin1Char('\n'));
-    // remove previous comment;
     QStringList::iterator it = comment.begin();
     while (it != comment.end()) {
         if (it->startsWith(QLatin1String("# ")))
@@ -316,7 +308,6 @@ Note GettextStorage::setNote(DocPosition pos, const Note &note)
         comment.prepend(QStringLiteral("# ") + note.content.split(QLatin1Char('\n')).join(QStringLiteral("\n# ")));
     m_entries[pos.entry].setComment(comment.join(QLatin1Char('\n')));
 
-    // qCWarning(LOKALIZE_LOG)<<"e"<<m_entries.at(pos.entry).comment();
     return oldNote;
 }
 
@@ -339,9 +330,6 @@ QVector<Note> GettextStorage::notes(const DocPosition &docPosition, const QRegul
         result << Note(content);
     }
     return result;
-
-    // i18nc("@info PO comment parsing. contains filename","<i>Place:</i>");
-    // i18nc("@info PO comment parsing","<i>GUI place:</i>");
 }
 
 QVector<Note> GettextStorage::notes(const DocPosition &docPosition) const
@@ -393,15 +381,6 @@ QStringList GettextStorage::context(const DocPosition &pos) const
 QStringList GettextStorage::matchData(const DocPosition &pos) const
 {
     QString ctxt = m_entries.at(pos.entry).msgctxt();
-
-    // KDE-specific
-    // Splits @info:whatsthis and actual note
-    /*    if (ctxt.startsWith('@') && ctxt.contains(' '))
-        {
-            QStringList result(ctxt.section(' ',0,0,Qt::SectionSkipEmpty));
-            result<<ctxt.section(' ',1,-1,Qt::SectionSkipEmpty);
-            return result;
-        }*/
     return QStringList(ctxt);
 }
 
@@ -414,9 +393,6 @@ QString GettextStorage::id(const DocPosition &pos) const
     result.remove(QLatin1Char('\n'));
     result.prepend(m_entries.at(pos.entry).msgctxt() + QLatin1String(":\n"));
     return result;
-    /*    QByteArray result=source(pos).toUtf8();
-        result+=m_entries.at(pos.entry).msgctxt().toUtf8();
-        return QString qChecksum(result);*/
 }
 
 bool GettextStorage::isPlural(const DocPosition &pos) const
@@ -450,11 +426,10 @@ bool GettextStorage::setHeader(const CatalogItem &newHeader)
         // normalize the values - ensure every key:value pair is only on a single line
         QString values = newHeader.msgstr();
         values.replace(QStringLiteral("\\n"), QStringLiteral("\\n\n"));
-        //       qCDebug(LOKALIZE_LOG) << "Normalized header: " << values;
         QString comment = newHeader.comment();
-        QString catalogProjectId; //=m_url.fileName(); FIXME m_url is always empty
-        // catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
+        QString catalogProjectId;
         bool belongsToProject = m_url.contains(Project::instance()->poDir());
+        static const bool isForSaving = true;
 
         updateHeader(values,
                      comment,
@@ -463,14 +438,11 @@ bool GettextStorage::setHeader(const CatalogItem &newHeader)
                      catalogProjectId,
                      m_generatedFromDocbook,
                      belongsToProject,
-                     /*forSaving*/ true,
+                     isForSaving,
                      QString::fromLatin1(m_codec));
         m_header = newHeader;
         m_header.setComment(comment);
         m_header.setMsgstr(values);
-
-        //       setClean(false);
-        // Q_EMIT signalHeaderChanged();
 
         return true;
     }

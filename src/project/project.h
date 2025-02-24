@@ -108,8 +108,6 @@ public:
     bool isFileMissing(const QString &filePath) const;
 
     void setDefaults() override;
-    // private Q_SLOTS:
-    //     void initLater();
 
 public Q_SLOTS:
     Q_SCRIPTABLE void load(const QString &newProjectPath, const QString &defaultTargetLangCode = QString(), const QString &defaultProjectId = QString());

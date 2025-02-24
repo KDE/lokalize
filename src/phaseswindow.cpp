@@ -206,7 +206,6 @@ PhasesWindow::PhasesWindow(Catalog *catalog, QWidget *parent)
     , m_browser(new QTextBrowser(this))
 {
     connect(this, &PhasesWindow::accepted, this, &PhasesWindow::handleResult);
-    // setAttribute(Qt::WA_DeleteOnClose, true);
     QVBoxLayout *l = new QVBoxLayout(this);
     QHBoxLayout *btns = new QHBoxLayout;
     l->addLayout(btns);
@@ -320,7 +319,6 @@ void PhasesWindow::noteEditAccepted()
     if (!m_phaseNotes.contains(phaseName))
         m_phaseNotes.insert(phaseName, m_catalog->phaseNotes(phaseName));
 
-    // QVector<Note> notes=m_phaseNotes.value(phaseName);
     if (m_editor->noteIndex() == -1)
         m_phaseNotes[phaseName].append(m_editor->note());
     else

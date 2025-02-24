@@ -284,7 +284,6 @@ void SettingsController::reflectProjectConfigChange()
 
 void SettingsController::reflectRelativePathsHack()
 {
-    // m_scriptsRelPrefWidget->clear();
     QStringList actionz(m_scriptsPrefWidget->items());
     QString projectDir(Project::instance()->projectDir());
     int i = actionz.size();

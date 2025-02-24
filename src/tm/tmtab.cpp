@@ -118,8 +118,6 @@ void TMDBModel::setFilter(const QString &source, const QString &target, bool inv
             targetQuery =
                 QStringLiteral("AND target_strings.target ") + invertTargetStr + QStringLiteral("LIKE '%") + escapedTarget + QStringLiteral("%' ESCAPE '\b' ");
     } else if (m_queryType == WordOrder) {
-        /*escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
-        escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");*/
         const QRegularExpression wre(QStringLiteral("\\W"), QRegularExpression::UseUnicodePropertiesOption);
         QStringList sourceList = escapedSource.split(wre, Qt::SkipEmptyParts);
         QStringList targetList = escapedTarget.split(wre, Qt::SkipEmptyParts);
@@ -187,7 +185,6 @@ bool TMDBModel::rowIsApproved(int row) const
 
 int TMDBModel::translationStatus(const QModelIndex &item) const
 {
-    // QMutexLocker locker(&m_dbOperationMutex);
     if (QSqlQueryModel::data(item.sibling(item.row(), Target), Qt::DisplayRole).toString().isEmpty())
         return 2;
     return int(!rowIsApproved(item.row()));
@@ -196,7 +193,6 @@ int TMDBModel::translationStatus(const QModelIndex &item) const
 #define TM_DELIMITER '\v'
 QVariant TMDBModel::data(const QModelIndex &item, int role) const
 {
-    // QMutexLocker locker(&m_dbOperationMutex);
     bool doHtml = (role == FastSizeHintItemDelegate::HtmlDisplayRole);
     if (doHtml)
         role = Qt::DisplayRole;
@@ -210,8 +206,6 @@ QVariant TMDBModel::data(const QModelIndex &item, int role) const
         return translationStatus(item);
 
     QVariant result = QSqlQueryModel::data(item, role);
-    /*    if (role==Qt::SizeHintRole && !result.isValid())
-            BIG_COUNTER++;*/
     if (role != Qt::DisplayRole)
         return result;
 
@@ -266,7 +260,6 @@ protected:
 private:
     QVector<Rule> m_rules;
     mutable QMap<int, int> m_matchingRulesForSourceRow;
-    // mutable QMap<int, QVector<StartLen> > m_highlightDataForSourceRow;
 };
 
 bool TMResultsSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
@@ -326,8 +319,6 @@ QVariant TMResultsSortFilterProxyModel::data(const QModelIndex &index, int role)
         if (match.hasMatch())
             return string.replace(match.capturedStart(), match.capturedLength(), QStringLiteral("<b>") + match.capturedView(0) + QStringLiteral("</b>"));
     }
-
-    // StartLen sl=m_highlightDataForSourceRow.value(source_row).at(index.column());
 
     return result;
 }

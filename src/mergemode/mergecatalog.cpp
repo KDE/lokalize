@@ -42,7 +42,6 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition &pos, int options)
 
         // note the explicit use of map...
         if (m_storage->isApproved(ourPos) != m_baseCatalog->isApproved(pos))
-            // qCWarning(LOKALIZE_LOG)<<ourPos.entry<<"MISMATCH";
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         DocPos p(pos);
         if (!m_originalHashes.contains(p))
@@ -120,22 +119,6 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition &basePos, const DocPosit
         item.translationIsDifferent = baseStorage.isApproved(basePos) != mergeStorage.isApproved(mergePos);
         item.score += 29 + 1 * item.translationIsDifferent;
     }
-#if 0
-    if (baseStorage.source(basePos) == "%1 (%2)") {
-        qCDebug(LOKALIZE_LOG) << "BASE";
-        qCDebug(LOKALIZE_LOG) << m_baseCatalog->url();
-        qCDebug(LOKALIZE_LOG) << basePos.entry;
-        qCDebug(LOKALIZE_LOG) << baseStorage.source(basePos);
-        qCDebug(LOKALIZE_LOG) << baseMatchData.first();
-        qCDebug(LOKALIZE_LOG) << "MERGE";
-        qCDebug(LOKALIZE_LOG) << url();
-        qCDebug(LOKALIZE_LOG) << mergePos.entry;
-        qCDebug(LOKALIZE_LOG) << mergeStorage.source(mergePos);
-        qCDebug(LOKALIZE_LOG) << mergeStorage.matchData(mergePos).first();
-        qCDebug(LOKALIZE_LOG) << item.score;
-        qCDebug(LOKALIZE_LOG) << "";
-    }
-#endif
     return item;
 }
 
@@ -201,7 +184,6 @@ int MergeCatalog::loadFromUrl(const QString &filePath, const QString &saidFilePa
         if (basePositions.size() == 1)
             continue;
 
-        // qCDebug(LOKALIZE_LOG)<<"kv"<<mergePosition<<basePositions;
         QList<MatchItem> scores;
         for (int value : basePositions)
             scores << calcMatchItem(DocPosition(value), DocPosition(mergePosition));
@@ -209,18 +191,12 @@ int MergeCatalog::loadFromUrl(const QString &filePath, const QString &saidFilePa
         std::sort(scores.begin(), scores.end(), std::greater<MatchItem>());
         int i = scores.size();
         while (--i > 0) {
-            // qCDebug(LOKALIZE_LOG)<<"erasing"<<scores.at(i).baseEntry<<m_map[scores.at(i).baseEntry]<<",m_map["<<scores.at(i).baseEntry<<"]=-1";
             m_map[scores.at(i).baseEntry] = -1;
         }
     }
 
     // fuzzy match unmatched entries?
-    /*    QMultiHash<QString, int>::iterator it = mergeMap.begin();
-        while (it != mergeMap.end())
-        {
-            //qCWarning(LOKALIZE_LOG)<<it.value()<<it.key();
-            ++it;
-        }*/
+
     m_unmatchedCount = numberOfEntries() - mergePositions.count();
     m_modified = false;
     m_originalHashes.clear();
@@ -289,10 +265,8 @@ void MergeCatalog::copyToBaseCatalog(int options)
         int formsCount = (m_baseCatalog->isPlural(entry)) ? m_baseCatalog->numberOfPluralForms() : 1;
         pos.form = 0;
         while (pos.form < formsCount) {
-            // m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0))); ?
             // some forms may still contain translation...
-            if (!(options & EmptyOnly && !m_baseCatalog->isEmpty(pos)) /*&&
-                !(options&HigherOnly && !m_baseCatalog->isEmpty(pos) && m_baseCatalog->state(pos)>=state(pos))*/) {
+            if (!(options & EmptyOnly && !m_baseCatalog->isEmpty(pos))) {
                 if (!insHappened) {
                     // stop basecatalog from sending signalEntryModified to us
                     // when we are the ones who does the modification
@@ -302,15 +276,9 @@ void MergeCatalog::copyToBaseCatalog(int options)
                 }
 
                 copyToBaseCatalog(pos);
-                /// ///
-                /// m_baseCatalog->push(new InsTextCmd(m_baseCatalog,pos,mergeCatalog.msgstr(pos)));
-                /// ///
             }
             ++(pos.form);
         }
-        /// ///
-        /// removeFromDiffIndex(m_pos.entry);
-        /// ///
     }
 
     if (insHappened) {

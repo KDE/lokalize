@@ -57,9 +57,6 @@ public Q_SLOTS:
     void mergeBack();
 
 Q_SIGNALS:
-    //     //we connect it to our internal mergeCatalog to remove entry from index
-    //     void entryModified(uint);
-
     void signalPriorChangedAvailable(bool);
     void signalNextChangedAvailable(bool);
     void signalEntryWithMergeDisplayed(bool);

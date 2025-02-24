@@ -388,32 +388,6 @@ protected:
 public:
     QWidget *m_view;
 };
-#if 0
-we use index stored in db now...
-
-
-
-//create index --called on startup
-class IndexWordsJob: public QRunnable
-{
-    Q_OBJECT
-public:
-    IndexWordsJob(QObject* parent = nullptr);
-    ~IndexWordsJob();
-
-    int priority() const
-    {
-        return 100;
-    }
-
-protected:
-    void run();
-public:
-    TMWordHash m_tmWordHash;
-
-    //statistics?
-};
-#endif
 
 class ImportTmxJob : public QRunnable, public Job
 {
@@ -438,8 +412,6 @@ public:
     QString m_dbName;
 };
 
-// #if 0
-
 class ExportTmxJob : public QRunnable, public Job
 {
 public:
@@ -462,8 +434,6 @@ public:
 
     QString m_dbName;
 };
-
-// #endif
 
 class ExecQueryJob : public QObject, public QRunnable, public Job
 {

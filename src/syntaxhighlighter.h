@@ -49,15 +49,12 @@ protected:
 private Q_SLOTS:
     void settingsChanged();
 
-    //    void setFormatRetainingUnderlines(int start, int count, QTextCharFormat format);
 private:
     struct HighlightingRule {
         QRegularExpression pattern;
         QTextCharFormat format;
     };
     QVector<HighlightingRule> highlightingRules;
-
-    //     bool fromDocbook;
     QTextCharFormat tagFormat;
     KStatefulBrush tagBrush{KColorScheme::View, KColorScheme::VisitedText};
     KStatefulBrush escapeCharBrush{KColorScheme::View, KColorScheme::PositiveText};

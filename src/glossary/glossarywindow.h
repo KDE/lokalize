@@ -16,10 +16,8 @@
 #include <kmainwindow.h>
 #include <ktextedit.h>
 
-// class KTextEdit;
 class QLineEdit;
 class KComboBox;
-// class QStringListModel;
 
 class AuxTextEdit : public KTextEdit
 {
@@ -139,25 +137,5 @@ private:
     QString m_lang;
     QByteArray m_id;
 };
-
-/*
-class GlossaryItemDelegate : public QItemDelegate//KFileItemDelegate
-{
-    Q_OBJECT
-
-public:
-    GlossaryItemDelegate(QObject *parent=0)
-        : QItemDelegate(parent)
-    {}
-    ~GlossaryItemDelegate(){}
-    bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
-Q_SIGNALS:
-    void selected(const QUrl&);
-    void newWindowOpenRequested(const QUrl&);
-
-};
-
-*/
-
 }
 #endif

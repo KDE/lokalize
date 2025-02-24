@@ -85,19 +85,6 @@ void POExtractor::handleLine(const char *data, uint32_t length)
     } else {
         state = ERROR;
     }
-#if 0
-    if (messages > 1 || state != MSGSTR) return;
-
-    // handle special values in the first messsage
-    // assumption is that value takes up only one line
-    if (strncmp("\"POT-Creation-Date: ", data, 20) == 0) {
-        result->add(Property::TranslationTemplateDate, QByteArray(data + 20, length - 21));
-    } else if (strncmp("\"PO-Revision-Date: ", data, 19) == 0) {
-        result->add(Property::TranslationLastUpDate, QByteArray(data + 19, length - 20));
-    } else if (strncmp("\"Last-Translator: ", data, 18) == 0) {
-        result->add(Property::TranslationLastAuthor, QByteArray(data + 18, length - 19));
-    }
-#endif
 }
 
 FileMetaData POExtractor::extract(const QString &filePath)
@@ -119,9 +106,6 @@ FileMetaData POExtractor::extract(const QString &filePath)
     FileMetaData m;
     while (std::getline(fstream, line)) {
         // TODO add a parsed text of translation units
-        // QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
-        // result->append(QString::fromUtf8(arr));
-
         handleLine(line.c_str(), line.size());
         lines++;
 
@@ -140,13 +124,6 @@ FileMetaData POExtractor::extract(const QString &filePath)
     }
     handleLine("", 0); // for files with non-empty last line
     messages--; // cause header does not count
-
-    /*
-        result->add(Property::TranslationUnitsTotal, messages);
-        result->add(Property::TranslationUnitsWithTranslation, messages-untranslated);
-        result->add(Property::TranslationUnitsWithDraftTranslation, fuzzy);
-        result->add(Property::LineCount, lines);
-    */
 
     // TODO WordCount
     m.fuzzy = fuzzy;

@@ -57,7 +57,7 @@ DBFilesModel::DBFilesModel()
     m_fileSystemModel->setRootPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 
     setSourceModel(m_fileSystemModel);
-    connect(this, &DBFilesModel::rowsInserted, this, &DBFilesModel::calcStats /*,Qt::QueuedConnection*/);
+    connect(this, &DBFilesModel::rowsInserted, this, &DBFilesModel::calcStats);
 
     connect(this, &DBFilesModel::dataChanged, this, &DBFilesModel::updateStats, Qt::QueuedConnection);
     m_timeSinceLastUpdate.start();
@@ -155,8 +155,6 @@ void DBFilesModel::calcStats(const QModelIndex &parent, int start, int end)
         QString res = index.data().toString();
         if (Q_UNLIKELY(res == projectID && (!projectDB || data(*projectDB).toString() != projectID)))
             projectDB = new QPersistentModelIndex(index); // TODO if user switches the project
-        //         if (Q_LIKELY( QSqlDatabase::contains(res) ))
-        //             continue;
         openDB(res, DbType(index.data(FileNameRole).toString().endsWith(remoteTmExtension)));
     }
 }
@@ -220,7 +218,6 @@ QVariant DBFilesModel::data(const QModelIndex &index, int role) const
     if (role == NameRole)
         return res;
 
-    // qCDebug(LOKALIZE_LOG)<<m_stats[res].uniqueSourcesCount<<(index.column()==OriginalsCount);
     switch (index.column()) {
     case Name:
         return res;

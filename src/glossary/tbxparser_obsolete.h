@@ -58,7 +58,6 @@ public:
     bool characters(const QString &);
 
 private:
-    //    bool inTermTag:1;
     State m_state : 8;
     Lang m_lang : 8;
     QString m_termEn;

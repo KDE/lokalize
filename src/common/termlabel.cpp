@@ -20,28 +20,6 @@
 #include <klocalizedstring.h>
 
 using namespace GlossaryNS;
-// #include <QShortcutEvent>
-
-// TermLabel::TermLabel(QAction* action/*const QString& shortcutQWidget* parent,Qt::Key key,const QString& termTransl*/)
-//         : m_action(action)
-//     //: m_shortcut(shortcut)
-//    // : QLabel(/*parent*/)
-//     //, m_termTransl(termTransl)
-//     {
-// //         setFlat(true);
-// //         grabShortcut(Qt::AltModifier+Qt::ControlModifier+key);
-// //         qCWarning(LOKALIZE_LOG) << "dsds " << grabShortcut(Qt::AltModifier+key);
-//     }
-//     //~TermLabel(){}
-// // bool TermLabel::event(QEvent *event)
-// // {
-// //     if (event->type() != QEvent::Shortcut)
-// //         return QLabel::event(event);
-// //
-// // //         qCWarning(LOKALIZE_LOG) << "dsds " << m_termTransl;
-// //     Q_EMIT insertTerm(m_termTransl);
-// //     return true;
-// // }
 
 void TermLabel::insert()
 {

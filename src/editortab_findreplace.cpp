@@ -38,7 +38,6 @@
 static long makeOptions(long options, const Ui_findExtension *ui_findExtension)
 {
     return options + IGNOREACCELS * ui_findExtension->m_ignoreAccelMarks->isChecked() + INCLUDENOTES * ui_findExtension->m_notes->isChecked();
-    // bool skipMarkup(){return ui_findExtension->m_skipTags->isChecked();}
 }
 
 class EntryFindDialog : public KFindDialog
@@ -134,7 +133,6 @@ EntryReplaceDialog::EntryReplaceDialog(QWidget *parent)
     , ui_findExtension(new Ui_findExtension)
 {
     ui_findExtension->setupUi(findExtension());
-    // ui_findExtension->m_notes->hide();
     setHasSelection(false);
 
     KConfig config;
@@ -156,7 +154,7 @@ EntryReplaceDialog::~EntryReplaceDialog()
 }
 // END EntryReplaceDialog
 
-// TODO &amp;, &nbsp;
+// TODO &amp;, &nbsp; ...
 static void calcOffsetWithAccels(const QString &data, int &offset, int &length)
 {
     int i = 0;
@@ -187,7 +185,6 @@ static bool determineStartingPos(Catalog *m_catalog, KFind *find, DocPosition &p
 
 void EditorTab::find()
 {
-    // QWidget* p=0; QWidget* next=qobject_cast<QWidget*>(parent()); while(next) { p=next; next=qobject_cast<QWidget*>(next->parent()); }
     EntryFindDialog::instance(nativeParentWidget());
 
     QString sel = selectionInTarget();
@@ -237,7 +234,6 @@ void EditorTab::findNext(const DocPosition &startingPos)
     if (anotherEntry)
         _searchingPos.offset = 0;
 
-    //_searchingPos.part=DocPosition::Source;
     bool ignoreaccels = m_find->options() & IGNOREACCELS;
     bool includenotes = m_find->options() & INCLUDENOTES;
     int switchOptions = DocPosition::Source | DocPosition::Target | (includenotes * DocPosition::Comment);
@@ -262,7 +258,6 @@ void EditorTab::findNext(const DocPosition &startingPos)
             }
 
             res = find.find();
-            // offset=-1;
             if (res != KFind::NoMatch)
                 break;
 
@@ -341,16 +336,7 @@ void EditorTab::replace()
         connect(m_replace, &KReplace::findNext, this, qOverload<>(&EditorTab::replaceNext));
         connect(m_replace, &KReplace::textReplaced, this, &EditorTab::doReplace);
         connect(m_replace, &KReplace::dialogClosed, this, &EditorTab::cleanupReplace);
-        //         _replace->closeReplaceNextDialog();
     }
-    //     else
-    //     {
-    //         _replace->resetCounts();
-    //         _replace->setPattern(EntryReplaceDialog::instance()->pattern());
-    //         _replace->setOptions(EntryReplaceDialog::instance()->options());
-    //     }
-
-    // m_catalog->beginMacro(i18nc("@item Undo action item","Replace"));
     m_doReplaceCalled = false;
 
     if (m_replace->options() & KFind::FromCursor)
@@ -380,9 +366,8 @@ void EditorTab::replaceNext(const DocPosition &startingPos)
         flag = 0;
         KFind::Result res = KFind::NoMatch;
         while (true) {
-            if (m_replace->needData() || anotherEntry /*||m_view->m_modifiedAfterFind*/) {
+            if (m_replace->needData() || anotherEntry) {
                 anotherEntry = false;
-                // m_view->m_modifiedAfterFind=false;//NOTE TEST THIS
 
                 QString data;
                 if (_replacingPos.part == DocPosition::Comment)
@@ -494,7 +479,6 @@ void EditorTab::spellcheck()
     _spellcheckPos = m_currentPos;
     _spellcheckStartPos = m_currentPos;
     m_spellcheckStop = false;
-    // m_catalog->beginMacro(i18n("Spellcheck"));
     m_spellcheckStartUndoIndex = m_catalog->index();
     m_sonnetDialog->show();
 }

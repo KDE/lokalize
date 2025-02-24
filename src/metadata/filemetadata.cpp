@@ -25,8 +25,6 @@ FileMetaData FileMetaData::extract(const QString &filePath)
         XliffExtractor extractor;
         return extractor.extract(filePath);
     } else if (filePath.endsWith(QLatin1String(".ts"))) {
-        // POExtractor extractor;
-        // extractor.extract(filePath, m);
     }
 
     return {};

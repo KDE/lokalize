@@ -30,34 +30,13 @@ FlowLayout::FlowLayout(User user, QWidget *signalingWidget, const QVector<QActio
 
     if (user == glossary) {
         for (QAction *action : actions) {
-            TermLabel *label = new TermLabel(action); /*this,m_keys.at(count())*/
+            TermLabel *label = new TermLabel(action);
             connect(action, &QAction::triggered, label, &GlossaryNS::TermLabel::insert);
             connect(label, &GlossaryNS::TermLabel::insertTerm, (GlossaryNS::GlossaryView *)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
             label->hide();
             addWidget(label);
         }
     }
-
-    //     if (m_keys.isEmpty())
-    //     {
-    // //         Qt::Key key=Qt::Key_A;
-    // //         for (;key<=Qt::Key_Z;++key)
-    // //         {
-    // //             if (KGlobalAccel::findActionNameSystemwide(Qt::AltModifier+key).isEmpty())
-    // //             {
-    // //                 keys.append(key);
-    // //             }
-    // //         }
-    //         int i=(int)Qt::Key_A;
-    //         for (;i<=(int)Qt::Key_Z;++i)
-    //         {
-    //             if (KGlobalAccel::findActionNameSystemwide(Qt::AltModifier+Qt::ControlModifier+(Qt::Key)i).isEmpty())
-    //             {
-    //                 m_keys.append((Qt::Key)i);
-    //             }
-    //         }
-    //
-    //     }
 }
 
 FlowLayout::~FlowLayout()
