@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-24 09:39+0000\n"
+"POT-Creation-Date: 2025-02-25 00:42+0000\n"
 "PO-Revision-Date: 2025-01-08 15:37+0100\n"
 "Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -745,72 +745,72 @@ msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "Variante: Eine alternative Form eines Ausdrucks"
 
-#: src/catalog/cmd.cpp:81
+#: src/catalog/cmd.cpp:79
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "Einfügung"
 
-#: src/catalog/cmd.cpp:121
+#: src/catalog/cmd.cpp:119
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "Löschung"
 
-#: src/catalog/cmd.cpp:170
+#: src/catalog/cmd.cpp:166
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "Verbesserung umschalten"
 
-#: src/catalog/cmd.cpp:188
+#: src/catalog/cmd.cpp:184
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "Hervorhebungseinfügung"
 
-#: src/catalog/cmd.cpp:211
+#: src/catalog/cmd.cpp:207
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "Hervorhebungslöschung"
 
-#: src/catalog/cmd.cpp:233
+#: src/catalog/cmd.cpp:229
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "Bemerkungs-Einstellungen"
 
-#: src/catalog/cmd.cpp:268
+#: src/catalog/cmd.cpp:264
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "Arbeitsschritt aktualisieren/hinzufügen"
 
-#: src/catalog/cmd.cpp:287
+#: src/catalog/cmd.cpp:283
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "Identische-Übersetzungs-Einstellungen"
 
-#: src/catalog/cmd.cpp:346
+#: src/catalog/cmd.cpp:340
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Hervorgehobenen Text entfernen"
 
-#: src/catalog/cmd.cpp:399 src/xlifftextedit.cpp:635
+#: src/catalog/cmd.cpp:388 src/xlifftextedit.cpp:576
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Hervorgehobenen Text einfügen"
 
-#: src/catalog/gettext/gettextstorage.cpp:107
+#: src/catalog/gettext/gettextstorage.cpp:101
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "Trennzeichen für alternative Texte mit verschiedener Länge"
 
-#: src/catalog/gettext/gettextstorage.cpp:293
+#: src/catalog/gettext/gettextstorage.cpp:287
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -819,24 +819,24 @@ msgstr ""
 "Vorheriger Quelltext, der durch Gettext bei der Übertragung zu einer neueren "
 "POT-Vorlagen-Datei gespeichert wurde"
 
-#: src/catalog/gettextheader.cpp:470
+#: src/catalog/gettextheader.cpp:459
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Name des Autors fehlt"
 
-#: src/catalog/gettextheader.cpp:471
+#: src/catalog/gettextheader.cpp:460
 #, kde-format
 msgid "Your name:"
 msgstr "Ihr Name:"
 
-#: src/catalog/gettextheader.cpp:482
+#: src/catalog/gettextheader.cpp:471
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "E-Mail des Autors fehlt"
 
-#: src/catalog/gettextheader.cpp:483
+#: src/catalog/gettextheader.cpp:472
 #, kde-format
 msgid "Your email:"
 msgstr "Ihre E-Mail-Adresse:"
@@ -853,13 +853,13 @@ msgid "Translation Units"
 msgstr "Übersetzungsliste"
 
 #: src/cataloglistview/cataloglistview.cpp:83
-#: src/glossary/glossarywindow.cpp:219 src/project/projecttab.cpp:57
+#: src/glossary/glossarywindow.cpp:102 src/project/projecttab.cpp:57
 #, kde-format
 msgid "Quick search..."
 msgstr "Schnellsuche ..."
 
 #: src/cataloglistview/cataloglistview.cpp:84
-#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:58
+#: src/glossary/glossarywindow.cpp:104 src/project/projecttab.cpp:58
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
@@ -875,7 +875,7 @@ msgstr "Einstellungen"
 msgid "Reset individual filter"
 msgstr "Filter zurücksetzen"
 
-#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:369
+#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:360
 #, kde-format
 msgid "Case insensitive"
 msgstr "Groß-/Kleinschreibung ignorieren"
@@ -971,99 +971,97 @@ msgctxt "@item:inmenu all columns"
 msgid "All"
 msgstr "Alle"
 
-#: src/cataloglistview/catalogmodel.cpp:105
+#: src/cataloglistview/catalogmodel.cpp:91
 #, kde-format
 msgctxt "@title:column"
 msgid "Entry"
 msgstr "Eintrag"
 
-#: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:349 src/glossary/glossary.cpp:198
-#: src/tm/qamodel.cpp:92 src/tm/tmtab.cpp:64
+#: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:349
+#: src/glossary/glossary.cpp:193 src/tm/qamodel.cpp:91 src/tm/tmtab.cpp:64
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "Quelle"
 
-#: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:351 src/glossary/glossary.cpp:201
-#: src/tm/tmtab.cpp:65
+#: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:351
+#: src/glossary/glossary.cpp:196 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
 msgstr "Ziel"
 
-#: src/cataloglistview/catalogmodel.cpp:111
+#: src/cataloglistview/catalogmodel.cpp:97
 #, kde-format
 msgctxt "@title:column"
 msgid "Notes"
 msgstr "Bemerkungen"
 
-#: src/cataloglistview/catalogmodel.cpp:113 src/tm/tmtab.cpp:66
+#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Kontext"
 
-#: src/cataloglistview/catalogmodel.cpp:115
+#: src/cataloglistview/catalogmodel.cpp:101
 #, kde-format
 msgctxt "@title:column"
 msgid "Files"
 msgstr "Dateien"
 
-#: src/cataloglistview/catalogmodel.cpp:117
+#: src/cataloglistview/catalogmodel.cpp:103
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
 msgstr "Status"
 
-#: src/cataloglistview/catalogmodel.cpp:119
+#: src/cataloglistview/catalogmodel.cpp:105
 #, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "Quelllänge"
 
-#: src/cataloglistview/catalogmodel.cpp:121
+#: src/cataloglistview/catalogmodel.cpp:107
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Ziellänge"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:998
-#: src/editortab.cpp:1195 src/tm/tmtab.cpp:237
+#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:998
+#: src/editortab.cpp:1195 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Fertig"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1000
-#: src/editortab.cpp:1190 src/tm/tmtab.cpp:238
+#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1000
+#: src/editortab.cpp:1190 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Prüfung notwendig"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:996
-#: src/tm/tmtab.cpp:239
+#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:996
+#: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
 msgstr "Nicht übersetzt"
 
-#: src/common/languagelistmodel.cpp:96
+#: src/common/languagelistmodel.cpp:74
 #, kde-format
 msgctxt "%1 is a language name, e.g. Irish, %2 is language code, e.g. ga"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: src/common/languagelistmodel.cpp:136 src/tm/dbparams.ui:146
+#: src/common/languagelistmodel.cpp:114 src/tm/dbparams.ui:146
 #, kde-format
 msgid "Target language:"
 msgstr "Zielsprache:"
 
-#: src/common/termlabel.cpp:80
+#: src/common/termlabel.cpp:58
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
@@ -1077,7 +1075,7 @@ msgstr "Aktuell: %1"
 
 #: src/editortab.cpp:112 src/editortab.cpp:777
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
-#: src/tm/tmtab.cpp:590
+#: src/tm/tmtab.cpp:581
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -1505,13 +1503,13 @@ msgstr ""
 "Möchten Sie diese speichern oder verwerfen?"
 
 #: src/editortab.cpp:722 src/editortab.cpp:1300
-#: src/glossary/glossarywindow.cpp:478 src/lokalizemainwindow.cpp:973
+#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:973
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Warnung"
 
-#: src/editortab.cpp:742 src/mergemode/mergeview.cpp:183
+#: src/editortab.cpp:742 src/mergemode/mergeview.cpp:167
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1745,8 +1743,8 @@ msgstr ""
 "Beispiel-Skripte und weitere Informationen zu deren Einbindung in Ihre "
 "Projekte."
 
-#: src/editortab.cpp:1529 src/project/project.cpp:415
-#: src/project/project.cpp:420
+#: src/editortab.cpp:1529 src/project/project.cpp:414
+#: src/project/project.cpp:419
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Paket „translate-toolkit“ installieren und erneut versuchen"
@@ -1762,7 +1760,7 @@ msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "Ursprüngliches OpenDocument auswählen, auf dem die aktuelle XLIFF-basiert"
 
-#: src/editortab.cpp:1544 src/project/project.cpp:427
+#: src/editortab.cpp:1544 src/project/project.cpp:424
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument-Dateien (*.odt *.ods)"
@@ -1778,26 +1776,26 @@ msgctxt "@item Undo action item"
 msgid "Set unit text"
 msgstr "Einheitentext festlegen"
 
-#: src/editortab_findreplace.cpp:450
+#: src/editortab_findreplace.cpp:435
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "Ersetzen"
 
-#: src/editortab_findreplace.cpp:514
+#: src/editortab_findreplace.cpp:498
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr ""
 "Lokalize hat das Ende des Dokument erreicht. Möchten Sie vom Anfang beginnen?"
 
-#: src/editortab_findreplace.cpp:515 src/editortab_findreplace.cpp:523
+#: src/editortab_findreplace.cpp:499 src/editortab_findreplace.cpp:507
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "Rechtschreibprüfung"
 
-#: src/editortab_findreplace.cpp:523
+#: src/editortab_findreplace.cpp:507
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Die Rechtschreibprüfung ist beendet"
@@ -1904,13 +1902,13 @@ msgstr ""
 "<p>Dieser Teil des Fensters zeigt den Originaltext\n"
 "des aktuell angezeigten Eintrags.</p></qt>"
 
-#: src/editorview.cpp:176
+#: src/editorview.cpp:173
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Plural %1"
 
-#: src/editorview.cpp:246
+#: src/editorview.cpp:237
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -2006,17 +2004,17 @@ msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Suchen und Ersetzen in Dateien"
 
-#: src/filesearch/filesearchtab.cpp:477 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:477 src/tm/tmtab.cpp:396
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Quelle in Zwischenablage kopieren"
 
-#: src/filesearch/filesearchtab.cpp:483 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:483 src/tm/tmtab.cpp:402
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Ziel in Zwischenablage kopieren"
 
-#: src/filesearch/filesearchtab.cpp:489 src/tm/tmtab.cpp:417
+#: src/filesearch/filesearchtab.cpp:489 src/tm/tmtab.cpp:408
 #, kde-format
 msgid "Open file"
 msgstr "Datei öffnen"
@@ -2057,15 +2055,15 @@ msgstr "Vorschau"
 msgid "Mass Replace"
 msgstr "Alles ersetzen"
 
-#: src/glossary/glossary.cpp:203
+#: src/glossary/glossary.cpp:198
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Themenbereich"
 
 #: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:392 src/glossary/glossarywindow.cpp:418
-#: src/glossary/glossarywindow.cpp:433 src/glossary/glossarywindow.cpp:451
+#: src/glossary/glossarywindow.cpp:263 src/glossary/glossarywindow.cpp:289
+#: src/glossary/glossarywindow.cpp:304 src/glossary/glossarywindow.cpp:321
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
@@ -2087,19 +2085,19 @@ msgstr ""
 "Übersetzung die fraglichen Wörter, bevor Sie den <interface>Neuen Begriff "
 "hinzufügen</interface>.)</p>"
 
-#: src/glossary/glossarywindow.cpp:236
+#: src/glossary/glossarywindow.cpp:119
 #, kde-format
 msgctxt "@action:button reloads glossary from disk"
 msgid "Restore from disk"
 msgstr "Vom Datenträger wiederherstellen"
 
-#: src/glossary/glossarywindow.cpp:237
+#: src/glossary/glossarywindow.cpp:120
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "Lädt das Glossar neu vom Datenträger und verwirft Änderungen"
 
-#: src/glossary/glossarywindow.cpp:476
+#: src/glossary/glossarywindow.cpp:346
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2271,7 +2269,7 @@ msgstr "Die Übersetzungsdatenbank-Funktion benötigt das SQLite-Modul für Qt."
 msgid "No SQLite module available"
 msgstr "Es ist kein SQLite-Modul verfügbar."
 
-#: src/lokalizemainwindow.cpp:520 src/tm/tmtab.cpp:489
+#: src/lokalizemainwindow.cpp:520 src/tm/tmtab.cpp:480
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2315,7 +2313,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Übersetzungsdatenbank"
 
-#: src/lokalizemainwindow.cpp:564 src/tm/tmtab.cpp:492
+#: src/lokalizemainwindow.cpp:564 src/tm/tmtab.cpp:483
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -2575,13 +2573,13 @@ msgstr "Gewähltes Projekt öffnen."
 msgid "Document to open"
 msgstr "Zu öffnendes Dokument"
 
-#: src/mergemode/mergecatalog.cpp:249
+#: src/mergemode/mergecatalog.cpp:225
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "Änderung der Übersetzung akzeptieren"
 
-#: src/mergemode/mergecatalog.cpp:301
+#: src/mergemode/mergecatalog.cpp:275
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
@@ -2613,7 +2611,7 @@ msgstr ""
 "Ziehen Sie die Datei hierher, in die zusammengeführt bzw. abgeglichen werden "
 "soll, lesen Sie dann die Einträge im Kontextmenü"
 
-#: src/mergemode/mergeview.cpp:224
+#: src/mergemode/mergeview.cpp:206
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2623,7 +2621,7 @@ msgstr ""
 "Fehler beim Öffnen der Datei <filename>%1</filename> zum Abgleich. "
 "Fehlerzeile: %2"
 
-#: src/mergemode/mergeview.cpp:350
+#: src/mergemode/mergeview.cpp:332
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2785,7 +2783,7 @@ msgctxt "noun"
 msgid "Process (this will also change your role):"
 msgstr "Bearbeiten (Dies ändert auch Ihre Rolle):"
 
-#: src/phaseswindow.cpp:256
+#: src/phaseswindow.cpp:255
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Edit phases"
@@ -2915,7 +2913,7 @@ msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Erscheinungsbild"
 
-#: src/prefs/prefs.cpp:125 src/tm/tmtab.cpp:382
+#: src/prefs/prefs.cpp:125 src/tm/tmtab.cpp:373
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
@@ -3812,17 +3810,17 @@ msgstr "Projekt"
 msgid "Language-Team:"
 msgstr "Sprachenteam:"
 
-#: src/project/project.cpp:392
+#: src/project/project.cpp:391
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Ordner mit Quelldateien wird durchsucht"
 
-#: src/project/project.cpp:392
+#: src/project/project.cpp:391
 #, kde-format
 msgid "Editor"
 msgstr "Editor"
 
-#: src/project/project.cpp:434
+#: src/project/project.cpp:431
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3875,13 +3873,13 @@ msgstr "Der Basisordner für POT-Dateien (zu übersetzende Vorlagen)"
 msgid "Project's glossary"
 msgstr "Projekt-Glossar"
 
-#: src/project/projectmodel.cpp:503
+#: src/project/projectmodel.cpp:469
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Name"
 
-#: src/project/projectmodel.cpp:505
+#: src/project/projectmodel.cpp:471
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3889,55 +3887,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "Grafik"
 
-#: src/project/projectmodel.cpp:507
+#: src/project/projectmodel.cpp:473
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "Gesamt"
 
-#: src/project/projectmodel.cpp:509
+#: src/project/projectmodel.cpp:475
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Übersetzt"
 
-#: src/project/projectmodel.cpp:511
+#: src/project/projectmodel.cpp:477
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "Nicht fertig"
 
-#: src/project/projectmodel.cpp:513
+#: src/project/projectmodel.cpp:479
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Übersetzung fehlt"
 
-#: src/project/projectmodel.cpp:515
+#: src/project/projectmodel.cpp:481
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "Unvollständig"
 
-#: src/project/projectmodel.cpp:517
+#: src/project/projectmodel.cpp:483
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Zuletzt übersetzt"
 
-#: src/project/projectmodel.cpp:519
+#: src/project/projectmodel.cpp:485
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: src/project/projectmodel.cpp:521
+#: src/project/projectmodel.cpp:487
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Revision der Vorlage"
 
-#: src/project/projectmodel.cpp:523
+#: src/project/projectmodel.cpp:489
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -4216,7 +4214,7 @@ msgstr "Zu TMX exportieren"
 msgid "Remove"
 msgstr "Entfernen"
 
-#: src/tm/qamodel.cpp:95
+#: src/tm/qamodel.cpp:94
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4373,39 +4371,39 @@ msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "Zielsprache: %1"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:354
 #, kde-format
 msgid "Substring"
 msgstr "Teilzeichenfolge"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:354
 #, kde-format
 msgid "Google-like"
 msgstr "Google-ähnlich"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:354
 #, kde-format
 msgid "Wildcard"
 msgstr "Platzhalter"
 
-#: src/tm/tmtab.cpp:370
+#: src/tm/tmtab.cpp:361
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr ""
 "Leerzeichen ist ein UND-Operator. Groß-/Kleinschreibung wird ignoriert."
 
-#: src/tm/tmtab.cpp:371
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Shell-Auswertungen (* und ?). Groß-/Kleinschreibung wird beachtet."
 
-#: src/tm/tmtab.cpp:592
+#: src/tm/tmtab.cpp:583
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Gesamt: %1 (%2)"
 
-#: src/tm/tmtab.cpp:616 src/tm/tmview.cpp:627
+#: src/tm/tmtab.cpp:607 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4426,31 +4424,31 @@ msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Doppelklicken Sie auf ein Wort, um es in die Übersetzung einzufügen"
 
-#: src/tm/tmview.cpp:333
+#: src/tm/tmview.cpp:331
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Grob-Übersetzung mit Daten füllen"
 
-#: src/tm/tmview.cpp:336
+#: src/tm/tmview.cpp:334
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Die Grob-Übersetzung ist abgeschlossen."
 
-#: src/tm/tmview.cpp:342
+#: src/tm/tmview.cpp:340
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Keine Vorschläge mit exakter Übereinstimmung gefunden."
 
-#: src/tm/tmview.cpp:362 src/tm/tmview.cpp:377
+#: src/tm/tmview.cpp:360 src/tm/tmview.cpp:375
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Grob-Übersetzung wurde geplant."
 
-#: src/tm/tmview.cpp:502
+#: src/tm/tmview.cpp:496
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
@@ -4458,7 +4456,7 @@ msgctxt ""
 msgid "100% (perfect match)"
 msgstr "100 % (perfekte Übereinstimmung)"
 
-#: src/tm/tmview.cpp:507
+#: src/tm/tmview.cpp:501
 #, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
@@ -4466,7 +4464,7 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1 %"
 
-#: src/tm/tmview.cpp:513
+#: src/tm/tmview.cpp:507
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
@@ -4476,7 +4474,7 @@ msgid_plural "Occurred %1 times"
 msgstr[0] "Einmal vorhanden"
 msgstr[1] "%1 mal vorhanden"
 
-#: src/tm/tmview.cpp:523
+#: src/tm/tmview.cpp:517
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
@@ -4484,7 +4482,7 @@ msgctxt ""
 msgid "%1 • %2 • %3"
 msgstr "%1 • %2 • %3"
 
-#: src/tm/tmview.cpp:531
+#: src/tm/tmview.cpp:525
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
@@ -4492,43 +4490,43 @@ msgctxt ""
 msgid "%1 • %2"
 msgstr "%1 • %2"
 
-#: src/tm/tmview.cpp:583
+#: src/tm/tmview.cpp:577
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "Derzeit geöffnete"
 
-#: src/tm/tmview.cpp:584
+#: src/tm/tmview.cpp:578
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Datei: %1<br />Hinzugefügt am: %2"
 
-#: src/tm/tmview.cpp:586
+#: src/tm/tmview.cpp:580
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Datum der letzten Änderung: %1"
 
-#: src/tm/tmview.cpp:588
+#: src/tm/tmview.cpp:582
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Zuletzt geändert von: %1"
 
-#: src/tm/tmview.cpp:589
+#: src/tm/tmview.cpp:583
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br/>ÜD: %1"
 
-#: src/tm/tmview.cpp:591
+#: src/tm/tmview.cpp:585
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br/>Ist nicht mehr in der Datei enthalten"
 
-#: src/tm/tmview.cpp:606
+#: src/tm/tmview.cpp:600
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4537,31 +4535,31 @@ msgstr ""
 "<html>Möchten Sie diesen Eintrag <br/><i>%1</i><br/> wirklich aus der "
 "Übersetzungsdatenbank <i>%2</i> entfernen?</html>"
 
-#: src/tm/tmview.cpp:609
+#: src/tm/tmview.cpp:603
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Eintrag aus Übersetzungsdatenbank löschen"
 
-#: src/tm/tmview.cpp:654
+#: src/tm/tmview.cpp:648
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Diesen Eintrag löschen"
 
-#: src/tm/tmview.cpp:657
+#: src/tm/tmview.cpp:651
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Datei mit diesem Inhalt öffnen"
 
-#: src/tm/tmview.cpp:667
+#: src/tm/tmview.cpp:661
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Diese fehlende Datei aus der Übersetzungsdatenbank entfernen"
 
-#: src/tm/tmview.cpp:681
+#: src/tm/tmview.cpp:675
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4570,13 +4568,13 @@ msgstr ""
 "<html>Möchten Sie diese fehlende Datei<br/><i>%1</i><br/> wirklich aus der "
 "Übersetzungsdatenbank <i>%2</i> entfernen?</html>"
 
-#: src/tm/tmview.cpp:685
+#: src/tm/tmview.cpp:679
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Fehlende Datei aus Übersetzungsdatenbank entfernen"
 
-#: src/tm/tmview.cpp:984
+#: src/tm/tmview.cpp:962
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4642,29 +4640,29 @@ msgstr "Text für GUI-Element in der Übersetzungsdatenbank suchen"
 msgid "Copy GUI element text to clipboard"
 msgstr "Text des GUI-Elementes in die Zwischenablage kopieren"
 
-#: src/xlifftextedit.cpp:959
+#: src/xlifftextedit.cpp:878
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Ausgewählten Text in der Übersetzungsdatenbank suchen"
 
-#: src/xlifftextedit.cpp:981 src/xlifftextedit.cpp:1062
+#: src/xlifftextedit.cpp:958
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Text ersetzen"
 
-#: src/xlifftextedit.cpp:1102
+#: src/xlifftextedit.cpp:997
 #, kde-format
 msgid "no spellcheck available"
 msgstr "Rechtschreibprüfung nicht verfügbar"
 
-#: src/xlifftextedit.cpp:1118
+#: src/xlifftextedit.cpp:1013
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Es ist ein Fehler aufgetreten: %1"
 
-#: src/xlifftextedit.cpp:1284
+#: src/xlifftextedit.cpp:1173
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
