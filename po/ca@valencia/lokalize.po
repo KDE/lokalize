@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-25 00:42+0000\n"
-"PO-Revision-Date: 2025-02-05 13:17+0100\n"
+"PO-Revision-Date: 2025-02-24 12:42+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2302,7 +2302,7 @@ msgstr "Pestanya anterior activa"
 #: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "Tanca la pestanya actual"
 
 #: src/lokalizemainwindow.cpp:556
 #, kde-format
@@ -4673,7 +4673,3 @@ msgstr "S'ha notificat un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia l'origen a la destinació"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Spellcheck"
-#~ msgstr "Verificació ortogràfica"

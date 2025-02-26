@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-25 00:42+0000\n"
-"PO-Revision-Date: 2025-02-05 11:32+0200\n"
+"PO-Revision-Date: 2025-02-25 19:17+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2291,7 +2291,7 @@ msgstr "Попередня активна вкладка"
 #: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "Закрити поточну вкладку"
 
 #: src/lokalizemainwindow.cpp:556
 #, kde-format
