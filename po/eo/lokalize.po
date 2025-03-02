@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-03 02:34+0000\n"
-"PO-Revision-Date: 2024-12-29 12:45+0100\n"
+"PO-Revision-Date: 2025-01-06 18:58+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -112,7 +112,7 @@ msgstr "Generas tradukitan version de ODF-dokumento"
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
-msgstr "Alternaj Tradukoj"
+msgstr "Alternativaj Tradukoj"
 
 #: src/alttransview.cpp:159
 #, kde-format
@@ -137,7 +137,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Alternativaj Tradukoj haveblas"
+msgstr "Alternativaj Tradukoj Haveblas"
 
 #: src/alttransview.cpp:164
 #, kde-format
@@ -3861,7 +3861,7 @@ msgstr "Lasta Tradukisto"
 #, kde-format
 msgctxt "@title:window"
 msgid "Project Overview"
-msgstr "Projekto Superrigardo"
+msgstr "Projekta Superrigardo"
 
 #: src/project/projecttab.cpp:56
 #, kde-format
