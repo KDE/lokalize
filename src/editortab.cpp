@@ -21,6 +21,7 @@
 #include "glossaryview.h"
 #include "languagelistmodel.h"
 #include "lokalize_debug.h"
+#include "lokalizetabpagebase.h"
 #include "mergeview.h"
 #include "msgctxtview.h"
 #include "phaseswindow.h"
@@ -116,22 +117,6 @@ void EditorTab::setupStatusBar()
 
     connect(m_catalog, &Catalog::signalNumberOfFuzziesChanged, this, &EditorTab::numberOfFuzziesChanged);
     connect(m_catalog, &Catalog::signalNumberOfEmptyChanged, this, &EditorTab::numberOfUntranslatedChanged);
-}
-
-void LokalizeSubwindowBase::reflectNonApprovedCount(int count, int total)
-{
-    QString text = i18nc("@info:status message entries\n'fuzzy' in gettext terminology", "Not ready: %1", count);
-    if (count && total)
-        text += i18nc("percentages in statusbar", " (%1%)", int(100.0 * count / total));
-    statusBarItems.insert(ID_STATUS_FUZZY, text);
-}
-
-void LokalizeSubwindowBase::reflectUntranslatedCount(int count, int total)
-{
-    QString text = i18nc("@info:status message entries", "Untranslated: %1", count);
-    if (count && total)
-        text += i18nc("percentages in statusbar", " (%1%)", int(100.0 * count / total));
-    statusBarItems.insert(ID_STATUS_UNTRANS, text);
 }
 
 void EditorTab::numberOfFuzziesChanged()

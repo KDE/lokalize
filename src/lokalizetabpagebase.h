@@ -3,12 +3,13 @@
 
   SPDX-FileCopyrightText: 2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-#ifndef LOKALIZESUBWINDOWBASE_H
-#define LOKALIZESUBWINDOWBASE_H
+#ifndef LOKALIZETABPAGEBASE_H
+#define LOKALIZETABPAGEBASE_H
 
 #include "actionproxy.h"
 
@@ -50,10 +51,6 @@ public:
         return QString();
     }
 
-protected:
-    void reflectNonApprovedCount(int count, int total);
-    void reflectUntranslatedCount(int count, int total);
-
 Q_SIGNALS:
     void aboutToBeClosed();
 
@@ -76,32 +73,15 @@ public:
         , KXMLGUIClient()
     {
     }
+
     ~LokalizeTabPageBase() override = default;
 
-    KXMLGUIClient *guiClient() override
-    {
-        return (KXMLGUIClient *)this;
-    }
+    KXMLGUIClient *guiClient() override;
+    void setUpdatedXMLFile() override;
+    void reloadUpdatedXML() override;
+    void reflectNonApprovedCount(int count, int total);
+    void reflectUntranslatedCount(int count, int total);
 
-    void setUpdatedXMLFile() override
-    {
-        QString localXml = guiClient()->localXMLFile();
-        if (QFile::exists(localXml)) {
-            lastXMLUpdate = QFileInfo(localXml).lastModified();
-        }
-    }
-
-    void reloadUpdatedXML() override
-    {
-        QString localXml = guiClient()->localXMLFile();
-        if (QFile::exists(localXml)) {
-            QDateTime newXMLUpdate = QFileInfo(localXml).lastModified();
-            if (newXMLUpdate > lastXMLUpdate) {
-                lastXMLUpdate = newXMLUpdate;
-                guiClient()->reloadXML();
-            }
-        }
-    }
     QString m_tabLabel;
     QString m_tabToolTip;
     QIcon m_tabIcon;

@@ -11,7 +11,7 @@
 #define LOKALIZEMAINWINDOW_H
 
 #include "filesearchtab.h"
-#include "lokalizesubwindowbase.h"
+#include "lokalizetabpagebase.h"
 #include "pos.h"
 #include "projecttab.h"
 #include "tmtab.h"

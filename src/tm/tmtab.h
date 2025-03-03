@@ -10,7 +10,7 @@
 #ifndef TMTAB_H
 #define TMTAB_H
 
-#include "lokalizesubwindowbase.h"
+#include "lokalizetabpagebase.h"
 #include "pos.h"
 
 #include <kmainwindow.h>

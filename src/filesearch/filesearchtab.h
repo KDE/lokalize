@@ -10,7 +10,7 @@
 #ifndef FILESEARCHTAB_H
 #define FILESEARCHTAB_H
 
-#include "lokalizesubwindowbase.h"
+#include "lokalizetabpagebase.h"
 #include "pos.h"
 #include "qaview.h"
 #include "rule.h"

@@ -14,7 +14,7 @@
 #include <config.h>
 #endif
 
-#include "lokalizesubwindowbase.h"
+#include "lokalizetabpagebase.h"
 #include "pos.h"
 
 #include <KProcess>

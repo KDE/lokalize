@@ -12,7 +12,7 @@
 #ifndef PROJECTTAB_H
 #define PROJECTTAB_H
 
-#include "lokalizesubwindowbase.h"
+#include "lokalizetabpagebase.h"
 
 #include <KMainWindow>
 #include <KProcess>

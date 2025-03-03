@@ -35,6 +35,7 @@ configure_file(version.h.cmake
 set(liblokalize_SRCS
     main.cpp
     lokalizemainwindow.cpp
+    lokalizetabpagebase.cpp
     actionproxy.cpp
 
     editortab.cpp

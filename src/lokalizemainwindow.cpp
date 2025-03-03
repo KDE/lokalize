@@ -13,7 +13,7 @@
 #include "filesearchtab.h"
 #include "jobs.h"
 #include "lokalize_debug.h"
-#include "lokalizesubwindowbase.h"
+#include "lokalizetabpagebase.h"
 #include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"
@@ -1049,4 +1049,4 @@ void DelayedFileOpener::doOpen()
 }
 
 #include "moc_lokalizemainwindow.cpp"
-#include "moc_lokalizesubwindowbase.cpp"
+#include "moc_lokalizetabpagebase.cpp"
