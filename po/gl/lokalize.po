@@ -1864,7 +1864,7 @@ msgstr "&Vistas das utilidades"
 #: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Barra de ferramentas Principal"
+msgstr "Barra de ferramentas principal"
 
 #: src/editorview.cpp:47
 #, kde-format
