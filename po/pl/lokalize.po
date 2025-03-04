@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-25 00:42+0000\n"
+"POT-Creation-Date: 2025-03-04 00:43+0000\n"
 "PO-Revision-Date: 2025-02-08 17:27+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1028,21 +1028,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Długość ciągu przetłumaczonego"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:998
-#: src/editortab.cpp:1195 src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:983
+#: src/editortab.cpp:1180 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Gotowe"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1000
-#: src/editortab.cpp:1190 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:985
+#: src/editortab.cpp:1175 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Wymaga sprawdzenia"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:996
+#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:981
 #: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
@@ -1067,13 +1067,13 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Edytuj"
 
-#: src/editortab.cpp:111
+#: src/editortab.cpp:112
 #, kde-format
 msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Bieżący: %1"
 
-#: src/editortab.cpp:112 src/editortab.cpp:777
+#: src/editortab.cpp:113 src/editortab.cpp:762
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
 #: src/tm/tmtab.cpp:581
 #, kde-format
@@ -1081,7 +1081,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1"
 msgstr "Razem: %1"
 
-#: src/editortab.cpp:113 src/editortab.cpp:123
+#: src/editortab.cpp:114 src/lokalizetabpagebase.cpp:34
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -1089,130 +1089,124 @@ msgctxt ""
 msgid "Not ready: %1"
 msgstr "Niegotowych: %1"
 
-#: src/editortab.cpp:114 src/editortab.cpp:131
+#: src/editortab.cpp:115 src/lokalizetabpagebase.cpp:42
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "Nieprzetłumaczonych: %1"
 
-#: src/editortab.cpp:125 src/editortab.cpp:133
-#, kde-format
-msgctxt "percentages in statusbar"
-msgid " (%1%)"
-msgstr " (%1%)"
-
-#: src/editortab.cpp:159 src/lokalizemainwindow.cpp:518
+#: src/editortab.cpp:144 src/lokalizemainwindow.cpp:518
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
 msgstr "Plik"
 
-#: src/editortab.cpp:160 src/project/projecttab.cpp:89
+#: src/editortab.cpp:145 src/project/projecttab.cpp:89
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
 msgstr "Przemieszczanie się"
 
-#: src/editortab.cpp:161
+#: src/editortab.cpp:146
 #, kde-format
 msgctxt "@title actions category"
 msgid "Editing"
 msgstr "Edytowanie"
 
-#: src/editortab.cpp:162
+#: src/editortab.cpp:147
 #, kde-format
 msgid "Synchronization 1"
 msgstr "Synchronizacja 1"
 
-#: src/editortab.cpp:163
+#: src/editortab.cpp:148
 #, kde-format
 msgid "Synchronization 2"
 msgstr "Synchronizacja 2"
 
-#: src/editortab.cpp:164
+#: src/editortab.cpp:149
 #, kde-format
 msgid "Translation Memory"
 msgstr "Pamięć tłumaczeń"
 
-#: src/editortab.cpp:165 src/lokalizemainwindow.cpp:519
+#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:519
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
 msgstr "Słownik"
 
-#: src/editortab.cpp:178
+#: src/editortab.cpp:163
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
 msgstr "Wstaw tłumaczenie alternatywne #%1"
 
-#: src/editortab.cpp:240
+#: src/editortab.cpp:225
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a note"
 msgstr "Dodaj uwagę"
 
-#: src/editortab.cpp:249
+#: src/editortab.cpp:234
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert TM suggestion #%1"
 msgstr "Wstaw sugestię pamięci tłumaczeń #%1"
 
-#: src/editortab.cpp:254
+#: src/editortab.cpp:239
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove TM suggestion #%1"
 msgstr "Usuń podpowiedzi Pamięci Tłumaczeń #%1"
 
-#: src/editortab.cpp:306
+#: src/editortab.cpp:291
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
 msgstr "Wstaw tłumaczenie pojęcia #%1"
 
-#: src/editortab.cpp:317
+#: src/editortab.cpp:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Define new term"
 msgstr "Określ nowe pojęcie"
 
-#: src/editortab.cpp:347
+#: src/editortab.cpp:332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
 msgstr "Fazy..."
 
-#: src/editortab.cpp:350
+#: src/editortab.cpp:335
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Word count"
 msgstr "Liczba słów"
 
-#: src/editortab.cpp:353
+#: src/editortab.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
 msgstr "Wyczyść wszystkie przetłumaczone wpisy"
 
-#: src/editortab.cpp:356
+#: src/editortab.cpp:341
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
 msgstr "Wykonaj polecenie Pology na tym pliku"
 
-#: src/editortab.cpp:360
+#: src/editortab.cpp:345
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
 msgstr "Scal tłumaczenia w OpenDocument"
 
-#: src/editortab.cpp:380
+#: src/editortab.cpp:365
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Change searching direction"
 msgstr "Zmień kierunek wyszukiwania"
 
-#: src/editortab.cpp:389
+#: src/editortab.cpp:374
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1220,103 +1214,103 @@ msgctxt ""
 msgid "Approved"
 msgstr "Zatwierdzone"
 
-#: src/editortab.cpp:408
+#: src/editortab.cpp:393
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and go to next"
 msgstr "Zatwierdź i przejdź do następnego"
 
-#: src/editortab.cpp:415
+#: src/editortab.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent translation"
 msgstr "Równoważnik tłumaczenia"
 
-#: src/editortab.cpp:426
+#: src/editortab.cpp:411
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
 msgstr "Skopiuj ze źródła do celu"
 
-#: src/editortab.cpp:429
+#: src/editortab.cpp:414
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "Rozwiń cel"
 
-#: src/editortab.cpp:434 src/filesearch/filesearchtab.cpp:135
+#: src/editortab.cpp:419 src/filesearch/filesearchtab.cpp:135
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
 msgstr "Wyczyść"
 
-#: src/editortab.cpp:438
+#: src/editortab.cpp:423
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
 msgstr "Wstaw znacznik"
 
-#: src/editortab.cpp:442
+#: src/editortab.cpp:427
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
 msgstr "Sprawdź tę jednostkę przy użyciu LanguageTool"
 
-#: src/editortab.cpp:446
+#: src/editortab.cpp:431
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
 msgstr "Wstaw następny znacznik"
 
-#: src/editortab.cpp:450
+#: src/editortab.cpp:435
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
 msgstr "Przejdź do następnego nie-znacznika"
 
-#: src/editortab.cpp:454
+#: src/editortab.cpp:439
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "Uzupełnianie"
 
-#: src/editortab.cpp:458
+#: src/editortab.cpp:443
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "Zastąp najlepszą sugestią poprawnego zapisu"
 
-#: src/editortab.cpp:463
+#: src/editortab.cpp:448
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "&Następny"
 
-#: src/editortab.cpp:468
+#: src/editortab.cpp:453
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "&Poprzedni "
 
-#: src/editortab.cpp:474
+#: src/editortab.cpp:459
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "&Pierwszy wpis"
 
-#: src/editortab.cpp:480
+#: src/editortab.cpp:465
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "&Ostatni wpis"
 
-#: src/editortab.cpp:486
+#: src/editortab.cpp:471
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Wpisu po jego numerze"
 
-#: src/editortab.cpp:489 src/project/projecttab.cpp:104
+#: src/editortab.cpp:474 src/project/projecttab.cpp:104
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1324,7 +1318,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Poprzedni niepusty, ale niegotowy"
 
-#: src/editortab.cpp:497 src/project/projecttab.cpp:110
+#: src/editortab.cpp:482 src/project/projecttab.cpp:110
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1332,19 +1326,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Następny niepusty, ale niegotowy"
 
-#: src/editortab.cpp:504 src/project/projecttab.cpp:116
+#: src/editortab.cpp:489 src/project/projecttab.cpp:116
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Poprzedni nieprzetłumaczony"
 
-#: src/editortab.cpp:509 src/project/projecttab.cpp:122
+#: src/editortab.cpp:494 src/project/projecttab.cpp:122
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Następny nieprzetłumaczony"
 
-#: src/editortab.cpp:515 src/project/projecttab.cpp:92
+#: src/editortab.cpp:500 src/project/projecttab.cpp:92
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1352,7 +1346,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Poprzedni niegotowy"
 
-#: src/editortab.cpp:523 src/project/projecttab.cpp:98
+#: src/editortab.cpp:508 src/project/projecttab.cpp:98
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1360,49 +1354,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "Następny niegotowy"
 
-#: src/editortab.cpp:532
+#: src/editortab.cpp:517
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Aktywuj pole wyszukiwania widoku jednostek tłumaczenia"
 
-#: src/editortab.cpp:536
+#: src/editortab.cpp:521
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "Utwórz zakładkę dla wiadomości"
 
-#: src/editortab.cpp:541
+#: src/editortab.cpp:526
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "Poprzednia zakładka"
 
-#: src/editortab.cpp:545
+#: src/editortab.cpp:530
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "Następna zakładka"
 
-#: src/editortab.cpp:553
+#: src/editortab.cpp:538
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "Wypełnij wszystkimi dokładnymi sugestiami"
 
-#: src/editortab.cpp:558
+#: src/editortab.cpp:543
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Wypełnij wszystkimi dokładnymi sugestiami i oznacz jako wątpliwe"
 
-#: src/editortab.cpp:564
+#: src/editortab.cpp:549
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Otwórz pierwszy plik do synchronizacji"
 
-#: src/editortab.cpp:565 src/editortab.cpp:622
+#: src/editortab.cpp:550 src/editortab.cpp:607
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1411,13 +1405,13 @@ msgid ""
 msgstr ""
 "Otwórz katalog w celu scalenia z bieżącym / skopiowania zmian w plikach"
 
-#: src/editortab.cpp:571 src/editortab.cpp:628
+#: src/editortab.cpp:556 src/editortab.cpp:613
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "Poprzedni różny"
 
-#: src/editortab.cpp:573 src/editortab.cpp:630
+#: src/editortab.cpp:558 src/editortab.cpp:615
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1427,13 +1421,13 @@ msgstr ""
 "Poprzedni wpis przetłumaczony różnie w połączonych plikach, w pliku "
 "wynikowym tłumaczenie będzie puste"
 
-#: src/editortab.cpp:582 src/editortab.cpp:637
+#: src/editortab.cpp:567 src/editortab.cpp:622
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "Następny różny"
 
-#: src/editortab.cpp:584 src/editortab.cpp:639
+#: src/editortab.cpp:569 src/editortab.cpp:624
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1443,55 +1437,55 @@ msgstr ""
 "Następny wpis przetłumaczony różnie w połączonych plikach, w pliku wynikowym "
 "tłumaczenie będzie puste"
 
-#: src/editortab.cpp:592
+#: src/editortab.cpp:577
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "Następny różny zatwierdzony"
 
-#: src/editortab.cpp:598 src/editortab.cpp:646
+#: src/editortab.cpp:583 src/editortab.cpp:631
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Skopiuj z pliku synchronizowanego"
 
-#: src/editortab.cpp:605 src/editortab.cpp:651
+#: src/editortab.cpp:590 src/editortab.cpp:636
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Skopiuj wszystkie nowe tłumaczenia"
 
-#: src/editortab.cpp:606
+#: src/editortab.cpp:591
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "To zmienia tylko puste i niegotowe wpisy w pliku podstawowym"
 
-#: src/editortab.cpp:614 src/editortab.cpp:658
+#: src/editortab.cpp:599 src/editortab.cpp:643
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Skopiuj do pliku synchronizowanego"
 
-#: src/editortab.cpp:621
+#: src/editortab.cpp:606
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "Otwórz drugi plik do synchronizacji"
 
-#: src/editortab.cpp:652
+#: src/editortab.cpp:637
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "To zmienia tylko puste wpisy"
 
-#: src/editortab.cpp:691
+#: src/editortab.cpp:676
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (odzyskana)"
 
-#: src/editortab.cpp:720 src/lokalizemainwindow.cpp:971
+#: src/editortab.cpp:705 src/lokalizemainwindow.cpp:971
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1501,38 +1495,38 @@ msgstr ""
 "Dokument zawiera niezapisane zmiany.\n"
 "Zapisać go?"
 
-#: src/editortab.cpp:722 src/editortab.cpp:1300
+#: src/editortab.cpp:707 src/editortab.cpp:1285
 #: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:973
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-#: src/editortab.cpp:742 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:727 src/mergemode/mergeview.cpp:167
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Wybierz plik tłumaczenia"
 
-#: src/editortab.cpp:827
+#: src/editortab.cpp:812
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Błąd otwierania pliku %1, wiersz: %2"
 
-#: src/editortab.cpp:829
+#: src/editortab.cpp:814
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Błąd otwierania pliku %1"
 
-#: src/editortab.cpp:837
+#: src/editortab.cpp:822
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Zapisz plik jako"
 
-#: src/editortab.cpp:866
+#: src/editortab.cpp:851
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1542,13 +1536,13 @@ msgstr ""
 "Błąd zapisywania pliku %1\n"
 "Zapisać do innego pliku, czy zaniechać?"
 
-#: src/editortab.cpp:869
+#: src/editortab.cpp:854
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Błąd"
 
-#: src/editortab.cpp:879
+#: src/editortab.cpp:864
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1558,73 +1552,73 @@ msgstr ""
 "Nie można przeprowadzić samozapisu.\n"
 "Plikiem docelowym był %1."
 
-#: src/editortab.cpp:916
+#: src/editortab.cpp:901
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Przejdź do wpisu"
 
-#: src/editortab.cpp:917
+#: src/editortab.cpp:902
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Wpisz numer wpisu:"
 
-#: src/editortab.cpp:984
+#: src/editortab.cpp:969
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Bieżący: %1"
 
-#: src/editortab.cpp:1171
+#: src/editortab.cpp:1156
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Przetłumaczone"
 
-#: src/editortab.cpp:1172
+#: src/editortab.cpp:1157
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Podpisane"
 
-#: src/editortab.cpp:1173
+#: src/editortab.cpp:1158
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Zatwierdzone"
 
-#: src/editortab.cpp:1174
+#: src/editortab.cpp:1159
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Tłumaczenie zostało skończone (ale wciąż może wymagać sprawdzenia)"
 
-#: src/editortab.cpp:1175
+#: src/editortab.cpp:1160
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Tłumaczenie uzyskało pomyślną recenzję"
 
-#: src/editortab.cpp:1176
+#: src/editortab.cpp:1161
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Wpis jest w pełni przetłumaczony (ostatecznie)"
 
-#: src/editortab.cpp:1276 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1261 src/project/projecttab.cpp:304
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Sprawdzanie Pology jest w trakcie."
 
-#: src/editortab.cpp:1276 src/editortab.cpp:1284 src/editortab.cpp:1288
+#: src/editortab.cpp:1261 src/editortab.cpp:1269 src/editortab.cpp:1273
 #: src/project/projecttab.cpp:304 src/project/projecttab.cpp:312
 #: src/project/projecttab.cpp:316
 #, kde-format
 msgid "Pology error"
 msgstr "Błąd Pology"
 
-#: src/editortab.cpp:1284 src/project/projecttab.cpp:312
+#: src/editortab.cpp:1269 src/project/projecttab.cpp:312
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1633,17 +1627,17 @@ msgstr ""
 "Sprawdzenie Pology nieoczekiwanie uległo usterce:\n"
 "%1"
 
-#: src/editortab.cpp:1286 src/project/projecttab.cpp:314
+#: src/editortab.cpp:1271 src/project/projecttab.cpp:314
 #, kde-format
 msgid "Pology success"
 msgstr "Powodzenie Pology"
 
-#: src/editortab.cpp:1286
+#: src/editortab.cpp:1271
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pomyślnie ukończono sprawdzanie Pology."
 
-#: src/editortab.cpp:1288 src/project/projecttab.cpp:316
+#: src/editortab.cpp:1273 src/project/projecttab.cpp:316
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1652,7 +1646,7 @@ msgstr ""
 "Sprawdzenie Pology zwróciło błąd:\n"
 "%1"
 
-#: src/editortab.cpp:1298
+#: src/editortab.cpp:1283
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1662,7 +1656,7 @@ msgstr ""
 "Usunie to wszystkie tłumaczenia z pliku.\n"
 "Czy na pewno chcesz wyczyścić wszystkie przetłumaczone wpisy?"
 
-#: src/editortab.cpp:1336
+#: src/editortab.cpp:1321
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
@@ -1670,43 +1664,43 @@ msgstr ""
 "Liczba słów tekstu do przetłumaczenia: %1<br/>Liczba słów tekstu "
 "przetłumaczonego: %2"
 
-#: src/editortab.cpp:1337
+#: src/editortab.cpp:1322
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Liczba słów"
 
-#: src/editortab.cpp:1427
+#: src/editortab.cpp:1412
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Poszukać pliku źródłowego miejscowo, czy na lxr.kde.org?"
 
-#: src/editortab.cpp:1428
+#: src/editortab.cpp:1413
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Wyszukiwanie plików źródłowych"
 
-#: src/editortab.cpp:1429
+#: src/editortab.cpp:1414
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Poszukaj miejscowo"
 
-#: src/editortab.cpp:1430 src/editortab.cpp:1474
+#: src/editortab.cpp:1415 src/editortab.cpp:1459
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "Poszukaj na lxr.kde.org"
 
-#: src/editortab.cpp:1433 src/editortab.cpp:1478
+#: src/editortab.cpp:1418 src/editortab.cpp:1463
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Wybierz katalog podstawowy do wyszukiwania plików źródłowych"
 
-#: src/editortab.cpp:1470
+#: src/editortab.cpp:1455
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1716,19 +1710,19 @@ msgstr ""
 "Nie można znaleźć plików źródłowych w podanym katalogu.\n"
 "Czy chcesz zmienić katalog plików źródłowych?"
 
-#: src/editortab.cpp:1472
+#: src/editortab.cpp:1457
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Wyszukiwanie plików źródłowych"
 
-#: src/editortab.cpp:1473
+#: src/editortab.cpp:1458
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Wybierz katalog"
 
-#: src/editortab.cpp:1515
+#: src/editortab.cpp:1500
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1743,34 +1737,34 @@ msgstr ""
 "ścieżkach użytkownika. Zapoznaj się z podręcznikiem Lokalize w celu poznania "
 "przykładowych skryptów oraz sposobów ich podłączenia do twojego projektu."
 
-#: src/editortab.cpp:1529 src/project/project.cpp:414
+#: src/editortab.cpp:1514 src/project/project.cpp:414
 #: src/project/project.cpp:419
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Wgraj pakiet narzędzi tłumacza i spróbuj ponownie"
 
-#: src/editortab.cpp:1534
+#: src/editortab.cpp:1519
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Wgraj pakiet narzędzi tłumacza i spróbuj ponownie."
 
-#: src/editortab.cpp:1542
+#: src/editortab.cpp:1527
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "Wybierz pierwotny OpenDocument, na którym jest oparty bieżący plik XLIFF"
 
-#: src/editortab.cpp:1544 src/project/project.cpp:424
+#: src/editortab.cpp:1529 src/project/project.cpp:424
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Pliki OpenDocument (*.odt *.ods)"
 
-#: src/editortab.cpp:1588
+#: src/editortab.cpp:1573
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Wgraj pakiet python-uno dla dodatkowych możliwości."
 
-#: src/editortab.cpp:1708
+#: src/editortab.cpp:1693
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -2405,6 +2399,12 @@ msgstr "&Projekt"
 #, kde-format
 msgid "&Scripts"
 msgstr "&Skrypty"
+
+#: src/lokalizetabpagebase.cpp:36 src/lokalizetabpagebase.cpp:44
+#, kde-format
+msgctxt "percentages in statusbar"
+msgid " (%1%)"
+msgstr " (%1%)"
 
 #: src/main.cpp:72
 #, kde-format
