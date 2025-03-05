@@ -25,12 +25,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Thomas Reitelbach,Frederik Schwarzer,Johannes Obermayr"
+msgstr "Deutsches KDE-Übersetzungsteam"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "tr@erdfunkstelle.de,schwarzer@kde.org,johannesobermayr@gmx.de"
+msgstr "kde-i18n-de@kde.org"
 
 #. i18n: tag collection attribute text
 #. i18n: tag collection attribute comment
