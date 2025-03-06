@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-04 00:43+0000\n"
-"PO-Revision-Date: 2025-02-18 19:26+0200\n"
+"PO-Revision-Date: 2025-03-04 16:58+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
@@ -2280,7 +2280,7 @@ msgstr "Iepriekš aktīvā cilne"
 #: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "Aizvērt pašreizējo cilni"
 
 #: src/lokalizemainwindow.cpp:556
 #, kde-format

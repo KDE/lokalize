@@ -2178,7 +2178,7 @@ msgstr ""
 #: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "关闭当前标签页"
 
 #: src/lokalizemainwindow.cpp:556
 #, kde-format
