@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-03 02:34+0000\n"
-"PO-Revision-Date: 2025-03-04 12:37+0300\n"
+"PO-Revision-Date: 2025-03-06 22:41+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -845,7 +845,7 @@ msgstr "Çeviri Birimleri"
 #: src/glossary/glossarywindow.cpp:219 src/project/projecttab.cpp:113
 #, kde-format
 msgid "Quick search..."
-msgstr "Hızlı ara…"
+msgstr "Tez ara…"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
@@ -1113,12 +1113,12 @@ msgstr "Düzenleme"
 #: src/editortab.cpp:173
 #, kde-format
 msgid "Synchronization 1"
-msgstr "Eşitleme 1"
+msgstr "Eşzamanlama 1"
 
 #: src/editortab.cpp:174
 #, kde-format
 msgid "Synchronization 2"
-msgstr "Eşitleme 2"
+msgstr "Eşzamanlama 2"
 
 #: src/editortab.cpp:175
 #, kde-format
@@ -1392,7 +1392,7 @@ msgstr "Tüm Tam Uyuşan Önerileri Doldur ve Belirsiz Olarak İmle"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
-msgstr "Eşitlemek/Birleştirmek için Dosya Aç"
+msgstr "Eşzamanlamak/Birleştirmek için Dosya Aç"
 
 #: src/editortab.cpp:590 src/editortab.cpp:648
 #, kde-format
@@ -1836,13 +1836,13 @@ msgstr "Y&er İmleri"
 #: src/editorui.rc:183
 #, kde-format
 msgid "S&ync"
-msgstr "Eşi&tle"
+msgstr "Eşzamanl&a"
 
 #. i18n: ectx: Menu (mergesecondary)
 #: src/editorui.rc:193
 #, kde-format
 msgid "&Secondary sync source"
-msgstr "&İkincil Eşitleme Kaynağı"
+msgstr "&İkincil Eşzamanlama Kaynağı"
 
 #. i18n: ectx: Menu (toolviews)
 #: src/editorui.rc:213 src/lokalizemainwindowui.rc:49
@@ -2525,7 +2525,7 @@ msgctxt ""
 "@title:window that displays difference between current file and 'merge "
 "source'"
 msgid "Primary Sync"
-msgstr "Birincil Eşitleme"
+msgstr "Birincil Eşzamanlama"
 
 #: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
@@ -2533,7 +2533,7 @@ msgctxt ""
 "@title:window that displays difference between current file and 'merge "
 "source'"
 msgid "Secondary Sync"
-msgstr "İkincil Eşitleme"
+msgstr "İkincil Eşzamanlama"
 
 #: src/mergemode/mergeview.cpp:41
 #, kde-format
@@ -2542,8 +2542,8 @@ msgid ""
 "Drop file to be merged into / synced with the current one here, then see "
 "context menu options"
 msgstr ""
-"Geçerli dosya ile birleştirilecek veya eşitlenecek dosyayı buraya bırakın ve "
-"içerik menü seçeneklerine bakın"
+"Geçerli dosya ile birleştirilecek veya eşzamanlanacak dosyayı buraya bırakın "
+"ve içerik menü seçeneklerine bakın"
 
 #: src/mergemode/mergeview.cpp:224
 #, kde-format
@@ -2552,7 +2552,7 @@ msgid ""
 "Error opening the file <filename>%1</filename> for synchronization, error "
 "line: %2"
 msgstr ""
-"Eşitleme için <filename>%1</filename> dosyası açılamadı, hatanın oluştuğu "
+"Eşzamanlama için <filename>%1</filename> dosyası açılamadı, hatanın oluştuğu "
 "satır: %2"
 
 #: src/mergemode/mergeview.cpp:350
@@ -3532,17 +3532,17 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
-"Bu ayar, Eşitleme Kipi içindir.\n"
+"Bu ayar, Eşzamanlama Kipi içindir.\n"
 "\n"
-"Eşitleme kipi çevirilerde yapılan değişiklikleri bir projenin bir dalına\n"
-"otomatik olarak birleştirmek için kullanılır.\n"
+"Eşzamanlama kipi çevirilerde yapılan değişiklikleri bir projenin bir\n"
+"dalına kendiliğinden birleştirmek için kullanılır.\n"
 "\n"
 "Bu yolu dal projenin kök dizinine işaret eden dizine ayarlayın.\n"
-"İkincil Eşitleme görünümü otomatik olarak dosyaları dal dizininden "
-"açacaktır.\n"
-"Ana dalda (trunk) her değişiklik yaptığınızda\n"
-"dal dizinindeki dosyalarda da aynı değişiklikler yapılacaktır.\n"
-"(tabii ki aynı İngilizce dizi dal dosyasında bulunuyorsa).\n"
+"İkincil Eşzamanlama görünümü kendiliğinden dosyaları dal\n"
+"dizininden açacaktır.\n"
+"Ana dalda (trunk) her değişiklik yaptığınızda, dal dizinindeki\n"
+"dosyalarda da aynı değişiklikler yapılacaktır (tabii ki aynı\n"
+"İngilizce dizi dal dosyasında bulunuyorsa).\n"
 "\n"
 "Daha fazla bilgi için belgelendirmeye bakın."
 
@@ -3569,14 +3569,14 @@ msgid ""
 "templates folder,\n"
 "and Secondary Sync view will automatically create files from branch."
 msgstr ""
-"Bu ayar, Eşitleme Kipi içindir.\n"
+"Bu ayar, Eşzamanlama Kipi içindir.\n"
 "\n"
-"Eşitleme kipi çevirilerde yapılan değişiklikleri bir projenin bir dalına\n"
-"otomatik olarak birleştirmek için kullanılır.\n"
+"Eşzamanlama kipi çevirilerde yapılan değişiklikleri bir projenin bir\n"
+"dalına kendiliğinden birleştirmek için kullanılır.\n"
 "\n"
 "Bu yolu dal projenin şablon klasörüne işaret eden klasöre ayarlayın.\n"
-"İkincil Eşitleme görünümü otomatik olarak dosyaları dal dizininden "
-"oluşturacaktır."
+"İkincil Eşzamanlama görünümü kendiliğinden olarak dosyaları dal\n"
+"dizininden oluşturacaktır."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
