@@ -4661,7 +4661,3 @@ msgstr "S'ha notificat un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia l'origen a la destinació"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Spellcheck"
-#~ msgstr "Verificació ortogràfica"
