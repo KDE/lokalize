@@ -98,8 +98,6 @@ public:
     ~EditorTab() override;
 
     // interface for LokalizeMainWindow
-    void hideDocks() override;
-    void showDocks() override;
     QString currentFilePath() override;
     void setFullPathShown(bool);
 

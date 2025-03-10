@@ -649,16 +649,6 @@ void EditorTab::setProperFocus()
     m_view->setProperFocus();
 }
 
-void EditorTab::hideDocks()
-{
-    if (m_transUnitsView->isFloating())
-        m_transUnitsView->hide();
-}
-
-void EditorTab::showDocks()
-{
-}
-
 void EditorTab::setFullPathShown(bool fullPathShown)
 {
     m_fullPathShown = fullPathShown;

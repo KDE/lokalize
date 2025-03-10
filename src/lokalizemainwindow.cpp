@@ -308,8 +308,8 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
 
     // Set suggestedDirPath to file path of current tab.
     QString suggestedDirPath;
-    if (QWidget *activeTab = qobject_cast<LokalizeSubwindowBase *>(m_mainTabs->currentWidget())) {
-        QString currentlyActiveTabRelatedFilePath = static_cast<LokalizeSubwindowBase *>(activeTab)->currentFilePath();
+    if (QWidget *activeTab = qobject_cast<LokalizeTabPageBase *>(m_mainTabs->currentWidget())) {
+        QString currentlyActiveTabRelatedFilePath = static_cast<LokalizeTabPageBase *>(activeTab)->currentFilePath();
         if (!currentlyActiveTabRelatedFilePath.isEmpty())
             suggestedDirPath = QFileInfo(currentlyActiveTabRelatedFilePath).absolutePath();
     }

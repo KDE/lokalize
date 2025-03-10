@@ -51,12 +51,6 @@ public:
     explicit FileSearchTab(QWidget *parent);
     ~FileSearchTab() override;
 
-    void hideDocks() override
-    {
-    }
-    void showDocks() override
-    {
-    }
     KXMLGUIClient *guiClient() override
     {
         return (KXMLGUIClient *)this;

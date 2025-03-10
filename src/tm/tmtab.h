@@ -48,12 +48,6 @@ public:
     explicit TMTab(QWidget *parent);
     ~TMTab() override;
 
-    void hideDocks() override
-    {
-    }
-    void showDocks() override
-    {
-    }
     KXMLGUIClient *guiClient() override
     {
         return (KXMLGUIClient *)this;

@@ -34,31 +34,6 @@ public:
         : KMainWindow(parent)
     {
     }
-    virtual ~LokalizeSubwindowBase()
-    {
-        Q_EMIT aboutToBeClosed();
-    }
-    virtual KXMLGUIClient *guiClient() = 0;
-    virtual void reloadUpdatedXML() = 0;
-    virtual void setUpdatedXMLFile() = 0;
-
-    // interface for LokalizeMainWindow
-    virtual void hideDocks() = 0;
-    virtual void showDocks() = 0;
-
-    virtual QString currentFilePath()
-    {
-        return QString();
-    }
-
-Q_SIGNALS:
-    void aboutToBeClosed();
-
-public:
-    StatusBarProxy statusBarItems;
-
-protected:
-    QDateTime lastXMLUpdate;
 };
 
 /**
@@ -76,18 +51,27 @@ public:
 
     ~LokalizeTabPageBase() override = default;
 
-    KXMLGUIClient *guiClient() override;
-    void setUpdatedXMLFile() override;
-    void reloadUpdatedXML() override;
+    virtual KXMLGUIClient *guiClient();
+    void reloadUpdatedXML();
+    void setUpdatedXMLFile();
     void reflectNonApprovedCount(int count, int total);
     void reflectUntranslatedCount(int count, int total);
+
+    virtual QString currentFilePath()
+    {
+        return QString();
+    }
 
     QString m_tabLabel;
     QString m_tabToolTip;
     QIcon m_tabIcon;
+    StatusBarProxy statusBarItems;
 
 Q_SIGNALS:
     void signalUpdatedTabLabelAndIconAvailable(LokalizeTabPageBase *);
+
+protected:
+    QDateTime lastXMLUpdate;
 };
 
 #endif

@@ -39,12 +39,6 @@ public:
 
     void contextMenuEvent(QContextMenuEvent *event) override;
 
-    void hideDocks() override
-    {
-    }
-    void showDocks() override
-    {
-    }
     KXMLGUIClient *guiClient() override
     {
         return (KXMLGUIClient *)this;
