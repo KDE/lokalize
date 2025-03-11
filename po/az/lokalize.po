@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-04 00:43+0000\n"
+"POT-Creation-Date: 2025-03-11 00:43+0000\n"
 "PO-Revision-Date: 2024-08-09 15:51+0400\n"
 "Last-Translator: Khayyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1031,21 +1031,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Hədəf dil"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:983
-#: src/editortab.cpp:1180 src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:973
+#: src/editortab.cpp:1170 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Hazırdır"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:985
-#: src/editortab.cpp:1175 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:975
+#: src/editortab.cpp:1165 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Yoxlamaq tələb olunur"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:981
+#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:971
 #: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
@@ -1076,7 +1076,7 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Cari: %1"
 
-#: src/editortab.cpp:113 src/editortab.cpp:762
+#: src/editortab.cpp:113 src/editortab.cpp:752
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
 #: src/tm/tmtab.cpp:581
 #, kde-format
@@ -1483,13 +1483,13 @@ msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Bu yalnız tərcüməsiz elementləri dəyişdirir"
 
-#: src/editortab.cpp:676
+#: src/editortab.cpp:666
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (bərpa olundu)"
 
-#: src/editortab.cpp:705 src/lokalizemainwindow.cpp:971
+#: src/editortab.cpp:695 src/lokalizemainwindow.cpp:971
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1499,38 +1499,38 @@ msgstr ""
 "Bu sənəddə saxlanılmamış dəyişikliklər var.\n"
 "Bu dəyişiklikləri saxlamaq yoxsa onları ləğv etmək istəyirsiniz?"
 
-#: src/editortab.cpp:707 src/editortab.cpp:1285
+#: src/editortab.cpp:697 src/editortab.cpp:1275
 #: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:973
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Xəbərdarlıq"
 
-#: src/editortab.cpp:727 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:717 src/mergemode/mergeview.cpp:167
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Tərcümə faylını seçmək"
 
-#: src/editortab.cpp:812
+#: src/editortab.cpp:802
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "%1 faylının açılması xətası, sətir: %2"
 
-#: src/editortab.cpp:814
+#: src/editortab.cpp:804
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "%1 faylının açılması xətası"
 
-#: src/editortab.cpp:822
+#: src/editortab.cpp:812
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Faylı belə saxlayın"
 
-#: src/editortab.cpp:851
+#: src/editortab.cpp:841
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1540,13 +1540,13 @@ msgstr ""
 "%1 faylının saxlanılması xətası\n"
 "Başqa faylda saxlamaq yoxsa ləğv etmək istəyirsiniz?"
 
-#: src/editortab.cpp:854
+#: src/editortab.cpp:844
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Xəta"
 
-#: src/editortab.cpp:864
+#: src/editortab.cpp:854
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1556,73 +1556,73 @@ msgstr ""
 "Faylın avtomatik saxlanılması baş tutmadı.\n"
 "Hədəf faylı %1 idi."
 
-#: src/editortab.cpp:901
+#: src/editortab.cpp:891
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Bölməyə keçid"
 
-#: src/editortab.cpp:902
+#: src/editortab.cpp:892
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Bölmənin nömrəsi:"
 
-#: src/editortab.cpp:969
+#: src/editortab.cpp:959
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Cari: %1"
 
-#: src/editortab.cpp:1156
+#: src/editortab.cpp:1146
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Tərcümə olundu"
 
-#: src/editortab.cpp:1157
+#: src/editortab.cpp:1147
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "İmzalanaraq buraxılmış"
 
-#: src/editortab.cpp:1158
+#: src/editortab.cpp:1148
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Təsdiqləndi"
 
-#: src/editortab.cpp:1159
+#: src/editortab.cpp:1149
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Tərcümə başa çatdı (yoxlamaq lazım gələ bilər)"
 
-#: src/editortab.cpp:1160
+#: src/editortab.cpp:1150
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Tərcüməyə müsbət rəy verildi"
 
-#: src/editortab.cpp:1161
+#: src/editortab.cpp:1151
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Bölmə tam lokalizasiya olundu"
 
-#: src/editortab.cpp:1261 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1251 src/project/projecttab.cpp:304
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Pology yoxlaması artıq icra olunur."
 
-#: src/editortab.cpp:1261 src/editortab.cpp:1269 src/editortab.cpp:1273
+#: src/editortab.cpp:1251 src/editortab.cpp:1259 src/editortab.cpp:1263
 #: src/project/projecttab.cpp:304 src/project/projecttab.cpp:312
 #: src/project/projecttab.cpp:316
 #, kde-format
 msgid "Pology error"
 msgstr "Pology xətası"
 
-#: src/editortab.cpp:1269 src/project/projecttab.cpp:312
+#: src/editortab.cpp:1259 src/project/projecttab.cpp:312
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1631,17 +1631,17 @@ msgstr ""
 "Pology yoxlaması gözlənilmədən qəzaya uğradı:\n"
 "%1"
 
-#: src/editortab.cpp:1271 src/project/projecttab.cpp:314
+#: src/editortab.cpp:1261 src/project/projecttab.cpp:314
 #, kde-format
 msgid "Pology success"
 msgstr "PPology proqramı ilə uğurlu yoxlama"
 
-#: src/editortab.cpp:1271
+#: src/editortab.cpp:1261
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pology yoxlaması başa çatdı."
 
-#: src/editortab.cpp:1273 src/project/projecttab.cpp:316
+#: src/editortab.cpp:1263 src/project/projecttab.cpp:316
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1650,7 +1650,7 @@ msgstr ""
 "Pology yoxlamasının qaytardığı xəta:\n"
 "%1"
 
-#: src/editortab.cpp:1283
+#: src/editortab.cpp:1273
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1660,19 +1660,19 @@ msgstr ""
 "Bu fayldan bütün tərcümə olunan bölmələri siləcək.\n"
 "Siz doğrudan davam etmək istəyirsiniz?"
 
-#: src/editortab.cpp:1321
+#: src/editortab.cpp:1311
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Mənbə mətnindəki sözlər %1<br/>Tərcüməmətnindəki sözlər: %2"
 
-#: src/editortab.cpp:1322
+#: src/editortab.cpp:1312
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Sözlərin sayı"
 
-#: src/editortab.cpp:1412
+#: src/editortab.cpp:1402
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1681,30 +1681,30 @@ msgstr ""
 "Mənbə faylını yerli olaraq yoxsa lxr.kde.org səhifəsində axtarmaq "
 "istəyirsiniz?"
 
-#: src/editortab.cpp:1413
+#: src/editortab.cpp:1403
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Mənbə faylı axtarışı"
 
-#: src/editortab.cpp:1414
+#: src/editortab.cpp:1404
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Yerli olaraq axtarmaq"
 
-#: src/editortab.cpp:1415 src/editortab.cpp:1459
+#: src/editortab.cpp:1405 src/editortab.cpp:1449
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org-da axtarmaq"
 
-#: src/editortab.cpp:1418 src/editortab.cpp:1463
+#: src/editortab.cpp:1408 src/editortab.cpp:1453
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Mənbə faylı üçün layihənin əsas qovluğunu seçmək"
 
-#: src/editortab.cpp:1455
+#: src/editortab.cpp:1445
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1714,19 +1714,19 @@ msgstr ""
 "Verilmiş qovluda mənbə faylı tapılmadı.\n"
 "Mənbə faylları qovluğunu dəyişmək istəyirsiniz?"
 
-#: src/editortab.cpp:1457
+#: src/editortab.cpp:1447
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Mənbə faylını araşdırmaq"
 
-#: src/editortab.cpp:1458
+#: src/editortab.cpp:1448
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Qovluğu seçin"
 
-#: src/editortab.cpp:1500
+#: src/editortab.cpp:1490
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1740,33 +1740,33 @@ msgstr ""
 "faylı yoxdur. Skrip faylları və onların layihənizə necə əlavə ediləcəyiniz "
 "haqqında Lokalize sorğu kitabçasına baxın."
 
-#: src/editortab.cpp:1514 src/project/project.cpp:414
+#: src/editortab.cpp:1504 src/project/project.cpp:414
 #: src/project/project.cpp:419
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Translate-Toolkit quraşdırın və yenidən cəhd edin"
 
-#: src/editortab.cpp:1519
+#: src/editortab.cpp:1509
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Translate-Toolkit paketini quraşdırın və yenidən cəhd edin."
 
-#: src/editortab.cpp:1527
+#: src/editortab.cpp:1517
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Cari XLİFF faylına əsaslanan orijinal OpenDocument sənədini seçin"
 
-#: src/editortab.cpp:1529 src/project/project.cpp:424
+#: src/editortab.cpp:1519 src/project/project.cpp:424
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument sənədləri (*.odt *.ods)"
 
-#: src/editortab.cpp:1573
+#: src/editortab.cpp:1563
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Əlavə funksionallıq üçün python-uno paketini quraşdırın"
 
-#: src/editortab.cpp:1693
+#: src/editortab.cpp:1683
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"

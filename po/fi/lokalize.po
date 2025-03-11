@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-04 00:43+0000\n"
+"POT-Creation-Date: 2025-03-11 00:43+0000\n"
 "PO-Revision-Date: 2025-02-14 19:39+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1027,21 +1027,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Kohteen pituus"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:983
-#: src/editortab.cpp:1180 src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:973
+#: src/editortab.cpp:1170 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Valmis"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:985
-#: src/editortab.cpp:1175 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:975
+#: src/editortab.cpp:1165 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Vaatii tarkistusta"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:981
+#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:971
 #: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
@@ -1072,7 +1072,7 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Nykyinen: %1"
 
-#: src/editortab.cpp:113 src/editortab.cpp:762
+#: src/editortab.cpp:113 src/editortab.cpp:752
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
 #: src/tm/tmtab.cpp:581
 #, kde-format
@@ -1480,13 +1480,13 @@ msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Tämä muuttaa vain tyhjiä yksiköitä"
 
-#: src/editortab.cpp:676
+#: src/editortab.cpp:666
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (palautettu)"
 
-#: src/editortab.cpp:705 src/lokalizemainwindow.cpp:971
+#: src/editortab.cpp:695 src/lokalizemainwindow.cpp:971
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1496,38 +1496,38 @@ msgstr ""
 "Tiedostoon on tallentamatta muutoksia.\n"
 "Haluatko tallentaa vai hylätä ne?"
 
-#: src/editortab.cpp:707 src/editortab.cpp:1285
+#: src/editortab.cpp:697 src/editortab.cpp:1275
 #: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:973
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Varoitus"
 
-#: src/editortab.cpp:727 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:717 src/mergemode/mergeview.cpp:167
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Valitse käännöstiedosto"
 
-#: src/editortab.cpp:812
+#: src/editortab.cpp:802
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Virhe avattaessa tiedostoa %1, rivi: %2"
 
-#: src/editortab.cpp:814
+#: src/editortab.cpp:804
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Virhe avattaessa tiedostoa %1"
 
-#: src/editortab.cpp:822
+#: src/editortab.cpp:812
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Tallenna tiedosto nimellä"
 
-#: src/editortab.cpp:851
+#: src/editortab.cpp:841
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1537,13 +1537,13 @@ msgstr ""
 "Virhe tallennettaessa tiedostoa %1\n"
 "Haluatko tallentaa toiseen tiedostoon vai perua?"
 
-#: src/editortab.cpp:854
+#: src/editortab.cpp:844
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Virhe"
 
-#: src/editortab.cpp:864
+#: src/editortab.cpp:854
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1553,73 +1553,73 @@ msgstr ""
 "Tiedostoa ei voitu automaattitallentaa.\n"
 "Kohdetiedosto oli %1."
 
-#: src/editortab.cpp:901
+#: src/editortab.cpp:891
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Hyppää yksikköön"
 
-#: src/editortab.cpp:902
+#: src/editortab.cpp:892
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Yksikön numero:"
 
-#: src/editortab.cpp:969
+#: src/editortab.cpp:959
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Nykyinen: %1"
 
-#: src/editortab.cpp:1156
+#: src/editortab.cpp:1146
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Käännetty"
 
-#: src/editortab.cpp:1157
+#: src/editortab.cpp:1147
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Lähetetty"
 
-#: src/editortab.cpp:1158
+#: src/editortab.cpp:1148
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Hyväksytty"
 
-#: src/editortab.cpp:1159
+#: src/editortab.cpp:1149
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Käännös on valmis (mutta saattaa yhä vaatia tarkistusta)"
 
-#: src/editortab.cpp:1160
+#: src/editortab.cpp:1150
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Käännös on tarkistettu oikeaksi"
 
-#: src/editortab.cpp:1161
+#: src/editortab.cpp:1151
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Yksikkö on täysin kotoistettu (ts. lopullinen)"
 
-#: src/editortab.cpp:1261 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1251 src/project/projecttab.cpp:304
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Pology-tarkistus on jo käynnissä."
 
-#: src/editortab.cpp:1261 src/editortab.cpp:1269 src/editortab.cpp:1273
+#: src/editortab.cpp:1251 src/editortab.cpp:1259 src/editortab.cpp:1263
 #: src/project/projecttab.cpp:304 src/project/projecttab.cpp:312
 #: src/project/projecttab.cpp:316
 #, kde-format
 msgid "Pology error"
 msgstr "Pology-virhe"
 
-#: src/editortab.cpp:1269 src/project/projecttab.cpp:312
+#: src/editortab.cpp:1259 src/project/projecttab.cpp:312
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1628,17 +1628,17 @@ msgstr ""
 "Pology-tarkistus on odottamatta kaatunut:\n"
 "%1"
 
-#: src/editortab.cpp:1271 src/project/projecttab.cpp:314
+#: src/editortab.cpp:1261 src/project/projecttab.cpp:314
 #, kde-format
 msgid "Pology success"
 msgstr "Pology onnistui"
 
-#: src/editortab.cpp:1271
+#: src/editortab.cpp:1261
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pology-tarkistus onnistui."
 
-#: src/editortab.cpp:1273 src/project/projecttab.cpp:316
+#: src/editortab.cpp:1263 src/project/projecttab.cpp:316
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1647,7 +1647,7 @@ msgstr ""
 "Pology-tarkistus palautti virheen:\n"
 "%1"
 
-#: src/editortab.cpp:1283
+#: src/editortab.cpp:1273
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1657,19 +1657,19 @@ msgstr ""
 "Tämä poistaa kaikki käännökset tiedostosta.\n"
 "Haluatko varmasti tyhjentää kaikki käännetyt yksiköt?"
 
-#: src/editortab.cpp:1321
+#: src/editortab.cpp:1311
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Sanoja lähdetekstissä: %1<br/>Sanoja kohdetekstissä: %2"
 
-#: src/editortab.cpp:1322
+#: src/editortab.cpp:1312
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Sanamäärä"
 
-#: src/editortab.cpp:1412
+#: src/editortab.cpp:1402
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1677,30 +1677,30 @@ msgid ""
 msgstr ""
 "Haluatko hakea lähdekooditiedostoa paikallisesti vai lxr.kde.org-palvelusta?"
 
-#: src/editortab.cpp:1413
+#: src/editortab.cpp:1403
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Lähdekooditiedoston haku"
 
-#: src/editortab.cpp:1414
+#: src/editortab.cpp:1404
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Etsi paikallisesti"
 
-#: src/editortab.cpp:1415 src/editortab.cpp:1459
+#: src/editortab.cpp:1405 src/editortab.cpp:1449
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "Etsi lxr.kde.orgista"
 
-#: src/editortab.cpp:1418 src/editortab.cpp:1463
+#: src/editortab.cpp:1408 src/editortab.cpp:1453
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Valitse projektin peruskansio lähdekoodihakua varten"
 
-#: src/editortab.cpp:1455
+#: src/editortab.cpp:1445
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1710,19 +1710,19 @@ msgstr ""
 "Lähdekooditiedostoa ei löydy annetusta kansiosta.\n"
 "Haluatko vaihtaa lähdekoodikansiota?"
 
-#: src/editortab.cpp:1457
+#: src/editortab.cpp:1447
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Lähdekooditiedoston haku"
 
-#: src/editortab.cpp:1458
+#: src/editortab.cpp:1448
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Valitse kansio"
 
-#: src/editortab.cpp:1500
+#: src/editortab.cpp:1490
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1737,35 +1737,35 @@ msgstr ""
 "voit katsoa skriptiesimerkkejä ja ohjeita siitä, miten ne liitetään "
 "projektiin."
 
-#: src/editortab.cpp:1514 src/project/project.cpp:414
+#: src/editortab.cpp:1504 src/project/project.cpp:414
 #: src/project/project.cpp:419
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Asenna translate-toolkit-paketti ja yritä uudelleen"
 
-#: src/editortab.cpp:1519
+#: src/editortab.cpp:1509
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Asenna translate-toolkit-paketti ja yritä uudelleen."
 
-#: src/editortab.cpp:1527
+#: src/editortab.cpp:1517
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "Valitse alkuperäinen OpenDocument-tiedosto, johon nykyinen XLIFF-tiedosto "
 "perustuu"
 
-#: src/editortab.cpp:1529 src/project/project.cpp:424
+#: src/editortab.cpp:1519 src/project/project.cpp:424
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument-tiedostot (*.odt *.ods)"
 
-#: src/editortab.cpp:1573
+#: src/editortab.cpp:1563
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Asenna python-uno-paketti saadaksesi lisää toiminnallisuutta."
 
-#: src/editortab.cpp:1693
+#: src/editortab.cpp:1683
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
