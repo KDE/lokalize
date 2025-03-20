@@ -508,10 +508,12 @@ TMTab::~TMTab()
 
 void TMTab::updateTM()
 {
-    scanRecursive(QStringList(Project::instance()->poDir()), Project::instance()->projectID());
-    if (Settings::deleteFromTMOnMissing()) {
-        RemoveMissingFilesJob *job = new RemoveMissingFilesJob(Project::instance()->projectID());
-        TM::threadPool()->start(job, REMOVEMISSINGFILES);
+    if (Project::instance()->isLoaded()) {
+        scanRecursive(QStringList(Project::instance()->poDir()), Project::instance()->projectID());
+        if (Settings::deleteFromTMOnMissing()) {
+            RemoveMissingFilesJob *job = new RemoveMissingFilesJob(Project::instance()->projectID());
+            TM::threadPool()->start(job, REMOVEMISSINGFILES);
+        }
     }
 }
 
