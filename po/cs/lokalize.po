@@ -2184,7 +2184,7 @@ msgstr "Předchozí aktivní karta"
 #: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "Zavřít současnou kartu"
 
 #: src/lokalizemainwindow.cpp:556
 #, kde-format
