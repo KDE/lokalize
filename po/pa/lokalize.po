@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 00:43+0000\n"
+"POT-Creation-Date: 2025-03-21 00:44+0000\n"
 "PO-Revision-Date: 2024-07-21 22:25-0500\n"
 "Last-Translator: aalam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -992,7 +992,7 @@ msgstr "ਮੌਜੂਦਾ: %1"
 
 #: src/editortab.cpp:113 src/editortab.cpp:752
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
-#: src/tm/tmtab.cpp:581
+#: src/tm/tmtab.cpp:583
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -4213,13 +4213,13 @@ msgstr "ਸਪੇਸ ਐਂਡ (AND) ਓਪਰੇਟਰ ਹੈ। ਅੱਖਰ �
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "ਸ਼ੈੱਲ ਗਲੋਬ (* ਅਤੇ ?)। ਅੱਖਰ ਅਕਾਰ ਉਤੇ ਨਿਰਭਰ"
 
-#: src/tm/tmtab.cpp:583
+#: src/tm/tmtab.cpp:585
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "ਕੁੱਲ: %1 (%2)"
 
-#: src/tm/tmtab.cpp:607 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:609 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""

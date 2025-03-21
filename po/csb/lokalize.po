@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 00:43+0000\n"
+"POT-Creation-Date: 2025-03-21 00:44+0000\n"
 "PO-Revision-Date: 2009-12-19 02:29+0100\n"
 "Last-Translator: Mark Kwidzińśczi <mark@linuxcsb.org>\n"
 "Language-Team: Kaszëbsczi <i18n-csb@linuxcsb.org>\n"
@@ -990,7 +990,7 @@ msgstr "Aktualny: %1"
 
 #: src/editortab.cpp:113 src/editortab.cpp:752
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
-#: src/tm/tmtab.cpp:581
+#: src/tm/tmtab.cpp:583
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -4140,7 +4140,7 @@ msgstr ""
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr ""
 
-#: src/tm/tmtab.cpp:583
+#: src/tm/tmtab.cpp:585
 #, fuzzy, kde-format
 #| msgctxt "@info:status message entries"
 #| msgid "Total: %1"
@@ -4148,7 +4148,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Całowno: %1"
 
-#: src/tm/tmtab.cpp:607 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:609 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 00:43+0000\n"
+"POT-Creation-Date: 2025-03-21 00:44+0000\n"
 "PO-Revision-Date: 2025-02-20 22:33+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -1061,7 +1061,7 @@ msgstr "Denne: %1"
 
 #: src/editortab.cpp:113 src/editortab.cpp:752
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
-#: src/tm/tmtab.cpp:581
+#: src/tm/tmtab.cpp:583
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -4350,14 +4350,14 @@ msgstr ""
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Shell-globbing (* og ?). Skil mellom store og små bokstavar."
 
-#: src/tm/tmtab.cpp:583
+#: src/tm/tmtab.cpp:585
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "I alt: %1 (%2)"
 
 # Vert vist når meldinga vert fjerna, så kan godt ha denne i preteritum.
-#: src/tm/tmtab.cpp:607 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:609 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""

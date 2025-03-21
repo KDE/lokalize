@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 00:43+0000\n"
+"POT-Creation-Date: 2025-03-21 00:44+0000\n"
 "PO-Revision-Date: 2024-09-15 06:03+0900\n"
 "Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -1038,7 +1038,7 @@ msgstr "現在: %1"
 
 #: src/editortab.cpp:113 src/editortab.cpp:752
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
-#: src/tm/tmtab.cpp:581
+#: src/tm/tmtab.cpp:583
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -4312,13 +4312,13 @@ msgstr "スペースは AND 演算子になります。大文字と小文字を�
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "シェル glob (* と ?)。大文字と小文字を区別する。"
 
-#: src/tm/tmtab.cpp:583
+#: src/tm/tmtab.cpp:585
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "合計: %1 (%2)"
 
-#: src/tm/tmtab.cpp:607 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:609 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""

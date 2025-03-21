@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 00:43+0000\n"
+"POT-Creation-Date: 2025-03-21 00:44+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -1116,7 +1116,7 @@ msgstr "Actual: %1"
 
 #: src/editortab.cpp:113 src/editortab.cpp:752
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
-#: src/tm/tmtab.cpp:581
+#: src/tm/tmtab.cpp:583
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -4476,13 +4476,13 @@ msgstr "O espaço é um operador E. Não faz distinção de maiúsculas."
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Expansões da linha de comandos (* e ?). Faz distinção de maiúsculas."
 
-#: src/tm/tmtab.cpp:583
+#: src/tm/tmtab.cpp:585
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Total: %1 (%2)"
 
-#: src/tm/tmtab.cpp:607 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:609 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""
