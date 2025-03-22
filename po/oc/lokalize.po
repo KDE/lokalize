@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-21 00:44+0000\n"
+"POT-Creation-Date: 2025-03-22 00:44+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -1033,7 +1033,7 @@ msgstr ""
 
 #: src/editortab.cpp:113 src/editortab.cpp:752
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
-#: src/tm/tmtab.cpp:583
+#: src/tm/tmtab.cpp:587
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -4356,13 +4356,27 @@ msgstr ""
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr ""
 
-#: src/tm/tmtab.cpp:585
+#: src/tm/tmtab.cpp:513
+#, kde-format
+msgid ""
+"Rescanning files is only possible while a project is open. Please open a "
+"project and try again."
+msgstr ""
+
+#: src/tm/tmtab.cpp:514
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open project"
+msgid "Rescan not possible"
+msgstr "Dobrir un projècte"
+
+#: src/tm/tmtab.cpp:589
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr ""
 
-#: src/tm/tmtab.cpp:609 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""

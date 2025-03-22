@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-21 00:44+0000\n"
+"POT-Creation-Date: 2025-03-22 00:44+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1050,7 +1050,7 @@ msgstr "वर्तमानम् : %1"
 
 #: src/editortab.cpp:113 src/editortab.cpp:752
 #: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:438
-#: src/tm/tmtab.cpp:583
+#: src/tm/tmtab.cpp:587
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -4306,13 +4306,26 @@ msgstr "अन्तरिक्षं AND संचालकः अस्ति
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "शंखग्लोब्स् (* तथा ?)। प्रकरणसंवेदनशीलम्।"
 
-#: src/tm/tmtab.cpp:585
+#: src/tm/tmtab.cpp:513
+#, kde-format
+msgid ""
+"Rescanning files is only possible while a project is open. Please open a "
+"project and try again."
+msgstr ""
+
+#: src/tm/tmtab.cpp:514
+#, fuzzy, kde-format
+#| msgid "&Rescan project files"
+msgid "Rescan not possible"
+msgstr "&प्रकल्पसञ्चिकाः पुनः स्कैन् कुर्वन्तु"
+
+#: src/tm/tmtab.cpp:589
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "कुलम् : %1 (%2) ."
 
-#: src/tm/tmtab.cpp:609 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""
