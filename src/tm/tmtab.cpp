@@ -508,7 +508,11 @@ TMTab::~TMTab()
 
 void TMTab::updateTM()
 {
-    if (Project::instance()->isLoaded()) {
+    if (!Project::instance()->isLoaded()) {
+        KMessageBox::information(this,
+                                 i18n("Rescanning files is only possible while a project is open. Please open a project and try again."),
+                                 i18n("Rescan not possible"));
+    } else {
         scanRecursive(QStringList(Project::instance()->poDir()), Project::instance()->projectID());
         if (Settings::deleteFromTMOnMissing()) {
             RemoveMissingFilesJob *job = new RemoveMissingFilesJob(Project::instance()->projectID());
