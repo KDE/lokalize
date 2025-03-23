@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-22 00:44+0000\n"
-"PO-Revision-Date: 2025-02-24 22:25+0100\n"
+"PO-Revision-Date: 2025-03-22 11:08+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -4364,12 +4364,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Ponovno skeniranje datotek je možno le, ko je projekt odprt. Odprite projekt "
+"in poskusite znova."
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "P&reišči datoteke projekta"
+msgstr "Ponovno skeniranje ni mogoče"
 
 #: src/tm/tmtab.cpp:589
 #, kde-format

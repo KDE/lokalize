@@ -4184,10 +4184,9 @@ msgid ""
 msgstr ""
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "重新扫描项目文件(&R)"
+msgstr ""
 
 #: src/tm/tmtab.cpp:589
 #, kde-format

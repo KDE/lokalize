@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-22 00:44+0000\n"
-"PO-Revision-Date: 2025-02-25 12:04+0100\n"
+"PO-Revision-Date: 2025-03-22 15:22+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -4393,12 +4393,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Opnieuw scannen van bestanden is alleen mogelijk terwijl een project open "
+"is. Open een project opnieuw en probeer opnieuw."
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "Projectbestanden &opnieuw scannen"
+msgstr "Opnieuw scannen is niet mogelijk"
 
 #: src/tm/tmtab.cpp:589
 #, kde-format
