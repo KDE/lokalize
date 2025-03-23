@@ -178,7 +178,7 @@ LokalizeMainWindow::~LokalizeMainWindow()
     KConfig config;
     KConfigGroup stateGroup(&config, QStringLiteral("State"));
     if (!m_lastEditorState.isEmpty())
-        stateGroup.writeEntry("DefaultDockWidgets", m_lastEditorState);
+        stateGroup.writeEntry("DefaultDockWidgets", m_lastEditorState.toBase64());
     saveProjectState(stateGroup);
 
     // Disconnect the signals pointing to this MainWindow object
@@ -228,7 +228,7 @@ void LokalizeMainWindow::activateTabAtIndex(int i)
     } else if (m_translationMemoryTab && m_mainTabs->indexOf(m_translationMemoryTab) == i) {
         m_translationMemoryTab->statusBarItems.registerStatusBar(statusBar(), m_statusBarLabels);
     } else if (EditorTab *editorTab = qobject_cast<EditorTab *>(m_mainTabs->currentWidget())) {
-        m_lastEditorState = editorTab->state().dockWidgets.toBase64();
+        m_lastEditorState = editorTab->state().qMainWindowState;
         editorTab->setProperFocus();
         editorTab->statusBarItems.registerStatusBar(statusBar(), m_statusBarLabels);
     }
@@ -331,7 +331,7 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     // restored to the same state as it was last closed in.
     KConfig config;
     KConfigGroup stateGroup(&config, QStringLiteral("EditorStates"));
-    QByteArray savedEditorState = QByteArray::fromBase64(stateGroup.readEntry(newEditorTab->currentFilePath(), QByteArray()));
+    QByteArray savedEditorState = stateGroup.readEntry(newEditorTab->currentFilePath(), QByteArray());
     if (!savedEditorState.isEmpty()) {
         // Best case: editor has been opened before and has a previous state.
         newEditorTab->restoreState(QByteArray::fromBase64(savedEditorState));
@@ -671,11 +671,12 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup &stateGroup)
 {
     QStringList files;
     QStringList mergeFiles;
-    QList<QByteArray> dockWidgets;
     QList<int> entries;
     int activeTabIndex = m_mainTabs->currentIndex();
     int i = m_mainTabs->count();
 
+    KConfig config;
+    KConfigGroup editorQMainWindowState(&config, QLatin1String("EditorStates"));
     m_translationMemoryTabIsVisible = false;
     while (--i >= 0) {
         // Only process the editor tabs and the Translation Memory tab
@@ -688,23 +689,17 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup &stateGroup)
         EditorState editorState = static_cast<EditorTab *>(m_mainTabs->widget(i))->state();
         files.append(editorState.filePath);
         mergeFiles.append(editorState.mergeFilePath);
-        dockWidgets.append(editorState.dockWidgets.toBase64());
         entries.append(editorState.entry);
+        editorQMainWindowState.writeEntry(editorState.filePath, editorState.qMainWindowState.toBase64());
     }
-
-    // Save state of last focused editor to disk if there are no editors open.
-    if (files.size() == 0 && !m_lastEditorState.isEmpty())
-        dockWidgets.append(m_lastEditorState);
 
     if (stateGroup.isValid())
         stateGroup.writeEntry("Project", Project::instance()->path());
 
-    KConfig config;
     KConfigGroup projectStateGroup(&config, QStringLiteral("State-") + Project::instance()->path());
     projectStateGroup.writeEntry("Active", activeTabIndex);
     projectStateGroup.writeEntry("Files", files);
     projectStateGroup.writeEntry("MergeFiles", mergeFiles);
-    projectStateGroup.writeEntry("DockWidgets", dockWidgets);
     projectStateGroup.writeEntry("Entries", entries);
     projectStateGroup.writeEntry("TranslationMemoryTabIsVisible", m_translationMemoryTabIsVisible);
     if (m_projectTab) {
@@ -753,7 +748,6 @@ void LokalizeMainWindow::projectLoaded()
 
     QStringList files;
     QStringList mergeFiles;
-    QList<QByteArray> dockWidgets;
     QList<int> entries;
 
     if (!projectPath.isEmpty())
@@ -772,15 +766,10 @@ void LokalizeMainWindow::projectLoaded()
     if (Settings::self()->restoreRecentFilesOnStartup())
         files = projectStateGroup.readEntry("Files", files);
     mergeFiles = projectStateGroup.readEntry("MergeFiles", mergeFiles);
-    dockWidgets = projectStateGroup.readEntry("DockWidgets", dockWidgets);
     int i = files.size();
     int activeTabIndex = projectStateGroup.readEntry("Active", -1);
     QStringList failedFiles;
     while (--i >= 0) {
-        // The editor state is set here, and then read as the state for the editor in fileOpen() below. Horrible logic.
-        if (i < dockWidgets.size()) {
-            m_lastEditorState = dockWidgets.at(i);
-        }
         if (!fileOpen(files.at(i), entries.at(i), activeTabIndex == i, mergeFiles.at(i), /*silent*/ true))
             failedFiles.append(files.at(i));
     }
@@ -793,11 +782,9 @@ void LokalizeMainWindow::projectLoaded()
         notification->sendEvent();
     }
 
-    if (files.isEmpty() && dockWidgets.size() > 0) {
-        m_lastEditorState = dockWidgets.last(); // restore last state if no editor open
-    } else {
-        m_lastEditorState = stateGroup.readEntry("DefaultDockWidgets", m_lastEditorState); // restore default state if no last editor for this project
-    }
+    if (files.isEmpty())
+        m_lastEditorState =
+            QByteArray::fromBase64(stateGroup.readEntry("DefaultDockWidgets", m_lastEditorState)); // restore default state if no last editor for this project
     projectSettingsChanged();
 }
 
@@ -1008,7 +995,7 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
         m_fileToEditor.remove(m_fileToEditor.key(editorTab));
         KConfig config;
         KConfigGroup stateGroup(&config, QStringLiteral("EditorStates"));
-        stateGroup.writeEntry(editorTab->currentFilePath(), editorTab->state().dockWidgets.toBase64());
+        stateGroup.writeEntry(editorTab->currentFilePath(), editorTab->state().qMainWindowState.toBase64());
         editorTab->deleteLater();
     } else {
         qCWarning(LOKALIZE_LOG) << "LokalizeMainWindow::closeTabAtIndex(): tab type wasn't recognised, this is an error";

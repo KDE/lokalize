@@ -61,7 +61,7 @@ public:
     {
     }
     EditorState(const EditorState &s)
-        : dockWidgets(s.dockWidgets)
+        : qMainWindowState(s.qMainWindowState)
         , filePath(s.filePath)
         , entry(0)
     {
@@ -70,7 +70,7 @@ public:
     {
     }
 
-    QByteArray dockWidgets;
+    QByteArray qMainWindowState;
     QString filePath;
     QString mergeFilePath;
     int entry;
