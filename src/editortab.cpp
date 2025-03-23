@@ -859,7 +859,7 @@ void EditorTab::fileAutoSaveFailedWarning(const QString &fileName)
 EditorState EditorTab::state()
 {
     EditorState state;
-    state.dockWidgets = saveState();
+    state.qMainWindowState = saveState();
     state.filePath = m_catalog->url();
     state.mergeFilePath = m_syncView->filePath();
     state.entry = m_currentPos.entry;
