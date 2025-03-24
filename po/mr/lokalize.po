@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-21 02:40+0000\n"
+"POT-Creation-Date: 2025-03-24 02:34+0000\n"
 "PO-Revision-Date: 2013-03-06 17:46+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -1393,7 +1393,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr ""
 
-#: src/editortab.cpp:705 src/lokalizemainwindow.cpp:971
+#: src/editortab.cpp:705 src/lokalizemainwindow.cpp:958
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1402,7 +1402,7 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:707 src/editortab.cpp:1285
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:973
+#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:960
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2233,7 +2233,7 @@ msgstr ""
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:791
+#: src/lokalizemainwindow.cpp:780
 #, kde-format
 msgctxt "@info"
 msgid ""
