@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-22 00:44+0000\n"
+"POT-Creation-Date: 2025-03-24 00:44+0000\n"
 "PO-Revision-Date: 2025-02-24 17:06+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1478,7 +1478,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (återställd)"
 
-#: src/editortab.cpp:695 src/lokalizemainwindow.cpp:971
+#: src/editortab.cpp:695 src/lokalizemainwindow.cpp:958
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1489,7 +1489,7 @@ msgstr ""
 "Vill du spara ändringarna eller kasta dem?"
 
 #: src/editortab.cpp:697 src/editortab.cpp:1275
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:973
+#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:960
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2362,7 +2362,7 @@ msgstr "Hämta text från grafiska komponenter"
 msgid "&Window Color Scheme"
 msgstr "&Fönsterfärgschema"
 
-#: src/lokalizemainwindow.cpp:791
+#: src/lokalizemainwindow.cpp:780
 #, kde-format
 msgctxt "@info"
 msgid ""

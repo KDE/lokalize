@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-22 00:44+0000\n"
+"POT-Creation-Date: 2025-03-24 00:44+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1494,7 +1494,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(phục hồi)"
 
-#: src/editortab.cpp:695 src/lokalizemainwindow.cpp:971
+#: src/editortab.cpp:695 src/lokalizemainwindow.cpp:958
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1505,7 +1505,7 @@ msgstr ""
 "Bạn muốn lưu các thay đổi hay loại bỏ chúng?"
 
 #: src/editortab.cpp:697 src/editortab.cpp:1275
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:973
+#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:960
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2395,7 +2395,7 @@ msgstr "Thu thập chữ ở khiển tố"
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:791
+#: src/lokalizemainwindow.cpp:780
 #, kde-format
 msgctxt "@info"
 msgid ""

@@ -1,4 +1,4 @@
-# Translation of lokalize to Spanish
+# Spanish translations for lokalize.po package.
 # Copyright (C) 2007-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the lokalize package.
 #
@@ -10,15 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-22 00:44+0000\n"
-"PO-Revision-Date: 2025-02-24 18:09+0100\n"
+"POT-Creation-Date: 2025-03-24 00:44+0000\n"
+"PO-Revision-Date: 2025-03-23 03:41+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -1492,7 +1492,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (recuperada)"
 
-#: src/editortab.cpp:695 src/lokalizemainwindow.cpp:971
+#: src/editortab.cpp:695 src/lokalizemainwindow.cpp:958
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1503,7 +1503,7 @@ msgstr ""
 "¿Desea guardar los cambios o descartarlos?"
 
 #: src/editortab.cpp:697 src/editortab.cpp:1275
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:973
+#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:960
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2387,7 +2387,7 @@ msgstr "Captura de texto de widget"
 msgid "&Window Color Scheme"
 msgstr "Esquema de color de las &ventanas"
 
-#: src/lokalizemainwindow.cpp:791
+#: src/lokalizemainwindow.cpp:780
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4407,12 +4407,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Solo se pueden reexaminar los archivos mientras haya un proyecto abierto. "
+"Abra un proyecto y vuelva a intentarlo."
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "&Reexaminar archivos del proyecto"
+msgstr "No se puede reexaminar"
 
 #: src/tm/tmtab.cpp:589
 #, kde-format
@@ -4684,287 +4685,3 @@ msgstr "Se ha informado de un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copiar el origen al destino"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Spellcheck"
-#~ msgstr "Comprobación ortográfica"
-
-#~ msgid "Alternative Translations"
-#~ msgstr "Traducciones alternativas"
-
-#~ msgid "bug fixing and improvments"
-#~ msgstr "corrección de fallos y mejoras"
-
-#~ msgctxt "%1 is the number of times this TM entry has been found"
-#~ msgid "(1 time)"
-#~ msgid_plural "(%1 times)"
-#~ msgstr[0] "(1 vez)"
-#~ msgstr[1] "(%1 veces)"
-
-#~ msgid "Text colors for the changes in the message."
-#~ msgstr "Colores de texto para los cambios del mensaje."
-
-#~ msgid "String Matching"
-#~ msgstr "Cadena coincidente"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text added in the newer string:"
-#~ msgstr "Texto añadido a la cadena más reciente:"
-
-#~ msgid "Change the color for the new text added"
-#~ msgstr "Cambiar el color para el nuevo texto añadido"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was added to the "
-#~ "string."
-#~ msgstr ""
-#~ "Puede definir otro color para visualizar el texto que ha sido añadido a "
-#~ "la cadena."
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text removed in the newer string:"
-#~ msgstr "Texto eliminado de la cadena más reciente:"
-
-#~ msgid "Change the color for the text removed"
-#~ msgstr "Cambiar el color para el texto eliminado"
-
-#~ msgid ""
-#~ "You can set another color for viewing the text that was removed from the "
-#~ "string."
-#~ msgstr ""
-#~ "Puede definir otro color para visualizar el texto que ha sido eliminado "
-#~ "de la cadena."
-
-#~ msgid "Locally"
-#~ msgstr "Localmente"
-
-#~ msgid "lxr.kde.org"
-#~ msgstr "lxr.kde.org"
-
-#~ msgctxt "@action"
-#~ msgid "New"
-#~ msgstr "Nuevo"
-
-#~ msgctxt "@action"
-#~ msgid "Open"
-#~ msgstr "Abrir"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert WebQuery result #%1"
-#~ msgstr "Insertar el resultado de la consulta web #%1"
-
-#~ msgid "&WebQuery"
-#~ msgstr "Consulta &web"
-
-#~ msgid "Query"
-#~ msgstr "Consulta"
-
-#~ msgid "Autoquery"
-#~ msgstr "Consulta automática"
-
-#~ msgid "Prefetch for the next untranslated"
-#~ msgstr "Obtener previamente para la siguiente no traducida"
-
-#~ msgid "Prefetch"
-#~ msgstr "Obtener previamente"
-
-#~ msgid "Web Queries"
-#~ msgstr "Consultas web"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation complete"
-#~ msgstr "Traducción del grupo completa"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation"
-#~ msgstr "Traducción de un grupo"
-
-#~ msgctxt "Button label"
-#~ msgid "Remove"
-#~ msgstr "Eliminar"
-
-#~ msgctxt "Button label"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Activated by Ctrl+L."
-#~ msgstr "Se activa con Ctrl+L."
-
-#~ msgctxt "@title:tab"
-#~ msgid "Scripts"
-#~ msgstr "Scripts"
-
-#~ msgctxt ""
-#~ "@option:check whether message is marked as translated/reviewed/approved "
-#~ "(depending on your role)"
-#~ msgid "State"
-#~ msgstr "Estado"
-
-#~ msgctxt "@info"
-#~ msgid "Error opening the file"
-#~ msgstr "Error al abrir el archivo"
-
-#~ msgid ""
-#~ "<html><head/><body><p align=\"center\">Welcome to Lokalize!</p><p>Drop a "
-#~ "translation file here to start editing it.</p><p>You can help translating "
-#~ "KDE into your mother language by going to <a href=\"http://l10n.kde.org/"
-#~ "\"><span style=\" text-decoration: underline; color:#0000ff;\">KDE "
-#~ "localization site</span></a> and contacting appropriate language team.</"
-#~ "p><p><br/></p><p><br/></p></body></html>"
-#~ msgstr ""
-#~ "<html><head/><body><p align=\"center\">¡Bienvenido a Lokalize!</"
-#~ "p><p>Suelte aquí un archivo de traducción para empezar a editarlo.</"
-#~ "p><p>Puede ayudar a traducir KDE a su idioma nativo visitando el <a href="
-#~ "\"http://l10n.kde.org/\"><span style=\" text-decoration: underline; color:"
-#~ "#0000ff;\">sitio de localización de KDE</span></a> y poniéndose en "
-#~ "contacto con el correspondiente equipo de traducción.</p><p><br/></"
-#~ "p><p><br/></p></body></html>"
-
-#~ msgid "Your role (XLIFF only):"
-#~ msgstr "Su papel (solo para XLIFF):"
-
-#~ msgid "Default source language:"
-#~ msgstr "Idioma de origen por omisión:"
-
-#~ msgid "Default target language:"
-#~ msgstr "Idioma de destino por omisión:"
-
-#~ msgid "Glossary file:"
-#~ msgstr "Archivo de glosario:"
-
-#~ msgctxt "@label:textbox"
-#~ msgid "Pology command at entry level:"
-#~ msgstr "Orden de Pology al nivel de la entrada:"
-
-#~ msgctxt "@title actions category"
-#~ msgid "Tools"
-#~ msgstr "Herramientas"
-
-#~ msgid ""
-#~ "Translate-Toolkit not found. Please install this package for the feature "
-#~ "to work."
-#~ msgstr ""
-#~ "El juego de herramientas de traducción no se ha encontrado. Instale este "
-#~ "paquete para que pueda funcionar esta característica."
-
-#~ msgid "What do you want to do?"
-#~ msgstr "¿Qué quiere hacer?"
-
-#~ msgid "Identify the kind of project you want:"
-#~ msgstr "Identifique el tipo de proyecto que quiere:"
-
-#~ msgid "Translate application interface"
-#~ msgstr "Traducir interfaz de aplicación"
-
-#~ msgid "Choose a document to be translated"
-#~ msgstr "Seleccione un documento para traducir"
-
-#~ msgid "Choose document in a source language."
-#~ msgstr "Seleccionar documento en el idioma de origen."
-
-#~ msgid "Choose project name and location"
-#~ msgstr "Elegir nombre de proyecto y ubicación"
-
-#~ msgid ""
-#~ "If you choose custom paths then the source files will be copied to it."
-#~ msgstr ""
-#~ "Si elige rutas personalizadas, los archivos de origen se copiarán en "
-#~ "ellas."
-
-#~ msgid "Use initial source dir, generate name automatically"
-#~ msgstr ""
-#~ "Usar la carpeta de origen inicial, generar el nombre automáticamente"
-
-#~ msgid "Custom paths"
-#~ msgstr "Rutas personalizadas"
-
-#~ msgid "Choose source and target languages"
-#~ msgstr "Elegir idiomas de origen y destino"
-
-#~ msgid "Click on a combobox then start typing the name of the language."
-#~ msgstr ""
-#~ "Pulse en una lista desplegable y escriba luego el nombre del idioma."
-
-#~ msgid "Choose a type of software project"
-#~ msgstr "Elija un tipo de proyecto de software"
-
-#~ msgid ""
-#~ "Different projects use different translation files filesystem layout."
-#~ msgstr ""
-#~ "Distintos proyectos utilizan esquemas diferentes de archivos de "
-#~ "traducción."
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid ""
-#~ "Choose whether you already have translation files on disk, or if you want "
-#~ "to download them now."
-#~ msgstr ""
-#~ "Indique si ya tiene los archivos de traducción en el disco o si desea "
-#~ "descargarlos ahora."
-
-#~ msgid "Existing:"
-#~ msgstr "Existente:"
-
-#~ msgid ""
-#~ "Your language's folder containing messages/ and docmessages/ subfolders"
-#~ msgstr ""
-#~ "La carpeta de su idioma que contiene las subcarpetas «messages/» y "
-#~ "«docmessages/»"
-
-#~ msgid ""
-#~ "Get from svn repository\n"
-#~ "(approx. 20 MB):"
-#~ msgstr ""
-#~ "Obtener del repositorio SVN\n"
-#~ "(aproximadamente 20 MB):"
-
-#~ msgid "Local download folder (will/does contain trunk/l10n-kde4/...)"
-#~ msgstr ""
-#~ "Carpeta local de descarga (contiene o contendrá trunk/l10n-kde4/, etc.)"
-
-#~ msgid ""
-#~ "Please install 'subversion' package\n"
-#~ "to have Lokalize download KDE translation files."
-#~ msgstr ""
-#~ "Instale el paquete «subversion» para que Lokalize\n"
-#~ "pueda descargar los archivos de traducción de KDE."
-
-#~ msgid "Subversion client not found"
-#~ msgstr "Cliente de «subversion» no encontrado"
-
-#~ msgid "New project wizard"
-#~ msgstr "Asistente de nuevo proyecto"
-
-#~ msgid "Fires up a wizard to guide you through project creation"
-#~ msgstr "Lanza un asistente que le guía durante la creación del proyecto"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Create new project"
-#~ msgstr "Crear nuevo proyecto"
-
-#~ msgid "All supported files"
-#~ msgstr "Todos los archivos permitidos"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert # %1 term translation"
-#~ msgstr "Insertar la traducción del término nº %1"
-
-#~ msgctxt "@info"
-#~ msgid "Error opening the file <filename>%1</filename>"
-#~ msgstr "Error al abrir el archivo <filename>%1</filename>"
-
-#~ msgid "Process"
-#~ msgstr "Proceso"
-
-#~ msgid "*.lokalize *.ktp|Lokalize translation project"
-#~ msgstr "*.lokalize *.ktp|Proyecto de traducción de Lokalize"
-
-#~ msgid ""
-#~ "*.tmx *.xml|TMX files\n"
-#~ "*|All files"
-#~ msgstr ""
-#~ "*.tmx *.xml|Archivos TMX\n"
-#~ "*|Todos los archivos"
