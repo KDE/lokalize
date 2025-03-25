@@ -17,14 +17,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:44+0000\n"
-"PO-Revision-Date: 2025-03-05 19:28+0900\n"
+"PO-Revision-Date: 2025-03-24 20:01+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -4250,13 +4250,12 @@ msgstr "使用 Shell 萬用字元（* 與 ?）。區分大小寫。"
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
-msgstr ""
+msgstr "只有在有開啟專案的時候才能夠重新掃描檔案。請開啟一個專案之後再試一次。"
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "重新掃描專案檔案(&R)"
+msgstr "無法重新掃描"
 
 #: src/tm/tmtab.cpp:589
 #, kde-format
