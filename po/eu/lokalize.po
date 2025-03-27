@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:44+0000\n"
-"PO-Revision-Date: 2025-03-05 19:34+0100\n"
+"PO-Revision-Date: 2025-03-26 20:39+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -4383,12 +4383,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Fitxategi azterketa proiektu bat irekitzen den bitartean bakarrik egin "
+"daiteke. Mesedez, ireki proiektu bat eta saiatu"
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "&Berraztertu proiektuaren fitxategiak"
+msgstr "Ezin da berriz aztertu"
 
 #: src/tm/tmtab.cpp:589
 #, kde-format
