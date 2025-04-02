@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the lokalize package.
 #
 # SPDX-FileCopyrightText: 2023 X əyyam
-# SPDX-FileCopyrightText: 2023, 2024 Kheyyam <xxmn77@gmail.com>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 Kheyyam <xxmn77@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:44+0000\n"
-"PO-Revision-Date: 2024-08-09 15:51+0400\n"
+"PO-Revision-Date: 2025-04-01 14:56+0400\n"
 "Last-Translator: Khayyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -115,23 +115,21 @@ msgid "Alternate Translations"
 msgstr "Alternativ tərcümələr"
 
 #: src/alttransview.cpp:163
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Alternativ tərcümə qovluqları:"
+msgstr "Alternativ tərcümə qovluqlarından"
 
 #: src/alttransview.cpp:186
 #, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "Əvvəlki məzmun ilə müqyisə:"
 
 #: src/alttransview.cpp:201
 #, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "Əvvəlki mənbə ilə müqayisə:"
 
 #: src/alttransview.cpp:259
 #, kde-format
@@ -153,9 +151,7 @@ msgstr ""
 "Bu panel göstərilsin?"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Alternativ tərcümələr əlçatandır"
@@ -173,20 +169,7 @@ msgid "Origin: %1"
 msgstr "Mənbə: %1"
 
 #: src/alttransview.cpp:291
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -199,14 +182,13 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>Bəzən, əgər mənbə mətni dəyişdirilmişsə, onun tərcüməsi köhnəlmiş olur və "
-"<emphasis>yoxlama&nbsp;tələb edir</emphasis> (yəni təsdiq statusunu itirir), "
-"və ya (yalnız XLİFF faylı olduqda) <emphasis>alternativ&nbsp;tərcümələr</"
-"emphasis>, modulun müşayət etdiyi bölməyə köçürülür.</p><p>Bu panel həmçinin "
-"cari tərcümədə hansı dəyişikliklərin olduğunu görmək üçün yeni sətirlə köhnə "
-"sətir arasındakl fərqi göstərir.</p><p>Bu paneldəki istənilən sözə iki dəfə "
-"vurmaq onu tərcüməyə daxil edir.</p><p>Əlavə alternativ tərcümə mənbəyi kimi "
-"istifadə etmək üçün tərcümə faylını bu panelə köçürün.</p>"
+"Bəzən, əgər mənbə mətni dəyişdirilmişsə, onun tərcüməsi köhnəlmiş olur və "
+"yoxlama tələb edir (yəni təsdiq statusunu itirir), və ya (yalnız XLİFF faylı "
+"olduqda) alternativ tərcümələr, modulun müşayət etdiyi bölməyə köçürülür. Bu "
+"panel həmçinin cari tərcümədə hansı dəyişikliklərin olduğunu görmək üçün "
+"yeni sətirlə köhnə sətir arasındakl fərqi göstərir. Bu paneldəki istənilən "
+"sözə iki dəfə vurmaq onu tərcüməyə daxil edir. Əlavə alternativ tərcümə "
+"mənbəyi kimi istifadə etmək üçün tərcümə faylını bu panelə köçürün."
 
 #: src/alttransview.cpp:323
 #, kde-format
@@ -1269,7 +1251,7 @@ msgstr "Növbəti yarlığı daxil edin"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Növbəti etiket olmayan mətnə keçid"
 
 #: src/editortab.cpp:439
 #, kde-format
@@ -1821,9 +1803,7 @@ msgstr "Tərcü&mə yaddaşı"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Alternativ tərcümələr"
 
@@ -1995,9 +1975,7 @@ msgid "File"
 msgstr "Fayl"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Fayllarda axtarmaq və əvəzləmək"
@@ -2295,7 +2273,7 @@ msgstr "Növbəti aktiv vərəq"
 #: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "Cari vərəqi bağlamaq"
 
 #: src/lokalizemainwindow.cpp:556
 #, kde-format
@@ -2378,7 +2356,7 @@ msgstr "Vidjetdəki mətni çıxarmaq"
 #: src/lokalizemainwindow.cpp:618
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "&Pəncərə rəng sxemi"
 
 #: src/lokalizemainwindow.cpp:780
 #, kde-format
@@ -2555,12 +2533,12 @@ msgstr "səhvlərin düzəldilməsi və təkmilləşdirmələr"
 #: src/main.cpp:95
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #: src/main.cpp:96
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:100
 #, kde-format
@@ -2636,12 +2614,10 @@ msgstr ""
 "Uyğun gəlməyən bölmələr: %2"
 
 #: src/msgctxtview.cpp:37
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
-msgstr "Bölmənin meta məlumatları"
+msgstr "Vahid metaməlumat "
 
 #: src/msgctxtview.cpp:93
 #, kde-format
@@ -3466,14 +3442,13 @@ msgstr "Açılan faylları avtomatik tərcümə yaddaşına daxil etmək"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, fuzzy, kde-format
-#| msgid ""
-#| "Delete missing files from translation memory on Rescan or when clicking a "
-#| "missing entry"
+#, kde-format
 msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
-msgstr "Tərcümə yaddaşından mövcud olmayan faylları silmək"
+msgstr ""
+"Yenidən skan edildikdə çatışmayan faylları tərcümə yaddaşından çatımayan "
+"girişə vurduqda silmək"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -3935,9 +3910,7 @@ msgid "Last Translator"
 msgstr "Sonuncu tərcüməçi"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Layihənin icmalı"
@@ -4385,12 +4358,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Faylların yenidən skan edilməsi yalnız layihə açıq olduqda mümkündür. "
+"Layihəni açın və yenidən cəhd edin."
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "Layihənin fayllarını tək&rar axtarmaq"
+msgstr "Yenidən skan etmək mümkün deyil"
 
 #: src/tm/tmtab.cpp:589
 #, kde-format
@@ -4447,12 +4421,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (ən uyğun gələn)"
 
 #: src/tm/tmview.cpp:501
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4466,8 +4438,8 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 dəfə baş verdi"
+msgstr[1] "%1 dəfə baş verdi"
 
 #: src/tm/tmview.cpp:517
 #, kde-format
@@ -4475,7 +4447,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:525
 #, kde-format
@@ -4483,7 +4455,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:577
 #, kde-format
