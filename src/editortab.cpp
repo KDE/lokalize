@@ -931,29 +931,27 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
 
     if (newEntry) {
         m_currentPos = pos;
-        if (true) {
-            Q_EMIT signalNewEntryDisplayed(pos);
-            Q_EMIT entryDisplayed();
+        Q_EMIT signalNewEntryDisplayed(pos);
+        Q_EMIT entryDisplayed();
 
-            Q_EMIT signalFirstDisplayed(pos.entry == m_transUnitsView->firstEntryNumber());
-            Q_EMIT signalLastDisplayed(pos.entry == m_transUnitsView->lastEntryNumber());
+        Q_EMIT signalFirstDisplayed(pos.entry == m_transUnitsView->firstEntryNumber());
+        Q_EMIT signalLastDisplayed(pos.entry == m_transUnitsView->lastEntryNumber());
 
-            Q_EMIT signalPriorFuzzyAvailable(pos.entry > m_catalog->firstFuzzyIndex());
-            Q_EMIT signalNextFuzzyAvailable(pos.entry < m_catalog->lastFuzzyIndex());
+        Q_EMIT signalPriorFuzzyAvailable(pos.entry > m_catalog->firstFuzzyIndex());
+        Q_EMIT signalNextFuzzyAvailable(pos.entry < m_catalog->lastFuzzyIndex());
 
-            Q_EMIT signalPriorUntranslatedAvailable(pos.entry > m_catalog->firstUntranslatedIndex());
-            Q_EMIT signalNextUntranslatedAvailable(pos.entry < m_catalog->lastUntranslatedIndex());
+        Q_EMIT signalPriorUntranslatedAvailable(pos.entry > m_catalog->firstUntranslatedIndex());
+        Q_EMIT signalNextUntranslatedAvailable(pos.entry < m_catalog->lastUntranslatedIndex());
 
-            Q_EMIT signalPriorFuzzyOrUntrAvailable(pos.entry > m_catalog->firstFuzzyIndex() || pos.entry > m_catalog->firstUntranslatedIndex());
-            Q_EMIT signalNextFuzzyOrUntrAvailable(pos.entry < m_catalog->lastFuzzyIndex() || pos.entry < m_catalog->lastUntranslatedIndex());
+        Q_EMIT signalPriorFuzzyOrUntrAvailable(pos.entry > m_catalog->firstFuzzyIndex() || pos.entry > m_catalog->firstUntranslatedIndex());
+        Q_EMIT signalNextFuzzyOrUntrAvailable(pos.entry < m_catalog->lastFuzzyIndex() || pos.entry < m_catalog->lastUntranslatedIndex());
 
-            Q_EMIT signalPriorBookmarkAvailable(pos.entry > m_catalog->firstBookmarkIndex());
-            Q_EMIT signalNextBookmarkAvailable(pos.entry < m_catalog->lastBookmarkIndex());
-            Q_EMIT signalBookmarkDisplayed(m_catalog->isBookmarked(pos.entry));
+        Q_EMIT signalPriorBookmarkAvailable(pos.entry > m_catalog->firstBookmarkIndex());
+        Q_EMIT signalNextBookmarkAvailable(pos.entry < m_catalog->lastBookmarkIndex());
+        Q_EMIT signalBookmarkDisplayed(m_catalog->isBookmarked(pos.entry));
 
-            Q_EMIT signalEquivTranslatedEntryDisplayed(m_catalog->isEquivTrans(pos));
-            Q_EMIT signalApprovedEntryDisplayed(m_catalog->isApproved(pos));
-        }
+        Q_EMIT signalEquivTranslatedEntryDisplayed(m_catalog->isEquivTrans(pos));
+        Q_EMIT signalApprovedEntryDisplayed(m_catalog->isApproved(pos));
     }
 
     statusBarItems.insert(ID_STATUS_CURRENT, i18nc("@info:status", "Current: %1", m_currentPos.entry + 1));
