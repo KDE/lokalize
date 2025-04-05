@@ -4359,7 +4359,6 @@ msgstr ""
 
 #: src/tm/tmtab.cpp:514
 #, fuzzy, kde-format
-#| msgid "&Rescan project files"
 msgid "Rescan not possible"
 msgstr "&Søk gjennom prosjektfiler på nytt"
 
