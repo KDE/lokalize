@@ -1965,8 +1965,6 @@ msgstr "Fil"
 
 #: src/filesearch/filesearchtab.cpp:447
 #, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Søk og erstatt i filer"
@@ -3854,8 +3852,6 @@ msgstr "Siste oversetter"
 
 #: src/project/projecttab.cpp:51
 #, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Prosjektoversikt"
