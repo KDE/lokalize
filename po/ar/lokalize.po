@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:44+0000\n"
-"PO-Revision-Date: 2025-03-02 10:37+0400\n"
+"PO-Revision-Date: 2025-04-05 12:03+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -4316,12 +4316,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"لا يُمكن إعادة مسح الملفات إلا أثناء فتح المشروع. يُرجى فتح المشروع والمحاولة "
+"مرة أخرى."
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "أعد &فحص ملفّات المشروع"
+msgstr "إعادة الفحص غير ممكنة"
 
 #: src/tm/tmtab.cpp:589
 #, kde-format
