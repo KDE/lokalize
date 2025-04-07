@@ -1,14 +1,14 @@
 # Translation of kaider to Korean.
 # Copyright (C) 2007 This_file_is_part_of_KDE
 # This file is distributed under the same license as the extragear-sdk package.
-# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2014, 2015, 2017, 2019, 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2014, 2015, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 02:34+0000\n"
-"PO-Revision-Date: 2024-12-24 17:53+0100\n"
+"PO-Revision-Date: 2025-04-06 23:34+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -120,17 +120,13 @@ msgid "From alternate translations folder"
 msgstr "대체 번역 폴더에서"
 
 #: src/alttransview.cpp:186
-#, fuzzy, kde-format
-#| msgctxt "Title for an alternative translation entry context diff."
-#| msgid "Comparison with previous context:"
+#, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr "이전 문맥과 비교:"
 
 #: src/alttransview.cpp:201
-#, fuzzy, kde-format
-#| msgctxt "Title for alternative translation source diff."
-#| msgid "Comparison with previous source:"
+#, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
 msgstr "이전 원본과 비교:"
@@ -155,9 +151,7 @@ msgstr ""
 "해당 데이터를 보시겠습니까?"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "대체 번역 사용 가능"
@@ -1766,9 +1760,7 @@ msgstr "번역 메모리(&M)"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "대체 번역"
 
@@ -1939,9 +1931,7 @@ msgid "File"
 msgstr "파일"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "파일에서 찾아 바꾸기"
@@ -2233,7 +2223,7 @@ msgstr "이전 활성화된 탭"
 #: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "현재 탭 닫기"
 
 #: src/lokalizemainwindow.cpp:556
 #, kde-format
@@ -2316,7 +2306,7 @@ msgstr "위젯 텍스트 캡처"
 #: src/lokalizemainwindow.cpp:618
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "창 색 구성표(&W)"
 
 #: src/lokalizemainwindow.cpp:780
 #, kde-format
@@ -3834,9 +3824,7 @@ msgid "Last Translator"
 msgstr "마지막 번역자"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "프로젝트 개요"
