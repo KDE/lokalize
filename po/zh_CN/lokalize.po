@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-24 00:44+0000\n"
+"POT-Creation-Date: 2025-04-07 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -951,21 +951,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "译文长度"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:973
-#: src/editortab.cpp:1170 src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:971
+#: src/editortab.cpp:1168 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "就绪"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:975
-#: src/editortab.cpp:1165 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:973
+#: src/editortab.cpp:1163 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "待审核"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:971
+#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:969
 #: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
@@ -1413,7 +1413,7 @@ msgstr ""
 "该文档包含尚未保存的改变。\n"
 "您想要保存还是放弃这些改变？"
 
-#: src/editortab.cpp:697 src/editortab.cpp:1275
+#: src/editortab.cpp:697 src/editortab.cpp:1273
 #: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:960
 #, kde-format
 msgctxt "@title:window"
@@ -1482,85 +1482,85 @@ msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "输入条目号："
 
-#: src/editortab.cpp:959
+#: src/editortab.cpp:957
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "当前：%1"
 
-#: src/editortab.cpp:1146
+#: src/editortab.cpp:1144
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "已翻译"
 
-#: src/editortab.cpp:1147
+#: src/editortab.cpp:1145
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "标为关闭"
 
-#: src/editortab.cpp:1148
+#: src/editortab.cpp:1146
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "已审核"
 
-#: src/editortab.cpp:1149
+#: src/editortab.cpp:1147
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "翻译已完成 (可能仍需审核)"
 
-#: src/editortab.cpp:1150
+#: src/editortab.cpp:1148
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "翻译收到正面审阅"
 
-#: src/editortab.cpp:1151
+#: src/editortab.cpp:1149
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "条目已完全本地化(例如，最终版)"
 
-#: src/editortab.cpp:1251 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1249 src/project/projecttab.cpp:304
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
-#: src/editortab.cpp:1251 src/editortab.cpp:1259 src/editortab.cpp:1263
+#: src/editortab.cpp:1249 src/editortab.cpp:1257 src/editortab.cpp:1261
 #: src/project/projecttab.cpp:304 src/project/projecttab.cpp:312
 #: src/project/projecttab.cpp:316
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1259 src/project/projecttab.cpp:312
+#: src/editortab.cpp:1257 src/project/projecttab.cpp:312
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1261 src/project/projecttab.cpp:314
+#: src/editortab.cpp:1259 src/project/projecttab.cpp:314
 #, kde-format
 msgid "Pology success"
 msgstr ""
 
-#: src/editortab.cpp:1261
+#: src/editortab.cpp:1259
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1263 src/project/projecttab.cpp:316
+#: src/editortab.cpp:1261 src/project/projecttab.cpp:316
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1273
+#: src/editortab.cpp:1271
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1568,49 +1568,49 @@ msgid ""
 "Do you really want to clear all translated entries?"
 msgstr ""
 
-#: src/editortab.cpp:1311
+#: src/editortab.cpp:1309
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "原文词数：%1<br/>译文词数：%2"
 
-#: src/editortab.cpp:1312
+#: src/editortab.cpp:1310
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "单词计数"
 
-#: src/editortab.cpp:1402
+#: src/editortab.cpp:1400
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr ""
 
-#: src/editortab.cpp:1403
+#: src/editortab.cpp:1401
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "查找源文件"
 
-#: src/editortab.cpp:1404
+#: src/editortab.cpp:1402
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr ""
 
-#: src/editortab.cpp:1405 src/editortab.cpp:1449
+#: src/editortab.cpp:1403 src/editortab.cpp:1447
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr ""
 
-#: src/editortab.cpp:1408 src/editortab.cpp:1453
+#: src/editortab.cpp:1406 src/editortab.cpp:1451
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "选择源文件查找的起始目录"
 
-#: src/editortab.cpp:1445
+#: src/editortab.cpp:1443
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1618,19 +1618,19 @@ msgid ""
 "Do you want to change source files folder?"
 msgstr ""
 
-#: src/editortab.cpp:1447
+#: src/editortab.cpp:1445
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "查找源文件"
 
-#: src/editortab.cpp:1448
+#: src/editortab.cpp:1446
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr ""
 
-#: src/editortab.cpp:1490
+#: src/editortab.cpp:1488
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1643,33 +1643,33 @@ msgstr ""
 "义源代码路径。参考 Lokalize 手册中的脚本示例以及如何将脚本应用于你的项目的说"
 "明。"
 
-#: src/editortab.cpp:1504 src/project/project.cpp:414
+#: src/editortab.cpp:1502 src/project/project.cpp:414
 #: src/project/project.cpp:419
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "安装 translate-toolkit 包并重试"
 
-#: src/editortab.cpp:1509
+#: src/editortab.cpp:1507
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "安装翻译工具包之后再重试。"
 
-#: src/editortab.cpp:1517
+#: src/editortab.cpp:1515
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "选择当前 XLIFF 文件基于的原始 OpenDocument"
 
-#: src/editortab.cpp:1519 src/project/project.cpp:424
+#: src/editortab.cpp:1517 src/project/project.cpp:424
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 文件 (*.odt *.ods)"
 
-#: src/editortab.cpp:1563
+#: src/editortab.cpp:1561
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "安装 python-uno 包来获得额外功能。"
 
-#: src/editortab.cpp:1683
+#: src/editortab.cpp:1681
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"

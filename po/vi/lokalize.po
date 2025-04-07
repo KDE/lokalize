@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-24 00:44+0000\n"
+"POT-Creation-Date: 2025-04-07 00:44+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1034,21 +1034,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Độ dài đích"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:973
-#: src/editortab.cpp:1170 src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:971
+#: src/editortab.cpp:1168 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Hoàn tất"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:975
-#: src/editortab.cpp:1165 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:973
+#: src/editortab.cpp:1163 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Cần xét duyệt"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:971
+#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:969
 #: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
@@ -1504,7 +1504,7 @@ msgstr ""
 "Tài liệu có các thay đổi chưa được lưu.\n"
 "Bạn muốn lưu các thay đổi hay loại bỏ chúng?"
 
-#: src/editortab.cpp:697 src/editortab.cpp:1275
+#: src/editortab.cpp:697 src/editortab.cpp:1273
 #: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:960
 #, kde-format
 msgctxt "@title:window"
@@ -1573,61 +1573,61 @@ msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Nhập số thứ tự mục:"
 
-#: src/editortab.cpp:959
+#: src/editortab.cpp:957
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Hiện tại: %1"
 
-#: src/editortab.cpp:1146
+#: src/editortab.cpp:1144
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Đã dịch"
 
-#: src/editortab.cpp:1147
+#: src/editortab.cpp:1145
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Chấp thuận"
 
-#: src/editortab.cpp:1148
+#: src/editortab.cpp:1146
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Được phê chuẩn"
 
-#: src/editortab.cpp:1149
+#: src/editortab.cpp:1147
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Lời dịch đã xong (dù có thể vẫn cần xét duyệt)"
 
-#: src/editortab.cpp:1150
+#: src/editortab.cpp:1148
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Lời dịch đã nhận được xét duyệt tích cực"
 
-#: src/editortab.cpp:1151
+#: src/editortab.cpp:1149
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Mục này đã được địa phương hoá đầy đủ (tức là hoàn chỉnh)"
 
-#: src/editortab.cpp:1251 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1249 src/project/projecttab.cpp:304
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Một lần kiểm tra bằng Pology đang trong quá trình thực hiện rồi."
 
-#: src/editortab.cpp:1251 src/editortab.cpp:1259 src/editortab.cpp:1263
+#: src/editortab.cpp:1249 src/editortab.cpp:1257 src/editortab.cpp:1261
 #: src/project/projecttab.cpp:304 src/project/projecttab.cpp:312
 #: src/project/projecttab.cpp:316
 #, kde-format
 msgid "Pology error"
 msgstr "Lỗi Pology"
 
-#: src/editortab.cpp:1259 src/project/projecttab.cpp:312
+#: src/editortab.cpp:1257 src/project/projecttab.cpp:312
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1636,17 +1636,17 @@ msgstr ""
 "Việc kiểm tra bằng Pology đã bất ngờ gặp sự cố:\n"
 "%1"
 
-#: src/editortab.cpp:1261 src/project/projecttab.cpp:314
+#: src/editortab.cpp:1259 src/project/projecttab.cpp:314
 #, kde-format
 msgid "Pology success"
 msgstr "Hoàn thành Pology"
 
-#: src/editortab.cpp:1261
+#: src/editortab.cpp:1259
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Việc kiểm tra bằng Pology đã thành công."
 
-#: src/editortab.cpp:1263 src/project/projecttab.cpp:316
+#: src/editortab.cpp:1261 src/project/projecttab.cpp:316
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1655,7 +1655,7 @@ msgstr ""
 "Việc kiểm tra bằng Pology đã trả về một lỗi:\n"
 "%1"
 
-#: src/editortab.cpp:1273
+#: src/editortab.cpp:1271
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1665,26 +1665,26 @@ msgstr ""
 "Việc này sẽ xoá tất cả các lời dịch khỏi tệp.\n"
 "Bạn có thật sự muốn xoá tất cả các mục đã dịch không?"
 
-#: src/editortab.cpp:1311
+#: src/editortab.cpp:1309
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Số lượng từ ở nguồn: %1<br/>Số lượng từ ở đích: %2"
 
-#: src/editortab.cpp:1312
+#: src/editortab.cpp:1310
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Số lượng từ"
 
-#: src/editortab.cpp:1402
+#: src/editortab.cpp:1400
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Bạn muốn tìm kiếm tệp nguồn ở máy cục bộ hay bằng lxr.kde.org?"
 
-#: src/editortab.cpp:1403
+#: src/editortab.cpp:1401
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Source file lookup"
@@ -1692,26 +1692,26 @@ msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Tìm kiếm tệp nguồn"
 
-#: src/editortab.cpp:1404
+#: src/editortab.cpp:1402
 #, fuzzy, kde-format
 #| msgid "Locally"
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Cục bộ"
 
-#: src/editortab.cpp:1405 src/editortab.cpp:1449
+#: src/editortab.cpp:1403 src/editortab.cpp:1447
 #, fuzzy, kde-format
 #| msgid "lxr.kde.org"
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1408 src/editortab.cpp:1453
+#: src/editortab.cpp:1406 src/editortab.cpp:1451
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Chọn thư mục cơ sở của dự án để dùng cho việc tìm tệp nguồn"
 
-#: src/editortab.cpp:1445
+#: src/editortab.cpp:1443
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1721,13 +1721,13 @@ msgstr ""
 "Không tìm được tệp nguồn trong thư mục được chỉ định.\n"
 "Bạn có muốn thay đổi thư mục tệp nguồn?"
 
-#: src/editortab.cpp:1447
+#: src/editortab.cpp:1445
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Tìm kiếm tệp nguồn"
 
-#: src/editortab.cpp:1448
+#: src/editortab.cpp:1446
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Subject Field"
@@ -1735,7 +1735,7 @@ msgctxt "@action"
 msgid "Select Folder"
 msgstr "Lĩnh vực chủ đề"
 
-#: src/editortab.cpp:1490
+#: src/editortab.cpp:1488
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1749,33 +1749,33 @@ msgstr ""
 "việc mở tệp nguồn ở các đường dẫn tuỳ ý. Hãy xem các kịch bản ví dụ và cách "
 "đưa chúng vào dự án của bạn trong sổ tay Lokalize."
 
-#: src/editortab.cpp:1504 src/project/project.cpp:414
+#: src/editortab.cpp:1502 src/project/project.cpp:414
 #: src/project/project.cpp:419
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Cài đặt gói translate-toolkit và thử lại"
 
-#: src/editortab.cpp:1509
+#: src/editortab.cpp:1507
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Cài đặt gói translate-toolkit và thử lại."
 
-#: src/editortab.cpp:1517
+#: src/editortab.cpp:1515
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Chọn OpenDocument ban đầu mà tệp XLIFF hiện tại dựa trên đó"
 
-#: src/editortab.cpp:1519 src/project/project.cpp:424
+#: src/editortab.cpp:1517 src/project/project.cpp:424
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Tệp OpenDocument (*.odt *.ods)"
 
-#: src/editortab.cpp:1563
+#: src/editortab.cpp:1561
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Cài đặt gói python-uno để có chức năng bổ sung."
 
-#: src/editortab.cpp:1683
+#: src/editortab.cpp:1681
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
