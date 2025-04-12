@@ -197,7 +197,7 @@ void MsgCtxtView::pologyReceivedStandardOutput()
         if (!m_pologyStartedReceivingOutput) {
             m_pologyStartedReceivingOutput = true;
         }
-        const QString grossPologyOutput = QString::fromLatin1(m_pologyProcess->readAllStandardOutput());
+        const QString grossPologyOutput = QString::fromLocal8Bit(m_pologyProcess->readAllStandardOutput());
         const QStringList pologyTmpLines = grossPologyOutput.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
         for (const QString &pologyTmp : pologyTmpLines) {
             if (pologyTmp.startsWith(QStringLiteral("[note]")))
