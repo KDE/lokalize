@@ -47,6 +47,8 @@
 #define QStringLiteral QLatin1String
 #endif
 
+#include "config-lokalize.h"
+
 using namespace TM;
 
 static void copy(Ui_QueryOptions *ui_queryOptions, int column)
@@ -473,7 +475,9 @@ TMTab::TMTab(QWidget *parent)
 
     setXMLFile(QStringLiteral("translationmemoryrui.rc"), true);
     setUpdatedXMLFile();
+#if HAVE_DBUS
     dbusObjectPath();
+#endif
 
     QAction *action;
     KActionCollection *ac = actionCollection();
@@ -658,9 +662,10 @@ void TMTab::dropEvent(QDropEvent *event)
         event->acceptProposedAction();
 }
 
+QList<int> TMTab::ids;
+#if HAVE_DBUS
 #include "translationmemoryadaptor.h"
 // BEGIN DBus interface
-QList<int> TMTab::ids;
 
 QString TMTab::dbusObjectPath()
 {
@@ -678,6 +683,7 @@ QString TMTab::dbusObjectPath()
 
     return TM_PATH + QString::number(m_dbusId);
 }
+#endif
 
 void TMTab::lookup(QString source, QString target)
 {

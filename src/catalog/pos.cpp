@@ -10,6 +10,8 @@
 #include "pos.h"
 #include "catalog.h"
 
+#include "config-lokalize.h"
+
 bool switchPrev(Catalog *&catalog, DocPosition &pos, int parts)
 {
     bool switchEntry = false;
@@ -93,6 +95,7 @@ bool switchNext(Catalog *&catalog, DocPosition &pos, int parts)
     return true;
 }
 
+#if HAVE_DBUS
 #include <QDBusArgument>
 const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition &pos)
 {
@@ -123,3 +126,4 @@ QDBusArgument &operator<<(QDBusArgument &argument, const DocPosition &pos)
 
     return argument;
 }
+#endif

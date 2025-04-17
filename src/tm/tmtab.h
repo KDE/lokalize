@@ -20,6 +20,8 @@
 #include <QSqlDatabase>
 #include <QSqlQueryModel>
 
+#include "config-lokalize.h"
+
 class KXMLGUIClient;
 class QComboBox;
 class QTreeView;
@@ -52,7 +54,9 @@ public:
     {
         return (KXMLGUIClient *)this;
     }
+#if HAVE_DBUS
     QString dbusObjectPath();
+#endif
     int dbusId()
     {
         return m_dbusId;

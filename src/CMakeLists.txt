@@ -241,19 +241,20 @@ kconfig_add_kcfg_files(liblokalize_SRCS
     project/projectlocal.kcfgc
 )
 
-qt_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.MainWindow.xml
-                     lokalizemainwindow.h LokalizeMainWindow)
-qt_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.Editor.xml
-                     editortab.h EditorTab)
-qt_add_dbus_adaptor(liblokalize_SRCS filesearch/org.kde.lokalize.FileSearch.xml
-                     filesearch/filesearchtab.h FileSearchTab)
-qt_add_dbus_adaptor(liblokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
-                     tm/tmtab.h TM::TMTab)
-qt_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.Project.xml
-                     project/project.h Project)
-qt_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
-                     project/projecttab.h ProjectTab)
-
+if(USE_DBUS)
+    qt_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.MainWindow.xml
+                        lokalizemainwindow.h LokalizeMainWindow)
+    qt_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.Editor.xml
+                        editortab.h EditorTab)
+    qt_add_dbus_adaptor(liblokalize_SRCS filesearch/org.kde.lokalize.FileSearch.xml
+                        filesearch/filesearchtab.h FileSearchTab)
+    qt_add_dbus_adaptor(liblokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
+                        tm/tmtab.h TM::TMTab)
+    qt_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.Project.xml
+                        project/project.h Project)
+    qt_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
+                        project/projecttab.h ProjectTab)
+endif()
 
 ### Build intermediate library (will be used by unit tests) ###
 add_library(liblokalize STATIC ${liblokalize_SRCS})
@@ -265,13 +266,17 @@ target_link_libraries(liblokalize
     KF6::Notifications
     KF6::SonnetCore
     KF6::SonnetUi
-    KF6::DBusAddons
     KF6::Crash
     KF6::XmlGui
     KF6::IconThemes
     KF6::ConfigWidgets
     Qt::Sql
 )
+if(USE_DBUS)
+target_link_libraries(liblokalize
+    KF6::DBusAddons
+)
+endif()
 if(HUNSPELL_FOUND)
     target_link_libraries(liblokalize ${HUNSPELL_LIBRARIES})
 endif()

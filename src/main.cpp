@@ -37,9 +37,14 @@
 
 #include <KAboutData>
 #include <KCrash>
-#include <KDBusService>
-#include <KLocalizedString>
 #include <KIconTheme>
+#include <KLocalizedString>
+
+#include "config-lokalize.h"
+
+#if HAVE_DBUS
+#include <KDBusService>
+#endif
 
 int main(int argc, char **argv)
 {
@@ -109,7 +114,9 @@ int main(int argc, char **argv)
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<CatalogString>();
     qAddPostRoutine(&cleanupSpellers);
 
+#if HAVE_DBUS
     const KDBusService dbusService(KDBusService::Multiple);
+#endif
 
     // see if we are starting with session management
     if (app.isSessionRestored())

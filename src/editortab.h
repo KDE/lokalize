@@ -22,6 +22,8 @@
 #include <QHash>
 #include <QMap>
 
+#include "config-lokalize.h"
+
 namespace Sonnet
 {
 class Dialog;
@@ -110,7 +112,9 @@ public:
     {
         return (KXMLGUIClient *)this;
     }
+#if HAVE_DBUS
     QString dbusObjectPath();
+#endif
     int dbusId()
     {
         return m_dbusId;

@@ -57,6 +57,8 @@
 #include <QStringBuilder>
 #include <QTime>
 
+#include "config-lokalize.h"
+
 EditorTab::EditorTab(QWidget *parent, bool valid)
     : LokalizeTabPageBase(parent)
     , m_project(Project::instance())
@@ -72,7 +74,9 @@ EditorTab::EditorTab(QWidget *parent, bool valid)
     setupStatusBar(); //--NOT called from initLater() !
     setupActions();
 
+#if HAVE_DBUS
     dbusObjectPath();
+#endif
 
     connect(m_view, &EditorView::signalChanged, this, &EditorTab::msgStrChanged);
     msgStrChanged();
@@ -1571,8 +1575,10 @@ void EditorTab::mergeIntoOpenDocument()
 }
 
 // BEGIN DBus interface
-#include "editoradaptor.h"
 QList<int> EditorTab::ids;
+
+#if HAVE_DBUS
+#include "editoradaptor.h"
 
 QString EditorTab::dbusObjectPath()
 {
@@ -1589,6 +1595,7 @@ QString EditorTab::dbusObjectPath()
     }
     return EDITOR_PATH + QString::number(m_dbusId);
 }
+#endif
 
 QString EditorTab::currentFilePath()
 {

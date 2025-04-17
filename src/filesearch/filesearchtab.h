@@ -21,6 +21,8 @@
 #include <phase.h>
 #include <state.h>
 
+#include "config-lokalize.h"
+
 class MassReplaceJob;
 class SearchJob;
 class QRunnable;
@@ -55,7 +57,9 @@ public:
     {
         return (KXMLGUIClient *)this;
     }
+#if HAVE_DBUS
     QString dbusObjectPath();
+#endif
     int dbusId()
     {
         return m_dbusId;

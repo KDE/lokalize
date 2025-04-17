@@ -11,7 +11,6 @@
 #include "filesearchtab.h"
 #include "catalog.h"
 #include "fastsizehintitemdelegate.h"
-#include "filesearchadaptor.h"
 #include "lokalize_debug.h"
 #include "prefs.h"
 #include "project.h"
@@ -22,7 +21,6 @@
 #include <QApplication>
 #include <QBoxLayout>
 #include <QClipboard>
-#include <QDBusConnection>
 #include <QDragEnterEvent>
 #include <QElapsedTimer>
 #include <QHeaderView>
@@ -41,6 +39,8 @@
 #include <KColorScheme>
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
+
+#include "config-lokalize.h"
 
 QList<int> FileSearchTab::ids;
 
@@ -512,7 +512,9 @@ FileSearchTab::FileSearchTab(QWidget *parent)
         statusBarItems.insert(i, QString());
 
     setXMLFile(QStringLiteral("filesearchtabui.rc"), true);
+#if HAVE_DBUS
     dbusObjectPath();
+#endif
 
     KActionCollection *ac = actionCollection();
     KActionCategory *srf = new KActionCategory(i18nc("@title actions category", "Search and replace in files"), ac);
@@ -794,6 +796,10 @@ void MassReplaceView::deactivatePreview()
 }
 
 // BEGIN DBus interface
+#if HAVE_DBUS
+#include "filesearchadaptor.h"
+#include <QDBusConnection>
+
 QString FileSearchTab::dbusObjectPath()
 {
     QString FILESEARCH_PATH = QStringLiteral("/ThisIsWhatYouWant/FileSearch/");
@@ -810,6 +816,7 @@ QString FileSearchTab::dbusObjectPath()
 
     return FILESEARCH_PATH + QString::number(m_dbusId);
 }
+#endif
 
 bool FileSearchTab::findGuiTextPackage(QString text, [[maybe_unused]] QString package)
 {

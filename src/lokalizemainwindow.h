@@ -20,7 +20,6 @@
 #include <KXMLGUIClient>
 #include <KXmlGuiWindow>
 
-#include <QDBusObjectPath>
 #include <QMap>
 #include <QPointer>
 #include <QStackedLayout>
@@ -28,6 +27,8 @@
 #include <QUrl>
 #include <QWidget>
 #include <qtmetamacros.h>
+
+#include "config-lokalize.h"
 
 class QLabel;
 class QActionGroup;
@@ -72,7 +73,9 @@ protected:
      */
     bool queryClose() override;
     void readProperties(const KConfigGroup &stateGroup) override;
+#if HAVE_DBUS
     void registerDBusAdaptor();
+#endif
     void setupActions();
 
 private Q_SLOTS:
