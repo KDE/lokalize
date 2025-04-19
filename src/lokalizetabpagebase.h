@@ -18,6 +18,7 @@
 #include <QFileInfo>
 #include <QHash>
 #include <QString>
+#include <QWidget>
 #include <qtmetamacros.h>
 
 #include <KMainWindow>
@@ -69,6 +70,41 @@ public:
 
 Q_SIGNALS:
     void signalUpdatedTabLabelAndIconAvailable(LokalizeTabPageBase *);
+
+protected:
+    QDateTime lastXMLUpdate;
+};
+
+class LokalizeTabPageBaseNoQMainWindow : public QWidget, public KXMLGUIClient
+{
+    Q_OBJECT
+public:
+    explicit LokalizeTabPageBaseNoQMainWindow(QWidget *parent)
+        : QWidget(parent)
+        , KXMLGUIClient()
+    {
+    }
+
+    ~LokalizeTabPageBaseNoQMainWindow() override = default;
+
+    virtual KXMLGUIClient *guiClient();
+    void reloadUpdatedXML();
+    void setUpdatedXMLFile();
+    void reflectNonApprovedCount(int count, int total);
+    void reflectUntranslatedCount(int count, int total);
+
+    virtual QString currentFilePath()
+    {
+        return QString();
+    }
+
+    QString m_tabLabel;
+    QString m_tabToolTip;
+    QIcon m_tabIcon;
+    StatusBarProxy statusBarItems;
+
+Q_SIGNALS:
+    void signalUpdatedTabLabelAndIconAvailable(LokalizeTabPageBaseNoQMainWindow *);
 
 protected:
     QDateTime lastXMLUpdate;

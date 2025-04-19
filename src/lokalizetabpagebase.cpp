@@ -9,6 +9,47 @@
 #include "lokalizetabpagebase.h"
 #include "projectbase.h"
 
+void LokalizeTabPageBaseNoQMainWindow::setUpdatedXMLFile()
+{
+    QString localXml = guiClient()->localXMLFile();
+    if (QFile::exists(localXml)) {
+        lastXMLUpdate = QFileInfo(localXml).lastModified();
+    }
+}
+
+void LokalizeTabPageBaseNoQMainWindow::reloadUpdatedXML()
+{
+    QString localXml = guiClient()->localXMLFile();
+    if (QFile::exists(localXml)) {
+        QDateTime newXMLUpdate = QFileInfo(localXml).lastModified();
+        if (newXMLUpdate > lastXMLUpdate) {
+            lastXMLUpdate = newXMLUpdate;
+            guiClient()->reloadXML();
+        }
+    }
+}
+
+void LokalizeTabPageBaseNoQMainWindow::reflectNonApprovedCount(int count, int total)
+{
+    QString text = i18nc("@info:status message entries\n'fuzzy' in gettext terminology", "Not ready: %1", count);
+    if (count && total)
+        text += i18nc("percentages in statusbar", " (%1%)", int(100.0 * count / total));
+    statusBarItems.insert(ID_STATUS_FUZZY, text);
+}
+
+void LokalizeTabPageBaseNoQMainWindow::reflectUntranslatedCount(int count, int total)
+{
+    QString text = i18nc("@info:status message entries", "Untranslated: %1", count);
+    if (count && total)
+        text += i18nc("percentages in statusbar", " (%1%)", int(100.0 * count / total));
+    statusBarItems.insert(ID_STATUS_UNTRANS, text);
+}
+
+KXMLGUIClient *LokalizeTabPageBaseNoQMainWindow::guiClient()
+{
+    return (KXMLGUIClient *)this;
+}
+
 void LokalizeTabPageBase::setUpdatedXMLFile()
 {
     QString localXml = guiClient()->localXMLFile();
