@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-07 00:44+0000\n"
+"POT-Creation-Date: 2025-04-20 00:43+0000\n"
 "PO-Revision-Date: 2024-07-21 22:25-0500\n"
 "Last-Translator: aalam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -999,6 +999,7 @@ msgid "Total: %1"
 msgstr "ਕੁੱਲ: %1"
 
 #: src/editortab.cpp:114 src/lokalizetabpagebase.cpp:34
+#: src/lokalizetabpagebase.cpp:75
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -1007,6 +1008,7 @@ msgid "Not ready: %1"
 msgstr "ਤਿਆਰ ਨਹੀਂ: %1"
 
 #: src/editortab.cpp:115 src/lokalizetabpagebase.cpp:42
+#: src/lokalizetabpagebase.cpp:83
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
@@ -2288,6 +2290,7 @@ msgid "&Scripts"
 msgstr "ਸਕ੍ਰਿਪਟਾਂ(&S)"
 
 #: src/lokalizetabpagebase.cpp:36 src/lokalizetabpagebase.cpp:44
+#: src/lokalizetabpagebase.cpp:77 src/lokalizetabpagebase.cpp:85
 #, kde-format
 msgctxt "percentages in statusbar"
 msgid " (%1%)"

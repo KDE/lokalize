@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-07 00:44+0000\n"
+"POT-Creation-Date: 2025-04-20 00:43+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1005,6 +1005,7 @@ msgid "Total: %1"
 msgstr "总计：%1"
 
 #: src/editortab.cpp:114 src/lokalizetabpagebase.cpp:34
+#: src/lokalizetabpagebase.cpp:75
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -1013,6 +1014,7 @@ msgid "Not ready: %1"
 msgstr "未就绪：%1"
 
 #: src/editortab.cpp:115 src/lokalizetabpagebase.cpp:42
+#: src/lokalizetabpagebase.cpp:83
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
@@ -2286,6 +2288,7 @@ msgid "&Scripts"
 msgstr "脚本(&S)"
 
 #: src/lokalizetabpagebase.cpp:36 src/lokalizetabpagebase.cpp:44
+#: src/lokalizetabpagebase.cpp:77 src/lokalizetabpagebase.cpp:85
 #, kde-format
 msgctxt "percentages in statusbar"
 msgid " (%1%)"
