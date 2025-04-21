@@ -235,7 +235,12 @@ void LokalizeMainWindow::activateTabAtIndex(int i)
     // This disconnects the old keyboard shortcuts and connects those
     // related to the currently visible tab.
     guiFactory()->removeClient(m_activeTabPageKeyboardShortcuts);
-    m_activeTabPageKeyboardShortcuts = static_cast<LokalizeTabPageBase *>(m_mainTabs->currentWidget())->guiClient();
+    QWidget *currentTab = m_mainTabs->currentWidget();
+    if (LokalizeTabPageBase *activeTab = qobject_cast<LokalizeTabPageBase *>(currentTab)) {
+        m_activeTabPageKeyboardShortcuts = activeTab->guiClient();
+    } else if (LokalizeTabPageBaseNoQMainWindow *activeTab = qobject_cast<LokalizeTabPageBaseNoQMainWindow *>(currentTab)) {
+        m_activeTabPageKeyboardShortcuts = activeTab->guiClient();
+    }
     guiFactory()->addClient(m_activeTabPageKeyboardShortcuts);
 }
 

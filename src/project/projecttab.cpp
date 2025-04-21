@@ -43,15 +43,14 @@
 #include <QVBoxLayout>
 
 ProjectTab::ProjectTab(QWidget *parent)
-    : LokalizeTabPageBase(parent)
+    : LokalizeTabPageBaseNoQMainWindow(parent)
     , m_browser(new ProjectWidget(this))
     , m_filterEdit(new QLineEdit(this))
 
 {
     m_tabLabel = i18nc("@title:tab", "Project Overview");
     m_tabIcon = QIcon::fromTheme(QStringLiteral("project-open"));
-    QWidget *w = new QWidget(this);
-    QVBoxLayout *l = new QVBoxLayout(w);
+    QVBoxLayout *l = new QVBoxLayout(this);
 
     m_filterEdit->setClearButtonEnabled(true);
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
@@ -66,7 +65,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectTab::updateStatusBar);
     connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectTab::initStatusBarProgress);
 
-    setCentralWidget(w);
     QStatusBar *statusBar = static_cast<LokalizeTabPageBase *>(parent)->statusBar();
 
     m_progressBar = new QProgressBar(nullptr);
