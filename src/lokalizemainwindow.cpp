@@ -62,6 +62,7 @@
 #include <QStringLiteral>
 #include <QTabBar>
 #include <QTabWidget>
+#include <QtAssert>
 #include <QtContainerFwd>
 #include <QtLogging>
 
@@ -1008,6 +1009,7 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
     }
     // This disconnects the keyboard shortcuts relating to the tab being closed.
     QWidget *currentTab = m_mainTabs->currentWidget();
+    Q_ASSERT(qobject_cast<LokalizeTabPageBase *>(currentTab) || qobject_cast<LokalizeTabPageBaseNoQMainWindow *>(currentTab));
     if (LokalizeTabPageBase *activeTab = qobject_cast<LokalizeTabPageBase *>(currentTab)) {
         guiFactory()->removeClient(activeTab);
     } else if (LokalizeTabPageBaseNoQMainWindow *activeTab = qobject_cast<LokalizeTabPageBaseNoQMainWindow *>(currentTab)) {
