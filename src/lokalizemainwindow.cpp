@@ -1007,7 +1007,12 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
         return;
     }
     // This disconnects the keyboard shortcuts relating to the tab being closed.
-    guiFactory()->removeClient(static_cast<LokalizeTabPageBase *>(m_mainTabs->widget(index)));
+    QWidget *currentTab = m_mainTabs->currentWidget();
+    if (LokalizeTabPageBase *activeTab = qobject_cast<LokalizeTabPageBase *>(currentTab)) {
+        guiFactory()->removeClient(activeTab);
+    } else if (LokalizeTabPageBaseNoQMainWindow *activeTab = qobject_cast<LokalizeTabPageBaseNoQMainWindow *>(currentTab)) {
+        guiFactory()->removeClient(activeTab);
+    }
     if (m_mainTabs->currentIndex() == index) {
         m_activeTabPageKeyboardShortcuts = nullptr;
     }
