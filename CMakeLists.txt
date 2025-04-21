@@ -48,7 +48,6 @@ set_package_properties(
     PURPOSE     "Required to build Lokalize.")
 
 add_subdirectory(src)
-add_subdirectory(scripts)
 add_subdirectory(icons)
 add_subdirectory(autotests)
 
