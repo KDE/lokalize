@@ -693,13 +693,13 @@ QByteArray Catalog::contents()
  **/
 static void updateDB(const QString &filePath,
                      const QString &ctxt,
-                     const CatalogString &english,
+                     const CatalogString &source,
                      const CatalogString &newTarget,
                      int form,
                      bool approved,
                      const QString &dbName)
 {
-    TM::UpdateJob *j = new TM::UpdateJob(filePath, ctxt, english, newTarget, form, approved, dbName);
+    TM::UpdateJob *j = new TM::UpdateJob(filePath, ctxt, source, newTarget, form, approved, dbName);
     TM::threadPool()->start(j);
 }
 

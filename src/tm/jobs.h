@@ -301,7 +301,7 @@ protected:
 private:
     QString m_filePath;
     QString m_ctxt;
-    CatalogString m_english;
+    CatalogString m_source;
     CatalogString m_newTarget;
     int m_form;
     bool m_approved;
@@ -329,7 +329,7 @@ public:
     // statistics
     ushort m_time;
     ushort m_added;
-    ushort m_newVersions; // e1.english==e2.english, e1.target!=e2.target
+    ushort m_newVersions; // e1.source==e2.source, e1.target!=e2.target
 
     int m_size;
 

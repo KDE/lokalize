@@ -35,15 +35,15 @@ namespace GlossaryNS
  * @short Contains parts of 'entry' tag in TBX that we support
  */
 struct TermEntry {
-    QStringList english;
+    QStringList source;
     QStringList target;
     QString definition;
     int subjectField; // index in global Glossary's subjectFields list
     QString id; // used to identify entry on edit action
     // TODO <descrip type="context"></descrip>
 
-    TermEntry(const QStringList &_english, const QStringList &_target, const QString &_definition, int _subjectField, const QString &_id = QString())
-        : english(_english)
+    TermEntry(const QStringList &_source, const QStringList &_target, const QString &_definition, int _subjectField, const QString &_id = QString())
+        : source(_source)
         , target(_target)
         , definition(_definition)
         , subjectField(_subjectField)
@@ -58,7 +58,7 @@ struct TermEntry {
 
     void clear()
     {
-        english.clear();
+        source.clear();
         target.clear();
         definition.clear();
         subjectField = 0;
@@ -123,7 +123,7 @@ public:
 
     // in-memory changing
     QByteArray generateNewId();
-    void append(const QString &_english, const QString &_target);
+    void append(const QString &_source, const QString &_target);
     void removeEntry(const QByteArray &id);
     void forceChangeSignal()
     {
@@ -192,7 +192,7 @@ public:
     void fetchMore(const QModelIndex &parent) override;
 
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
-    QByteArray appendRow(const QString &_english, const QString &_target);
+    QByteArray appendRow(const QString &_source, const QString &_target);
 
 public Q_SLOTS:
     void forceReset();

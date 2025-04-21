@@ -595,9 +595,9 @@ QByteArray Glossary::append(const QStringList &sourceTerms, const QStringList &t
     return newId;
 }
 
-void Glossary::append(const QString &_english, const QString &_target)
+void Glossary::append(const QString &_source, const QString &_target)
 {
-    append(QStringList(_english), QStringList(_target));
+    append(QStringList(_source), QStringList(_target));
 }
 
 void Glossary::clear()
@@ -631,13 +631,13 @@ bool GlossaryModel::removeRows(int row, int count, const QModelIndex &parent)
     return true;
 }
 
-QByteArray GlossaryModel::appendRow(const QString &_english, const QString &_target)
+QByteArray GlossaryModel::appendRow(const QString &_source, const QString &_target)
 {
     bool notify = !canFetchMore(QModelIndex());
     if (notify)
         beginInsertRows(QModelIndex(), rowCount(), rowCount());
 
-    QByteArray id = m_glossary->append(QStringList(_english), QStringList(_target));
+    QByteArray id = m_glossary->append(QStringList(_source), QStringList(_target));
 
     if (notify) {
         m_visibleCount++;

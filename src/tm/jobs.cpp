@@ -1189,8 +1189,8 @@ bool SelectJob::doSelect(QSqlDatabase &db,
 
     QString sourceClean(m_source.string);
     sourceClean.remove(c.accel);
-    // split m_english for use in wordDiff later--all words are needed so we cant use list we already have
-    QStringList englishList(sourceClean.toLower().split(rxSplit, Qt::SkipEmptyParts));
+    // split m_source for use in wordDiff later--all words are needed so we cant use list we already have
+    QStringList sourceList(sourceClean.toLower().split(rxSplit, Qt::SkipEmptyParts));
     static const QRegularExpression delPart(
         QRegularExpression::wildcardToRegularExpression(addMarkerStart + QStringLiteral("*") + addMarkerEnd, QRegularExpression::UnanchoredWildcardConversion),
         QRegularExpression::InvertedGreedinessOption);
@@ -1245,11 +1245,11 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                 QString str = e.source.string;
                 str.remove(c.accel);
 
-                QStringList englishSuggList(str.toLower().split(rxSplit, Qt::SkipEmptyParts));
-                if (englishSuggList.size() > 10 * englishList.size())
+                QStringList sourceSuggList(str.toLower().split(rxSplit, Qt::SkipEmptyParts));
+                if (sourceSuggList.size() > 10 * sourceList.size())
                     continue;
                 // sugg is 'old' --translator has to adapt its translation to 'new'--current
-                QString result = wordDiff(englishSuggList, englishList);
+                QString result = wordDiff(sourceSuggList, sourceList);
 
                 int pos = 0;
                 int delSubStrCount = 0;
@@ -1621,7 +1621,7 @@ void RemoveJob::run()
 
 UpdateJob::UpdateJob(const QString &filePath,
                      const QString &ctxt,
-                     const CatalogString &english,
+                     const CatalogString &source,
                      const CatalogString &newTarget,
                      // const DocPosition&,//for back tracking
                      int form,
@@ -1630,18 +1630,18 @@ UpdateJob::UpdateJob(const QString &filePath,
     : QRunnable()
     , m_filePath(filePath)
     , m_ctxt(ctxt)
-    , m_english(english)
+    , m_source(source)
     , m_newTarget(newTarget)
     , m_form(form)
     , m_approved(approved)
     , m_dbName(dbName)
 {
-    qCDebug(LOKALIZE_LOG) << m_english.string << m_newTarget.string;
+    qCDebug(LOKALIZE_LOG) << m_source.string << m_newTarget.string;
 }
 
 void UpdateJob::run()
 {
-    qCDebug(LOKALIZE_LOG) << "UpdateJob run" << m_english.string << m_newTarget.string;
+    qCDebug(LOKALIZE_LOG) << "UpdateJob run" << m_source.string << m_newTarget.string;
     QSqlDatabase db = getDataBaseForCurrentThread(m_dbName);
 
     // cleaning regexps for word index update
@@ -1655,7 +1655,7 @@ void UpdateJob::run()
 
     QSqlQuery queryBegin(QStringLiteral("BEGIN"), db);
     qlonglong priorId = -1;
-    doInsertEntry(m_english,
+    doInsertEntry(m_source,
                   m_newTarget,
                   m_ctxt, // TODO QStringList -- after XLIFF
                   m_approved,

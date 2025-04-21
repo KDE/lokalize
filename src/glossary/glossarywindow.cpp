@@ -284,12 +284,12 @@ void GlossaryWindow::newTermEntry()
     newTermEntry(QString(), QString());
 }
 
-void GlossaryWindow::newTermEntry(QString _english, QString _target)
+void GlossaryWindow::newTermEntry(QString _source, QString _target)
 {
     setCaption(i18nc("@title:window", "Glossary"), true);
 
     GlossaryModel *sourceModel = static_cast<GlossaryModel *>(m_proxyModel->sourceModel());
-    QByteArray id = sourceModel->appendRow(_english, _target);
+    QByteArray id = sourceModel->appendRow(_source, _target);
 
     selectEntry(id);
 }
