@@ -6,13 +6,13 @@
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2011, 2012, 2019.
 # Tamás Krutki <negusnyul@gmail.com>, 2011.
 # Balázs Úr <ur.balazs@fsf.hu>, 2012, 2013, 2014, 2021.
-# SPDX-FileCopyrightText: 2024 Kristof Kiszel <ulysses@fsf.hu>
+# SPDX-FileCopyrightText: 2024, 2025 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 02:34+0000\n"
-"PO-Revision-Date: 2024-11-18 22:07+0100\n"
+"PO-Revision-Date: 2025-04-21 22:06+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -125,17 +125,13 @@ msgid "From alternate translations folder"
 msgstr "Alternatív fordítások mappájából"
 
 #: src/alttransview.cpp:186
-#, fuzzy, kde-format
-#| msgctxt "Title for an alternative translation entry context diff."
-#| msgid "Comparison with previous context:"
+#, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
 msgstr "Összehasonlítás a korábbi környezettel:"
 
 #: src/alttransview.cpp:201
-#, fuzzy, kde-format
-#| msgctxt "Title for alternative translation source diff."
-#| msgid "Comparison with previous source:"
+#, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
 msgstr "Összehasonlítás a korábbi forrással:"
@@ -160,9 +156,7 @@ msgstr ""
 "Szeretné megjeleníteni az adatokat tartalmazó nézetet?"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
 msgstr "Alternatív fordítások érhetők el"
@@ -1826,9 +1820,7 @@ msgstr "Fordítási &memória"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Alternatív fordítások"
 
@@ -2000,9 +1992,7 @@ msgid "File"
 msgstr "Fájl"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Keresés és csere a fájlokban"
@@ -2300,7 +2290,7 @@ msgstr "Előzőleg aktív lap"
 #: src/lokalizemainwindow.cpp:551
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "Jelenlegi lap bezárása"
 
 #: src/lokalizemainwindow.cpp:556
 #, kde-format
@@ -2383,7 +2373,7 @@ msgstr "Felületi elem szövegének rögzítése"
 #: src/lokalizemainwindow.cpp:618
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "&Ablak színsémája"
 
 #: src/lokalizemainwindow.cpp:780
 #, kde-format
@@ -3938,9 +3928,7 @@ msgid "Last Translator"
 msgstr "Utolsó fordító"
 
 #: src/project/projecttab.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Projektáttekintő"
