@@ -34,7 +34,7 @@ class TMManagerWin;
 /**
  * Singleton object that represents project.
  * It is shared between EditorWindow 'mainwindows' that use the same project file.
- * Keeps project's KDirModel, Glossary and kross::actions
+ * Keeps project's KDirModel and Glossary
  *
  * GUI for config handling is implemented in prefs.cpp
  *

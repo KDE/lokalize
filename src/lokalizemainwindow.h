@@ -45,8 +45,7 @@ class TMTab;
  * Sets up actions, and maintains their connection with active subwindow via ActionProxy
  * As such, it handles the menus, toolbars, and status bars.
  *
- * It is known as Lokalize in kross scripts and as
- * '/ThisIsWhatYouWant : org.kde.Lokalize.MainWindow' in qdbusviewer
+ * It is known as '/ThisIsWhatYouWant : org.kde.Lokalize.MainWindow' in qdbusviewer
  *
  * @author Nick Shaforostoff <shafff@ukr.net>
  */

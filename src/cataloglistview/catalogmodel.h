@@ -165,7 +165,7 @@ public Q_SLOTS:
 private:
     int m_filterOptions;
     bool m_individualRejectFilterEnable;
-    QVector<bool> m_individualRejectFilter; // used from kross scripts
+    QVector<bool> m_individualRejectFilter;
     MergeCatalog *m_mergeCatalog;
 };
 

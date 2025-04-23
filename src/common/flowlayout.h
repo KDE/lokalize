@@ -17,7 +17,7 @@
 class QAction;
 
 /**
- * used in glossary and kross views
+ * used in glossary
  *
  * copied from 'pretty' docs
  */
