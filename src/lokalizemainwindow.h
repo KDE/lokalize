@@ -10,6 +10,7 @@
 #ifndef LOKALIZEMAINWINDOW_H
 #define LOKALIZEMAINWINDOW_H
 
+#include "config-lokalize.h"
 #include "filesearchtab.h"
 #include "lokalizetabpagebase.h"
 #include "pos.h"
@@ -20,7 +21,6 @@
 #include <KXMLGUIClient>
 #include <KXmlGuiWindow>
 
-#include <QDBusObjectPath>
 #include <QMap>
 #include <QPointer>
 #include <QStackedLayout>
@@ -72,7 +72,9 @@ protected:
      */
     bool queryClose() override;
     void readProperties(const KConfigGroup &stateGroup) override;
+#if HAVE_DBUS
     void registerDBusAdaptor();
+#endif
     void setupActions();
 
 private Q_SLOTS:

@@ -14,6 +14,7 @@
 #include <config.h>
 #endif
 
+#include "config-lokalize.h"
 #include "lokalizetabpagebase.h"
 #include "pos.h"
 
@@ -110,7 +111,9 @@ public:
     {
         return (KXMLGUIClient *)this;
     }
+#if HAVE_DBUS
     QString dbusObjectPath();
+#endif
     int dbusId()
     {
         return m_dbusId;

@@ -11,6 +11,7 @@
 
 #include "lokalize_debug.h"
 
+#include "config-lokalize.h"
 #include "dbfilesmodel.h"
 #include "fastsizehintitemdelegate.h"
 #include "jobs.h"
@@ -473,7 +474,9 @@ TMTab::TMTab(QWidget *parent)
 
     setXMLFile(QStringLiteral("translationmemoryrui.rc"), true);
     setUpdatedXMLFile();
+#if HAVE_DBUS
     dbusObjectPath();
+#endif
 
     QAction *action;
     KActionCollection *ac = actionCollection();
@@ -658,9 +661,10 @@ void TMTab::dropEvent(QDropEvent *event)
         event->acceptProposedAction();
 }
 
+QList<int> TMTab::ids;
+#if HAVE_DBUS
 #include "translationmemoryadaptor.h"
 // BEGIN DBus interface
-QList<int> TMTab::ids;
 
 QString TMTab::dbusObjectPath()
 {
@@ -678,6 +682,7 @@ QString TMTab::dbusObjectPath()
 
     return TM_PATH + QString::number(m_dbusId);
 }
+#endif
 
 void TMTab::lookup(QString source, QString target)
 {

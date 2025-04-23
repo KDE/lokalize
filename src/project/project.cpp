@@ -22,7 +22,6 @@
 #include "qamodel.h"
 #include "tmmanager.h"
 
-#include <QDBusArgument>
 #include <QDir>
 #include <QElapsedTimer>
 #include <QFileInfo>

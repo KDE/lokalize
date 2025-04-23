@@ -9,6 +9,7 @@
 
 #include "lokalizemainwindow.h"
 #include "actionproxy.h"
+#include "config-lokalize.h"
 #include "editortab.h"
 #include "filesearchtab.h"
 #include "jobs.h"
@@ -157,7 +158,9 @@ LokalizeMainWindow::LokalizeMainWindow()
         readProperties(stateGroup);
     }
 
+#if HAVE_DBUS
     registerDBusAdaptor();
+#endif
 
     QTimer::singleShot(0, this, &LokalizeMainWindow::initLater);
 }
@@ -808,6 +811,7 @@ void LokalizeMainWindow::widgetTextCapture()
 
 // BEGIN DBus interface
 
+#if HAVE_DBUS
 #include "mainwindowadaptor.h"
 
 void LokalizeMainWindow::registerDBusAdaptor()
@@ -815,6 +819,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
     new MainWindowAdaptor(this);
     QDBusConnection::sessionBus().registerObject(QLatin1String("/ThisIsWhatYouWant"), this);
 }
+#endif
 
 int LokalizeMainWindow::lookupInTranslationMemory(DocPosition::Part part, const QString &text)
 {

@@ -8,6 +8,7 @@
 */
 
 #include "catalogstring.h"
+#include "config-lokalize.h"
 #include "editortab.h"
 #include "jobs.h"
 #include "lokalize_debug.h"
@@ -19,6 +20,10 @@
 #include "projectmodel.h"
 #include "stemming.h"
 #include "version.h"
+
+#if HAVE_DBUS
+#include <KDBusService>
+#endif
 
 #include <QApplication>
 #include <QCommandLineOption>
@@ -37,9 +42,8 @@
 
 #include <KAboutData>
 #include <KCrash>
-#include <KDBusService>
-#include <KLocalizedString>
 #include <KIconTheme>
+#include <KLocalizedString>
 
 int main(int argc, char **argv)
 {
@@ -64,7 +68,6 @@ int main(int argc, char **argv)
 #if HAVE_STYLE_MANAGER
     KStyleManager::initStyle();
 #endif
-
 
     KLocalizedString::setApplicationDomain("lokalize");
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("lokalize")));
@@ -109,7 +112,9 @@ int main(int argc, char **argv)
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<CatalogString>();
     qAddPostRoutine(&cleanupSpellers);
 
+#if HAVE_DBUS
     const KDBusService dbusService(KDBusService::Multiple);
+#endif
 
     // see if we are starting with session management
     if (app.isSessionRestored())
