@@ -447,53 +447,12 @@ They store previous original text so that translators could see what changes exa
 
 </chapter>
 
-<chapter id="scripting">
-<title>Scripting &lokalize;</title>
-
-<para>
-&lokalize; is extensible using scripts in several interpreted languages, including Python and &javascript;.
-Scripts are usually integrated into the &lokalize; UI as menu actions (to which you may assign a keyboard shortcut).
-The location and name of the menu entry for the script is defined in its accompanying .rc file.
-On each project open, &lokalize; scans <filename>PROJECTDIR/lokalize-scripts</filename> folder for .rc files and adds them to a <emphasis>cache</emphasis> file called
-<filename>PROJECTDIR/lokalize-scripts/scripts.rc</filename> (so you shouldn't generally want to add it project's version control system).
-RC files also contain script paths, which may be relative to .rc file folder, or to a system scripts folder - they both are tried (though they <emphasis>should</emphasis> be kept in a relative location if you want to share them with other people in your project).
-For example, you can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load a script from the <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/">global kf5-l10n scripts folder</ulink> (&ie; not specific to your language).
-</para>
-<para>
-Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/lokalize/scripts/</filename>)
-and in the <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/">&kde; repository</ulink>.
-<ulink url="https://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/">Here</ulink> you can find more script examples, including &javascript;-based <filename>check-gui.js</filename> that runs automatically on each file save
-(this is achieved via special option in .rc file).
-If you're familiar with Python or &javascript;, the code should be self-explanatory.
-</para>
-<para>
-Below are links to API references. Everything marked as <emphasis>Q_SCRIPTABLE</emphasis> may be used from scripts.
-</para>
-
-<itemizedlist>
-<listitem>
-<para>
-<ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html">Editor</ulink> object API reference
-</para>
-</listitem>
-<listitem>
-<para>
-<ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html">&lokalize;</ulink> object API reference
-</para>
-</listitem>
-<listitem>
-<para>
-<ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html">Project</ulink> object API reference
-</para>
-</listitem>
-</itemizedlist>
+<chapter id="externaltools">
+<title>External Tools</title>
 
 <sect1 id="pology">
 <title>Pology</title>
 
-<para>
-    One of the best scripting capabilities application is the use of <application>Pology</application> in &lokalize;.
-</para>
 <para>
     The interaction with <application>Pology</application> can be configured using the page <guilabel>Pology</guilabel> of the configuration window which can be opened by choosing the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &lokalize;...</guimenuitem></menuchoice> main menu item.
 </para>
