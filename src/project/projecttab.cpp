@@ -57,11 +57,15 @@ ProjectTab::ProjectTab(QWidget *parent)
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L. Accepts regular expressions"));
     connect(m_filterEdit, &QLineEdit::textChanged, this, &ProjectTab::setFilterRegExp, Qt::QueuedConnection);
+    connect(m_filterEdit, &QLineEdit::returnPressed, this, [this] {
+        m_browser->setFocus();
+    });
     new QShortcut(QKeySequence(Qt::ControlModifier | Qt::Key_L), this, SLOT(setFocus()), nullptr, Qt::WidgetWithChildrenShortcut);
 
     l->addWidget(m_filterEdit);
     l->addWidget(m_browser);
     m_browser->setAlternatingRowColors(true);
+    setFocusProxy(m_browser);
     connect(m_browser, &ProjectWidget::fileOpenRequested, this, &ProjectTab::fileOpenRequested);
     connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectTab::updateStatusBar);
     connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectTab::initStatusBarProgress);
