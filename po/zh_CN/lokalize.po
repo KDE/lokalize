@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-24 00:43+0000\n"
+"POT-Creation-Date: 2025-04-26 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -917,7 +917,7 @@ msgid "Current: %1"
 msgstr "当前：%1"
 
 #: src/editortab.cpp:116 src/editortab.cpp:755
-#: src/filesearch/filesearchtab.cpp:707 src/project/projecttab.cpp:436
+#: src/filesearch/filesearchtab.cpp:707 src/project/projecttab.cpp:440
 #: src/tm/tmtab.cpp:590
 #, kde-format
 msgctxt "@info:status message entries"
@@ -946,7 +946,7 @@ msgctxt "@title actions category"
 msgid "File"
 msgstr "文件"
 
-#: src/editortab.cpp:148 src/project/projecttab.cpp:87
+#: src/editortab.cpp:148 src/project/projecttab.cpp:91
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
@@ -1155,7 +1155,7 @@ msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "跳转到条目编号"
 
-#: src/editortab.cpp:477 src/project/projecttab.cpp:102
+#: src/editortab.cpp:477 src/project/projecttab.cpp:106
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1163,7 +1163,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "上一条非空且未就绪条目"
 
-#: src/editortab.cpp:485 src/project/projecttab.cpp:108
+#: src/editortab.cpp:485 src/project/projecttab.cpp:112
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1171,19 +1171,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "下一条非空且未就绪条目"
 
-#: src/editortab.cpp:492 src/project/projecttab.cpp:114
+#: src/editortab.cpp:492 src/project/projecttab.cpp:118
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "上一条未翻译条目"
 
-#: src/editortab.cpp:497 src/project/projecttab.cpp:120
+#: src/editortab.cpp:497 src/project/projecttab.cpp:124
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "下一条未翻译条目"
 
-#: src/editortab.cpp:503 src/project/projecttab.cpp:90
+#: src/editortab.cpp:503 src/project/projecttab.cpp:94
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1191,7 +1191,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "上一条未就绪条目"
 
-#: src/editortab.cpp:511 src/project/projecttab.cpp:96
+#: src/editortab.cpp:511 src/project/projecttab.cpp:100
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1446,26 +1446,26 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "条目已完全本地化(例如，最终版)"
 
-#: src/editortab.cpp:1252 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1252 src/project/projecttab.cpp:306
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
 #: src/editortab.cpp:1252 src/editortab.cpp:1260 src/editortab.cpp:1264
-#: src/project/projecttab.cpp:302 src/project/projecttab.cpp:310
-#: src/project/projecttab.cpp:314
+#: src/project/projecttab.cpp:306 src/project/projecttab.cpp:314
+#: src/project/projecttab.cpp:318
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1260 src/project/projecttab.cpp:310
+#: src/editortab.cpp:1260 src/project/projecttab.cpp:314
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1262 src/project/projecttab.cpp:312
+#: src/editortab.cpp:1262 src/project/projecttab.cpp:316
 #, kde-format
 msgid "Pology success"
 msgstr ""
@@ -1475,7 +1475,7 @@ msgstr ""
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1264 src/project/projecttab.cpp:314
+#: src/editortab.cpp:1264 src/project/projecttab.cpp:318
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -2036,7 +2036,7 @@ msgstr ""
 msgid "&Configure Lokalize"
 msgstr "配置 Lokalize(&C)"
 
-#: src/lokalizemainwindow.cpp:111 src/project/projecttab.cpp:156
+#: src/lokalizemainwindow.cpp:111 src/project/projecttab.cpp:160
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
@@ -2076,7 +2076,7 @@ msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "翻译记忆"
 
-#: src/lokalizemainwindow.cpp:530 src/project/projecttab.cpp:153
+#: src/lokalizemainwindow.cpp:530 src/project/projecttab.cpp:157
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
@@ -3667,7 +3667,7 @@ msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "项目概况"
 
-#: src/project/projecttab.cpp:73
+#: src/project/projecttab.cpp:77
 #, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
@@ -3675,118 +3675,118 @@ msgctxt ""
 msgid "%p%"
 msgstr ""
 
-#: src/project/projecttab.cpp:126
+#: src/project/projecttab.cpp:130
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "仅上一个模板"
 
-#: src/project/projecttab.cpp:132
+#: src/project/projecttab.cpp:136
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "仅下一个模板"
 
-#: src/project/projecttab.cpp:137
+#: src/project/projecttab.cpp:141
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "仅上一个翻译"
 
-#: src/project/projecttab.cpp:140
+#: src/project/projecttab.cpp:144
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "仅下一个翻译"
 
-#: src/project/projecttab.cpp:144
+#: src/project/projecttab.cpp:148
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr "隐藏已完成条目"
 
-#: src/project/projecttab.cpp:145
+#: src/project/projecttab.cpp:149
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "隐藏已翻译完的文件和文件夹"
 
-#: src/project/projecttab.cpp:195
+#: src/project/projecttab.cpp:199
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "打开选中的文件"
 
-#: src/project/projecttab.cpp:198
+#: src/project/projecttab.cpp:202
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "打开"
 
-#: src/project/projecttab.cpp:201
+#: src/project/projecttab.cpp:205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "添加到翻译记忆"
 
-#: src/project/projecttab.cpp:203
+#: src/project/projecttab.cpp:207
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "搜索文件"
 
-#: src/project/projecttab.cpp:204
+#: src/project/projecttab.cpp:208
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr ""
 
-#: src/project/projecttab.cpp:206
+#: src/project/projecttab.cpp:210
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr ""
 
-#: src/project/projecttab.cpp:209
+#: src/project/projecttab.cpp:213
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "搜索文件(包括模板)"
 
-#: src/project/projecttab.cpp:236
+#: src/project/projecttab.cpp:240
 #, kde-format
 msgid "Project file comment"
 msgstr "项目文件备注"
 
-#: src/project/projecttab.cpp:236
+#: src/project/projecttab.cpp:240
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr "输入此项目文件的备注："
 
-#: src/project/projecttab.cpp:312
+#: src/project/projecttab.cpp:316
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:331
+#: src/project/projecttab.cpp:335
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] ""
 
-#: src/project/projecttab.cpp:332
+#: src/project/projecttab.cpp:336
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:333
+#: src/project/projecttab.cpp:337
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:334
+#: src/project/projecttab.cpp:338
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
