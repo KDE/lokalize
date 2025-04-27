@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -42,6 +43,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KXMLGUIFactory>
+#include <qtmetamacros.h>
 
 #if defined(Q_OS_WIN) && defined(QStringLiteral)
 #undef QStringLiteral
@@ -465,12 +467,7 @@ TMTab::TMTab(QWidget *parent)
     int column = sizeof(maxInitialWidths) / sizeof(int);
     while (--column >= 0)
         view->setColumnWidth(column, maxInitialWidths[column]);
-
     // END resizeColumnToContents
-
-    int i = 6;
-    while (--i > ID_STATUS_PROGRESS)
-        statusBarItems.insert(i, QString());
 
     setXMLFile(QStringLiteral("translationmemoryrui.rc"), true);
     setUpdatedXMLFile();
@@ -587,9 +584,9 @@ void TMTab::displayTotalResultCount()
     int total = m_model->totalResultCount();
     int filtered = m_proxyModel->rowCount();
     if (filtered == m_model->rowCount())
-        statusBarItems.insert(1, i18nc("@info:status message entries", "Total: %1", total));
+        Q_EMIT signalStatusBarTotal(total);
     else
-        statusBarItems.insert(1, i18nc("@info:status message entries", "Total: %1 (%2)", filtered, total));
+        Q_EMIT signalStatusBarTotal(filtered);
     m_model->m_dbOperationMutex.unlock();
 }
 

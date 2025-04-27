@@ -36,7 +36,7 @@ set(liblokalize_SRCS
     main.cpp
     lokalizemainwindow.cpp
     lokalizetabpagebase.cpp
-    actionproxy.cpp
+    statusbar.cpp
 
     editortab.cpp
     editortab_findreplace.cpp
@@ -119,7 +119,7 @@ set(liblokalize_SRCS
     catalog/ts/tsstorage.cpp
 
     lokalizemainwindow.h
-    actionproxy.h
+    statusbar.h
 
     editortab.h
 

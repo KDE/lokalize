@@ -3,12 +3,12 @@
 
   SPDX-FileCopyrightText: 2008-2015 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "lokalizemainwindow.h"
-#include "actionproxy.h"
 #include "config-lokalize.h"
 #include "editortab.h"
 #include "filesearchtab.h"
@@ -20,6 +20,7 @@
 #include "project.h"
 #include "projectmodel.h"
 #include "projecttab.h"
+#include "statusbar.h"
 #include "tmtab.h"
 #include "tools/widgettextcaptureconfig.h"
 
@@ -73,7 +74,9 @@ LokalizeMainWindow::LokalizeMainWindow()
     , m_welcomePage(new QWidget(this))
     , m_editorActions(new QActionGroup(this))
     , m_managerActions(new QActionGroup(this))
+    , m_statusBar(new LokalizeStatusBar(this))
 {
+    setStatusBar(m_statusBar);
     // DocumentMode removes the unpleasant borders around the tab pages.
     m_mainTabs->setDocumentMode(true);
     m_mainTabs->setMovable(true);
@@ -145,11 +148,6 @@ LokalizeMainWindow::LokalizeMainWindow()
     connect(Project::instance(), &Project::configChanged, this, &LokalizeMainWindow::projectSettingsChanged);
     connect(Project::instance(), &Project::closed, this, &LokalizeMainWindow::queryAndCloseProject);
 
-    for (int i = ID_STATUS_CURRENT; i <= ID_STATUS_ISFUZZY; i++) {
-        m_statusBarLabels.append(new QLabel());
-        statusBar()->insertWidget(i, m_statusBarLabels.last(), 2);
-    }
-
     setAttribute(Qt::WA_DeleteOnClose, true);
 
     if (!qApp->isSessionRestored()) {
@@ -205,11 +203,13 @@ LokalizeMainWindow::~LokalizeMainWindow()
 void LokalizeMainWindow::showTabs()
 {
     m_welcomePageAndTabsPage->setCurrentIndex(1);
+    statusBar()->show();
 }
 
 void LokalizeMainWindow::showWelcome()
 {
     m_welcomePageAndTabsPage->setCurrentIndex(0);
+    statusBar()->hide();
 }
 
 void LokalizeMainWindow::activateTabByPageWidget(QWidget *w)
@@ -224,18 +224,29 @@ void LokalizeMainWindow::activateTabAtIndex(int i)
         return;
     else
         showTabs();
+
     int indexPriorToSwitching = m_mainTabs->currentIndex();
     m_mainTabs->setCurrentIndex(i);
+    m_statusBar->clear();
+    m_statusBar->disconnectSignals();
     previousActiveTabIndex = indexPriorToSwitching;
+
     if (m_projectTab && m_mainTabs->indexOf(m_projectTab) == i) {
-        m_projectTab->statusBarItems.registerStatusBar(statusBar(), m_statusBarLabels);
+        m_statusBar->connectSignals(m_projectTab);
+        m_projectTab->updateStatusBarContents();
     } else if (m_translationMemoryTab && m_mainTabs->indexOf(m_translationMemoryTab) == i) {
-        m_translationMemoryTab->statusBarItems.registerStatusBar(statusBar(), m_statusBarLabels);
+        m_statusBar->connectSignals(m_translationMemoryTab);
+        m_translationMemoryTab->updateStatusBarContents();
+    } else if (m_fileSearchTab && m_mainTabs->indexOf(m_fileSearchTab) == i) {
+        m_statusBar->connectSignals(m_fileSearchTab);
+        m_fileSearchTab->updateStatusBarContents();
     } else if (EditorTab *editorTab = qobject_cast<EditorTab *>(m_mainTabs->currentWidget())) {
         m_lastEditorState = editorTab->state().qMainWindowState;
+        m_statusBar->connectSignals(editorTab);
         editorTab->setProperFocus();
-        editorTab->statusBarItems.registerStatusBar(statusBar(), m_statusBarLabels);
+        editorTab->updateStatusBarContents();
     }
+
     // This disconnects the old keyboard shortcuts and connects those
     // related to the currently visible tab.
     guiFactory()->removeClient(m_activeTabPageKeyboardShortcuts);
@@ -762,7 +773,6 @@ void LokalizeMainWindow::projectLoaded()
     if (!projectPath.isEmpty())
         showProjectOverview();
     if (m_projectTab) {
-        m_projectTab->setLegacyUnitsCount(projectStateGroup.readEntry("UnitsCount", 0));
         m_mainTabs->setTabToolTip(m_mainTabs->indexOf(m_projectTab), Project::instance()->path());
     }
     entries = projectStateGroup.readEntry("Entries", entries);

@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -40,6 +41,7 @@
 #include <KColorScheme>
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
+#include <qtmetamacros.h>
 
 QList<int> FileSearchTab::ids;
 
@@ -506,10 +508,6 @@ FileSearchTab::FileSearchTab(QWidget *parent)
         view->setColumnWidth(column, maxInitialWidths[column]);
     // END resizeColumnToContents
 
-    int i = 6;
-    while (--i > ID_STATUS_PROGRESS)
-        statusBarItems.insert(i, QString());
-
     setXMLFile(QStringLiteral("filesearchtabui.rc"), true);
 #if HAVE_DBUS
     dbusObjectPath();
@@ -562,7 +560,6 @@ void FileSearchTab::performSearch()
     }
 
     m_model->clear();
-    statusBarItems.insert(1, QString());
     m_searchFileListView->scrollTo();
 
     m_lastSearchNumber++;
@@ -692,6 +689,11 @@ void FileSearchTab::setTargetQuery(const QString &query)
     ui_fileSearchOptions->queryTarget->setText(query);
 }
 
+void FileSearchTab::updateStatusBarContents()
+{
+    Q_EMIT signalStatusBarTotal(m_model->rowCount());
+}
+
 void FileSearchTab::searchJobDone(SearchJob *j)
 {
     j->deleteLater();
@@ -704,7 +706,7 @@ void FileSearchTab::searchJobDone(SearchJob *j)
         m_searchFileListView->scrollTo(j->results.last().filepath);
     }
 
-    statusBarItems.insert(1, i18nc("@info:status message entries", "Total: %1", m_model->rowCount()));
+    Q_EMIT signalStatusBarTotal(m_model->rowCount());
 }
 
 void FileSearchTab::replaceJobDone(MassReplaceJob *j)

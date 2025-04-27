@@ -11,8 +11,6 @@
 #ifndef LOKALIZETABPAGEBASE_H
 #define LOKALIZETABPAGEBASE_H
 
-#include "actionproxy.h"
-
 #include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
@@ -55,21 +53,28 @@ public:
     virtual KXMLGUIClient *guiClient();
     void reloadUpdatedXML();
     void setUpdatedXMLFile();
-    void reflectNonApprovedCount(int count, int total);
-    void reflectUntranslatedCount(int count, int total);
 
     virtual QString currentFilePath()
     {
         return QString();
     }
 
+    // Manually trigger the tab page signals for the
+    // status bar. Forces a full update of the status
+    // bar content, useful when switching tabs.
+    virtual void updateStatusBarContents() { };
+
     QString m_tabLabel;
     QString m_tabToolTip;
     QIcon m_tabIcon;
-    StatusBarProxy statusBarItems;
 
 Q_SIGNALS:
     void signalUpdatedTabLabelAndIconAvailable(LokalizeTabPageBase *);
+    void signalStatusBarCurrent(const int);
+    void signalStatusBarTotal(const int);
+    void signalStatusBarFuzzyNotReady(const int, const int);
+    void signalStatusBarUntranslated(const int, const int);
+    void signalStatusBarTranslationStatus(const QString);
 
 protected:
     QDateTime lastXMLUpdate;
@@ -90,21 +95,28 @@ public:
     virtual KXMLGUIClient *guiClient();
     void reloadUpdatedXML();
     void setUpdatedXMLFile();
-    void reflectNonApprovedCount(int count, int total);
-    void reflectUntranslatedCount(int count, int total);
 
     virtual QString currentFilePath()
     {
         return QString();
     }
 
+    // Manually trigger the tab page signals for the
+    // status bar. Forces a full update of the status
+    // bar content, useful when switching tabs.
+    virtual void updateStatusBarContents() { };
+
     QString m_tabLabel;
     QString m_tabToolTip;
     QIcon m_tabIcon;
-    StatusBarProxy statusBarItems;
 
 Q_SIGNALS:
     void signalUpdatedTabLabelAndIconAvailable(LokalizeTabPageBaseNoQMainWindow *);
+    void signalStatusBarCurrent(const int);
+    void signalStatusBarTotal(const int);
+    void signalStatusBarFuzzyNotReady(const int, const int);
+    void signalStatusBarUntranslated(const int, const int);
+    void signalStatusBarTranslationStatus(const QString);
 
 protected:
     QDateTime lastXMLUpdate;

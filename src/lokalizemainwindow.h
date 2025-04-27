@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2008-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -15,6 +16,7 @@
 #include "lokalizetabpagebase.h"
 #include "pos.h"
 #include "projecttab.h"
+#include "statusbar.h"
 #include "tmtab.h"
 
 #include <KConfigGroup>
@@ -27,6 +29,7 @@
 #include <QTabWidget>
 #include <QUrl>
 #include <QWidget>
+#include <qnamespace.h>
 #include <qtmetamacros.h>
 
 class QLabel;
@@ -58,8 +61,6 @@ class LokalizeMainWindow : public KXmlGuiWindow
 public:
     LokalizeMainWindow();
     ~LokalizeMainWindow() override;
-
-    StatusBarProxy mainWindowStatusBarItems;
 
 protected:
     void saveProjectState(KConfigGroup &);
@@ -205,7 +206,7 @@ private:
     QActionGroup *m_managerActions{};
     KRecentFilesAction *m_openRecentFileAction{};
     KRecentFilesAction *m_openRecentProjectAction{};
-    QVector<QLabel *> m_statusBarLabels;
+    QMetaObject::Connection activeStatusBarConnection;
 
     /*
      * @short The state of the editor that was last in focus.
@@ -233,6 +234,20 @@ private:
     TM::TMTab *m_translationMemoryTab{};
     FileSearchTab *m_fileSearchTab{};
     bool m_translationMemoryTabIsVisible;
+    LokalizeStatusBar *m_statusBar{};
+
+    int m_statusBarCurrentIndex;
+    int m_statusBarTotalCount;
+    int m_statusBarFuzzyNotReadyCount;
+    int m_statusBarUntranslatedCount;
+    int m_statusBarReadyCount;
+    int m_statusBarProgressPercentage;
+    QLabel *m_statusBarCurrentLabel;
+    QLabel *m_statusBarTotalLabel;
+    QLabel *m_statusBarFuzzyNotReadyLabel;
+    QLabel *m_statusBarUntranslatedLabel;
+    QLabel *m_statusBarReadyLabel;
+    QProgressBar *m_statusBarProgressBar;
 };
 
 class DelayedFileOpener : public QObject

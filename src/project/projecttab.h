@@ -3,8 +3,8 @@
 
   SPDX-FileCopyrightText: 2007-2009 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
-  SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
-  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2023      Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+  SPDX-FileCopyrightText: 2024-2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -49,7 +49,7 @@ public:
     {
         return m_currentUnitsCount;
     }
-    void setLegacyUnitsCount(int to);
+    void updateStatusBarContents() override;
 
 Q_SIGNALS:
     void projectOpenRequested();
@@ -105,20 +105,22 @@ private Q_SLOTS:
     void toggleTranslatedFiles();
 
     void updateStatusBar(int fuzzy = 0, int translated = 0, int untranslated = 0, bool done = false);
-    void initStatusBarProgress();
 
     void pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
     ProjectWidget *m_browser{};
     QLineEdit *m_filterEdit{};
-    QProgressBar *m_progressBar{};
 
     KProcess *m_pologyProcess{};
     bool m_pologyProcessInProgress{};
 
-    int m_legacyUnitsCount{-1};
     int m_currentUnitsCount{0};
+
+    int m_fuzzy;
+    int m_translated;
+    int m_untranslated;
+    bool m_done;
 };
 
 #endif

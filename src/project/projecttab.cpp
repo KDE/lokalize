@@ -3,8 +3,8 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
-  SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
-  SPDX-FileCopyrightText: 2024 Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2023      Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+  SPDX-FileCopyrightText: 2024-2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -41,6 +41,7 @@
 #include <QStackedLayout>
 #include <QStatusBar>
 #include <QVBoxLayout>
+#include <qtmetamacros.h>
 
 ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeTabPageBaseNoQMainWindow(parent)
@@ -67,15 +68,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     setFocusProxy(m_browser);
     connect(m_browser, &ProjectWidget::fileOpenRequested, this, &ProjectTab::fileOpenRequested);
     connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectTab::updateStatusBar);
-    connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectTab::initStatusBarProgress);
-
-    QStatusBar *statusBar = static_cast<LokalizeTabPageBase *>(parent)->statusBar();
-
-    m_progressBar = new QProgressBar(nullptr);
-    m_progressBar->setVisible(false);
-    m_progressBar->setFormat(
-        i18nc("Loading bar percentage indicator %p will be replaced by the actual percentage number, so make sure you include it in your translation", "%p%"));
-    statusBar->insertWidget(ID_STATUS_PROGRESS, m_progressBar, 1);
 
     setXMLFile(QStringLiteral("projectmanagerui.rc"), true);
     setUpdatedXMLFile();
@@ -159,10 +151,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     action = proj->addAction(QStringLiteral("project_open"), this, SIGNAL(projectOpenRequested()));
     action->setText(i18nc("@action:inmenu", "Open project"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
-
-    int i = 6;
-    while (--i > ID_STATUS_PROGRESS)
-        statusBarItems.insert(i, QString());
 }
 
 void ProjectTab::toggleTranslatedFiles()
@@ -426,38 +414,20 @@ QStringList ProjectTab::selectedItems() const
 
 void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bool done)
 {
-    int total = fuzzy + translated + untranslated;
-    m_currentUnitsCount = total;
+    m_fuzzy = fuzzy;
+    m_translated = translated;
+    m_untranslated = untranslated;
+    m_done = done;
+    m_currentUnitsCount = fuzzy + translated + untranslated;
 
-    if (m_progressBar->value() != total && m_legacyUnitsCount > 0)
-        m_progressBar->setValue(total);
-    if (m_progressBar->maximum() < qMax(total, m_legacyUnitsCount))
-        m_progressBar->setMaximum(qMax(total, m_legacyUnitsCount));
-    m_progressBar->setVisible(!done);
-    if (done)
-        m_legacyUnitsCount = total;
-
-    statusBarItems.insert(ID_STATUS_TOTAL, i18nc("@info:status message entries", "Total: %1", total));
-    reflectNonApprovedCount(fuzzy, total);
-    reflectUntranslatedCount(untranslated, total);
+    Q_EMIT signalStatusBarTotal(m_currentUnitsCount);
+    Q_EMIT signalStatusBarFuzzyNotReady(fuzzy, m_currentUnitsCount);
+    Q_EMIT signalStatusBarUntranslated(untranslated, m_currentUnitsCount);
 }
 
-void ProjectTab::initStatusBarProgress()
+void ProjectTab::updateStatusBarContents()
 {
-    if (m_legacyUnitsCount > 0) {
-        if (m_progressBar->value() != 0)
-            m_progressBar->setValue(0);
-        if (m_progressBar->maximum() != m_legacyUnitsCount)
-            m_progressBar->setMaximum(m_legacyUnitsCount);
-        updateStatusBar();
-    }
-}
-
-void ProjectTab::setLegacyUnitsCount(int to)
-{
-    m_legacyUnitsCount = to;
-    m_currentUnitsCount = to;
-    initStatusBarProgress();
+    updateStatusBar(m_fuzzy, m_translated, m_untranslated, m_done);
 }
 
 #include "moc_projecttab.cpp"

@@ -14,7 +14,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
 ##    lokalizemainwindow.cpp
-    actionproxy.cpp\
+    statusbar.cpp
     editortab.cpp\
 #    editortab_findreplace.cpp
     editorview.cpp\

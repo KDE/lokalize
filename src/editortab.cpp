@@ -5,12 +5,12 @@
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
   SPDX-FileCopyrightText: 2024 Karl Ove Hufthammer <karl@huftis.org>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "editortab.h"
-#include "actionproxy.h"
 #include "alttransview.h"
 #include "binunitsview.h"
 #include "catalog.h"
@@ -70,12 +70,15 @@ EditorTab::EditorTab(QWidget *parent, bool valid)
     m_tabIcon = m_defaultTabIcon;
     setAcceptDrops(true);
     setCentralWidget(m_view);
-    setupStatusBar(); //--NOT called from initLater() !
     setupActions();
 
 #if HAVE_DBUS
     dbusObjectPath();
 #endif
+
+    // Connections for the status bar.
+    connect(m_catalog, &Catalog::signalNumberOfFuzziesChanged, this, &EditorTab::numberOfFuzziesChanged);
+    connect(m_catalog, &Catalog::signalNumberOfEmptyChanged, this, &EditorTab::numberOfUntranslatedChanged);
 
     connect(m_view, &EditorView::signalChanged, this, &EditorTab::msgStrChanged);
     msgStrChanged();
@@ -110,26 +113,23 @@ EditorTab::~EditorTab()
     delete m_catalog;
 }
 
-void EditorTab::setupStatusBar()
+void EditorTab::updateStatusBarContents()
 {
-    statusBarItems.insert(ID_STATUS_CURRENT, i18nc("@info:status message entry", "Current: %1", 0));
-    statusBarItems.insert(ID_STATUS_TOTAL, i18nc("@info:status message entries", "Total: %1", 0));
-    statusBarItems.insert(ID_STATUS_FUZZY, i18nc("@info:status message entries\n'fuzzy' in gettext terminology", "Not ready: %1", 0));
-    statusBarItems.insert(ID_STATUS_UNTRANS, i18nc("@info:status message entries", "Untranslated: %1", 0));
-    statusBarItems.insert(ID_STATUS_ISFUZZY, QString());
-
-    connect(m_catalog, &Catalog::signalNumberOfFuzziesChanged, this, &EditorTab::numberOfFuzziesChanged);
-    connect(m_catalog, &Catalog::signalNumberOfEmptyChanged, this, &EditorTab::numberOfUntranslatedChanged);
+    Q_EMIT signalStatusBarCurrent(m_currentPos.entry + 1);
+    Q_EMIT signalStatusBarTotal(m_catalog->numberOfEntries());
+    Q_EMIT signalStatusBarFuzzyNotReady(m_catalog->numberOfNonApproved(), m_catalog->numberOfEntries());
+    Q_EMIT signalStatusBarUntranslated(m_catalog->numberOfUntranslated(), m_catalog->numberOfEntries());
+    msgStrChanged();
 }
 
 void EditorTab::numberOfFuzziesChanged()
 {
-    reflectNonApprovedCount(m_catalog->numberOfNonApproved(), m_catalog->numberOfEntries());
+    Q_EMIT signalStatusBarFuzzyNotReady(m_catalog->numberOfNonApproved(), m_catalog->numberOfEntries());
 }
 
 void EditorTab::numberOfUntranslatedChanged()
 {
-    reflectUntranslatedCount(m_catalog->numberOfUntranslated(), m_catalog->numberOfEntries());
+    Q_EMIT signalStatusBarUntranslated(m_catalog->numberOfUntranslated(), m_catalog->numberOfEntries());
 }
 
 void EditorTab::setupActions()
@@ -752,8 +752,8 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
     QApplication::restoreOverrideCursor();
 
     if (errorLine == 0) {
-        statusBarItems.insert(ID_STATUS_TOTAL, i18nc("@info:status message entries", "Total: %1", m_catalog->numberOfEntries()));
-        numberOfUntranslatedChanged();
+        Q_EMIT signalStatusBarTotal(m_catalog->numberOfEntries());
+        Q_EMIT signalStatusBarUntranslated(m_catalog->numberOfUntranslated(), m_catalog->numberOfEntries());
         numberOfFuzziesChanged();
 
         m_currentPos.entry = -1; // so the signals are emitted
@@ -957,28 +957,23 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
         Q_EMIT signalApprovedEntryDisplayed(m_catalog->isApproved(pos));
     }
 
-    statusBarItems.insert(ID_STATUS_CURRENT, i18nc("@info:status", "Current: %1", m_currentPos.entry + 1));
+    Q_EMIT signalStatusBarCurrent(m_currentPos.entry + 1);
 }
 
 void EditorTab::msgStrChanged()
 {
-    bool isUntr = m_catalog->msgstr(m_currentPos).isEmpty();
-    bool isApproved = m_catalog->isApproved(m_currentPos);
-    if (isUntr == m_currentIsUntr && isApproved == m_currentIsApproved)
-        return;
-
     QString msg;
-    if (isUntr)
+    m_currentIsUntr = m_catalog->msgstr(m_currentPos).isEmpty();
+    m_currentIsApproved = m_catalog->isApproved(m_currentPos);
+
+    if (m_currentIsUntr)
         msg = i18nc("@info:status", "Untranslated");
-    else if (isApproved)
+    else if (m_currentIsApproved)
         msg = i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
     else
         msg = i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
 
-    statusBarItems.insert(ID_STATUS_ISFUZZY, msg);
-
-    m_currentIsUntr = isUntr;
-    m_currentIsApproved = isApproved;
+    Q_EMIT signalStatusBarTranslationStatus(msg);
 }
 
 void EditorTab::switchForm(int newForm)
