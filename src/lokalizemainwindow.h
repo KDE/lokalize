@@ -202,6 +202,7 @@ Q_SIGNALS:
     Q_SCRIPTABLE void editorActivated();
 
 private:
+    bool eventFilter(QObject *object, QEvent *event) override;
     int previousActiveTabIndex;
     KXMLGUIClient *m_activeTabPageKeyboardShortcuts{};
     QActionGroup *m_editorActions{};
