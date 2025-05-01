@@ -19,6 +19,7 @@
 #include "project.h"
 #include "projectmodel.h"
 #include "projecttab.h"
+#include "resizewatcher.h"
 #include "tmtab.h"
 #include "tools/widgettextcaptureconfig.h"
 
@@ -177,8 +178,8 @@ LokalizeMainWindow::~LokalizeMainWindow()
 
     KConfig config;
     KConfigGroup stateGroup(&config, QStringLiteral("State"));
-    if (!m_lastEditorState.isEmpty())
-        stateGroup.writeEntry("DefaultDockWidgets", m_lastEditorState.toBase64());
+    if (!m_editorStateOfAllOpenEditors.isEmpty())
+        stateGroup.writeEntry("EditorState", m_editorStateOfAllOpenEditors.toBase64());
     saveProjectState(stateGroup);
 
     // Disconnect the signals pointing to this MainWindow object
@@ -228,7 +229,11 @@ void LokalizeMainWindow::activateTabAtIndex(int i)
     } else if (m_translationMemoryTab && m_mainTabs->indexOf(m_translationMemoryTab) == i) {
         m_translationMemoryTab->statusBarItems.registerStatusBar(statusBar(), m_statusBarLabels);
     } else if (EditorTab *editorTab = qobject_cast<EditorTab *>(m_mainTabs->currentWidget())) {
-        m_lastEditorState = editorTab->state().qMainWindowState;
+        if (m_editorStateOfAllOpenEditors.isEmpty()) {
+            m_editorStateOfAllOpenEditors = editorTab->state().qMainWindowState;
+        } else {
+            editorTab->restoreState(m_editorStateOfAllOpenEditors);
+        }
         editorTab->setProperFocus();
         editorTab->statusBarItems.registerStatusBar(statusBar(), m_statusBarLabels);
     }
@@ -281,6 +286,26 @@ bool LokalizeMainWindow::queryClose()
     return true;
 }
 
+void LokalizeMainWindow::saveCurrentEditorState()
+{
+    if (EditorTab *editorTab = qobject_cast<EditorTab *>(m_mainTabs->currentWidget())) {
+        m_editorStateOfAllOpenEditors = editorTab->state().qMainWindowState;
+
+        KConfig config;
+        KConfigGroup stateGroup(&config, QStringLiteral("State"));
+        if (!m_editorStateOfAllOpenEditors.isEmpty())
+            stateGroup.writeEntry("EditorState", m_editorStateOfAllOpenEditors.toBase64());
+
+        for (int i = 0; i < m_mainTabs->count(); i++) {
+            if (EditorTab *nonCurrentEditorTab = qobject_cast<EditorTab *>(m_mainTabs->widget(i))) {
+                if (editorTab != nonCurrentEditorTab) {
+                    nonCurrentEditorTab->m_layoutRefreshScheduled = true;
+                }
+            }
+        }
+    }
+}
+
 EditorTab *LokalizeMainWindow::fileOpen_(QString filePath, const bool setAsActive)
 {
     return fileOpen(filePath, 0, setAsActive);
@@ -325,20 +350,16 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
         m_mainTabs->addTab(newEditorTab, newEditorTab->m_tabIcon, newEditorTab->m_tabLabel);
         m_mainTabs->setTabToolTip(m_mainTabs->indexOf(newEditorTab), newEditorTab->m_tabToolTip);
         m_mainTabs->setCurrentWidget(newEditorTab);
+        connect(newEditorTab->m_resizeWatcher, &SaveLayoutAfterResizeWatcher::signalEditorTabNeedsLayoutSaving, this, [this] {
+            saveCurrentEditorState();
+        });
     }
 
-    // Tab has been added, editor tab page now needs to be
-    // restored to the same state as it was last closed in.
-    KConfig config;
-    KConfigGroup stateGroup(&config, QStringLiteral("EditorStates"));
-    QByteArray savedEditorState = stateGroup.readEntry(newEditorTab->currentFilePath(), QByteArray());
-    if (!savedEditorState.isEmpty()) {
-        // Best case: editor has been opened before and has a previous state.
-        newEditorTab->restoreState(QByteArray::fromBase64(savedEditorState));
-    } else if (!m_lastEditorState.isEmpty()) {
-        // Fall back on opening this file with the same set-up as the last opened file,
-        // in cases where there is no default editor tab state saved in settings file.
-        newEditorTab->restoreState(m_lastEditorState);
+    // Tab has been added, editor tab page now needs
+    // to have a sensible layout / state applied.
+    if (!m_editorStateOfAllOpenEditors.isEmpty()) {
+        // Best case: we have the editor state that we can use.
+        newEditorTab->restoreState(m_editorStateOfAllOpenEditors);
     } else {
         // Dummy restore to "initialize" widgets.
         newEditorTab->restoreState(newEditorTab->saveState());
@@ -676,7 +697,6 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup &stateGroup)
     int i = m_mainTabs->count();
 
     KConfig config;
-    KConfigGroup editorQMainWindowState(&config, QLatin1String("EditorStates"));
     m_translationMemoryTabIsVisible = false;
     while (--i >= 0) {
         // Only process the editor tabs and the Translation Memory tab
@@ -690,7 +710,6 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup &stateGroup)
         files.append(editorState.filePath);
         mergeFiles.append(editorState.mergeFilePath);
         entries.append(editorState.entry);
-        editorQMainWindowState.writeEntry(editorState.filePath, editorState.qMainWindowState.toBase64());
     }
 
     if (stateGroup.isValid())
@@ -726,6 +745,12 @@ void LokalizeMainWindow::readProperties(const KConfigGroup &stateGroup)
         QTimer::singleShot(0, this, &LokalizeMainWindow::projectLoaded);
     } else
         Project::instance()->load(path);
+
+    KConfigGroup editorStateGroup(&config, QStringLiteral("State"));
+    QByteArray savedEditorState = editorStateGroup.readEntry(QLatin1String("EditorState"), QByteArray());
+    if (!savedEditorState.isEmpty()) {
+        m_editorStateOfAllOpenEditors = QByteArray::fromBase64(savedEditorState);
+    }
 }
 
 void LokalizeMainWindow::projectLoaded()
@@ -783,8 +808,8 @@ void LokalizeMainWindow::projectLoaded()
     }
 
     if (files.isEmpty())
-        m_lastEditorState =
-            QByteArray::fromBase64(stateGroup.readEntry("DefaultDockWidgets", m_lastEditorState)); // restore default state if no last editor for this project
+        m_editorStateOfAllOpenEditors = QByteArray::fromBase64(
+            stateGroup.readEntry("EditorState", m_editorStateOfAllOpenEditors)); // restore default state if no last editor for this project
     projectSettingsChanged();
 }
 
@@ -994,8 +1019,8 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
         m_activeTabPageKeyboardShortcuts = nullptr;
         m_fileToEditor.remove(m_fileToEditor.key(editorTab));
         KConfig config;
-        KConfigGroup stateGroup(&config, QStringLiteral("EditorStates"));
-        stateGroup.writeEntry(editorTab->currentFilePath(), editorTab->state().qMainWindowState.toBase64());
+        KConfigGroup stateGroup(&config, QStringLiteral("State"));
+        stateGroup.writeEntry(QLatin1String("EditorState"), editorTab->state().qMainWindowState.toBase64());
         editorTab->deleteLater();
     } else {
         qCWarning(LOKALIZE_LOG) << "LokalizeMainWindow::closeTabAtIndex(): tab type wasn't recognised, this is an error";

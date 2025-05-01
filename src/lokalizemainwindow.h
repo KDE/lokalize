@@ -25,6 +25,7 @@
 #include <QPointer>
 #include <QStackedLayout>
 #include <QTabWidget>
+#include <QTimer>
 #include <QUrl>
 #include <QWidget>
 #include <qtmetamacros.h>
@@ -63,6 +64,7 @@ public:
     StatusBarProxy mainWindowStatusBarItems;
 
 protected:
+    void saveCurrentEditorState();
     void saveProjectState(KConfigGroup &);
     void saveProperties(KConfigGroup &stateGroup) override;
     /*
@@ -212,7 +214,7 @@ private:
      * (dock widget layout etc.) and when a project is closed
      * this is the editor state saved to disk.
      */
-    QByteArray m_lastEditorState;
+    QByteArray m_editorStateOfAllOpenEditors;
 
     typedef QMap<QString, EditorTab *> FileToEditor;
     FileToEditor m_fileToEditor;

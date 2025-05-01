@@ -29,6 +29,7 @@
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "projectlocal.h"
+#include "resizewatcher.h"
 #include "tmview.h"
 #include "xlifftextedit.h"
 
@@ -59,6 +60,7 @@
 
 EditorTab::EditorTab(QWidget *parent, bool valid)
     : LokalizeTabPageBase(parent)
+    , m_resizeWatcher(new SaveLayoutAfterResizeWatcher(this))
     , m_project(Project::instance())
     , m_catalog(new Catalog(this))
     , m_view(new EditorView(this, m_catalog))
@@ -167,6 +169,7 @@ void EditorTab::setupActions()
     m_alternateTranslationView = new AltTransView(this, m_catalog, altactions);
     addDockWidget(Qt::BottomDockWidgetArea, m_alternateTranslationView);
     ac->addAction(QStringLiteral("showmsgiddiff_action"), m_alternateTranslationView->toggleViewAction());
+    m_resizeWatcher->addWidget(m_alternateTranslationView);
     connect(this,
             qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed),
             m_alternateTranslationView,
@@ -178,6 +181,7 @@ void EditorTab::setupActions()
     m_syncView = new MergeView(this, m_catalog, true);
     addDockWidget(Qt::BottomDockWidgetArea, m_syncView);
     sync1->addAction(QStringLiteral("showmergeview_action"), m_syncView->toggleViewAction());
+    m_resizeWatcher->addWidget(m_syncView);
     connect(this,
             qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed),
             m_syncView,
@@ -188,6 +192,7 @@ void EditorTab::setupActions()
     m_syncViewSecondary = new MergeView(this, m_catalog, false);
     addDockWidget(Qt::BottomDockWidgetArea, m_syncViewSecondary);
     sync2->addAction(QStringLiteral("showmergeviewsecondary_action"), m_syncViewSecondary->toggleViewAction());
+    m_resizeWatcher->addWidget(m_syncViewSecondary);
     connect(this,
             qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed),
             m_syncViewSecondary,
@@ -203,6 +208,7 @@ void EditorTab::setupActions()
     m_transUnitsView = new CatalogView(this, m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_transUnitsView);
     ac->addAction(QStringLiteral("showcatalogtreeview_action"), m_transUnitsView->toggleViewAction());
+    m_resizeWatcher->addWidget(m_transUnitsView);
     connect(this,
             qOverload<const DocPosition &>(&EditorTab::signalNewEntryDisplayed),
             m_transUnitsView,
@@ -214,6 +220,7 @@ void EditorTab::setupActions()
     m_notesView = new MsgCtxtView(this, m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_notesView);
     ac->addAction(QStringLiteral("showmsgctxt_action"), m_notesView->toggleViewAction());
+    m_resizeWatcher->addWidget(m_notesView);
     connect(m_catalog, qOverload<>(&Catalog::signalFileLoaded), m_notesView, &MsgCtxtView::cleanup);
     connect(m_notesView, &MsgCtxtView::srcFileOpenRequested, this, &EditorTab::dispatchSrcFileOpenRequest);
     connect(m_view, &EditorView::signalChanged, m_notesView, &MsgCtxtView::removeErrorNotes);
@@ -251,6 +258,7 @@ void EditorTab::setupActions()
     m_translationMemoryView = new TM::TMView(this, m_catalog, tmactions_insert, tmactions_remove);
     addDockWidget(Qt::BottomDockWidgetArea, m_translationMemoryView);
     tm->addAction(QStringLiteral("showtmqueryview_action"), m_translationMemoryView->toggleViewAction());
+    m_resizeWatcher->addWidget(m_translationMemoryView);
     connect(m_translationMemoryView, &TM::TMView::refreshRequested, m_view, qOverload<>(&EditorView::gotoEntry), Qt::QueuedConnection);
     connect(m_translationMemoryView, &TM::TMView::refreshRequested, this, &EditorTab::msgStrChanged, Qt::QueuedConnection);
     connect(m_translationMemoryView, &TM::TMView::textInsertRequested, m_view, &EditorView::insertTerm);
@@ -292,16 +300,17 @@ void EditorTab::setupActions()
         gactions[i] = gaction;
     }
 
-    GlossaryNS::GlossaryView *_glossaryView = new GlossaryNS::GlossaryView(this, m_catalog, gactions);
-    addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
-    glossary->addAction(QStringLiteral("showglossaryview_action"), _glossaryView->toggleViewAction());
-    connect(this, &EditorTab::signalNewEntryDisplayed, _glossaryView, qOverload<DocPosition>(&GlossaryNS::GlossaryView::slotNewEntryDisplayed));
-    connect(_glossaryView, &GlossaryNS::GlossaryView::termInsertRequested, m_view, &EditorView::insertTerm);
+    m_glossaryView = new GlossaryNS::GlossaryView(this, m_catalog, gactions);
+    addDockWidget(Qt::BottomDockWidgetArea, m_glossaryView);
+    glossary->addAction(QStringLiteral("showglossaryview_action"), m_glossaryView->toggleViewAction());
+    m_resizeWatcher->addWidget(m_glossaryView);
+    connect(this, &EditorTab::signalNewEntryDisplayed, m_glossaryView, qOverload<DocPosition>(&GlossaryNS::GlossaryView::slotNewEntryDisplayed));
+    connect(m_glossaryView, &GlossaryNS::GlossaryView::termInsertRequested, m_view, &EditorView::insertTerm);
 
     gaction = glossary->addAction(QStringLiteral("glossary_define"), this, SLOT(defineNewTerm()));
     gaction->setText(i18nc("@action:inmenu", "Define new term"));
-    _glossaryView->addAction(gaction);
-    _glossaryView->setContextMenuPolicy(Qt::ActionsContextMenu);
+    m_glossaryView->addAction(gaction);
+    m_glossaryView->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     BinUnitsView *binUnitsView = new BinUnitsView(m_catalog, this);
     addDockWidget(Qt::BottomDockWidgetArea, binUnitsView);
