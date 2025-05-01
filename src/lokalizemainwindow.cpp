@@ -50,11 +50,13 @@
 #include <QApplication>
 #include <QBoxLayout>
 #include <QElapsedTimer>
+#include <QEvent>
 #include <QIcon>
 #include <QLabel>
 #include <QLoggingCategory>
 #include <QMenu>
 #include <QMenuBar>
+#include <QMouseEvent>
 #include <QObject>
 #include <QPushButton>
 #include <QSharedPointer>
@@ -77,6 +79,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     m_mainTabs->setDocumentMode(true);
     m_mainTabs->setMovable(true);
     m_mainTabs->setTabsClosable(true);
+    m_mainTabs->tabBar()->installEventFilter(this);
     previousActiveTabIndex = -1;
 
     connect(m_mainTabs, &QTabWidget::tabCloseRequested, this, &LokalizeMainWindow::queryAndCloseTabAtIndex);
@@ -197,6 +200,22 @@ LokalizeMainWindow::~LokalizeMainWindow()
     }
 
     qCWarning(LOKALIZE_LOG) << "MainWindow destroyed";
+}
+
+bool LokalizeMainWindow::eventFilter(QObject *object, QEvent *event)
+{
+    // Handle middle button click events on the tab bar
+    if (object == m_mainTabs->tabBar() && event->type() == QEvent::MouseButtonRelease) {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+        if (mouseEvent->button() == Qt::MiddleButton) {
+            int tabIndex = m_mainTabs->tabBar()->tabAt(mouseEvent->pos());
+            if (tabIndex != -1) {
+                closeTabAtIndex(tabIndex);
+                return true;
+            }
+        }
+    }
+    return KXmlGuiWindow::eventFilter(object, event);
 }
 
 void LokalizeMainWindow::showTabs()
