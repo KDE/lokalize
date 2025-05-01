@@ -118,6 +118,22 @@ QString PoItemDelegate::displayText(const QVariant &value, [[maybe_unused]] cons
     return QStyledItemDelegate::displayText(value, QLocale::system());
 }
 
+ProjectOverviewSortFilterProxyModel::ProjectOverviewSortFilterProxyModel(QObject *parent)
+    : KDirSortFilterProxyModel(parent)
+{
+    connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectOverviewSortFilterProxyModel::invalidate);
+    KConfig config;
+    KConfigGroup stateGroup(&config, QStringLiteral("State"));
+    m_hideTranslatedFiles = (stateGroup.exists() && stateGroup.readEntry("HideCompletedItems", false));
+}
+
+ProjectOverviewSortFilterProxyModel::~ProjectOverviewSortFilterProxyModel()
+{
+    KConfig config;
+    KConfigGroup stateGroup(&config, QStringLiteral("State"));
+    stateGroup.writeEntry("HideCompletedItems", m_hideTranslatedFiles);
+}
+
 void ProjectOverviewSortFilterProxyModel::toggleTranslatedFiles()
 {
     m_hideTranslatedFiles = !m_hideTranslatedFiles;
