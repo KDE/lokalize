@@ -11,6 +11,7 @@
 #ifndef EDITORTAB_H
 #define EDITORTAB_H
 
+#include "resizewatcher.h"
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -143,6 +144,9 @@ public:
 
     QIcon m_defaultTabIcon;
     QIcon m_unsavedTabIcon;
+
+    SaveLayoutAfterResizeWatcher *m_resizeWatcher;
+    bool m_layoutRefreshScheduled = false;
 
 public Q_SLOTS:
     // for undo/redo, views
@@ -345,6 +349,7 @@ private:
     KReplace *m_replace{};
 
     // BEGIN views
+    GlossaryNS::GlossaryView *m_glossaryView;
     MergeView *m_syncView{};
     MergeView *m_syncViewSecondary{};
     CatalogView *m_transUnitsView{};

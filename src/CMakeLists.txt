@@ -40,6 +40,7 @@ set(liblokalize_SRCS
 
     editortab.cpp
     editortab_findreplace.cpp
+    resizewatcher.cpp
 
     editorview.cpp
     xlifftextedit.cpp
@@ -122,6 +123,7 @@ set(liblokalize_SRCS
     statusbar.h
 
     editortab.h
+    resizewatcher.h
 
     editorview.h
     xlifftextedit.h
