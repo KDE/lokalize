@@ -81,14 +81,9 @@ private:
 class ProjectOverviewSortFilterProxyModel : public KDirSortFilterProxyModel
 {
 public:
-    explicit ProjectOverviewSortFilterProxyModel(QObject *parent = nullptr)
-        : KDirSortFilterProxyModel(parent)
-    {
-        connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectOverviewSortFilterProxyModel::invalidate);
-    }
-    ~ProjectOverviewSortFilterProxyModel()
-    {
-    }
+    explicit ProjectOverviewSortFilterProxyModel(QObject *parent = nullptr);
+    ~ProjectOverviewSortFilterProxyModel();
+
     void toggleTranslatedFiles();
     /**
      * @short Filter the list of files and dirs by their relative path from the project root.
