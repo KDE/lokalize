@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-26 02:36+0000\n"
+"POT-Creation-Date: 2025-05-02 02:36+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1003,21 +1003,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "लक्ष्यदीर्घता"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:983
-#: src/editortab.cpp:1180 src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:992
+#: src/editortab.cpp:1189 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "आत्त"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:985
-#: src/editortab.cpp:1175 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:994
+#: src/editortab.cpp:1184 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "समीक्षायाः आवश्यकता अस्ति"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:981
+#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:990
 #: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
@@ -1042,21 +1042,21 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "सम्पादन"
 
-#: src/editortab.cpp:112
+#: src/editortab.cpp:114
 #, kde-format
 msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "वर्तमानम् : %1"
 
-#: src/editortab.cpp:113 src/editortab.cpp:762
-#: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:442
+#: src/editortab.cpp:115 src/editortab.cpp:771
+#: src/filesearch/filesearchtab.cpp:706 src/project/projecttab.cpp:447
 #: src/tm/tmtab.cpp:583
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
 msgstr "कुलम् : %1"
 
-#: src/editortab.cpp:114 src/lokalizetabpagebase.cpp:34
+#: src/editortab.cpp:116 src/lokalizetabpagebase.cpp:34
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -1064,124 +1064,124 @@ msgctxt ""
 msgid "Not ready: %1"
 msgstr "सज्जः नास्ति: %1"
 
-#: src/editortab.cpp:115 src/lokalizetabpagebase.cpp:42
+#: src/editortab.cpp:117 src/lokalizetabpagebase.cpp:42
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "अननुवादितम् : %1"
 
-#: src/editortab.cpp:144 src/lokalizemainwindow.cpp:518
+#: src/editortab.cpp:146 src/lokalizemainwindow.cpp:558
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
 msgstr "सञ्चिका"
 
-#: src/editortab.cpp:145 src/project/projecttab.cpp:93
+#: src/editortab.cpp:147 src/project/projecttab.cpp:97
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
 msgstr "नौकायानम्"
 
-#: src/editortab.cpp:146
+#: src/editortab.cpp:148
 #, kde-format
 msgctxt "@title actions category"
 msgid "Editing"
 msgstr "सम्पादनम्"
 
-#: src/editortab.cpp:147
+#: src/editortab.cpp:149
 #, kde-format
 msgid "Synchronization 1"
 msgstr "समन्वयः १"
 
-#: src/editortab.cpp:148
+#: src/editortab.cpp:150
 #, kde-format
 msgid "Synchronization 2"
 msgstr "समन्वयः २"
 
-#: src/editortab.cpp:149
+#: src/editortab.cpp:151
 #, kde-format
 msgid "Translation Memory"
 msgstr "अनुवाद स्मृति"
 
-#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:519
+#: src/editortab.cpp:152 src/lokalizemainwindow.cpp:559
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
 msgstr "शब्दावली"
 
-#: src/editortab.cpp:163
+#: src/editortab.cpp:165
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
 msgstr "वैकल्पिकं अनुवादं सम्मिलितं कुर्वन्तु #%1"
 
-#: src/editortab.cpp:225
+#: src/editortab.cpp:232
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a note"
 msgstr "एकं टिप्पणं योजयन्तु"
 
-#: src/editortab.cpp:234
+#: src/editortab.cpp:241
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert TM suggestion #%1"
 msgstr "TM सुझाव #%1 सम्मिलितं कुर्वन्तु"
 
-#: src/editortab.cpp:239
+#: src/editortab.cpp:246
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove TM suggestion #%1"
 msgstr "TM सुझाव #%1 निष्कासयन्तु"
 
-#: src/editortab.cpp:291
+#: src/editortab.cpp:299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
 msgstr "पद अनुवाद #%1 सम्मिलित करें"
 
-#: src/editortab.cpp:302
+#: src/editortab.cpp:311
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Define new term"
 msgstr "नूतनपदं परिभाषयतु"
 
-#: src/editortab.cpp:332
+#: src/editortab.cpp:341
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
 msgstr "चरणाः..."
 
-#: src/editortab.cpp:335
+#: src/editortab.cpp:344
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Word count"
 msgstr "शब्दगणना"
 
-#: src/editortab.cpp:338
+#: src/editortab.cpp:347
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
 msgstr "अनुवादितानि सर्वाणि प्रविष्टयः स्वच्छं कुर्वन्तु"
 
-#: src/editortab.cpp:341
+#: src/editortab.cpp:350
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
 msgstr "अस्मिन् सञ्चिकायां Pology आदेशं प्रारम्भं कुर्वन्तु"
 
-#: src/editortab.cpp:345
+#: src/editortab.cpp:354
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
 msgstr "अनुवादं OpenDocument मध्ये विलीनं कुर्वन्तु"
 
-#: src/editortab.cpp:365
+#: src/editortab.cpp:374
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Change searching direction"
 msgstr "अन्वेषणदिशा परिवर्तयन्तु"
 
-#: src/editortab.cpp:374
+#: src/editortab.cpp:383
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1189,103 +1189,103 @@ msgctxt ""
 msgid "Approved"
 msgstr "अनुमत"
 
-#: src/editortab.cpp:393
+#: src/editortab.cpp:402
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and go to next"
 msgstr "अनुमोदनं कृत्वा अग्रिमम् गच्छतु"
 
-#: src/editortab.cpp:400
+#: src/editortab.cpp:409
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent translation"
 msgstr "तुल्यनुवादः"
 
-#: src/editortab.cpp:411
+#: src/editortab.cpp:420
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
 msgstr "स्रोतः लक्ष्यं प्रति प्रतिलिख्यताम्"
 
-#: src/editortab.cpp:414
+#: src/editortab.cpp:423
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "लक्ष्यं विमोचयतु"
 
-#: src/editortab.cpp:419 src/filesearch/filesearchtab.cpp:135
+#: src/editortab.cpp:428 src/filesearch/filesearchtab.cpp:135
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
 msgstr "स्पष्टः"
 
-#: src/editortab.cpp:423
+#: src/editortab.cpp:432
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
 msgstr "टैग सम्मिलित करें"
 
-#: src/editortab.cpp:427
+#: src/editortab.cpp:436
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
 msgstr "LanguageTool इत्यस्य उपयोगेन एतत् एककं पश्यन्तु"
 
-#: src/editortab.cpp:431
+#: src/editortab.cpp:440
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
 msgstr "अग्रिम टैग सम्मिलित करें"
 
-#: src/editortab.cpp:435
+#: src/editortab.cpp:444
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
 msgstr "अग्रिम-टैग्-रहित-पाठं गच्छन्तु"
 
-#: src/editortab.cpp:439
+#: src/editortab.cpp:448
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "समाप्ति"
 
-#: src/editortab.cpp:443
+#: src/editortab.cpp:452
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "सर्वोत्तम वर्तनीपरीक्षा सुझावः प्रतिस्थापयन्तु"
 
-#: src/editortab.cpp:448
+#: src/editortab.cpp:457
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "&अग्रिम"
 
-#: src/editortab.cpp:453
+#: src/editortab.cpp:462
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "&पूर्वतनम्‌"
 
-#: src/editortab.cpp:459
+#: src/editortab.cpp:468
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "&प्रथम प्रविष्टि"
 
-#: src/editortab.cpp:465
+#: src/editortab.cpp:474
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "&अन्तिम प्रविष्टि"
 
-#: src/editortab.cpp:471
+#: src/editortab.cpp:480
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "सङ्ख्याद्वारा प्रवेशः"
 
-#: src/editortab.cpp:474 src/project/projecttab.cpp:108
+#: src/editortab.cpp:483 src/project/projecttab.cpp:112
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1293,7 +1293,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "पूर्वं अशून्यं किन्तु सज्जं नास्ति"
 
-#: src/editortab.cpp:482 src/project/projecttab.cpp:114
+#: src/editortab.cpp:491 src/project/projecttab.cpp:118
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1301,19 +1301,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "तदनन्तरं अशून्यं किन्तु सज्जं नास्ति"
 
-#: src/editortab.cpp:489 src/project/projecttab.cpp:120
+#: src/editortab.cpp:498 src/project/projecttab.cpp:124
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "पूर्वम् अननुवादितम्"
 
-#: src/editortab.cpp:494 src/project/projecttab.cpp:126
+#: src/editortab.cpp:503 src/project/projecttab.cpp:130
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "तदनन्तरं अननुवादितम्"
 
-#: src/editortab.cpp:500 src/project/projecttab.cpp:96
+#: src/editortab.cpp:509 src/project/projecttab.cpp:100
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1321,7 +1321,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "पूर्वः सज्जः नास्ति"
 
-#: src/editortab.cpp:508 src/project/projecttab.cpp:102
+#: src/editortab.cpp:517 src/project/projecttab.cpp:106
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1329,49 +1329,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "तदनन्तरं न सज्जम्"
 
-#: src/editortab.cpp:517
+#: src/editortab.cpp:526
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Translation Units view इत्यस्य अन्वेषणरेखां केन्द्रीक्रियताम्"
 
-#: src/editortab.cpp:521
+#: src/editortab.cpp:530
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "बुकमार्क सन्देशः"
 
-#: src/editortab.cpp:526
+#: src/editortab.cpp:535
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "पूर्वपुस्तकचिह्नम्"
 
-#: src/editortab.cpp:530
+#: src/editortab.cpp:539
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "अग्रिमः पुस्तकचिह्नम्"
 
-#: src/editortab.cpp:538
+#: src/editortab.cpp:547
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "सर्वाणि सटीकसूचनानि पूरयन्तु"
 
-#: src/editortab.cpp:543
+#: src/editortab.cpp:552
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "सर्वाणि सटीकसूचनानि पूरयित्वा अस्पष्टरूपेण चिह्नं कुर्वन्तु"
 
-#: src/editortab.cpp:549
+#: src/editortab.cpp:558
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "समन्वयन/विलयनार्थं सञ्चिकां उद्घाटयन्तु"
 
-#: src/editortab.cpp:550 src/editortab.cpp:607
+#: src/editortab.cpp:559 src/editortab.cpp:616
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1380,13 +1380,13 @@ msgid ""
 msgstr ""
 "वर्तमान एकस्मिन् विलीनीकरणार्थं सूचीपत्रं उद्घाटयन्तु / आधारसञ्चिका परिवर्तनं प्रतिकृत्य"
 
-#: src/editortab.cpp:556 src/editortab.cpp:613
+#: src/editortab.cpp:565 src/editortab.cpp:622
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "पूर्व भिन्न"
 
-#: src/editortab.cpp:558 src/editortab.cpp:615
+#: src/editortab.cpp:567 src/editortab.cpp:624
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1396,13 +1396,13 @@ msgstr ""
 "पूर्वप्रविष्टिः या विलीनीकरणीयसञ्चिकायां भिन्नरूपेण अनुवादिता भवति, विलयस्रोते "
 "रिक्तानुवादाः अपि सन्ति"
 
-#: src/editortab.cpp:567 src/editortab.cpp:622
+#: src/editortab.cpp:576 src/editortab.cpp:631
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "तदनन्तरं भिन्नम्"
 
-#: src/editortab.cpp:569 src/editortab.cpp:624
+#: src/editortab.cpp:578 src/editortab.cpp:633
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1412,55 +1412,55 @@ msgstr ""
 "अग्रिमप्रविष्टिः या विलीनीकरणीयसञ्चिकायां भिन्नरूपेण अनुवादिता भवति, विलयनस्रोते "
 "रिक्तानुवादाः च"
 
-#: src/editortab.cpp:577
+#: src/editortab.cpp:586
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "अग्रिमः भिन्नः अनुमोदितः"
 
-#: src/editortab.cpp:583 src/editortab.cpp:631
+#: src/editortab.cpp:592 src/editortab.cpp:640
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "विलयनस्रोतः प्रतिलिपिं कुर्वन्तु"
 
-#: src/editortab.cpp:590 src/editortab.cpp:636
+#: src/editortab.cpp:599 src/editortab.cpp:645
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "सर्वेषां नूतनानां अनुवादानाम् प्रतिलिपिं कुर्वन्तु"
 
-#: src/editortab.cpp:591
+#: src/editortab.cpp:600
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "एतेन आधारसञ्चिकायां केवलं रिक्तानि असज्जानि च प्रविष्टयः परिवर्तन्ते"
 
-#: src/editortab.cpp:599 src/editortab.cpp:643
+#: src/editortab.cpp:608 src/editortab.cpp:652
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "विलयन स्रोतः प्रति प्रतिलिख्यताम्"
 
-#: src/editortab.cpp:606
+#: src/editortab.cpp:615
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "गौणसमन्वयनार्थं सञ्चिकां उद्घाटयन्तु"
 
-#: src/editortab.cpp:637
+#: src/editortab.cpp:646
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "एतेन केवलं रिक्तप्रविष्टयः परिवर्तन्ते"
 
-#: src/editortab.cpp:676
+#: src/editortab.cpp:685
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (पुनर्प्राप्तः)"
 
-#: src/editortab.cpp:705 src/lokalizemainwindow.cpp:958
+#: src/editortab.cpp:714 src/lokalizemainwindow.cpp:1002
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1470,38 +1470,38 @@ msgstr ""
 "दस्तावेजे अरक्षिताः परिवर्तनाः सन्ति ।\n"
 "किं भवन्तः स्वपरिवर्तनानि रक्षितुं इच्छन्ति वा परित्यक्तुं इच्छन्ति वा?"
 
-#: src/editortab.cpp:707 src/editortab.cpp:1285
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:960
+#: src/editortab.cpp:716 src/editortab.cpp:1294
+#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1004
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "चेतवानी"
 
-#: src/editortab.cpp:727 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:736 src/mergemode/mergeview.cpp:167
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "अनुवादसञ्चिकां चिनोतु"
 
-#: src/editortab.cpp:812
+#: src/editortab.cpp:821
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "%1 सञ्चिकां उद्घाटयितुं त्रुटिः, रेखा: %2"
 
-#: src/editortab.cpp:814
+#: src/editortab.cpp:823
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "%1 सञ्चिकां उद्घाटयितुं त्रुटिः"
 
-#: src/editortab.cpp:822
+#: src/editortab.cpp:831
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "सञ्चिकां यथा रक्षन्तु"
 
-#: src/editortab.cpp:851
+#: src/editortab.cpp:860
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1511,13 +1511,13 @@ msgstr ""
 "%1 सञ्चिकायाः रक्षणे त्रुटिः\n"
 "अन्यस्मिन् सञ्चिकायां रक्षितुम् इच्छति वा रद्दं कर्तुम् इच्छति वा?"
 
-#: src/editortab.cpp:854
+#: src/editortab.cpp:863
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "त्रुटि"
 
-#: src/editortab.cpp:864
+#: src/editortab.cpp:873
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1527,73 +1527,73 @@ msgstr ""
 "सञ्चिकास्वचालनं कर्तुं न शक्तवान् ।\n"
 "लक्ष्यसञ्चिका %1 आसीत् ।"
 
-#: src/editortab.cpp:901
+#: src/editortab.cpp:910
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "प्रवेशं प्रति कूदन्तु"
 
-#: src/editortab.cpp:902
+#: src/editortab.cpp:911
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "प्रविष्टिसङ्ख्यां प्रविशन्तु :"
 
-#: src/editortab.cpp:969
+#: src/editortab.cpp:978
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "वर्तमानम् : %1"
 
-#: src/editortab.cpp:1156
+#: src/editortab.cpp:1165
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "अनुवादित"
 
-#: src/editortab.cpp:1157
+#: src/editortab.cpp:1166
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "हस्ताक्षरितम्-अफ"
 
-#: src/editortab.cpp:1158
+#: src/editortab.cpp:1167
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "अनुमत"
 
-#: src/editortab.cpp:1159
+#: src/editortab.cpp:1168
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "अनुवादः कृतः (यद्यपि अद्यापि समीक्षायाः आवश्यकता भवितुम् अर्हति)"
 
-#: src/editortab.cpp:1160
+#: src/editortab.cpp:1169
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "अनुवादस्य सकारात्मकसमीक्षा प्राप्ता अस्ति"
 
-#: src/editortab.cpp:1161
+#: src/editortab.cpp:1170
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "प्रवेशः पूर्णतया स्थानीयकृतः (अर्थात् अन्तिमः) अस्ति ।"
 
-#: src/editortab.cpp:1261 src/project/projecttab.cpp:308
+#: src/editortab.cpp:1270 src/project/projecttab.cpp:313
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "पूर्वमेव Pology check प्रचलति।"
 
-#: src/editortab.cpp:1261 src/editortab.cpp:1269 src/editortab.cpp:1273
-#: src/project/projecttab.cpp:308 src/project/projecttab.cpp:316
-#: src/project/projecttab.cpp:320
+#: src/editortab.cpp:1270 src/editortab.cpp:1278 src/editortab.cpp:1282
+#: src/project/projecttab.cpp:313 src/project/projecttab.cpp:321
+#: src/project/projecttab.cpp:325
 #, kde-format
 msgid "Pology error"
 msgstr "क्षमायाचना त्रुटिः"
 
-#: src/editortab.cpp:1269 src/project/projecttab.cpp:316
+#: src/editortab.cpp:1278 src/project/projecttab.cpp:321
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1602,17 +1602,17 @@ msgstr ""
 "Pology check अप्रत्याशितरूपेण दुर्घटनाम् अभवत्:\n"
 "%1"
 
-#: src/editortab.cpp:1271 src/project/projecttab.cpp:318
+#: src/editortab.cpp:1280 src/project/projecttab.cpp:323
 #, kde-format
 msgid "Pology success"
 msgstr "Pology सफलता"
 
-#: src/editortab.cpp:1271
+#: src/editortab.cpp:1280
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pology check सफला अभवत्।"
 
-#: src/editortab.cpp:1273 src/project/projecttab.cpp:320
+#: src/editortab.cpp:1282 src/project/projecttab.cpp:325
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1621,7 +1621,7 @@ msgstr ""
 "Pology चेक् इत्यनेन त्रुटिः प्राप्ता:\n"
 "%1"
 
-#: src/editortab.cpp:1283
+#: src/editortab.cpp:1292
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1631,49 +1631,49 @@ msgstr ""
 "एतेन सञ्चिकातः सर्वे अनुवादाः अपास्यन्ति ।\n"
 "किं भवान् वास्तवमेव सर्वाणि अनुवादितप्रविष्टयः स्वच्छं कर्तुम् इच्छति?"
 
-#: src/editortab.cpp:1321
+#: src/editortab.cpp:1330
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "स्रोतपाठशब्दाः : %1<br/> लक्ष्यपाठशब्दाः : %2"
 
-#: src/editortab.cpp:1322
+#: src/editortab.cpp:1331
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "शब्दगणना"
 
-#: src/editortab.cpp:1412
+#: src/editortab.cpp:1421
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "किं भवान् स्रोतसञ्चिकां स्थानीयतया अन्वेष्टुम् इच्छति वा lxr.kde.org मार्गेण वा?"
 
-#: src/editortab.cpp:1413
+#: src/editortab.cpp:1422
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "स्रोतसञ्चिकायाः अन्वेषणम्"
 
-#: src/editortab.cpp:1414
+#: src/editortab.cpp:1423
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "स्थानीयतया अन्वेषणं कुर्वन्तु"
 
-#: src/editortab.cpp:1415 src/editortab.cpp:1459
+#: src/editortab.cpp:1424 src/editortab.cpp:1468
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org इत्यत्र अन्वेषणं कुर्वन्तु"
 
-#: src/editortab.cpp:1418 src/editortab.cpp:1463
+#: src/editortab.cpp:1427 src/editortab.cpp:1472
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "स्रोतसञ्चिका-अनुसन्धानार्थं परियोजनायाः आधारपुटं चिनोतु"
 
-#: src/editortab.cpp:1455
+#: src/editortab.cpp:1464
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1683,19 +1683,19 @@ msgstr ""
 "निर्दिष्टे पुटे स्रोतसञ्चिकां न प्राप्नोत् ।\n"
 "किं भवान् source files पुटं परिवर्तयितुम् इच्छति?"
 
-#: src/editortab.cpp:1457
+#: src/editortab.cpp:1466
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "स्रोतसञ्चिकायाः अन्वेषणम्"
 
-#: src/editortab.cpp:1458
+#: src/editortab.cpp:1467
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Folder इति चिनोतु"
 
-#: src/editortab.cpp:1500
+#: src/editortab.cpp:1509
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1709,33 +1709,33 @@ msgstr ""
 "स्क्रिप्ट् उदाहरणानां कृते Lokalize हस्तपुस्तिकां पश्यन्तु तथा च तान् स्वस्य परियोजनायां कथं "
 "प्लग् कर्तव्यम् इति ।"
 
-#: src/editortab.cpp:1514 src/project/project.cpp:414
+#: src/editortab.cpp:1523 src/project/project.cpp:414
 #: src/project/project.cpp:419
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit संकुलं संस्थाप्य पुनः प्रयासं कुर्वन्तु"
 
-#: src/editortab.cpp:1519
+#: src/editortab.cpp:1528
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "translate-toolkit संकुलं संस्थाप्य पुनः प्रयासं कुर्वन्तु ।"
 
-#: src/editortab.cpp:1527
+#: src/editortab.cpp:1536
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "मूल OpenDocument चिनोतु यस्मिन् वर्तमान XLIFF सञ्चिका आधारिता अस्ति"
 
-#: src/editortab.cpp:1529 src/project/project.cpp:424
+#: src/editortab.cpp:1538 src/project/project.cpp:424
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument सञ्चिकाः (*.odt *.ods)"
 
-#: src/editortab.cpp:1573
+#: src/editortab.cpp:1582
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "अतिरिक्तकार्यक्षमतायाः कृते python-uno संकुलं संस्थापयन्तु ।"
 
-#: src/editortab.cpp:1693
+#: src/editortab.cpp:1702
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -2169,7 +2169,7 @@ msgstr "सुझावः :"
 msgid "No errors"
 msgstr "न दोषाः"
 
-#: src/lokalizemainwindow.cpp:86
+#: src/lokalizemainwindow.cpp:90
 #, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
@@ -2187,161 +2187,161 @@ msgstr ""
 "><br /> यदि भवतां कृते अधिकसूचना अथवा दस्तावेजस्य आवश्यकता अस्ति तर्हि <a href=\"%2\">"
 "%2 इत्यस्य</a> दर्शनेन भवतां कृते यत् आवश्यकं तत् प्रदास्यति ।</html>"
 
-#: src/lokalizemainwindow.cpp:108
+#: src/lokalizemainwindow.cpp:112
 #, kde-format
 msgid "&Configure Lokalize"
 msgstr "&Lokalize विन्यस्तं कुर्वन्तु"
 
-#: src/lokalizemainwindow.cpp:109 src/project/projecttab.cpp:162
+#: src/lokalizemainwindow.cpp:113 src/project/projecttab.cpp:167
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
 msgstr "खुला परियोजना"
 
-#: src/lokalizemainwindow.cpp:110
+#: src/lokalizemainwindow.cpp:114
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate software"
 msgstr "सॉफ्टवेयर अनुवाद करें"
 
-#: src/lokalizemainwindow.cpp:111
+#: src/lokalizemainwindow.cpp:115
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "OpenDocument इत्यस्य अनुवादं कुर्वन्तु"
 
-#: src/lokalizemainwindow.cpp:169
+#: src/lokalizemainwindow.cpp:173
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "कोऽपि Qt Sql मॉड्यूलः न प्राप्तः । अनुवादस्मृतिः कार्यं न करिष्यति।"
 
-#: src/lokalizemainwindow.cpp:439 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:479 src/project/project.cpp:242
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "TM सुविधायाः कृते SQLite Qt मॉड्यूलस्य आवश्यकता भवति ।"
 
-#: src/lokalizemainwindow.cpp:439 src/project/project.cpp:242
+#: src/lokalizemainwindow.cpp:479 src/project/project.cpp:242
 #, kde-format
 msgid "No SQLite module available"
 msgstr "SQLite मॉड्यूल् उपलब्धं नास्ति"
 
-#: src/lokalizemainwindow.cpp:520 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:560 src/tm/tmtab.cpp:480
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "अनुवाद स्मृति"
 
-#: src/lokalizemainwindow.cpp:521 src/project/projecttab.cpp:159
+#: src/lokalizemainwindow.cpp:561 src/project/projecttab.cpp:164
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "प्रकल्प"
 
-#: src/lokalizemainwindow.cpp:542
+#: src/lokalizemainwindow.cpp:582
 #, kde-format
 msgid "Next tab"
 msgstr "अग्रिमः ट्याब्"
 
-#: src/lokalizemainwindow.cpp:545
+#: src/lokalizemainwindow.cpp:585
 #, kde-format
 msgid "Previous tab"
 msgstr "पूर्वः ट्याब्"
 
-#: src/lokalizemainwindow.cpp:548
+#: src/lokalizemainwindow.cpp:588
 #, kde-format
 msgid "Previously active tab"
 msgstr "पूर्वं सक्रियः ट्याब्"
 
-#: src/lokalizemainwindow.cpp:551
+#: src/lokalizemainwindow.cpp:591
 #, kde-format
 msgid "Close current tab"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:556
+#: src/lokalizemainwindow.cpp:596
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "शब्दावली"
 
-#: src/lokalizemainwindow.cpp:560
+#: src/lokalizemainwindow.cpp:600
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "अनुवाद स्मृति"
 
-#: src/lokalizemainwindow.cpp:564 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:604 src/tm/tmtab.cpp:483
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "अनुवादस्मृतयः प्रबन्धयन्तु"
 
-#: src/lokalizemainwindow.cpp:568
+#: src/lokalizemainwindow.cpp:608
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "परियोजना अवलोकन"
 
-#: src/lokalizemainwindow.cpp:572
+#: src/lokalizemainwindow.cpp:612
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "परियोजना विन्यस्तं कुर्वन्तु..."
 
-#: src/lokalizemainwindow.cpp:575
+#: src/lokalizemainwindow.cpp:615
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "सॉफ्टवेयर अनुवाद परियोजना रचयन्तु..."
 
-#: src/lokalizemainwindow.cpp:578
+#: src/lokalizemainwindow.cpp:618
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "OpenDocument अनुवाद परियोजना रचयन्तु..."
 
-#: src/lokalizemainwindow.cpp:581
+#: src/lokalizemainwindow.cpp:621
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "खुला परियोजना..."
 
-#: src/lokalizemainwindow.cpp:585
+#: src/lokalizemainwindow.cpp:625
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "परियोजनां बन्दं कुर्वन्तु"
 
-#: src/lokalizemainwindow.cpp:588
+#: src/lokalizemainwindow.cpp:628
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "हाले एव परियोजनां उद्घाटयन्तु"
 
-#: src/lokalizemainwindow.cpp:598
+#: src/lokalizemainwindow.cpp:638
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "सञ्चिकासु अन्वेषणं कृत्वा प्रतिस्थापनं कुर्वन्तु"
 
-#: src/lokalizemainwindow.cpp:601
+#: src/lokalizemainwindow.cpp:641
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "सञ्चिकासु अग्रिमम् अन्वेष्टुम्"
 
-#: src/lokalizemainwindow.cpp:605
+#: src/lokalizemainwindow.cpp:645
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "विजेट् पाठग्रहणम्"
 
-#: src/lokalizemainwindow.cpp:618
+#: src/lokalizemainwindow.cpp:658
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:780
+#: src/lokalizemainwindow.cpp:824
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -3878,119 +3878,119 @@ msgctxt ""
 msgid "%p%"
 msgstr "%p%"
 
-#: src/project/projecttab.cpp:132
+#: src/project/projecttab.cpp:136
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "केवलं पूर्वसारूप्यम्"
 
-#: src/project/projecttab.cpp:138
+#: src/project/projecttab.cpp:142
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "अग्रिमः टेम्पलेटः एव"
 
-#: src/project/projecttab.cpp:143
+#: src/project/projecttab.cpp:147
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "पूर्वानुवादमात्रम्"
 
-#: src/project/projecttab.cpp:146
+#: src/project/projecttab.cpp:150
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "अग्रिमः अनुवादः एव"
 
-#: src/project/projecttab.cpp:150
+#: src/project/projecttab.cpp:154
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr "सम्पूर्णानि वस्तूनि गोपयन्तु"
 
-#: src/project/projecttab.cpp:151
+#: src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "पूर्णतया अनुवादिताः सञ्चिकाः, पुटं च गोपयन्तु"
 
-#: src/project/projecttab.cpp:201
+#: src/project/projecttab.cpp:206
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "चयनितसञ्चिकाः उद्घाटयन्तु"
 
-#: src/project/projecttab.cpp:204
+#: src/project/projecttab.cpp:209
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "उद्घाटित"
 
-#: src/project/projecttab.cpp:207
+#: src/project/projecttab.cpp:212
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "अनुवादस्मृतौ योजयतु"
 
-#: src/project/projecttab.cpp:209
+#: src/project/projecttab.cpp:214
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "सञ्चिकासु अन्वेषणं कुर्वन्तु"
 
-#: src/project/projecttab.cpp:210
+#: src/project/projecttab.cpp:215
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "टिप्पणीं योजयन्तु"
 
-#: src/project/projecttab.cpp:212
+#: src/project/projecttab.cpp:217
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr "सञ्चिकासु Pology प्रारम्भं कुर्वन्तु"
 
-#: src/project/projecttab.cpp:215
+#: src/project/projecttab.cpp:220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "सञ्चिकासु (टेम्पलेट् सहितम्) अन्वेषणं कुर्वन्तु ।"
 
-#: src/project/projecttab.cpp:242
+#: src/project/projecttab.cpp:247
 #, kde-format
 msgid "Project file comment"
 msgstr "परियोजना सञ्चिका टिप्पणी"
 
-#: src/project/projecttab.cpp:242
+#: src/project/projecttab.cpp:247
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr "अस्याः परियोजनासञ्चिकायाः कृते टिप्पणीं निवेशयन्तु:"
 
-#: src/project/projecttab.cpp:318
+#: src/project/projecttab.cpp:323
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Pology check सफला अभवत्"
 
-#: src/project/projecttab.cpp:337
+#: src/project/projecttab.cpp:342
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "भवान् %1 सञ्चिकां उद्घाटयितुं प्रवृत्तः अस्ति"
 msgstr[1] "भवान् %1 सञ्चिकाः उद्घाटयितुं प्रवृत्तः अस्ति"
 
-#: src/project/projecttab.cpp:338
+#: src/project/projecttab.cpp:343
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr "एकस्मिन् समये बहूनां सञ्चिकानां उद्घाटनेन Lokalize अप्रतिसादः भवितुम् अर्हति ।"
 
-#: src/project/projecttab.cpp:339
+#: src/project/projecttab.cpp:344
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "किं भवन्तः निश्चयेन एतावता सञ्चिकाः उद्घाटयितुम् इच्छन्ति?"
 
-#: src/project/projecttab.cpp:340
+#: src/project/projecttab.cpp:345
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
