@@ -300,6 +300,16 @@ target_link_libraries(lokalize liblokalize)
 
 install(TARGETS lokalize ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
+if(APPLE)
+    set_target_properties(lokalize PROPERTIES
+        MACOSX_BUNDLE_DISPLAY_NAME "Lokalize"
+        MACOSX_BUNDLE_BUNDLE_NAME "Lokalize"
+        MACOSX_BUNDLE_LONG_VERSION_STRING "Lokalize ${RELEASE_SERVICE_VERSION}"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_VERSION_MINOR}"
+        MACOSX_BUNDLE_BUNDLE_VERSION "${RELEASE_SERVICE_VERSION}"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "org.kde.lokalize"
+        MACOSX_BUNDLE_COPYRIGHT "1999-2025 The Lokalize Developers")
+endif()
 
 ########### install files ###############
 
