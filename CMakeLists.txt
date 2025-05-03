@@ -29,7 +29,7 @@ option(BUILD_DOC "Whether to build the documentation" ON)
 
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED Core Widgets Sql Test)
 
-find_package(KF6 ${KF_MIN_VERSION} REQUIRED I18n TextWidgets KIO XmlGui Notifications Config CoreAddons Sonnet Crash IconThemes)
+find_package(KF6 ${KF_MIN_VERSION} REQUIRED I18n TextWidgets KIO XmlGui Notifications Config CoreAddons Sonnet Crash IconThemes ColorScheme)
 
 set(USE_DBUS_DEFAULT OFF)
 if(UNIX AND NOT APPLE AND NOT ANDROID AND NOT HAIKU)

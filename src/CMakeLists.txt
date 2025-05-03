@@ -272,6 +272,7 @@ target_link_libraries(liblokalize
     KF6::XmlGui
     KF6::IconThemes
     KF6::ConfigWidgets
+    KF6::ColorScheme
     Qt::Sql
 )
 if(USE_DBUS)
