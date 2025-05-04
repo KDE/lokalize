@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-02 02:36+0000\n"
-"PO-Revision-Date: 2025-02-20 22:33+0100\n"
+"PO-Revision-Date: 2025-05-03 11:09+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 25.07.70\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -172,7 +172,7 @@ msgid "Origin: %1"
 msgstr "Opphav: %1"
 
 #: src/alttransview.cpp:291
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -185,15 +185,13 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>Når kjeldeteksten vert endra, er ikkje omsetjinga lenger gyldig, og vert "
-"anten merkt som <emphasis>treng&nbsp;korrekturlesing</emphasis>  (mistar "
-"godkjend-statusen), eller, for XLIFF-filer, flytta til "
-"<emphasis>jamføringsomsetjingane</emphasis> for eininga.</p><p>Denne "
-"verktøyvisinga viser òg forskjellen mellom den nye og den gamle "
-"kjeldeteksten, slik at du lett kan sjå kva endringar du bør gjera i "
-"omsetjinga.</p><p>Dobbeltklikk på eit ord for å setja det inn i omsetjinga.</"
-"p><p>Dra og slepp ei omsetjingsfil til ruta for å bruka ho som kjelde for "
-"jamføringsomsetjingar.</p>"
+"Viss ein kjeldetekst vert endra, vert omsetjinga utdatert og anten merkt som "
+"«treng korrekturlesing» (uklar) eller (berre for XLIFF-filer) flytt til "
+"lista over alternative omsetjingar. Panelet viser òg forskjellen mellom "
+"gjeldande kjeldetekst og førre kjeldetekst, slik at du lett kan sjå kva "
+"endringar du må gjera i omsetjinga. Dobbelt­klikk på eit ord for å setja det "
+"inn i omsetjinga. Du kan òg dra ei omsetjings­fil til panelet for å bruka ho "
+"som kjelde for alternative omsetjingar."
 
 #: src/alttransview.cpp:323
 #, kde-format
@@ -2269,7 +2267,7 @@ msgstr "Sist brukte fane"
 #: src/lokalizemainwindow.cpp:591
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "Lukk den gjeldande fana"
 
 #: src/lokalizemainwindow.cpp:596
 #, kde-format
