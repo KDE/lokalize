@@ -661,68 +661,14 @@
 
 </chapter>
 
-<chapter id="scripting">
+<chapter id="externaltools">
 <title
->Crear scripts del &lokalize;</title>
-
-<para
->El &lokalize; és ampliable utilitzant scripts (fitxers amb seqüències d'ordres) en diversos llenguatges interpretats incloent Python i &javascript;. Els scripts normalment s'integren a la IU del &lokalize; com a accions del menú (a les que podeu assignar dreceres de teclat). La ubicació i el nom de l'entrada del menú per a l'script es defineixen en el seu fitxer .rc d'acompanyament. Per a cada projecte obert, el &lokalize; explora la carpeta <filename
->DIRPROJECTE/lokalize-scripts</filename
-> pels fitxers .rc i els afegeix al fitxer de <emphasis
->memòria cau</emphasis
-> anomenat <filename
->DIRPROJECTE/lokalize-scripts/scripts.rc</filename
-> (de manera que generalment no voldreu afegir sistemes de control de versions del projecte). Els fitxers RC també contenen els camins als scripts, els quals han de ser relatius a la carpeta del fitxer .rc, o a una carpeta de scripts del sistema -s'han provat ambdues (tot i que <emphasis
->han</emphasis
-> de mantenir una ubicació relativa si els voleu compartir amb altres persones del projecte)-. Per exemple podeu especificar <filename
->../../scripts/lokalize/opensrc.py</filename
-> per a carregar un script des de la <ulink url="https://invent.kde.org/sysadmin/l10n-scripty/-/tree/master/lokalize"
->carpeta de scripts global de kf5-l10n</ulink
-> (&ead;, no específica del vostre idioma). </para>
-<para
->Podeu trobar exemples de fitxers .rc a la carpeta d'instal·lació del &lokalize; (normalment <filename
->/usr/share/lokalize/scripts/</filename
->) i en el <ulink url="https://invent.kde.org/sysadmin/l10n-scripty/-/tree/master/lokalize"
->repositori del &kde;</ulink
->. <ulink url="https://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
->Aquí</ulink
-> trobareu més exemples, incloent-ne de basats en &javascript;, <filename
->check-gui.js</filename
-> que s'executa automàticament en cada desament de fitxer (això s'aconsegueix amb una opció especial en el fitxer .rc). Si esteu familiaritzat amb Python o &javascript;, el codi hauria de ser autoexplicatiu. </para>
-<para
->A continuació hi ha els enllaços de les referències API. Tot el marcat com <emphasis
->Q_SCRIPTABLE</emphasis
-> es pot utilitzar des de scripts. </para>
-
-<itemizedlist>
-<listitem>
-<para
->Referència a l'API de l'objecte <ulink url="https://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
->Editor</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->Referència a l'API de l'objecte <ulink url="https://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
->&lokalize;</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->Referència a l'API de l'objecte <ulink url="https://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
->Project</ulink
-> </para>
-</listitem>
-</itemizedlist>
+>Eines externes</title>
 
 <sect1 id="pology">
 <title
 >Pology</title>
 
-<para
->Una de les millors aplicacions amb la capacitat de crear scripts és emprar el <application
->Pology</application
-> al &lokalize;. </para>
 <para
 >La interacció amb el <application
 >Pology</application

@@ -190,7 +190,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 >. </para>
 <para
@@ -231,7 +231,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar las barras de herramientas...</guimenuitem
+>Configurar las barras de herramientas…</guimenuitem
 ></menuchoice
 > en el menú principal. </para>
 <screenshot>
@@ -261,7 +261,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar los atajos de teclado...</guimenuitem
+>Configurar los atajos de teclado…</guimenuitem
 ></menuchoice
 > en el menú principal. </para>
 <screenshot>
@@ -365,7 +365,7 @@
 ><guimenu
 >Proyecto</guimenu
 > <guimenuitem
->Configurar el proyecto...</guimenuitem
+>Configurar el proyecto…</guimenuitem
 ></menuchoice
 > y luego ir a la página <guilabel
 >Avanzado</guilabel
@@ -443,7 +443,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 >. Puede usar la misma página para configurar el comportamiento de &lokalize; cuando cambie a la pestaña anterior o siguiente. Es posible desplazarse a través de la lista de pestañas según las posiciones de las pestañas o según su orden de activación. </para>
 </sect1>
@@ -531,7 +531,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 >. </para>
 </note>
@@ -689,68 +689,14 @@
 
 </chapter>
 
-<chapter id="scripting">
+<chapter id="externaltools">
 <title
->Creación de scripts en &lokalize;</title>
-
-<para
->&lokalize; se puede extender mediante el uso de scripts en varios lenguajes interpretados, incluyendo Python y &javascript;. Los scripts suelen estar integrados en la interfaz de &lokalize; como acciones del menú (a las que puede asignar un atajo de teclado). La ubicación y la entrada del menú para un script se define en su correspondiente archivo .rc. Cada vez que abra un proyecto, &lokalize; explora la carpeta <filename
->CARPETADELPROYECTO/lokalize-scripts</filename
-> en busca de archivos .rc y los añade a un archivo de <emphasis
->caché</emphasis
-> llamado <filename
->CARPETADELPROYECTO/lokalize-scripts/scripts.rc</filename
-> (por lo que normalmente no querrá añadirlo al sistema de control de versiones del proyecto). Los archivos RC también contienen rutas de scripts, que pueden ser relativas a la carpeta del archivo .rc o a una carpeta de scripts del sistema (se prueban las dos, y realmente <emphasis
->deben</emphasis
-> ser relativas si desea compartir el archivo .rc con otras personas de su equipo). Así que, por ejemplo, puede especificar <filename
->../../scripts/lokalize/opensrc.py</filename
-> para cargar un script de la <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->carpeta global de scripts de kf5-l10n</ulink
-> (es decir, no específica de su idioma). </para>
-<para
->Puede encontrar ejemplos de archivos «.rc» en la carpeta de instalación de &lokalize; (normalmente <filename
->/usr/share/lokalize/scripts/</filename
->) y en el <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->repositorio de &kde;</ulink
->. <ulink url="https://websvn.kde.org/trunk/l10n-kf5/ru/lokalize-scripts/"
->Aquí</ulink
-> puede encontrar más ejemplos de scripts, incluido <filename
->check-gui.js</filename
->, basado en &javascript;, que se ejecuta automáticamente cada vez que guarde un archivo (algo que se consigue mediante una opción especial en el archivo «.rc»). Si está familiarizado con Python o &javascript;, el código debería ser autoexplicativo. </para>
-<para
->A continuación puede encontrar enlaces a las API de referencia. Todo aquello marcado como <emphasis
->Q_SCRIPTABLE</emphasis
-> puede utilizarse en guiones. </para>
-
-<itemizedlist>
-<listitem>
-<para
->Referencia de la API del objeto <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
->Editor</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->Referencia de la API del objeto <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
->&lokalize;</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->Referencia de la API del objeto <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
->Project</ulink
-> </para>
-</listitem>
-</itemizedlist>
+>Herramientas externas</title>
 
 <sect1 id="pology">
 <title
 >Pology</title>
 
-<para
->Una de las mejores aplicaciones con posibilidad de usar scripts es usar <application
->Pology</application
-> en &lokalize;. </para>
 <para
 >La interacción con <application
 >Pology</application
@@ -760,7 +706,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 >. </para>
 <para
@@ -786,7 +732,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 > en el menú principal. </para>
 <para

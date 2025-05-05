@@ -685,68 +685,14 @@
 
 </chapter>
 
-<chapter id="scripting">
+<chapter id="externaltools">
 <title
->Створення скриптів для &lokalize;</title>
-
-<para
->Перелік функцій &lokalize; можна розширити за допомогою скриптів, написаних декількома інтерпретованими мовами програмування, зокрема Python і &javascript;. Скрипти, зазвичай, вбудовуються до графічного інтерфейсу &lokalize; як пункти меню (для яких ви можете призначити клавіатурне скорочення). Розташування і назва пункту меню для скрипту визначається у супутньому файлі .rc. Під час кожного запуску &lokalize; програма шукає у теці <filename
->ТЕКА_ПРОЕКТУ/lokalize-scripts</filename
-> файли .rc і додає їх до файла <emphasis
->кешу</emphasis
->, який зберігається за адресою <filename
->ТЕКА_ПРОЕКТУ/lokalize-scripts/scripts.rc</filename
-> (отже, зазвичай, цей файл не потрібно додавати до сховища системи керування версіями). Крім того, у файлах RC містяться шляхи до скриптів, які можна вказувати відносно теки файла .rc або системної теки скриптів (програма перевірить обидва шляхи). Насправді, ці шляхи <emphasis
->мають бути</emphasis
-> відносними, якщо ви маєте намір використовувати файл .rc спільно з іншими учасниками перекладу. Отже, ви, наприклад, можете вказати <filename
->../../scripts/lokalize/opensrc.py</filename
->, щоб програма завантажила скрипт з <ulink url="http://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->загальної теки скриптів kf5-l10n</ulink
-> (тобто теки, яка не є специфічною для вашої мови). </para>
-<para
->Приклади файлів .rc можна знайти у теці, куди встановлено &lokalize; (зазвичай, <filename
->/usr/share/lokalize/scripts/</filename
->) і у <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->сховищі &kde;</ulink
->. <ulink url="http://websvn.kde.org/trunk/l10n-kf5/uk/lokalize-scripts/"
->За цією адресою</ulink
-> ви можете знайти додаткові приклади скриптів, зокрема заснований на &javascript; <filename
->check-gui.js</filename
-> — скрипт, який запускається у автоматичному режимі під час кожного зберігання файла (цього можна досягти за допомогою особливого параметра у файлі .rc). Якщо ви знайомі з Python або JavaScript, його код буде для вас очевидним. </para>
-<para
->Нижче наведено посилання на документацію API. Всі пункти, позначені записом <emphasis
->Q_SCRIPTABLE</emphasis
->, можна використовувати у скриптах. </para>
-
-<itemizedlist>
-<listitem>
-<para
->Довідник з об’єктів API <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
->редактора</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->Довідник з об’єктів API <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
->&lokalize;</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->Довідник з API об’єктів <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
->Проєкту</ulink
-> </para>
-</listitem>
-</itemizedlist>
+>Зовнішні інструменти</title>
 
 <sect1 id="pology">
 <title
 >Pology</title>
 
-<para
->Однією з найкращих демонстрацій можливостей з керування програмою за допомогою скриптів є використання <application
->Pology</application
-> у &lokalize;. </para>
 <para
 >Взаємодію з <application
 >Pology</application
