@@ -149,11 +149,11 @@ ProjectTab::ProjectTab(QWidget *parent)
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_T));
     connect(action, &QAction::triggered, this, &ProjectTab::toggleTranslatedFiles);
 
-    action = nav->addAction(KStandardAction::Find, this, SLOT(findTriggered()));
+    action = nav->addAction(KStandardActions::Find, this, &ProjectTab::findTriggered);
 
     KActionCategory *proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
 
-    action = proj->addAction(QStringLiteral("project_open"), this, SIGNAL(projectOpenRequested()));
+    action = proj->addAction(QStringLiteral("project_open"), this, qOverload<>(&ProjectTab::projectOpenRequested));
     action->setText(i18nc("@action:inmenu", "Open project"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
 }
