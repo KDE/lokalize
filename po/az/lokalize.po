@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-02 00:44+0000\n"
+"POT-Creation-Date: 2025-05-07 00:45+0000\n"
 "PO-Revision-Date: 2025-04-01 14:56+0400\n"
 "Last-Translator: Khayyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -933,21 +933,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Hədəf dil"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:981
-#: src/editortab.cpp:1175 src/tm/tmtab.cpp:234
+#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:991
+#: src/editortab.cpp:1185 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Hazırdır"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:983
-#: src/editortab.cpp:1170 src/tm/tmtab.cpp:235
+#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:993
+#: src/editortab.cpp:1180 src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Yoxlamaq tələb olunur"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:979
+#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:989
 #: src/tm/tmtab.cpp:236
 #, kde-format
 msgctxt "@info:status"
@@ -1047,43 +1047,43 @@ msgctxt "@action:inmenu"
 msgid "Define new term"
 msgstr "Lüğətə yeni söz əlavə etmək"
 
-#: src/editortab.cpp:344
+#: src/editortab.cpp:348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
 msgstr "Mərhələlər..."
 
-#: src/editortab.cpp:347
+#: src/editortab.cpp:351
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Word count"
 msgstr "Söz sayı"
 
-#: src/editortab.cpp:350
+#: src/editortab.cpp:354
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
 msgstr "Bütün tərcümə bölmələrini silmək"
 
-#: src/editortab.cpp:353
+#: src/editortab.cpp:357
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
 msgstr "Pology vasitəsi ilə bu faylı yoxlamaq"
 
-#: src/editortab.cpp:357
+#: src/editortab.cpp:361
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
 msgstr "Tərcüməni OpenDocument sənədinə tətbiq etmək"
 
-#: src/editortab.cpp:377
+#: src/editortab.cpp:381
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Change searching direction"
 msgstr "Axtarış istiqamətini dəyişmək"
 
-#: src/editortab.cpp:386
+#: src/editortab.cpp:390
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1091,103 +1091,103 @@ msgctxt ""
 msgid "Approved"
 msgstr "Təsdiqləndi"
 
-#: src/editortab.cpp:405
+#: src/editortab.cpp:409
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and go to next"
 msgstr "Təsdiqləmək və növbəti bölməyə keçid"
 
-#: src/editortab.cpp:412
+#: src/editortab.cpp:416
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent translation"
 msgstr "Tərcümənin ekvivalenti"
 
-#: src/editortab.cpp:423
+#: src/editortab.cpp:427
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
 msgstr "Orijinalı tərcümə sahəsinə kopyalamaq"
 
-#: src/editortab.cpp:426
+#: src/editortab.cpp:430
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "Tərcümədən sətirə keçməni silmək (proqramdakı görünüşə təsir etmir)"
 
-#: src/editortab.cpp:431 src/filesearch/filesearchtab.cpp:136
+#: src/editortab.cpp:437 src/filesearch/filesearchtab.cpp:136
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
 msgstr "Təmizləmək"
 
-#: src/editortab.cpp:435
+#: src/editortab.cpp:441
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
 msgstr "Yarlıq daxil etmək"
 
-#: src/editortab.cpp:439
+#: src/editortab.cpp:445
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
 msgstr "LanguageTool istifadə etməklə bu modulu yoxalayın"
 
-#: src/editortab.cpp:443
+#: src/editortab.cpp:449
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
 msgstr "Növbəti yarlığı daxil edin"
 
-#: src/editortab.cpp:447
+#: src/editortab.cpp:453
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
 msgstr "Növbəti etiket olmayan mətnə keçid"
 
-#: src/editortab.cpp:451
+#: src/editortab.cpp:457
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "Mətn tamamlama"
 
-#: src/editortab.cpp:455
+#: src/editortab.cpp:461
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "Lüğətdəki ən yaxşı variantı ilə əvəzləmək"
 
-#: src/editortab.cpp:460
+#: src/editortab.cpp:466
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "&Növbəti"
 
-#: src/editortab.cpp:465
+#: src/editortab.cpp:471
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "&Əvvəlki"
 
-#: src/editortab.cpp:471
+#: src/editortab.cpp:477
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "&Birinci bölmə"
 
-#: src/editortab.cpp:477
+#: src/editortab.cpp:483
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "&Sonuncu bölmə"
 
-#: src/editortab.cpp:483
+#: src/editortab.cpp:489
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Nömrəyə uyğun bölməyə keçmək"
 
-#: src/editortab.cpp:486 src/project/projecttab.cpp:102
+#: src/editortab.cpp:492 src/project/projecttab.cpp:102
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1195,7 +1195,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Əvvəlki boş olmayan lakin hazır olmayan"
 
-#: src/editortab.cpp:494 src/project/projecttab.cpp:108
+#: src/editortab.cpp:500 src/project/projecttab.cpp:108
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1203,19 +1203,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Növbəti boş olmayan lakin hazır olmayan"
 
-#: src/editortab.cpp:501 src/project/projecttab.cpp:114
+#: src/editortab.cpp:507 src/project/projecttab.cpp:114
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Əvvəlki tərcüməsiz"
 
-#: src/editortab.cpp:506 src/project/projecttab.cpp:120
+#: src/editortab.cpp:512 src/project/projecttab.cpp:120
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Növbəti tərcüməsiz"
 
-#: src/editortab.cpp:512 src/project/projecttab.cpp:90
+#: src/editortab.cpp:518 src/project/projecttab.cpp:90
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1223,7 +1223,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Əvvəlki hazır olmayan"
 
-#: src/editortab.cpp:520 src/project/projecttab.cpp:96
+#: src/editortab.cpp:526 src/project/projecttab.cpp:96
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1231,50 +1231,50 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "Növbəti hazır olmayan"
 
-#: src/editortab.cpp:529
+#: src/editortab.cpp:535
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr ""
 "Tərcümə modullarına baxış sahəsindəki axtarış sətirlərinə diqqət yetirmək"
 
-#: src/editortab.cpp:533
+#: src/editortab.cpp:539
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "Əlfəcin"
 
-#: src/editortab.cpp:538
+#: src/editortab.cpp:544
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "Əvvəlki əlfəcin"
 
-#: src/editortab.cpp:542
+#: src/editortab.cpp:548
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "Növbəti əlfəcin"
 
-#: src/editortab.cpp:550
+#: src/editortab.cpp:556
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "TY-dan bütün dəqiq təklifləri doldurmaq"
 
-#: src/editortab.cpp:555
+#: src/editortab.cpp:561
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Bütün dəqiq təklifləri doldurmaq və hazır olmayan kimi işarələmək"
 
-#: src/editortab.cpp:561
+#: src/editortab.cpp:569
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Sinxronizasiya/birləşdirmə üçün faylı açmaq"
 
-#: src/editortab.cpp:562 src/editortab.cpp:619
+#: src/editortab.cpp:570 src/editortab.cpp:629
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1284,13 +1284,13 @@ msgstr ""
 "Cari kataloqda birləşdirmək üçün kataloqu açmaq / baza faylı "
 "dəyişikliklərini buraya kopyalamaq"
 
-#: src/editortab.cpp:568 src/editortab.cpp:625
+#: src/editortab.cpp:576 src/editortab.cpp:635
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "Əvvəlki fərqlənənlər"
 
-#: src/editortab.cpp:570 src/editortab.cpp:627
+#: src/editortab.cpp:578 src/editortab.cpp:637
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1299,13 +1299,13 @@ msgid ""
 msgstr ""
 "Mənbədə başqa cür tərcümə olunan əvvəlki element (boş tərcümələr daxil)"
 
-#: src/editortab.cpp:579 src/editortab.cpp:634
+#: src/editortab.cpp:587 src/editortab.cpp:644
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "Növbəti fərqlənənlər"
 
-#: src/editortab.cpp:581 src/editortab.cpp:636
+#: src/editortab.cpp:589 src/editortab.cpp:646
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1314,56 +1314,56 @@ msgid ""
 msgstr ""
 "Mənbədə başqa cür tərcümə olunan növbəti element (boş tərcümələr daxil)"
 
-#: src/editortab.cpp:589
+#: src/editortab.cpp:597
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "Növbəti təsdiq olunan fərqlənənlər"
 
-#: src/editortab.cpp:595 src/editortab.cpp:643
+#: src/editortab.cpp:603 src/editortab.cpp:653
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Birləşdirilmiş fayldan kopyalamaq"
 
-#: src/editortab.cpp:602 src/editortab.cpp:648
+#: src/editortab.cpp:610 src/editortab.cpp:658
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Bütün yeni tərcümələri kopyalamaq"
 
-#: src/editortab.cpp:603
+#: src/editortab.cpp:611
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr ""
 "Bu yalnız tərcüməsiz və baza faylındakı hazır olmayan elementləri dəyişdirir"
 
-#: src/editortab.cpp:611 src/editortab.cpp:655
+#: src/editortab.cpp:619 src/editortab.cpp:665
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Birləşmiş fayla kopyalamaq"
 
-#: src/editortab.cpp:618
+#: src/editortab.cpp:628
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "İkinci sinxronizasiya üçün faylı açmaq"
 
-#: src/editortab.cpp:649
+#: src/editortab.cpp:659
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Bu yalnız tərcüməsiz elementləri dəyişdirir"
 
-#: src/editortab.cpp:678
+#: src/editortab.cpp:688
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (bərpa olundu)"
 
-#: src/editortab.cpp:707 src/lokalizemainwindow.cpp:1023
+#: src/editortab.cpp:717 src/lokalizemainwindow.cpp:1025
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1373,38 +1373,38 @@ msgstr ""
 "Bu sənəddə saxlanılmamış dəyişikliklər var.\n"
 "Bu dəyişiklikləri saxlamaq yoxsa onları ləğv etmək istəyirsiniz?"
 
-#: src/editortab.cpp:709 src/editortab.cpp:1280
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1025
+#: src/editortab.cpp:719 src/editortab.cpp:1290
+#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1027
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Xəbərdarlıq"
 
-#: src/editortab.cpp:729 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:167
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Tərcümə faylını seçmək"
 
-#: src/editortab.cpp:814
+#: src/editortab.cpp:824
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "%1 faylının açılması xətası, sətir: %2"
 
-#: src/editortab.cpp:816
+#: src/editortab.cpp:826
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "%1 faylının açılması xətası"
 
-#: src/editortab.cpp:824
+#: src/editortab.cpp:834
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Faylı belə saxlayın"
 
-#: src/editortab.cpp:853
+#: src/editortab.cpp:863
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1414,13 +1414,13 @@ msgstr ""
 "%1 faylının saxlanılması xətası\n"
 "Başqa faylda saxlamaq yoxsa ləğv etmək istəyirsiniz?"
 
-#: src/editortab.cpp:856
+#: src/editortab.cpp:866
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Xəta"
 
-#: src/editortab.cpp:866
+#: src/editortab.cpp:876
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1430,67 +1430,67 @@ msgstr ""
 "Faylın avtomatik saxlanılması baş tutmadı.\n"
 "Hədəf faylı %1 idi."
 
-#: src/editortab.cpp:903
+#: src/editortab.cpp:913
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Bölməyə keçid"
 
-#: src/editortab.cpp:904
+#: src/editortab.cpp:914
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Bölmənin nömrəsi:"
 
-#: src/editortab.cpp:1151
+#: src/editortab.cpp:1161
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Tərcümə olundu"
 
-#: src/editortab.cpp:1152
+#: src/editortab.cpp:1162
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "İmzalanaraq buraxılmış"
 
-#: src/editortab.cpp:1153
+#: src/editortab.cpp:1163
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Təsdiqləndi"
 
-#: src/editortab.cpp:1154
+#: src/editortab.cpp:1164
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Tərcümə başa çatdı (yoxlamaq lazım gələ bilər)"
 
-#: src/editortab.cpp:1155
+#: src/editortab.cpp:1165
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Tərcüməyə müsbət rəy verildi"
 
-#: src/editortab.cpp:1156
+#: src/editortab.cpp:1166
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Bölmə tam lokalizasiya olundu"
 
-#: src/editortab.cpp:1256 src/project/projecttab.cpp:299
+#: src/editortab.cpp:1266 src/project/projecttab.cpp:299
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Pology yoxlaması artıq icra olunur."
 
-#: src/editortab.cpp:1256 src/editortab.cpp:1264 src/editortab.cpp:1268
+#: src/editortab.cpp:1266 src/editortab.cpp:1274 src/editortab.cpp:1278
 #: src/project/projecttab.cpp:299 src/project/projecttab.cpp:307
 #: src/project/projecttab.cpp:311
 #, kde-format
 msgid "Pology error"
 msgstr "Pology xətası"
 
-#: src/editortab.cpp:1264 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1274 src/project/projecttab.cpp:307
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1499,17 +1499,17 @@ msgstr ""
 "Pology yoxlaması gözlənilmədən qəzaya uğradı:\n"
 "%1"
 
-#: src/editortab.cpp:1266 src/project/projecttab.cpp:309
+#: src/editortab.cpp:1276 src/project/projecttab.cpp:309
 #, kde-format
 msgid "Pology success"
 msgstr "PPology proqramı ilə uğurlu yoxlama"
 
-#: src/editortab.cpp:1266
+#: src/editortab.cpp:1276
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pology yoxlaması başa çatdı."
 
-#: src/editortab.cpp:1268 src/project/projecttab.cpp:311
+#: src/editortab.cpp:1278 src/project/projecttab.cpp:311
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1518,7 +1518,7 @@ msgstr ""
 "Pology yoxlamasının qaytardığı xəta:\n"
 "%1"
 
-#: src/editortab.cpp:1278
+#: src/editortab.cpp:1288
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1528,19 +1528,19 @@ msgstr ""
 "Bu fayldan bütün tərcümə olunan bölmələri siləcək.\n"
 "Siz doğrudan davam etmək istəyirsiniz?"
 
-#: src/editortab.cpp:1316
+#: src/editortab.cpp:1326
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Mənbə mətnindəki sözlər %1<br/>Tərcüməmətnindəki sözlər: %2"
 
-#: src/editortab.cpp:1317
+#: src/editortab.cpp:1327
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Sözlərin sayı"
 
-#: src/editortab.cpp:1407
+#: src/editortab.cpp:1417
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1549,30 +1549,30 @@ msgstr ""
 "Mənbə faylını yerli olaraq yoxsa lxr.kde.org səhifəsində axtarmaq "
 "istəyirsiniz?"
 
-#: src/editortab.cpp:1408
+#: src/editortab.cpp:1418
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Mənbə faylı axtarışı"
 
-#: src/editortab.cpp:1409
+#: src/editortab.cpp:1419
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Yerli olaraq axtarmaq"
 
-#: src/editortab.cpp:1410 src/editortab.cpp:1454
+#: src/editortab.cpp:1420 src/editortab.cpp:1464
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org-da axtarmaq"
 
-#: src/editortab.cpp:1413 src/editortab.cpp:1458
+#: src/editortab.cpp:1423 src/editortab.cpp:1468
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Mənbə faylı üçün layihənin əsas qovluğunu seçmək"
 
-#: src/editortab.cpp:1450
+#: src/editortab.cpp:1460
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1582,19 +1582,19 @@ msgstr ""
 "Verilmiş qovluda mənbə faylı tapılmadı.\n"
 "Mənbə faylları qovluğunu dəyişmək istəyirsiniz?"
 
-#: src/editortab.cpp:1452
+#: src/editortab.cpp:1462
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Mənbə faylını araşdırmaq"
 
-#: src/editortab.cpp:1453
+#: src/editortab.cpp:1463
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Qovluğu seçin"
 
-#: src/editortab.cpp:1495
+#: src/editortab.cpp:1505
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1608,33 +1608,33 @@ msgstr ""
 "faylı yoxdur. Skrip faylları və onların layihənizə necə əlavə ediləcəyiniz "
 "haqqında Lokalize sorğu kitabçasına baxın."
 
-#: src/editortab.cpp:1509 src/project/project.cpp:413
+#: src/editortab.cpp:1519 src/project/project.cpp:413
 #: src/project/project.cpp:418
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Translate-Toolkit quraşdırın və yenidən cəhd edin"
 
-#: src/editortab.cpp:1514
+#: src/editortab.cpp:1524
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Translate-Toolkit paketini quraşdırın və yenidən cəhd edin."
 
-#: src/editortab.cpp:1522
+#: src/editortab.cpp:1532
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Cari XLİFF faylına əsaslanan orijinal OpenDocument sənədini seçin"
 
-#: src/editortab.cpp:1524 src/project/project.cpp:423
+#: src/editortab.cpp:1534 src/project/project.cpp:423
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument sənədləri (*.odt *.ods)"
 
-#: src/editortab.cpp:1568
+#: src/editortab.cpp:1578
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Əlavə funksionallıq üçün python-uno paketini quraşdırın"
 
-#: src/editortab.cpp:1691
+#: src/editortab.cpp:1701
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -2141,110 +2141,110 @@ msgctxt "@title actions category"
 msgid "Project"
 msgstr "Layihə"
 
-#: src/lokalizemainwindow.cpp:602
+#: src/lokalizemainwindow.cpp:604
 #, kde-format
 msgid "Next tab"
 msgstr "Növbəti vərəq"
 
-#: src/lokalizemainwindow.cpp:605
+#: src/lokalizemainwindow.cpp:607
 #, kde-format
 msgid "Previous tab"
 msgstr "Əvvəlki vərəq"
 
-#: src/lokalizemainwindow.cpp:608
+#: src/lokalizemainwindow.cpp:610
 #, kde-format
 msgid "Previously active tab"
 msgstr "Növbəti aktiv vərəq"
 
-#: src/lokalizemainwindow.cpp:611
+#: src/lokalizemainwindow.cpp:613
 #, kde-format
 msgid "Close current tab"
 msgstr "Cari vərəqi bağlamaq"
 
-#: src/lokalizemainwindow.cpp:616
+#: src/lokalizemainwindow.cpp:618
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Lüğət"
 
-#: src/lokalizemainwindow.cpp:620
+#: src/lokalizemainwindow.cpp:622
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Tərcümə yaddaşı"
 
-#: src/lokalizemainwindow.cpp:624 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:626 src/tm/tmtab.cpp:483
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Tərcümə yaddaşlarının idarə edilməsi"
 
-#: src/lokalizemainwindow.cpp:628
+#: src/lokalizemainwindow.cpp:630
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Layihənin icmalı"
 
-#: src/lokalizemainwindow.cpp:632
+#: src/lokalizemainwindow.cpp:634
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Layihəni tənzimləmək..."
 
-#: src/lokalizemainwindow.cpp:635
+#: src/lokalizemainwindow.cpp:637
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Proqram Təminatı tərcüməsi layihəsi yaratmaq..."
 
-#: src/lokalizemainwindow.cpp:638
+#: src/lokalizemainwindow.cpp:640
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "OpenDocument tərcüməsi üzrə layihə yaratmaq..."
 
-#: src/lokalizemainwindow.cpp:641
+#: src/lokalizemainwindow.cpp:643
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Layihəni açmaq..."
 
-#: src/lokalizemainwindow.cpp:645
+#: src/lokalizemainwindow.cpp:647
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Layihəni bağlamaq..."
 
-#: src/lokalizemainwindow.cpp:648
+#: src/lokalizemainwindow.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Sonuncu layihələr"
 
-#: src/lokalizemainwindow.cpp:658
+#: src/lokalizemainwindow.cpp:660
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Fayllarda axtarmaq və saxlamaq"
 
-#: src/lokalizemainwindow.cpp:661
+#: src/lokalizemainwindow.cpp:663
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Sonrakını fayllarda tapmaq"
 
-#: src/lokalizemainwindow.cpp:665
+#: src/lokalizemainwindow.cpp:667
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Vidjetdəki mətni çıxarmaq"
 
-#: src/lokalizemainwindow.cpp:678
+#: src/lokalizemainwindow.cpp:680
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "&Pəncərə rəng sxemi"
 
-#: src/lokalizemainwindow.cpp:843
+#: src/lokalizemainwindow.cpp:845
 #, kde-format
 msgctxt "@info"
 msgid ""
