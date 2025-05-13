@@ -4080,10 +4080,9 @@ msgid ""
 msgstr ""
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "Znovu p&rojít soubory projektu"
+msgstr ""
 
 #: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
 #, kde-format
@@ -4336,71 +4335,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Zkopírovat zdroj do cíle"
-
-#~ msgctxt "@info:status message entry"
-#~ msgid "Current: %1"
-#~ msgstr "Současný: %1"
-
-#~ msgctxt ""
-#~ "Loading bar percentage indicator %p will be replaced by the actual "
-#~ "percentage number, so make sure you include it in your translation"
-#~ msgid "%p%"
-#~ msgstr "%p%"
-
-#~ msgctxt "@info:status message entries"
-#~ msgid "Total: %1 (%2)"
-#~ msgstr "Celkem: %1 (%2)"
-
-#~ msgid "Tools"
-#~ msgstr "Nástroje"
-
-#~ msgid "Compile .po"
-#~ msgstr "Zkompilovat .po"
-
-#~ msgid "Compile .po and make it available to applications"
-#~ msgstr "Zkompilovat .po a zpřístupnit překlad pro aplikace"
-
-#~ msgid "Gettext not found"
-#~ msgstr "Nenalezen gettext"
-
-#~ msgid "Install gettext package for this feature to work"
-#~ msgstr "Aby toto fungovalo, nainstalujte balíček gettext"
-
-#~ msgid "Updating from templates..."
-#~ msgstr "Aktualizace ze šablon..."
-
-#~ msgid "Merge has been completed"
-#~ msgstr "Sloučení bylo dokončeno"
-
-#~ msgid ""
-#~ "Merge has been completed.\n"
-#~ "Template modification time: %1 (%2 days ago)."
-#~ msgstr ""
-#~ "Sloučení bylo dokončeno.\n"
-#~ "Datum změny šablony: %1 (před %2 dny)."
-
-#~ msgid "Merge failed."
-#~ msgstr "Sloučení selhalo."
-
-#~ msgid ""
-#~ "Could not find template file for the merge:\n"
-#~ "%1"
-#~ msgstr ""
-#~ "Nepovedlo se najít šablonu ke sloučení:\n"
-#~ "%1"
-
-#~ msgid "File"
-#~ msgstr "Soubor"
-
-#~ msgid "Update file from template"
-#~ msgstr "Aktualizovat soubor ze šablony"
-
-#~ msgid "Merge into ODF"
-#~ msgstr "Sloučit do ODF"
-
-#~ msgid "Generates translated version of ODF document"
-#~ msgstr "Vygeneruje přeloženou verzi dokumentu ODF"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Spellcheck"
-#~ msgstr "Kontrola pravopisu"
