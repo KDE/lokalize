@@ -1,174 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
-      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
-  <include>QLocale</include>
-  <include>QFontDatabase</include>
-  <include>kemailsettings.h</include>
-  <include>kde-i18n-lists.h</include>
-  <kcfgfile name="lokalizerc"/>
-  <group name="Identity">
-    <entry key="authorName" type="String">
-<!--
-	    <label>Translator's name</label>
-            <whatsthis>Translator's name in English</whatsthis>
--->
-        <default code="true">KEMailSettings().getSetting(KEMailSettings::RealName)</default>
-    </entry>
-    <entry key="authorLocalizedName" type="String">
-<!--
-	    <label>Localized name</label>
-            <whatsthis>Translator's name in target language</whatsthis>
--->
-        <default code="true">KEMailSettings().getSetting(KEMailSettings::RealName)</default>
-    </entry>
-    <entry key="overrideLangTeam" type="Bool">
-<!--
-        <label>Override Language Team</label>
-            <whatsthis>Use user-provided language team name instead of generating it</whatsthis>
--->
-        <default>false</default>
-    </entry>
-    <entry key="userLangTeam" type="String">
-<!--
-        <label>Language Team</label>
-            <whatsthis>Translator team's name</whatsthis>
--->
-        <default></default>
-    </entry>
-    <entry key="authorEmail" type="String">
-<!--
-            <whatsthis>Translator's email</whatsthis>
--->
-	<default code="true">KEMailSettings().getSetting(KEMailSettings::EmailAddress)</default>
-    </entry>
-    <entry key="DefaultLangCode" type="String">
-<!--
-	    <label>Default language code for new projects</label>
-            <whatsthis>Default language code for new projects</whatsthis>
--->
-        <default code="true">QLocale::system().name()</default>
-    </entry>
-    <entry key="DefaultMailingList" type="String">
-<!--
-	    <label>Default mailing list for new projects</label>
-            <whatsthis>Default mailing list for new projects</whatsthis>
--->
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+    <include>QLocale</include>
+    <include>QFontDatabase</include>
+    <include>kemailsettings.h</include>
+    <include>kde-i18n-lists.h</include>
+    <kcfgfile name="lokalizerc" />
+    <group name="Identity">
+        <entry key="authorName" type="String">
+            <!--
+                <label>Translator's name</label>
+                <whatsthis>Translator's name in English</whatsthis>
+            -->
+            <default code="true">KEMailSettings().getSetting(KEMailSettings::RealName)</default>
+        </entry>
+        <entry key="authorLocalizedName" type="String">
+            <!--
+                <label>Localized name</label>
+                <whatsthis>Translator's name in target language</whatsthis>
+            -->
+            <default code="true">KEMailSettings().getSetting(KEMailSettings::RealName)</default>
+        </entry>
+        <entry key="overrideLangTeam" type="Bool">
+            <!--
+                <label>Override Language Team</label>
+                <whatsthis>Use user-provided language team name instead of generating it</whatsthis>
+            -->
+            <default>false</default>
+        </entry>
+        <entry key="userLangTeam" type="String">
+            <!--
+                <label>Language Team</label>
+                <whatsthis>Translator team's name</whatsthis>
+            -->
+            <default></default>
+        </entry>
+        <entry key="authorEmail" type="String">
+            <!--
+                <whatsthis>Translator's email</whatsthis>
+            -->
+            <default code="true">KEMailSettings().getSetting(KEMailSettings::EmailAddress)</default>
+        </entry>
+        <entry key="DefaultLangCode" type="String">
+            <!--
+                <label>Default language code for new projects</label>
+                <whatsthis>Default language code for new projects</whatsthis>
+            -->
+            <default code="true">QLocale::system().name()</default>
+        </entry>
+        <entry key="DefaultMailingList" type="String">
+            <!--
+                <label>Default mailing list for new projects</label>
+                <whatsthis>Default mailing list for new projects</whatsthis>
+            -->
             <default code="true">getMailingList()</default>
-    </entry>
-  </group>
-  <group name="Appearance">
-    <entry name="HighlightSpaces"  type="Bool">
-        <default>true</default>
-    </entry>
-
-<!--
-    <entry name="CleverEditing"  type="Bool">
-        <label>
-        </label>
-        <default>true</default>
-    </entry>
--->
-    <entry name="MsgFont"  type="Font">
-<!--
-        <label>Font for Messages</label>
--->
-	<default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
-    </entry>
-    <entry name="Leds"  type="Bool">
-	<default>false</default>
-    </entry>
-<!--
-    <entry name="OnFlySpellCheck"  type="Bool">
-        <label>
-        </label>
-        <default>true</default>
-    </entry>
-    <entry name="WhitespacePoints"  type="Bool">
-        <label>
-        </label>
-        <default>true</default>
-    </entry>
--->
-  </group>
-  <group name="General">
-    <entry name="TabSwitch"  type="Int">
-        <default>0</default>
-    </entry>
-    <entry name="RestoreRecentFilesOnStartup"  type="Bool">
-        <default>true</default>
-    </entry>
-    <entry name="CustomEditorEnabled"  type="Bool">
-        <default>false</default>
-    </entry>
-    <entry name="CustomEditorCommand"  type="String">
-        <default>kate %1:%2</default>
-    </entry>
-  </group>
-  <group name="Editor">
-    <entry name="AutoApprove"  type="Bool">
-        <default>true</default>
-    </entry>
-    <entry name="AutoSpellcheck"  type="Bool">
-        <default>true</default>
-    </entry>
-    <entry name="VisualizeSeparators"  type="Bool">
-        <default>false</default>
-    </entry>
-    <entry name="ConvertXMLChars"  type="Bool">
-        <default>false</default>
-    </entry>
-    <entry name="MouseWheelGo"  type="Bool">
-        <default>false</default>
-    </entry>
-    <entry name="WordCompletionLength"  type="Int">
-        <default>4</default>
-    </entry>
-    <entry name="AltTransViewEverShownWithData" type="Bool">
-      <default>false</default>
-    </entry>
-  </group>
-  <group name="TM">
-    <entry name="PrefetchTM"  type="Bool">
-        <default>false</default>
-    </entry>
-    <entry name="SuggCount"  type="Int">
-        <default>7</default>
-    </entry>
-    <entry name="SuggScore"  type="Int">
-        <default>0</default>
-    </entry>
-    <entry name="AutoaddTM"  type="Bool">
-        <default>true</default>
-    </entry>
-    <entry name="ScanToTMOnOpen"  type="Bool">
-        <default>false</default>
-    </entry>
-    <entry name="DeleteFromTMOnMissing"  type="Bool">
-        <default>false</default>
-    </entry>
-  </group>
-  <group name="Pology">
-    <entry name="PologyEnabled" type="Bool">
-        <default>false</default>
-    </entry>
-    <entry name="PologyCommandEntry" type="String">
-        <default>posieve -u %u check-rules %f</default>
-    </entry>
-    <entry name="PologyCommandFile" type="String">
-        <default>posieve -s lokalize check-rules %f</default>
-    </entry>
-  </group>
-  <group name="LanguageTool">
-    <entry name="LanguageToolCustom" type="Bool">
-        <default>false</default>
-    </entry>
-    <entry name="LanguageToolInstancePath" type="String">
-        <default></default>
-    </entry>
-    <entry name="LanguageToolDelay" type="Int">
-        <default>0</default>
-    </entry>
-  </group>
+        </entry>
+    </group>
+    <group name="Appearance">
+        <entry name="HighlightSpaces" type="Bool">
+            <default>true</default>
+        </entry>
+        <!--
+            <entry name="CleverEditing"  type="Bool">
+            <label>
+            </label>
+            <default>true</default>
+            </entry>
+        -->
+        <entry name="MsgFont" type="Font">
+            <!--
+                <label>Font for Messages</label>
+            -->
+            <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
+        </entry>
+        <entry name="Leds" type="Bool">
+            <default>false</default>
+        </entry>
+        <!--
+            <entry name="OnFlySpellCheck"  type="Bool">
+            <label>
+            </label>
+            <default>true</default>
+            </entry>
+            <entry name="WhitespacePoints"  type="Bool">
+            <label>
+            </label>
+            <default>true</default>
+            </entry>
+        -->
+    </group>
+    <group name="General">
+        <entry name="TabSwitch" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="RestoreRecentFilesOnStartup" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="CustomEditorEnabled" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="CustomEditorCommand" type="String">
+            <default>kate %1:%2</default>
+        </entry>
+    </group>
+    <group name="Editor">
+        <entry name="AutoApprove" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="AutoSpellcheck" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="VisualizeSeparators" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="ConvertXMLChars" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="MouseWheelGo" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="WordCompletionLength" type="Int">
+            <default>4</default>
+        </entry>
+        <entry name="AltTransViewEverShownWithData" type="Bool">
+            <default>false</default>
+        </entry>
+    </group>
+    <group name="TM">
+        <entry name="PrefetchTM" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="SuggCount" type="Int">
+            <default>7</default>
+        </entry>
+        <entry name="SuggScore" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="AutoaddTM" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="ScanToTMOnOpen" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="DeleteFromTMOnMissing" type="Bool">
+            <default>false</default>
+        </entry>
+    </group>
+    <group name="Pology">
+        <entry name="PologyEnabled" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="PologyCommandEntry" type="String">
+            <default>posieve -u %u check-rules %f</default>
+        </entry>
+        <entry name="PologyCommandFile" type="String">
+            <default>posieve -s lokalize check-rules %f</default>
+        </entry>
+    </group>
+    <group name="LanguageTool">
+        <entry name="LanguageToolCustom" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="LanguageToolInstancePath" type="String">
+            <default></default>
+        </entry>
+        <entry name="LanguageToolDelay" type="Int">
+            <default>0</default>
+        </entry>
+    </group>
 </kcfg>

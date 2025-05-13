@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
-                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
-  <kcfgfile arg="true"/>
-  <group name="General">
-    <entry name="SourceDir"  type="String"></entry>
-  </group>
-  <group name="Personal">
-    <entry name="Role" type="Enum">
-      <choices name="PersonRole">
-        <choice name="Translator" />
-        <choice name="Reviewer" />
-        <choice name="Approver" />
-        <choice name="Undefined" />
-      </choices>
-      <default>Approver</default>
-    </entry>
-    <entry name="FirstRun" type="Bool">
-      <default>true</default>
-    </entry>
-  </group>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+    <kcfgfile arg="true" />
+    <group name="General">
+        <entry name="SourceDir" type="String"></entry>
+    </group>
+    <group name="Personal">
+        <entry name="Role" type="Enum">
+            <choices name="PersonRole">
+                <choice name="Translator" />
+                <choice name="Reviewer" />
+                <choice name="Approver" />
+                <choice name="Undefined" />
+            </choices>
+            <default>Approver</default>
+        </entry>
+        <entry name="FirstRun" type="Bool">
+            <default>true</default>
+        </entry>
+    </group>
 </kcfg>
