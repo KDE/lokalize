@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-07 00:45+0000\n"
+"POT-Creation-Date: 2025-05-14 00:46+0000\n"
 "PO-Revision-Date: 2022-11-01 00:32+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: kde-i18n-doc@kde.org\n"
@@ -2532,69 +2532,69 @@ msgid "Edit phases"
 msgstr "Fasas de redaction"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:14
+#: src/prefs/lokalize.kcfg:13
 #, kde-format
 msgid "Translator's name"
 msgstr "Nómine del traductor"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:15
+#: src/prefs/lokalize.kcfg:14
 #, kde-format
 msgid "Translator's name in English"
 msgstr "Nómine del traductor in anglese"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:21
+#: src/prefs/lokalize.kcfg:20
 #, kde-format
 msgid "Localized name"
 msgstr "Localisat nómine"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:22
+#: src/prefs/lokalize.kcfg:21
 #, fuzzy, kde-format
 msgid "Translator's name in target language"
 msgstr "Lingue de destination:"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:28
+#: src/prefs/lokalize.kcfg:27
 #, fuzzy, kde-format
 msgid "Override Language Team"
 msgstr "Equipe de lingue:"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:29
+#: src/prefs/lokalize.kcfg:28
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
 msgstr ""
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:35
+#: src/prefs/lokalize.kcfg:34
 #, kde-format
 msgid "Language Team"
 msgstr "Equipe de lingue"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:36
+#: src/prefs/lokalize.kcfg:35
 #, fuzzy, kde-format
 msgid "Translator team's name"
 msgstr "Nómine del traductor"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:42
+#: src/prefs/lokalize.kcfg:41
 #, kde-format
 msgid "Translator's email"
 msgstr "E-post del traductor"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:48 src/prefs/lokalize.kcfg:49
+#: src/prefs/lokalize.kcfg:47 src/prefs/lokalize.kcfg:48
 #, kde-format
 msgid "Default language code for new projects"
 msgstr ""
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:55 src/prefs/lokalize.kcfg:56
+#: src/prefs/lokalize.kcfg:54 src/prefs/lokalize.kcfg:55
 #, fuzzy, kde-format
 msgid "Default mailing list for new projects"
 msgstr "Postage-liste pre&definit:"
@@ -2602,18 +2602,21 @@ msgstr "Postage-liste pre&definit:"
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
-#: src/prefs/lokalize.kcfg:69 src/prefs/lokalize.kcfg:85
-#: src/prefs/lokalize.kcfg:90
-#, kde-format
+#: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
+#: src/prefs/lokalize.kcfg:88
+#, fuzzy, kde-format
+#| msgid ""
+#| "\n"
+#| "        "
 msgid ""
 "\n"
-"        "
+"            "
 msgstr ""
 "\n"
 "        "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
-#: src/prefs/lokalize.kcfg:75
+#: src/prefs/lokalize.kcfg:73
 #, fuzzy, kde-format
 msgid "Font for Messages"
 msgstr "A&nuncies"
@@ -3450,49 +3453,49 @@ msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "%2 traduction de %1"
 
-#: src/project/projectbase.kcfg:11
+#: src/project/projectbase.kcfg:10
 #, kde-format
 msgid "default"
 msgstr "predefinit"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
-#: src/project/projectbase.kcfg:18
+#: src/project/projectbase.kcfg:17
 #, kde-format
 msgid "Language"
 msgstr "Lingue"
 
 #. i18n: ectx: label, entry (UserLangTeam), group (General)
-#: src/project/projectbase.kcfg:32
+#: src/project/projectbase.kcfg:31
 #, kde-format
 msgid "User Language Team in Lokalize settings"
 msgstr ""
 
 #. i18n: ectx: label, entry (OverrideLangTeam), group (General)
-#: src/project/projectbase.kcfg:38
+#: src/project/projectbase.kcfg:37
 #, fuzzy, kde-format
 msgid "Override Lokalize Language Team"
 msgstr "Language-Team predefinit:"
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
-#: src/project/projectbase.kcfg:44
+#: src/project/projectbase.kcfg:43
 #, fuzzy, kde-format
 msgid "Project Language Team"
 msgstr "Equipe de lingue:"
 
 #. i18n: ectx: label, entry (PoBaseDir), group (General)
-#: src/project/projectbase.kcfg:59
+#: src/project/projectbase.kcfg:58
 #, fuzzy, kde-format
 msgid "The base directory for PO files (translations)"
 msgstr "Selecte li fólder que contene files .po:"
 
 #. i18n: ectx: label, entry (PotBaseDir), group (General)
-#: src/project/projectbase.kcfg:65
+#: src/project/projectbase.kcfg:64
 #, kde-format
 msgid "The base directory for POT files (templates to be translated)"
 msgstr ""
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:74
+#: src/project/projectbase.kcfg:73
 #, kde-format
 msgid "Project's glossary"
 msgstr "Glossarium del projecte"

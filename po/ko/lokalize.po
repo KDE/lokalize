@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-07 00:45+0000\n"
+"POT-Creation-Date: 2025-05-14 00:46+0000\n"
 "PO-Revision-Date: 2025-04-06 23:34+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -2600,69 +2600,69 @@ msgid "Edit phases"
 msgstr "구문 편집"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:14
+#: src/prefs/lokalize.kcfg:13
 #, kde-format
 msgid "Translator's name"
 msgstr "번역자 이름"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:15
+#: src/prefs/lokalize.kcfg:14
 #, kde-format
 msgid "Translator's name in English"
 msgstr "영어식으로 표기한 번역자 이름"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:21
+#: src/prefs/lokalize.kcfg:20
 #, kde-format
 msgid "Localized name"
 msgstr "번역자 이름(지역 문자)"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:22
+#: src/prefs/lokalize.kcfg:21
 #, kde-format
 msgid "Translator's name in target language"
 msgstr "대상 언어로 표기한 번역자 이름"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:28
+#: src/prefs/lokalize.kcfg:27
 #, kde-format
 msgid "Override Language Team"
 msgstr "언어 팀 재정의"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:29
+#: src/prefs/lokalize.kcfg:28
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
 msgstr "언어 팀을 생성하지 않고 사용자가 지정한 값 사용"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:35
+#: src/prefs/lokalize.kcfg:34
 #, kde-format
 msgid "Language Team"
 msgstr "언어 팀"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:36
+#: src/prefs/lokalize.kcfg:35
 #, kde-format
 msgid "Translator team's name"
 msgstr "번역 팀 이름"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:42
+#: src/prefs/lokalize.kcfg:41
 #, kde-format
 msgid "Translator's email"
 msgstr "번역자 이메일 주소"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:48 src/prefs/lokalize.kcfg:49
+#: src/prefs/lokalize.kcfg:47 src/prefs/lokalize.kcfg:48
 #, kde-format
 msgid "Default language code for new projects"
 msgstr "새 프로젝트의 기본 언어 코드"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:55 src/prefs/lokalize.kcfg:56
+#: src/prefs/lokalize.kcfg:54 src/prefs/lokalize.kcfg:55
 #, kde-format
 msgid "Default mailing list for new projects"
 msgstr "새 프로젝트의 기본 메일링 리스트"
@@ -2670,18 +2670,21 @@ msgstr "새 프로젝트의 기본 메일링 리스트"
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
-#: src/prefs/lokalize.kcfg:69 src/prefs/lokalize.kcfg:85
-#: src/prefs/lokalize.kcfg:90
-#, kde-format
+#: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
+#: src/prefs/lokalize.kcfg:88
+#, fuzzy, kde-format
+#| msgid ""
+#| "\n"
+#| "        "
 msgid ""
 "\n"
-"        "
+"            "
 msgstr ""
 "\n"
 "        "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
-#: src/prefs/lokalize.kcfg:75
+#: src/prefs/lokalize.kcfg:73
 #, kde-format
 msgid "Font for Messages"
 msgstr "메시지 글꼴"
@@ -3588,49 +3591,49 @@ msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "%1 %2 번역"
 
-#: src/project/projectbase.kcfg:11
+#: src/project/projectbase.kcfg:10
 #, kde-format
 msgid "default"
 msgstr "기본값"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
-#: src/project/projectbase.kcfg:18
+#: src/project/projectbase.kcfg:17
 #, kde-format
 msgid "Language"
 msgstr "언어"
 
 #. i18n: ectx: label, entry (UserLangTeam), group (General)
-#: src/project/projectbase.kcfg:32
+#: src/project/projectbase.kcfg:31
 #, kde-format
 msgid "User Language Team in Lokalize settings"
 msgstr "Lokalize 설정의 사용자 언어 팀"
 
 #. i18n: ectx: label, entry (OverrideLangTeam), group (General)
-#: src/project/projectbase.kcfg:38
+#: src/project/projectbase.kcfg:37
 #, kde-format
 msgid "Override Lokalize Language Team"
 msgstr "Lokalize 언어 팀 재정의"
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
-#: src/project/projectbase.kcfg:44
+#: src/project/projectbase.kcfg:43
 #, kde-format
 msgid "Project Language Team"
 msgstr "프로젝트 언어 팀"
 
 #. i18n: ectx: label, entry (PoBaseDir), group (General)
-#: src/project/projectbase.kcfg:59
+#: src/project/projectbase.kcfg:58
 #, kde-format
 msgid "The base directory for PO files (translations)"
 msgstr "PO 파일(번역)의 기본 디렉터리"
 
 #. i18n: ectx: label, entry (PotBaseDir), group (General)
-#: src/project/projectbase.kcfg:65
+#: src/project/projectbase.kcfg:64
 #, kde-format
 msgid "The base directory for POT files (templates to be translated)"
 msgstr "POT 파일(번역한 것)의 기본 디렉터리"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:74
+#: src/project/projectbase.kcfg:73
 #, kde-format
 msgid "Project's glossary"
 msgstr "프로젝트 용어집"

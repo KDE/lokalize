@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-07 00:45+0000\n"
+"POT-Creation-Date: 2025-05-14 00:46+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -2631,69 +2631,69 @@ msgid "Edit phases"
 msgstr "चरणान् सम्पादयतु"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:14
+#: src/prefs/lokalize.kcfg:13
 #, kde-format
 msgid "Translator's name"
 msgstr "अनुवादकस्य नाम"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:15
+#: src/prefs/lokalize.kcfg:14
 #, kde-format
 msgid "Translator's name in English"
 msgstr "अनुवादकस्य नाम आङ्ग्लभाषायां"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:21
+#: src/prefs/lokalize.kcfg:20
 #, kde-format
 msgid "Localized name"
 msgstr "स्थानीयकृत नाम"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:22
+#: src/prefs/lokalize.kcfg:21
 #, kde-format
 msgid "Translator's name in target language"
 msgstr "लक्ष्यभाषायां अनुवादकस्य नाम"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:28
+#: src/prefs/lokalize.kcfg:27
 #, kde-format
 msgid "Override Language Team"
 msgstr "भाषा दलं अधिलिखयतु"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:29
+#: src/prefs/lokalize.kcfg:28
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
 msgstr "उपयोक्तृ-प्रदत्तं भाषा-दल-नाम जननस्य स्थाने तस्य उपयोगं कुर्वन्तु"
 
 #. i18n: ectx: label, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:35
+#: src/prefs/lokalize.kcfg:34
 #, kde-format
 msgid "Language Team"
 msgstr "भाषा दल"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:36
+#: src/prefs/lokalize.kcfg:35
 #, kde-format
 msgid "Translator team's name"
 msgstr "अनुवादकदलस्य नाम"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:42
+#: src/prefs/lokalize.kcfg:41
 #, kde-format
 msgid "Translator's email"
 msgstr "अनुवादकस्य ईमेल"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:48 src/prefs/lokalize.kcfg:49
+#: src/prefs/lokalize.kcfg:47 src/prefs/lokalize.kcfg:48
 #, kde-format
 msgid "Default language code for new projects"
 msgstr "नूतनानां परियोजनानां कृते पूर्वनिर्धारितभाषासङ्केतः"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
-#: src/prefs/lokalize.kcfg:55 src/prefs/lokalize.kcfg:56
+#: src/prefs/lokalize.kcfg:54 src/prefs/lokalize.kcfg:55
 #, kde-format
 msgid "Default mailing list for new projects"
 msgstr "नूतनपरियोजनानां कृते पूर्वनिर्धारितमेलसूची"
@@ -2701,18 +2701,21 @@ msgstr "नूतनपरियोजनानां कृते पूर्�
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
-#: src/prefs/lokalize.kcfg:69 src/prefs/lokalize.kcfg:85
-#: src/prefs/lokalize.kcfg:90
-#, kde-format
+#: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
+#: src/prefs/lokalize.kcfg:88
+#, fuzzy, kde-format
+#| msgid ""
+#| "\n"
+#| "        "
 msgid ""
 "\n"
-"        "
+"            "
 msgstr ""
 "\n"
 "        "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
-#: src/prefs/lokalize.kcfg:75
+#: src/prefs/lokalize.kcfg:73
 #, kde-format
 msgid "Font for Messages"
 msgstr "सन्देशानां कृते फन्ट्"
@@ -3627,49 +3630,49 @@ msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "%1 %2 अनुवादः"
 
-#: src/project/projectbase.kcfg:11
+#: src/project/projectbase.kcfg:10
 #, kde-format
 msgid "default"
 msgstr "मूलभूतम्‌"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
-#: src/project/projectbase.kcfg:18
+#: src/project/projectbase.kcfg:17
 #, kde-format
 msgid "Language"
 msgstr "भाषा"
 
 #. i18n: ectx: label, entry (UserLangTeam), group (General)
-#: src/project/projectbase.kcfg:32
+#: src/project/projectbase.kcfg:31
 #, kde-format
 msgid "User Language Team in Lokalize settings"
 msgstr "Lokalize सेटिंग्स् मध्ये उपयोक्तृभाषा दलम्"
 
 #. i18n: ectx: label, entry (OverrideLangTeam), group (General)
-#: src/project/projectbase.kcfg:38
+#: src/project/projectbase.kcfg:37
 #, kde-format
 msgid "Override Lokalize Language Team"
 msgstr "Override Lokalize भाषा दलम्"
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
-#: src/project/projectbase.kcfg:44
+#: src/project/projectbase.kcfg:43
 #, kde-format
 msgid "Project Language Team"
 msgstr "परियोजना भाषा दल"
 
 #. i18n: ectx: label, entry (PoBaseDir), group (General)
-#: src/project/projectbase.kcfg:59
+#: src/project/projectbase.kcfg:58
 #, kde-format
 msgid "The base directory for PO files (translations)"
 msgstr "PO सञ्चिकानां (अनुवादानाम्) आधारनिर्देशिका"
 
 #. i18n: ectx: label, entry (PotBaseDir), group (General)
-#: src/project/projectbase.kcfg:65
+#: src/project/projectbase.kcfg:64
 #, kde-format
 msgid "The base directory for POT files (templates to be translated)"
 msgstr "POT सञ्चिकानां आधारनिर्देशिका (अनुवादितव्याः टेम्पलेट्)"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
-#: src/project/projectbase.kcfg:74
+#: src/project/projectbase.kcfg:73
 #, kde-format
 msgid "Project's glossary"
 msgstr "परियोजनायाः शब्दावली"
