@@ -2623,16 +2623,11 @@ msgstr "新项目的默认邮件列表"
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
 #: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
 #: src/prefs/lokalize.kcfg:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "\n"
-#| "        "
+#, kde-format
 msgid ""
 "\n"
 "            "
 msgstr ""
-"\n"
-"        "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73

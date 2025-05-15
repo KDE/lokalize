@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-14 00:46+0000\n"
-"PO-Revision-Date: 2025-04-05 12:03+0400\n"
+"PO-Revision-Date: 2025-05-14 17:05+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2704,16 +2704,13 @@ msgstr "القائمة البريدية الافتراضية للمشاريع ا
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
 #: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
 #: src/prefs/lokalize.kcfg:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "\n"
-#| "        "
+#, kde-format
 msgid ""
 "\n"
 "            "
 msgstr ""
 "\n"
-"        "
+"            "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73
