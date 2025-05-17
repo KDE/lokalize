@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-14 00:46+0000\n"
-"PO-Revision-Date: 2025-02-28 07:05+0100\n"
+"PO-Revision-Date: 2025-05-16 11:30+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2740,16 +2740,13 @@ msgstr "A lista de correo predeterminada para os novos proxectos"
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
 #: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
 #: src/prefs/lokalize.kcfg:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "\n"
-#| "        "
+#, kde-format
 msgid ""
 "\n"
 "            "
 msgstr ""
 "\n"
-"        "
+"            "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73
@@ -4280,12 +4277,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Só é posíbel examinar de novo os ficheiros cun proxecto aberto. Abra un "
+"proxecto e probe de novo."
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "&Examinar de novo os ficheiros do proxecto"
+msgstr "Non é posíbel examinar de novo"
 
 #: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
 #, kde-format
