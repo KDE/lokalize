@@ -707,70 +707,14 @@
 
 </chapter>
 
-<chapter id="scripting">
+<chapter id="externaltools">
 <title
->Écriture de scripts sous &lokalize;</title>
-
-<para
->&lokalize; peut être étendu grâce à des scripts créés dans plusieurs langages interprétés, dont Python et JavaScript. Les scripts sont d'ordinaire intégrés dans l'interface graphique de &lokalize; sous la forme d'actions de menus (auxquelles vous pouvez affecter un raccourci clavier). L'emplacement et le nom de l'élément de menu du script sont définis dans son fichier d'accompagnement <quote
->.rc</quote
->. Dans chaque projet ouvert, &lokalize; analyse le dossier <filename
->PROJECTDIR/lokalize-scripts</filename
-> pour chercher les fichiers « .rc » et les ajoute à un fichier <emphasis
->cache</emphasis
-> appelé <filename
->PROJECTDIR/lokalize-scripts/scripts.rc</filename
->. Ainsi, vous n'aurez pas, en principe, à l'ajouter au système de contrôle de versions du projet. Les fichiers « .rc » contiennent également des emplacements de scripts pouvant être relatifs au dossier de fichiers « .rc » ou à un dossier de scripts système - les deux sont essayés (en fait, ils <emphasis
->devraient</emphasis
-> être conservés dans un emplacement relatif si vous voulez les partager avec d'autres collaborateurs dans votre projet). Par exemple, vous pouvez spécifier <filename
->../../scripts/lokalize/opensrc.py</filename
-> pour charger un script à partir du <ulink url="http://websvn.kde.org/trunk/l10n-kde5/scripts/lokalize/"
->dossier de scripts global kf5-l10n</ulink
-> (c'est-à-dire non spécifique à votre langue). </para>
-<para
->Des exemples de fichiers « .rc » peuvent se trouver dans le dossier d'installation de &lokalize; (habituellement <filename
->/usr/share/lokalize/scripts/</filename
->) et le <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->dépôt de KDE</ulink
->. Vous trouverez <ulink url="https://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
->ici</ulink
->davantage d'exemples de scripts, dont <filename
->check-gui.js</filename
-> fondé sur JavaScript, qui s'exécute automatiquement à chaque enregistrement de fichier. Ceci de fait grâce à une option spécial das le fichier « .rc ». Si vous connaissez Python ou &javascript;, le code devrait être suffisamment explicite. </para>
-<para
->Voici des liens renvoyant aux références de l'API. Tout ce qui est marqué comme <emphasis
->Q_SCRIPTABLE</emphasis
-> peut être utilisé à partir des scripts. </para>
-
-<itemizedlist>
-<listitem>
-<para
->La référence de l'API de l'objet <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
->Éditeur</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->La référence de l'API de l'objet <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
->&lokalize;</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->La référence de l'API de l'objet <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
->Projet</ulink
-> </para>
-</listitem>
-</itemizedlist>
+>Outils externes</title>
 
 <sect1 id="pology">
 <title
 >Pology</title>
 
-<para
->Une des applications avec les meilleures capacités de scripts est l'utilisation de <application
->Pology</application
-> dans &lokalize;. </para>
 <para
 >L'interaction avec <application
 >Pology</application
