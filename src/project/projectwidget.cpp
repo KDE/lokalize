@@ -13,6 +13,7 @@
 #include "catalog.h"
 #include "headerviewmenu.h"
 #include "lokalize_debug.h"
+#include "prefs_lokalize.h"
 #include "project.h"
 
 #include <KColorScheme>
@@ -122,16 +123,13 @@ ProjectOverviewSortFilterProxyModel::ProjectOverviewSortFilterProxyModel(QObject
     : KDirSortFilterProxyModel(parent)
 {
     connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectOverviewSortFilterProxyModel::invalidate);
-    KConfig config;
-    KConfigGroup stateGroup(&config, QStringLiteral("State"));
-    m_hideTranslatedFiles = (stateGroup.exists() && stateGroup.readEntry("HideCompletedItems", false));
+    m_hideTranslatedFiles = Settings::hideCompletedItems();
 }
 
 ProjectOverviewSortFilterProxyModel::~ProjectOverviewSortFilterProxyModel()
 {
-    KConfig config;
-    KConfigGroup stateGroup(&config, QStringLiteral("State"));
-    stateGroup.writeEntry("HideCompletedItems", m_hideTranslatedFiles);
+    Settings::setHideCompletedItems(m_hideTranslatedFiles);
+    Settings::self()->save();
 }
 
 void ProjectOverviewSortFilterProxyModel::toggleTranslatedFiles()

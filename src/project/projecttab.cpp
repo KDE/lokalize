@@ -72,10 +72,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     setXMLFile(QStringLiteral("projectmanagerui.rc"), true);
     setUpdatedXMLFile();
 
-    KConfig config;
-    KConfigGroup stateGroup(&config, QStringLiteral("State"));
-    const bool hideCompletedItems = (stateGroup.exists() && stateGroup.readEntry("HideCompletedItems", false));
-
 #define ADD_ACTION_SHORTCUT_ICON(_name, _text, _shortcut, _icon)                                                                                               \
     action = nav->addAction(QStringLiteral(_name));                                                                                                            \
     action->setText(_text);                                                                                                                                    \
@@ -145,7 +141,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     action->setToolTip(i18nc("@action:inmenu", "Hide fully translated files and folders"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("hide_table_row")));
     action->setCheckable(true);
-    action->setChecked(hideCompletedItems);
+    action->setChecked(Settings::hideCompletedItems());
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_T));
     connect(action, &QAction::triggered, this, &ProjectTab::toggleTranslatedFiles);
 
