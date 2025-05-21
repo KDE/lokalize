@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-14 00:46+0000\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -928,7 +928,7 @@ msgctxt "@title actions category"
 msgid "File"
 msgstr "Datoteka"
 
-#: src/editortab.cpp:150 src/project/projecttab.cpp:87
+#: src/editortab.cpp:150 src/project/projecttab.cpp:83
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
@@ -1149,7 +1149,7 @@ msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Unos po broju"
 
-#: src/editortab.cpp:492 src/project/projecttab.cpp:102
+#: src/editortab.cpp:492 src/project/projecttab.cpp:98
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1157,7 +1157,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr ""
 
-#: src/editortab.cpp:500 src/project/projecttab.cpp:108
+#: src/editortab.cpp:500 src/project/projecttab.cpp:104
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1165,19 +1165,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr ""
 
-#: src/editortab.cpp:507 src/project/projecttab.cpp:114
+#: src/editortab.cpp:507 src/project/projecttab.cpp:110
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Prethodno neprevedeno"
 
-#: src/editortab.cpp:512 src/project/projecttab.cpp:120
+#: src/editortab.cpp:512 src/project/projecttab.cpp:116
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Sljedeće neprevedeno"
 
-#: src/editortab.cpp:518 src/project/projecttab.cpp:90
+#: src/editortab.cpp:518 src/project/projecttab.cpp:86
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1185,7 +1185,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Prethodni nije spreman"
 
-#: src/editortab.cpp:526 src/project/projecttab.cpp:96
+#: src/editortab.cpp:526 src/project/projecttab.cpp:92
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1442,26 +1442,26 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Unos je potpuno lokaliziran, odnosno konačan."
 
-#: src/editortab.cpp:1266 src/project/projecttab.cpp:299
+#: src/editortab.cpp:1266 src/project/projecttab.cpp:295
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
 #: src/editortab.cpp:1266 src/editortab.cpp:1274 src/editortab.cpp:1278
-#: src/project/projecttab.cpp:299 src/project/projecttab.cpp:307
-#: src/project/projecttab.cpp:311
+#: src/project/projecttab.cpp:295 src/project/projecttab.cpp:303
+#: src/project/projecttab.cpp:307
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1274 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1274 src/project/projecttab.cpp:303
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1276 src/project/projecttab.cpp:309
+#: src/editortab.cpp:1276 src/project/projecttab.cpp:305
 #, kde-format
 msgid "Pology success"
 msgstr ""
@@ -1471,7 +1471,7 @@ msgstr ""
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1278 src/project/projecttab.cpp:311
+#: src/editortab.cpp:1278 src/project/projecttab.cpp:307
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -2047,7 +2047,7 @@ msgstr ""
 msgid "&Configure Lokalize"
 msgstr "Podešavanje projekta"
 
-#: src/lokalizemainwindow.cpp:118 src/project/projecttab.cpp:157
+#: src/lokalizemainwindow.cpp:118 src/project/projecttab.cpp:153
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
@@ -2089,7 +2089,7 @@ msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Prijevodna memorija"
 
-#: src/lokalizemainwindow.cpp:581 src/project/projecttab.cpp:154
+#: src/lokalizemainwindow.cpp:581 src/project/projecttab.cpp:150
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
@@ -3687,68 +3687,68 @@ msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Pregled projekta"
 
-#: src/project/projecttab.cpp:126
+#: src/project/projecttab.cpp:122
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "Samo prethodni predložak"
 
-#: src/project/projecttab.cpp:132
+#: src/project/projecttab.cpp:128
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "Samo sljedeći predložak"
 
-#: src/project/projecttab.cpp:137
+#: src/project/projecttab.cpp:133
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "Samo prethodni prijevod"
 
-#: src/project/projecttab.cpp:140
+#: src/project/projecttab.cpp:136
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "Samo sljedeći prijevod"
 
-#: src/project/projecttab.cpp:144
+#: src/project/projecttab.cpp:140
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr ""
 
-#: src/project/projecttab.cpp:145
+#: src/project/projecttab.cpp:141
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr ""
 
-#: src/project/projecttab.cpp:192
+#: src/project/projecttab.cpp:188
 #, fuzzy, kde-format
 #| msgid "Select file:"
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Odaberi datoteku:"
 
-#: src/project/projecttab.cpp:195
+#: src/project/projecttab.cpp:191
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "Otvori"
 
-#: src/project/projecttab.cpp:198
+#: src/project/projecttab.cpp:194
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Dodaj u prijevodnu memoriju"
 
-#: src/project/projecttab.cpp:200
+#: src/project/projecttab.cpp:196
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr ""
 
-#: src/project/projecttab.cpp:201
+#: src/project/projecttab.cpp:197
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add a note"
@@ -3756,34 +3756,34 @@ msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Dodajte bilješku"
 
-#: src/project/projecttab.cpp:203
+#: src/project/projecttab.cpp:199
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr ""
 
-#: src/project/projecttab.cpp:206
+#: src/project/projecttab.cpp:202
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr ""
 
-#: src/project/projecttab.cpp:233
+#: src/project/projecttab.cpp:229
 #, kde-format
 msgid "Project file comment"
 msgstr ""
 
-#: src/project/projecttab.cpp:233
+#: src/project/projecttab.cpp:229
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr ""
 
-#: src/project/projecttab.cpp:309
+#: src/project/projecttab.cpp:305
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:328
+#: src/project/projecttab.cpp:324
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
@@ -3791,19 +3791,19 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/project/projecttab.cpp:329
+#: src/project/projecttab.cpp:325
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:330
+#: src/project/projecttab.cpp:326
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:331
+#: src/project/projecttab.cpp:327
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "&Open %1 File"
