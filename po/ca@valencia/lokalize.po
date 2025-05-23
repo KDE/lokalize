@@ -3412,7 +3412,7 @@ msgstr ""
 "Expressió regular de marcatge. S'utilitza en buscar coincidències en la "
 "memòria de traducció i amb la característica «Inserix una etiqueta».\n"
 "\n"
-"El valor predeterminat (adient per a textos basats en XML) és:\n"
+"El valor predeterminat (adint per a textos basats en XML) és:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "Només s'utilitza en els fitxers PO de gettext, ja que el format XLIFF té un "
@@ -4045,7 +4045,7 @@ msgstr "Nom de la base de dades:"
 #: src/tm/dbparams.ui:45
 #, kde-format
 msgid "Host:"
-msgstr "Màquina:"
+msgstr "Amfitrió:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: src/tm/dbparams.ui:62
