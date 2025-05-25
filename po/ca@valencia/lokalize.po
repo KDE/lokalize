@@ -192,7 +192,7 @@ msgstr ""
 "traduccions alternatives que acompanya la unitat. Esta vista d'eina també "
 "mostra les diferències entre la cadena actual original i l'anterior, de "
 "manera que vos resulte més fàcil veure quins canvis s'han d'aplicar a la "
-"traducció existent per a reflectir l'origen actual. Feu doble clic en "
+"traducció existent per a reflectir l'origen actual. Feu doble clic damunt de "
 "qualsevol paraula en esta vista d'eina per a inserir-la a la traducció. "
 "Arrossegueu un fitxer de traducció a esta vista d'eina per a utilitzar-lo "
 "com a font de traduccions alternatives."
@@ -3081,8 +3081,8 @@ msgstr ""
 "<html>Quan es marca esta opció, s'utilitza la roda del ratolí per a anar "
 "fins a l'anterior o següent unitat de traducció (sense tecles "
 "modificadores). Les tecles modificadores es poden utilitzar per a canviar "
-"este comportament. Ús: <ul><li><b>Maj</b> per a desplaçar-se dins del text "
-"de la unitat actual,</li><li><b>Ctrl+Maj</b> per a anar fins a la unitat "
+"este comportament. Ús: <ul><li><b>Majús</b> per a desplaçar-se dins del text "
+"de la unitat actual,</li><li><b>Ctrl+Majús</b> per a anar fins a la unitat "
 "anterior o fins a la següent no enllestida.</li><li><b>Ctrl</b> per a anar "
 "fins a la unitat anterior o fins a la següent que no estiga buida,</"
 "li><li><b>Alt</b> per a anar fins a la unitat sense traduir anterior o "
@@ -3487,7 +3487,7 @@ msgid ""
 "clicking on a missing entry"
 msgstr ""
 "Suprimix els fitxers que falten de la memòria de traducció en tornar a "
-"explorar o quan feu clic dret damunt d'una entrada que falta"
+"explorar o quan es faça clic dret damunt d'una entrada que falta"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -3532,7 +3532,7 @@ msgstr ""
 "Expressió regular de marcatge. S'utilitza en buscar coincidències en la "
 "memòria de traducció i amb la característica «Inserix una etiqueta».\n"
 "\n"
-"El valor predeterminat (adient per a textos basats en XML) és:\n"
+"El valor predeterminat (adint per a textos basats en XML) és:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "Només s'utilitza en els fitxers PO de gettext, ja que el format XLIFF té un "
@@ -4141,7 +4141,7 @@ msgstr "Nom de la base de dades:"
 #: src/tm/dbparams.ui:45
 #, kde-format
 msgid "Host:"
-msgstr "Màquina:"
+msgstr "Amfitrió:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: src/tm/dbparams.ui:62
@@ -4428,7 +4428,7 @@ msgstr "Memòria de traducció"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
-msgstr "Feu doble clic en una paraula per a inserir-la a la traducció"
+msgstr "Feu doble clic damunt d'una paraula per a inserir-la a la traducció"
 
 #: src/tm/tmview.cpp:331
 #, kde-format
@@ -4613,8 +4613,8 @@ msgstr ""
 "<p align=\"justify\">Per a facilitar la traducció de KDE, Lokalize pot "
 "capturar text des de les aplicacions de la interfície d'usuari i buscar els "
 "fitxers de traducció que continguen el text.</p>\n"
-"<p align=\"justify\">Quan es marca, la captura s'iniciarà en fer clic damunt "
-"d'un element no editable de la IGU (giny). Després d'açò canvieu a la "
+"<p align=\"justify\">Quan es marca, la captura s'iniciarà quan es clique "
+"damunt d'un element no editable de la IGU (giny). Després d'açò canvieu a la "
 "finestra de Lokalize i trieu una entrada amb este text. Fins i tot donat el "
 "cas que diversos fitxers continguen la mateixa cadena, es triarà la correcta "
 "en la majoria dels casos.</p>\n"
@@ -4626,7 +4626,7 @@ msgstr ""
 #: src/tools/widgettextcaptureconfig.ui:42
 #, kde-format
 msgid "Middle Mouse Button Click Reaction"
-msgstr "Reacció fent clic amb el botó central del ratolí"
+msgstr "Reacció quan es clique amb el botó central del ratolí"
 
 #. i18n: ectx: property (text), widget (QRadioButton, none)
 #: src/tools/widgettextcaptureconfig.ui:48
