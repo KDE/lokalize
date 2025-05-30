@@ -3,30 +3,31 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Sveinn í Felli <sveinki@nett.is>, 2011, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# SPDX-FileCopyrightText: 2025 Gummi <gudmundure@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-21 00:45+0000\n"
-"PO-Revision-Date: 2024-01-24 23:39+0000\n"
-"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic\n"
+"PO-Revision-Date: 2025-05-28 16:37+0000\n"
+"Last-Translator: Gummi <gudmundure@gmail.com>\n"
+"Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Sveinn í Felli"
+msgstr "Sveinn í Felli, Guðmundur Erlingsson"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sv1@fellsnet.is"
+msgstr "sv1@fellsnet.is, gudmundure@gmail.com"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -35,23 +36,21 @@ msgid "Alternate Translations"
 msgstr "Aukaþýðingar"
 
 #: src/alttransview.cpp:163
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Mappa fyrir aukaþýðingar:"
+msgstr "Úr möppu fyrir aukaþýðingar"
 
 #: src/alttransview.cpp:186
 #, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "Samanburður við fyrra samhengi:"
 
 #: src/alttransview.cpp:201
 #, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "Samanburður fyrir fyrri upprunatexta:"
 
 #: src/alttransview.cpp:259
 #, kde-format
@@ -64,27 +63,25 @@ msgid ""
 "\n"
 "Do you want to show the view with the data?"
 msgstr ""
-"Það eru nýtileg gögn í sýninni Aukaþýðingar.\n"
+"Það eru gagnlegar upplýsingar í glugganum Aukaþýðingar.\n"
 "\n"
-"Fyrir Gettext PO-skrár birtir hún mismun á fyrirliggjandi frumtexta og "
-"frumtextanum sem samsvarar loðnu þýðingunni sem msgmerge-skipunin fann þegar "
-"PO-skrá er uppfærð miðað við POT-sniðmát.\n"
+"Fyrir Gettext PO-skrár birtir hún mismuninn á milli núverandi frumtexta og "
+"frumtextans sem samsvarar loðnu þýðingunni sem msgmerge-skipunin fann þegar "
+"PO-skráin var uppfærð út frá POT-sniðmáti.\n"
 "\n"
-"Viltu birta sýnina með þessum gögnum?"
+"Viltu birta gluggann með þessum upplýsingum?"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Aukaþýðingar eru í boði"
+msgstr "Aukaþýðingar í boði"
 
 #: src/alttransview.cpp:265
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr "Birta gagnasýn"
+msgstr "Birta gagnaglugga"
 
 #: src/alttransview.cpp:284
 #, kde-format
@@ -106,6 +103,14 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
+"Stundum hefur frumtextinn breyst og þýðingin orðin úrelt og er annað hvort "
+"merkt sem að hún þarfnist yfirferðar (þ.e. ekki lengur samþykkt) eða (aðeins "
+"ef um XLIFF-skrá er að ræða) hún er færð í hlutann fyrir aukaþýðingar sem "
+"fylgir einingunni. Þetta yfirlit sýnir muninn á milli núverandi "
+"frumtextastrengs og fyrri frumtextastrengs, þannig að þú eigir auðvelt með "
+"að sjá hvaða breytingar þarf að gera á fyrirliggjandi þýðingu til að hún "
+"endurspegli frumtextann. Slepptu þýðingaskrá í þetta yfirlit til að nota það "
+"sem uppsprettu fyrir frekari aukaþýðingar."
 
 #: src/alttransview.cpp:323
 #, kde-format
@@ -127,7 +132,7 @@ msgstr "já"
 #, kde-format
 msgctxt "@title:column"
 msgid "Source"
-msgstr "Uppruni"
+msgstr "Frummál"
 
 #: src/binunitsview.cpp:131
 #, kde-format
@@ -151,13 +156,13 @@ msgstr "Tvíundareiningar"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set the file"
-msgstr "Veldu skrána"
+msgstr "Velja skrána"
 
 #: src/binunitsview.cpp:179
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"
-msgstr "Nota upprunaskrá"
+msgstr "Nota frummálsskrá"
 
 #: src/catalog/catalog.cpp:43
 #, kde-format
@@ -243,7 +248,7 @@ msgstr "Útskrifað"
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
-msgstr "Upphaf merkjapars"
+msgstr "Byrjun merkjapars"
 
 #: src/catalog/catalogstring.cpp:58
 #, kde-format
@@ -267,43 +272,43 @@ msgstr "Einangrað merki"
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
-msgstr "Merking"
+msgstr "Merki"
 
 #: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
-msgstr "Almennt frátökutákn hóps"
+msgstr "Almennt staðgengilstákn fyrir hóp"
 
 #: src/catalog/catalogstring.cpp:64
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
-msgstr "Undir-flæði"
+msgstr "Undirflæði"
 
 #: src/catalog/catalogstring.cpp:66
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
-msgstr "Almennt frátökutákn"
+msgstr "Almennt staðgengilstákn"
 
 #: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
-msgstr "Upphaf frátökutáknapars"
+msgstr "Upphaf staðgengilstáknapars"
 
 #: src/catalog/catalogstring.cpp:68
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
-msgstr "Endir frátökutáknapars"
+msgstr "Endir staðgengilstáknapars"
 
 #: src/catalog/catalogstring.cpp:112
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
-msgstr "stytting"
+msgstr "skammstöfun"
 
 #: src/catalog/catalogstring.cpp:113
 #, kde-format
@@ -312,6 +317,8 @@ msgid ""
 "abbreviated form: a term resulting from the omission of any part of the full "
 "term while designating the same concept"
 msgstr ""
+"stytt mynd: orðmynd sem verður til þegar einhverjum hluta orðs í heild sinni "
+"er sleppt og ber sömu merkingu."
 
 #: src/catalog/catalogstring.cpp:115
 #, kde-format
@@ -320,6 +327,8 @@ msgid ""
 "abbreviation: an abbreviated form of a simple term resulting from the "
 "omission of some of its letters (e.g. 'adj.' for 'adjective')"
 msgstr ""
+"skammstöfun: stytt mynd af stakri orðmynd sem verður til þegar sumum stöfum "
+"er sleppt (t.d. 'lo.' fyrir 'lýsingarorð')"
 
 #: src/catalog/catalogstring.cpp:117
 #, kde-format
@@ -329,6 +338,9 @@ msgid ""
 "of a multiword term strung together into a sequence pronounced only "
 "syllabically (e.g. 'radar' for 'radio detecting and ranging')"
 msgstr ""
+"upphafsstafanafn: stytt mynd hugtaks þar sem upphafsstafir eða -atkvæði orða "
+"sem mynda hugtak er raðað saman og látnir mynda orð (t.d. 'radar' fyrir "
+"'radio detecting and ranging')"
 
 #: src/catalog/catalogstring.cpp:119
 #, kde-format
@@ -336,7 +348,7 @@ msgctxt "XLIFF mark type"
 msgid ""
 "appellation: a proper-name term, such as the name of an agency or other "
 "proper entity"
-msgstr ""
+msgstr "sérheiti: orð sem er heiti á stofnun eða annarri formlegri einingu "
 
 #: src/catalog/catalogstring.cpp:121
 #, kde-format
@@ -347,6 +359,9 @@ msgid ""
 "series of utterances, even though they do not necessarily have to maintain "
 "immediate proximity to one another"
 msgstr ""
+"orðastæða: endurtekið orðasamband þar sem einingar orðastæðunnar verða að "
+"birtast í sömu setningu eða setningarunu, en þurfa þó ekki endilega að "
+"standa næst hver annarri"
 
 #: src/catalog/catalogstring.cpp:123
 #, kde-format
@@ -355,6 +370,8 @@ msgid ""
 "common name: a synonym for an international scientific term that is used in "
 "general discourse in a given language"
 msgstr ""
+"almennt heiti: samheiti við alþjóðlegt fræðiheiti sem er notað í almennu "
+"máli í tilteknu tungumáli"
 
 #: src/catalog/catalogstring.cpp:124
 #, kde-format
@@ -370,6 +387,9 @@ msgid ""
 "that two mathematical expressions are, for instance, equal as identified by "
 "the equal sign (=), or assigned to one another by a similar sign"
 msgstr ""
+"jafna: stæða sem er notuð til að tjá hugtak sem byggir á staðhæfingu um að "
+"tvær stærðfræðilegar stæður séu jafnar (svo dæmi sé tekið) og táknað er með "
+"jafnaðarmerkinu (=), eða tengsl þeirra sýnd með öðru áþekku tákni"
 
 #: src/catalog/catalogstring.cpp:128
 #, kde-format
@@ -378,6 +398,8 @@ msgid ""
 "expanded form: The complete representation of a term for which there is an "
 "abbreviated form"
 msgstr ""
+"heildarmynd: orðmynd hugtaks í heild sinni þegar til er stytt mynd af "
+"orðmyndinni"
 
 #: src/catalog/catalogstring.cpp:129
 #, kde-format
@@ -386,6 +408,8 @@ msgid ""
 "formula: figures, symbols or the like used to express a concept briefly, "
 "such as a mathematical or chemical formula"
 msgstr ""
+"formúla: myndir, tákn eða álíka sem notuð eru til að tjá hugtak, svo sem "
+"stærðfræði- eða efnafræðiformúla"
 
 #: src/catalog/catalogstring.cpp:130
 #, kde-format
@@ -394,6 +418,8 @@ msgid ""
 "head term: the concept designation that has been chosen to head a "
 "terminological record"
 msgstr ""
+"aðalorð: orðmynd hugtaks sem hefur verið valin sem aðalfletta í "
+"orðasafnsfærslu"
 
 #: src/catalog/catalogstring.cpp:132
 #, kde-format
@@ -404,6 +430,10 @@ msgid ""
 "up a compound term when these letters are pronounced individually (e.g. "
 "'BSE' for 'bovine spongiform encephalopathy')"
 msgstr ""
+"hástafaheiti: stytt mynd hugtaks sem samanstendur af sumum af upphafsstöfum "
+"orðanna sem mynda fjölorðahugtak eða einingar hugtaksins sem mynda samsett "
+"orð þegar þessir stafir eru bornir fram sér (t.d. 'BSÍ' fyrir 'Bifreiðastöð "
+"Íslands')"
 
 #: src/catalog/catalogstring.cpp:136
 #, kde-format
@@ -412,6 +442,8 @@ msgid ""
 "international scientific term: a term that is part of an international "
 "scientific nomenclature as adopted by an appropriate scientific body"
 msgstr ""
+"alþjóðlegt fræðiheiti: orðmynd sem er notuð sem alþjóðlegtfræðiheiti í "
+"vísindum sem viðeigandi vísindastofnun hefur tekið upp."
 
 #: src/catalog/catalogstring.cpp:137
 #, kde-format
@@ -420,6 +452,8 @@ msgid ""
 "internationalism: a term that has the same or nearly identical orthographic "
 "or phonemic form in many languages"
 msgstr ""
+"alþjóðlegt heiti: orðmynd sem er skrifað eða borið fram eins eða nánast "
+"alveg eins í mörgum tungumálum"
 
 #: src/catalog/catalogstring.cpp:139
 #, kde-format
@@ -429,12 +463,15 @@ msgid ""
 "mathematical or logical relations, such as statements of inequality, set "
 "relationships, Boolean operations, and the like"
 msgstr ""
+"rökleg segð: segð sem er notuð til að tjá hugtak sem byggt er á "
+"stærðfræðilegum eða röklegum venslum, svo sem staðhæfingum um ójöfnuð, vensl "
+"staka í mengi, Boole-aðgerðir og þess háttar"
 
 #: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
-msgstr ""
+msgstr "efnastjórnunareining: eining til að rekja hlut"
 
 #: src/catalog/catalogstring.cpp:142
 #, kde-format
@@ -450,6 +487,9 @@ msgid ""
 "another term in the same language, but for which interchangeability is "
 "limited to some contexts and inapplicable in others"
 msgstr ""
+"næstum samheiti: orðmynd sem stendur fyrir sama eða nánast sama hugtak og "
+"annað orð í sama tungumáli, en sem ekki er hægt að nota jöfnum höndum eða "
+"notkun þess er bundin við ákveðið samhengi"
 
 #: src/catalog/catalogstring.cpp:146
 #, kde-format
@@ -458,6 +498,8 @@ msgid ""
 "part number: a unique alphanumeric designation assigned to an object in a "
 "manufacturing system"
 msgstr ""
+"hlutarnúmer: einkvæmt auðkennisnúmer sem úthlutað er til hlutar í "
+"framleiðslukerfi"
 
 #: src/catalog/catalogstring.cpp:147
 #, kde-format
@@ -473,6 +515,9 @@ msgid ""
 "of which frequently cannot be deduced based on the combined sense of the "
 "words making up the phrase"
 msgstr ""
+"orðasamband: hópur tveggja eða fleiri orða sem mynda merkingarlega einingu "
+"þar sem oft er ekki hægt að greina merkinguna einungis með túlkun orðanna "
+"sem mynda setningarliðinn"
 
 #: src/catalog/catalogstring.cpp:151
 #, kde-format
@@ -487,18 +532,20 @@ msgid ""
 "romanized form: a form of a term resulting from an operation whereby non-"
 "Latin writing systems are converted to the Latin alphabet"
 msgstr ""
+"latnesk umritun: mynd hugtaks sem verður til þegar orð úr tungumáli sem "
+"notar ekki latneskt stafróf er umritað í latneskt stafróf"
 
 #: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
-msgstr "bútur (segment): merkti textinn stendur fyrir bút"
+msgstr "bútur: merkti textinn stendur fyrir bút"
 
 #: src/catalog/catalogstring.cpp:155
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
-msgstr ""
+msgstr "fast orðasamband: fastur setningarliður"
 
 #: src/catalog/catalogstring.cpp:157
 #, kde-format
@@ -508,6 +555,9 @@ msgid ""
 "full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
+"stutt mynd: afbrigði af fjölorða hugtaki sem notar færri orð en notað er í "
+"hugtakinu í heild sinni (t.d. 'Group of Twenty-four' í stað "
+"'Intergovernmental Group of Twenty-four on International Monetary Affairs')"
 
 #: src/catalog/catalogstring.cpp:160
 #, kde-format
@@ -516,6 +566,8 @@ msgid ""
 "stock keeping unit: an inventory item identified by a unique alphanumeric "
 "designation assigned to an object in an inventory control system"
 msgstr ""
+"birgðahaldseining: birgðarhluti auðkenndur með einkvæmu auðkennisnúmeri sem "
+"úthlutað er til hlutar í birgðastjórnunarkerfi"
 
 #: src/catalog/catalogstring.cpp:161
 #, kde-format
@@ -530,6 +582,8 @@ msgid ""
 "symbol: a designation of a concept by letters, numerals, pictograms or any "
 "combination thereof"
 msgstr ""
+"tákn: tjáning hugtaks með stöfum, tölum, myndletri eða einhverri samsetningu "
+"þeirra"
 
 #: src/catalog/catalogstring.cpp:163
 #, kde-format
@@ -548,6 +602,8 @@ msgid ""
 "synonymous phrase: phraseological unit in a language that expresses the same "
 "semantic content as another phrase in that same language"
 msgstr ""
+"orðasamband sömu merkingar: orðasamband í tungumáli sem ber sömu merkingu og "
+"annað orðasamband í sama tungumáli "
 
 #: src/catalog/catalogstring.cpp:166
 #, kde-format
@@ -564,6 +620,9 @@ msgid ""
 "writing system, taking into account the pronunciation of the characters "
 "converted"
 msgstr ""
+"umskrifuð mynd: orðmynd sem verður til þegar stafir úr einu stafrófi eru "
+"látnir standa fyrir stafi úr öðru stafrófi og tekið er tillit til framburðar "
+"á stöfunum sem eru umskrifaðir"
 
 #: src/catalog/catalogstring.cpp:171
 #, kde-format
@@ -573,6 +632,8 @@ msgid ""
 "the characters of an alphabetic writing system are represented by characters "
 "from another alphabetic writing system"
 msgstr ""
+"umrituð mynd: orðmynd sem verður til þegar stafir úr einu stafrófi eru "
+"umritaðir með stöfum úr öðru stafrófi"
 
 #: src/catalog/catalogstring.cpp:174
 #, kde-format
@@ -581,6 +642,8 @@ msgid ""
 "truncated term: an abbreviated form of a term resulting from the omission of "
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
+"stýfð orðmynd: stytt útgáfa orðs sem verður til þegar einingu eða atkvæði er "
+"sleppt úr orðinu (t.d. 'flu' fyrir 'influenza')"
 
 #: src/catalog/catalogstring.cpp:176
 #, kde-format
@@ -604,19 +667,19 @@ msgstr "Eyðing"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
-msgstr "Víxlun samþykktar af/á"
+msgstr "Víxla samþykkt af/á"
 
 #: src/catalog/cmd.cpp:184
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
-msgstr "Innsetning merkinga"
+msgstr "Innsetning merkja"
 
 #: src/catalog/cmd.cpp:207
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
-msgstr "Eyðing merkinga"
+msgstr "Eyðing merkja"
 
 #: src/catalog/cmd.cpp:229
 #, kde-format
@@ -628,7 +691,7 @@ msgstr "Stillingar athugasemdar"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
-msgstr "Uppfæra/Bæta við vinnuferli"
+msgstr "Uppfæra/bæta við vinnuferli"
 
 #: src/catalog/cmd.cpp:283
 #, kde-format
@@ -640,18 +703,18 @@ msgstr "Stillingar á samsvörun þýðinga"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
-msgstr "Fjarlægja texta innan merkinga"
+msgstr "Fjarlægja texta með merkjum"
 
 #: src/catalog/cmd.cpp:388 src/xlifftextedit.cpp:576
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
-msgstr "Setja inn texta innan merkinga"
+msgstr "Setja inn texta með merkjum"
 
 #: src/catalog/gettext/gettextstorage.cpp:101
 #, kde-format
 msgid "separator for different-length string alternatives"
-msgstr ""
+msgstr "aðgreinir fyrir valstrengi af mismunandi lengd"
 
 #: src/catalog/gettext/gettextstorage.cpp:287
 #, kde-format
@@ -659,7 +722,7 @@ msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
 msgstr ""
-"Fyrra upprunagildi, vistað af Gettext við yfirfærslu í nýrra POT-sniðmát"
+"Fyrra frumtextagildi, vistað af Gettext við yfirfærslu í nýrra POT-sniðmát"
 
 #: src/catalog/gettextheader.cpp:459
 #, kde-format
@@ -676,17 +739,17 @@ msgstr "Nafnið þitt:"
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
-msgstr "Tölvupóstfang höfundar vantar"
+msgstr "Netfang höfundar vantar"
 
 #: src/catalog/gettextheader.cpp:472
 #, kde-format
 msgid "Your email:"
-msgstr "Tölvupóstfangið þitt:"
+msgstr "Netfangið þitt:"
 
 #: src/catalog/ts/tsstorage.cpp:439
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
-msgstr "Fyrra upprunagildi, vistað af lupdate-verkfærinu"
+msgstr "Fyrra frumtextagildi, vistað af lupdate-verkfærinu"
 
 #: src/cataloglistview/cataloglistview.cpp:58
 #, kde-format
@@ -708,15 +771,14 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Virkjað með Ctrl+L. Tekur við reglulegum segðum"
 
 #: src/cataloglistview/cataloglistview.cpp:91
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
-msgstr "valkostir"
+msgstr "Valkostir"
 
 #: src/cataloglistview/cataloglistview.cpp:193
 #, kde-format
 msgid "Reset individual filter"
-msgstr "Núllstilla staka síu"
+msgstr "Endurstilla staka síu"
 
 #: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:363
 #, kde-format
@@ -762,12 +824,12 @@ msgstr "Óbreytt síðan skrá var opnuð"
 #: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Same in sync file"
-msgstr "Sama í samstillingarskrá"
+msgstr "Eins í samstillingarskrá"
 
 #: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Different in sync file"
-msgstr "Mismunandi í samstillingarskrá"
+msgstr "Ólíkt í samstillingarskrá"
 
 #: src/cataloglistview/cataloglistview.cpp:208
 #, kde-format
@@ -800,13 +862,13 @@ msgstr "Stöður"
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
-msgstr "Leitardálkar"
+msgstr "Leitardálkur"
 
 #: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
-msgstr "Endurraða og endursía við breytingu á efni"
+msgstr "Raða og sía upp á nýtt þegar efni breytist"
 
 #: src/cataloglistview/cataloglistview.cpp:242
 #, kde-format
@@ -869,7 +931,7 @@ msgstr "Lengd frumtexta"
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
-msgstr "Lengd markmáls"
+msgstr "Lengd marktexta"
 
 #: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:991
 #: src/editortab.cpp:1185 src/tm/tmtab.cpp:234
@@ -902,7 +964,7 @@ msgstr "%1 (%2)"
 #: src/common/languagelistmodel.cpp:114 src/tm/dbparams.ui:146
 #, kde-format
 msgid "Target language:"
-msgstr "Marktungumál:"
+msgstr "Markmál:"
 
 #: src/common/termlabel.cpp:58
 #, kde-format
@@ -920,7 +982,7 @@ msgstr "Skrá"
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
-msgstr "Rötun"
+msgstr "Skoðun"
 
 #: src/editortab.cpp:151
 #, kde-format
@@ -947,7 +1009,7 @@ msgstr "Þýðingaminni"
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
-msgstr "Atriðisorðaskrá"
+msgstr "Orðasafn"
 
 #: src/editortab.cpp:168
 #, kde-format
@@ -1013,7 +1075,7 @@ msgstr "Keyra Pology-skipunina á þessa skrá"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
-msgstr "Sameina þýðingu inn í OpenDocument"
+msgstr "Sameina þýðingu í OpenDocument"
 
 #: src/editortab.cpp:381
 #, kde-format
@@ -1075,19 +1137,19 @@ msgstr "Yfirfara þennan þýðingastreng með LanguageTool"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
-msgstr "Skjóta inn næsta merki"
+msgstr "Setja inn næsta merki"
 
 #: src/editortab.cpp:453
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Sleppa að næsta texta sem ekki er merki"
 
 #: src/editortab.cpp:457
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
-msgstr "Orðaklárun"
+msgstr "Textaútfylling"
 
 #: src/editortab.cpp:461
 #, kde-format
@@ -1111,13 +1173,13 @@ msgstr "&Fyrra"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
-msgstr "F&yrsti reitur"
+msgstr "F&yrsta færsla"
 
 #: src/editortab.cpp:483
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
-msgstr "&Síðasti reitur"
+msgstr "&Síðasta færsla"
 
 #: src/editortab.cpp:489
 #, kde-format
@@ -1539,6 +1601,10 @@ msgid ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 msgstr ""
+"Get ekki opnað grunnkóðaskrána: Grunnkóðaskráin tengist ekki núverandi "
+"þýðingaskrá og ekki er búið að hlaða inn neinum skriftum til að sjá um að "
+"opna grunnkóðaskrár á sérsniðnum slóðum. Skoðaðu handbók Lokalize til að sjá "
+"dæmi um skriftur og hvernig hægt er að tengja þær við verkefnið þitt."
 
 #: src/editortab.cpp:1519 src/project/project.cpp:413
 #: src/project/project.cpp:418
@@ -1554,23 +1620,24 @@ msgstr "Settu upp translate-toolkit pakka og reyndu svo aftur"
 #: src/editortab.cpp:1532
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
-msgstr "Veldu upprunalegt OpenDocument sem núverandi XLIFF-skrá byggist á"
+msgstr ""
+"Veldu upprunalegt OpenDocument-skjal sem núverandi XLIFF-skrá byggist á"
 
 #: src/editortab.cpp:1534 src/project/project.cpp:423
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
-msgstr "OpenDocument skrár (*.odt *.ods)"
+msgstr "OpenDocument-skrár (*.odt *.ods)"
 
 #: src/editortab.cpp:1578
 #, kde-format
 msgid "Install python-uno package for additional functionality."
-msgstr "Settu upp python-uno pakka til að fá fleiri eiginleika"
+msgstr "Settu upp python-uno pakka til að fá fleiri eiginleika."
 
 #: src/editortab.cpp:1701
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
-msgstr "Setja texta einingar"
+msgstr "Velja texta einingar"
 
 #: src/editortab_findreplace.cpp:435
 #, kde-format
@@ -1582,18 +1649,18 @@ msgstr "Skipta út"
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
-msgstr "Lokalize fór að enda skjalsins. Viltu halda áfram frá byrjun?"
+msgstr "Lokalize er komið á enda skjalsins. Viltu halda áfram frá byrjun?"
 
 #: src/editortab_findreplace.cpp:499 src/editortab_findreplace.cpp:507
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
-msgstr "Yfirfara stafsetningu"
+msgstr "Kanna stafsetningu"
 
 #: src/editortab_findreplace.cpp:507
 #, kde-format
 msgid "Lokalize has finished spellchecking"
-msgstr "Lokalize hefur lokið stafsetningaryfirferð"
+msgstr "Lokalize hefur lokið stafsetningarkönnun"
 
 #. i18n: ectx: Menu (file)
 #: src/editorui.rc:5 src/lokalizemainwindowui.rc:5
@@ -1611,7 +1678,7 @@ msgstr "Br&eyta"
 #: src/editorui.rc:71
 #, kde-format
 msgid "&Glossary"
-msgstr "&Atriðisorðaskrá"
+msgstr "&Orðasafn"
 
 #. i18n: ectx: Menu (tmquery)
 #: src/editorui.rc:97
@@ -1621,9 +1688,7 @@ msgstr "Þýðinga&minni"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Aukaþýðingar"
 
@@ -1655,14 +1720,14 @@ msgstr "Annar &uppruni samstillinga"
 #: src/editorui.rc:213 src/lokalizemainwindowui.rc:51
 #, kde-format
 msgid "Tool&views"
-msgstr "&Verkfærasýnir"
+msgstr "&Verkfærayfirlit"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:235 src/filesearch/filesearchtabui.rc:11
 #: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Aðaltækjaslá"
+msgstr "Aðaltækjastika"
 
 #: src/editorview.cpp:47
 #, kde-format
@@ -1795,9 +1860,7 @@ msgid "File"
 msgstr "Skrá"
 
 #: src/filesearch/filesearchtab.cpp:448
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Leita og skipta út í skrám"
@@ -1980,7 +2043,7 @@ msgstr "Sleppa merkjum"
 #, kde-format
 msgctxt "@option:check"
 msgid "Skip markup"
-msgstr "Sleppa merkingum"
+msgstr "Sleppa merkjum"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
 #: src/kaider_findextension.ui:43
@@ -2093,7 +2156,7 @@ msgstr "Fyrri virki flipi"
 #: src/lokalizemainwindow.cpp:613
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "Loka núverandi flipa"
 
 #: src/lokalizemainwindow.cpp:618
 #, kde-format
@@ -2176,7 +2239,7 @@ msgstr "Ná í texta úr viðmótshluta"
 #: src/lokalizemainwindow.cpp:680
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "&Litastef glugga"
 
 #: src/lokalizemainwindow.cpp:845
 #, kde-format
@@ -2345,12 +2408,12 @@ msgstr "villuleiðréttingar og endurbætur"
 #: src/main.cpp:98
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #: src/main.cpp:99
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:103
 #, kde-format
@@ -2426,9 +2489,7 @@ msgstr ""
 "Ósamsvarandi færslur: %2"
 
 #: src/msgctxtview.cpp:37
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Lýsigögn einingar"
@@ -2444,13 +2505,13 @@ msgstr "<b>Bráðabirgða athugasemdir:</b>"
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
-msgstr "<b>Pology athugasemdir:</b>"
+msgstr "<b>Pology-athugasemdir:</b>"
 
 #: src/msgctxtview.cpp:111
 #, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
-msgstr "<b>LanguageTool athugasemdir:</b>"
+msgstr "<b>LanguageTool-athugasemdir:</b>"
 
 #: src/msgctxtview.cpp:123
 #, kde-format
@@ -2550,7 +2611,7 @@ msgstr "Fyrirtæki"
 #, kde-format
 msgctxt "@title:column"
 msgid "Person"
-msgstr "Persóna"
+msgstr "Einstaklingur"
 
 #: src/phaseswindow.cpp:152
 #, kde-format
@@ -2566,7 +2627,7 @@ msgstr "Þýðing"
 #: src/phaseswindow.cpp:177
 #, kde-format
 msgid "Review"
-msgstr "Prófarkalestur"
+msgstr "Yfirlestur"
 
 #: src/phaseswindow.cpp:177
 #, kde-format
@@ -2577,7 +2638,7 @@ msgstr "Samþykki"
 #, kde-format
 msgctxt "noun"
 msgid "Process (this will also change your role):"
-msgstr "Vinnsla (þetta mun einnig breyta hlutverki þínu):"
+msgstr "Vinnsla (þetta breytir einnig hlutverki þínu):"
 
 #: src/phaseswindow.cpp:255
 #, kde-format
@@ -2639,7 +2700,7 @@ msgstr "Nafn á þýðingateymi þýðandans"
 #: src/prefs/lokalize.kcfg:41
 #, kde-format
 msgid "Translator's email"
-msgstr "Tölvupóstfang þýðanda"
+msgstr "Netfang þýðanda"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
@@ -2660,16 +2721,13 @@ msgstr "Sjálfgefinn póstlisti fyrir ný verkefni"
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
 #: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
 #: src/prefs/lokalize.kcfg:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "\n"
-#| "        "
+#, kde-format
 msgid ""
 "\n"
 "            "
 msgstr ""
 "\n"
-"        "
+"            "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73
@@ -2736,14 +2794,14 @@ msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
 "want to create a new project or open an existing project?"
 msgstr ""
-"Þú hefur beðið um eiginleika sem krefst þess að verkefni sé hlaðið inn. "
+"Þú hefur beðið um eiginleika sem krefjast þess að verkefni sé hlaðið inn. "
 "Viltu búa til nýtt verkefni eða opna verkefni sem þegar er til?"
 
 #: src/prefs/prefs.cpp:152
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Verkefni er nauðsynlegt"
+msgstr "Verkefnis krafist"
 
 #: src/prefs/prefs.cpp:153
 #, kde-format
@@ -2766,12 +2824,12 @@ msgstr "Lokalize þýðingaverkefni (*.lokalize)"
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
-msgstr "Veldu möppu með Gettext .po skrám til að þýða"
+msgstr "Veldu möppu með Gettext .po-skrám til að þýða"
 
 #: src/prefs/prefs.cpp:202
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
-msgstr "Búðu fyrst til hugbúnaðar- eða OpenDocument- þýðingaverkefni"
+msgstr "Búðu fyrst til hugbúnaðar- eða OpenDocument-þýðingaverkefni"
 
 #: src/prefs/prefs.cpp:258
 #, kde-format
@@ -2802,13 +2860,13 @@ msgstr "Veldu leturgerð fyrir þýðingaritilinn"
 #, kde-format
 msgid "Choose a new font for the area where you write the translated message."
 msgstr ""
-"Veldu nýja leturgerð fyrir reitinn þar sem þú skrifar þýðingastrengina."
+"Veldu nýja leturgerð fyrir gluggann þar sem þú skrifar þýddu strengina."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:54
 #, kde-format
 msgid "Display LEDS for message status"
-msgstr "Birta merki fyrir stöðu þýðingastrengs"
+msgstr "Sýna merki um stöðu þýðingastrengs"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:57
@@ -2817,9 +2875,8 @@ msgid ""
 "If checked, LEDS will be shown to display the message status: Fuzzy, "
 "Untranslated or Error. If unchecked, no LEDs will be displayed."
 msgstr ""
-"Ef þetta er virkt, birtast LED-gaumljós sem gefa til kynna stöðu "
-"þýðingarfærslunnar: Loðið, Óþýtt eða Villa. Ef þetta er ekki virkt, birtast "
-"ekki þessi LED-gaumljós."
+"Ef þetta er valið eru ljósmerki notuð til að sýna stöðu þýðingarinnar: "
+"Loðið, Óþýtt eða Villa. Ef þetta er ekki valið sjást þessi ljósmerki ekki."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:60
@@ -2827,9 +2884,7 @@ msgstr ""
 msgid ""
 "LEDs to indicate Fuzzy and Untranslated status as well as cursor column "
 "number"
-msgstr ""
-"LED-gaumljós sem gefa til kynna loðna og óþýdda stöðu auk dálknúmers fyrir "
-"bendil"
+msgstr "Ljósmerki sem sýna loðna og óþýdda stöðu auk dálknúmers bendilsins"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:82
@@ -2839,12 +2894,14 @@ msgid ""
 "displaying it in the user interface, or when it gets concatenated with "
 "others)."
 msgstr ""
+"Athuga hvort strengur endar á bili (sem oft er mikilvægt þegar hann birtist "
+"í notendaumhverfi eða þegar honum er hnýtt við aðra strengi)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:85
 #, kde-format
 msgid "Highlight spaces at the end"
-msgstr "Áherslulita bil aftan við línu"
+msgstr "Áherslulita bil aftast í línu"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:32
@@ -2852,8 +2909,8 @@ msgstr "Áherslulita bil aftan við línu"
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
-"Ef þetta er sett, skrunar músarhjól á fyrri eða næstu þýðingu, annars "
-"skrunar það í texta"
+"Ef þetta er valið skrunar músarhjól á fyrri eða næstu þýðingu, annars "
+"skrunar það í textanum"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
@@ -2868,12 +2925,21 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
+"<html>Þegar þessi valkostur er valinn er músarhjólið notað til að fara á "
+"fyrri eða næstu þýðingarfærslu (án þess að nota breytilykla). Hægt er að "
+"nota breytilykla til að breyta þessari hegðun. Notkun:<ul><li><b>Shift</b> "
+"til að skruna í textanum í núverandi færslu,</li><li><b>Ctrl+Shift</b> til "
+"að fara á fyrr eða næstu færslu sem ekki er tilbúin,</li><li><b>Ctrl</b> til "
+"að fara á fyrri eða næstu færslu sem ekki er tilbúin eða tóm,</"
+"li><li><b>Alt</b> til að fara á fyrri eða næstu óþýddu færslu.</li></"
+"ul>Þegar þessi valkostur er óvirkur skrunar músarhjólið í textanum í "
+"núverandi þýðingarfærslu.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
 #, kde-format
 msgid "Mouse wheel goes to previous or next translation unit"
-msgstr "Músarhjól skrunar á fyrri eða næstu þýðingu"
+msgstr "Músarhjól fer á fyrri eða næstu þýðingarfærslu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
 #: src/prefs/prefs_editor.ui:45
@@ -3090,7 +3156,7 @@ msgstr "Slóðin á sérsniðna LanguageTool þjóninn þinn"
 #: src/prefs/prefs_languagetool.ui:47
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
-msgstr "Settu inn slóðina á sérsniðna LanguageTool þjóninn þinn, ef einhver er"
+msgstr "Færðu inn slóðina á sérsniðna LanguageTool-þjóninn þinn, ef til staðar"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_languagetool.ui:58
@@ -3099,13 +3165,15 @@ msgid ""
 "Delay before automatic checking after you stop typing (in seconds, 0 to "
 "disable)"
 msgstr ""
+"Töf þar til kannað er sjálfvirkt þegar þú hættir að slá inn (í sekúndum, 0 "
+"til að gera óvirkt)"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
 #: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
 #, kde-format
 msgid "Set to 0 to disable auto checking"
-msgstr "Settu á 0 til að gera sjáfvirka yfirferð óvirka"
+msgstr "Stilltu á 0 til að gera sjálfvirka yfirferð óvirka"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
 #: src/prefs/prefs_pology.ui:21
@@ -3122,12 +3190,15 @@ msgid ""
 "following placeholders in order to set-up the commands: %u is the entry "
 "number, %f is the file name. For instance: posieve -u %u check-rules %f"
 msgstr ""
+"Pology-skipunin sem á að keyra til að athuga staka færslu. Notaðu "
+"eftirfarandi staðgengilstákn til að setja upp skipunina: %u er númer "
+"færslunnar, %f er skrárheiti. Til dæmis: posieve -u %u check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:44
 #, kde-format
 msgid "The Pology command to run in order to check a single entry."
-msgstr ""
+msgstr "Pology-skipunin sem á að keyra til að kanna staka færslu."
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:47
@@ -3136,6 +3207,7 @@ msgid ""
 "Please enter here the Pology command to be run in order to check a single "
 "entry"
 msgstr ""
+"Færðu hér inn Pology-skipunina sem á að keyra til að kanna staka færslu"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_0)
 #: src/prefs/prefs_pology.ui:54
@@ -3146,25 +3218,28 @@ msgid ""
 "should include \"-s lokalize\", placeholder %f is the file name. For "
 "instance: posieve -s lokalize check-rules %f"
 msgstr ""
+"Pology-skipunin sem á að keyra til að kanna staka færslu. Þessi skipun ætti "
+"að innifela \"-s lokalize\",  staðgengillinn %f er skrárheitið. Sem dæmi: "
+"posieve -s lokalize check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:70
 #, kde-format
 msgid "The Pology command to run in order to check a whole file."
-msgstr ""
+msgstr "Pology-skipunin sem á að keyra til að kanna heila skrá."
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:73
 #, kde-format
 msgid ""
 "Please enter here the Pology command to be run in order to check a whole file"
-msgstr ""
+msgstr "Færðu hér inn Pology-skipunina sem á að keyra til að kanna heila skrá"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:45
 #, kde-format
 msgid "If checked, get translation memory suggestions "
-msgstr "Ef hakað er við þetta, ná í tillögur úr þýðingaminni"
+msgstr "Ef hakað er hér eru tillögur sóttar úr þýðingaminni "
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:48
@@ -3173,14 +3248,14 @@ msgid ""
 "If this is checked, the program will fetch translation memories as soon as "
 "you open a file."
 msgstr ""
-"Ef hakað er við þetta, nær forritið í tillögur úr þýðingaminni um leið og "
-"skrár eru opnaðar."
+"Ef hakað er hér nær forritið í tillögur úr þýðingaminni um leið og þú opnar "
+"skrá."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:51
 #, kde-format
 msgid "Prefetch translation memory suggestions on file open"
-msgstr "Ná í allar tillögur úr þýðingaminni um leið og skrá er opnuð"
+msgstr "Sækja fyrirfram tillögur úr þýðingaminni þegar skrá er opnuð"
 
 #. i18n: ectx: property (text), widget (QLabel, label1)
 #: src/prefs/prefs_tm.ui:60
@@ -3192,7 +3267,7 @@ msgstr "Hámarksfjöldi tillagna:"
 #: src/prefs/prefs_tm.ui:70
 #, kde-format
 msgid "Set the maximum number of suggestions"
-msgstr "Stilltu hámarksfjölda tillagna"
+msgstr "Veldu hámarksfjölda tillagna"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggCount)
 #: src/prefs/prefs_tm.ui:73
@@ -3210,7 +3285,7 @@ msgstr "Lágmarksstig tillagna (0-100):"
 #: src/prefs/prefs_tm.ui:107
 #, kde-format
 msgid "Set the minimum score (0-100) of suggestions"
-msgstr "Stilltu lágmarksstig tillagna (0-100)"
+msgstr "Veldu lágmarksstig tillagna (0-100)"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:110
@@ -3241,6 +3316,8 @@ msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
 msgstr ""
+"Eyða skrám sem vantar úr þýðingaminni við endurskönnun eða þegar hægrismellt "
+"er á færslu sem vantar"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -3259,14 +3336,14 @@ msgstr "Flýtilykill:"
 #: src/project/prefs_project_advanced.ui:33
 #, kde-format
 msgid "Usually '&', but may also be '_' for GTK apps."
-msgstr "Venjulega '&', en getur verið '_' fyrir GTK forrit."
+msgstr "Venjulega '&' en getur verið '_' fyrir GTK forrit."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_project_advanced.ui:40
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Markup:"
-msgstr "Merkingar:"
+msgstr "Merki:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:58
@@ -3281,6 +3358,14 @@ msgid ""
 "It is only used for gettext PO files, as XLIFF format has its own way of "
 "specifying where markup is."
 msgstr ""
+"Regluleg segð fyrir merki. Hún er notuð fyrir samsvarnir úr þýðingaminni og "
+"eiginleikann 'Setja inn tag'.\n"
+"\n"
+"Sjálfgefið gildi (hentugt fyrir texta á XML-grunni) er:\n"
+"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"\n"
+"Hún er aðeins notuð fyrir gettext PO-skrár, þar sem XLIFF-sniðið notar aðra "
+"aðferð til að tilgreina hvar merki er."
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/project/prefs_project_advanced.ui:65
@@ -3297,6 +3382,9 @@ msgid ""
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
+"Breiddin sem er notuð fyrir sjálfvirkt línuskrið í anda msgfmt. Notaðu "
+"gildið '0' til að slökkva á línuskriði. Notaðu -1 þegar þýtt er fyrir KDE PO "
+"Summit. 1 til 3 hafa engin áhrif."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3322,13 +3410,19 @@ msgid ""
 "(i.e. files without translation into any language)\n"
 "shared among all subprojects."
 msgstr ""
+"Þýðingarverkefnið þitt er venjulega undirverkefni verkefnis\n"
+"til að þýða sama texta á mörg tungumál.\n"
+"\n"
+"Settu hér inn slóð á möppu sem inniheldur tómar þýðingaskrár\n"
+"(þ.e. skár án þýðinga á eitthvað tungumál)\n"
+"sem öll undirverkefni deila."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:131
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Branch folder:"
-msgstr "Greinamappa (branch):"
+msgstr "Mappa fyrir grein:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, branchDir)
 #: src/project/prefs_project_advanced.ui:161
@@ -3350,13 +3444,25 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
+"Þessi stilling er fyrir Samstillingarsnið.\n"
+"\n"
+"Hægt er að nota samstillingarsnið til að breyta þýðingum\n"
+"í tveimur greinum samtímis.\n"
+"\n"
+"Settu inn slóð sem samsvarar grunnmöppu greinaverkefnisins,\n"
+"og þá opnar aukasamstillingaryfirlit sjálfkrafa skrár úr greininni.\n"
+"Þá verða allar breytingar sem þú gerir í aðalgreininni,\n"
+"gerðar samtímis í hinni greininni\n"
+"(auðvitað þurfa báðar að innihalda sama grunnstrenginn á ensku).\n"
+"\n"
+"Sjá frekari upplýsingar í handbókinni."
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "Mappa fyrir sniðmát greinar (branch):"
+msgstr "Mappa fyrir greinarsniðmát:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
@@ -3374,6 +3480,14 @@ msgid ""
 "templates folder,\n"
 "and Secondary Sync view will automatically create files from branch."
 msgstr ""
+"Þessi stilling er fyrir Samstillingarsnið.\n"
+"\n"
+"Hægt er að nota samstillingarsnið til að breyta þýðingum\n"
+"samtímis í tveimur greinum.\n"
+"\n"
+"Settu hér inn slóð sem samsvarar grunnmöppu sniðmátsmöppu "
+"greinaverkefnisins,\n"
+"og þú mun aukasamstillingaryfirliti búa sjálfkrafa til skrár úr greininni."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
@@ -3402,6 +3516,18 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
+"Settu hér slóð á möppu sem er svipað byggð upp og grunnmappa.\n"
+"\n"
+"Fyrir hverja opna þýðingaskrá verður leitað í samsvarandi skrá í möppunni "
+"fyrir aukaþýðingar og, ef hún finnst,\n"
+"verður hún notuð fyrir Aukaþýðingargluggann.\n"
+"\n"
+"Líklega viltu nota þýðingar á öðru markmáli (þ.e. öðru undirverkefni) sem "
+"líkist þínu máli.\n"
+"Þú getur einnig notað þýðingar undirverkefnisins annað hvort strax eða látið "
+"forþýða þær á þitt tungumál vélrænt.\n"
+"\n"
+"Sjá frekari upplýsingar í handbókinni."
 
 #. i18n: ectx: property (text), widget (QLabel, l0)
 #: src/project/prefs_project_local.ui:21
@@ -3419,7 +3545,7 @@ msgstr "Þýðandi"
 #: src/project/prefs_project_local.ui:34
 #, kde-format
 msgid "Reviewer"
-msgstr "Prófarkalesari"
+msgstr "Yfirlesari"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
 #: src/project/prefs_project_local.ui:39
@@ -3432,14 +3558,14 @@ msgstr "Umsagnaraðili"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Glossary:"
-msgstr "Atriðisorðaskrá:"
+msgstr "Orðasafn:"
 
 #. i18n: ectx: property (text), widget (QLabel, l0)
 #: src/project/prefs_projectmain.ui:30
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Target language:"
-msgstr "Marktungumál:"
+msgstr "Markmál:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:46
@@ -3451,18 +3577,18 @@ msgid ""
 "For example, if you have several projects for translating KDE applications\n"
 "(e.g. they are in different repositories), use same ID for all of them."
 msgstr ""
-"Auðkenni verkefnis er notað til að aðgreina þýðingaminni algerlega "
-"aðskilinna þýðingaverkefna og tungumála.\n"
+"Auðkenni verkefnis er notað til að aðgreina þýðingaminni fyrir algerlega "
+"aðskilin þýðingaverkefni og tungumál.\n"
 "\n"
-"Til dæmis, ef þú ert með nokkur aðskilin verkefni við að þýða KDE-hugbúnað\n"
-"(þau eru t.d. úr mismunandi hugbúnaðarsöfnum), geturðu notað sama auðkennið "
+"Ef þú ert t.d. með nokkur aðskilin verkefni við að þýða KDE-hugbúnað\n"
+"(þau eru t.d. úr mismunandi hugbúnaðarsöfnum) geturðu notað sama auðkennið "
 "fyrir öll þessi verkefni."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:59
 #, kde-format
 msgid "Target language of the project."
-msgstr "Tungumál sem þýða skal á í verkefninu."
+msgstr "Markmál verkefnisins."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_projectmain.ui:82
@@ -3485,9 +3611,9 @@ msgid ""
 "This is main setting. Set this to path of a folder with translation files\n"
 "for your project (or a subproject for your target language)."
 msgstr ""
-"Þetta er aðalstilling. Settu þessa slóð á möppuna sem inniheldur "
+"Þetta er aðalstilling. Stilltu þetta á slóð möppu sem inniheldur "
 "þýðingaskrárnar\n"
-"í þýðingaverkefninu þínu (eða undirverkefni fyrir marktungumálið þitt)."
+"í þýðingaverkefninu þínu (eða undirverkefni fyrir markmálið þitt)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:141
@@ -3652,9 +3778,7 @@ msgid "Last Translator"
 msgstr "Síðasti þýðandi"
 
 #: src/project/projecttab.cpp:52
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Yfirlit verkefnis"
@@ -3663,31 +3787,31 @@ msgstr "Yfirlit verkefnis"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
-msgstr "Aðeins fyrri sniðskrá"
+msgstr "Einungis fyrra sniðmát"
 
 #: src/project/projecttab.cpp:128
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
-msgstr "Aðeins næsta sniðskrá"
+msgstr "Einungis næsta sniðmát"
 
 #: src/project/projecttab.cpp:133
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
-msgstr "Aðeins fyrri þýðing"
+msgstr "Einungis fyrri þýðing"
 
 #: src/project/projecttab.cpp:136
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
-msgstr "Aðeins næsta þýðing"
+msgstr "Einungis næsta þýðing"
 
 #: src/project/projecttab.cpp:140
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
-msgstr "Fela kláruð atriði"
+msgstr "Fela lokin atriði"
 
 #: src/project/projecttab.cpp:141
 #, kde-format
@@ -3711,7 +3835,7 @@ msgstr "Opna"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
-msgstr "Bæta í þýðingaminni"
+msgstr "Bæta við þýðingaminni"
 
 #: src/project/projecttab.cpp:196
 #, kde-format
@@ -3735,7 +3859,7 @@ msgstr "Keyra Pology á skrár"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
-msgstr "Leita í skrám (sniðmát meðtalin)"
+msgstr "Leita í skrám (þ.m.t. sniðmát)"
 
 #: src/project/projecttab.cpp:229
 #, kde-format
@@ -3765,7 +3889,7 @@ msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
-"Ef opnaðar eru margar skrár í einu getur Lokalize hætt að svara eðlilega."
+"Ef opnaðar eru margar skrár í einu getur Lokalize hætt að virka eðlilega."
 
 #: src/project/projecttab.cpp:326
 #, kde-format
@@ -3821,13 +3945,13 @@ msgstr "Heiti"
 #, kde-format
 msgctxt "@title:column"
 msgid "Source language"
-msgstr "Tungumál frumtexta"
+msgstr "Frummál"
 
 #: src/tm/dbfilesmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
-msgstr "Marktungumál:"
+msgstr "Markmál:"
 
 #: src/tm/dbfilesmodel.cpp:99
 #, kde-format
@@ -3839,13 +3963,13 @@ msgstr "Pör"
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
-msgstr "Einstæðar upprunafærslur"
+msgstr "Einkvæmar upprunafærslur"
 
 #: src/tm/dbfilesmodel.cpp:101
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique translations"
-msgstr "Einstæðar þýðingar"
+msgstr "Einkvæmar þýðingar"
 
 #. i18n: ectx: property (title), widget (QGroupBox, connectionBox)
 #: src/tm/dbparams.ui:23
@@ -3881,7 +4005,7 @@ msgstr "Lykilorð:"
 #: src/tm/dbparams.ui:96
 #, kde-format
 msgid "Local"
-msgstr "Staðvært"
+msgstr "Staðbundið"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/dbparams.ui:104
@@ -3905,13 +4029,13 @@ msgstr "Innihald"
 #: src/tm/dbparams.ui:133
 #, kde-format
 msgid "Source language:"
-msgstr "Tungumál frumtexta:"
+msgstr "Frummál:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/dbparams.ui:162
 #, kde-format
 msgid "Markup regex:"
-msgstr "Regluleg segð merkinga:"
+msgstr "Regluleg segð fyrir merki:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/tm/dbparams.ui:175
@@ -3953,13 +4077,13 @@ msgstr "Fjarlægja"
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
-msgstr "Falskur vinur:"
+msgstr "Falskur vinur"
 
 #: src/tm/qaview.cpp:20
 #, kde-format
 msgctxt "@title:window"
 msgid "Quality Assurance"
-msgstr "Gæðaprófun"
+msgstr "Gæðastýring"
 
 #: src/tm/qaview.cpp:34
 #, kde-format
@@ -3987,7 +4111,7 @@ msgid ""
 "Press Enter to start the search.\n"
 "Press Ctrl+L to go to this control."
 msgstr ""
-"Leitarsegð fyrir upprunatungumál.\n"
+"Leitarsegð fyrir frummálshluta.\n"
 "Ýttu á Enter til að leita.\n"
 "Ýttu á Ctrl+L til að opna þessa stýringu."
 
@@ -3996,7 +4120,7 @@ msgstr ""
 #: src/tm/queryoptions.ui:105 src/tm/queryoptions.ui:115
 #, kde-format
 msgid "Show results that do not match search expression"
-msgstr "Birta niðurstöður um það sem fellur ekki að reglulegu leitarsegðinni"
+msgstr "Birta niðurstöður sem passa ekki við leitarsegðina"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
@@ -4025,13 +4149,13 @@ msgid ""
 "scanning will work in background."
 msgstr ""
 "Les allar verkefnisskrár inn í þýðingaminni, uppfærir eldri skilgreiningar. "
-"Skönnunin fer fram í bakgrunnsvinnslu."
+"Skönnunin fer fram í bakgrunni."
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
 #, kde-format
 msgid "&Rescan project files"
-msgstr "&Endurlesa verkefnisskrár"
+msgstr "&Endurskanna verkefnisskrár"
 
 #: src/tm/tmmanager.cpp:33
 #, kde-format
@@ -4066,7 +4190,7 @@ msgstr "Veldu TMX-skrá til að flytja inn í valinn gagnagrunn"
 #: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:236
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
-msgstr "TMX skrár (*.tmx *.xml)"
+msgstr "TMX-skrár (*.tmx *.xml)"
 
 #: src/tm/tmmanager.cpp:234
 #, kde-format
@@ -4127,12 +4251,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Aðeins er hægt að endurskanna skrár þegar verkefni er opið. Opnaðu verkefni "
+"og reyndu aftur."
 
 #: src/tm/tmtab.cpp:514
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "&Endurlesa verkefnisskrár"
+msgstr "Endurskönnun ekki möguleg"
 
 #: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
 #, kde-format
@@ -4163,7 +4288,7 @@ msgstr "Magnþýðing úr þýðingaminni"
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
-msgstr "Lokið var við magnþýðingu."
+msgstr "Magnþýðingu er lokið."
 
 #: src/tm/tmview.cpp:340
 #, kde-format
@@ -4175,7 +4300,7 @@ msgstr "Engar tillögur með nákvæmar samsvaranir fundust."
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
-msgstr "Magnþýðing hefur verið sett á áætlun"
+msgstr "Magnþýðing hefur verið sett í gang."
 
 #: src/tm/tmview.cpp:496
 #, kde-format
@@ -4183,12 +4308,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (fullkomin samsvörun)"
 
 #: src/tm/tmview.cpp:501
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4202,8 +4325,8 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kom upp %1 sinni"
+msgstr[1] "Kom upp %1 sinnum"
 
 #: src/tm/tmview.cpp:517
 #, kde-format
@@ -4211,7 +4334,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:525
 #, kde-format
@@ -4219,7 +4342,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:577
 #, kde-format
@@ -4249,7 +4372,7 @@ msgstr "<br />Höfundur síðustu breytingar: %1"
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
-msgstr "<br />Þýðingaminni: %1"
+msgstr "<br />ÞM: %1"
 
 #: src/tm/tmview.cpp:585
 #, kde-format
@@ -4263,14 +4386,14 @@ msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
-"<html>Ertu viss um að þú viljir fjarlægja færsluna:<br/><i>%1</i><br/>úr "
+"<html>Viltu örugglega fjarlægja þessa færslu:<br/><i>%1</i><br/>úr "
 "þýðingaminninu %2?</html>"
 
 #: src/tm/tmview.cpp:603
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
-msgstr "Fjarlægja færslu úr þýðingaminni"
+msgstr "Færsla fjarlægð úr þýðingaminni"
 
 #: src/tm/tmview.cpp:648
 #, kde-format
@@ -4282,7 +4405,7 @@ msgstr "Fjarlægja þessa færslu"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
-msgstr "Opna skrá sem inniheldur færslu"
+msgstr "Opna skrá sem inniheldur þessa færslu"
 
 #: src/tm/tmview.cpp:661
 #, kde-format
@@ -4296,8 +4419,8 @@ msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
-"<html>Ertu viss um að þú viljir fjarlægja skrána sem vantar:<br/><i>%1</"
-"i><br/>úr þýðingaminninu %2?</html>"
+"<html>Viltu örugglega fjarlægja skrána sem vantar:<br/><i>%1</i><br/>úr "
+"þýðingaminninu %2?</html>"
 
 #: src/tm/tmview.cpp:679
 #, kde-format
@@ -4309,13 +4432,13 @@ msgstr "Fjarlægja skrá sem vantar úr þýðingaminni"
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
-msgstr "Nota tillögur frá þýðingaminni"
+msgstr "Nota tillögu úr þýðingaminni"
 
 #: src/tools/widgettextcaptureconfig.cpp:23
 #, kde-format
 msgctxt "@title"
 msgid "Widget Text Capture"
-msgstr "Ná í texta úr viðmótshluta"
+msgstr "Sækja texta úr viðmótshluta"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:26
@@ -4335,14 +4458,14 @@ msgid ""
 "work.</p></html>"
 msgstr ""
 "<html>\n"
-"<p align=\"justify\">Til að einfalda KDE þýðingar, getur Lokalize náð í "
-"texta úr notendaviðmóti forrita og leitað að þýðingaskrám sem innihalda þann "
-"texta.</p>\n"
+"<p align=\"justify\">Til að auðvelda KDE-þýðingar getur Lokalize náð í texta "
+"úr notendaviðmóti forrita og leitað að þýðingaskrám sem innihalda þann texta."
+"</p>\n"
 "<p align=\"justify\">Þegar þetta er virkt, er hægt að grípa texta með því að "
 "smella með miðjuhnappi músar á einhvern viðmótshluta (widget) að "
-"undanskildum hlutum sem eru til innsetningar gagna. Síðan er farið í "
-"Lokalize gluggann og valin færslan með þessum texta. Jafnvel þó margar skrár "
-"innihaldi sama streng, er sá rétti valinn í flestum tilfellum.</p>\n"
+"undanskildum reitum til að slá inn texta. Síðan ferðu í Lokalize-gluggann og "
+"veldur færsluna með textanum. Jafnvel þó margar skrár innihaldi sama streng "
+"er sá rétti valinn í flestum tilfellum.</p>\n"
 "<p align=\"justify\">Hafðu í huga að til þess að þetta virki verður "
 "þýðingaminni að vera uppfært og innihalda allar þýðingaskrárnar sem "
 "ferskastar.</p></html>"
@@ -4351,13 +4474,13 @@ msgstr ""
 #: src/tools/widgettextcaptureconfig.ui:42
 #, kde-format
 msgid "Middle Mouse Button Click Reaction"
-msgstr "Viðbrögð við miðju-músarsmell"
+msgstr "Viðbrögð við miðjusmelli"
 
 #. i18n: ectx: property (text), widget (QRadioButton, none)
 #: src/tools/widgettextcaptureconfig.ui:48
 #, kde-format
 msgid "None"
-msgstr "Ekkert"
+msgstr "Engin"
 
 #. i18n: ectx: property (text), widget (QRadioButton, search)
 #: src/tools/widgettextcaptureconfig.ui:58
@@ -4386,18 +4509,18 @@ msgstr "Skipta út texta"
 #: src/xlifftextedit.cpp:997
 #, kde-format
 msgid "no spellcheck available"
-msgstr "engin stafsetningaryfirferð tiltæk"
+msgstr "engin stafsetningarkönnun tiltæk"
 
 #: src/xlifftextedit.cpp:1013
 #, kde-format
 msgid "An error was reported: %1"
-msgstr "Tilkynnt var um villu: %1"
+msgstr "Villa kom upp: %1"
 
 #: src/xlifftextedit.cpp:1173
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
-msgstr "Afrita upprunatexta í markmál"
+msgstr "Afrita frummál í markmálsglugga"
 
 #~ msgctxt "@info:status message entry"
 #~ msgid "Current: %1"
