@@ -16,14 +16,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-02 02:36+0000\n"
-"PO-Revision-Date: 2025-04-20 18:59+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"PO-Revision-Date: 2025-06-04 19:46+0200\n"
+"Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.03.90\n"
+"X-Generator: Lokalize 25.04.1\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -866,18 +866,15 @@ msgstr "Быстрый поиск..."
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #: src/glossary/glossarywindow.cpp:104 src/project/projecttab.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Допустимы регулярные выражения"
+msgstr "Активировано по Ctrl+L. Допустимы регулярные выражения"
 
 #: src/cataloglistview/cataloglistview.cpp:91
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
-msgstr "параметры"
+msgstr "Параметры"
 
 #: src/cataloglistview/cataloglistview.cpp:193
 #, kde-format
@@ -1694,18 +1691,16 @@ msgid "Source file lookup"
 msgstr "Просмотр исходного файла"
 
 #: src/editortab.cpp:1423
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Локально"
+msgstr "Искать локально"
 
 #: src/editortab.cpp:1424 src/editortab.cpp:1468
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Искать на lxr.kde.org"
 
 #: src/editortab.cpp:1427 src/editortab.cpp:1472
 #, kde-format
@@ -1729,11 +1724,10 @@ msgid "Source file lookup"
 msgstr "Просмотреть исходный файл"
 
 #: src/editortab.cpp:1467
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Выберите папку:"
+msgstr "Выбор папки"
 
 #: src/editortab.cpp:1509
 #, kde-format
@@ -1832,9 +1826,7 @@ msgstr "Память &переводов"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
 msgstr "Альтернативные версии"
 
@@ -2006,9 +1998,7 @@ msgid "File"
 msgstr "Файл"
 
 #: src/filesearch/filesearchtab.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Поиск и замена в файлах"
@@ -2218,15 +2208,7 @@ msgid "No errors"
 msgstr "Ошибки не найдены"
 
 #: src/lokalizemainwindow.cpp:90
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -3539,17 +3521,15 @@ msgstr "Перенос строк:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
 #: src/project/prefs_project_advanced.ui:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "Width used for the automatic msgfmt-like word wrap. Use the negative "
-#| "value '-1' to disable the word wrap."
+#, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
-"Длина строки для автоматического переноса (аналогично msgfmt). Для "
-"отключения автоматического переноса строк используйте «-1»."
+"Ширина, используемая для автоматического переноса строк, подобного аналогии "
+"с msgfmt. Значение «0» отключает перенос строк. При переводе для KDE PO "
+"Summit используйте «-1». Значения от 1 до 3 не влияют на поведение."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3633,23 +3613,7 @@ msgstr "Папка шаблонов ветки:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3671,12 +3635,7 @@ msgstr ""
 "\n"
 "Укажите для этого параметра путь, который соответствует\n"
 "корневому каталогу ветки проекта, и вторичная синхронизация\n"
-"будет автоматически открывать файлы ветки.\n"
-"Затем, каждый раз, как вы будете вносить изменения в файлы\n"
-"основной ветки, они будут автоматически скопированы в ветку\n"
-"(конечно, если они содержат те же английские строки).\n"
-"\n"
-"Подробности см. в документации."
+"будет автоматически открывать файлы ветки."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
