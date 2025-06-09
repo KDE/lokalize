@@ -190,7 +190,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 >. </para>
 <para
@@ -231,7 +231,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar las barras de herramientas...</guimenuitem
+>Configurar las barras de herramientas…</guimenuitem
 ></menuchoice
 > en el menú principal. </para>
 <screenshot>
@@ -261,7 +261,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar los atajos de teclado...</guimenuitem
+>Configurar los atajos de teclado…</guimenuitem
 ></menuchoice
 > en el menú principal. </para>
 <screenshot>
@@ -365,7 +365,7 @@
 ><guimenu
 >Proyecto</guimenu
 > <guimenuitem
->Configurar el proyecto...</guimenuitem
+>Configurar el proyecto…</guimenuitem
 ></menuchoice
 > y luego ir a la página <guilabel
 >Avanzado</guilabel
@@ -443,7 +443,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 >. Puede usar la misma página para configurar el comportamiento de &lokalize; cuando cambie a la pestaña anterior o siguiente. Es posible desplazarse a través de la lista de pestañas según las posiciones de las pestañas o según su orden de activación. </para>
 </sect1>
@@ -531,7 +531,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 >. </para>
 </note>
@@ -760,7 +760,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 >. </para>
 <para
@@ -786,7 +786,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &lokalize;...</guimenuitem
+>Configurar &lokalize;…</guimenuitem
 ></menuchoice
 > en el menú principal. </para>
 <para
