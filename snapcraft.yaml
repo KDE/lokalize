@@ -1,11 +1,11 @@
-# SPDX-FileCopyrightText: 2024 Scarlett Moore <sgmoore@kde.org>
+# SPDX-FileCopyrightText: 2024-2025 Scarlett Moore <sgmoore@kde.org>
 #
 # SPDX-License-Identifier: CC0-1.0
 ---
 name: lokalize
 confinement: strict
 grade: stable
-base: core22
+base: core24
 adopt-info: lokalize
 apps:
   lokalize:
@@ -15,7 +15,6 @@ apps:
     desktop: usr/share/applications/org.kde.lokalize.desktop
     command: usr/bin/lokalize
     plugs:
-      - audio-record
       - home
 plugs:
   hunspell-dictionaries:
@@ -30,15 +29,6 @@ slots:
     interface: dbus
     name: org.kde.lokalize
     bus: session
-package-repositories:
-  - type: apt
-    components:
-      - main
-    suites:
-      - jammy
-    key-id: 444DABCF3667D0283F894EDDE6D4736255751E5D
-    url: http://origin.archive.neon.kde.org/user
-    key-server: keyserver.ubuntu.com
 parts:
   lokalize:
     parse-info:
@@ -50,6 +40,8 @@ parts:
       - libhunspell-dev
       - gettext
       - libpulse0
+    build-snaps:
+      - hunspell-dictionaries
     stage-packages:
       - gettext
       - sonnet-plugins
@@ -73,6 +65,10 @@ parts:
       - -DCMAKE_INSTALL_LIBDIR=lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
       - --log-level=STATUS
       - -DCMAKE_LIBRARY_PATH=lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
+    build-environment: &build-environment
+      - LD_LIBRARY_PATH: >
+          "/snap/mesa-2404/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:$LD_LIBRARY_PATH"
+      - DICPATH: "$CRAFT_STAGE/usr/share/hunspell"
     prime:
       - -usr/lib/*/cmake/*
       - -usr/include/*
@@ -82,17 +78,25 @@ parts:
       - -usr/lib/gcc/$CRAFT_ARCH_TRIPLET_BUILD_FOR/6.0.0
       - -usr/lib/aspell/*
       - -usr/share/lintian
+  gpu-2404:
+    after: [lokalize]
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
+    prime:
+      - bin/gpu-2404-wrapper
   cleanup:
     after:
       - lokalize
     plugin: nil
     build-snaps:
-      - core22
-      - kf6-core22
-      - qt-common-themes
+      - core24
+      - kf6-core24
     override-prime: |
       set -eux
-      for snap in "core22" "kf6-core22" "qt-common-themes"; do
+      for snap in "core24" "kf6-core24"; do
           cd "/snap/$snap/current" && find . -type f,l -exec rm -rf "${CRAFT_PRIME}/{}" \;
       done
 
