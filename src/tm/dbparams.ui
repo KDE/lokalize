@@ -1,219 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DBParams</class>
- <widget class="QWidget" name="DBParams">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>770</width>
-    <height>503</height>
-   </rect>
-  </property>
-  <layout class="QGridLayout">
-   <property name="sizeConstraint">
-    <enum>QLayout::SetMinimumSize</enum>
-   </property>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="name"/>
-   </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="QGroupBox" name="connectionBox">
-     <property name="title">
-      <string>Connection</string>
-     </property>
-     <layout class="QFormLayout" name="formLayout_2">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string>Database name:</string>
+    <class>DBParams</class>
+    <widget class="QWidget" name="DBParams">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>770</width>
+                <height>503</height>
+            </rect>
         </property>
-        <property name="buddy">
-         <cstring>dbName</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="dbName"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>Host:</string>
-        </property>
-        <property name="buddy">
-         <cstring>dbHost</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="dbHost">
-        <property name="editable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>User:</string>
-        </property>
-        <property name="buddy">
-         <cstring>dbUser</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="dbUser"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>Password:</string>
-        </property>
-        <property name="buddy">
-         <cstring>dbPasswd</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="dbPasswd">
-        <property name="echoMode">
-         <enum>QLineEdit::Password</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
+        <layout class="QGridLayout">
+            <property name="sizeConstraint">
+                <enum>QLayout::SetMinimumSize</enum>
+            </property>
+            <item row="0" column="1">
+                <widget class="QLineEdit" name="name" />
+            </item>
+            <item row="6" column="0" colspan="2">
+                <widget class="QGroupBox" name="connectionBox">
+                    <property name="title">
+                        <string>Connection</string>
+                    </property>
+                    <layout class="QFormLayout" name="formLayout_2">
+                        <property name="fieldGrowthPolicy">
+                            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                        </property>
+                        <item row="0" column="0">
+                            <widget class="QLabel" name="label_10">
+                                <property name="text">
+                                    <string>Database name:</string>
+                                </property>
+                                <property name="buddy">
+                                    <cstring>dbName</cstring>
+                                </property>
+                            </widget>
+                        </item>
+                        <item row="0" column="1">
+                            <widget class="QLineEdit" name="dbName" />
+                        </item>
+                        <item row="1" column="0">
+                            <widget class="QLabel" name="label_7">
+                                <property name="text">
+                                    <string>Host:</string>
+                                </property>
+                                <property name="buddy">
+                                    <cstring>dbHost</cstring>
+                                </property>
+                            </widget>
+                        </item>
+                        <item row="1" column="1">
+                            <widget class="QComboBox" name="dbHost">
+                                <property name="editable">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                        </item>
+                        <item row="2" column="0">
+                            <widget class="QLabel" name="label_8">
+                                <property name="text">
+                                    <string>User:</string>
+                                </property>
+                                <property name="buddy">
+                                    <cstring>dbUser</cstring>
+                                </property>
+                            </widget>
+                        </item>
+                        <item row="2" column="1">
+                            <widget class="QLineEdit" name="dbUser" />
+                        </item>
+                        <item row="3" column="0">
+                            <widget class="QLabel" name="label_9">
+                                <property name="text">
+                                    <string>Password:</string>
+                                </property>
+                                <property name="buddy">
+                                    <cstring>dbPasswd</cstring>
+                                </property>
+                            </widget>
+                        </item>
+                        <item row="3" column="1">
+                            <widget class="QLineEdit" name="dbPasswd">
+                                <property name="echoMode">
+                                    <enum>QLineEdit::Password</enum>
+                                </property>
+                            </widget>
+                        </item>
+                    </layout>
+                </widget>
+            </item>
+            <item row="1" column="1">
+                <widget class="QComboBox" name="dbType">
+                    <item>
+                        <property name="text">
+                            <string>Local</string>
+                        </property>
+                    </item>
+                </widget>
+            </item>
+            <item row="0" column="0">
+                <widget class="QLabel" name="label">
+                    <property name="text">
+                        <string>Name:</string>
+                    </property>
+                    <property name="buddy">
+                        <cstring>name</cstring>
+                    </property>
+                </widget>
+            </item>
+            <item row="1" column="0">
+                <widget class="QLabel" name="label_6">
+                    <property name="text">
+                        <string>Database type:</string>
+                    </property>
+                    <property name="buddy">
+                        <cstring>dbType</cstring>
+                    </property>
+                </widget>
+            </item>
+            <item row="7" column="0" colspan="2">
+                <widget class="QGroupBox" name="contentBox">
+                    <property name="title">
+                        <string>Content</string>
+                    </property>
+                    <layout class="QFormLayout" name="formLayout">
+                        <property name="fieldGrowthPolicy">
+                            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                        </property>
+                        <item row="0" column="0">
+                            <widget class="QLabel" name="label_4">
+                                <property name="text">
+                                    <string>Source language:</string>
+                                </property>
+                                <property name="buddy">
+                                    <cstring>sourceLang</cstring>
+                                </property>
+                            </widget>
+                        </item>
+                        <item row="0" column="1">
+                            <widget class="KComboBox" name="sourceLang" />
+                        </item>
+                        <item row="1" column="0">
+                            <widget class="QLabel" name="label_5">
+                                <property name="text">
+                                    <string>Target language:</string>
+                                </property>
+                                <property name="buddy">
+                                    <cstring>targetLang</cstring>
+                                </property>
+                            </widget>
+                        </item>
+                        <item row="1" column="1">
+                            <widget class="KComboBox" name="targetLang" />
+                        </item>
+                        <item row="2" column="1">
+                            <widget class="QLineEdit" name="markup" />
+                        </item>
+                        <item row="2" column="0">
+                            <widget class="QLabel" name="label_2">
+                                <property name="text">
+                                    <string>Markup regex:</string>
+                                </property>
+                                <property name="buddy">
+                                    <cstring>markup</cstring>
+                                </property>
+                            </widget>
+                        </item>
+                        <item row="3" column="1">
+                            <widget class="QLineEdit" name="accel" />
+                        </item>
+                        <item row="3" column="0">
+                            <widget class="QLabel" name="label_3">
+                                <property name="text">
+                                    <string>Accelerator:</string>
+                                </property>
+                                <property name="buddy">
+                                    <cstring>accel</cstring>
+                                </property>
+                            </widget>
+                        </item>
+                    </layout>
+                </widget>
+            </item>
+            <item row="9" column="1">
+                <widget class="QDialogButtonBox" name="buttonBox">
+                    <property name="standardButtons">
+                        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+                    </property>
+                </widget>
+            </item>
+            <item row="8" column="1">
+                <spacer name="verticalSpacer">
+                    <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                        <size>
+                            <width>20</width>
+                            <height>40</height>
+                        </size>
+                    </property>
+                </spacer>
+            </item>
+        </layout>
     </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="dbType">
-     <item>
-      <property name="text">
-       <string>Local</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Name:</string>
-     </property>
-     <property name="buddy">
-      <cstring>name</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_6">
-     <property name="text">
-      <string>Database type:</string>
-     </property>
-     <property name="buddy">
-      <cstring>dbType</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0" colspan="2">
-    <widget class="QGroupBox" name="contentBox">
-     <property name="title">
-      <string>Content</string>
-     </property>
-     <layout class="QFormLayout" name="formLayout">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Source language:</string>
-        </property>
-        <property name="buddy">
-         <cstring>sourceLang</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="KComboBox" name="sourceLang"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Target language:</string>
-        </property>
-        <property name="buddy">
-         <cstring>targetLang</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="KComboBox" name="targetLang"/>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="markup"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Markup regex:</string>
-        </property>
-        <property name="buddy">
-         <cstring>markup</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="accel"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Accelerator:</string>
-        </property>
-        <property name="buddy">
-         <cstring>accel</cstring>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="9" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="1">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-  </layout>
- </widget>
- <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
- </customwidgets>
- <tabstops>
-  <tabstop>name</tabstop>
- </tabstops>
- <resources/>
- <connections/>
+    <customwidgets>
+        <customwidget>
+            <class>KComboBox</class>
+            <extends>QComboBox</extends>
+            <header>kcombobox.h</header>
+        </customwidget>
+    </customwidgets>
+    <tabstops>
+        <tabstop>name</tabstop>
+    </tabstops>
+    <resources />
+    <connections />
 </ui>

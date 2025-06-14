@@ -1,153 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TermEdit</class>
- <widget class="QWidget" name="TermEdit">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>534</width>
-    <height>536</height>
-   </rect>
-  </property>
-  <layout class="QVBoxLayout">
-   <item>
-    <layout class="QHBoxLayout" name="engTermHL">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>English synonyms (double-click to edit):</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="addEngTerm">
-       <property name="text">
-        <string>+</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="remEngTerm">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="TermListView" name="sourceTermsView"/>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="targetTermHL">
-     <item>
-      <widget class="QLabel" name="l2">
-       <property name="text">
-        <string>Corresponding target language synonyms:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="addTargetTerm">
-       <property name="text">
-        <string>+</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="remTargetTerm">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="TermListView" name="targetTermsView"/>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Subject field:</string>
-     </property>
-     <property name="buddy">
-      <cstring>subjectField</cstring>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="KComboBox" name="subjectField">
-     <property name="toolTip">
-      <string comment="@info:tooltip">When adding a new item, press enter after you have typed its name for changes to take effect</string>
-     </property>
-     <property name="editable">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Definition:</string>
-       </property>
-       <property name="buddy">
-        <cstring>definitionLang</cstring>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KComboBox" name="definitionLang"/>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="KTextEdit" name="definition">
-     <property name="tabChangesFocus">
-      <bool>true</bool>
-     </property>
-     <property name="acceptRichText">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>Note: one glossary entry corresponds exactly to one term, not word/word sequence.
+    <class>TermEdit</class>
+    <widget class="QWidget" name="TermEdit">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>534</width>
+                <height>536</height>
+            </rect>
+        </property>
+        <layout class="QVBoxLayout">
+            <item>
+                <layout class="QHBoxLayout" name="engTermHL">
+                    <item>
+                        <widget class="QLabel" name="label">
+                            <property name="text">
+                                <string>English synonyms (double-click to edit):</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QToolButton" name="addEngTerm">
+                            <property name="text">
+                                <string>+</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QToolButton" name="remEngTerm">
+                            <property name="text">
+                                <string>-</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+            <item>
+                <widget class="TermListView" name="sourceTermsView" />
+            </item>
+            <item>
+                <layout class="QHBoxLayout" name="targetTermHL">
+                    <item>
+                        <widget class="QLabel" name="l2">
+                            <property name="text">
+                                <string>Corresponding target language synonyms:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QToolButton" name="addTargetTerm">
+                            <property name="text">
+                                <string>+</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QToolButton" name="remTargetTerm">
+                            <property name="text">
+                                <string>-</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+            <item>
+                <widget class="TermListView" name="targetTermsView" />
+            </item>
+            <item>
+                <widget class="QLabel" name="label_4">
+                    <property name="text">
+                        <string>Subject field:</string>
+                    </property>
+                    <property name="buddy">
+                        <cstring>subjectField</cstring>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="KComboBox" name="subjectField">
+                    <property name="toolTip">
+                        <string comment="@info:tooltip">When adding a new item, press enter after
+                            you have typed its name for changes to take effect</string>
+                    </property>
+                    <property name="editable">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                    <item>
+                        <widget class="QLabel" name="label_3">
+                            <property name="text">
+                                <string>Definition:</string>
+                            </property>
+                            <property name="buddy">
+                                <cstring>definitionLang</cstring>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="KComboBox" name="definitionLang" />
+                    </item>
+                </layout>
+            </item>
+            <item>
+                <widget class="KTextEdit" name="definition">
+                    <property name="tabChangesFocus">
+                        <bool>true</bool>
+                    </property>
+                    <property name="acceptRichText">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="label_5">
+                    <property name="text">
+                        <string>Note: one glossary entry corresponds exactly to one term, not
+                            word/word sequence.
 
-That is, there may be several entries with the same word/word sequence expressing different meanings.</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
+                            That is, there may be several entries with the same word/word sequence
+                            expressing different meanings.</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                    </property>
+                    <property name="wordWrap">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </item>
+        </layout>
     </widget>
-   </item>
-  </layout>
- </widget>
- <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>TermListView</class>
-   <extends>QListView</extends>
-   <header>glossarywindow.h</header>
-  </customwidget>
- </customwidgets>
- <resources/>
- <connections/>
+    <customwidgets>
+        <customwidget>
+            <class>KComboBox</class>
+            <extends>QComboBox</extends>
+            <header>kcombobox.h</header>
+        </customwidget>
+        <customwidget>
+            <class>KTextEdit</class>
+            <extends>QTextEdit</extends>
+            <header>ktextedit.h</header>
+        </customwidget>
+        <customwidget>
+            <class>TermListView</class>
+            <extends>QListView</extends>
+            <header>glossarywindow.h</header>
+        </customwidget>
+    </customwidgets>
+    <resources />
+    <connections />
 </ui>
