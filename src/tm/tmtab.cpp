@@ -370,7 +370,7 @@ QVariant QueryStylesModel::data(const QModelIndex &item, int role) const
 
 // BEGIN TMWindow
 TMTab::TMTab(QWidget *parent)
-    : LokalizeTabPageBase(parent)
+    : LokalizeTabPageBaseNoQMainWindow(parent)
     , m_proxyModel(new TMResultsSortFilterProxyModel(this))
 {
     m_tabLabel = i18nc("@title:tab", "Translation Memory");
@@ -378,9 +378,7 @@ TMTab::TMTab(QWidget *parent)
     setAcceptDrops(true);
 
     ui_queryOptions = new Ui_QueryOptions;
-    QWidget *w = new QWidget(this);
-    ui_queryOptions->setupUi(w);
-    setCentralWidget(w);
+    ui_queryOptions->setupUi(this);
     ui_queryOptions->queryLayout->setStretchFactor(ui_queryOptions->mainQueryLayout, 42);
 
     connect(ui_queryOptions->querySource, &QLineEdit::returnPressed, this, &TMTab::performQuery);
@@ -484,7 +482,7 @@ TMTab::TMTab(QWidget *parent)
 
     m_qaView = new QaView(this);
     m_qaView->hide();
-    addDockWidget(Qt::RightDockWidgetArea, m_qaView);
+    // addDockWidget(Qt::RightDockWidgetArea, m_qaView);
     tm->addAction(QStringLiteral("showqa_action"), m_qaView->toggleViewAction());
 
     connect(m_qaView, &QaView::rulesChanged, this, qOverload<>(&TMTab::setQAMode));
