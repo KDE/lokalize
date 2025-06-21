@@ -675,68 +675,14 @@
 
 </chapter>
 
-<chapter id="scripting">
+<chapter id="externaltools">
 <title
->Lavorare con script in &lokalize;</title>
-
-<para
->Le funzioni di &lokalize; possono essere estese usando script in diversi linguaggi interpretati, tra cui Python e &javascript;. Gli script sono integrati nell'interfaccia di &lokalize; con voci nei menu (a cui puoi assegnare scorciatoie da tastiera). La posizione e il nome della voce di menu di ogni script è definita nel file .rc che lo accompagna. Per ogni progetto aperto, &lokalize; cerca file .rc nella cartella <filename
->DIRECTORY_DEL_PROGETTO/lokalize-scripts</filename
-> e li aggiunge in un file di <emphasis
->cache</emphasis
-> chiamato <filename
->DIRECTORY_DEL_PROGETTO/lokalize-scripts/scripts.rc</filename
-> (che in generale non dovresti aggiungere al sistema di controllo versione usato per il progetto). I file RC contengono anche i percorsi degli script, che possono essere relativi alla cartella del file .rc o ad una cartella di script di sistema - entrambe le cartelle sono provate (tuttavia, i percorsi <emphasis
->dovrebbero</emphasis
-> essere relativi se vuoi condividere il file .rc con altre persone nel tuo progetto). Ad esempio, puoi specificare <filename
->../../scripts/lokalize/opensrc.py</filename
-> per caricare uno script dalla <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->cartella globale degli script di kf5-l10n</ulink
-> (&ie; non specifico per la tua lingua). </para>
-<para
->Esempi di file .rc possono essere trovati nella cartella di installazione di &lokalize; (di solito <filename
->/usr/share/lokalize/scripts/</filename
->) e nel <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->deposito di &kde;</ulink
->. <ulink url="https://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
->Qui</ulink
-> puoi trovare ulteriori esempi di script, tra cui lo script <filename
->check-gui.js</filename
-> (basato su &javascript;) che viene eseguito automaticamente ad ogni salvataggio dei file (ciò viene fatto con un'opzione speciale nel file .rc). Se hai familiarità con Python o &javascript;, il codice dovrebbe essere sufficientemente chiaro. </para>
-<para
->Sotto ci sono collegamenti ai riferimenti API. Tutto ciò che è segnato con <emphasis
->Q_SCRIPTABLE</emphasis
-> può essere usato negli script. </para>
-
-<itemizedlist>
-<listitem>
-<para
->Riferimento API dell'oggetto <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
->Editor</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->Riferimento API dell'oggetto <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
->&lokalize;</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->Riferimento API dell'oggetto <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
->Project</ulink
-> </para>
-</listitem>
-</itemizedlist>
+>Strumenti esterni</title>
 
 <sect1 id="pology">
 <title
 >Pology</title>
 
-<para
->Uno degli impieghi migliori delle funzionalità di script è l'uso di <application
->Pology</application
-> in &lokalize;. </para>
 <para
 >L'interazione con <application
 >Pology</application
