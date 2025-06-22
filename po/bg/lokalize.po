@@ -4627,20 +4627,3 @@ msgstr "Съобщение за грешка:%1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Копиране на оригинала в превода"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Spellcheck"
-#~ msgstr "Проверка на правописа"
-
-#~ msgid "Alternative Translations"
-#~ msgstr "Други преводи"
-
-#~| msgid "bug fixing and improvements"
-#~ msgid "bug fixing and improvments"
-#~ msgstr "поправки на грешки и кръпки"
-
-#~ msgctxt "%1 is the number of times this TM entry has been found"
-#~ msgid "(1 time)"
-#~ msgid_plural "(%1 times)"
-#~ msgstr[0] "(1 път)"
-#~ msgstr[1] "(%1 пъти)"
