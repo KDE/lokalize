@@ -59,7 +59,7 @@ DBFilesModel::DBFilesModel()
     setSourceModel(m_fileSystemModel);
     connect(this, &DBFilesModel::rowsInserted, this, &DBFilesModel::calcStats);
 
-    connect(this, &DBFilesModel::dataChanged, this, &DBFilesModel::updateStats, Qt::QueuedConnection);
+    connect(this, &DBFilesModel::dataChanged, this, &DBFilesModel::updateStats);
     m_timeSinceLastUpdate.start();
 
     int count = rowCount(rootIndex());
