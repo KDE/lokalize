@@ -659,68 +659,14 @@
 
 </chapter>
 
-<chapter id="scripting">
+<chapter id="externaltools">
 <title
->Scripts gebruiken in &lokalize;</title>
-
-<para
->&lokalize; kan uitgebreid worden met gebruikmaking van scripts in verschillende talen waaronder Python en &javascript;. Scripts worden meestal in de UI van &lokalize; geïntegreerd als menu-acties (waaraan u een sneltoets kunt toewijzen). De locatie en de naam van het menu- onderdeel voor het script wordt gedefinieerd in het bijbehorende .rc-bestand. Bij elk geopend project zoekt &lokalize; in de map <filename
->PROJECTMAP/lokalize-scripts</filename
-> naar .rc-bestanden en voegt ze toe aan een <emphasis
->cache</emphasis
->-bestand met de naam <filename
->PROJECTMAP/lokalize-scripts/scripts.rc</filename
->. RC-bestanden bevatten ook paden van scripts die gerelateerd zijn aan de .rc-bestandenmap of een map met systeemscripts - beiden worden doorzocht (in feite <emphasis
->moeten</emphasis
-> ze gerelateerd zijn als u .rc-bestanden wilt delen met andere mensen in het project). Zo kunt u bijvoorbeeld opgeven dat <filename
->../../scripts/lokalize/opensrc.py</filename
-> een script moet laden uit <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
-> global kf5-l10n scripts folder</ulink
-> (&ie; niet specifiek voor uw taal). </para>
-<para
->Voorbeelden van .rc-bestanden vindt u in de installatiemap van &lokalize; (meestal <filename
->/usr/share/lokalize/scripts/</filename
->) en in de <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->&kde; repository</ulink
->. <ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
->Hier</ulink
->: vindt u meer voorbeelden van scripts, waaronder het &javascript;-bestand <filename
->check-gui.js</filename
-> dat automatisch bij elke bewaaropdracht wordt uitgevoerd (dit gebeurt via een speciale optie in het .rc-bestand). Als u bekend bent met Python of &javascript;, zal de code voor zich spreken. </para>
-<para
->Hieronder treft u links naar API-beschrijvingen. Alles wat als <emphasis
->Q_SCRIPTABLE</emphasis
-> aangemerkt is kan vanuit scripts gebruikt worden. </para>
-
-<itemizedlist>
-<listitem>
-<para
->API-beschrijving van de object <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
->editor</ulink
-> </para>
-</listitem>
-<listitem>
-<para
->API-beschrijving van het object <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
->&lokalize;</ulink
->-hoofdvenster </para>
-</listitem>
-<listitem>
-<para
->API-beschrijving van het object <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
->Project</ulink
->-tabblad </para>
-</listitem>
-</itemizedlist>
+>Externe hulpmiddelen</title>
 
 <sect1 id="pology">
 <title
 >Pology</title>
 
-<para
->Een van de beste mogelijkheden voor een scripttoepassing is het gebruik van <application
->Pology</application
-> in &lokalize;. </para>
 <para
 >De interactie met <application
 >Pology</application
