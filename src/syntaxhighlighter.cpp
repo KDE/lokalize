@@ -17,6 +17,7 @@
 #include "project.h"
 
 #include <QApplication>
+#include <QLatin1String>
 #include <QStringBuilder>
 #include <QTextEdit>
 
@@ -103,8 +104,10 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 
     tagFormat.setFontItalic(!m_approved);
     int startIndex = STATE_NORMAL;
+    // Probably matches the start of a HTML tag (opening or closing).
+    auto startOfHtmlTag = QRegularExpression(QLatin1String("</?[a-zA-Z]"));
     if (previousBlockState() != STATE_TAG)
-        startIndex = text.indexOf(QLatin1Char('<'));
+        startIndex = text.indexOf(startOfHtmlTag, 0);
 
     while (startIndex >= 0) {
         int endIndex = text.indexOf(QLatin1Char('>'), startIndex);
@@ -116,7 +119,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             commentLength = endIndex - startIndex + 1;
         }
         setFormat(startIndex, commentLength, tagFormat);
-        startIndex = text.indexOf(QLatin1Char('<'), startIndex + commentLength);
+        startIndex = text.indexOf(startOfHtmlTag, startIndex + commentLength);
     }
 
     for (const HighlightingRule &rule : std::as_const(highlightingRules)) {
