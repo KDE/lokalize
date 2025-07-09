@@ -650,14 +650,15 @@ void FileSearchTab::openFile()
 
 void FileSearchTab::fileSearchNext()
 {
-    QModelIndex item = ui_fileSearchOptions->treeView->currentIndex();
-    int row = item.row();
-    int rowCount = m_model->rowCount();
+    const int currentRow = ui_fileSearchOptions->treeView->currentIndex().row();
+    const int nextRow = currentRow + 1;
+    const int rowCount = m_model->rowCount();
 
-    if (++row >= rowCount) // ok if row was -1 (no solection)
+    if (nextRow >= rowCount)
         return;
 
-    ui_fileSearchOptions->treeView->setCurrentIndex(item.sibling(row, item.column()));
+    Q_ASSERT(ui_fileSearchOptions->treeView->model() == m_model);
+    ui_fileSearchOptions->treeView->setCurrentIndex(m_model->index(nextRow));
     openFile();
 }
 
