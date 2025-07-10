@@ -349,12 +349,15 @@ bool ProjectWidget::currentIsTranslationFile() const
 
 void ProjectWidget::slotItemActivated(const QModelIndex &index)
 {
+    const bool controlKeyPressed = QApplication::keyboardModifiers() & Qt::ControlModifier;
     if (currentIsTranslationFile()) {
         ProjectModel *srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel *>(m_proxyModel)->sourceModel());
         QModelIndex srcIndex = static_cast<QSortFilterProxyModel *>(m_proxyModel)->mapToSource(index);
         QUrl fileUrl = srcModel->beginEditing(srcIndex);
 
-        Q_EMIT fileOpenRequested(fileUrl.toLocalFile(), !(QApplication::keyboardModifiers() & Qt::ControlModifier));
+        // When the Control key is pressed, the file is opened but the tab is not focused: like a browser tab.
+        Q_EMIT fileOpenRequested(fileUrl.toLocalFile(), !controlKeyPressed);
+        clearSelection();
     }
 }
 

@@ -147,7 +147,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     connect(Project::instance(),
             qOverload<const QString &, const bool>(&Project::fileOpenRequested),
             this,
-            qOverload<QString, const bool>(&LokalizeMainWindow::fileOpen_),
+            &LokalizeMainWindow::fileOpen_,
             Qt::QueuedConnection);
     connect(Project::instance(), &Project::configChanged, this, &LokalizeMainWindow::projectSettingsChanged);
     connect(Project::instance(), &Project::closed, this, &LokalizeMainWindow::queryAndCloseProject);
@@ -388,7 +388,6 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     if (newEditorTab) {
         m_mainTabs->addTab(newEditorTab, newEditorTab->m_tabIcon, newEditorTab->m_tabLabel);
         m_mainTabs->setTabToolTip(m_mainTabs->indexOf(newEditorTab), newEditorTab->m_tabToolTip);
-        m_mainTabs->setCurrentWidget(newEditorTab);
         connect(newEditorTab->m_resizeWatcher, &SaveLayoutAfterResizeWatcher::signalEditorTabNeedsLayoutSaving, this, [this] {
             saveCurrentEditorState();
         });
@@ -460,10 +459,7 @@ QObject *LokalizeMainWindow::projectOverview()
 {
     if (!m_projectTab) {
         m_projectTab = new ProjectTab(this);
-        connect(m_projectTab,
-                qOverload<const QString &, const bool>(&ProjectTab::fileOpenRequested),
-                this,
-                qOverload<QString, const bool>(&LokalizeMainWindow::fileOpen_));
+        connect(m_projectTab, &ProjectTab::fileOpenRequested, this, &LokalizeMainWindow::fileOpen_);
         connect(m_projectTab, qOverload<>(&ProjectTab::projectOpenRequested), this, qOverload<>(&LokalizeMainWindow::openProject));
         connect(m_projectTab,
                 qOverload<const QStringList &>(&ProjectTab::searchRequested),
@@ -480,10 +476,7 @@ void LokalizeMainWindow::showProjectOverview()
     if (!m_projectTab) {
         m_projectTab = new ProjectTab(this);
         m_mainTabs->insertTab(0, m_projectTab, m_projectTab->m_tabIcon, m_projectTab->m_tabLabel);
-        connect(m_projectTab,
-                qOverload<const QString &, const bool>(&ProjectTab::fileOpenRequested),
-                this,
-                qOverload<QString, const bool>(&LokalizeMainWindow::fileOpen_));
+        connect(m_projectTab, &ProjectTab::fileOpenRequested, this, &LokalizeMainWindow::fileOpen_);
         connect(m_projectTab, qOverload<>(&ProjectTab::projectOpenRequested), this, qOverload<>(&LokalizeMainWindow::openProject));
         connect(m_projectTab,
                 qOverload<const QStringList &>(&ProjectTab::searchRequested),
@@ -522,10 +515,7 @@ FileSearchTab *LokalizeMainWindow::showFileSearch(bool activate)
                 qOverload<const QString &, DocPosition, int, const bool>(&FileSearchTab::fileOpenRequested),
                 this,
                 qOverload<const QString &, DocPosition, int, const bool>(&LokalizeMainWindow::fileOpen));
-        connect(m_fileSearchTab,
-                qOverload<const QString &, const bool>(&FileSearchTab::fileOpenRequested),
-                this,
-                qOverload<QString, const bool>(&LokalizeMainWindow::fileOpen_));
+        connect(m_fileSearchTab, qOverload<const QString &, const bool>(&FileSearchTab::fileOpenRequested), this, &LokalizeMainWindow::fileOpen_);
     }
 
     if (activate) {
