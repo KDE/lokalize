@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-21 00:45+0000\n"
+"POT-Creation-Date: 2025-07-10 00:45+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -1954,7 +1954,7 @@ msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr "Procurar e substituir nos ficheiros"
 
-#: src/filesearch/filesearchtab.cpp:721
+#: src/filesearch/filesearchtab.cpp:722
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"

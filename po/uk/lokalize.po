@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-21 00:45+0000\n"
+"POT-Creation-Date: 2025-07-10 00:45+0000\n"
 "PO-Revision-Date: 2025-05-14 09:16+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1900,7 +1900,7 @@ msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr "Пошук і заміна у файлах"
 
-#: src/filesearch/filesearchtab.cpp:721
+#: src/filesearch/filesearchtab.cpp:722
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"

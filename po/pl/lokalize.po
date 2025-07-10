@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-21 00:45+0000\n"
+"POT-Creation-Date: 2025-07-10 00:45+0000\n"
 "PO-Revision-Date: 2025-03-22 12:43+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1902,7 +1902,7 @@ msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr "Poszukaj i zastąp w plikach"
 
-#: src/filesearch/filesearchtab.cpp:721
+#: src/filesearch/filesearchtab.cpp:722
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"

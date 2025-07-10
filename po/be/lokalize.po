@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-21 00:45+0000\n"
+"POT-Creation-Date: 2025-07-10 00:45+0000\n"
 "PO-Revision-Date: 2008-09-26 14:57+0300\n"
 "Last-Translator: kom <me@komzpa.net>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -1920,7 +1920,7 @@ msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr "Пошук у файлах"
 
-#: src/filesearch/filesearchtab.cpp:721
+#: src/filesearch/filesearchtab.cpp:722
 #, fuzzy, kde-format
 #| msgctxt "@item Undo action item"
 #| msgid "Replace"
