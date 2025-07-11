@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-10 00:45+0000\n"
+"POT-Creation-Date: 2025-07-11 00:45+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -1006,7 +1006,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Edit"
 
-#: src/editortab.cpp:149 src/lokalizemainwindow.cpp:578
+#: src/editortab.cpp:149 src/lokalizemainwindow.cpp:568
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1039,7 +1039,7 @@ msgstr "Sinkronisasi 2"
 msgid "Translation Memory"
 msgstr "Memori Terjemahan"
 
-#: src/editortab.cpp:155 src/lokalizemainwindow.cpp:579
+#: src/editortab.cpp:155 src/lokalizemainwindow.cpp:569
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1401,7 +1401,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(dipulihkan)"
 
-#: src/editortab.cpp:717 src/lokalizemainwindow.cpp:1025
+#: src/editortab.cpp:717 src/lokalizemainwindow.cpp:1015
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1412,7 +1412,7 @@ msgstr ""
 "Apakah ingin menyimpan perubahan Andaatau membuangnya?"
 
 #: src/editortab.cpp:719 src/editortab.cpp:1290
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1027
+#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1017
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2178,132 +2178,132 @@ msgstr ""
 "Tidak ada modul-modul Qt Sql yang ditemukan. Memori terjemahan tidak akan "
 "bekerja."
 
-#: src/lokalizemainwindow.cpp:499 src/project/project.cpp:241
+#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:241
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Fasilitas MT memerlukan modul SQLite Qt"
 
-#: src/lokalizemainwindow.cpp:499 src/project/project.cpp:241
+#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:241
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Tidak ada modul SQLite yang tersedia"
 
-#: src/lokalizemainwindow.cpp:580 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:480
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Memori Terjemahan"
 
-#: src/lokalizemainwindow.cpp:581 src/project/projecttab.cpp:150
+#: src/lokalizemainwindow.cpp:571 src/project/projecttab.cpp:150
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "proyek"
 
-#: src/lokalizemainwindow.cpp:604
+#: src/lokalizemainwindow.cpp:594
 #, kde-format
 msgid "Next tab"
 msgstr "Tab Selanjutnya"
 
-#: src/lokalizemainwindow.cpp:607
+#: src/lokalizemainwindow.cpp:597
 #, kde-format
 msgid "Previous tab"
 msgstr "Tab sebelumnya"
 
-#: src/lokalizemainwindow.cpp:610
+#: src/lokalizemainwindow.cpp:600
 #, kde-format
 msgid "Previously active tab"
 msgstr "Tab aktif sebelumnya"
 
-#: src/lokalizemainwindow.cpp:613
+#: src/lokalizemainwindow.cpp:603
 #, kde-format
 msgid "Close current tab"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:618
+#: src/lokalizemainwindow.cpp:608
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Glosarium"
 
-#: src/lokalizemainwindow.cpp:622
+#: src/lokalizemainwindow.cpp:612
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Memori terjemahan"
 
-#: src/lokalizemainwindow.cpp:626 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:483
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Kelola memori terjemahan"
 
-#: src/lokalizemainwindow.cpp:630
+#: src/lokalizemainwindow.cpp:620
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Ikhtisar proyek"
 
-#: src/lokalizemainwindow.cpp:634
+#: src/lokalizemainwindow.cpp:624
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Konfigurasikan proyek..."
 
-#: src/lokalizemainwindow.cpp:637
+#: src/lokalizemainwindow.cpp:627
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Ciptakan proyek terjemahan perangkat lunak..."
 
-#: src/lokalizemainwindow.cpp:640
+#: src/lokalizemainwindow.cpp:630
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "Ciptakan proyek terjemahan OpenDocument"
 
-#: src/lokalizemainwindow.cpp:643
+#: src/lokalizemainwindow.cpp:633
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Buka proyek..."
 
-#: src/lokalizemainwindow.cpp:647
+#: src/lokalizemainwindow.cpp:637
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Tutup proyek"
 
-#: src/lokalizemainwindow.cpp:650
+#: src/lokalizemainwindow.cpp:640
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Buka proyek baru-baru ini"
 
-#: src/lokalizemainwindow.cpp:660
+#: src/lokalizemainwindow.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Cari dan ganti dalam file"
 
-#: src/lokalizemainwindow.cpp:663
+#: src/lokalizemainwindow.cpp:653
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Temukan selanjutnya dalam file"
 
-#: src/lokalizemainwindow.cpp:667
+#: src/lokalizemainwindow.cpp:657
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Widget tangkapan teks"
 
-#: src/lokalizemainwindow.cpp:680
+#: src/lokalizemainwindow.cpp:670
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:845
+#: src/lokalizemainwindow.cpp:835
 #, kde-format
 msgctxt "@info"
 msgid ""
