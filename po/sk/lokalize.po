@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-10 02:35+0000\n"
+"POT-Creation-Date: 2025-07-12 02:41+0000\n"
 "PO-Revision-Date: 2023-12-06 19:07+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -997,7 +997,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Upraviť"
 
-#: src/editortab.cpp:149 src/lokalizemainwindow.cpp:578
+#: src/editortab.cpp:149 src/lokalizemainwindow.cpp:568
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1030,7 +1030,7 @@ msgstr "Synchronizácia č. 2"
 msgid "Translation Memory"
 msgstr "Pamäť prekladov"
 
-#: src/editortab.cpp:155 src/lokalizemainwindow.cpp:579
+#: src/editortab.cpp:155 src/lokalizemainwindow.cpp:569
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1387,7 +1387,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (obnovené)"
 
-#: src/editortab.cpp:717 src/lokalizemainwindow.cpp:1025
+#: src/editortab.cpp:717 src/lokalizemainwindow.cpp:1015
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1398,7 +1398,7 @@ msgstr ""
 "Chcete uložiť alebo zahodiť zmeny?"
 
 #: src/editortab.cpp:719 src/editortab.cpp:1290
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1027
+#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1017
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2145,132 +2145,132 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Nenašli sa žiadne Qt Sql moduly. Pamäť prekladov nebude fungovať."
 
-#: src/lokalizemainwindow.cpp:499 src/project/project.cpp:241
+#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:241
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Funkcia TM vyžaduje SQLite Qt modul."
 
-#: src/lokalizemainwindow.cpp:499 src/project/project.cpp:241
+#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:241
 #, kde-format
 msgid "No SQLite module available"
 msgstr "SQLite modul nedostupný"
 
-#: src/lokalizemainwindow.cpp:580 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:480
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Pamäť prekladov"
 
-#: src/lokalizemainwindow.cpp:581 src/project/projecttab.cpp:150
+#: src/lokalizemainwindow.cpp:571 src/project/projecttab.cpp:150
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Projekt"
 
-#: src/lokalizemainwindow.cpp:604
+#: src/lokalizemainwindow.cpp:594
 #, kde-format
 msgid "Next tab"
 msgstr "Ďalšia karta"
 
-#: src/lokalizemainwindow.cpp:607
+#: src/lokalizemainwindow.cpp:597
 #, kde-format
 msgid "Previous tab"
 msgstr "Predošlá karta"
 
-#: src/lokalizemainwindow.cpp:610
+#: src/lokalizemainwindow.cpp:600
 #, kde-format
 msgid "Previously active tab"
 msgstr "Predtým aktívna karta"
 
-#: src/lokalizemainwindow.cpp:613
+#: src/lokalizemainwindow.cpp:603
 #, kde-format
 msgid "Close current tab"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:618
+#: src/lokalizemainwindow.cpp:608
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Slovník"
 
-#: src/lokalizemainwindow.cpp:622
+#: src/lokalizemainwindow.cpp:612
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Pamäť prekladov"
 
-#: src/lokalizemainwindow.cpp:626 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:483
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Spravovať pamäte prekladov"
 
-#: src/lokalizemainwindow.cpp:630
+#: src/lokalizemainwindow.cpp:620
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Prehľad projektu"
 
-#: src/lokalizemainwindow.cpp:634
+#: src/lokalizemainwindow.cpp:624
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Nastaviť projekt..."
 
-#: src/lokalizemainwindow.cpp:637
+#: src/lokalizemainwindow.cpp:627
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Vytvoriť projekt prekladu softvéru..."
 
-#: src/lokalizemainwindow.cpp:640
+#: src/lokalizemainwindow.cpp:630
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "Vytvoriť projekt prekladu OpenDocument..."
 
-#: src/lokalizemainwindow.cpp:643
+#: src/lokalizemainwindow.cpp:633
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Otvoriť projekt..."
 
-#: src/lokalizemainwindow.cpp:647
+#: src/lokalizemainwindow.cpp:637
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Zatvoriť projekt"
 
-#: src/lokalizemainwindow.cpp:650
+#: src/lokalizemainwindow.cpp:640
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Otvoriť nedávny projekt"
 
-#: src/lokalizemainwindow.cpp:660
+#: src/lokalizemainwindow.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Hľadať a nahradiť v súboroch"
 
-#: src/lokalizemainwindow.cpp:663
+#: src/lokalizemainwindow.cpp:653
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Hľadať ďalej v súboroch"
 
-#: src/lokalizemainwindow.cpp:667
+#: src/lokalizemainwindow.cpp:657
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Zachytávanie textu vo widgete"
 
-#: src/lokalizemainwindow.cpp:680
+#: src/lokalizemainwindow.cpp:670
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:845
+#: src/lokalizemainwindow.cpp:835
 #, kde-format
 msgctxt "@info"
 msgid ""
