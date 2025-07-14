@@ -3039,7 +3039,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Default language:"
-msgstr "ნაგულისხმები ენა:"
+msgstr "ნაგულისხმევი ენა:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/prefs/prefs_identity.ui:48
@@ -3137,7 +3137,7 @@ msgstr "ლოკალიზებული სახელი:"
 #: src/prefs/prefs_identity.ui:164
 #, kde-format
 msgid "Default Language-Team:"
-msgstr "ნაგულისხმები Language-Team:"
+msgstr "ნაგულისხმევი Language-Team:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
 #: src/prefs/prefs_languagetool.ui:21
