@@ -8,11 +8,13 @@
 
 #include "qamodel.h"
 #include "domroutines.h"
+
+#include <KLocalizedString>
+
 #include <QCoreApplication>
 #include <QFile>
 #include <QStringList>
 #include <QTextStream>
-#include <klocalizedstring.h>
 
 static const QString ruleTagNames[] = {QStringLiteral("source"), QStringLiteral("falseFriend"), QStringLiteral("target")};
 

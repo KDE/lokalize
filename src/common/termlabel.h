@@ -10,8 +10,6 @@
 #ifndef TERMLABEL_H
 #define TERMLABEL_H
 
-#include "glossary.h"
-#include "project.h"
 #include <QLabel>
 
 namespace GlossaryNS

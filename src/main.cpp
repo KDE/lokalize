@@ -21,19 +21,11 @@
 #include "stemming.h"
 #include "version.h"
 
+#include <kiconthemes_version.h>
+
 #if HAVE_DBUS
 #include <KDBusService>
 #endif
-
-#include <QApplication>
-#include <QCommandLineOption>
-#include <QCommandLineParser>
-#include <QFile>
-#include <QFileInfo>
-#include <QMetaType>
-#include <QString>
-
-#include <kiconthemes_version.h>
 
 #define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
 #if HAVE_STYLE_MANAGER
@@ -44,6 +36,14 @@
 #include <KCrash>
 #include <KIconTheme>
 #include <KLocalizedString>
+
+#include <QApplication>
+#include <QCommandLineOption>
+#include <QCommandLineParser>
+#include <QFile>
+#include <QFileInfo>
+#include <QMetaType>
+#include <QString>
 
 int main(int argc, char **argv)
 {

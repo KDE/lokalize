@@ -10,11 +10,9 @@
 */
 
 #include "gettextexport.h"
-
-#include "lokalize_debug.h"
-
 #include "catalogitem.h"
 #include "gettextstorage.h"
+#include "lokalize_debug.h"
 
 #include <QEventLoop>
 #include <QFile>

@@ -10,15 +10,15 @@
 #ifndef BINUNITSVIEW_H
 #define BINUNITSVIEW_H
 
-class Catalog;
-class BinUnitsModel;
-class MyTreeView;
-
 #include "pos.h"
 
 #include <QAbstractListModel>
 #include <QDockWidget>
 #include <QHash>
+
+class Catalog;
+class BinUnitsModel;
+class MyTreeView;
 
 class BinUnitsView : public QDockWidget
 {

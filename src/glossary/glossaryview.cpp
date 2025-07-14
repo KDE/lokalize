@@ -8,16 +8,14 @@
 */
 
 #include "glossaryview.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "flowlayout.h"
 #include "glossary.h"
-#include "project.h"
-
 #include "glossarywindow.h"
+#include "project.h"
 #include "stemming.h"
+
+#include <KLocalizedString>
 
 #include <QDragEnterEvent>
 #include <QElapsedTimer>
@@ -26,8 +24,6 @@
 #include <QSet>
 #include <QStringBuilder>
 #include <QTime>
-
-#include <klocalizedstring.h>
 
 using namespace GlossaryNS;
 

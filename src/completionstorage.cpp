@@ -8,11 +8,10 @@
 */
 
 #include "completionstorage.h"
-
 #include "lokalize_debug.h"
-
 #include "prefs_lokalize.h"
 #include "project.h"
+
 #include <QCoreApplication>
 #include <QElapsedTimer>
 

@@ -10,6 +10,7 @@
 
 #include "gettextheaderparser.h"
 #include "lokalize_debug.h"
+
 #include <QDate>
 #include <QDebug>
 #include <QLocale>

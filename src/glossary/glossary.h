@@ -11,13 +11,12 @@
 #define GLOSSARY_H
 
 #include <QAbstractListModel>
+#include <QDomDocument>
 #include <QList>
 #include <QMultiHash>
 #include <QSet>
 #include <QSortFilterProxyModel>
 #include <QStringList>
-
-#include <QDomDocument>
 
 /**
  * Classes for TBX Glossary handling

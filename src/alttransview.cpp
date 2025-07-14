@@ -19,6 +19,10 @@
 #include "projectbase.h"
 #include "tmview.h" // For the DynamicItemHeightQListWidget and other functionality
 
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <kcoreaddons_version.h>
+
 #include <QAction>
 #include <QDir>
 #include <QDragEnterEvent>
@@ -29,10 +33,6 @@
 #include <QStringLiteral>
 #include <QToolTip>
 #include <QtAssert>
-
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <kcoreaddons_version.h>
 
 AltTransView::AltTransView(QWidget *parent, Catalog *catalog, const QVector<QAction *> &actions)
     : QDockWidget(i18nc("@title:window", "Alternate Translations"), parent)

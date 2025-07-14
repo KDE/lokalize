@@ -8,18 +8,14 @@
 */
 
 #include "msgctxtview.h"
-
 #include "catalog.h"
 #include "cmd.h"
 #include "noteeditor.h"
 #include "prefs_lokalize.h"
-#include "project.h"
 
-#include "lokalize_debug.h"
-
-#include <kcombobox.h>
-#include <klocalizedstring.h>
-#include <ktextedit.h>
+#include <KComboBox>
+#include <KLocalizedString>
+#include <KTextEdit>
 
 #include <QBoxLayout>
 #include <QDesktopServices>

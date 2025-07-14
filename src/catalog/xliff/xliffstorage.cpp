@@ -6,12 +6,8 @@
 */
 
 #include "xliffstorage.h"
-
-#include "lokalize_debug.h"
-
 #include "gettextheader.h"
-#include "prefs_lokalize.h"
-#include "project.h"
+#include "lokalize_debug.h"
 #include "version.h"
 
 #include <QElapsedTimer>

@@ -13,10 +13,11 @@
 #include "gettextheader.h"
 #include "prefs_lokalize.h"
 #include "project.h"
+#include "version.h"
+
+#include <KLocalizedString>
 
 #include <QSet>
-
-#include <klocalizedstring.h>
 
 const char *const *processes()
 {

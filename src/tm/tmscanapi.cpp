@@ -8,21 +8,16 @@
 */
 
 #include "tmscanapi.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "dbfilesmodel.h"
 #include "gettextheader.h"
 #include "jobs.h"
-#include "prefs_lokalize.h"
 #include "project.h"
 
-#include <klocalizedstring.h>
-
+#include <KIO/Global>
 #include <KIO/JobTracker>
-#include <kio/global.h>
-#include <kjobtrackerinterface.h>
+#include <KJobTrackerInterface>
+#include <KLocalizedString>
 
 namespace TM
 {

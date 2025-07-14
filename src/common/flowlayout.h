@@ -10,10 +10,9 @@
 #ifndef FLOWLAYOUT_H
 #define FLOWLAYOUT_H
 
-#include "glossary.h"
-
 #include <QLayout>
 #include <QVector>
+
 class QAction;
 
 /**

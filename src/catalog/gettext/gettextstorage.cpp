@@ -6,23 +6,20 @@
 */
 
 #include "gettextstorage.h"
-
-#include "lokalize_debug.h"
-
 #include "catalogitem_private.h"
 #include "gettextexport.h"
 #include "gettextheader.h"
 #include "gettextimport.h"
-
+#include "lokalize_debug.h"
 #include "project.h"
+
+#include <KLocalizedString>
 
 #include <QMap>
 #include <QMutex>
 #include <QMutexLocker>
 #include <QRegularExpression>
 #include <QString>
-
-#include <klocalizedstring.h>
 
 QMutex regExMutex;
 

@@ -13,14 +13,14 @@
 #include "phaseswindow.h" //MyTreeView
 #include "project.h"
 
-#include <QContextMenuEvent>
-#include <QFileDialog>
-#include <QMenu>
-
 #include <KDirWatch>
 #include <KIO/JobUiDelegateFactory>
 #include <KIO/OpenUrlJob>
 #include <KLocalizedString>
+
+#include <QContextMenuEvent>
+#include <QFileDialog>
+#include <QMenu>
 
 // BEGIN BinUnitsModel
 BinUnitsModel::BinUnitsModel(Catalog *catalog, QObject *parent)

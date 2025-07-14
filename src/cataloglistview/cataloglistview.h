@@ -14,6 +14,7 @@
 #include "pos.h"
 
 #include <QDockWidget>
+
 class QTreeView;
 class CatalogTreeFilterModel;
 class CatalogTreeModel;

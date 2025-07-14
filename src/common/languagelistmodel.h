@@ -11,6 +11,7 @@
 #define LANGUAGELISTMODEL_H
 
 #include <QStringListModel>
+
 class QSortFilterProxyModel;
 
 class LanguageListModel : public QStringListModel

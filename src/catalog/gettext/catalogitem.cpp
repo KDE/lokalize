@@ -11,7 +11,6 @@
 */
 
 #include "catalogitem.h"
-
 #include "lokalize_debug.h"
 
 #include <QMutexLocker>

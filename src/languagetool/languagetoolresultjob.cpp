@@ -6,6 +6,7 @@
 
 #include "languagetoolresultjob.h"
 #include "lokalize_debug.h"
+
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 

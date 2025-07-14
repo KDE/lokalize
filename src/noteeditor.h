@@ -13,6 +13,7 @@
 #include "note.h"
 
 #include <QPlainTextEdit>
+
 class QStringListModel;
 class QLabel;
 class QTextBrowser;

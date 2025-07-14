@@ -10,13 +10,14 @@
 #ifndef CMD_H
 #define CMD_H
 
-#include <QUndoCommand>
-
 #include "catalogstring.h"
 #include "note.h"
 #include "phase.h"
 #include "pos.h"
 #include "state.h"
+
+#include <QUndoCommand>
+
 class Catalog;
 
 enum Commands {

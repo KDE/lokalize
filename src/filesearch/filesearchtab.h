@@ -20,6 +20,7 @@
 #include <QAbstractListModel>
 #include <QDockWidget>
 #include <QScreen>
+
 #include <phase.h>
 #include <state.h>
 
@@ -32,9 +33,7 @@ class QStringListModel;
 class QComboBox;
 class QTreeView;
 class QSortFilterProxyModel;
-
 class KXMLGUIClient;
-
 class FileSearchModel;
 class SearchFileListView;
 class MassReplaceView;

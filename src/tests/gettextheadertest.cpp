@@ -6,10 +6,10 @@
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
 
+#include "gettextheader.h"
+
 #include <QTest>
 #include <QTimeZone>
-
-#include "gettextheader.h"
 
 class GettextHeaderTest : public QObject
 {

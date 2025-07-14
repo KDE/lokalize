@@ -13,9 +13,9 @@
 #ifndef CATALOGITEM_H
 #define CATALOGITEM_H
 
-#include <QStringList>
-
 #include "catalogitem_private.h"
+
+#include <QStringList>
 
 namespace GettextCatalog
 {

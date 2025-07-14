@@ -8,15 +8,11 @@
 */
 
 #include "prefs.h"
-
-#include "lokalize_debug.h"
-
 #include "dbfilesmodel.h"
 #include "languagelistmodel.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "projectlocal.h"
-#include "projectmodel.h"
 
 #include "ui_prefs_appearance.h"
 #include "ui_prefs_editor.h"
@@ -43,8 +39,6 @@
 #include <QIcon>
 #include <QMimeData>
 #include <QTimer>
-
-// #include <sonnet/configwidget.h>
 
 SettingsController *SettingsController::_instance = nullptr;
 void SettingsController::cleanupSettingsController()

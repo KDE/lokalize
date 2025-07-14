@@ -8,14 +8,14 @@
 */
 
 #include "cataloglistview.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "catalogmodel.h"
 #include "headerviewmenu.h"
 #include "prefs.h"
 #include "project.h"
+
+#include <KConfigGroup>
+#include <KLocalizedString>
 
 #include <QAction>
 #include <QActionGroup>
@@ -29,9 +29,6 @@
 #include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>
-
-#include <KConfigGroup>
-#include <KLocalizedString>
 
 class CatalogTreeView : public QTreeView
 {

@@ -10,31 +10,26 @@
 */
 
 #include "editorview.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "cmd.h"
 #include "prefs.h"
 #include "prefs_lokalize.h"
-#include "project.h"
 #include "xlifftextedit.h"
 
-#include <QDragEnterEvent>
-#include <QMenu>
-#include <QTimer>
+#include <KColorScheme>
+#include <KLed>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KStandardShortcut>
 
+#include <QDragEnterEvent>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QMenu>
 #include <QRegularExpression>
 #include <QStringBuilder>
 #include <QTabBar>
-
-#include <kcolorscheme.h>
-#include <kled.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kstandardshortcut.h>
+#include <QTimer>
 
 // parent is set on qsplitter insertion
 LedsWidget::LedsWidget(QWidget *parent)

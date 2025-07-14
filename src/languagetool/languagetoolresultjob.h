@@ -8,9 +8,11 @@
 #define LANGUAGETOOLRESULTJOB_H
 
 #include <QObject>
+
 class QNetworkRequest;
 class QNetworkReply;
 class QNetworkAccessManager;
+
 class LanguageToolResultJob : public QObject
 {
     Q_OBJECT

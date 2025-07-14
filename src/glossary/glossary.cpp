@@ -8,10 +8,8 @@
 */
 
 #include "glossary.h"
-
-#include "lokalize_debug.h"
-
 #include "domroutines.h"
+#include "lokalize_debug.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "stemming.h"
@@ -22,8 +20,6 @@
 #include <QFile>
 #include <QStringBuilder>
 #include <QXmlStreamReader>
-
-#include <klocalizedstring.h>
 
 using namespace GlossaryNS;
 

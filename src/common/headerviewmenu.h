@@ -9,6 +9,7 @@
 
 #ifndef HEADERVIEWMENU_H
 #define HEADERVIEWMENU_H
+
 #include <QHeaderView>
 #include <QObject>
 #include <QPoint>

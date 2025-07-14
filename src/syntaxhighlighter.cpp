@@ -9,9 +9,7 @@
 */
 
 #include "syntaxhighlighter.h"
-
 #include "lokalize_debug.h"
-
 #include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"

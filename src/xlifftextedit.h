@@ -14,7 +14,8 @@
 #include "catalogstring.h"
 #include "pos.h"
 
-#include <ktextedit.h>
+#include <KTextEdit>
+
 class QMouseEvent;
 class SyntaxHighlighter; // TODO rename
 class KCompletionBox;

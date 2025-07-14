@@ -9,8 +9,8 @@
 
 #include "languagelistmodel.h"
 
-#include <klanguagename.h>
-#include <klocalizedstring.h>
+#include <KLanguageName>
+#include <KLocalizedString>
 
 #include <QCoreApplication>
 #include <QIcon>
@@ -93,12 +93,12 @@ QString LanguageListModel::langCodeForSortModelRow(int row)
 
 #include "prefs.h"
 #include "project.h"
+#include <KLocalizedString>
 #include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <klocalizedstring.h>
 
 QString getTargetLangCode(const QString &title, bool askUser)
 {

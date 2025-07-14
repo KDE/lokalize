@@ -12,20 +12,19 @@
 */
 
 #include "catalog.h"
+#include "catalogstorage.h"
+#include "dbfilesmodel.h"
+#include "gettextstorage.h"
+#include "jobs.h"
+#include "lokalize_debug.h"
+#include "mergecatalog.h"
+#include "prefs_lokalize.h"
 #include "project.h"
 #include "projectmodel.h" //to notify about modification
-
-#include "catalogstorage.h"
-#include "gettextstorage.h"
 #include "tsstorage.h"
 #include "xliffstorage.h"
 
-#include "mergecatalog.h"
-
-#include "dbfilesmodel.h"
-#include "jobs.h"
-#include "lokalize_debug.h"
-#include "prefs_lokalize.h"
+#include <KLocalizedString>
 
 #include <QBuffer>
 #include <QDir>
@@ -33,8 +32,6 @@
 #include <QMap>
 #include <QString>
 #include <QStringBuilder>
-
-#include <klocalizedstring.h>
 
 QString Catalog::supportedFileTypes(bool includeTemplates)
 {

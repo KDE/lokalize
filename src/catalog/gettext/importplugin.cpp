@@ -10,16 +10,13 @@
   SPDX-License-Identifier: GPL-2.0-or-later WITH LicenseRef-Qt-Commercial-exception-1.0
 */
 
-#include "lokalize_debug.h"
-
 #include "catalogfileplugin.h"
+#include "gettextstorage.h"
 #include "importplugin_private.h"
 
-#include "gettextstorage.h"
+#include <KMessageBox>
 
 #include <QStringList>
-
-#include <kmessagebox.h>
 
 namespace GettextCatalog
 {

@@ -11,6 +11,7 @@
 #define PREFS_H
 
 #include <QLineEdit>
+
 class KEditListWidget;
 
 /**

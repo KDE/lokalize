@@ -8,18 +8,15 @@
 */
 
 #include "glossarywindow.h"
-
-#include "lokalize_debug.h"
-
 #include "glossary.h"
 #include "languagelistmodel.h"
 #include "project.h"
 #include "ui_termedit.h"
 
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KStandardGuiItem>
 #include <kcoreaddons_version.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kstandardguiitem.h>
 
 #include <QAbstractItemModel>
 #include <QApplication>

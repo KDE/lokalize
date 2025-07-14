@@ -11,7 +11,6 @@
 */
 
 #include "filemetadata.h"
-
 #include "poextractor.h"
 #include "xliffextractor.h"
 

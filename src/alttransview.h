@@ -19,12 +19,13 @@
 
 #define ALTTRANS_SHORTCUTS 9
 
+class Catalog;
+class QAction;
+
 namespace TM
 {
 class DynamicItemHeightQListWidget;
 }
-class Catalog;
-class QAction;
 
 class AltTransView : public QDockWidget
 {

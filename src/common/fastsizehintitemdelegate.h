@@ -10,11 +10,11 @@
 #ifndef FASTSIZEHINTITEMDELEGATE_H
 #define FASTSIZEHINTITEMDELEGATE_H
 
+#include <KColorScheme>
+
 #include <QCache>
 #include <QItemDelegate>
 #include <QStaticText>
-
-#include <KColorScheme>
 
 QString convertToHtml(QString string, bool italics = false);
 

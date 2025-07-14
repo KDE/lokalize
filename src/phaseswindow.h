@@ -25,6 +25,7 @@ class QTextBrowser;
 class NoteEditor;
 class PhasesModel;
 class MyTreeView;
+
 class PhasesWindow : public QDialog
 {
     Q_OBJECT

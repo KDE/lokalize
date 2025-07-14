@@ -9,12 +9,11 @@
 */
 
 #include "xliffextractor.h"
+#include "catalog/catalog.h"
+#include "lokalize_debug.h"
 
 #include <QFile>
 #include <QXmlStreamReader>
-
-#include "catalog/catalog.h"
-#include "lokalize_debug.h"
 
 class XliffHandler
 {

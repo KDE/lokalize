@@ -8,17 +8,15 @@
 */
 
 #include "dbfilesmodel.h"
-
 #include "lokalize_debug.h"
-
 #include "project.h"
+
+#include <KLocalizedString>
 
 #include <QCoreApplication>
 #include <QFileSystemModel>
 #include <QStandardPaths>
 #include <QStringBuilder>
-
-#include <klocalizedstring.h>
 
 #if defined(Q_OS_WIN) && defined(QStringLiteral)
 #undef QStringLiteral

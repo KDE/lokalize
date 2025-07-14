@@ -15,6 +15,7 @@
 #include <QElapsedTimer>
 #include <QMutex>
 #include <QSortFilterProxyModel>
+
 class QFileSystemModel;
 class QPersistentModelIndex;
 

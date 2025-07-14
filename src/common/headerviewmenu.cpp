@@ -8,6 +8,7 @@
 */
 
 #include "headerviewmenu.h"
+
 #include <QAction>
 #include <QMenu>
 

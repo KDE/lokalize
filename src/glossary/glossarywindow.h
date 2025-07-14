@@ -10,11 +10,12 @@
 #ifndef GLOSSARYWINDOW_H
 #define GLOSSARYWINDOW_H
 
+#include <KMainWindow>
+#include <KTextEdit>
+
 #include <QListView>
 #include <QStringListModel>
 #include <QTreeView>
-#include <kmainwindow.h>
-#include <ktextedit.h>
 
 class QLineEdit;
 class KComboBox;

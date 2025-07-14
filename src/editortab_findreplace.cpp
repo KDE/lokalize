@@ -7,26 +7,23 @@
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "cmd.h"
 #include "editortab.h"
 #include "editorview.h"
+#include "lokalize_debug.h"
 #include "pos.h"
-#include "prefs_lokalize.h"
 #include "project.h"
 #include "stemming.h"
 #include "ui_kaider_findextension.h"
 
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KReplace>
+#include <KReplaceDialog>
+#include <Sonnet/BackgroundChecker>
+#include <Sonnet/Dialog>
 #include <kcoreaddons_version.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kreplace.h>
-#include <kreplacedialog.h>
-
-#include <sonnet/backgroundchecker.h>
-#include <sonnet/dialog.h>
 
 #include <QElapsedTimer>
 #include <QPointer>

@@ -11,10 +11,10 @@
 #include "project.h"
 #include "qamodel.h"
 
+#include <KLocalizedString>
+
 #include <QAction>
 #include <QFile>
-
-#include <klocalizedstring.h>
 
 QaView::QaView(QWidget *parent)
     : QDockWidget(i18nc("@title:window", "Quality Assurance"), parent)

@@ -8,16 +8,15 @@
 */
 
 #include "termlabel.h"
-
-#include "lokalize_debug.h"
-
+#include "glossary.h"
 #include "glossarywindow.h"
+#include "project.h"
+
+#include <KLocalizedString>
 
 #include <QMenu>
 #include <QMouseEvent>
 #include <QStringBuilder>
-
-#include <klocalizedstring.h>
 
 using namespace GlossaryNS;
 

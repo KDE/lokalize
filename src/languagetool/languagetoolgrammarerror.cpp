@@ -6,7 +6,7 @@
 
 #include "languagetoolgrammarerror.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QJsonArray>
 

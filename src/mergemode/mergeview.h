@@ -14,6 +14,7 @@
 #include "pos.h"
 
 #include <QDockWidget>
+
 class QTextEdit;
 class Catalog;
 class MergeCatalog;

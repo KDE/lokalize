@@ -19,7 +19,7 @@
 #include "projectlocal.h"
 #include "state.h"
 
-#include <kautosavefile.h>
+#include <KAutoSaveFile>
 
 #include <QList>
 #include <QMap>

@@ -8,10 +8,9 @@
 */
 
 #include "catalogstring.h"
-
 #include "lokalize_debug.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QIODevice>
 

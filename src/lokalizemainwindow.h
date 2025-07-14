@@ -38,6 +38,7 @@ class QActionGroup;
 class KRecentFilesAction;
 class EditorTab;
 class FileSearchTab;
+
 namespace TM
 {
 class TMTab;

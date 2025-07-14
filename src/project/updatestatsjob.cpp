@@ -11,14 +11,13 @@
 */
 
 #include "updatestatsjob.h"
+#include "lokalize_debug.h"
 
 #include <QFileInfo>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QStandardPaths>
-
-#include "lokalize_debug.h"
 
 // these are run in separate thread
 UpdateStatsJob::UpdateStatsJob(const QList<KFileItem> &files, QObject *)

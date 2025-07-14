@@ -6,19 +6,17 @@
 */
 
 #include "tsstorage.h"
-
-#include "lokalize_debug.h"
-
 #include "gettextheader.h"
+#include "lokalize_debug.h"
 #include "prefs_lokalize.h"
+
+#include <KLocalizedString>
 
 #include <QElapsedTimer>
 #include <QList>
 #include <QPair>
 #include <QString>
 #include <QXmlStreamReader>
-
-#include <klocalizedstring.h>
 
 static const QString names[] = {QStringLiteral("source"),
                                 QStringLiteral("translation"),

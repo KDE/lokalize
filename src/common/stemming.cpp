@@ -9,8 +9,6 @@
 
 #include "stemming.h"
 
-#include "lokalize_debug.h"
-
 #include <QFileInfo>
 #include <QMap>
 #include <QMutex>

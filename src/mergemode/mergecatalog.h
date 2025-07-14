@@ -14,6 +14,7 @@
 #include "catalog.h"
 
 #include <QVector>
+
 #include <list>
 
 class KAutoSaveFile;

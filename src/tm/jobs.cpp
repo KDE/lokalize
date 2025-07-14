@@ -9,16 +9,12 @@
 */
 
 #include "jobs.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "diff.h"
+#include "lokalize_debug.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "version.h"
-
-#include "stemming.h"
 
 #include <QDir>
 #include <QElapsedTimer>
@@ -30,9 +26,8 @@
 #include <QStandardPaths>
 #include <QStringBuilder>
 
-#include <iostream>
-
 #include <math.h>
+
 using namespace TM;
 
 QThreadPool *TM::threadPool()

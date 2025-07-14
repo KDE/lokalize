@@ -9,12 +9,8 @@
 */
 
 #include "flowlayout.h"
-
-#include "lokalize_debug.h"
-
-#include "termlabel.h"
-
 #include "glossaryview.h"
+#include "termlabel.h"
 
 #include <QAction>
 

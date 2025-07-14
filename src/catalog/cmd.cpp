@@ -8,17 +8,13 @@
 */
 
 #include "cmd.h"
-
-#include "lokalize_debug.h"
-
-#include <QString>
-
 #include "catalog.h"
 #include "catalog_private.h"
-#include "catalogitem_private.h"
-#include "project.h"
+#include "lokalize_debug.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
+
+#include <QString>
 
 // BEGIN LokalizeUnitCmd
 LokalizeUnitCmd::LokalizeUnitCmd(Catalog *catalog, const DocPosition &pos, const QString &name = QString())

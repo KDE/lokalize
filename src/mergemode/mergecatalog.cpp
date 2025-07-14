@@ -9,15 +9,15 @@
 */
 
 #include "mergecatalog.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog_private.h"
 #include "catalogstorage.h"
 #include "cmd.h"
+#include "lokalize_debug.h"
+
+#include <KLocalizedString>
+
 #include <QMultiHash>
 #include <QtAlgorithms>
-#include <klocalizedstring.h>
 
 MergeCatalog::MergeCatalog(QObject *parent, Catalog *baseCatalog, bool saveChanges)
     : Catalog(parent)

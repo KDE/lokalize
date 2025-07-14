@@ -10,6 +10,7 @@
 
 #include "catalogitem.h"
 #include "catalogstorage.h"
+
 #include <QVector>
 
 /**

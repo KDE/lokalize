@@ -9,18 +9,22 @@
 */
 
 #include "tmtab.h"
-
-#include "lokalize_debug.h"
-
 #include "config-lokalize.h"
 #include "dbfilesmodel.h"
 #include "fastsizehintitemdelegate.h"
 #include "jobs.h"
+#include "lokalize_debug.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "qaview.h"
 #include "tmscanapi.h"
 #include "ui_queryoptions.h"
+
+#include <KActionCategory>
+#include <KColorScheme>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KXMLGUIFactory>
 
 #include <QApplication>
 #include <QButtonGroup>
@@ -37,12 +41,6 @@
 #include <QStyledItemDelegate>
 #include <QTextDocument>
 #include <QTreeView>
-
-#include <KActionCategory>
-#include <KColorScheme>
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KXMLGUIFactory>
 #include <qtmetamacros.h>
 
 #if defined(Q_OS_WIN) && defined(QStringLiteral)

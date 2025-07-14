@@ -14,6 +14,7 @@
 #include "pos.h"
 
 #include <KProcess>
+
 #include <QDockWidget>
 #include <QMap>
 

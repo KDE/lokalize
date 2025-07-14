@@ -10,11 +10,11 @@
 #ifndef QAVIEW_H
 #define QAVIEW_H
 
+#include "rule.h"
+
 #include <QDockWidget>
 #include <QDomDocument>
 #include <QTreeView>
-
-#include "rule.h"
 
 class QaModel;
 

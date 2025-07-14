@@ -9,6 +9,7 @@
 #define TSSTORAGE_H
 
 #include "catalogstorage.h"
+
 #include <QDomDocument>
 #include <QDomNodeList>
 #include <QMap>

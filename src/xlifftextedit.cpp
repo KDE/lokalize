@@ -10,22 +10,20 @@
 */
 
 #include "xlifftextedit.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "cmd.h"
 #include "completionstorage.h"
 #include "languagetoolmanager.h"
 #include "languagetoolparser.h"
 #include "languagetoolresultjob.h"
+#include "lokalize_debug.h"
 #include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "syntaxhighlighter.h"
 
-#include <kcompletionbox.h>
-#include <klocalizedstring.h>
+#include <KCompletionBox>
+#include <KLocalizedString>
 
 #include <QApplication>
 #include <QElapsedTimer>

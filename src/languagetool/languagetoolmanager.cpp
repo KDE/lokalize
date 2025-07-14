@@ -9,6 +9,7 @@
 
 #include <KConfigGroup>
 #include <KSharedConfig>
+
 #include <QColor>
 #include <QNetworkAccessManager>
 #include <QRandomGenerator>

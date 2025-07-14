@@ -22,14 +22,6 @@
 #include "qamodel.h"
 #include "tmmanager.h"
 
-#include <QDir>
-#include <QElapsedTimer>
-#include <QFileInfo>
-#include <QLocale>
-#include <QStringBuilder>
-#include <QTime>
-#include <QTimer>
-
 #include <KIO/Global>
 #include <KIO/JobTracker>
 #include <KJob>
@@ -37,6 +29,14 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNotification>
+
+#include <QDir>
+#include <QElapsedTimer>
+#include <QFileInfo>
+#include <QLocale>
+#include <QStringBuilder>
+#include <QTime>
+#include <QTimer>
 
 QString getMailingList()
 {

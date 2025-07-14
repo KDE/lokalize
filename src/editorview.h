@@ -22,6 +22,8 @@ class TranslationUnitTextEdit;
 class QTabBar;
 class QContextMenuEvent;
 class QDragEnterEvent;
+class KLed;
+class QLabel;
 
 /**
  * This is the main view class for Lokalize Editor.
@@ -99,8 +101,6 @@ private Q_SLOTS:
     void toggleBookmark(bool);
 };
 
-class KLed;
-class QLabel;
 class LedsWidget : public QWidget
 {
     Q_OBJECT

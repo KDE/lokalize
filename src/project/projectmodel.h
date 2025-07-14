@@ -14,17 +14,17 @@
 #ifndef PROJECTMODEL_H
 #define PROJECTMODEL_H
 
+#include "metadata/filemetadata.h"
+#include "project.h"
+#include "projectlocal.h"
+
+#include <KDirModel>
+
 #include <QHash>
 #include <QIcon>
 #include <QList>
 #include <QThreadPool>
 #include <QTimer>
-
-#include <KDirModel>
-
-#include "metadata/filemetadata.h"
-#include "project.h"
-#include "projectlocal.h"
 
 class UpdateStatsJob;
 

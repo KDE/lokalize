@@ -9,6 +9,7 @@
 
 #ifndef DOMROUTINES_H
 #define DOMROUTINES_H
+
 #include <QDomDocument>
 
 void setText(QDomElement element, QString text);

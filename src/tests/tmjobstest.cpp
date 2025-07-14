@@ -6,12 +6,12 @@
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
 
+#include "project.h"
+#include "tm/jobs.h"
+
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QTest>
-
-#include "project.h"
-#include "tm/jobs.h"
 
 class TmJobsTest : public QObject
 {

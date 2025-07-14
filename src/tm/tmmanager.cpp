@@ -16,13 +16,13 @@
 #include "tmtab.h"
 #include "ui_managedatabases.h"
 
+#include <KLocalizedString>
+
 #include <QFileDialog>
 #include <QHeaderView>
 #include <QSortFilterProxyModel>
 #include <QStandardPaths>
 #include <QStringBuilder>
-
-#include <klocalizedstring.h>
 
 using namespace TM;
 

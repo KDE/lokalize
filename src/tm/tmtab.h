@@ -14,7 +14,7 @@
 #include "lokalizetabpagebase.h"
 #include "pos.h"
 
-#include <kmainwindow.h>
+#include <KMainWindow>
 
 #include <QMutex>
 #include <QScreen>
@@ -26,7 +26,6 @@ class QComboBox;
 class QTreeView;
 class QSortFilterProxyModel;
 class QCheckBox;
-
 class QaView;
 class Ui_QueryOptions;
 class TMResultsSortFilterProxyModel;

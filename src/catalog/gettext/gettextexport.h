@@ -10,7 +10,7 @@
 #ifndef GETTEXTEXPORTPLUGIN_H
 #define GETTEXTEXPORTPLUGIN_H
 
-#include <catalogfileplugin.h>
+#include "catalogfileplugin.h"
 
 #include <QStringList>
 #include <QTextStream>

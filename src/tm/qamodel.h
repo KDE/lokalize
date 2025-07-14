@@ -11,6 +11,7 @@
 #define QAMODEL_H
 
 #include "rule.h"
+
 #include <QAbstractListModel>
 #include <QDomDocument>
 

@@ -12,6 +12,7 @@
 
 class QColor;
 class QNetworkAccessManager;
+
 class LanguageToolManager : public QObject
 {
     Q_OBJECT

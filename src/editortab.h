@@ -11,7 +11,6 @@
 #ifndef EDITORTAB_H
 #define EDITORTAB_H
 
-#include "resizewatcher.h"
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -19,11 +18,25 @@
 #include "config-lokalize.h"
 #include "lokalizetabpagebase.h"
 #include "pos.h"
+#include "resizewatcher.h"
 
 #include <KProcess>
+#include <KXMLGUIClient>
 
 #include <QHash>
 #include <QMap>
+
+class KFind;
+class KReplace;
+class KActionCategory;
+class KToolBarPopupAction;
+class Project;
+class Catalog;
+class EditorView;
+class MergeView;
+class CatalogView;
+class MsgCtxtView;
+class AltTransView;
 
 namespace Sonnet
 {
@@ -37,21 +50,6 @@ namespace TM
 {
 class TMView;
 }
-
-#include <kxmlguiclient.h>
-
-class KFind;
-class KReplace;
-class KActionCategory;
-class KToolBarPopupAction;
-
-class Project;
-class Catalog;
-class EditorView;
-class MergeView;
-class CatalogView;
-class MsgCtxtView;
-class AltTransView;
 namespace GlossaryNS
 {
 class GlossaryView;

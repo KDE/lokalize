@@ -10,14 +10,15 @@
 #ifndef TMMANAGER_H
 #define TMMANAGER_H
 
+#include "ui_dbparams.h"
+
+#include <KMainWindow>
+
 #include <QDialog>
 #include <QModelIndex>
 #include <QTimer>
-#include <kmainwindow.h>
 
 class QTreeView;
-
-#include "ui_dbparams.h"
 
 namespace TM
 {

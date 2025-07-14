@@ -8,15 +8,14 @@
 */
 
 #include "gettextheader.h"
-
-#include "lokalize_debug.h"
-
 #include "gettextheaderparser.h"
-#include "project.h"
-
+#include "lokalize_debug.h"
 #include "prefs.h"
 #include "prefs_lokalize.h"
+#include "project.h"
 #include "version.h"
+
+#include <KLocalizedString>
 
 #include <QInputDialog>
 #include <QMap>
@@ -25,8 +24,6 @@
 #include <QStringBuilder>
 #include <QThread>
 #include <QTimeZone>
-
-#include <klocalizedstring.h>
 
 /**
  * this data was obtained by running GNUPluralForms()

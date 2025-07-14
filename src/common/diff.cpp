@@ -12,12 +12,11 @@
 */
 
 #include "diff.h"
-
 #include "lokalize_debug.h"
 
 #include <list>
 
-#include <kcolorscheme.h>
+#include <KColorScheme>
 
 #include <QRegularExpression>
 #include <QStringBuilder>

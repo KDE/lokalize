@@ -36,12 +36,12 @@
 #include <QTextDocument>
 #include <QThreadPool>
 #include <QTreeView>
+#include <qtmetamacros.h>
 
 #include <KActionCategory>
 #include <KColorScheme>
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
-#include <qtmetamacros.h>
 
 QList<int> FileSearchTab::ids;
 

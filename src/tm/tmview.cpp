@@ -10,23 +10,21 @@
 */
 
 #include "tmview.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "cmd.h"
 #include "dbfilesmodel.h"
 #include "diff.h"
 #include "jobs.h"
+#include "lokalize_debug.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "tmscanapi.h"
 #include "xlifftextedit.h"
 
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KNotification>
 #include <kcoreaddons_version.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <knotification.h>
 
 #include <QApplication>
 #include <QDir>
@@ -47,6 +45,7 @@
 #undef NDEBUG
 #endif
 #define DEBUG
+
 using namespace TM;
 
 struct DiffInfo {

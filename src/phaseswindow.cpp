@@ -13,9 +13,9 @@
 #include "noteeditor.h"
 #include "project.h"
 
-#include <kcombobox.h>
-#include <klocalizedstring.h>
-#include <kstandardguiitem.h>
+#include <KComboBox>
+#include <KLocalizedString>
+#include <KStandardGuiItem>
 
 #include <QAbstractListModel>
 #include <QApplication>

@@ -21,11 +21,12 @@
 #include "phase.h"
 #include "pos.h"
 #include "state.h"
+
+#include <QUndoStack>
+
 class CatalogStorage;
 class MassReplaceJob;
 class KAutoSaveFile;
-
-#include <QUndoStack>
 
 namespace GettextCatalog
 {

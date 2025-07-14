@@ -11,14 +11,14 @@
 #ifndef HIGHLIGHTER_H
 #define HIGHLIGHTER_H
 
+#include <KColorScheme>
 #include <KStatefulBrush>
-#include <QSyntaxHighlighter>
-#include <kcolorscheme.h>
-#include <sonnet/highlighter.h>
-#include <sonnet/speller.h>
+#include <Sonnet/Highlighter>
+#include <Sonnet/Speller>
 
 #include <QHash>
 #include <QRegularExpression>
+#include <QSyntaxHighlighter>
 #include <QTextCharFormat>
 
 class QTextEdit;

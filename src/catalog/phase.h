@@ -11,12 +11,12 @@
 #define PHASE_H
 
 #include "projectlocal.h"
-#include "version.h"
 
 #include <QDate>
 #include <QString>
 
 class Catalog;
+
 struct Phase {
     QString name;
     QString process;

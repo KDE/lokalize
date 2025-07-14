@@ -12,16 +12,14 @@
 */
 
 #include "gettextimport.h"
-
-// #include <resources.h>
+#include "catalogitem.h"
+#include "lokalize_debug.h"
 
 #include <QEventLoop>
 #include <QFile>
 #include <QFileInfo>
 #include <QList>
 #include <QTime>
-
-#include "catalogitem.h"
 
 using namespace GettextCatalog;
 

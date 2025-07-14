@@ -9,15 +9,14 @@
 */
 
 #include "mergeview.h"
-
 #include "cmd.h"
 #include "diff.h"
 #include "project.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <knotification.h>
-#include <ktextedit.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KNotification>
+#include <KTextEdit>
 
 #include <QDragEnterEvent>
 #include <QFile>

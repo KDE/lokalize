@@ -9,7 +9,9 @@
 
 #ifndef COMPLETIONSTORAGE_H
 #define COMPLETIONSTORAGE_H
+
 #include "catalog.h"
+
 #include <QMap>
 #include <QRegularExpression>
 

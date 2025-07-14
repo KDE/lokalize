@@ -12,7 +12,10 @@
 
 #include <QDockWidget>
 #include <QRegularExpression>
+#include <QVector>
+
 #include <pos.h>
+
 class Catalog;
 class FlowLayout;
 class QDragEnterEvent;
@@ -21,7 +24,6 @@ class QEvent;
 class QAction;
 class QFrame;
 class QScrollArea;
-#include <QVector>
 
 namespace GlossaryNS
 {

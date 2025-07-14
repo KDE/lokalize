@@ -10,8 +10,6 @@
 #ifndef GETTEXTIMPORTPLUGIN_H
 #define GETTEXTIMPORTPLUGIN_H
 
-#include "lokalize_debug.h"
-
 #include "catalogfileplugin.h"
 
 #include <QRegularExpression>

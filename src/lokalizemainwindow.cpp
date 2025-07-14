@@ -73,10 +73,10 @@
 
 LokalizeMainWindow::LokalizeMainWindow()
     : KXmlGuiWindow()
-    , m_mainTabs(new QTabWidget(this))
-    , m_welcomePage(new QWidget(this))
     , m_editorActions(new QActionGroup(this))
     , m_managerActions(new QActionGroup(this))
+    , m_welcomePage(new QWidget(this))
+    , m_mainTabs(new QTabWidget(this))
     , m_statusBar(new LokalizeStatusBar(this))
 {
     setStatusBar(m_statusBar);

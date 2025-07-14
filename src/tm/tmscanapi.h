@@ -10,12 +10,12 @@
 #ifndef SCANAPI_H
 #define SCANAPI_H
 
+#include <KJob>
+
 #include <QDir>
 #include <QElapsedTimer>
 #include <QUrl>
 #include <QVector>
-
-#include <kjob.h>
 
 bool dragIsAcceptable(const QList<QUrl> &urls);
 QString shorterFilePath(const QString path);

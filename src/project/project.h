@@ -12,12 +12,14 @@
 #define PROJECT_H
 
 #include "projectbase.h"
+
 #include <QFileSystemWatcher>
 #include <QList>
 #include <QVector>
 
 class ProjectModel;
 class ProjectLocal;
+
 namespace GlossaryNS
 {
 class Glossary;

@@ -9,6 +9,7 @@
 #define XLIFFSTORAGE_H
 
 #include "catalogstorage.h"
+
 #include <QDomDocument>
 #include <QDomNodeList>
 #include <QMap>

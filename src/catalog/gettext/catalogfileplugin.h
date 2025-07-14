@@ -10,12 +10,12 @@
 #define CATALOGFILEPLUGIN_H
 
 #include <QList>
+
 class QIODevice;
 class QString;
 
 namespace GettextCatalog
 {
-
 class GettextStorage;
 class CatalogItem;
 class CatalogImportPluginPrivate;

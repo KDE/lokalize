@@ -11,6 +11,9 @@
 #ifndef LOKALIZETABPAGEBASE_H
 #define LOKALIZETABPAGEBASE_H
 
+#include <KMainWindow>
+#include <KXMLGUIClient>
+
 #include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
@@ -18,9 +21,6 @@
 #include <QString>
 #include <QWidget>
 #include <qtmetamacros.h>
-
-#include <KMainWindow>
-#include <KXMLGUIClient>
 
 /**
  * Interface for LokalizeMainWindow

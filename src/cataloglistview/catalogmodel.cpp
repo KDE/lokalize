@@ -8,14 +8,11 @@
 */
 
 #include "catalogmodel.h"
-
-#include "lokalize_debug.h"
-
 #include "catalog.h"
 #include "project.h"
 
-#include <kcolorscheme.h>
-#include <klocalizedstring.h>
+#include <KColorScheme>
+#include <KLocalizedString>
 
 #include <QApplication>
 #include <QFontMetrics>

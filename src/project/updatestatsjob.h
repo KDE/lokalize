@@ -13,11 +13,11 @@
 #ifndef LOKALIZE_UPDATESTATSJOB_H
 #define LOKALIZE_UPDATESTATSJOB_H
 
-#include <QRunnable>
+#include "metadata/filemetadata.h"
 
 #include <KFileItem>
 
-#include "metadata/filemetadata.h"
+#include <QRunnable>
 
 class UpdateStatsJob : public QObject, public QRunnable
 {

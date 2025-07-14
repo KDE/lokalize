@@ -13,18 +13,17 @@
 */
 
 #include "projectmodel.h"
-
-#include <QDir>
-#include <QFile>
-#include <QTime>
-#include <QtAlgorithms>
+#include "lokalize_debug.h"
+#include "updatestatsjob.h"
 
 #include <KDirLister>
 #include <KLocalizedString>
 #include <kcoreaddons_version.h>
 
-#include "lokalize_debug.h"
-#include "updatestatsjob.h"
+#include <QDir>
+#include <QFile>
+#include <QTime>
+#include <QtAlgorithms>
 
 static int nodeCounter = 0;
 
