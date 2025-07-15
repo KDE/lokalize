@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-11 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:46+0000\n"
 "PO-Revision-Date: 2025-07-08 22:12+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -169,153 +169,153 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Forrásfájl használata"
 
-#: src/catalog/catalog.cpp:43
+#: src/catalog/catalog.cpp:40
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "Minden támogatott fájl (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:44
+#: src/catalog/catalog.cpp:41
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:43
 #, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr "Minden támogatott fájl (*.po *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:56
 #, kde-format
 msgid "New"
 msgstr "Új"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:57
 #, kde-format
 msgid "Needs translation"
 msgstr "Fordítást igényel"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:58
 #, kde-format
 msgid "Needs full localization"
 msgstr "Teljes honosítást igényel"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Adaptálást igényel"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Translated"
 msgstr "Lefordítva"
 
-#: src/catalog/catalog.cpp:64
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation review"
 msgstr "Fordítási lektorálást igényel"
 
-#: src/catalog/catalog.cpp:65
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Teljes honosítási lektorálást igényel"
 
-#: src/catalog/catalog.cpp:66
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Adaptálási lektorálást igényel"
 
-#: src/catalog/catalog.cpp:67
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Final"
 msgstr "Végleges"
 
-#: src/catalog/catalog.cpp:68
+#: src/catalog/catalog.cpp:65
 #, kde-format
 msgid "Signed-off"
 msgstr "Láttamozva"
 
-#: src/catalog/catalogstring.cpp:57
+#: src/catalog/catalogstring.cpp:56
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "Páros címke kezdete"
 
-#: src/catalog/catalogstring.cpp:58
+#: src/catalog/catalogstring.cpp:57
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "Páros címke vége"
 
-#: src/catalog/catalogstring.cpp:59
+#: src/catalog/catalogstring.cpp:58
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "Önálló címke"
 
-#: src/catalog/catalogstring.cpp:60
+#: src/catalog/catalogstring.cpp:59
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "Elszigetelt címke"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:61
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "Jelölő"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "Általános csoporthelykitöltő"
 
-#: src/catalog/catalogstring.cpp:64
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "Részfolyamat"
 
-#: src/catalog/catalogstring.cpp:66
+#: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "Általános helykitöltő"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:66
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "Páros helykitöltő kezdete"
 
-#: src/catalog/catalogstring.cpp:68
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "Páros helykitöltő vége"
 
-#: src/catalog/catalogstring.cpp:112
+#: src/catalog/catalogstring.cpp:111
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "rövidítés"
 
-#: src/catalog/catalogstring.cpp:113
+#: src/catalog/catalogstring.cpp:112
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -325,7 +325,7 @@ msgstr ""
 "rövidített alak: a teljes kifejezés egy részének elhagyásával kapott "
 "kifejezés, amely ugyanazt a fogalmat jelöli"
 
-#: src/catalog/catalogstring.cpp:115
+#: src/catalog/catalogstring.cpp:114
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -335,7 +335,7 @@ msgstr ""
 "rövidítés: egy egyszerű kifejezés rövidített alakja, amelyet néhány betű "
 "elhagyásával kapunk (például „ill.” az „illetve” helyett)"
 
-#: src/catalog/catalogstring.cpp:117
+#: src/catalog/catalogstring.cpp:116
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -347,7 +347,7 @@ msgstr ""
 "teljes alakjának betűiből áll, és csak szótagolva ejtik ki (például „Malév” "
 "a „Magyar Légiközlekedési Vállalat” helyett)"
 
-#: src/catalog/catalogstring.cpp:119
+#: src/catalog/catalogstring.cpp:118
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -357,7 +357,7 @@ msgstr ""
 "appelláció: tulajdonnév kifejezés, például egy ügynökség vagy más megfelelő "
 "szervezet neve"
 
-#: src/catalog/catalogstring.cpp:121
+#: src/catalog/catalogstring.cpp:120
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -371,7 +371,7 @@ msgstr ""
 "mondatsorozaton belül, még ha nem is kell feltétlenül közvetlen közelségben "
 "lenniük egymáshoz"
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:122
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -381,13 +381,13 @@ msgstr ""
 "köznév: egy nemzetközi tudományos kifejezés szinonimája, amelyet egy adott "
 "nyelven az általános közbeszédben használnak"
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:123
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "dátum és/vagy idő"
 
-#: src/catalog/catalogstring.cpp:126
+#: src/catalog/catalogstring.cpp:125
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -399,7 +399,7 @@ msgstr ""
 "kijelentésen alapul, hogy például két matematikai kifejezés egyenlő, amit az "
 "egyenlőségjel (=) jelöl, vagy hasonló jellel rendelnek egymáshoz"
 
-#: src/catalog/catalogstring.cpp:128
+#: src/catalog/catalogstring.cpp:127
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -409,7 +409,7 @@ msgstr ""
 "kibővített alak: egy kifejezés teljes ábrázolása, amelyhez létezik "
 "rövidített alak"
 
-#: src/catalog/catalogstring.cpp:129
+#: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -419,7 +419,7 @@ msgstr ""
 "képlet: egy fogalom rövid kifejezésére használt ábrák, szimbólumok vagy "
 "hasonlók, mint például egy matematikai vagy kémiai képlet"
 
-#: src/catalog/catalogstring.cpp:130
+#: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -428,7 +428,7 @@ msgid ""
 msgstr ""
 "vezető kifejezés: a terminológiai rekord élére választott fogalommegjelölés"
 
-#: src/catalog/catalogstring.cpp:132
+#: src/catalog/catalogstring.cpp:131
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -442,7 +442,7 @@ msgstr ""
 "kezdőbetűjéből áll, ha ezeket a betűket egyenként ejtik ki (például „BKV” a "
 "„Budapesti Közlekedési Vállalat” helyett)"
 
-#: src/catalog/catalogstring.cpp:136
+#: src/catalog/catalogstring.cpp:135
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -452,7 +452,7 @@ msgstr ""
 "nemzetközi tudományos kifejezés: olyan kifejezés, amely egy megfelelő "
 "tudományos testület által elfogadott nemzetközi tudományos nómenklatúra része"
 
-#: src/catalog/catalogstring.cpp:137
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -462,7 +462,7 @@ msgstr ""
 "internacionalizmus: olyan kifejezés, amely több nyelvben azonos vagy közel "
 "azonos ortográfiai vagy fonémikus alakkal rendelkezik"
 
-#: src/catalog/catalogstring.cpp:139
+#: src/catalog/catalogstring.cpp:138
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -474,19 +474,19 @@ msgstr ""
 "ábrázolására használt kifejezés, például egyenlőtlenségi kijelentések, "
 "halmazkapcsolatok, Boole-műveletek és hasonlók"
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr "anyaggazdálkodási egység: a tárgyak nyomon követésére szolgáló egység"
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "név"
 
-#: src/catalog/catalogstring.cpp:144
+#: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -499,7 +499,7 @@ msgstr ""
 "felcserélhetősége bizonyos környezetekre korlátozódik, míg más "
 "környezetekben nem alkalmazható"
 
-#: src/catalog/catalogstring.cpp:146
+#: src/catalog/catalogstring.cpp:145
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -509,13 +509,13 @@ msgstr ""
 "alkatrészszám: egy gyártási rendszerben egy tárgyhoz rendelt egyedi "
 "alfanumerikus jelölés"
 
-#: src/catalog/catalogstring.cpp:147
+#: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "phrase"
 msgstr "kifejezés"
 
-#: src/catalog/catalogstring.cpp:149
+#: src/catalog/catalogstring.cpp:148
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -527,13 +527,13 @@ msgstr ""
 "jelentése gyakran nem vezethető le a kifejezést alkotó szavak együttes "
 "jelentése alapján"
 
-#: src/catalog/catalogstring.cpp:151
+#: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr "védett: a megjelölt szöveget nem szabad lefordítani"
 
-#: src/catalog/catalogstring.cpp:153
+#: src/catalog/catalogstring.cpp:152
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -544,19 +544,19 @@ msgstr ""
 "eredménye, amelynek során a nem latin írásrendszerek latin ábécére vannak "
 "átalakítva"
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr "szegmens: a megjelölt szöveg egy szegmenst jelöl"
 
-#: src/catalog/catalogstring.cpp:155
+#: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr "beállított kifejezés: egy rögzített, lexikalizált kifejezés"
 
-#: src/catalog/catalogstring.cpp:157
+#: src/catalog/catalogstring.cpp:156
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -568,7 +568,7 @@ msgstr ""
 "szót tartalmaz, mint a kifejezés teljes formája (például „Minta Kft.” a "
 "„Minta Kereskedelmi és Szolgáltató Kft.” helyett)"
 
-#: src/catalog/catalogstring.cpp:160
+#: src/catalog/catalogstring.cpp:159
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -578,13 +578,13 @@ msgstr ""
 "készletezési egység: egy leltári tétel, amelyet egy tárgyhoz rendelt egyedi "
 "alfanumerikus jelöléssel azonosítanak egy leltárirányítási rendszerben"
 
-#: src/catalog/catalogstring.cpp:161
+#: src/catalog/catalogstring.cpp:160
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
 msgstr "szabványos szöveg: ismétlődő szöveg egy rögzített darabja"
 
-#: src/catalog/catalogstring.cpp:162
+#: src/catalog/catalogstring.cpp:161
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -594,7 +594,7 @@ msgstr ""
 "szimbólum: egy fogalom megjelölése betűkkel, számokkal, piktogramokkal vagy "
 "ezek bármilyen kombinációjával"
 
-#: src/catalog/catalogstring.cpp:163
+#: src/catalog/catalogstring.cpp:162
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -604,7 +604,7 @@ msgstr ""
 "szinonima: olyan kifejezés, amely ugyanazt vagy nagyon hasonló fogalmat "
 "képvisel, mint a fő bejegyzés kifejezése egy kifejezésbejegyzésben"
 
-#: src/catalog/catalogstring.cpp:165
+#: src/catalog/catalogstring.cpp:164
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -615,13 +615,13 @@ msgstr ""
 "szemantikai tartalmat fejezi ki, mint ugyanannak a nyelvnek egy másik "
 "kifejezése"
 
-#: src/catalog/catalogstring.cpp:166
+#: src/catalog/catalogstring.cpp:165
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "term"
 msgstr "kifejezés"
 
-#: src/catalog/catalogstring.cpp:168
+#: src/catalog/catalogstring.cpp:167
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -634,7 +634,7 @@ msgstr ""
 "amelynek során egy írásrendszer karaktereit egy másik írásrendszer "
 "karaktereivel ábrázolják, figyelembe véve az átalakított karakterek kiejtését"
 
-#: src/catalog/catalogstring.cpp:171
+#: src/catalog/catalogstring.cpp:170
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -646,7 +646,7 @@ msgstr ""
 "alakja, amelynek során egy alfabetikus írásrendszer karaktereit egy másik "
 "alfabetikus írásrendszer karaktereivel ábrázolják"
 
-#: src/catalog/catalogstring.cpp:174
+#: src/catalog/catalogstring.cpp:173
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -657,78 +657,78 @@ msgstr ""
 "kifejezéselem vagy szótag kihagyásából ered (például „troli” a „trolibusz” "
 "helyett)"
 
-#: src/catalog/catalogstring.cpp:176
+#: src/catalog/catalogstring.cpp:175
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "változat: a kifejezés egy alternatív alakja"
 
-#: src/catalog/cmd.cpp:79
+#: src/catalog/cmd.cpp:75
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "Beszúrás"
 
-#: src/catalog/cmd.cpp:119
+#: src/catalog/cmd.cpp:115
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "Törlés"
 
-#: src/catalog/cmd.cpp:166
+#: src/catalog/cmd.cpp:162
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "Jóváhagyás ki-be"
 
-#: src/catalog/cmd.cpp:184
+#: src/catalog/cmd.cpp:180
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "Jelölés beszúrása"
 
-#: src/catalog/cmd.cpp:207
+#: src/catalog/cmd.cpp:203
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "Jelölés törlése"
 
-#: src/catalog/cmd.cpp:229
+#: src/catalog/cmd.cpp:225
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "Jegyzetbeállítás"
 
-#: src/catalog/cmd.cpp:264
+#: src/catalog/cmd.cpp:260
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "Munkafolyamat-fázis frissítése vagy hozzáadása"
 
-#: src/catalog/cmd.cpp:283
+#: src/catalog/cmd.cpp:279
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "Fordítás-egyenlőségi beállítás"
 
-#: src/catalog/cmd.cpp:340
+#: src/catalog/cmd.cpp:336
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Jelölőkódos szöveg eltávolítása"
 
-#: src/catalog/cmd.cpp:388 src/xlifftextedit.cpp:576
+#: src/catalog/cmd.cpp:384 src/xlifftextedit.cpp:574
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Jelölőkódos szöveg beszúrása"
 
-#: src/catalog/gettext/gettextstorage.cpp:101
+#: src/catalog/gettext/gettextstorage.cpp:98
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "elválasztó a különböző hosszúságú karakterlánc-alternatívákhoz"
 
-#: src/catalog/gettext/gettextstorage.cpp:287
+#: src/catalog/gettext/gettextstorage.cpp:284
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -737,231 +737,231 @@ msgstr ""
 "Előző forrásérték, amelyet a Gettext egy újabb POT-sablonra való áttérés "
 "során mentett el"
 
-#: src/catalog/gettextheader.cpp:459
+#: src/catalog/gettextheader.cpp:456
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "A szerző neve hiányzik"
 
-#: src/catalog/gettextheader.cpp:460
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgid "Your name:"
 msgstr "Az Ön neve:"
 
-#: src/catalog/gettextheader.cpp:471
+#: src/catalog/gettextheader.cpp:468
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "A szerző e-mail-címe hiányzik"
 
-#: src/catalog/gettextheader.cpp:472
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgid "Your email:"
 msgstr "Az Ön e-mail címe:"
 
-#: src/catalog/ts/tsstorage.cpp:439
+#: src/catalog/ts/tsstorage.cpp:437
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Előző forrásérték, amelyet a lupdate mentett el"
 
-#: src/cataloglistview/cataloglistview.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:55
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Fordítási egységek"
 
-#: src/cataloglistview/cataloglistview.cpp:83
-#: src/glossary/glossarywindow.cpp:102 src/project/projecttab.cpp:57
+#: src/cataloglistview/cataloglistview.cpp:80
+#: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:57
 #, kde-format
 msgid "Quick search..."
 msgstr "Gyors keresés…"
 
-#: src/cataloglistview/cataloglistview.cpp:84
-#: src/glossary/glossarywindow.cpp:104 src/project/projecttab.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:81
+#: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:58
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "A Ctrl+L aktiválja. Elfogad reguláris kifejezéseket"
 
-#: src/cataloglistview/cataloglistview.cpp:91
+#: src/cataloglistview/cataloglistview.cpp:88
 #, kde-format
 msgid "Options"
 msgstr "Beállítások"
 
-#: src/cataloglistview/cataloglistview.cpp:193
+#: src/cataloglistview/cataloglistview.cpp:190
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Egyéni szűrők visszaállítása"
 
-#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:195 src/tm/tmtab.cpp:361
 #, kde-format
 msgid "Case insensitive"
 msgstr "Nem érzékeny a kis- és nagybetűkre"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:196 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Gyorsbillentyűjelek figyelmen kívül hagyása"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
 msgid "Ready"
 msgstr "Kész"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Non-ready"
 msgstr "Nem kész"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Non-empty"
 msgstr "Nem üres"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Empty"
 msgstr "Üres"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Changed since file open"
 msgstr "Megváltozott a fájl megnyitása óta"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Változatlan a fájl megnyitása óta"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Same in sync file"
 msgstr "Ugyanaz a szinkronizációs fájlban"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Different in sync file"
 msgstr "Eltérő a szinkronizációs fájlban"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Not in sync file"
 msgstr "Nincs a szinkronizációs fájlban"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Plural"
 msgstr "Többes szám"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Non-plural"
 msgstr "Nem többes szám"
 
-#: src/cataloglistview/cataloglistview.cpp:215
+#: src/cataloglistview/cataloglistview.cpp:212
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Alap"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Állapotok"
 
-#: src/cataloglistview/cataloglistview.cpp:218
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Kereshető oszlop"
 
-#: src/cataloglistview/cataloglistview.cpp:222
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Újrarendezés és újraszűrés a tartalom megváltozásakor"
 
-#: src/cataloglistview/cataloglistview.cpp:242
+#: src/cataloglistview/cataloglistview.cpp:239
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
 msgstr "Összes"
 
-#: src/cataloglistview/catalogmodel.cpp:91
+#: src/cataloglistview/catalogmodel.cpp:88
 #, kde-format
 msgctxt "@title:column"
 msgid "Entry"
 msgstr "Bejegyzés"
 
-#: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:350
-#: src/glossary/glossary.cpp:193 src/tm/qamodel.cpp:91 src/tm/tmtab.cpp:67
+#: src/cataloglistview/catalogmodel.cpp:90 src/filesearch/filesearchtab.cpp:350
+#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "Forrás"
 
-#: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:352
-#: src/glossary/glossary.cpp:196 src/tm/tmtab.cpp:68
+#: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:352
+#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
 msgstr "Cél"
 
-#: src/cataloglistview/catalogmodel.cpp:97
+#: src/cataloglistview/catalogmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Notes"
 msgstr "Jegyzetek"
 
-#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:69
+#: src/cataloglistview/catalogmodel.cpp:96 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Környezet"
 
-#: src/cataloglistview/catalogmodel.cpp:101
+#: src/cataloglistview/catalogmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Files"
 msgstr "Fájlok"
 
-#: src/cataloglistview/catalogmodel.cpp:103
-#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:71
+#: src/cataloglistview/catalogmodel.cpp:100
+#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
 msgstr "Fordítás állapota"
 
-#: src/cataloglistview/catalogmodel.cpp:105
+#: src/cataloglistview/catalogmodel.cpp:102
 #, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "Forrás hossza"
 
-#: src/cataloglistview/catalogmodel.cpp:107
+#: src/cataloglistview/catalogmodel.cpp:104
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Cél hossza"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:991
-#: src/editortab.cpp:1185 src/tm/tmtab.cpp:234
+#: src/cataloglistview/catalogmodel.cpp:140 src/editortab.cpp:991
+#: src/editortab.cpp:1185 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Kész"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:993
-#: src/editortab.cpp:1180 src/tm/tmtab.cpp:235
+#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:993
+#: src/editortab.cpp:1180 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Lektorálást igényel"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:989
-#: src/tm/tmtab.cpp:236
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:989
+#: src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -979,7 +979,7 @@ msgstr "%1 (%2)"
 msgid "Target language:"
 msgstr "Célnyelv:"
 
-#: src/common/termlabel.cpp:58
+#: src/common/termlabel.cpp:57
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
@@ -1388,13 +1388,13 @@ msgstr ""
 "Szeretné elmenteni a változásokat vagy eldobja azokat?"
 
 #: src/editortab.cpp:719 src/editortab.cpp:1290
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1017
+#: src/glossary/glossarywindow.cpp:345 src/lokalizemainwindow.cpp:1017
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1657,25 +1657,25 @@ msgctxt "@item Undo action item"
 msgid "Set unit text"
 msgstr "Egységszöveg beállítása"
 
-#: src/editortab_findreplace.cpp:435
+#: src/editortab_findreplace.cpp:432
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "Csere"
 
-#: src/editortab_findreplace.cpp:498
+#: src/editortab_findreplace.cpp:495
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr "A Lokalize elérte a dokumentum végét. Szeretné folytatni az elejétől?"
 
-#: src/editortab_findreplace.cpp:499 src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:496 src/editortab_findreplace.cpp:504
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "Helyesírás-ellenőrzés"
 
-#: src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:504
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "A Lokalize befejezte a helyesírás-ellenőrzést"
@@ -1747,31 +1747,31 @@ msgstr "Eszközné&zetek"
 msgid "Main Toolbar"
 msgstr "Fő eszköztár"
 
-#: src/editorview.cpp:47
+#: src/editorview.cpp:42
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "Nem kész:"
 
-#: src/editorview.cpp:49
+#: src/editorview.cpp:44
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "Lefordítatlan:"
 
-#: src/editorview.cpp:60
+#: src/editorview.cpp:55
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "Elrejtés"
 
-#: src/editorview.cpp:70
+#: src/editorview.cpp:65
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "Oszlop: %1"
 
-#: src/editorview.cpp:82
+#: src/editorview.cpp:77
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1782,13 +1782,13 @@ msgstr ""
 "<p>Az ablak ezen része jeleníti meg a jelenleg látható\n"
 "bejegyzés eredeti üzenetét.</p></qt>"
 
-#: src/editorview.cpp:173
+#: src/editorview.cpp:168
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Többes szám: %1"
 
-#: src/editorview.cpp:237
+#: src/editorview.cpp:232
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1871,7 +1871,7 @@ msgstr "Fájllista"
 msgid "Drop translation files here..."
 msgstr "Ejtse ide a fordítási fájlokat…"
 
-#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:70
+#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
@@ -1883,17 +1883,17 @@ msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Keresés és csere a fájlokban"
 
-#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:399
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:397
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Forrás másolása a vágólapra"
 
-#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Cél másolása a vágólapra"
 
-#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Open file"
 msgstr "Fájl megnyitása"
@@ -1934,21 +1934,21 @@ msgstr "Előnézet"
 msgid "Mass Replace"
 msgstr "Tömeges csere"
 
-#: src/glossary/glossary.cpp:198
+#: src/glossary/glossary.cpp:194
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Tárgy mező"
 
-#: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:263 src/glossary/glossarywindow.cpp:289
-#: src/glossary/glossarywindow.cpp:304 src/glossary/glossarywindow.cpp:321
+#: src/glossary/glossaryview.cpp:31 src/glossary/glossaryview.cpp:38
+#: src/glossary/glossarywindow.cpp:260 src/glossary/glossarywindow.cpp:286
+#: src/glossary/glossarywindow.cpp:301 src/glossary/glossarywindow.cpp:318
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
 msgstr "Szójegyzék"
 
-#: src/glossary/glossaryview.cpp:54
+#: src/glossary/glossaryview.cpp:50
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -1964,19 +1964,19 @@ msgstr ""
 "az <interface>Új&nbsp;kifejezés&nbsp;meghatározása</interface> menüpontot).</"
 "p>"
 
-#: src/glossary/glossarywindow.cpp:119
+#: src/glossary/glossarywindow.cpp:116
 #, kde-format
 msgctxt "@action:button reloads glossary from disk"
 msgid "Restore from disk"
 msgstr "Visszaállítás a lemezről"
 
-#: src/glossary/glossarywindow.cpp:120
+#: src/glossary/glossarywindow.cpp:117
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "Szójegyzék újratöltése a lemezről, a változtatások eldobása"
 
-#: src/glossary/glossarywindow.cpp:346
+#: src/glossary/glossarywindow.cpp:343
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2146,7 +2146,7 @@ msgstr "A fordítási memória szolgáltatás az SQLite Qt modult igényli."
 msgid "No SQLite module available"
 msgstr "Nem érhető el SQLite modul"
 
-#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:478
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2190,7 +2190,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Fordítási memória"
 
-#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:481
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -2462,7 +2462,7 @@ msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "Minden új fordítás elfogadása"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:29 src/mergemode/mergeview.cpp:34
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2470,7 +2470,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "Elsődleges szinkronizáció"
 
-#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2478,7 +2478,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "Másodlagos szinkronizáció"
 
-#: src/mergemode/mergeview.cpp:41
+#: src/mergemode/mergeview.cpp:40
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2488,7 +2488,7 @@ msgstr ""
 "Ejtse ide a jelenlegi fájllal összefésülendő vagy szinkronizálandó fájlt, "
 "majd nézze meg a helyi menü lehetőségeit"
 
-#: src/mergemode/mergeview.cpp:206
+#: src/mergemode/mergeview.cpp:205
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2498,7 +2498,7 @@ msgstr ""
 "Hiba történt a(z) <filename>%1</filename> fájl szinkronizációhoz való "
 "megnyitásakor, a hibás sor: %2"
 
-#: src/mergemode/mergeview.cpp:332
+#: src/mergemode/mergeview.cpp:331
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2508,102 +2508,102 @@ msgstr ""
 "Eltérő bejegyzések: %1\n"
 "Nem illeszkedő bejegyzések: %2"
 
-#: src/msgctxtview.cpp:37
+#: src/msgctxtview.cpp:33
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Egység metaadatai"
 
-#: src/msgctxtview.cpp:93
+#: src/msgctxtview.cpp:89
 #, kde-format
 msgctxt ""
 "@info notes to translation unit which expire when the catalog is closed"
 msgid "<b>Temporary notes:</b>"
 msgstr "<b>Átmeneti jegyzetek:</b>"
 
-#: src/msgctxtview.cpp:102
+#: src/msgctxtview.cpp:98
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
 msgstr "<b>Pology jegyzetek:</b>"
 
-#: src/msgctxtview.cpp:111
+#: src/msgctxtview.cpp:107
 #, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
 msgstr "<b>LanguageTool jegyzetek:</b>"
 
-#: src/msgctxtview.cpp:123
+#: src/msgctxtview.cpp:119
 #, kde-format
 msgctxt "@info translation unit metadata"
 msgid "<b>Phase:</b><br>"
 msgstr "<b>Fázis:</b><br>"
 
-#: src/msgctxtview.cpp:147
+#: src/msgctxtview.cpp:143
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Files:</b><br>"
 msgstr "<br><b>Fájlok:</b><br>"
 
-#: src/msgctxtview.cpp:155
+#: src/msgctxtview.cpp:151
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Context:</b><br>"
 msgstr "<br><b>Környezet:</b><br>"
 
-#: src/msgctxtview.cpp:226
+#: src/msgctxtview.cpp:222
 #, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
 msgstr "(üres)"
 
-#: src/noteeditor.cpp:46
+#: src/noteeditor.cpp:41
 #, kde-format
 msgctxt "@info:label"
 msgid "From:"
 msgstr "Ettől:"
 
-#: src/noteeditor.cpp:50
+#: src/noteeditor.cpp:45
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Save empty note to remove it"
 msgstr "Mentsen el üres jegyzetet az eltávolításához"
 
-#: src/noteeditor.cpp:51
+#: src/noteeditor.cpp:46
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Author of this note"
 msgstr "A jegyzet szerzője"
 
-#: src/noteeditor.cpp:64
+#: src/noteeditor.cpp:59
 #, kde-format
 msgid "Ctrl+Enter"
 msgstr "Ctrl+Enter"
 
-#: src/noteeditor.cpp:65
+#: src/noteeditor.cpp:60
 #, kde-format
 msgid "Esc"
 msgstr "Esc"
 
-#: src/noteeditor.cpp:118
+#: src/noteeditor.cpp:113
 #, kde-format
 msgctxt "@info XLIFF notes representation"
 msgid "<b>Notes:</b>"
 msgstr "<b>Jegyzetek:</b>"
 
-#: src/noteeditor.cpp:130
+#: src/noteeditor.cpp:125
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit..."
 msgstr "szerkesztés…"
 
-#: src/noteeditor.cpp:135
+#: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add..."
 msgstr "Hozzáadás…"
 
-#: src/noteeditor.cpp:137
+#: src/noteeditor.cpp:132
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add a note..."
@@ -2755,13 +2755,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr "Az üzenetek betűkészlete"
 
-#: src/prefs/prefs.cpp:96
+#: src/prefs/prefs.cpp:90
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "Személyazonosság"
 
-#: src/prefs/prefs.cpp:106
+#: src/prefs/prefs.cpp:100
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2772,43 +2772,43 @@ msgstr ""
 "%1 – a forrásfájl elérési útja\n"
 "%2 – sorszám"
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
+#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "Általános"
 
-#: src/prefs/prefs.cpp:113
+#: src/prefs/prefs.cpp:107
 #, kde-format
 msgctxt "@title:tab"
 msgid "Editing"
 msgstr "Szerkesztés"
 
-#: src/prefs/prefs.cpp:119
+#: src/prefs/prefs.cpp:113
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Megjelenés"
 
-#: src/prefs/prefs.cpp:125 src/tm/tmtab.cpp:376
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:374
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "Fordítási memória"
 
-#: src/prefs/prefs.cpp:131
+#: src/prefs/prefs.cpp:125
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:137
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:151
+#: src/prefs/prefs.cpp:145
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2817,48 +2817,48 @@ msgstr ""
 "Egy olyan funkciót választott, amelyhez egy betöltött projekt szükséges. "
 "Szeretne új projektet létrehozni, vagy egy meglévő projektet megnyitni?"
 
-#: src/prefs/prefs.cpp:152
+#: src/prefs/prefs.cpp:146
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "Projekt szükséges"
 
-#: src/prefs/prefs.cpp:153
+#: src/prefs/prefs.cpp:147
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
 msgstr "Projekt létrehozása"
 
-#: src/prefs/prefs.cpp:154
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Projekt megnyitása"
 
-#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
+#: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Lokalize fordítási projekt (*.lokalize)"
 
-#: src/prefs/prefs.cpp:181
+#: src/prefs/prefs.cpp:175
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "A lefordítandó Gettext .po fájlokat tartalmazó mappa kiválasztása"
 
-#: src/prefs/prefs.cpp:202
+#: src/prefs/prefs.cpp:196
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr ""
 "Először hozzon létre egy szoftver- vagy OpenDocument-fordítási projektet."
 
-#: src/prefs/prefs.cpp:258
+#: src/prefs/prefs.cpp:252
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Speciális"
 
-#: src/prefs/prefs.cpp:269
+#: src/prefs/prefs.cpp:263
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3739,13 +3739,13 @@ msgstr "A POT-fájlok (a lefordítandó sablonok) alapkönyvtára"
 msgid "Project's glossary"
 msgstr "A projekt szójegyzéke"
 
-#: src/project/projectmodel.cpp:469
+#: src/project/projectmodel.cpp:468
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Név"
 
-#: src/project/projectmodel.cpp:471
+#: src/project/projectmodel.cpp:470
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3753,55 +3753,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "Grafikon"
 
-#: src/project/projectmodel.cpp:473
+#: src/project/projectmodel.cpp:472
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "Összesen"
 
-#: src/project/projectmodel.cpp:475
+#: src/project/projectmodel.cpp:474
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Lefordítva"
 
-#: src/project/projectmodel.cpp:477
+#: src/project/projectmodel.cpp:476
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "Nem kész"
 
-#: src/project/projectmodel.cpp:479
+#: src/project/projectmodel.cpp:478
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Lefordítatlan"
 
-#: src/project/projectmodel.cpp:481
+#: src/project/projectmodel.cpp:480
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "Befejezetlen"
 
-#: src/project/projectmodel.cpp:483
+#: src/project/projectmodel.cpp:482
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Utolsó fordítás"
 
-#: src/project/projectmodel.cpp:485
+#: src/project/projectmodel.cpp:484
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "Megjegyzés"
 
-#: src/project/projectmodel.cpp:487
+#: src/project/projectmodel.cpp:486
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Sablonverzió"
 
-#: src/project/projectmodel.cpp:489
+#: src/project/projectmodel.cpp:488
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -3966,37 +3966,37 @@ msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "Lefordítatlan: %1"
 
-#: src/tm/dbfilesmodel.cpp:96
+#: src/tm/dbfilesmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
 msgstr "Név"
 
-#: src/tm/dbfilesmodel.cpp:97
+#: src/tm/dbfilesmodel.cpp:95
 #, kde-format
 msgctxt "@title:column"
 msgid "Source language"
 msgstr "Forrásnyelv"
 
-#: src/tm/dbfilesmodel.cpp:98
+#: src/tm/dbfilesmodel.cpp:96
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
 msgstr "Célnyelv"
 
-#: src/tm/dbfilesmodel.cpp:99
+#: src/tm/dbfilesmodel.cpp:97
 #, kde-format
 msgctxt "@title:column"
 msgid "Pairs"
 msgstr "Párok"
 
-#: src/tm/dbfilesmodel.cpp:100
+#: src/tm/dbfilesmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
 msgstr "Egyedi eredeti bejegyzések"
 
-#: src/tm/dbfilesmodel.cpp:101
+#: src/tm/dbfilesmodel.cpp:99
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique translations"
@@ -4104,7 +4104,7 @@ msgstr "Exportálás TMX-fájlba"
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: src/tm/qamodel.cpp:94
+#: src/tm/qamodel.cpp:96
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4230,54 +4230,54 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "Egy TMX-fájl kiválasztása a kiválasztott adatbázis exportálásához"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Fájlok hozzáadása a Lokalize fordítási memóriájához"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "TM"
 msgstr "FM"
 
-#: src/tm/tmtab.cpp:80
+#: src/tm/tmtab.cpp:78
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr "Forrás: %1"
 
-#: src/tm/tmtab.cpp:85
+#: src/tm/tmtab.cpp:83
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "Cél: %1"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Substring"
 msgstr "Részkarakterlánc"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Google-like"
 msgstr "Google-szerű"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Wildcard"
 msgstr "Helyettesítő karakter"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "A szóköz ÉS műveletnek felel meg. Nem érzékeny a kis- és nagybetűkre."
 
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Keresőkarakterek (* és ?). Nem érzékeny a kis- és nagybetűkre."
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:511
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
@@ -4286,55 +4286,55 @@ msgstr ""
 "A fájlok újraolvasása csak akkor lehetséges, ha a projekt meg van nyitva. "
 "Kérjük, nyisson meg egy projektet, és próbálja meg újra."
 
-#: src/tm/tmtab.cpp:514
+#: src/tm/tmtab.cpp:512
 #, kde-format
 msgid "Rescan not possible"
 msgstr "Újraolvasás nem lehetséges"
 
-#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:611 src/tm/tmview.cpp:620
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "A(z) %1 fájl nem létezik, el lett távolítva a fordítási memóriából."
 
-#: src/tm/tmview.cpp:186 src/tm/tmview.cpp:191
+#: src/tm/tmview.cpp:185 src/tm/tmview.cpp:190
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "Fordítási memória"
 
-#: src/tm/tmview.cpp:226
+#: src/tm/tmview.cpp:225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Kattintson duplán bármely szóra a fordításba való beillesztéséhez"
 
-#: src/tm/tmview.cpp:331
+#: src/tm/tmview.cpp:330
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Tömeges kitöltés a fordítási memóriából"
 
-#: src/tm/tmview.cpp:334
+#: src/tm/tmview.cpp:333
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "A tömeges fordítás befejeződött."
 
-#: src/tm/tmview.cpp:340
+#: src/tm/tmview.cpp:339
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Nem találhatók pontos egyezéseket tartalmazó javaslatok."
 
-#: src/tm/tmview.cpp:360 src/tm/tmview.cpp:375
+#: src/tm/tmview.cpp:359 src/tm/tmview.cpp:374
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "A tömeges fordítás ütemezve lett."
 
-#: src/tm/tmview.cpp:496
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
@@ -4342,7 +4342,7 @@ msgctxt ""
 msgid "100% (perfect match)"
 msgstr "100% (tökéletes egyezés)"
 
-#: src/tm/tmview.cpp:501
+#: src/tm/tmview.cpp:500
 #, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
@@ -4350,7 +4350,7 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:507
+#: src/tm/tmview.cpp:506
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
@@ -4360,7 +4360,7 @@ msgid_plural "Occurred %1 times"
 msgstr[0] "%1 alkalommal fordul elő"
 msgstr[1] "%1 alkalommal fordul elő"
 
-#: src/tm/tmview.cpp:517
+#: src/tm/tmview.cpp:516
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
@@ -4368,7 +4368,7 @@ msgctxt ""
 msgid "%1 • %2 • %3"
 msgstr "%1 • %2 • %3"
 
-#: src/tm/tmview.cpp:525
+#: src/tm/tmview.cpp:524
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
@@ -4376,43 +4376,43 @@ msgctxt ""
 msgid "%1 • %2"
 msgstr "%1 • %2"
 
-#: src/tm/tmview.cpp:577
+#: src/tm/tmview.cpp:576
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "ez"
 
-#: src/tm/tmview.cpp:578
+#: src/tm/tmview.cpp:577
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Fájl: %1<br />Hozzáadás dátuma: %2"
 
-#: src/tm/tmview.cpp:580
+#: src/tm/tmview.cpp:579
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Utolsó változtatás dátuma: %1"
 
-#: src/tm/tmview.cpp:582
+#: src/tm/tmview.cpp:581
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Utolsó változtatás szerzője: %1"
 
-#: src/tm/tmview.cpp:583
+#: src/tm/tmview.cpp:582
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />FM: %1"
 
-#: src/tm/tmview.cpp:585
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Nincs többé jelent a fájlban"
 
-#: src/tm/tmview.cpp:600
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4421,31 +4421,31 @@ msgstr ""
 "<html>Valóban el szeretné távolítani ezt a bejegyzést:<br/><i>%1</i><br/"
 ">ebből a fordítási memóriából: %2?</html>"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:602
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Fordítási memória bejegyzésének törlése"
 
-#: src/tm/tmview.cpp:648
+#: src/tm/tmview.cpp:647
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Bejegyzés eltávolítása"
 
-#: src/tm/tmview.cpp:651
+#: src/tm/tmview.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "A bejegyzést tartalmazó fájl megnyitása"
 
-#: src/tm/tmview.cpp:661
+#: src/tm/tmview.cpp:660
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Hiányzó fájl eltávolítása a fordítási memóriából"
 
-#: src/tm/tmview.cpp:675
+#: src/tm/tmview.cpp:674
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4454,19 +4454,19 @@ msgstr ""
 "<html>Valóban el szeretné távolítani ezt a hiányzó fájlt:<br/><i>%1</i><br/"
 ">ebből a fordítási memóriából: %2?</html>"
 
-#: src/tm/tmview.cpp:679
+#: src/tm/tmview.cpp:678
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Hiányzó fájl eltávolítása a fordítási memóriából"
 
-#: src/tm/tmview.cpp:962
+#: src/tm/tmview.cpp:961
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
 msgstr "Fordítási memória javaslatának használata"
 
-#: src/tools/widgettextcaptureconfig.cpp:23
+#: src/tools/widgettextcaptureconfig.cpp:24
 #, kde-format
 msgctxt "@title"
 msgid "Widget Text Capture"
@@ -4528,29 +4528,29 @@ msgstr "Grafikus elem szövegének keresése a fordítási memóriában"
 msgid "Copy GUI element text to clipboard"
 msgstr "Grafikus elem szövegének másolása a vágólapra"
 
-#: src/xlifftextedit.cpp:878
+#: src/xlifftextedit.cpp:876
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Kijelölt szöveg keresése a fordítási memóriában"
 
-#: src/xlifftextedit.cpp:958
+#: src/xlifftextedit.cpp:956
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Szöveg cseréje"
 
-#: src/xlifftextedit.cpp:997
+#: src/xlifftextedit.cpp:995
 #, kde-format
 msgid "no spellcheck available"
 msgstr "nem érhető el helyesírás-ellenőrzés"
 
-#: src/xlifftextedit.cpp:1013
+#: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Hibát jelentettek: %1"
 
-#: src/xlifftextedit.cpp:1173
+#: src/xlifftextedit.cpp:1171
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

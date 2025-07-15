@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-11 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -153,153 +153,153 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "使用源文件"
 
-#: src/catalog/catalog.cpp:43
+#: src/catalog/catalog.cpp:40
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "所有支持的文件 (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:44
+#: src/catalog/catalog.cpp:41
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:43
 #, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:56
 #, kde-format
 msgid "New"
 msgstr "新翻译"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:57
 #, kde-format
 msgid "Needs translation"
 msgstr "需要翻译"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:58
 #, kde-format
 msgid "Needs full localization"
 msgstr "需要完全本地化"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "需要改进"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Translated"
 msgstr "已翻译"
 
-#: src/catalog/catalog.cpp:64
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation review"
 msgstr "需要翻译审核"
 
-#: src/catalog/catalog.cpp:65
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr "需要全面本地化审核"
 
-#: src/catalog/catalog.cpp:66
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "需要改写审核"
 
-#: src/catalog/catalog.cpp:67
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Final"
 msgstr "最终版"
 
-#: src/catalog/catalog.cpp:68
+#: src/catalog/catalog.cpp:65
 #, kde-format
 msgid "Signed-off"
 msgstr "签署"
 
-#: src/catalog/catalogstring.cpp:57
+#: src/catalog/catalogstring.cpp:56
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "配对标签开头"
 
-#: src/catalog/catalogstring.cpp:58
+#: src/catalog/catalogstring.cpp:57
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "配对标签结尾"
 
-#: src/catalog/catalogstring.cpp:59
+#: src/catalog/catalogstring.cpp:58
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "独立标签"
 
-#: src/catalog/catalogstring.cpp:60
+#: src/catalog/catalogstring.cpp:59
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "孤立标签"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:61
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "标志符"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "通用分组占位符"
 
-#: src/catalog/catalogstring.cpp:64
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "子流程"
 
-#: src/catalog/catalogstring.cpp:66
+#: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "通用占位符"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:66
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "配对占位符开头"
 
-#: src/catalog/catalogstring.cpp:68
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "配对占位符结尾"
 
-#: src/catalog/catalogstring.cpp:112
+#: src/catalog/catalogstring.cpp:111
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "缩写"
 
-#: src/catalog/catalogstring.cpp:113
+#: src/catalog/catalogstring.cpp:112
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -307,7 +307,7 @@ msgid ""
 "term while designating the same concept"
 msgstr "缩写形式：一种通过对完整术语省略部分得到的指明相同概念的术语"
 
-#: src/catalog/catalogstring.cpp:115
+#: src/catalog/catalogstring.cpp:114
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -317,7 +317,7 @@ msgstr ""
 "缩写：一种通过省略一些字母得到的简单术语的缩写形式(例如，“adj”表"
 "示“adjective”)"
 
-#: src/catalog/catalogstring.cpp:117
+#: src/catalog/catalogstring.cpp:116
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -328,7 +328,7 @@ msgstr ""
 "字首组合：一种由完整形式的多字词术语的各个首字母拼接而成的缩写形式，按顺序逐"
 "音节发音(例如，“radar”表示“radio detecting and ranging”)"
 
-#: src/catalog/catalogstring.cpp:119
+#: src/catalog/catalogstring.cpp:118
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -336,7 +336,7 @@ msgid ""
 "proper entity"
 msgstr "称呼：一种恰当的名称术语，比如媒介或其他合适实体的名称"
 
-#: src/catalog/catalogstring.cpp:121
+#: src/catalog/catalogstring.cpp:120
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -348,7 +348,7 @@ msgstr ""
 "排列：一种循环的单词组合，由排列的各部分必须在一次表达或一系列表达之内重复出"
 "现的形式连接，虽然它们不必维持一个接一个的直接毗邻"
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:122
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -356,13 +356,13 @@ msgid ""
 "general discourse in a given language"
 msgstr "通用名称：一种用于特定语言的常规讲述的国际性科学术语的同义词"
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:123
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "日期和/或时间"
 
-#: src/catalog/catalogstring.cpp:126
+#: src/catalog/catalogstring.cpp:125
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -373,7 +373,7 @@ msgstr ""
 "等式：一种用于表示基于语句概念的表达式，比如，两个数学表达式相等由等于号(=)显"
 "式指明，或由类似符号表示的一个对另一个的赋值"
 
-#: src/catalog/catalogstring.cpp:128
+#: src/catalog/catalogstring.cpp:127
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -381,7 +381,7 @@ msgid ""
 "abbreviated form"
 msgstr "详细形式：缩略形式术语的完整表示形式"
 
-#: src/catalog/catalogstring.cpp:129
+#: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -389,7 +389,7 @@ msgid ""
 "such as a mathematical or chemical formula"
 msgstr "公式：图形、符号或诸如此类用来简明表达一种概念，比如数学公式或化学公式"
 
-#: src/catalog/catalogstring.cpp:130
+#: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -397,7 +397,7 @@ msgid ""
 "terminological record"
 msgstr "头术语：指定被选作表示术语学记录头部信息的概念"
 
-#: src/catalog/catalogstring.cpp:132
+#: src/catalog/catalogstring.cpp:131
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -407,7 +407,7 @@ msgid ""
 "'BSE' for 'bovine spongiform encephalopathy')"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:136
+#: src/catalog/catalogstring.cpp:135
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -415,7 +415,7 @@ msgid ""
 "scientific nomenclature as adopted by an appropriate scientific body"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:137
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -423,7 +423,7 @@ msgid ""
 "or phonemic form in many languages"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:139
+#: src/catalog/catalogstring.cpp:138
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -434,19 +434,19 @@ msgstr ""
 "逻辑表达式：一种用于表示基于数学或逻辑关系概念的表达式，比如不等式语句、集合"
 "关系语句、布尔运算语句等"
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr "资源管理单元：一种跟踪对象的单元"
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "名称"
 
-#: src/catalog/catalogstring.cpp:144
+#: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -455,7 +455,7 @@ msgid ""
 "limited to some contexts and inapplicable in others"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:146
+#: src/catalog/catalogstring.cpp:145
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -463,13 +463,13 @@ msgid ""
 "manufacturing system"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:147
+#: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "phrase"
 msgstr "词组"
 
-#: src/catalog/catalogstring.cpp:149
+#: src/catalog/catalogstring.cpp:148
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -478,13 +478,13 @@ msgid ""
 "words making up the phrase"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:151
+#: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr "保护：标记的文本不应该被翻译"
 
-#: src/catalog/catalogstring.cpp:153
+#: src/catalog/catalogstring.cpp:152
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -492,19 +492,19 @@ msgid ""
 "Latin writing systems are converted to the Latin alphabet"
 msgstr "罗马字形式：一种通过将非拉丁书写系统转换为拉丁字母处理得到的术语形式"
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr "分段：表示一个片断的标记文本"
 
-#: src/catalog/catalogstring.cpp:155
+#: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr "编目词组：一种固定且编入词汇的词组"
 
-#: src/catalog/catalogstring.cpp:157
+#: src/catalog/catalogstring.cpp:156
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -513,7 +513,7 @@ msgid ""
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:160
+#: src/catalog/catalogstring.cpp:159
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -521,13 +521,13 @@ msgid ""
 "designation assigned to an object in an inventory control system"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:161
+#: src/catalog/catalogstring.cpp:160
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
 msgstr "标准文本：一块固定的循环文本"
 
-#: src/catalog/catalogstring.cpp:162
+#: src/catalog/catalogstring.cpp:161
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -535,7 +535,7 @@ msgid ""
 "combination thereof"
 msgstr "符号：由字母、数字、象形图或其他的可连接形式的概念标志"
 
-#: src/catalog/catalogstring.cpp:163
+#: src/catalog/catalogstring.cpp:162
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -543,7 +543,7 @@ msgid ""
 "main entry term in a term entry"
 msgstr "同义词：表示相同或非常近似概念的术语"
 
-#: src/catalog/catalogstring.cpp:165
+#: src/catalog/catalogstring.cpp:164
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -551,13 +551,13 @@ msgid ""
 "semantic content as another phrase in that same language"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:166
+#: src/catalog/catalogstring.cpp:165
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "term"
 msgstr "术语"
 
-#: src/catalog/catalogstring.cpp:168
+#: src/catalog/catalogstring.cpp:167
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -567,7 +567,7 @@ msgid ""
 "converted"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:171
+#: src/catalog/catalogstring.cpp:170
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -576,7 +576,7 @@ msgid ""
 "from another alphabetic writing system"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:174
+#: src/catalog/catalogstring.cpp:173
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -584,309 +584,309 @@ msgid ""
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
 
-#: src/catalog/catalogstring.cpp:176
+#: src/catalog/catalogstring.cpp:175
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "变体：某术语的一种备选形式"
 
-#: src/catalog/cmd.cpp:79
+#: src/catalog/cmd.cpp:75
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "插入"
 
-#: src/catalog/cmd.cpp:119
+#: src/catalog/cmd.cpp:115
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "删除"
 
-#: src/catalog/cmd.cpp:166
+#: src/catalog/cmd.cpp:162
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "切换审核状态"
 
-#: src/catalog/cmd.cpp:184
+#: src/catalog/cmd.cpp:180
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "插入标记"
 
-#: src/catalog/cmd.cpp:207
+#: src/catalog/cmd.cpp:203
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "删除标记"
 
-#: src/catalog/cmd.cpp:229
+#: src/catalog/cmd.cpp:225
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "备注设置"
 
-#: src/catalog/cmd.cpp:264
+#: src/catalog/cmd.cpp:260
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "更新/添加工作流程阶段"
 
-#: src/catalog/cmd.cpp:283
+#: src/catalog/cmd.cpp:279
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "翻译等价设置"
 
-#: src/catalog/cmd.cpp:340
+#: src/catalog/cmd.cpp:336
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "删除带标记的文本"
 
-#: src/catalog/cmd.cpp:388 src/xlifftextedit.cpp:576
+#: src/catalog/cmd.cpp:384 src/xlifftextedit.cpp:574
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "插入带标记的文本"
 
-#: src/catalog/gettext/gettextstorage.cpp:101
+#: src/catalog/gettext/gettextstorage.cpp:98
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr ""
 
-#: src/catalog/gettext/gettextstorage.cpp:287
+#: src/catalog/gettext/gettextstorage.cpp:284
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:459
+#: src/catalog/gettextheader.cpp:456
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "缺少作者姓名"
 
-#: src/catalog/gettextheader.cpp:460
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgid "Your name:"
 msgstr "您的姓名："
 
-#: src/catalog/gettextheader.cpp:471
+#: src/catalog/gettextheader.cpp:468
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "缺少作者电子邮件"
 
-#: src/catalog/gettextheader.cpp:472
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgid "Your email:"
 msgstr "您的电子邮件："
 
-#: src/catalog/ts/tsstorage.cpp:439
+#: src/catalog/ts/tsstorage.cpp:437
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "lupdate 工具保存的之前的源的值"
 
-#: src/cataloglistview/cataloglistview.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:55
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "翻译条目"
 
-#: src/cataloglistview/cataloglistview.cpp:83
-#: src/glossary/glossarywindow.cpp:102 src/project/projecttab.cpp:57
+#: src/cataloglistview/cataloglistview.cpp:80
+#: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:57
 #, kde-format
 msgid "Quick search..."
 msgstr "快速搜索..."
 
-#: src/cataloglistview/cataloglistview.cpp:84
-#: src/glossary/glossarywindow.cpp:104 src/project/projecttab.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:81
+#: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:58
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr ""
 
-#: src/cataloglistview/cataloglistview.cpp:91
+#: src/cataloglistview/cataloglistview.cpp:88
 #, kde-format
 msgid "Options"
 msgstr "选项"
 
-#: src/cataloglistview/cataloglistview.cpp:193
+#: src/cataloglistview/cataloglistview.cpp:190
 #, kde-format
 msgid "Reset individual filter"
 msgstr "重置单独的过滤器"
 
-#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:195 src/tm/tmtab.cpp:361
 #, kde-format
 msgid "Case insensitive"
 msgstr "不区分大小写"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:196 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "忽略快捷键标记"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
 msgid "Ready"
 msgstr "就绪"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Non-ready"
 msgstr "未就绪"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Non-empty"
 msgstr "非空"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Empty"
 msgstr "空"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Changed since file open"
 msgstr "文件打开后已更改"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "文件打开后未更改"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Same in sync file"
 msgstr "与同步文件相同"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Different in sync file"
 msgstr "与同步文件不同"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Not in sync file"
 msgstr "同步文件中不存在"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Plural"
 msgstr "复数"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Non-plural"
 msgstr "非复数"
 
-#: src/cataloglistview/cataloglistview.cpp:215
+#: src/cataloglistview/cataloglistview.cpp:212
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "基本"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "状态"
 
-#: src/cataloglistview/cataloglistview.cpp:218
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "可搜索列"
 
-#: src/cataloglistview/cataloglistview.cpp:222
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "在内容改变之后重新排序及过滤"
 
-#: src/cataloglistview/cataloglistview.cpp:242
+#: src/cataloglistview/cataloglistview.cpp:239
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
 msgstr "全部"
 
-#: src/cataloglistview/catalogmodel.cpp:91
+#: src/cataloglistview/catalogmodel.cpp:88
 #, kde-format
 msgctxt "@title:column"
 msgid "Entry"
 msgstr "条目"
 
-#: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:350
-#: src/glossary/glossary.cpp:193 src/tm/qamodel.cpp:91 src/tm/tmtab.cpp:67
+#: src/cataloglistview/catalogmodel.cpp:90 src/filesearch/filesearchtab.cpp:350
+#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "原文"
 
-#: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:352
-#: src/glossary/glossary.cpp:196 src/tm/tmtab.cpp:68
+#: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:352
+#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
 msgstr "译文"
 
-#: src/cataloglistview/catalogmodel.cpp:97
+#: src/cataloglistview/catalogmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Notes"
 msgstr "备注"
 
-#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:69
+#: src/cataloglistview/catalogmodel.cpp:96 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "语境"
 
-#: src/cataloglistview/catalogmodel.cpp:101
+#: src/cataloglistview/catalogmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Files"
 msgstr "文件"
 
-#: src/cataloglistview/catalogmodel.cpp:103
-#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:71
+#: src/cataloglistview/catalogmodel.cpp:100
+#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
 msgstr "翻译状态"
 
-#: src/cataloglistview/catalogmodel.cpp:105
+#: src/cataloglistview/catalogmodel.cpp:102
 #, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "原始长度"
 
-#: src/cataloglistview/catalogmodel.cpp:107
+#: src/cataloglistview/catalogmodel.cpp:104
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "译文长度"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:991
-#: src/editortab.cpp:1185 src/tm/tmtab.cpp:234
+#: src/cataloglistview/catalogmodel.cpp:140 src/editortab.cpp:991
+#: src/editortab.cpp:1185 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "就绪"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:993
-#: src/editortab.cpp:1180 src/tm/tmtab.cpp:235
+#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:993
+#: src/editortab.cpp:1180 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "待审核"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:989
-#: src/tm/tmtab.cpp:236
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:989
+#: src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -904,7 +904,7 @@ msgstr "%1 (%2)"
 msgid "Target language:"
 msgstr "目标语言："
 
-#: src/common/termlabel.cpp:58
+#: src/common/termlabel.cpp:57
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
@@ -1306,13 +1306,13 @@ msgstr ""
 "您想要保存还是放弃这些改变？"
 
 #: src/editortab.cpp:719 src/editortab.cpp:1290
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1017
+#: src/glossary/glossarywindow.cpp:345 src/lokalizemainwindow.cpp:1017
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "警告"
 
-#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1561,25 +1561,25 @@ msgctxt "@item Undo action item"
 msgid "Set unit text"
 msgstr "设置单元文本"
 
-#: src/editortab_findreplace.cpp:435
+#: src/editortab_findreplace.cpp:432
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "替换"
 
-#: src/editortab_findreplace.cpp:498
+#: src/editortab_findreplace.cpp:495
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr "Lokalize 已到达文档末尾。您想要从开头继续吗？"
 
-#: src/editortab_findreplace.cpp:499 src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:496 src/editortab_findreplace.cpp:504
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "拼写检查"
 
-#: src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:504
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize 已完成拼写检查"
@@ -1651,31 +1651,31 @@ msgstr "工具视图(&V)"
 msgid "Main Toolbar"
 msgstr "主工具栏"
 
-#: src/editorview.cpp:47
+#: src/editorview.cpp:42
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "未就绪："
 
-#: src/editorview.cpp:49
+#: src/editorview.cpp:44
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "未翻译："
 
-#: src/editorview.cpp:60
+#: src/editorview.cpp:55
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "隐藏"
 
-#: src/editorview.cpp:70
+#: src/editorview.cpp:65
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "栏：%1"
 
-#: src/editorview.cpp:82
+#: src/editorview.cpp:77
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1685,13 +1685,13 @@ msgstr ""
 "<qt><p><b>原始字符串</b></p>\n"
 "<p>窗口的这部分显示了当前所显示条目的原始文本。</p></qt>"
 
-#: src/editorview.cpp:173
+#: src/editorview.cpp:168
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "复数形式 %1"
 
-#: src/editorview.cpp:237
+#: src/editorview.cpp:232
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1774,7 +1774,7 @@ msgstr "文件列表"
 msgid "Drop translation files here..."
 msgstr "将翻译文件拖放到此处..."
 
-#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:70
+#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
@@ -1786,17 +1786,17 @@ msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "在多个文件中查找和替换"
 
-#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:399
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:397
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "复制源信息到剪贴板"
 
-#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "复制目标信息到剪贴板"
 
-#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Open file"
 msgstr "打开文件"
@@ -1837,21 +1837,21 @@ msgstr "预览"
 msgid "Mass Replace"
 msgstr "大规模替换"
 
-#: src/glossary/glossary.cpp:198
+#: src/glossary/glossary.cpp:194
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "主题字段"
 
-#: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:263 src/glossary/glossarywindow.cpp:289
-#: src/glossary/glossarywindow.cpp:304 src/glossary/glossarywindow.cpp:321
+#: src/glossary/glossaryview.cpp:31 src/glossary/glossaryview.cpp:38
+#: src/glossary/glossarywindow.cpp:260 src/glossary/glossarywindow.cpp:286
+#: src/glossary/glossarywindow.cpp:301 src/glossary/glossarywindow.cpp:318
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
 msgstr "词汇表"
 
-#: src/glossary/glossaryview.cpp:54
+#: src/glossary/glossaryview.cpp:50
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -1864,19 +1864,19 @@ msgstr ""
 "右键菜单以添加新的术语(提示：&nbsp;在调用 <interface>定义&nbsp;新&nbsp;术语</"
 "interface> 之前先选择原始文本和翻译区域中的单词)。</p>"
 
-#: src/glossary/glossarywindow.cpp:119
+#: src/glossary/glossarywindow.cpp:116
 #, kde-format
 msgctxt "@action:button reloads glossary from disk"
 msgid "Restore from disk"
 msgstr "从磁盘恢复"
 
-#: src/glossary/glossarywindow.cpp:120
+#: src/glossary/glossarywindow.cpp:117
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "重新从磁盘加载词汇表，放弃所有更改"
 
-#: src/glossary/glossarywindow.cpp:346
+#: src/glossary/glossarywindow.cpp:343
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2034,7 +2034,7 @@ msgstr "翻译记忆功能需要 SQLite Qt 模块。"
 msgid "No SQLite module available"
 msgstr "没有可用的 SQLite 模块"
 
-#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:478
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2078,7 +2078,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "翻译记忆"
 
-#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:481
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -2350,7 +2350,7 @@ msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "接受所有新的翻译"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:29 src/mergemode/mergeview.cpp:34
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2358,7 +2358,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "一级同步"
 
-#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2366,7 +2366,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "二级同步"
 
-#: src/mergemode/mergeview.cpp:41
+#: src/mergemode/mergeview.cpp:40
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2374,7 +2374,7 @@ msgid ""
 "context menu options"
 msgstr "拖动文件至此以与当前的文件合并/同步,然后可以查看右键菜单选项"
 
-#: src/mergemode/mergeview.cpp:206
+#: src/mergemode/mergeview.cpp:205
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2382,7 +2382,7 @@ msgid ""
 "line: %2"
 msgstr "打开文件 <filename>%1</filename> 进行同步时出错，出错行：%2"
 
-#: src/mergemode/mergeview.cpp:332
+#: src/mergemode/mergeview.cpp:331
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2392,102 +2392,102 @@ msgstr ""
 "不同的条目：%1\n"
 "不匹配的条目：%2"
 
-#: src/msgctxtview.cpp:37
+#: src/msgctxtview.cpp:33
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr ""
 
-#: src/msgctxtview.cpp:93
+#: src/msgctxtview.cpp:89
 #, kde-format
 msgctxt ""
 "@info notes to translation unit which expire when the catalog is closed"
 msgid "<b>Temporary notes:</b>"
 msgstr "<b>临时备注：</b>"
 
-#: src/msgctxtview.cpp:102
+#: src/msgctxtview.cpp:98
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
 msgstr ""
 
-#: src/msgctxtview.cpp:111
+#: src/msgctxtview.cpp:107
 #, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
 msgstr ""
 
-#: src/msgctxtview.cpp:123
+#: src/msgctxtview.cpp:119
 #, kde-format
 msgctxt "@info translation unit metadata"
 msgid "<b>Phase:</b><br>"
 msgstr "<b>阶段：</b><br>"
 
-#: src/msgctxtview.cpp:147
+#: src/msgctxtview.cpp:143
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Files:</b><br>"
 msgstr "<br><b>文件：</b><br>"
 
-#: src/msgctxtview.cpp:155
+#: src/msgctxtview.cpp:151
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Context:</b><br>"
 msgstr "<br><b>语境：</b><br>"
 
-#: src/msgctxtview.cpp:226
+#: src/msgctxtview.cpp:222
 #, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
 msgstr "(空)"
 
-#: src/noteeditor.cpp:46
+#: src/noteeditor.cpp:41
 #, kde-format
 msgctxt "@info:label"
 msgid "From:"
 msgstr "从："
 
-#: src/noteeditor.cpp:50
+#: src/noteeditor.cpp:45
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Save empty note to remove it"
 msgstr "保存空备注即可删除该备注"
 
-#: src/noteeditor.cpp:51
+#: src/noteeditor.cpp:46
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Author of this note"
 msgstr "备注作者"
 
-#: src/noteeditor.cpp:64
+#: src/noteeditor.cpp:59
 #, kde-format
 msgid "Ctrl+Enter"
 msgstr "Ctrl+Enter"
 
-#: src/noteeditor.cpp:65
+#: src/noteeditor.cpp:60
 #, kde-format
 msgid "Esc"
 msgstr "Esc"
 
-#: src/noteeditor.cpp:118
+#: src/noteeditor.cpp:113
 #, kde-format
 msgctxt "@info XLIFF notes representation"
 msgid "<b>Notes:</b>"
 msgstr "<b>备注：</b>"
 
-#: src/noteeditor.cpp:130
+#: src/noteeditor.cpp:125
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit..."
 msgstr "编辑..."
 
-#: src/noteeditor.cpp:135
+#: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add..."
 msgstr "添加..."
 
-#: src/noteeditor.cpp:137
+#: src/noteeditor.cpp:132
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add a note..."
@@ -2635,13 +2635,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr "翻译内容使用的字体"
 
-#: src/prefs/prefs.cpp:96
+#: src/prefs/prefs.cpp:90
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "身份"
 
-#: src/prefs/prefs.cpp:106
+#: src/prefs/prefs.cpp:100
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2652,43 +2652,43 @@ msgstr ""
 "%1 - 源文件的路径\n"
 "%2 - 行号"
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
+#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "常规"
 
-#: src/prefs/prefs.cpp:113
+#: src/prefs/prefs.cpp:107
 #, kde-format
 msgctxt "@title:tab"
 msgid "Editing"
 msgstr "编辑"
 
-#: src/prefs/prefs.cpp:119
+#: src/prefs/prefs.cpp:113
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "外观"
 
-#: src/prefs/prefs.cpp:125 src/tm/tmtab.cpp:376
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:374
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "翻译记忆"
 
-#: src/prefs/prefs.cpp:131
+#: src/prefs/prefs.cpp:125
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:137
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:151
+#: src/prefs/prefs.cpp:145
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2697,47 +2697,47 @@ msgstr ""
 "您访问的功能需要加载项目之后才能使用。您想要新建一个项目，还是打开一个已有项"
 "目？"
 
-#: src/prefs/prefs.cpp:152
+#: src/prefs/prefs.cpp:146
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "需要加载项目"
 
-#: src/prefs/prefs.cpp:153
+#: src/prefs/prefs.cpp:147
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
 msgstr "创建项目"
 
-#: src/prefs/prefs.cpp:154
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "打开项目"
 
-#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
+#: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Lokalize 翻译项目文件 (*.lokalize)"
 
-#: src/prefs/prefs.cpp:181
+#: src/prefs/prefs.cpp:175
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "选择要翻译的 Gettext .po 文件所在的目录"
 
-#: src/prefs/prefs.cpp:202
+#: src/prefs/prefs.cpp:196
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "请先创建软件或者 OpenDocument 翻译项目。"
 
-#: src/prefs/prefs.cpp:258
+#: src/prefs/prefs.cpp:252
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "高级"
 
-#: src/prefs/prefs.cpp:269
+#: src/prefs/prefs.cpp:263
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3548,13 +3548,13 @@ msgstr "POT 文件的基准目录(待翻译的模板)"
 msgid "Project's glossary"
 msgstr "项目词汇表"
 
-#: src/project/projectmodel.cpp:469
+#: src/project/projectmodel.cpp:468
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "名称"
 
-#: src/project/projectmodel.cpp:471
+#: src/project/projectmodel.cpp:470
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3562,55 +3562,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "图表"
 
-#: src/project/projectmodel.cpp:473
+#: src/project/projectmodel.cpp:472
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "总计"
 
-#: src/project/projectmodel.cpp:475
+#: src/project/projectmodel.cpp:474
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "已翻译"
 
-#: src/project/projectmodel.cpp:477
+#: src/project/projectmodel.cpp:476
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "未就绪"
 
-#: src/project/projectmodel.cpp:479
+#: src/project/projectmodel.cpp:478
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "未翻译"
 
-#: src/project/projectmodel.cpp:481
+#: src/project/projectmodel.cpp:480
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "未完成"
 
-#: src/project/projectmodel.cpp:483
+#: src/project/projectmodel.cpp:482
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "最后翻译时间"
 
-#: src/project/projectmodel.cpp:485
+#: src/project/projectmodel.cpp:484
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr ""
 
-#: src/project/projectmodel.cpp:487
+#: src/project/projectmodel.cpp:486
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "模板版本"
 
-#: src/project/projectmodel.cpp:489
+#: src/project/projectmodel.cpp:488
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -3771,37 +3771,37 @@ msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "未翻译条目：%1"
 
-#: src/tm/dbfilesmodel.cpp:96
+#: src/tm/dbfilesmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
 msgstr "名称"
 
-#: src/tm/dbfilesmodel.cpp:97
+#: src/tm/dbfilesmodel.cpp:95
 #, kde-format
 msgctxt "@title:column"
 msgid "Source language"
 msgstr "源语言"
 
-#: src/tm/dbfilesmodel.cpp:98
+#: src/tm/dbfilesmodel.cpp:96
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
 msgstr "目标语言"
 
-#: src/tm/dbfilesmodel.cpp:99
+#: src/tm/dbfilesmodel.cpp:97
 #, kde-format
 msgctxt "@title:column"
 msgid "Pairs"
 msgstr "数据对"
 
-#: src/tm/dbfilesmodel.cpp:100
+#: src/tm/dbfilesmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
 msgstr "唯一原始条目"
 
-#: src/tm/dbfilesmodel.cpp:101
+#: src/tm/dbfilesmodel.cpp:99
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique translations"
@@ -3909,7 +3909,7 @@ msgstr "导出至 TMX"
 msgid "Remove"
 msgstr "删除"
 
-#: src/tm/qamodel.cpp:94
+#: src/tm/qamodel.cpp:96
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4031,109 +4031,109 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "选定数据库要导出到的 TMX 文件"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "正在添加文件到 Lokalize 翻译记忆"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "TM"
 msgstr "翻译记忆"
 
-#: src/tm/tmtab.cpp:80
+#: src/tm/tmtab.cpp:78
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr ""
 
-#: src/tm/tmtab.cpp:85
+#: src/tm/tmtab.cpp:83
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr ""
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Substring"
 msgstr "子串"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Google-like"
 msgstr "类似 Google"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Wildcard"
 msgstr "通配符"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "空格即 AND 操作符。不区分大小写。"
 
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Shell 通配符(* 和 ?)。区分大小写。"
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:511
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
 
-#: src/tm/tmtab.cpp:514
+#: src/tm/tmtab.cpp:512
 #, kde-format
 msgid "Rescan not possible"
 msgstr ""
 
-#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:611 src/tm/tmview.cpp:620
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr ""
 
-#: src/tm/tmview.cpp:186 src/tm/tmview.cpp:191
+#: src/tm/tmview.cpp:185 src/tm/tmview.cpp:190
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "翻译记忆"
 
-#: src/tm/tmview.cpp:226
+#: src/tm/tmview.cpp:225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "双击任何单词以将其插入翻译"
 
-#: src/tm/tmview.cpp:331
+#: src/tm/tmview.cpp:330
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "批量翻译记忆填写"
 
-#: src/tm/tmview.cpp:334
+#: src/tm/tmview.cpp:333
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "已完成批量翻译。"
 
-#: src/tm/tmview.cpp:340
+#: src/tm/tmview.cpp:339
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "未发现任何精确匹配建议。"
 
-#: src/tm/tmview.cpp:360 src/tm/tmview.cpp:375
+#: src/tm/tmview.cpp:359 src/tm/tmview.cpp:374
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "已安排批量翻译。"
 
-#: src/tm/tmview.cpp:496
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
@@ -4141,7 +4141,7 @@ msgctxt ""
 msgid "100% (perfect match)"
 msgstr ""
 
-#: src/tm/tmview.cpp:501
+#: src/tm/tmview.cpp:500
 #, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
@@ -4149,7 +4149,7 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:507
+#: src/tm/tmview.cpp:506
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
@@ -4158,7 +4158,7 @@ msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
 msgstr[0] ""
 
-#: src/tm/tmview.cpp:517
+#: src/tm/tmview.cpp:516
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
@@ -4166,7 +4166,7 @@ msgctxt ""
 msgid "%1 • %2 • %3"
 msgstr ""
 
-#: src/tm/tmview.cpp:525
+#: src/tm/tmview.cpp:524
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
@@ -4174,43 +4174,43 @@ msgctxt ""
 msgid "%1 • %2"
 msgstr ""
 
-#: src/tm/tmview.cpp:577
+#: src/tm/tmview.cpp:576
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "本文件"
 
-#: src/tm/tmview.cpp:578
+#: src/tm/tmview.cpp:577
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "文件：%1<br />添加日期：%2"
 
-#: src/tm/tmview.cpp:580
+#: src/tm/tmview.cpp:579
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />最后修改日期: %1"
 
-#: src/tm/tmview.cpp:582
+#: src/tm/tmview.cpp:581
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />最后修改人: %1"
 
-#: src/tm/tmview.cpp:583
+#: src/tm/tmview.cpp:582
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />翻译记忆： %1"
 
-#: src/tm/tmview.cpp:585
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />不再存在于文件中"
 
-#: src/tm/tmview.cpp:600
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4218,50 +4218,50 @@ msgid ""
 msgstr ""
 "<html>您确定要从翻译记忆 %2 中移除条目：<br/><i>%1</i><br/> 吗？</html>"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:602
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "翻译记忆条目移除"
 
-#: src/tm/tmview.cpp:648
+#: src/tm/tmview.cpp:647
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "删除此条目"
 
-#: src/tm/tmview.cpp:651
+#: src/tm/tmview.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "打开包含此条目的文件"
 
-#: src/tm/tmview.cpp:661
+#: src/tm/tmview.cpp:660
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:675
+#: src/tm/tmview.cpp:674
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
 
-#: src/tm/tmview.cpp:679
+#: src/tm/tmview.cpp:678
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr ""
 
-#: src/tm/tmview.cpp:962
+#: src/tm/tmview.cpp:961
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
 msgstr "使用翻译记忆建议"
 
-#: src/tools/widgettextcaptureconfig.cpp:23
+#: src/tools/widgettextcaptureconfig.cpp:24
 #, kde-format
 msgctxt "@title"
 msgid "Widget Text Capture"
@@ -4317,29 +4317,29 @@ msgstr "搜索翻译记忆中的 GUI 元素文本"
 msgid "Copy GUI element text to clipboard"
 msgstr "复制 GUI 元素文本到剪贴板"
 
-#: src/xlifftextedit.cpp:878
+#: src/xlifftextedit.cpp:876
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "在翻译记忆中搜索选中的文本"
 
-#: src/xlifftextedit.cpp:958
+#: src/xlifftextedit.cpp:956
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "替换文本"
 
-#: src/xlifftextedit.cpp:997
+#: src/xlifftextedit.cpp:995
 #, kde-format
 msgid "no spellcheck available"
 msgstr "没有可用的拼写检查"
 
-#: src/xlifftextedit.cpp:1013
+#: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1173
+#: src/xlifftextedit.cpp:1171
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

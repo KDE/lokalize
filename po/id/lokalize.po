@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-11 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:46+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -184,154 +184,154 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Gunakan file sumber"
 
-#: src/catalog/catalog.cpp:43
+#: src/catalog/catalog.cpp:40
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "Semua file yang didukung (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:44
+#: src/catalog/catalog.cpp:41
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:43
 #, fuzzy, kde-format
 #| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr "Semua file yang didukung (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Ahli bahasa (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:56
 #, kde-format
 msgid "New"
 msgstr "Baru"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:57
 #, kde-format
 msgid "Needs translation"
 msgstr "Perlu terjemahan"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:58
 #, kde-format
 msgid "Needs full localization"
 msgstr "Perlu pelokalan penuh"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Perlu adaptasi"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Translated"
 msgstr "Diterjemahkan"
 
-#: src/catalog/catalog.cpp:64
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation review"
 msgstr "Perlu tinjauan terjemahan"
 
-#: src/catalog/catalog.cpp:65
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Perlu tinjauan pelokalan penuh"
 
-#: src/catalog/catalog.cpp:66
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Perlu tinjauan adaptasi"
 
-#: src/catalog/catalog.cpp:67
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Final"
 msgstr "Final"
 
-#: src/catalog/catalog.cpp:68
+#: src/catalog/catalog.cpp:65
 #, kde-format
 msgid "Signed-off"
 msgstr "Ditinjau"
 
-#: src/catalog/catalogstring.cpp:57
+#: src/catalog/catalogstring.cpp:56
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "Mulai tag yang disandingkan"
 
-#: src/catalog/catalogstring.cpp:58
+#: src/catalog/catalogstring.cpp:57
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "Ujung dari tag yang disandingkan"
 
-#: src/catalog/catalogstring.cpp:59
+#: src/catalog/catalogstring.cpp:58
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "Tag tersendiri"
 
-#: src/catalog/catalogstring.cpp:60
+#: src/catalog/catalogstring.cpp:59
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "Tag terisolir"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:61
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "Penanda baca"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "Kelompok placeholder generik"
 
-#: src/catalog/catalogstring.cpp:64
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "Sub-flow"
 
-#: src/catalog/catalogstring.cpp:66
+#: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "Placeholder generik"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:66
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "Mulai placeholder yang disandingkan"
 
-#: src/catalog/catalogstring.cpp:68
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "Ujung dari placeholder yang disandingkan"
 
-#: src/catalog/catalogstring.cpp:112
+#: src/catalog/catalogstring.cpp:111
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "singkatan"
 
-#: src/catalog/catalogstring.cpp:113
+#: src/catalog/catalogstring.cpp:112
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -341,7 +341,7 @@ msgstr ""
 "abbreviated form: sebuah istilah yang dihasilkan dari pembiaran dari setiap "
 "bagian dari istilah penuh sementara menunjuk konsep yang sama"
 
-#: src/catalog/catalogstring.cpp:115
+#: src/catalog/catalogstring.cpp:114
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -351,7 +351,7 @@ msgstr ""
 "abbreviation: sebuah bentuk singkatan dari istilah sederhana yang dihasilkan "
 "dari pembiaran dari beberapa hurufnya (misalnya 'adj.' untuk 'adjective')"
 
-#: src/catalog/catalogstring.cpp:117
+#: src/catalog/catalogstring.cpp:116
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -363,7 +363,7 @@ msgstr ""
 "penuh dari istilah berbentuk frase dirangkai menjadi urutan yang diucapkan "
 "hanya secara suku kata (misalnya 'radar' untuk 'radio detecting and ranging')"
 
-#: src/catalog/catalogstring.cpp:119
+#: src/catalog/catalogstring.cpp:118
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -373,7 +373,7 @@ msgstr ""
 "appellation: sebuah istilah nama yang sah, seperti nama sebuah lembaga atau "
 "entitas layak lainnya"
 
-#: src/catalog/catalogstring.cpp:121
+#: src/catalog/catalogstring.cpp:120
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -387,7 +387,7 @@ msgstr ""
 "ucapan, meskipun mereka tidak perlu harus mempertahankan langsung kedekatan "
 "satu sama lain"
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:122
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -397,13 +397,13 @@ msgstr ""
 "common name: sebuah sinonim untuk istilah ilmiah internasional yang "
 "digunakan dalam wacana umum dalam bahasa tertentu"
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:123
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "tanggal  dan/atau waktu"
 
-#: src/catalog/catalogstring.cpp:126
+#: src/catalog/catalogstring.cpp:125
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -416,7 +416,7 @@ msgstr ""
 "seperti yang diidentifikasi oleh tanda sama-dengan (=), atau ditugaskan "
 "untuk satu sama lain dengan tanda yang sama"
 
-#: src/catalog/catalogstring.cpp:128
+#: src/catalog/catalogstring.cpp:127
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -425,7 +425,7 @@ msgid ""
 msgstr ""
 "expanded form: Representasi lengkap dari istilah yang ada bentuk singkatan"
 
-#: src/catalog/catalogstring.cpp:129
+#: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -435,7 +435,7 @@ msgstr ""
 "rumus: angka, simbol atau sejenisnya yang digunakan untuk mengekspresikan "
 "konsep singkat, seperti rumus matematika atau kimia"
 
-#: src/catalog/catalogstring.cpp:130
+#: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -445,7 +445,7 @@ msgstr ""
 "head term: penunjukan konsep yang telah dipilih untuk mengepalai sebuah "
 "rekaman terminologika"
 
-#: src/catalog/catalogstring.cpp:132
+#: src/catalog/catalogstring.cpp:131
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -459,7 +459,7 @@ msgstr ""
 "istilah membuat sebuah istilah majemuk ketika huruf-huruf tersebut diucapkan "
 "secara individual (misal 'BSE' untuk 'bovine spongiform encephalopathy')"
 
-#: src/catalog/catalogstring.cpp:136
+#: src/catalog/catalogstring.cpp:135
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -470,7 +470,7 @@ msgstr ""
 "internasionalnomenklatur ilmiah seperti yang diadopsi oleh badan ilmiah yang "
 "sesuai"
 
-#: src/catalog/catalogstring.cpp:137
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -480,7 +480,7 @@ msgstr ""
 "internationalism: sebuah istilah yang memiliki ortografi yang sama atau "
 "hampir identik dan bentuk fonemik dalam banyak bahasa"
 
-#: src/catalog/catalogstring.cpp:139
+#: src/catalog/catalogstring.cpp:138
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -492,19 +492,19 @@ msgstr ""
 "yang didasarkan pada hubungan matematika atau logika, seperti laporan dari "
 "ketidaksetaraan, rangkaian hubungan, operasi Boolean, dan sejenisnya"
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr "materials management unit: sebuah unit untuk melacak objek"
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "nama"
 
-#: src/catalog/catalogstring.cpp:144
+#: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -517,7 +517,7 @@ msgstr ""
 "dipertukarkan adalah terbatas untuk beberapa konteks dan tak dapat "
 "diterapkan pada orang lain"
 
-#: src/catalog/catalogstring.cpp:146
+#: src/catalog/catalogstring.cpp:145
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -527,13 +527,13 @@ msgstr ""
 "part number: sebuah sebutan alfanumerik unik yang diberikan untuk sebuah "
 "objek dalam sistem manufaktur"
 
-#: src/catalog/catalogstring.cpp:147
+#: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "phrase"
 msgstr "frase"
 
-#: src/catalog/catalogstring.cpp:149
+#: src/catalog/catalogstring.cpp:148
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -545,13 +545,13 @@ msgstr ""
 "artinya yang sering tidak dapat disimpulkan berdasarkan pada gabungan masuk "
 "akal dari kata yang membentuk kalimat"
 
-#: src/catalog/catalogstring.cpp:151
+#: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr "protected: teks yang ditandai tidak harus diterjemahkan"
 
-#: src/catalog/catalogstring.cpp:153
+#: src/catalog/catalogstring.cpp:152
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -561,19 +561,19 @@ msgstr ""
 "romanized form: sebuah bentuk istilah yang dihasilkan dari operasi di mana "
 "sistem penulisan non-Latin dikonversi ke abjad Latin"
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr "segment: teks yang ditandai mewakili sebuah segmen"
 
-#: src/catalog/catalogstring.cpp:155
+#: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr "set phrase: sebuah tetap, frase terleksikal"
 
-#: src/catalog/catalogstring.cpp:157
+#: src/catalog/catalogstring.cpp:156
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -586,7 +586,7 @@ msgstr ""
 "(misalnya 'Group of Twenty-four' untuk 'Intergovernmental Group of Twenty-"
 "four on International Monetary Affairs')"
 
-#: src/catalog/catalogstring.cpp:160
+#: src/catalog/catalogstring.cpp:159
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -597,13 +597,13 @@ msgstr ""
 "penunjukan alfanumerik unik yang ditugaskan untuk sebuah objek dalam sistem "
 "kendali persediaan"
 
-#: src/catalog/catalogstring.cpp:161
+#: src/catalog/catalogstring.cpp:160
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
 msgstr "standard text: sebuah bingkah tetap dari teks berulang"
 
-#: src/catalog/catalogstring.cpp:162
+#: src/catalog/catalogstring.cpp:161
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -613,7 +613,7 @@ msgstr ""
 "symbol: sebuah sebutan konsep dengan huruf, angka, piktogram atau gabungan "
 "daripadanya"
 
-#: src/catalog/catalogstring.cpp:163
+#: src/catalog/catalogstring.cpp:162
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -623,7 +623,7 @@ msgstr ""
 "sinonim: sebuah istilah yang mewakili yang sama atau konsep yang sangat "
 "mirip sebagai istilah entri utama dalam entri istilah"
 
-#: src/catalog/catalogstring.cpp:165
+#: src/catalog/catalogstring.cpp:164
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -633,13 +633,13 @@ msgstr ""
 "frasa sinonim: unit fraseologi dalam sebuah bahasa yang mengungkapkan hal "
 "yang sama mengandung semantik sebagai frasa lain dalam bahasa yang sama"
 
-#: src/catalog/catalogstring.cpp:166
+#: src/catalog/catalogstring.cpp:165
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "term"
 msgstr "istilah"
 
-#: src/catalog/catalogstring.cpp:168
+#: src/catalog/catalogstring.cpp:167
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -652,7 +652,7 @@ msgstr ""
 "karakter dari suatu sistem penulisan yang diwakili oleh karakter dari sistem "
 "penulisan yang lain, dengan mempertimbangkan pengucapan karakter terkonversi"
 
-#: src/catalog/catalogstring.cpp:171
+#: src/catalog/catalogstring.cpp:170
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -664,7 +664,7 @@ msgstr ""
 "dimana karakter dari sistem penulisan abjadiah yang diwakili oleh karakter "
 "dari sistem penulisan abjadiah yang lain"
 
-#: src/catalog/catalogstring.cpp:174
+#: src/catalog/catalogstring.cpp:173
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -675,78 +675,78 @@ msgstr ""
 "pembiaran terhadap satu atau lebih istilah unsur atau suku kata (misalnya "
 "'flu' untuk 'influenza')"
 
-#: src/catalog/catalogstring.cpp:176
+#: src/catalog/catalogstring.cpp:175
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "variant: salah satu bentuk alternatif dari istilah"
 
-#: src/catalog/cmd.cpp:79
+#: src/catalog/cmd.cpp:75
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "Penyisipan"
 
-#: src/catalog/cmd.cpp:119
+#: src/catalog/cmd.cpp:115
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "Penghapusan"
 
-#: src/catalog/cmd.cpp:166
+#: src/catalog/cmd.cpp:162
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "Jungkitan penyetujuan"
 
-#: src/catalog/cmd.cpp:184
+#: src/catalog/cmd.cpp:180
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "Penyisipan Tanda Baca"
 
-#: src/catalog/cmd.cpp:207
+#: src/catalog/cmd.cpp:203
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "Penghapusan Tanda Baca"
 
-#: src/catalog/cmd.cpp:229
+#: src/catalog/cmd.cpp:225
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "Mengeset catatan"
 
-#: src/catalog/cmd.cpp:264
+#: src/catalog/cmd.cpp:260
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "Perbarui/tambahkan frasa alur kerja"
 
-#: src/catalog/cmd.cpp:283
+#: src/catalog/cmd.cpp:279
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "Setelan Kesepadanan Terjemahan"
 
-#: src/catalog/cmd.cpp:340
+#: src/catalog/cmd.cpp:336
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Hapus teks dengan tanda baca"
 
-#: src/catalog/cmd.cpp:388 src/xlifftextedit.cpp:576
+#: src/catalog/cmd.cpp:384 src/xlifftextedit.cpp:574
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Sisipkan teks dengan tanda baca"
 
-#: src/catalog/gettext/gettextstorage.cpp:101
+#: src/catalog/gettext/gettextstorage.cpp:98
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "pemisah untuk perbedaan panjang string alternatif"
 
-#: src/catalog/gettext/gettextstorage.cpp:287
+#: src/catalog/gettext/gettextstorage.cpp:284
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -755,47 +755,47 @@ msgstr ""
 "Nilai sumber sebelumnya, disimpan oleh Gettext selama transisi ke sebuah POT "
 "template yang baru"
 
-#: src/catalog/gettextheader.cpp:459
+#: src/catalog/gettextheader.cpp:456
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Nama penulis tidak ada"
 
-#: src/catalog/gettextheader.cpp:460
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgid "Your name:"
 msgstr "Namamu:"
 
-#: src/catalog/gettextheader.cpp:471
+#: src/catalog/gettextheader.cpp:468
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Email penulis tidak ada"
 
-#: src/catalog/gettextheader.cpp:472
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgid "Your email:"
 msgstr "Emailmu:"
 
-#: src/catalog/ts/tsstorage.cpp:439
+#: src/catalog/ts/tsstorage.cpp:437
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Nilai sumber sebelumnya, disimpan oleh alat lpembaruan"
 
-#: src/cataloglistview/cataloglistview.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:55
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Unit Terjemahan"
 
-#: src/cataloglistview/cataloglistview.cpp:83
-#: src/glossary/glossarywindow.cpp:102 src/project/projecttab.cpp:57
+#: src/cataloglistview/cataloglistview.cpp:80
+#: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:57
 #, kde-format
 msgid "Quick search..."
 msgstr "Cari cepat..."
 
-#: src/cataloglistview/cataloglistview.cpp:84
-#: src/glossary/glossarywindow.cpp:104 src/project/projecttab.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:81
+#: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:58
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "Accepts regular expressions"
@@ -803,186 +803,186 @@ msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Menerima kalimat biasa"
 
-#: src/cataloglistview/cataloglistview.cpp:91
+#: src/cataloglistview/cataloglistview.cpp:88
 #, fuzzy, kde-format
 #| msgid "options"
 msgid "Options"
 msgstr "opsi"
 
-#: src/cataloglistview/cataloglistview.cpp:193
+#: src/cataloglistview/cataloglistview.cpp:190
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Set ulang filter individu"
 
-#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:195 src/tm/tmtab.cpp:361
 #, kde-format
 msgid "Case insensitive"
 msgstr "Huruf tak sensitif"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:196 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Abaikan tanda akselerator"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
 msgid "Ready"
 msgstr "Siap"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Non-ready"
 msgstr "Belum siap"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Non-empty"
 msgstr "Tidak kosong"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Empty"
 msgstr "Kosong"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Changed since file open"
 msgstr "Diubah sejak file terbuka"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Tak diubah sejak file terbuka"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Same in sync file"
 msgstr "Persamaan dalam file sinkron"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Different in sync file"
 msgstr "Perbedaan dalam file sinkron"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Not in sync file"
 msgstr "Tidak dalam file sinkron"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Plural"
 msgstr "Jamak"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Non-plural"
 msgstr "Tidak jamak"
 
-#: src/cataloglistview/cataloglistview.cpp:215
+#: src/cataloglistview/cataloglistview.cpp:212
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Dasar"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Kondisi"
 
-#: src/cataloglistview/cataloglistview.cpp:218
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "Kolom yang dapat dicari"
 
-#: src/cataloglistview/cataloglistview.cpp:222
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "Urutkan dan filterkan saat konten berubah"
 
-#: src/cataloglistview/cataloglistview.cpp:242
+#: src/cataloglistview/cataloglistview.cpp:239
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
 msgstr "Semua"
 
-#: src/cataloglistview/catalogmodel.cpp:91
+#: src/cataloglistview/catalogmodel.cpp:88
 #, kde-format
 msgctxt "@title:column"
 msgid "Entry"
 msgstr "Entri"
 
-#: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:350
-#: src/glossary/glossary.cpp:193 src/tm/qamodel.cpp:91 src/tm/tmtab.cpp:67
+#: src/cataloglistview/catalogmodel.cpp:90 src/filesearch/filesearchtab.cpp:350
+#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "Sumber"
 
-#: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:352
-#: src/glossary/glossary.cpp:196 src/tm/tmtab.cpp:68
+#: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:352
+#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
 msgstr "Sasaran"
 
-#: src/cataloglistview/catalogmodel.cpp:97
+#: src/cataloglistview/catalogmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Notes"
 msgstr "Catatan"
 
-#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:69
+#: src/cataloglistview/catalogmodel.cpp:96 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Konteks"
 
-#: src/cataloglistview/catalogmodel.cpp:101
+#: src/cataloglistview/catalogmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Files"
 msgstr "File"
 
-#: src/cataloglistview/catalogmodel.cpp:103
-#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:71
+#: src/cataloglistview/catalogmodel.cpp:100
+#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
 msgstr "Status Terjemahan"
 
-#: src/cataloglistview/catalogmodel.cpp:105
+#: src/cataloglistview/catalogmodel.cpp:102
 #, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "Panjang sumber"
 
-#: src/cataloglistview/catalogmodel.cpp:107
+#: src/cataloglistview/catalogmodel.cpp:104
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Panjang sasaran"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:991
-#: src/editortab.cpp:1185 src/tm/tmtab.cpp:234
+#: src/cataloglistview/catalogmodel.cpp:140 src/editortab.cpp:991
+#: src/editortab.cpp:1185 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Siap"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:993
-#: src/editortab.cpp:1180 src/tm/tmtab.cpp:235
+#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:993
+#: src/editortab.cpp:1180 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Perlu tinjauan"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:989
-#: src/tm/tmtab.cpp:236
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:989
+#: src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -1000,7 +1000,7 @@ msgstr "%1 (%2)"
 msgid "Target language:"
 msgstr "Bahasa sasaran:"
 
-#: src/common/termlabel.cpp:58
+#: src/common/termlabel.cpp:57
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
@@ -1412,13 +1412,13 @@ msgstr ""
 "Apakah ingin menyimpan perubahan Andaatau membuangnya?"
 
 #: src/editortab.cpp:719 src/editortab.cpp:1290
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1017
+#: src/glossary/glossarywindow.cpp:345 src/lokalizemainwindow.cpp:1017
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Peringatan"
 
-#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1684,13 +1684,13 @@ msgctxt "@item Undo action item"
 msgid "Set unit text"
 msgstr "Set teks unit"
 
-#: src/editortab_findreplace.cpp:435
+#: src/editortab_findreplace.cpp:432
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "Ganti"
 
-#: src/editortab_findreplace.cpp:498
+#: src/editortab_findreplace.cpp:495
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
@@ -1698,13 +1698,13 @@ msgstr ""
 "Lokalize telah mencapai ujung dari dokumen. Apakah Anda ingin melanjutkan "
 "dari awal?"
 
-#: src/editortab_findreplace.cpp:499 src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:496 src/editortab_findreplace.cpp:504
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "Periksa ejaan"
 
-#: src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:504
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize telah selesai memeriksa ejaan"
@@ -1778,31 +1778,31 @@ msgstr "Tampilan &Alat"
 msgid "Main Toolbar"
 msgstr "Bilah Alat Utama"
 
-#: src/editorview.cpp:47
+#: src/editorview.cpp:42
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "Belum siap:"
 
-#: src/editorview.cpp:49
+#: src/editorview.cpp:44
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "Belum diterjemahkan:"
 
-#: src/editorview.cpp:60
+#: src/editorview.cpp:55
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "Sembunyikan"
 
-#: src/editorview.cpp:70
+#: src/editorview.cpp:65
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "Kolom: %1"
 
-#: src/editorview.cpp:82
+#: src/editorview.cpp:77
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1813,13 +1813,13 @@ msgstr ""
 "<p>Ini bagian dari jendela yang menunjukkan pesan asli\n"
 "pada entri yang baru saja ditampilkan.</p></qt>"
 
-#: src/editorview.cpp:173
+#: src/editorview.cpp:168
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Formulir Jamak %1"
 
-#: src/editorview.cpp:237
+#: src/editorview.cpp:232
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1902,7 +1902,7 @@ msgstr "Daftar File"
 msgid "Drop translation files here..."
 msgstr "Jatuhkan file terjemahan di sini..."
 
-#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:70
+#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
@@ -1916,17 +1916,17 @@ msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "Cari dan ganti dalam file"
 
-#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:399
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:397
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Salin sumber ke papan-klip"
 
-#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Salin sasaran ke papan-klip"
 
-#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Open file"
 msgstr "Buka file"
@@ -1967,21 +1967,21 @@ msgstr "Pratinjau"
 msgid "Mass Replace"
 msgstr "Penggantian Massal"
 
-#: src/glossary/glossary.cpp:198
+#: src/glossary/glossary.cpp:194
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Bidang Subjek"
 
-#: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:263 src/glossary/glossarywindow.cpp:289
-#: src/glossary/glossarywindow.cpp:304 src/glossary/glossarywindow.cpp:321
+#: src/glossary/glossaryview.cpp:31 src/glossary/glossaryview.cpp:38
+#: src/glossary/glossarywindow.cpp:260 src/glossary/glossarywindow.cpp:286
+#: src/glossary/glossarywindow.cpp:301 src/glossary/glossarywindow.cpp:318
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
 msgstr "Glosarium"
 
-#: src/glossary/glossaryview.cpp:54
+#: src/glossary/glossaryview.cpp:50
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -1996,19 +1996,19 @@ msgstr ""
 "yang aslinya dan bidang terjemahan sebelum memanggil "
 "<interface>Definisikan&nbsp;istilah&nbsp;baru</interface>).</p>"
 
-#: src/glossary/glossarywindow.cpp:119
+#: src/glossary/glossarywindow.cpp:116
 #, kde-format
 msgctxt "@action:button reloads glossary from disk"
 msgid "Restore from disk"
 msgstr "Kembalikan dari disk"
 
-#: src/glossary/glossarywindow.cpp:120
+#: src/glossary/glossarywindow.cpp:117
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "Muat ulang glosarium dari disk, membuang perubahan apa pun"
 
-#: src/glossary/glossarywindow.cpp:346
+#: src/glossary/glossarywindow.cpp:343
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2188,7 +2188,7 @@ msgstr "Fasilitas MT memerlukan modul SQLite Qt"
 msgid "No SQLite module available"
 msgstr "Tidak ada modul SQLite yang tersedia"
 
-#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:478
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2232,7 +2232,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Memori terjemahan"
 
-#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:481
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -2504,7 +2504,7 @@ msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "Terima semua terjemahan baru"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:29 src/mergemode/mergeview.cpp:34
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2512,7 +2512,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "Sinkron Primer"
 
-#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2520,7 +2520,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "Sinkron Sekunder"
 
-#: src/mergemode/mergeview.cpp:41
+#: src/mergemode/mergeview.cpp:40
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2530,7 +2530,7 @@ msgstr ""
 "Jatuhkan file yang digabungkan ke dalam / tersinkron dengan salah satu "
 "sekarang di sini, kemudian lihat pilihan menu konteks"
 
-#: src/mergemode/mergeview.cpp:206
+#: src/mergemode/mergeview.cpp:205
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2540,7 +2540,7 @@ msgstr ""
 "Error membuka file <filename>%1</filename> untuk sinkronisasi, error baris: "
 "%2"
 
-#: src/mergemode/mergeview.cpp:332
+#: src/mergemode/mergeview.cpp:331
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2550,7 +2550,7 @@ msgstr ""
 "Entri-entri berbeda: %1\n"
 "Entri-entri tak cocok: %2"
 
-#: src/msgctxtview.cpp:37
+#: src/msgctxtview.cpp:33
 #, fuzzy, kde-format
 #| msgctxt "@title toolview name"
 #| msgid "Unit metadata"
@@ -2558,96 +2558,96 @@ msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Unit metadata"
 
-#: src/msgctxtview.cpp:93
+#: src/msgctxtview.cpp:89
 #, kde-format
 msgctxt ""
 "@info notes to translation unit which expire when the catalog is closed"
 msgid "<b>Temporary notes:</b>"
 msgstr "<b>Catatan temporer:</b>"
 
-#: src/msgctxtview.cpp:102
+#: src/msgctxtview.cpp:98
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
 msgstr "<b>Catatan Pology:</b>"
 
-#: src/msgctxtview.cpp:111
+#: src/msgctxtview.cpp:107
 #, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
 msgstr "<b>Catatan LanguageTool:</b>"
 
-#: src/msgctxtview.cpp:123
+#: src/msgctxtview.cpp:119
 #, kde-format
 msgctxt "@info translation unit metadata"
 msgid "<b>Phase:</b><br>"
 msgstr "<b>Frasa:</b><br>"
 
-#: src/msgctxtview.cpp:147
+#: src/msgctxtview.cpp:143
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Files:</b><br>"
 msgstr "<br><b>File:</b><br>"
 
-#: src/msgctxtview.cpp:155
+#: src/msgctxtview.cpp:151
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Context:</b><br>"
 msgstr "<br><b>Konteks:</b><br>"
 
-#: src/msgctxtview.cpp:226
+#: src/msgctxtview.cpp:222
 #, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
 msgstr "(kosong)"
 
-#: src/noteeditor.cpp:46
+#: src/noteeditor.cpp:41
 #, kde-format
 msgctxt "@info:label"
 msgid "From:"
 msgstr "Dari:"
 
-#: src/noteeditor.cpp:50
+#: src/noteeditor.cpp:45
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Save empty note to remove it"
 msgstr "Simpan catatan kosong untuk membuangnya"
 
-#: src/noteeditor.cpp:51
+#: src/noteeditor.cpp:46
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Author of this note"
 msgstr "Penulis dari catatan ini"
 
-#: src/noteeditor.cpp:64
+#: src/noteeditor.cpp:59
 #, kde-format
 msgid "Ctrl+Enter"
 msgstr "Ctrl+Enter"
 
-#: src/noteeditor.cpp:65
+#: src/noteeditor.cpp:60
 #, kde-format
 msgid "Esc"
 msgstr "Esc"
 
-#: src/noteeditor.cpp:118
+#: src/noteeditor.cpp:113
 #, kde-format
 msgctxt "@info XLIFF notes representation"
 msgid "<b>Notes:</b>"
 msgstr "<b>Catatan:</b>"
 
-#: src/noteeditor.cpp:130
+#: src/noteeditor.cpp:125
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit..."
 msgstr "edit..."
 
-#: src/noteeditor.cpp:135
+#: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add..."
 msgstr "Tambahkan..."
 
-#: src/noteeditor.cpp:137
+#: src/noteeditor.cpp:132
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add a note..."
@@ -2801,13 +2801,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr "Font untuk Perpesanan"
 
-#: src/prefs/prefs.cpp:96
+#: src/prefs/prefs.cpp:90
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "Identitas"
 
-#: src/prefs/prefs.cpp:106
+#: src/prefs/prefs.cpp:100
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2818,43 +2818,43 @@ msgstr ""
 "%1 - Alur dari file sumber\n"
 "%2 - Nomor baris"
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
+#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "Umum"
 
-#: src/prefs/prefs.cpp:113
+#: src/prefs/prefs.cpp:107
 #, kde-format
 msgctxt "@title:tab"
 msgid "Editing"
 msgstr "Pengeditan"
 
-#: src/prefs/prefs.cpp:119
+#: src/prefs/prefs.cpp:113
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Penampilan"
 
-#: src/prefs/prefs.cpp:125 src/tm/tmtab.cpp:376
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:374
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "Memori Terjemahan"
 
-#: src/prefs/prefs.cpp:131
+#: src/prefs/prefs.cpp:125
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:137
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:151
+#: src/prefs/prefs.cpp:145
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2863,7 +2863,7 @@ msgstr ""
 "Anda telah mengakses fitur yang diperlukan proyek untuk dimuat. Apakah Anda "
 "ingin menciptakan sebuah proyek baru atau membuka proyek yang ada?"
 
-#: src/prefs/prefs.cpp:152
+#: src/prefs/prefs.cpp:146
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Project overview"
@@ -2871,14 +2871,14 @@ msgctxt "@title"
 msgid "Project Required"
 msgstr "Ikhtisar proyek"
 
-#: src/prefs/prefs.cpp:153
+#: src/prefs/prefs.cpp:147
 #, fuzzy, kde-format
 #| msgid "Project"
 msgctxt "@action"
 msgid "Create Project"
 msgstr "proyek"
 
-#: src/prefs/prefs.cpp:154
+#: src/prefs/prefs.cpp:148
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2886,29 +2886,29 @@ msgctxt "@action"
 msgid "Open Project"
 msgstr "Buka proyek"
 
-#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
+#: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Proyek terjemahan lokalize (*.lokalize)"
 
-#: src/prefs/prefs.cpp:181
+#: src/prefs/prefs.cpp:175
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "Pilih folder dengan file .po Gettext untuk menerjemahkan"
 
-#: src/prefs/prefs.cpp:202
+#: src/prefs/prefs.cpp:196
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "Ciptakan proyek terjemahan perangkat lunak atau OpenDocument dulu."
 
-#: src/prefs/prefs.cpp:258
+#: src/prefs/prefs.cpp:252
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Tingkat-lanjut"
 
-#: src/prefs/prefs.cpp:269
+#: src/prefs/prefs.cpp:263
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3821,13 +3821,13 @@ msgstr "Direktori basis untuk file POT (template untuk diterjemahkan)"
 msgid "Project's glossary"
 msgstr "Glosarium proyek"
 
-#: src/project/projectmodel.cpp:469
+#: src/project/projectmodel.cpp:468
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Nama"
 
-#: src/project/projectmodel.cpp:471
+#: src/project/projectmodel.cpp:470
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3835,55 +3835,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "Grafik"
 
-#: src/project/projectmodel.cpp:473
+#: src/project/projectmodel.cpp:472
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "Total"
 
-#: src/project/projectmodel.cpp:475
+#: src/project/projectmodel.cpp:474
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Diterjemahkan"
 
-#: src/project/projectmodel.cpp:477
+#: src/project/projectmodel.cpp:476
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "Belum siap"
 
-#: src/project/projectmodel.cpp:479
+#: src/project/projectmodel.cpp:478
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Belum diterjemahkan"
 
-#: src/project/projectmodel.cpp:481
+#: src/project/projectmodel.cpp:480
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "Belum selesai"
 
-#: src/project/projectmodel.cpp:483
+#: src/project/projectmodel.cpp:482
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Terjemahan Terakhir"
 
-#: src/project/projectmodel.cpp:485
+#: src/project/projectmodel.cpp:484
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "Komentar"
 
-#: src/project/projectmodel.cpp:487
+#: src/project/projectmodel.cpp:486
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Revisi Template"
 
-#: src/project/projectmodel.cpp:489
+#: src/project/projectmodel.cpp:488
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -4050,37 +4050,37 @@ msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "Belum diterjemahkan: %1"
 
-#: src/tm/dbfilesmodel.cpp:96
+#: src/tm/dbfilesmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
 msgstr "Nama"
 
-#: src/tm/dbfilesmodel.cpp:97
+#: src/tm/dbfilesmodel.cpp:95
 #, kde-format
 msgctxt "@title:column"
 msgid "Source language"
 msgstr "Bahasa sumber"
 
-#: src/tm/dbfilesmodel.cpp:98
+#: src/tm/dbfilesmodel.cpp:96
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
 msgstr "Bahasa sasaran"
 
-#: src/tm/dbfilesmodel.cpp:99
+#: src/tm/dbfilesmodel.cpp:97
 #, kde-format
 msgctxt "@title:column"
 msgid "Pairs"
 msgstr "Sandingan"
 
-#: src/tm/dbfilesmodel.cpp:100
+#: src/tm/dbfilesmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
 msgstr "Entri-entri asli unik"
 
-#: src/tm/dbfilesmodel.cpp:101
+#: src/tm/dbfilesmodel.cpp:99
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique translations"
@@ -4188,7 +4188,7 @@ msgstr "Ekspor ke TMX"
 msgid "Remove"
 msgstr "Hapus"
 
-#: src/tm/qamodel.cpp:94
+#: src/tm/qamodel.cpp:96
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4313,112 +4313,112 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "Pilih file TMX untuk mengekspor basis-data terpilih ke"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Menambahkan file ke memori terjemahan Lokalize"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "TM"
 msgstr "MT"
 
-#: src/tm/tmtab.cpp:80
+#: src/tm/tmtab.cpp:78
 #, fuzzy, kde-format
 #| msgid "Source:"
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr "Sumber:"
 
-#: src/tm/tmtab.cpp:85
+#: src/tm/tmtab.cpp:83
 #, fuzzy, kde-format
 #| msgid "Target:"
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "Sasaran:"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Substring"
 msgstr "Substring"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Google-like"
 msgstr "Seperti Google"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Wildcard"
 msgstr "Wildcard"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "Spasi adalah operator AND. Huruf sensitif."
 
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Gumpalan shell (* dan ?). Huruf sensitif."
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:511
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
 
-#: src/tm/tmtab.cpp:514
+#: src/tm/tmtab.cpp:512
 #, fuzzy, kde-format
 #| msgid "&Rescan project files"
 msgid "Rescan not possible"
 msgstr "&Pindai ulang file proyek"
 
-#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:611 src/tm/tmview.cpp:620
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "File %1 tidak ada, ia telah dihapus dari memori terjemahan."
 
-#: src/tm/tmview.cpp:186 src/tm/tmview.cpp:191
+#: src/tm/tmview.cpp:185 src/tm/tmview.cpp:190
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "Memori Terjemahan"
 
-#: src/tm/tmview.cpp:226
+#: src/tm/tmview.cpp:225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Klik ganda kata apa pun untuk menyisipkannya ke dalam terjemahan"
 
-#: src/tm/tmview.cpp:331
+#: src/tm/tmview.cpp:330
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Kelompok pengisian memori terjemahan"
 
-#: src/tm/tmview.cpp:334
+#: src/tm/tmview.cpp:333
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Kelompok terjemahan telah diselesaikan."
 
-#: src/tm/tmview.cpp:340
+#: src/tm/tmview.cpp:339
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Tidak ada saran dengan kecocokan persis yang ditemukan."
 
-#: src/tm/tmview.cpp:360 src/tm/tmview.cpp:375
+#: src/tm/tmview.cpp:359 src/tm/tmview.cpp:374
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Kelompok terjemahan telah terjadwal."
 
-#: src/tm/tmview.cpp:496
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
@@ -4426,7 +4426,7 @@ msgctxt ""
 msgid "100% (perfect match)"
 msgstr ""
 
-#: src/tm/tmview.cpp:501
+#: src/tm/tmview.cpp:500
 #, fuzzy, kde-format
 #| msgctxt "%1 is the TM entry score in percentage"
 #| msgid "%1%"
@@ -4436,7 +4436,7 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:507
+#: src/tm/tmview.cpp:506
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
@@ -4446,7 +4446,7 @@ msgid_plural "Occurred %1 times"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/tm/tmview.cpp:517
+#: src/tm/tmview.cpp:516
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
@@ -4454,7 +4454,7 @@ msgctxt ""
 msgid "%1 • %2 • %3"
 msgstr ""
 
-#: src/tm/tmview.cpp:525
+#: src/tm/tmview.cpp:524
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
@@ -4462,43 +4462,43 @@ msgctxt ""
 msgid "%1 • %2"
 msgstr ""
 
-#: src/tm/tmview.cpp:577
+#: src/tm/tmview.cpp:576
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "ini"
 
-#: src/tm/tmview.cpp:578
+#: src/tm/tmview.cpp:577
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "File: %1<br />Tanggal tambahan: %2"
 
-#: src/tm/tmview.cpp:580
+#: src/tm/tmview.cpp:579
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Perubahan terakhir tanggal: %1"
 
-#: src/tm/tmview.cpp:582
+#: src/tm/tmview.cpp:581
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Perubahan terakhir penulis: %1"
 
-#: src/tm/tmview.cpp:583
+#: src/tm/tmview.cpp:582
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />MT: %1"
 
-#: src/tm/tmview.cpp:585
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Tidak muncul di file apa pun"
 
-#: src/tm/tmview.cpp:600
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4507,31 +4507,31 @@ msgstr ""
 "<html>Apakah Anda benar-benar ingin menghapus entri ini:<br/><i>%1</i><br/"
 ">dari memori terjemahan %2?</html>"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:602
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Penghapusan Entri Memori Terjemahan"
 
-#: src/tm/tmview.cpp:648
+#: src/tm/tmview.cpp:647
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Hapus entri ini"
 
-#: src/tm/tmview.cpp:651
+#: src/tm/tmview.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Buka file yang berisi entri ini"
 
-#: src/tm/tmview.cpp:661
+#: src/tm/tmview.cpp:660
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Hapus file yang hilang ini dari MT"
 
-#: src/tm/tmview.cpp:675
+#: src/tm/tmview.cpp:674
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4540,19 +4540,19 @@ msgstr ""
 "<html>Apakah Anda benar-benar ingin menghapus file yang hilang ini:<br/><i>"
 "%1</i><br/>dari memori terjemahan %2?</html>"
 
-#: src/tm/tmview.cpp:679
+#: src/tm/tmview.cpp:678
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Penghapusan File Hilang Memori Terjemahan"
 
-#: src/tm/tmview.cpp:962
+#: src/tm/tmview.cpp:961
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
 msgstr "Gunakan saran memori terjemahan"
 
-#: src/tools/widgettextcaptureconfig.cpp:23
+#: src/tools/widgettextcaptureconfig.cpp:24
 #, kde-format
 msgctxt "@title"
 msgid "Widget Text Capture"
@@ -4612,29 +4612,29 @@ msgstr "Cari teks unsur GUI dalam memori terjemahan"
 msgid "Copy GUI element text to clipboard"
 msgstr "Salin teks unsur GUI ke papan-klip"
 
-#: src/xlifftextedit.cpp:878
+#: src/xlifftextedit.cpp:876
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Perlihatkan teks yang dipilih dalam memori terjemahan"
 
-#: src/xlifftextedit.cpp:958
+#: src/xlifftextedit.cpp:956
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Ganti teks"
 
-#: src/xlifftextedit.cpp:997
+#: src/xlifftextedit.cpp:995
 #, kde-format
 msgid "no spellcheck available"
 msgstr "tidak ada periksa-ejaan yang tersedia"
 
-#: src/xlifftextedit.cpp:1013
+#: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Melaporkan sebuah kesalahan: %1"
 
-#: src/xlifftextedit.cpp:1173
+#: src/xlifftextedit.cpp:1171
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

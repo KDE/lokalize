@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-11 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:46+0000\n"
 "PO-Revision-Date: 2025-06-11 00:21+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -161,153 +161,153 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "원본 파일 사용"
 
-#: src/catalog/catalog.cpp:43
+#: src/catalog/catalog.cpp:40
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "모든 지원하는 파일 (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:44
+#: src/catalog/catalog.cpp:41
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:43
 #, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr "모든 지원하는 파일 (*.po *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:56
 #, kde-format
 msgid "New"
 msgstr "새 항목"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:57
 #, kde-format
 msgid "Needs translation"
 msgstr "번역이 필요함"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:58
 #, kde-format
 msgid "Needs full localization"
 msgstr "완전한 지역화가 필요함"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "문맥에 맞춰야 함"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Translated"
 msgstr "번역됨"
 
-#: src/catalog/catalog.cpp:64
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation review"
 msgstr "번역 검토 필요함"
 
-#: src/catalog/catalog.cpp:65
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr "완전한 지역화 검토 필요함"
 
-#: src/catalog/catalog.cpp:66
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "문맥 검토 필요함"
 
-#: src/catalog/catalog.cpp:67
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Final"
 msgstr "최종"
 
-#: src/catalog/catalog.cpp:68
+#: src/catalog/catalog.cpp:65
 #, kde-format
 msgid "Signed-off"
 msgstr "확인됨"
 
-#: src/catalog/catalogstring.cpp:57
+#: src/catalog/catalogstring.cpp:56
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "쌍 태그 시작"
 
-#: src/catalog/catalogstring.cpp:58
+#: src/catalog/catalogstring.cpp:57
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "쌍 태그 끝"
 
-#: src/catalog/catalogstring.cpp:59
+#: src/catalog/catalogstring.cpp:58
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "단독 태그"
 
-#: src/catalog/catalogstring.cpp:60
+#: src/catalog/catalogstring.cpp:59
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "고립된 태그"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:61
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "표시자"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "일반 그룹 자리 비움자"
 
-#: src/catalog/catalogstring.cpp:64
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "부 흐름"
 
-#: src/catalog/catalogstring.cpp:66
+#: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "일반 자리 비움자"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:66
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "쌍으로 된 자리 비움자 시작"
 
-#: src/catalog/catalogstring.cpp:68
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "쌍으로 된 자리 비움자 끝"
 
-#: src/catalog/catalogstring.cpp:112
+#: src/catalog/catalogstring.cpp:111
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "abbreviation"
 
-#: src/catalog/catalogstring.cpp:113
+#: src/catalog/catalogstring.cpp:112
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -315,7 +315,7 @@ msgid ""
 "term while designating the same concept"
 msgstr "abbreviated form: 같은 뜻을 나타내는 단어를 짧은 형태로 쓴 단어"
 
-#: src/catalog/catalogstring.cpp:115
+#: src/catalog/catalogstring.cpp:114
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -325,7 +325,7 @@ msgstr ""
 "abbreviation: 간단한 용어의 몇 글자를 생략하여 같은 의미를 나타내도록 함(예: "
 "'형용사'를 뜻하는 '형')"
 
-#: src/catalog/catalogstring.cpp:117
+#: src/catalog/catalogstring.cpp:116
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -336,7 +336,7 @@ msgstr ""
 "acronym: 여러 단어의 합성어를 개별 단어의 일부 글자만 사용하여 발음하기 쉬운 "
 "형태로 축약시킨 형태(예: '엄마 친구 아들'을 뜻하는 '엄친아')"
 
-#: src/catalog/catalogstring.cpp:119
+#: src/catalog/catalogstring.cpp:118
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -344,7 +344,7 @@ msgid ""
 "proper entity"
 msgstr "appellation: 법인이나 조직의 명칭을 나타내는 고유 명사"
 
-#: src/catalog/catalogstring.cpp:121
+#: src/catalog/catalogstring.cpp:120
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -356,7 +356,7 @@ msgstr ""
 "collocation: 특정한 단어 조합이 각각 단어의 사전적인 의미와는 다른 뜻을 갖는 "
 "경우"
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:122
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -366,13 +366,13 @@ msgstr ""
 "common name: 국제적으로 통용되는 과학 용어와 같은 뜻을 갖는 대상 언어 화자가 "
 "사용하는 동의어"
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:123
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "date 및 time"
 
-#: src/catalog/catalogstring.cpp:126
+#: src/catalog/catalogstring.cpp:125
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -384,7 +384,7 @@ msgstr ""
 "(=) 기호를 사용하여 두 대상이 동등하거나 한 쪽이 다른 쪽에 대응되는 관계를 나"
 "타냄."
 
-#: src/catalog/catalogstring.cpp:128
+#: src/catalog/catalogstring.cpp:127
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -392,7 +392,7 @@ msgid ""
 "abbreviated form"
 msgstr "expanded form: 축약어의 완전한 형태"
 
-#: src/catalog/catalogstring.cpp:129
+#: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -400,7 +400,7 @@ msgid ""
 "such as a mathematical or chemical formula"
 msgstr "formula: 수학이나 화학식과 같이 개념을 간단하게 나타내는 그림이나 기호"
 
-#: src/catalog/catalogstring.cpp:130
+#: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -408,7 +408,7 @@ msgid ""
 "terminological record"
 msgstr "head term: 용어 기록을 대표하려고 선택한 개념 단어"
 
-#: src/catalog/catalogstring.cpp:132
+#: src/catalog/catalogstring.cpp:131
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -420,7 +420,7 @@ msgstr ""
 "initialism: 여러 단어의 합성어를 각각 단어의 일부를 사용하여 개별 글자별로 읽"
 "도록 축약시킨 형태(예: '한국고속철도'를 뜻하는 'KTX')"
 
-#: src/catalog/catalogstring.cpp:136
+#: src/catalog/catalogstring.cpp:135
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -430,7 +430,7 @@ msgstr ""
 "international scientific term: 과학자 단체에 의하여 승인된 국제적으로 통용되"
 "는 과학 용어"
 
-#: src/catalog/catalogstring.cpp:137
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -438,7 +438,7 @@ msgid ""
 "or phonemic form in many languages"
 msgstr "internationalism: 여러 언어에서 비슷한 글자나 발음을 갖는 단어"
 
-#: src/catalog/catalogstring.cpp:139
+#: src/catalog/catalogstring.cpp:138
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -449,19 +449,19 @@ msgstr ""
 "logical expression: 동등하지 않음, 집합 관계, 논리식과 같은 수학이나 논리적"
 "인 관계를 나타내는 표현"
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr "materials management unit: 객체를 추적하는 단위"
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "name"
 
-#: src/catalog/catalogstring.cpp:144
+#: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -472,7 +472,7 @@ msgstr ""
 "near synonym: 같은 언어의 같거나 가까운 개념을 나타는 서로 다른 용어이지만 일"
 "부 문맥에서만 대체 가능한 단어"
 
-#: src/catalog/catalogstring.cpp:146
+#: src/catalog/catalogstring.cpp:145
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -480,13 +480,13 @@ msgid ""
 "manufacturing system"
 msgstr "part number: 제조 공정에서 객체를 나타내려고 사용하는 유일한 부호"
 
-#: src/catalog/catalogstring.cpp:147
+#: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "phrase"
 msgstr "phrase"
 
-#: src/catalog/catalogstring.cpp:149
+#: src/catalog/catalogstring.cpp:148
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -497,13 +497,13 @@ msgstr ""
 "phraseological: 두 단어 이상이 모여서 구문을 이루지만 개별 단어의 뜻 및 이를 "
 "합친 것과 전체 구문의 뜻이 서로 다른 경우"
 
-#: src/catalog/catalogstring.cpp:151
+#: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr "protected: 표시한 텍스트를 번역하면 안 됨"
 
-#: src/catalog/catalogstring.cpp:153
+#: src/catalog/catalogstring.cpp:152
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -511,19 +511,19 @@ msgid ""
 "Latin writing systems are converted to the Latin alphabet"
 msgstr "romanized form: 로마자를 사용하지 않는 단어를 로마자로 전사한 형태"
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr "segment: 표시된 텍스트가 분절을 의미함"
 
-#: src/catalog/catalogstring.cpp:155
+#: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr "set phrase: 고정된 뜻을 갖고 있는 어구"
 
-#: src/catalog/catalogstring.cpp:157
+#: src/catalog/catalogstring.cpp:156
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -534,7 +534,7 @@ msgstr ""
 "short form: 여러 단어 합성어의 전체 단어 중 일부 단어만 포함한 형태(예: '주"
 "요 20대 경제 강국'을 뜻하는 'G20')"
 
-#: src/catalog/catalogstring.cpp:160
+#: src/catalog/catalogstring.cpp:159
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -543,13 +543,13 @@ msgid ""
 msgstr ""
 "stock keeping unit: 재고 관리 시스템의 특정 객체를 가리킬 때 사용하는 단위"
 
-#: src/catalog/catalogstring.cpp:161
+#: src/catalog/catalogstring.cpp:160
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
 msgstr "standard text: 일반 텍스트"
 
-#: src/catalog/catalogstring.cpp:162
+#: src/catalog/catalogstring.cpp:161
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -557,7 +557,7 @@ msgid ""
 "combination thereof"
 msgstr "symbol: 문자, 숫자, 픽토그램 등의 조합"
 
-#: src/catalog/catalogstring.cpp:163
+#: src/catalog/catalogstring.cpp:162
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -565,7 +565,7 @@ msgid ""
 "main entry term in a term entry"
 msgstr "synonym: 각각 용어 항목과 같은 뜻을 가지고 있는 단어"
 
-#: src/catalog/catalogstring.cpp:165
+#: src/catalog/catalogstring.cpp:164
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -573,13 +573,13 @@ msgid ""
 "semantic content as another phrase in that same language"
 msgstr "synonymous phrase: 같은 뜻을 가지고 있는 단어나 어구"
 
-#: src/catalog/catalogstring.cpp:166
+#: src/catalog/catalogstring.cpp:165
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "term"
 msgstr "term"
 
-#: src/catalog/catalogstring.cpp:168
+#: src/catalog/catalogstring.cpp:167
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -591,7 +591,7 @@ msgstr ""
 "transcribed form: 한글 이외 문자로 적혀 있는 텍스트를 발음을 고려하여 한글로 "
 "나타낸 형태"
 
-#: src/catalog/catalogstring.cpp:171
+#: src/catalog/catalogstring.cpp:170
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -601,7 +601,7 @@ msgid ""
 msgstr ""
 "transliterated form: 한글 이외 문자로 적혀 있는 텍스트를 한글로 나타낸 형태"
 
-#: src/catalog/catalogstring.cpp:174
+#: src/catalog/catalogstring.cpp:173
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -611,309 +611,309 @@ msgstr ""
 "truncated term: 단어의 한 음절 이상을 생략하여 만든 축약형 (예: '고등학교'의 "
 "축약어 '고교')"
 
-#: src/catalog/catalogstring.cpp:176
+#: src/catalog/catalogstring.cpp:175
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "variant: 한 단어의 다른 형태"
 
-#: src/catalog/cmd.cpp:79
+#: src/catalog/cmd.cpp:75
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "삽입"
 
-#: src/catalog/cmd.cpp:119
+#: src/catalog/cmd.cpp:115
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "삭제"
 
-#: src/catalog/cmd.cpp:166
+#: src/catalog/cmd.cpp:162
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "검증 전환"
 
-#: src/catalog/cmd.cpp:184
+#: src/catalog/cmd.cpp:180
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "마크업 삽입"
 
-#: src/catalog/cmd.cpp:207
+#: src/catalog/cmd.cpp:203
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "마크업 삭제"
 
-#: src/catalog/cmd.cpp:229
+#: src/catalog/cmd.cpp:225
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "주석 설정"
 
-#: src/catalog/cmd.cpp:264
+#: src/catalog/cmd.cpp:260
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "작업 과정 단계 추가/업데이트"
 
-#: src/catalog/cmd.cpp:283
+#: src/catalog/cmd.cpp:279
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "번역 동등성 설정"
 
-#: src/catalog/cmd.cpp:340
+#: src/catalog/cmd.cpp:336
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "마크업이 있는 텍스트 삭제"
 
-#: src/catalog/cmd.cpp:388 src/xlifftextedit.cpp:576
+#: src/catalog/cmd.cpp:384 src/xlifftextedit.cpp:574
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "마크업이 있는 텍스트 삽입"
 
-#: src/catalog/gettext/gettextstorage.cpp:101
+#: src/catalog/gettext/gettextstorage.cpp:98
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "다른 길이 대체 문자열 구분자"
 
-#: src/catalog/gettext/gettextstorage.cpp:287
+#: src/catalog/gettext/gettextstorage.cpp:284
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
 msgstr "새 POT 템플릿으로 전환할 때 Gettext에서 저장한 이전 원본 값"
 
-#: src/catalog/gettextheader.cpp:459
+#: src/catalog/gettextheader.cpp:456
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "번역자 이름 없음"
 
-#: src/catalog/gettextheader.cpp:460
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgid "Your name:"
 msgstr "내 이름:"
 
-#: src/catalog/gettextheader.cpp:471
+#: src/catalog/gettextheader.cpp:468
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "번역자 이메일 없음"
 
-#: src/catalog/gettextheader.cpp:472
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgid "Your email:"
 msgstr "내 이메일:"
 
-#: src/catalog/ts/tsstorage.cpp:439
+#: src/catalog/ts/tsstorage.cpp:437
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "lupdate 도구에서 저장한 이전 원본 값"
 
-#: src/cataloglistview/cataloglistview.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:55
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "번역 단위"
 
-#: src/cataloglistview/cataloglistview.cpp:83
-#: src/glossary/glossarywindow.cpp:102 src/project/projecttab.cpp:57
+#: src/cataloglistview/cataloglistview.cpp:80
+#: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:57
 #, kde-format
 msgid "Quick search..."
 msgstr "빠른 검색..."
 
-#: src/cataloglistview/cataloglistview.cpp:84
-#: src/glossary/glossarywindow.cpp:104 src/project/projecttab.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:81
+#: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:58
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Ctrl+L 키를 누르면 활성화됩니다. 정규 표현식을 사용할 수 있습니다"
 
-#: src/cataloglistview/cataloglistview.cpp:91
+#: src/cataloglistview/cataloglistview.cpp:88
 #, kde-format
 msgid "Options"
 msgstr "옵션"
 
-#: src/cataloglistview/cataloglistview.cpp:193
+#: src/cataloglistview/cataloglistview.cpp:190
 #, kde-format
 msgid "Reset individual filter"
 msgstr "개별 필터 초기화"
 
-#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:195 src/tm/tmtab.cpp:361
 #, kde-format
 msgid "Case insensitive"
 msgstr "대소문자 구분 안 함"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:196 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "가속기 키 무시"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
 msgid "Ready"
 msgstr "준비"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Non-ready"
 msgstr "준비되지 않음"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Non-empty"
 msgstr "내용이 있음"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Empty"
 msgstr "비어 있음"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Changed since file open"
 msgstr "연 이후로 변경됨"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "연 이후로 변경되지 않음"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Same in sync file"
 msgstr "동기화 파일에서 같음"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Different in sync file"
 msgstr "동기화 파일에서 다름"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Not in sync file"
 msgstr "동기화 파일에 없음"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Plural"
 msgstr "복수"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Non-plural"
 msgstr "단수"
 
-#: src/cataloglistview/cataloglistview.cpp:215
+#: src/cataloglistview/cataloglistview.cpp:212
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "기본"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "상태"
 
-#: src/cataloglistview/cataloglistview.cpp:218
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "검색 가능한 열"
 
-#: src/cataloglistview/cataloglistview.cpp:222
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "내용 변경 시 다시 정렬하고 필터 다시 적용"
 
-#: src/cataloglistview/cataloglistview.cpp:242
+#: src/cataloglistview/cataloglistview.cpp:239
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
 msgstr "모두"
 
-#: src/cataloglistview/catalogmodel.cpp:91
+#: src/cataloglistview/catalogmodel.cpp:88
 #, kde-format
 msgctxt "@title:column"
 msgid "Entry"
 msgstr "항목"
 
-#: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:350
-#: src/glossary/glossary.cpp:193 src/tm/qamodel.cpp:91 src/tm/tmtab.cpp:67
+#: src/cataloglistview/catalogmodel.cpp:90 src/filesearch/filesearchtab.cpp:350
+#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "원본"
 
-#: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:352
-#: src/glossary/glossary.cpp:196 src/tm/tmtab.cpp:68
+#: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:352
+#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
 msgstr "대상"
 
-#: src/cataloglistview/catalogmodel.cpp:97
+#: src/cataloglistview/catalogmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Notes"
 msgstr "주석"
 
-#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:69
+#: src/cataloglistview/catalogmodel.cpp:96 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "문맥"
 
-#: src/cataloglistview/catalogmodel.cpp:101
+#: src/cataloglistview/catalogmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Files"
 msgstr "파일"
 
-#: src/cataloglistview/catalogmodel.cpp:103
-#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:71
+#: src/cataloglistview/catalogmodel.cpp:100
+#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
 msgstr "번역 상태"
 
-#: src/cataloglistview/catalogmodel.cpp:105
+#: src/cataloglistview/catalogmodel.cpp:102
 #, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "원본 길이"
 
-#: src/cataloglistview/catalogmodel.cpp:107
+#: src/cataloglistview/catalogmodel.cpp:104
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "대상 길이"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:991
-#: src/editortab.cpp:1185 src/tm/tmtab.cpp:234
+#: src/cataloglistview/catalogmodel.cpp:140 src/editortab.cpp:991
+#: src/editortab.cpp:1185 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "준비"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:993
-#: src/editortab.cpp:1180 src/tm/tmtab.cpp:235
+#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:993
+#: src/editortab.cpp:1180 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "검토 필요함"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:989
-#: src/tm/tmtab.cpp:236
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:989
+#: src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -931,7 +931,7 @@ msgstr "%1(%2)"
 msgid "Target language:"
 msgstr "대상 언어:"
 
-#: src/common/termlabel.cpp:58
+#: src/common/termlabel.cpp:57
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
@@ -1333,13 +1333,13 @@ msgstr ""
 "변경 사항을 저장하거나 무시하시겠습니까?"
 
 #: src/editortab.cpp:719 src/editortab.cpp:1290
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1017
+#: src/glossary/glossarywindow.cpp:345 src/lokalizemainwindow.cpp:1017
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "경고"
 
-#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1597,25 +1597,25 @@ msgctxt "@item Undo action item"
 msgid "Set unit text"
 msgstr "단위 텍스트 설정"
 
-#: src/editortab_findreplace.cpp:435
+#: src/editortab_findreplace.cpp:432
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "바꾸기"
 
-#: src/editortab_findreplace.cpp:498
+#: src/editortab_findreplace.cpp:495
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr "문서의 끝에 도달했습니다. 처음부터 다시 시작하시겠습니까?"
 
-#: src/editortab_findreplace.cpp:499 src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:496 src/editortab_findreplace.cpp:504
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "맞춤법 검사"
 
-#: src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:504
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize에서 맞춤법 검사를 끝냄"
@@ -1687,31 +1687,31 @@ msgstr "도구 보기(&V)"
 msgid "Main Toolbar"
 msgstr "주 도구 모음"
 
-#: src/editorview.cpp:47
+#: src/editorview.cpp:42
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "준비되지 않음:"
 
-#: src/editorview.cpp:49
+#: src/editorview.cpp:44
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "번역되지 않음:"
 
-#: src/editorview.cpp:60
+#: src/editorview.cpp:55
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "숨김"
 
-#: src/editorview.cpp:70
+#: src/editorview.cpp:65
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "열: %1"
 
-#: src/editorview.cpp:82
+#: src/editorview.cpp:77
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1721,13 +1721,13 @@ msgstr ""
 "<qt><p><b>원문</b></p>\n"
 "<p>이 부분은 현재 표시된 항목의 원문을 표시합니다.</p></qt>"
 
-#: src/editorview.cpp:173
+#: src/editorview.cpp:168
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "복수 형태 %1"
 
-#: src/editorview.cpp:237
+#: src/editorview.cpp:232
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1810,7 +1810,7 @@ msgstr "파일 목록"
 msgid "Drop translation files here..."
 msgstr "번역 파일을 여기에 끌어 놓으십시오..."
 
-#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:70
+#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
@@ -1822,17 +1822,17 @@ msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "파일에서 찾아 바꾸기"
 
-#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:399
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:397
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "원본을 클립보드에 복사"
 
-#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "대상을 클립보드에 복사"
 
-#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Open file"
 msgstr "파일 열기"
@@ -1873,21 +1873,21 @@ msgstr "미리 보기"
 msgid "Mass Replace"
 msgstr "대량으로 바꾸기"
 
-#: src/glossary/glossary.cpp:198
+#: src/glossary/glossary.cpp:194
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "제목 필드"
 
-#: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:263 src/glossary/glossarywindow.cpp:289
-#: src/glossary/glossarywindow.cpp:304 src/glossary/glossarywindow.cpp:321
+#: src/glossary/glossaryview.cpp:31 src/glossary/glossaryview.cpp:38
+#: src/glossary/glossarywindow.cpp:260 src/glossary/glossarywindow.cpp:286
+#: src/glossary/glossarywindow.cpp:301 src/glossary/glossarywindow.cpp:318
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
 msgstr "용어집"
 
-#: src/glossary/glossaryview.cpp:54
+#: src/glossary/glossaryview.cpp:50
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -1901,19 +1901,19 @@ msgstr ""
 "용하십시오. (팁:&nbsp;<interface>새&nbsp;단어&nbsp;정의하기</interface> 항목"
 "을 부르기 전에 원문과 번역문 필드에서 단어를 선택하십시오.)</p>"
 
-#: src/glossary/glossarywindow.cpp:119
+#: src/glossary/glossarywindow.cpp:116
 #, kde-format
 msgctxt "@action:button reloads glossary from disk"
 msgid "Restore from disk"
 msgstr "디스크에서 복원"
 
-#: src/glossary/glossarywindow.cpp:120
+#: src/glossary/glossarywindow.cpp:117
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "변경 사항을 무시하고 디스크에서 용어집 읽어오기"
 
-#: src/glossary/glossarywindow.cpp:346
+#: src/glossary/glossarywindow.cpp:343
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2079,7 +2079,7 @@ msgstr "TM 기능에는 SQLite Qt 모듈이 필요합니다."
 msgid "No SQLite module available"
 msgstr "SQLite 모듈을 사용할 수 없습니다."
 
-#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:478
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2123,7 +2123,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "번역 메모리"
 
-#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:481
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -2395,7 +2395,7 @@ msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "모든 새 번역 수락"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:29 src/mergemode/mergeview.cpp:34
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2403,7 +2403,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "첫 번째 동기화"
 
-#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2411,7 +2411,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "두 번째 동기화"
 
-#: src/mergemode/mergeview.cpp:41
+#: src/mergemode/mergeview.cpp:40
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2421,7 +2421,7 @@ msgstr ""
 "현재 파일과 동기화하거나 현재 파일에 합칠 파일을 끌어다 놓은 다음 상황에 맞"
 "는 메뉴 옵션을 참조하십시오"
 
-#: src/mergemode/mergeview.cpp:206
+#: src/mergemode/mergeview.cpp:205
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2431,7 +2431,7 @@ msgstr ""
 "<filename>%1</filename>파일과 동기화하려고 여는 중 오류 발생. 오류가 발생한 "
 "줄: %2"
 
-#: src/mergemode/mergeview.cpp:332
+#: src/mergemode/mergeview.cpp:331
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2441,102 +2441,102 @@ msgstr ""
 "다른 항목: %1\n"
 "일치하지 않는 항목: %2"
 
-#: src/msgctxtview.cpp:37
+#: src/msgctxtview.cpp:33
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "단위 메타데이터"
 
-#: src/msgctxtview.cpp:93
+#: src/msgctxtview.cpp:89
 #, kde-format
 msgctxt ""
 "@info notes to translation unit which expire when the catalog is closed"
 msgid "<b>Temporary notes:</b>"
 msgstr "<b>임시 주석:</b>"
 
-#: src/msgctxtview.cpp:102
+#: src/msgctxtview.cpp:98
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
 msgstr "<b>Pology 주석:</b>"
 
-#: src/msgctxtview.cpp:111
+#: src/msgctxtview.cpp:107
 #, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
 msgstr "<b>LanguageTool 주석:</b>"
 
-#: src/msgctxtview.cpp:123
+#: src/msgctxtview.cpp:119
 #, kde-format
 msgctxt "@info translation unit metadata"
 msgid "<b>Phase:</b><br>"
 msgstr "<b>단계:</b><br>"
 
-#: src/msgctxtview.cpp:147
+#: src/msgctxtview.cpp:143
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Files:</b><br>"
 msgstr "<br><b>파일:</b><br>"
 
-#: src/msgctxtview.cpp:155
+#: src/msgctxtview.cpp:151
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Context:</b><br>"
 msgstr "<br><b>문맥:</b><br>"
 
-#: src/msgctxtview.cpp:226
+#: src/msgctxtview.cpp:222
 #, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
 msgstr "(비어 있음)"
 
-#: src/noteeditor.cpp:46
+#: src/noteeditor.cpp:41
 #, kde-format
 msgctxt "@info:label"
 msgid "From:"
 msgstr "작성자:"
 
-#: src/noteeditor.cpp:50
+#: src/noteeditor.cpp:45
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Save empty note to remove it"
 msgstr "주석을 빈 채로 저장하면 삭제됩니다"
 
-#: src/noteeditor.cpp:51
+#: src/noteeditor.cpp:46
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Author of this note"
 msgstr "이 주석 작성자"
 
-#: src/noteeditor.cpp:64
+#: src/noteeditor.cpp:59
 #, kde-format
 msgid "Ctrl+Enter"
 msgstr "Ctrl+Enter"
 
-#: src/noteeditor.cpp:65
+#: src/noteeditor.cpp:60
 #, kde-format
 msgid "Esc"
 msgstr "Esc"
 
-#: src/noteeditor.cpp:118
+#: src/noteeditor.cpp:113
 #, kde-format
 msgctxt "@info XLIFF notes representation"
 msgid "<b>Notes:</b>"
 msgstr "<b>주석:</b>"
 
-#: src/noteeditor.cpp:130
+#: src/noteeditor.cpp:125
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit..."
 msgstr "편집..."
 
-#: src/noteeditor.cpp:135
+#: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add..."
 msgstr "추가..."
 
-#: src/noteeditor.cpp:137
+#: src/noteeditor.cpp:132
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add a note..."
@@ -2686,13 +2686,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr "메시지 글꼴"
 
-#: src/prefs/prefs.cpp:96
+#: src/prefs/prefs.cpp:90
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "식별"
 
-#: src/prefs/prefs.cpp:106
+#: src/prefs/prefs.cpp:100
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2703,43 +2703,43 @@ msgstr ""
 "%1 - 소스 파일 경로\n"
 "%2 - 줄 번호"
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
+#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "일반"
 
-#: src/prefs/prefs.cpp:113
+#: src/prefs/prefs.cpp:107
 #, kde-format
 msgctxt "@title:tab"
 msgid "Editing"
 msgstr "편집"
 
-#: src/prefs/prefs.cpp:119
+#: src/prefs/prefs.cpp:113
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "모양"
 
-#: src/prefs/prefs.cpp:125 src/tm/tmtab.cpp:376
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:374
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "번역 메모리"
 
-#: src/prefs/prefs.cpp:131
+#: src/prefs/prefs.cpp:125
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:137
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool 플러그인"
 
-#: src/prefs/prefs.cpp:151
+#: src/prefs/prefs.cpp:145
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2748,47 +2748,47 @@ msgstr ""
 "프로젝트를 불러와야 사용할 수 있는 기능을 호출했습니다. 새 프로젝트를 만들거"
 "나 기존 프로젝트를 불러오시겠습니까?"
 
-#: src/prefs/prefs.cpp:152
+#: src/prefs/prefs.cpp:146
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "프로젝트가 필요함"
 
-#: src/prefs/prefs.cpp:153
+#: src/prefs/prefs.cpp:147
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
 msgstr "프로젝트 만들기"
 
-#: src/prefs/prefs.cpp:154
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "프로젝트 열기"
 
-#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
+#: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Lokalize 번역 프로젝트 (*.lokalize)"
 
-#: src/prefs/prefs.cpp:181
+#: src/prefs/prefs.cpp:175
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "번역할 Gettext .po 파일이 있는 폴더 선택"
 
-#: src/prefs/prefs.cpp:202
+#: src/prefs/prefs.cpp:196
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "소프트웨어 및 OpenDocument 번역 프로젝트를 만드십시오."
 
-#: src/prefs/prefs.cpp:258
+#: src/prefs/prefs.cpp:252
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "고급"
 
-#: src/prefs/prefs.cpp:269
+#: src/prefs/prefs.cpp:263
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3635,13 +3635,13 @@ msgstr "POT 파일(번역한 것)의 기본 디렉터리"
 msgid "Project's glossary"
 msgstr "프로젝트 용어집"
 
-#: src/project/projectmodel.cpp:469
+#: src/project/projectmodel.cpp:468
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "이름"
 
-#: src/project/projectmodel.cpp:471
+#: src/project/projectmodel.cpp:470
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3649,55 +3649,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "그래프"
 
-#: src/project/projectmodel.cpp:473
+#: src/project/projectmodel.cpp:472
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "합계"
 
-#: src/project/projectmodel.cpp:475
+#: src/project/projectmodel.cpp:474
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "번역됨"
 
-#: src/project/projectmodel.cpp:477
+#: src/project/projectmodel.cpp:476
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "준비되지 않음"
 
-#: src/project/projectmodel.cpp:479
+#: src/project/projectmodel.cpp:478
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "번역되지 않음"
 
-#: src/project/projectmodel.cpp:481
+#: src/project/projectmodel.cpp:480
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "미완료"
 
-#: src/project/projectmodel.cpp:483
+#: src/project/projectmodel.cpp:482
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "마지막 번역"
 
-#: src/project/projectmodel.cpp:485
+#: src/project/projectmodel.cpp:484
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "주석"
 
-#: src/project/projectmodel.cpp:487
+#: src/project/projectmodel.cpp:486
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "템플릿 리비전"
 
-#: src/project/projectmodel.cpp:489
+#: src/project/projectmodel.cpp:488
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -3858,37 +3858,37 @@ msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "미번역: %1"
 
-#: src/tm/dbfilesmodel.cpp:96
+#: src/tm/dbfilesmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
 msgstr "이름"
 
-#: src/tm/dbfilesmodel.cpp:97
+#: src/tm/dbfilesmodel.cpp:95
 #, kde-format
 msgctxt "@title:column"
 msgid "Source language"
 msgstr "원본 언어"
 
-#: src/tm/dbfilesmodel.cpp:98
+#: src/tm/dbfilesmodel.cpp:96
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
 msgstr "대상 언어"
 
-#: src/tm/dbfilesmodel.cpp:99
+#: src/tm/dbfilesmodel.cpp:97
 #, kde-format
 msgctxt "@title:column"
 msgid "Pairs"
 msgstr "쌍"
 
-#: src/tm/dbfilesmodel.cpp:100
+#: src/tm/dbfilesmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
 msgstr "유일한 원본 항목"
 
-#: src/tm/dbfilesmodel.cpp:101
+#: src/tm/dbfilesmodel.cpp:99
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique translations"
@@ -3996,7 +3996,7 @@ msgstr "TMX로 내보내기"
 msgid "Remove"
 msgstr "삭제"
 
-#: src/tm/qamodel.cpp:94
+#: src/tm/qamodel.cpp:96
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4120,54 +4120,54 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "선택한 데이터베이스를 내보낼 TMX 파일 선택"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Lokalize 번역 메모리에 추가 중"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "TM"
 msgstr "번역 메모리"
 
-#: src/tm/tmtab.cpp:80
+#: src/tm/tmtab.cpp:78
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr "원본: %1"
 
-#: src/tm/tmtab.cpp:85
+#: src/tm/tmtab.cpp:83
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "대상: %1"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Substring"
 msgstr "부 문자열"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Google-like"
 msgstr "Google 형식"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Wildcard"
 msgstr "와일드카드"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "공백을 AND 문자열로 취급합니다. 대소문자를 구분하지 않습니다."
 
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "와일드카드 문자열 (*, ?). 대소문자를 구분합니다."
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:511
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
@@ -4176,55 +4176,55 @@ msgstr ""
 "프로젝트가 열려 있을 때에만 재검사가 가능합니다. 프로젝트를 연 다음 다시 시도"
 "하십시오."
 
-#: src/tm/tmtab.cpp:514
+#: src/tm/tmtab.cpp:512
 #, kde-format
 msgid "Rescan not possible"
 msgstr "재검사할 수 없음"
 
-#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:611 src/tm/tmview.cpp:620
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "파일 %1이(가) 없어서 번역 메모리에서 삭제했습니다."
 
-#: src/tm/tmview.cpp:186 src/tm/tmview.cpp:191
+#: src/tm/tmview.cpp:185 src/tm/tmview.cpp:190
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "번역 메모리"
 
-#: src/tm/tmview.cpp:226
+#: src/tm/tmview.cpp:225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "아무 단어나 두 번 클릭하면 번역에 삽입합니다"
 
-#: src/tm/tmview.cpp:331
+#: src/tm/tmview.cpp:330
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "일괄 번역 메모리 채우기"
 
-#: src/tm/tmview.cpp:334
+#: src/tm/tmview.cpp:333
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "일괄 번역이 완료되었습니다."
 
-#: src/tm/tmview.cpp:340
+#: src/tm/tmview.cpp:339
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "일치하는 항목이 없습니다."
 
-#: src/tm/tmview.cpp:360 src/tm/tmview.cpp:375
+#: src/tm/tmview.cpp:359 src/tm/tmview.cpp:374
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "일괄 번역이 예약되었습니다."
 
-#: src/tm/tmview.cpp:496
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
@@ -4232,7 +4232,7 @@ msgctxt ""
 msgid "100% (perfect match)"
 msgstr "100%(완전한 일치)"
 
-#: src/tm/tmview.cpp:501
+#: src/tm/tmview.cpp:500
 #, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
@@ -4240,7 +4240,7 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:507
+#: src/tm/tmview.cpp:506
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
@@ -4249,7 +4249,7 @@ msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
 msgstr[0] "%1회 발견됨"
 
-#: src/tm/tmview.cpp:517
+#: src/tm/tmview.cpp:516
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
@@ -4257,7 +4257,7 @@ msgctxt ""
 msgid "%1 • %2 • %3"
 msgstr "%1 • %2 • %3"
 
-#: src/tm/tmview.cpp:525
+#: src/tm/tmview.cpp:524
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
@@ -4265,43 +4265,43 @@ msgctxt ""
 msgid "%1 • %2"
 msgstr "%1 • %2"
 
-#: src/tm/tmview.cpp:577
+#: src/tm/tmview.cpp:576
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "현재"
 
-#: src/tm/tmview.cpp:578
+#: src/tm/tmview.cpp:577
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "파일: %1<br />추가한 날짜: %2"
 
-#: src/tm/tmview.cpp:580
+#: src/tm/tmview.cpp:579
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />마지막 변경 날짜: %1"
 
-#: src/tm/tmview.cpp:582
+#: src/tm/tmview.cpp:581
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />마지막 변경자: %1"
 
-#: src/tm/tmview.cpp:583
+#: src/tm/tmview.cpp:582
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />번역 메모리: %1"
 
-#: src/tm/tmview.cpp:585
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />파일에 더 이상 없음"
 
-#: src/tm/tmview.cpp:600
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4309,31 +4309,31 @@ msgid ""
 msgstr ""
 "<html>번역 메모리 %2에서 다음 항목을 삭제하시겠습니까?<br/> <i>%1</i></html>"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:602
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "번역 메모리 항목 삭제"
 
-#: src/tm/tmview.cpp:648
+#: src/tm/tmview.cpp:647
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "이 항목 삭제"
 
-#: src/tm/tmview.cpp:651
+#: src/tm/tmview.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "이 파일이 들어 있는 항목 열기"
 
-#: src/tm/tmview.cpp:661
+#: src/tm/tmview.cpp:660
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "번역 메모리에서 이 없는 파일 삭제"
 
-#: src/tm/tmview.cpp:675
+#: src/tm/tmview.cpp:674
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4342,19 +4342,19 @@ msgstr ""
 "<html>번역 메모리 %2에서 다음 없는 파일을 삭제하시겠습니까?<br/> <i>%1</i></"
 "html>"
 
-#: src/tm/tmview.cpp:679
+#: src/tm/tmview.cpp:678
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "번역 메모리에서 없는 파일 삭제"
 
-#: src/tm/tmview.cpp:962
+#: src/tm/tmview.cpp:961
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
 msgstr "번역 메모리 제안 사용"
 
-#: src/tools/widgettextcaptureconfig.cpp:23
+#: src/tools/widgettextcaptureconfig.cpp:24
 #, kde-format
 msgctxt "@title"
 msgid "Widget Text Capture"
@@ -4412,29 +4412,29 @@ msgstr "번역 메모리에서 GUI 구성 요소 텍스트 찾기"
 msgid "Copy GUI element text to clipboard"
 msgstr "GUI 구성 요소 텍스트를 클립보드에 복사"
 
-#: src/xlifftextedit.cpp:878
+#: src/xlifftextedit.cpp:876
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "번역 메모리에서 선택한 텍스트 찾기"
 
-#: src/xlifftextedit.cpp:958
+#: src/xlifftextedit.cpp:956
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "텍스트 바꾸기"
 
-#: src/xlifftextedit.cpp:997
+#: src/xlifftextedit.cpp:995
 #, kde-format
 msgid "no spellcheck available"
 msgstr "맞춤법 검사 사용 불가"
 
-#: src/xlifftextedit.cpp:1013
+#: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "오류 발생: %1"
 
-#: src/xlifftextedit.cpp:1173
+#: src/xlifftextedit.cpp:1171
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

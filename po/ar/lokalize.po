@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-11 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:46+0000\n"
 "PO-Revision-Date: 2025-05-14 17:05+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -170,153 +170,153 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "استخدم الملفّ المصدر"
 
-#: src/catalog/catalog.cpp:43
+#: src/catalog/catalog.cpp:40
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "كلّ الملفّات المدعومة (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:44
+#: src/catalog/catalog.cpp:41
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "غَت‌تكست (‎*.po *.pot)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:43
 #, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
 msgstr "كلّ الملفّات المدعومة (*.po *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:47
+#: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "غَت‌تكست (‎*.po)"
 
-#: src/catalog/catalog.cpp:49
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "ملفّات XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:50
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "اللغويّ (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:56
 #, kde-format
 msgid "New"
 msgstr "جديدة"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:57
 #, kde-format
 msgid "Needs translation"
 msgstr "تحتاج إلى ترجمة"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:58
 #, kde-format
 msgid "Needs full localization"
 msgstr "تحتاج إلى توطين كامل"
 
-#: src/catalog/catalog.cpp:62
+#: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
 msgstr "تحتاج إلى ملاءمة"
 
-#: src/catalog/catalog.cpp:63
+#: src/catalog/catalog.cpp:60
 #, kde-format
 msgid "Translated"
 msgstr "مترجمة"
 
-#: src/catalog/catalog.cpp:64
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation review"
 msgstr "تحتاج إلى مراجعة الترجمة"
 
-#: src/catalog/catalog.cpp:65
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr "تحتاج إلى مراجعة التّوطين كاملًا"
 
-#: src/catalog/catalog.cpp:66
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "تحتاج إلى مراجعة الملاءمة"
 
-#: src/catalog/catalog.cpp:67
+#: src/catalog/catalog.cpp:64
 #, kde-format
 msgid "Final"
 msgstr "منتهية"
 
-#: src/catalog/catalog.cpp:68
+#: src/catalog/catalog.cpp:65
 #, kde-format
 msgid "Signed-off"
 msgstr "موقّعة"
 
-#: src/catalog/catalogstring.cpp:57
+#: src/catalog/catalogstring.cpp:56
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
 msgstr "بداية وسم مزدوج"
 
-#: src/catalog/catalogstring.cpp:58
+#: src/catalog/catalogstring.cpp:57
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
 msgstr "نهاية وسم مزدوج"
 
-#: src/catalog/catalogstring.cpp:59
+#: src/catalog/catalogstring.cpp:58
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
 msgstr "وسم مفرد"
 
-#: src/catalog/catalogstring.cpp:60
+#: src/catalog/catalogstring.cpp:59
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
 msgstr "وسم معزول"
 
-#: src/catalog/catalogstring.cpp:62
+#: src/catalog/catalogstring.cpp:61
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
 msgstr "واسِم"
 
-#: src/catalog/catalogstring.cpp:63
+#: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
 msgstr "ماسك مكان مجموعة عامّ"
 
-#: src/catalog/catalogstring.cpp:64
+#: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
 msgstr "تدفّق فرعيّ"
 
-#: src/catalog/catalogstring.cpp:66
+#: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
 msgstr "ماسك مكان عامّ"
 
-#: src/catalog/catalogstring.cpp:67
+#: src/catalog/catalogstring.cpp:66
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
 msgstr "بداية ماسك مكان مزدوج"
 
-#: src/catalog/catalogstring.cpp:68
+#: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
 msgstr "نهاية ماسك مكان مزدوج"
 
-#: src/catalog/catalogstring.cpp:112
+#: src/catalog/catalogstring.cpp:111
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "abbreviation"
 msgstr "اختصار"
 
-#: src/catalog/catalogstring.cpp:113
+#: src/catalog/catalogstring.cpp:112
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -325,7 +325,7 @@ msgid ""
 msgstr ""
 "صيغة مختصرة: مصطلح ينتج عن إزالة أيّ جزء من المصطلح كاملًا مع إبقاء نفس المعنى"
 
-#: src/catalog/catalogstring.cpp:115
+#: src/catalog/catalogstring.cpp:114
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -335,7 +335,7 @@ msgstr ""
 "اختصار: صيغة مختصرة لمصطلح بسيط ينتج عن إزالة بعض أحرفه (مثل ’adj.‎‘ بدل "
 "’adjective‘. بالعربيّة: ”صفة“)"
 
-#: src/catalog/catalogstring.cpp:117
+#: src/catalog/catalogstring.cpp:116
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -347,7 +347,7 @@ msgstr ""
 "الأصليّة وجُمعت لتكوّن لفظة تُنطق مقطعيًّا (مثل ’radar‘ اختصارًا لِ‍ ’radio detecting "
 "and ranging‘. بالعربيّة: ”الاكتشاف الرّاديويّ ومجاله“)"
 
-#: src/catalog/catalogstring.cpp:119
+#: src/catalog/catalogstring.cpp:118
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -355,7 +355,7 @@ msgid ""
 "proper entity"
 msgstr "تسمية لقبيّة: مصطلح لاسم معرفة (مثل اسم وكالة أو أيّ كيان آخر)"
 
-#: src/catalog/catalogstring.cpp:121
+#: src/catalog/catalogstring.cpp:120
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -368,7 +368,7 @@ msgstr ""
 "تظهر خلال الحديث أو مجموعة الأحاديث، حتّى أنّ ليس ضروريًّا أن تكون قرب بعضها "
 "البعض تمامًا"
 
-#: src/catalog/catalogstring.cpp:123
+#: src/catalog/catalogstring.cpp:122
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -378,13 +378,13 @@ msgstr ""
 "اسم شائع: تسمية بالأحرف الأولى لمصطلح علميّ عالميّ يُستخدم في النّقاشات العامّة "
 "بلغة ما"
 
-#: src/catalog/catalogstring.cpp:124
+#: src/catalog/catalogstring.cpp:123
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
 msgstr "تاريخ و/أو وقت"
 
-#: src/catalog/catalogstring.cpp:126
+#: src/catalog/catalogstring.cpp:125
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -395,7 +395,7 @@ msgstr ""
 "معادلة: تعبير يُستخدم للتّعبير عن عبارة فيها تعبيرين رياضيّين (مثلًا) متعادلين "
 "حسب علامة المساواة (=)، أو مُسندة لأخرى بإشارة مشابهة"
 
-#: src/catalog/catalogstring.cpp:128
+#: src/catalog/catalogstring.cpp:127
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -403,7 +403,7 @@ msgid ""
 "abbreviated form"
 msgstr "صيغة موسّعة: التّعبير الكامل للصّيغ التي لها صيغة مختصرة"
 
-#: src/catalog/catalogstring.cpp:129
+#: src/catalog/catalogstring.cpp:128
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -413,7 +413,7 @@ msgstr ""
 "صيغة: أشكال أو رموز أو ما يشابهها للتّعبير عن معنّى ما بشكل مختصر، مثل "
 "المعادلات الرّياضيّة أو الكيميائيّة"
 
-#: src/catalog/catalogstring.cpp:130
+#: src/catalog/catalogstring.cpp:129
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -421,7 +421,7 @@ msgid ""
 "terminological record"
 msgstr "صيغة رئيسة: تسمية معنًى اختيرت كأساسٍ لسجلّ إصطلاحيّ"
 
-#: src/catalog/catalogstring.cpp:132
+#: src/catalog/catalogstring.cpp:131
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -435,7 +435,7 @@ msgstr ""
 "عند نطق الأحرف منفصلة (مثلًا ’BSE‘ لِ‍ ’bovine spongiform encephalopathy‘. "
 "بالعربيّة: ”التهاب الدماغ الإسفنجي البقري“)"
 
-#: src/catalog/catalogstring.cpp:136
+#: src/catalog/catalogstring.cpp:135
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -445,7 +445,7 @@ msgstr ""
 "مصطلح علميّ عالميّ: عبارة عن مصطلح هو جزء من تسمية علميّة عالميّة تبنّتها هيئة "
 "علميّة"
 
-#: src/catalog/catalogstring.cpp:137
+#: src/catalog/catalogstring.cpp:136
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -455,7 +455,7 @@ msgstr ""
 "الدّوليّة: مصطلح له نفس الصّيغة الهجائيّة أو الصّوتيّة أو ما يقارب ذلك في العديد "
 "من اللغات"
 
-#: src/catalog/catalogstring.cpp:139
+#: src/catalog/catalogstring.cpp:138
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -466,19 +466,19 @@ msgstr ""
 "تعبير منطقيّ: تعبير يُستخدم للتّعبير عن معنى قائمة على علاقات رياضيّة أو منطقيّة، "
 "مثل إفادات عدم المساواة، ومجموعات العلاقات، والعمليّات المنطقيّة وغير ذلك"
 
-#: src/catalog/catalogstring.cpp:141
+#: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
 msgstr "وحدة لإدارة الخامات: وحدة لتعقّب شيء ما"
 
-#: src/catalog/catalogstring.cpp:142
+#: src/catalog/catalogstring.cpp:141
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "name"
 msgstr "اسم"
 
-#: src/catalog/catalogstring.cpp:144
+#: src/catalog/catalogstring.cpp:143
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -489,7 +489,7 @@ msgstr ""
 "شبه التّرادف: مصطلح يمثّل معنًى بمصطلح آخر في نفس اللغة أو يشابهه جدًّا، ولكن "
 "تبادل المصطلحين محدود في سياقات محدّدة وغير ملائمة لغيرها"
 
-#: src/catalog/catalogstring.cpp:146
+#: src/catalog/catalogstring.cpp:145
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -497,13 +497,13 @@ msgid ""
 "manufacturing system"
 msgstr "عدد جزئيّ: تسمية أبجديّة رقميّة فريدة على شيء ما في نظام تصنيعيّ"
 
-#: src/catalog/catalogstring.cpp:147
+#: src/catalog/catalogstring.cpp:146
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "phrase"
 msgstr "عبارة"
 
-#: src/catalog/catalogstring.cpp:149
+#: src/catalog/catalogstring.cpp:148
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -514,13 +514,13 @@ msgstr ""
 "صياغة بعبارات رسميّة: مجموعة من كلمتين فأكثر تكوّنان وحدة، حيث أنّه لا يمكن "
 "استخلاص المعنى من الكلمات المكوّنة لتلك العبارة مجتزأة منها"
 
-#: src/catalog/catalogstring.cpp:151
+#: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
 msgstr "محميّ: يجّب ألّا يُترجم النّصّ المعلّم"
 
-#: src/catalog/catalogstring.cpp:153
+#: src/catalog/catalogstring.cpp:152
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -530,20 +530,20 @@ msgstr ""
 "صيغة رومانيّة: صيغة لمصطلح نتجت من عمليّة تحويل لأنظمة كتابة غير لاتينيّة إلى "
 "الأبجديّة اللاتينيّة"
 
-#: src/catalog/catalogstring.cpp:154
+#: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
 msgstr "جزء: يمثّل النّصّ المعلّم جزءًا"
 
-#: src/catalog/catalogstring.cpp:155
+#: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
 msgstr "عبارة معيّنة: عبارة معجميّة ثابتة"
 
 # الترجمة العربية للمصطلح المعاق
-#: src/catalog/catalogstring.cpp:157
+#: src/catalog/catalogstring.cpp:156
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -556,7 +556,7 @@ msgstr ""
 "on International Monetary Affairs‘. بالعربيّة: ”المجموعة الحكوميّة الدّوليّة "
 "الأربع والعشرين للشّؤون النّقديّة الدّوليّة“)"
 
-#: src/catalog/catalogstring.cpp:160
+#: src/catalog/catalogstring.cpp:159
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -566,13 +566,13 @@ msgstr ""
 "وحدة احتفاظ للمخزون: عنصر مخزون عُرّف بتسمية أبجديّة رقميّة فريدة لشيء ما في "
 "نظام تحكّم بالمخزون"
 
-#: src/catalog/catalogstring.cpp:161
+#: src/catalog/catalogstring.cpp:160
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
 msgstr "نصّ قياسيّ: نصّ عاديّ"
 
-#: src/catalog/catalogstring.cpp:162
+#: src/catalog/catalogstring.cpp:161
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -580,7 +580,7 @@ msgid ""
 "combination thereof"
 msgstr "رمز: تسمية لمعنًى بالأحرف، أو الأرقام، أو المصوّرات أو أيّة تجميعة منها"
 
-#: src/catalog/catalogstring.cpp:163
+#: src/catalog/catalogstring.cpp:162
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -589,7 +589,7 @@ msgid ""
 msgstr ""
 "مرادف: مصطلح يمثّل نفس أو شبه مفهوم مصطلح المُدخَلة الرئيسة في مُدخَلة مصطلح ما"
 
-#: src/catalog/catalogstring.cpp:165
+#: src/catalog/catalogstring.cpp:164
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -599,13 +599,13 @@ msgstr ""
 "عبارة مرادفة: وحدة مُصاغة بعبارات رسميّة بلغة تمثّل نفس المحتوى اللفظيّ بعبارة "
 "أخرى بنفس اللغة"
 
-#: src/catalog/catalogstring.cpp:166
+#: src/catalog/catalogstring.cpp:165
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "term"
 msgstr "مصطلح"
 
-#: src/catalog/catalogstring.cpp:168
+#: src/catalog/catalogstring.cpp:167
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -617,7 +617,7 @@ msgstr ""
 "صيغة منسوخة: صيغة لمصطلح ناتجة عن عمليّة مُثّلت فيها محارف أحد أنظمة الكتابة من "
 "نظام كتابة مختلف، آخذة بالنّظر طريقة نطق المحارف المحوّلة"
 
-#: src/catalog/catalogstring.cpp:171
+#: src/catalog/catalogstring.cpp:170
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -628,7 +628,7 @@ msgstr ""
 "صيغة منقحرة: صيغة لمصطلح ناتجة عن عمليّة مُثّلت فيها محارف أبجديّة أحد أنظمة "
 "الكتابة من نظام كتابة مختلف"
 
-#: src/catalog/catalogstring.cpp:174
+#: src/catalog/catalogstring.cpp:173
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid ""
@@ -638,309 +638,309 @@ msgstr ""
 "صيغة مقتطعة: صيغة مختصرة لمصطلح ناتجة من إزالة حرفين/مقطعين صوتيّين أو أكثر "
 "(مثلًا ’flu‘ لِ‍ ’influenza‘. بالعربيّة: ”نزلة برد“)"
 
-#: src/catalog/catalogstring.cpp:176
+#: src/catalog/catalogstring.cpp:175
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
 msgstr "بديل: أحد الأشكال البديلة لمصطلح"
 
-#: src/catalog/cmd.cpp:79
+#: src/catalog/cmd.cpp:75
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insertion"
 msgstr "الإدراج"
 
-#: src/catalog/cmd.cpp:119
+#: src/catalog/cmd.cpp:115
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Deletion"
 msgstr "الحذف"
 
-#: src/catalog/cmd.cpp:166
+#: src/catalog/cmd.cpp:162
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Approvement toggling"
 msgstr "تبديل الموافقة"
 
-#: src/catalog/cmd.cpp:184
+#: src/catalog/cmd.cpp:180
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Insertion"
 msgstr "إدراج الرّقْم"
 
-#: src/catalog/cmd.cpp:207
+#: src/catalog/cmd.cpp:203
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Markup Deletion"
 msgstr "حذف الرّقْم"
 
-#: src/catalog/cmd.cpp:229
+#: src/catalog/cmd.cpp:225
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
 msgstr "ضبط الملاحظة"
 
-#: src/catalog/cmd.cpp:264
+#: src/catalog/cmd.cpp:260
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
 msgstr "تحديث/إضافة طور سير العمل"
 
-#: src/catalog/cmd.cpp:283
+#: src/catalog/cmd.cpp:279
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
 msgstr "إعداد ترادف الترجمة"
 
-#: src/catalog/cmd.cpp:340
+#: src/catalog/cmd.cpp:336
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "إزالة النّصّ الذي بداخله رقْم"
 
-#: src/catalog/cmd.cpp:388 src/xlifftextedit.cpp:576
+#: src/catalog/cmd.cpp:384 src/xlifftextedit.cpp:574
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "إدرّاج النّصّ الذي بداخله رقْم"
 
-#: src/catalog/gettext/gettextstorage.cpp:101
+#: src/catalog/gettext/gettextstorage.cpp:98
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "فاصل لتنويعات السّلاسل مختلفة الطّول"
 
-#: src/catalog/gettext/gettextstorage.cpp:287
+#: src/catalog/gettext/gettextstorage.cpp:284
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
 msgstr "قيمة المصدر السّابقة، حفظتها «غَت‌تكست» أثناء النّقل إلى قالب POT جديد"
 
-#: src/catalog/gettextheader.cpp:459
+#: src/catalog/gettextheader.cpp:456
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "اسم المؤلّف ناقص"
 
-#: src/catalog/gettextheader.cpp:460
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgid "Your name:"
 msgstr "اسمك:"
 
-#: src/catalog/gettextheader.cpp:471
+#: src/catalog/gettextheader.cpp:468
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "بريد المؤلف ناقص"
 
-#: src/catalog/gettextheader.cpp:472
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgid "Your email:"
 msgstr "بريدك الإلكتروني:"
 
-#: src/catalog/ts/tsstorage.cpp:439
+#: src/catalog/ts/tsstorage.cpp:437
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "قيمة المصدر السّابقة، حفظتها أداة lupdate"
 
-#: src/cataloglistview/cataloglistview.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:55
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "وحدات الترجمة"
 
-#: src/cataloglistview/cataloglistview.cpp:83
-#: src/glossary/glossarywindow.cpp:102 src/project/projecttab.cpp:57
+#: src/cataloglistview/cataloglistview.cpp:80
+#: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:57
 #, kde-format
 msgid "Quick search..."
 msgstr "بحث سريع..."
 
-#: src/cataloglistview/cataloglistview.cpp:84
-#: src/glossary/glossarywindow.cpp:104 src/project/projecttab.cpp:58
+#: src/cataloglistview/cataloglistview.cpp:81
+#: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:58
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "يفعل عن طريق Ctrl+L. يقبل التّعابير النّمطيّة"
 
-#: src/cataloglistview/cataloglistview.cpp:91
+#: src/cataloglistview/cataloglistview.cpp:88
 #, kde-format
 msgid "Options"
 msgstr "خيارات"
 
-#: src/cataloglistview/cataloglistview.cpp:193
+#: src/cataloglistview/cataloglistview.cpp:190
 #, kde-format
 msgid "Reset individual filter"
 msgstr "صفّر المرشّح المفرد"
 
-#: src/cataloglistview/cataloglistview.cpp:198 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:195 src/tm/tmtab.cpp:361
 #, kde-format
 msgid "Case insensitive"
 msgstr "غير حسّاس للحالة"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:199 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:196 src/kaider_findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "تجاهل علامات المسرّعات"
 
-#: src/cataloglistview/cataloglistview.cpp:200
+#: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
 msgid "Ready"
 msgstr "جاهزة"
 
-#: src/cataloglistview/cataloglistview.cpp:201
+#: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Non-ready"
 msgstr "غير جاهزة"
 
-#: src/cataloglistview/cataloglistview.cpp:202
+#: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Non-empty"
 msgstr "غير فارغة"
 
-#: src/cataloglistview/cataloglistview.cpp:203
+#: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Empty"
 msgstr "فارغة"
 
-#: src/cataloglistview/cataloglistview.cpp:204
+#: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Changed since file open"
 msgstr "تغيّرت منذ فتح الملفّ"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "لم تتغيّر منذ فتح الملفّ"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
 msgid "Same in sync file"
 msgstr "نفسها في ملفّ المزامنة"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Different in sync file"
 msgstr "تختلف في ملفّ المزامنة"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:205
 #, kde-format
 msgid "Not in sync file"
 msgstr "غير موجودة في ملفّ المزامنة"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:206
 #, kde-format
 msgid "Plural"
 msgstr "صيغة جموع"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:207
 #, kde-format
 msgid "Non-plural"
 msgstr "ليست بصيغة جموع"
 
-#: src/cataloglistview/cataloglistview.cpp:215
+#: src/cataloglistview/cataloglistview.cpp:212
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "أساسيّ"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "الحالات"
 
-#: src/cataloglistview/cataloglistview.cpp:218
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Searchable column"
 msgstr "عمود البحث"
 
-#: src/cataloglistview/cataloglistview.cpp:222
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Resort and refilter on content change"
 msgstr "أعد الفرز والتّرشيح عند تغيّر المحتوى"
 
-#: src/cataloglistview/cataloglistview.cpp:242
+#: src/cataloglistview/cataloglistview.cpp:239
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
 msgstr "الكلّ"
 
-#: src/cataloglistview/catalogmodel.cpp:91
+#: src/cataloglistview/catalogmodel.cpp:88
 #, kde-format
 msgctxt "@title:column"
 msgid "Entry"
 msgstr "المُدخَلة"
 
-#: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:350
-#: src/glossary/glossary.cpp:193 src/tm/qamodel.cpp:91 src/tm/tmtab.cpp:67
+#: src/cataloglistview/catalogmodel.cpp:90 src/filesearch/filesearchtab.cpp:350
+#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "المصدر"
 
-#: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:352
-#: src/glossary/glossary.cpp:196 src/tm/tmtab.cpp:68
+#: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:352
+#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
 msgstr "الهدف"
 
-#: src/cataloglistview/catalogmodel.cpp:97
+#: src/cataloglistview/catalogmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Notes"
 msgstr "ملاحظات"
 
-#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:69
+#: src/cataloglistview/catalogmodel.cpp:96 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "السّياق"
 
-#: src/cataloglistview/catalogmodel.cpp:101
+#: src/cataloglistview/catalogmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Files"
 msgstr "الملفات"
 
-#: src/cataloglistview/catalogmodel.cpp:103
-#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:71
+#: src/cataloglistview/catalogmodel.cpp:100
+#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
 msgstr "حالة الترجمة"
 
-#: src/cataloglistview/catalogmodel.cpp:105
+#: src/cataloglistview/catalogmodel.cpp:102
 #, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "طول المصدر"
 
-#: src/cataloglistview/catalogmodel.cpp:107
+#: src/cataloglistview/catalogmodel.cpp:104
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "طول الهدف"
 
-#: src/cataloglistview/catalogmodel.cpp:143 src/editortab.cpp:991
-#: src/editortab.cpp:1185 src/tm/tmtab.cpp:234
+#: src/cataloglistview/catalogmodel.cpp:140 src/editortab.cpp:991
+#: src/editortab.cpp:1185 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "جاهزة"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:993
-#: src/editortab.cpp:1180 src/tm/tmtab.cpp:235
+#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:993
+#: src/editortab.cpp:1180 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "تحتاج إلى مراجعة"
 
-#: src/cataloglistview/catalogmodel.cpp:147 src/editortab.cpp:989
-#: src/tm/tmtab.cpp:236
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:989
+#: src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -958,7 +958,7 @@ msgstr "‏%1 (%2)"
 msgid "Target language:"
 msgstr "اللغة الهدف:"
 
-#: src/common/termlabel.cpp:58
+#: src/common/termlabel.cpp:57
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
@@ -1364,13 +1364,13 @@ msgstr ""
 "أتريد حفظ تعديلاتك أو رفضها؟"
 
 #: src/editortab.cpp:719 src/editortab.cpp:1290
-#: src/glossary/glossarywindow.cpp:348 src/lokalizemainwindow.cpp:1017
+#: src/glossary/glossarywindow.cpp:345 src/lokalizemainwindow.cpp:1017
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "تحذير"
 
-#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:167
+#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1628,25 +1628,25 @@ msgctxt "@item Undo action item"
 msgid "Set unit text"
 msgstr "ضبط نصّ الوحدة"
 
-#: src/editortab_findreplace.cpp:435
+#: src/editortab_findreplace.cpp:432
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace"
 msgstr "الاستبدال"
 
-#: src/editortab_findreplace.cpp:498
+#: src/editortab_findreplace.cpp:495
 #, kde-format
 msgid ""
 "Lokalize has reached end of document. Do you want to continue from start?"
 msgstr "وصل «لوكالايز» إلى نهاية المستند. أتريد المتابعة من البداية؟"
 
-#: src/editortab_findreplace.cpp:499 src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:496 src/editortab_findreplace.cpp:504
 #, kde-format
 msgctxt "@title"
 msgid "Spellcheck"
 msgstr "التدقيق الإملائي"
 
-#: src/editortab_findreplace.cpp:507
+#: src/editortab_findreplace.cpp:504
 #, kde-format
 msgid "Lokalize has finished spellchecking"
 msgstr "انتهى «لوكالايز» من تدقيق الإملاء"
@@ -1718,31 +1718,31 @@ msgstr "منا&ظير الأدوات"
 msgid "Main Toolbar"
 msgstr "شريط الأدوات الرّئيسيّ"
 
-#: src/editorview.cpp:47
+#: src/editorview.cpp:42
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "غير الجاهزة:"
 
-#: src/editorview.cpp:49
+#: src/editorview.cpp:44
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "غير المترجمة:"
 
-#: src/editorview.cpp:60
+#: src/editorview.cpp:55
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "أخفِ"
 
-#: src/editorview.cpp:70
+#: src/editorview.cpp:65
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "العمود: %1"
 
-#: src/editorview.cpp:82
+#: src/editorview.cpp:77
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1753,13 +1753,13 @@ msgstr ""
 "<p dir=\"RTL\">يعرض هذا الجزء من النافذة الرسالة الأصليّة\n"
 "للمُدخَلة المعروضة حاليًّا.</p></qt>"
 
-#: src/editorview.cpp:173
+#: src/editorview.cpp:168
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "صيغة الجموع %1"
 
-#: src/editorview.cpp:237
+#: src/editorview.cpp:232
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1842,7 +1842,7 @@ msgstr "قائمة الملفّات"
 msgid "Drop translation files here..."
 msgstr "أفلت ملفّات الترجمة هنا..."
 
-#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:70
+#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
@@ -1854,17 +1854,17 @@ msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "البحث والاستبدال في الملفّات"
 
-#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:399
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:397
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "انسخ المصدر إلى الحافظة"
 
-#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "انسخ الهدف إلى الحافظة"
 
-#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Open file"
 msgstr "افتح الملفّ"
@@ -1905,21 +1905,21 @@ msgstr "عاين"
 msgid "Mass Replace"
 msgstr "استبدال شامل"
 
-#: src/glossary/glossary.cpp:198
+#: src/glossary/glossary.cpp:194
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "حقل الموضوع"
 
-#: src/glossary/glossaryview.cpp:35 src/glossary/glossaryview.cpp:42
-#: src/glossary/glossarywindow.cpp:263 src/glossary/glossarywindow.cpp:289
-#: src/glossary/glossarywindow.cpp:304 src/glossary/glossarywindow.cpp:321
+#: src/glossary/glossaryview.cpp:31 src/glossary/glossaryview.cpp:38
+#: src/glossary/glossarywindow.cpp:260 src/glossary/glossarywindow.cpp:286
+#: src/glossary/glossarywindow.cpp:301 src/glossary/glossarywindow.cpp:318
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
 msgstr "المُسرَد"
 
-#: src/glossary/glossaryview.cpp:54
+#: src/glossary/glossaryview.cpp:50
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -1933,19 +1933,19 @@ msgstr ""
 "(تلميح:&nbsp;اختر الكلمات في حقلي الأصل والترجمة قبل اختيار "
 "<interface>عرّف&nbsp;مصطلحًا&nbsp;جديدًا</interface>).</p>"
 
-#: src/glossary/glossarywindow.cpp:119
+#: src/glossary/glossarywindow.cpp:116
 #, kde-format
 msgctxt "@action:button reloads glossary from disk"
 msgid "Restore from disk"
 msgstr "استعد من القرص"
 
-#: src/glossary/glossarywindow.cpp:120
+#: src/glossary/glossarywindow.cpp:117
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "أعد تحميل المُسرَد من القرص، متجاهلًا أيّ تغييرات"
 
-#: src/glossary/glossarywindow.cpp:346
+#: src/glossary/glossarywindow.cpp:343
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2113,7 +2113,7 @@ msgstr "تحتاج خاصيّة ”ذاكرة الترجمة“ وحدة SQLite 
 msgid "No SQLite module available"
 msgstr "وحدة SQLite غير متوفّرة"
 
-#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:478
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2157,7 +2157,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "ذاكرة الترجمة"
 
-#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:481
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -2429,7 +2429,7 @@ msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "قبول كلّ التّرجمات الجديدة"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:29 src/mergemode/mergeview.cpp:34
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2437,7 +2437,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "مزامنة أساسيّة"
 
-#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2445,7 +2445,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "مزامنة ثانويّة"
 
-#: src/mergemode/mergeview.cpp:41
+#: src/mergemode/mergeview.cpp:40
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2455,7 +2455,7 @@ msgstr ""
 "أفلت الملفّات هنا لتُدمج بالملفّ هذا (أو تُزامن معه)، وثمّ طالع خيارات قائمة "
 "السّياق"
 
-#: src/mergemode/mergeview.cpp:206
+#: src/mergemode/mergeview.cpp:205
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2463,7 +2463,7 @@ msgid ""
 "line: %2"
 msgstr "خطأ في فتح الملفّ <filename>%1</filename> للمزامنة، السّطر: %2"
 
-#: src/mergemode/mergeview.cpp:332
+#: src/mergemode/mergeview.cpp:331
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2473,102 +2473,102 @@ msgstr ""
 "المدخلات المختلفة: %1\n"
 "المدخلات غير المتطابقة: %2"
 
-#: src/msgctxtview.cpp:37
+#: src/msgctxtview.cpp:33
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "بيانات الوحدة الوصفيّة"
 
-#: src/msgctxtview.cpp:93
+#: src/msgctxtview.cpp:89
 #, kde-format
 msgctxt ""
 "@info notes to translation unit which expire when the catalog is closed"
 msgid "<b>Temporary notes:</b>"
 msgstr "<b>ملاحظات مؤقّتة:</b>"
 
-#: src/msgctxtview.cpp:102
+#: src/msgctxtview.cpp:98
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
 msgstr "<b>ملاحظات Pology:</b>"
 
-#: src/msgctxtview.cpp:111
+#: src/msgctxtview.cpp:107
 #, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
 msgstr "<b>ملاحظات أداة اللغة LanguageTool:</b>"
 
-#: src/msgctxtview.cpp:123
+#: src/msgctxtview.cpp:119
 #, kde-format
 msgctxt "@info translation unit metadata"
 msgid "<b>Phase:</b><br>"
 msgstr "<b>الطّور:</b><br>"
 
-#: src/msgctxtview.cpp:147
+#: src/msgctxtview.cpp:143
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Files:</b><br>"
 msgstr "<br><b>الملفّات:</b><br>"
 
-#: src/msgctxtview.cpp:155
+#: src/msgctxtview.cpp:151
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Context:</b><br>"
 msgstr "<br><b>السّياق:</b><br>"
 
-#: src/msgctxtview.cpp:226
+#: src/msgctxtview.cpp:222
 #, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
 msgstr "(فارغة)"
 
-#: src/noteeditor.cpp:46
+#: src/noteeditor.cpp:41
 #, kde-format
 msgctxt "@info:label"
 msgid "From:"
 msgstr "مِن:"
 
-#: src/noteeditor.cpp:50
+#: src/noteeditor.cpp:45
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Save empty note to remove it"
 msgstr "احفظ الملاحظة فارغة لإزالتها"
 
-#: src/noteeditor.cpp:51
+#: src/noteeditor.cpp:46
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Author of this note"
 msgstr "كاتب هذه الملاحظة"
 
-#: src/noteeditor.cpp:64
+#: src/noteeditor.cpp:59
 #, kde-format
 msgid "Ctrl+Enter"
 msgstr "Ctrl+Enter"
 
-#: src/noteeditor.cpp:65
+#: src/noteeditor.cpp:60
 #, kde-format
 msgid "Esc"
 msgstr "Esc"
 
-#: src/noteeditor.cpp:118
+#: src/noteeditor.cpp:113
 #, kde-format
 msgctxt "@info XLIFF notes representation"
 msgid "<b>Notes:</b>"
 msgstr "<b>ملاحظات:</b>"
 
-#: src/noteeditor.cpp:130
+#: src/noteeditor.cpp:125
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit..."
 msgstr "حرّر..."
 
-#: src/noteeditor.cpp:135
+#: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add..."
 msgstr "أضف..."
 
-#: src/noteeditor.cpp:137
+#: src/noteeditor.cpp:132
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add a note..."
@@ -2718,13 +2718,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr "خطّ الرّسائل"
 
-#: src/prefs/prefs.cpp:96
+#: src/prefs/prefs.cpp:90
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "الهويّة"
 
-#: src/prefs/prefs.cpp:106
+#: src/prefs/prefs.cpp:100
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2735,43 +2735,43 @@ msgstr ""
 "‏%1 - مسار الملف المصدر\n"
 "‏%2 - رقم السطر"
 
-#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:213
+#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "عامّ"
 
-#: src/prefs/prefs.cpp:113
+#: src/prefs/prefs.cpp:107
 #, kde-format
 msgctxt "@title:tab"
 msgid "Editing"
 msgstr "التّحرير"
 
-#: src/prefs/prefs.cpp:119
+#: src/prefs/prefs.cpp:113
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "المظهر"
 
-#: src/prefs/prefs.cpp:125 src/tm/tmtab.cpp:376
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:374
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "ذاكرة الترجمة"
 
-#: src/prefs/prefs.cpp:131
+#: src/prefs/prefs.cpp:125
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:137
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "أداة اللغة LanguageTool"
 
-#: src/prefs/prefs.cpp:151
+#: src/prefs/prefs.cpp:145
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2780,47 +2780,47 @@ msgstr ""
 "لقد دخلت إلى ميزة تحتاج مشروعًا مُحمّلًا. أتريد إنشاء مشروع جديد أو فتح مشروع "
 "موجود؟"
 
-#: src/prefs/prefs.cpp:152
+#: src/prefs/prefs.cpp:146
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "المشروع المطلوب"
 
-#: src/prefs/prefs.cpp:153
+#: src/prefs/prefs.cpp:147
 #, kde-format
 msgctxt "@action"
 msgid "Create Project"
 msgstr "أنشئ مشروعًا"
 
-#: src/prefs/prefs.cpp:154
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "افتح مشروعًا"
 
-#: src/prefs/prefs.cpp:166 src/prefs/prefs.cpp:183
+#: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "مشروع ترجمة للوكالايز (*.lokalize)"
 
-#: src/prefs/prefs.cpp:181
+#: src/prefs/prefs.cpp:175
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "اختر مجلّدًا فيه ملفّات «غَت‌تكست» ‎.po لترجمتها"
 
-#: src/prefs/prefs.cpp:202
+#: src/prefs/prefs.cpp:196
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "أنشئ مشروع ترجمة برمجيّات أو «مستندمفتوح» أوّلًا."
 
-#: src/prefs/prefs.cpp:258
+#: src/prefs/prefs.cpp:252
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "متقدّم"
 
-#: src/prefs/prefs.cpp:269
+#: src/prefs/prefs.cpp:263
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3669,13 +3669,13 @@ msgstr "الدّليل الأساسيّ لملفّات POT (القوالب ال�
 msgid "Project's glossary"
 msgstr "مُسرَد المشروع"
 
-#: src/project/projectmodel.cpp:469
+#: src/project/projectmodel.cpp:468
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "الاسم"
 
-#: src/project/projectmodel.cpp:471
+#: src/project/projectmodel.cpp:470
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3683,55 +3683,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "المبيان"
 
-#: src/project/projectmodel.cpp:473
+#: src/project/projectmodel.cpp:472
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "المجموع"
 
-#: src/project/projectmodel.cpp:475
+#: src/project/projectmodel.cpp:474
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "المترجم"
 
-#: src/project/projectmodel.cpp:477
+#: src/project/projectmodel.cpp:476
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "غير الجاهز"
 
-#: src/project/projectmodel.cpp:479
+#: src/project/projectmodel.cpp:478
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "غير المترجم"
 
-#: src/project/projectmodel.cpp:481
+#: src/project/projectmodel.cpp:480
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "غير مكتمل"
 
-#: src/project/projectmodel.cpp:483
+#: src/project/projectmodel.cpp:482
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "آخر ترجمة"
 
-#: src/project/projectmodel.cpp:485
+#: src/project/projectmodel.cpp:484
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "ملاحظة"
 
-#: src/project/projectmodel.cpp:487
+#: src/project/projectmodel.cpp:486
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "مراجعة القالب"
 
-#: src/project/projectmodel.cpp:489
+#: src/project/projectmodel.cpp:488
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -3902,37 +3902,37 @@ msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "غير المترجمة: %1"
 
-#: src/tm/dbfilesmodel.cpp:96
+#: src/tm/dbfilesmodel.cpp:94
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
 msgstr "الاسم"
 
-#: src/tm/dbfilesmodel.cpp:97
+#: src/tm/dbfilesmodel.cpp:95
 #, kde-format
 msgctxt "@title:column"
 msgid "Source language"
 msgstr "اللغة المصدر"
 
-#: src/tm/dbfilesmodel.cpp:98
+#: src/tm/dbfilesmodel.cpp:96
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
 msgstr "اللغة الهدف"
 
-#: src/tm/dbfilesmodel.cpp:99
+#: src/tm/dbfilesmodel.cpp:97
 #, kde-format
 msgctxt "@title:column"
 msgid "Pairs"
 msgstr "الأزواج"
 
-#: src/tm/dbfilesmodel.cpp:100
+#: src/tm/dbfilesmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
 msgstr "المدخلات الأصليّة الفريدة"
 
-#: src/tm/dbfilesmodel.cpp:101
+#: src/tm/dbfilesmodel.cpp:99
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique translations"
@@ -4041,7 +4041,7 @@ msgid "Remove"
 msgstr "أزل"
 
 # كلمتان تتشابهان في الأحرف وتختلفان في المعنى
-#: src/tm/qamodel.cpp:94
+#: src/tm/qamodel.cpp:96
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4165,56 +4165,56 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "اختر ملفّ TMX لتصدير قاعدة البيانات المحدّدة إليه"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "يضيف الملفّات إلى ذاكرة ترجمة «لوكالايز»"
 
-#: src/tm/tmscanapi.cpp:80
+#: src/tm/tmscanapi.cpp:75
 #, kde-format
 msgid "TM"
 msgstr "ذاكرة الترجمة"
 
-#: src/tm/tmtab.cpp:80
+#: src/tm/tmtab.cpp:78
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr "المصدر: %1"
 
-#: src/tm/tmtab.cpp:85
+#: src/tm/tmtab.cpp:83
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "الهدف: %1"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Substring"
 msgstr "سلسلة فرعيّة"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Google-like"
 msgstr "مثل غوغل"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:355
 #, kde-format
 msgid "Wildcard"
 msgstr "حرف بَدَل"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "المسافة هي مُعامِل AND. غير حسّاس للحالة."
 
 # In computer programming, in particular in a Unix-like environment, glob patterns specify sets of filenames with wildcard characters.
 # ترجمَتُها إلى "أنماط" أسهل.
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "أنماط الصّدفة ”‎(*‎“ و ”‎?)‎“. حسّاس للحالة."
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:511
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
@@ -4223,55 +4223,55 @@ msgstr ""
 "لا يُمكن إعادة مسح الملفات إلا أثناء فتح المشروع. يُرجى فتح المشروع والمحاولة "
 "مرة أخرى."
 
-#: src/tm/tmtab.cpp:514
+#: src/tm/tmtab.cpp:512
 #, kde-format
 msgid "Rescan not possible"
 msgstr "إعادة الفحص غير ممكنة"
 
-#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:611 src/tm/tmview.cpp:620
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "الملف %1 غير موجود، أزيل من ذاكرة الترجمة."
 
-#: src/tm/tmview.cpp:186 src/tm/tmview.cpp:191
+#: src/tm/tmview.cpp:185 src/tm/tmview.cpp:190
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "ذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:226
+#: src/tm/tmview.cpp:225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "انقر مزدوجًا على أيّة كلمة لإدراجها في الترجمة"
 
-#: src/tm/tmview.cpp:331
+#: src/tm/tmview.cpp:330
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "ملء ذاكرة الترجمة بِدفعة"
 
-#: src/tm/tmview.cpp:334
+#: src/tm/tmview.cpp:333
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "اكتملت دفعة الترجمة."
 
-#: src/tm/tmview.cpp:340
+#: src/tm/tmview.cpp:339
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "لم يُعثر على اقتراحات بمطابقات تامّة."
 
-#: src/tm/tmview.cpp:360 src/tm/tmview.cpp:375
+#: src/tm/tmview.cpp:359 src/tm/tmview.cpp:374
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "جُدولت دفعة الترجمة."
 
-#: src/tm/tmview.cpp:496
+#: src/tm/tmview.cpp:495
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
@@ -4279,7 +4279,7 @@ msgctxt ""
 msgid "100% (perfect match)"
 msgstr "100% (تطابق تام)"
 
-#: src/tm/tmview.cpp:501
+#: src/tm/tmview.cpp:500
 #, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
@@ -4287,7 +4287,7 @@ msgctxt ""
 msgid "%1%"
 msgstr "‏%1٪"
 
-#: src/tm/tmview.cpp:507
+#: src/tm/tmview.cpp:506
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
@@ -4301,7 +4301,7 @@ msgstr[3] "توجد %1 مرات"
 msgstr[4] "توجد %1 مرة"
 msgstr[5] "توجد %1 مرة"
 
-#: src/tm/tmview.cpp:517
+#: src/tm/tmview.cpp:516
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
@@ -4309,7 +4309,7 @@ msgctxt ""
 msgid "%1 • %2 • %3"
 msgstr "%1 • %2 • %3"
 
-#: src/tm/tmview.cpp:525
+#: src/tm/tmview.cpp:524
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
@@ -4317,43 +4317,43 @@ msgctxt ""
 msgid "%1 • %2"
 msgstr "%1 • %2"
 
-#: src/tm/tmview.cpp:577
+#: src/tm/tmview.cpp:576
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "هذا"
 
-#: src/tm/tmview.cpp:578
+#: src/tm/tmview.cpp:577
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "الملفّ: %1<br />تاريخ الإضافة: %2"
 
-#: src/tm/tmview.cpp:580
+#: src/tm/tmview.cpp:579
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />تاريخ آخر تغيير: %1"
 
-#: src/tm/tmview.cpp:582
+#: src/tm/tmview.cpp:581
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />مُجري آخر تغيير: %1"
 
-#: src/tm/tmview.cpp:583
+#: src/tm/tmview.cpp:582
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />ذاكرة الترجمة: %1"
 
-#: src/tm/tmview.cpp:585
+#: src/tm/tmview.cpp:584
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />ليست في الملفّ بعد الآن"
 
-#: src/tm/tmview.cpp:600
+#: src/tm/tmview.cpp:599
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4362,31 +4362,31 @@ msgstr ""
 "<html>أتريد حقًا إزالة هذه المُدخَلة:<br/><i>%1</i><br/>من ذاكرة الترجمة %2؟</"
 "html>"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:602
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "إزالة مُدخَلة من ذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:648
+#: src/tm/tmview.cpp:647
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "أزِل هذه المُدخَلة"
 
-#: src/tm/tmview.cpp:651
+#: src/tm/tmview.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "افتح الملفّ الحاوي لهذه المُدخَلة"
 
-#: src/tm/tmview.cpp:661
+#: src/tm/tmview.cpp:660
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "أزل هذا الملف المفقود من ذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:675
+#: src/tm/tmview.cpp:674
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4395,19 +4395,19 @@ msgstr ""
 "<html>أمتأكّد من إزالة هذه الملف المفقود:<br/><i>%1</i><br/>من ذاكرة الترجمة "
 "%2؟</html>"
 
-#: src/tm/tmview.cpp:679
+#: src/tm/tmview.cpp:678
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "إزالة الملفات المفقودة من الذاكرة الترجمة"
 
-#: src/tm/tmview.cpp:962
+#: src/tm/tmview.cpp:961
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
 msgstr "استخدام الاقتراح من ذاكرة الترجمة"
 
-#: src/tools/widgettextcaptureconfig.cpp:23
+#: src/tools/widgettextcaptureconfig.cpp:24
 #, kde-format
 msgctxt "@title"
 msgid "Widget Text Capture"
@@ -4464,29 +4464,29 @@ msgstr "ابحث عن نصّ عنصر الواجهة الرّسوميّة في �
 msgid "Copy GUI element text to clipboard"
 msgstr "انسخ نصّ عنصر الواجهة الرّسوميّة إلى الحافظة"
 
-#: src/xlifftextedit.cpp:878
+#: src/xlifftextedit.cpp:876
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "ابحث عن النصّ المحدّد في ذاكرة الترجمة"
 
-#: src/xlifftextedit.cpp:958
+#: src/xlifftextedit.cpp:956
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "استبدل النصّ"
 
-#: src/xlifftextedit.cpp:997
+#: src/xlifftextedit.cpp:995
 #, kde-format
 msgid "no spellcheck available"
 msgstr "لا مدقّق إملائيّ متوفّر"
 
-#: src/xlifftextedit.cpp:1013
+#: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "أُبلغ عن خطأ: %1"
 
-#: src/xlifftextedit.cpp:1173
+#: src/xlifftextedit.cpp:1171
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
