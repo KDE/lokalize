@@ -15,6 +15,7 @@
 
 #include <KComboBox>
 #include <KLocalizedString>
+#include <KProcess>
 #include <KTextEdit>
 
 #include <QBoxLayout>

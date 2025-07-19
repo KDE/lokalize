@@ -15,9 +15,9 @@
 #include <KMainWindow>
 
 #include <QDialog>
-#include <QModelIndex>
 #include <QTimer>
 
+class QModelIndex;
 class QTreeView;
 
 namespace TM

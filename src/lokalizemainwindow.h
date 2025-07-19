@@ -19,25 +19,23 @@
 #include "statusbar.h"
 #include "tmtab.h"
 
-#include <KConfigGroup>
-#include <KXMLGUIClient>
 #include <KXmlGuiWindow>
 
 #include <QMap>
-#include <QPointer>
-#include <QStackedLayout>
 #include <QTabWidget>
-#include <QTimer>
-#include <QUrl>
 #include <QWidget>
 #include <qnamespace.h>
 #include <qtmetamacros.h>
 
-class QLabel;
-class QActionGroup;
-class KRecentFilesAction;
 class EditorTab;
 class FileSearchTab;
+class KConfigGroup;
+class KRecentFilesAction;
+class KXMLGUIClient;
+class QActionGroup;
+class QLabel;
+class QUrl;
+class QStackedLayout;
 
 namespace TM
 {

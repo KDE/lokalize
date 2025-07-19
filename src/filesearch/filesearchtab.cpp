@@ -23,6 +23,7 @@
 #include <QApplication>
 #include <QBoxLayout>
 #include <QClipboard>
+#include <QDir>
 #include <QDragEnterEvent>
 #include <QElapsedTimer>
 #include <QHeaderView>

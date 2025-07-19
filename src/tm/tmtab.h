@@ -14,21 +14,17 @@
 #include "lokalizetabpagebase.h"
 #include "pos.h"
 
-#include <KMainWindow>
-
 #include <QMutex>
-#include <QScreen>
-#include <QSqlDatabase>
 #include <QSqlQueryModel>
 
-class KXMLGUIClient;
-class QComboBox;
-class QTreeView;
-class QSortFilterProxyModel;
-class QCheckBox;
-class QaView;
-class Ui_QueryOptions;
 class TMResultsSortFilterProxyModel;
+class Ui_QueryOptions;
+class KXMLGUIClient;
+class QCheckBox;
+class QComboBox;
+class QSortFilterProxyModel;
+class QTreeView;
+class QaView;
 
 namespace TM
 {

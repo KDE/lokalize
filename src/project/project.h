@@ -13,12 +13,9 @@
 
 #include "projectbase.h"
 
-#include <QFileSystemWatcher>
-#include <QList>
-#include <QVector>
-
 class ProjectModel;
 class ProjectLocal;
+class QFileSystemWatcher;
 
 namespace GlossaryNS
 {

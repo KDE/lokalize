@@ -17,7 +17,6 @@
 #include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
-#include <QHash>
 #include <QString>
 #include <QWidget>
 #include <qtmetamacros.h>

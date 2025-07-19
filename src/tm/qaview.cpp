@@ -15,6 +15,7 @@
 
 #include <QAction>
 #include <QFile>
+#include <QTreeView>
 
 QaView::QaView(QWidget *parent)
     : QDockWidget(i18nc("@title:window", "Quality Assurance"), parent)

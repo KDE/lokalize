@@ -14,15 +14,15 @@
 
 #include "lokalizetabpagebase.h"
 
-#include <KMainWindow>
-#include <KProcess>
-#include <KXMLGUIClient>
+#include <QProcess>
 
-class QStackedLayout;
 class ProjectWidget;
-class QLineEdit;
+class KProcess;
+class KXMLGUIClient;
 class QContextMenuEvent;
+class QLineEdit;
 class QProgressBar;
+class QStackedLayout;
 
 /**
  * Project Overview Tab

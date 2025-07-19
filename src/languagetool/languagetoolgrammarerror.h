@@ -7,8 +7,9 @@
 #ifndef LANGUAGETOOLGRAMMARERROR_H
 #define LANGUAGETOOLGRAMMARERROR_H
 
-#include <QJsonObject>
 #include <QStringList>
+
+class QJsonObject;
 
 class LanguageToolGrammarError
 {

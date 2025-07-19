@@ -15,7 +15,6 @@
 #include "pos.h"
 
 #include <QDockWidget>
-#include <QListWidget>
 
 #define ALTTRANS_SHORTCUTS 9
 

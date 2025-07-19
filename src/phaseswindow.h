@@ -11,20 +11,20 @@
 #define PHASESWINDOW_H
 
 #include "note.h"
-#include "phase.h"
 
 #include <QDialog>
 #include <QMap>
-#include <QModelIndex>
-#include <QUrl>
 #include <QVector>
 
+class QUrl;
+class QModelIndex;
 class QDialogButtonBox;
 class QStackedLayout;
 class QTextBrowser;
 class NoteEditor;
 class PhasesModel;
 class MyTreeView;
+class Catalog;
 
 class PhasesWindow : public QDialog
 {

@@ -14,6 +14,8 @@
 #include "poextractor.h"
 #include "xliffextractor.h"
 
+#include <QDataStream>
+
 // static
 FileMetaData FileMetaData::extract(const QString &filePath)
 {

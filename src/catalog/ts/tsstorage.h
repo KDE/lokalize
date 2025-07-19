@@ -12,7 +12,6 @@
 
 #include <QDomDocument>
 #include <QDomNodeList>
-#include <QMap>
 #include <QVector>
 
 class TsStorage : public CatalogStorage

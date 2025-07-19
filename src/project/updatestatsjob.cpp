@@ -13,6 +13,8 @@
 #include "updatestatsjob.h"
 #include "lokalize_debug.h"
 
+#include <KFileItem>
+
 #include <QFileInfo>
 #include <QSqlDatabase>
 #include <QSqlError>

@@ -14,7 +14,8 @@
 
 #include <QRegularExpression>
 #include <QStringList>
-#include <QTextStream>
+
+class QTextStream;
 
 namespace GettextCatalog
 {

@@ -38,6 +38,7 @@
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KProcess>
 #include <KShell>
 #include <KStandardActions>
 #include <KStandardShortcut>

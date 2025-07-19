@@ -9,7 +9,6 @@
 #ifndef POS_H
 #define POS_H
 
-#include <QHash>
 #include <QMetaType>
 
 class Catalog;

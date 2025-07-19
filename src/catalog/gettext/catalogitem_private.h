@@ -12,7 +12,6 @@
 #ifndef CATALOGITEMPRIVATE_H
 #define CATALOGITEMPRIVATE_H
 
-#include <QByteArray>
 #include <QString>
 #include <QVector>
 

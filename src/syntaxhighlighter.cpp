@@ -17,6 +17,7 @@
 #include <QApplication>
 #include <QLatin1String>
 #include <QStringBuilder>
+#include <QTextCharFormat>
 #include <QTextEdit>
 
 #define STATE_NORMAL 0

@@ -19,25 +19,25 @@
 
 #include <QAbstractListModel>
 #include <QDockWidget>
-#include <QScreen>
+#include <QRegularExpression>
 
 #include <phase.h>
 #include <state.h>
 
-class MassReplaceJob;
-class SearchJob;
-class QRunnable;
-class QLabel;
-class QaView;
-class QStringListModel;
-class QComboBox;
-class QTreeView;
-class QSortFilterProxyModel;
-class KXMLGUIClient;
 class FileSearchModel;
-class SearchFileListView;
+class MassReplaceJob;
 class MassReplaceView;
+class SearchFileListView;
+class SearchJob;
 class Ui_FileSearchOptions;
+class KXMLGUIClient;
+class QComboBox;
+class QLabel;
+class QRunnable;
+class QSortFilterProxyModel;
+class QStringListModel;
+class QTreeView;
+class QaView;
 
 /**
  * Global file search/repalce tab

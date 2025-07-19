@@ -13,10 +13,9 @@
 #include "rule.h"
 
 #include <QDockWidget>
-#include <QDomDocument>
-#include <QTreeView>
 
 class QaModel;
+class QTreeView;
 
 class QaView : public QDockWidget
 {

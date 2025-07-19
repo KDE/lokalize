@@ -13,6 +13,7 @@
 
 #include <QCoreApplication>
 #include <QFile>
+#include <QRegularExpression>
 #include <QStringList>
 #include <QTextStream>
 

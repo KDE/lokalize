@@ -11,7 +11,6 @@
 #define ALTTRANS_H
 
 #include "catalogstring.h"
-#include "tmentry.h"
 
 struct AltTrans {
     ///@see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#alttranstype

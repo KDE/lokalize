@@ -13,13 +13,12 @@
 #include "note.h"
 #include "pos.h"
 
-#include <KProcess>
-
 #include <QDockWidget>
 #include <QMap>
 
 class Catalog;
 class NoteEditor;
+class KProcess;
 class QTextBrowser;
 class QStackedLayout;
 

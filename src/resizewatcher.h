@@ -10,7 +10,6 @@
 #define RESIZEWATCHER_H
 
 #include <QObject>
-#include <QPointer>
 #include <QSet>
 #include <QTimer>
 

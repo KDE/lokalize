@@ -17,6 +17,7 @@
 #include <QFileSystemModel>
 #include <QStandardPaths>
 #include <QStringBuilder>
+#include <QThreadPool>
 
 #if defined(Q_OS_WIN) && defined(QStringLiteral)
 #undef QStringLiteral

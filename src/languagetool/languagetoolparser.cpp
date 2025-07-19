@@ -10,6 +10,7 @@
 #include <KLocalizedString>
 
 #include <QJsonArray>
+#include <QJsonObject>
 
 QString LanguageToolParser::parseResult(const QJsonObject &obj, const QString &text) const
 {

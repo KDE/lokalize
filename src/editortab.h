@@ -20,11 +20,22 @@
 #include "pos.h"
 #include "resizewatcher.h"
 
-#include <KProcess>
-#include <KXMLGUIClient>
-
-#include <QHash>
 #include <QMap>
+#include <QProcess>
+
+class AltTransView;
+class Catalog;
+class CatalogView;
+class EditorView;
+class MergeView;
+class MsgCtxtView;
+class Project;
+class KActionCategory;
+class KFind;
+class KProcess;
+class KReplace;
+class KToolBarPopupAction;
+class KXMLGUIClient;
 
 class KFind;
 class KReplace;

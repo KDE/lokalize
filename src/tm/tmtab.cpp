@@ -40,6 +40,7 @@
 #include <QStringListModel>
 #include <QStyledItemDelegate>
 #include <QTextDocument>
+#include <QThreadPool>
 #include <QTreeView>
 #include <qtmetamacros.h>
 

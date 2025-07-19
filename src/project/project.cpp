@@ -33,7 +33,9 @@
 #include <QDir>
 #include <QElapsedTimer>
 #include <QFileInfo>
+#include <QFileSystemWatcher>
 #include <QLocale>
+#include <QSqlDatabase>
 #include <QStringBuilder>
 #include <QTime>
 #include <QTimer>

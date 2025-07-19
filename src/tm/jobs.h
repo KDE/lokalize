@@ -13,13 +13,13 @@
 #include "pos.h"
 #include "tmentry.h"
 
-#include <QMutex>
 #include <QRunnable>
-#include <QSqlDatabase>
 #include <QString>
-#include <QThreadPool>
 
+class QMutex;
+class QSqlDatabase;
 class QSqlQuery;
+class QThreadPool;
 
 /**
  * Translation Memory classes. see initDb() function for the database scheme

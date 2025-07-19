@@ -12,7 +12,6 @@
 
 #include <KJob>
 
-#include <QDir>
 #include <QElapsedTimer>
 #include <QUrl>
 #include <QVector>

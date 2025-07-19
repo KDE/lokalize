@@ -22,12 +22,14 @@
 #include <KGuiItem>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KProcess>
 #include <KStandardAction>
 #include <KStandardGuiItem>
 #include <KXMLGUIFactory>
 #include <kcoreaddons_version.h>
 
 #include <QContextMenuEvent>
+#include <QDir>
 #include <QIcon>
 #include <QInputDialog>
 #include <QLabel>

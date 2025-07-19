@@ -10,9 +10,10 @@
 #ifndef QARULE_H
 #define QARULE_H
 
-#include <QRegularExpression>
-#include <QString>
 #include <QVector>
+
+class QRegularExpression;
+class QString;
 
 struct StringRule {
     QVector<QString> sources;

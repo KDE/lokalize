@@ -37,6 +37,7 @@
 #include <QMimeData>
 #include <QScrollBar>
 #include <QStringBuilder>
+#include <QThreadPool>
 #include <QTime>
 #include <QTimer>
 #include <QToolTip>

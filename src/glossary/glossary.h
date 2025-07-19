@@ -14,7 +14,6 @@
 #include <QDomDocument>
 #include <QList>
 #include <QMultiHash>
-#include <QSet>
 #include <QSortFilterProxyModel>
 #include <QStringList>
 

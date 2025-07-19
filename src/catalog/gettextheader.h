@@ -10,8 +10,9 @@
 #ifndef GETTEXTHEADER_H
 #define GETTEXTHEADER_H
 
-#include <QDateTime>
 #include <QString>
+
+class QDateTime;
 
 int numberOfPluralFormsFromHeader(const QString &header);
 QString GNUPluralForms(const QString &lang);

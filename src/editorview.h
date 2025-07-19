@@ -19,11 +19,11 @@
 class Catalog;
 class LedsWidget;
 class TranslationUnitTextEdit;
-class QTabBar;
+class KLed;
 class QContextMenuEvent;
 class QDragEnterEvent;
-class KLed;
 class QLabel;
+class QTabBar;
 
 /**
  * This is the main view class for Lokalize Editor.

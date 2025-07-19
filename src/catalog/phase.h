@@ -12,9 +12,8 @@
 
 #include "projectlocal.h"
 
-#include <QDate>
-#include <QString>
-
+class QDate;
+class QString;
 class Catalog;
 
 struct Phase {

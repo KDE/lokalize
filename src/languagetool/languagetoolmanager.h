@@ -7,7 +7,6 @@
 #ifndef LANGUAGETOOLMANAGER_H
 #define LANGUAGETOOLMANAGER_H
 
-#include <QHash>
 #include <QObject>
 
 class QColor;

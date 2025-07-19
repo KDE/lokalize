@@ -18,13 +18,12 @@
 #include <QLabel>
 #include <QListWidget>
 #include <QMap>
-#include <QScrollBar>
 #include <QVector>
 
-class QRunnable;
 class Catalog;
-class QDropEvent;
 class QDragEnterEvent;
+class QDropEvent;
+class QRunnable;
 
 #define TM_SHORTCUTS 10
 namespace TM

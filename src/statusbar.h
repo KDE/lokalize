@@ -10,8 +10,9 @@
 
 #include "lokalizetabpagebase.h"
 
-#include <QLabel>
 #include <QStatusBar>
+
+class QLabel;
 
 /**
  * Class which handles the status bar: use a single instance of the status

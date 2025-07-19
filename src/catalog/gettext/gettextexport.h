@@ -12,8 +12,7 @@
 
 #include "catalogfileplugin.h"
 
-#include <QStringList>
-#include <QTextStream>
+class QTextStream;
 
 namespace GettextCatalog
 {

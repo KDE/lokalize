@@ -23,6 +23,7 @@
 #include <QSortFilterProxyModel>
 #include <QStandardPaths>
 #include <QStringBuilder>
+#include <QThreadPool>
 
 using namespace TM;
 

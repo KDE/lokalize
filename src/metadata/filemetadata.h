@@ -13,8 +13,9 @@
 #ifndef LOKALIZE_FILEMETADATA_H
 #define LOKALIZE_FILEMETADATA_H
 
-#include <QDataStream>
 #include <QString>
+
+class QDataStream;
 
 struct FileMetaData {
     bool invalid_file{false};

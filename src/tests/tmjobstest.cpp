@@ -9,9 +9,11 @@
 #include "project.h"
 #include "tm/jobs.h"
 
+#include <QMutex>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QTest>
+#include <QThreadPool>
 
 class TmJobsTest : public QObject
 {

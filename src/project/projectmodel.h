@@ -20,7 +20,6 @@
 
 #include <KDirModel>
 
-#include <QHash>
 #include <QIcon>
 #include <QList>
 #include <QThreadPool>

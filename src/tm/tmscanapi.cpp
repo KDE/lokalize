@@ -19,6 +19,9 @@
 #include <KJobTrackerInterface>
 #include <KLocalizedString>
 
+#include <QDir>
+#include <QThreadPool>
+
 namespace TM
 {
 static QVector<ScanJob *> doScanRecursive(const QDir &dir, const QString &dbName, RecursiveScanJob *metaJob);

@@ -15,9 +15,10 @@
 
 #include "metadata/filemetadata.h"
 
-#include <KFileItem>
-
+#include <QObject>
 #include <QRunnable>
+
+class KFileItem;
 
 class UpdateStatsJob : public QObject, public QRunnable
 {

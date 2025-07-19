@@ -16,11 +16,10 @@
 #include <Sonnet/Highlighter>
 #include <Sonnet/Speller>
 
-#include <QHash>
 #include <QRegularExpression>
 #include <QSyntaxHighlighter>
-#include <QTextCharFormat>
 
+class QTextCharFormat;
 class QTextEdit;
 
 class SyntaxHighlighter : public Sonnet::Highlighter

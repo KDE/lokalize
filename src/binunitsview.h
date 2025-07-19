@@ -16,8 +16,8 @@
 #include <QDockWidget>
 #include <QHash>
 
-class Catalog;
 class BinUnitsModel;
+class Catalog;
 class MyTreeView;
 
 class BinUnitsView : public QDockWidget

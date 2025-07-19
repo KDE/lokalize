@@ -17,8 +17,8 @@
 #include <QStringListModel>
 #include <QTreeView>
 
-class QLineEdit;
 class KComboBox;
+class QLineEdit;
 
 class AuxTextEdit : public KTextEdit
 {

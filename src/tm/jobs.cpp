@@ -20,11 +20,13 @@
 #include <QElapsedTimer>
 #include <QFile>
 #include <QMap>
+#include <QMutex>
 #include <QRegularExpression>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QStandardPaths>
 #include <QStringBuilder>
+#include <QThreadPool>
 
 #include <math.h>
 

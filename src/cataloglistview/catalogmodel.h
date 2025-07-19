@@ -10,14 +10,13 @@
 #ifndef CATALOGMODEL_H
 #define CATALOGMODEL_H
 
-#include "mergecatalog.h"
-#include "pos.h"
-
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 #include <QVector>
 
+class MergeCatalog;
 class Catalog;
+struct DocPosition;
 
 /**
  * MVC wrapper for Catalog

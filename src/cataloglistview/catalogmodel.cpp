@@ -9,6 +9,8 @@
 
 #include "catalogmodel.h"
 #include "catalog.h"
+#include "mergecatalog.h"
+#include "pos.h"
 #include "project.h"
 
 #include <KColorScheme>

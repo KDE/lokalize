@@ -10,7 +10,6 @@
 #ifndef IMPORTPLUGINPRIVATE_H
 #define IMPORTPLUGINPRIVATE_H
 
-#include "catalog.h"
 #include "catalogitem.h"
 
 #include <list>

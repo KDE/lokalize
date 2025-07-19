@@ -10,18 +10,18 @@
 #ifndef GLOSSARYVIEW_H
 #define GLOSSARYVIEW_H
 
+#include "pos.h"
+
 #include <QDockWidget>
 #include <QRegularExpression>
 #include <QVector>
 
-#include <pos.h>
-
 class Catalog;
 class FlowLayout;
+class QAction;
 class QDragEnterEvent;
 class QDropEvent;
 class QEvent;
-class QAction;
 class QFrame;
 class QScrollArea;
 

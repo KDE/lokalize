@@ -9,6 +9,7 @@
 #include <KLocalizedString>
 
 #include <QJsonArray>
+#include <QJsonObject>
 
 QString LanguageToolGrammarError::parse(const QJsonObject &obj, const QString &text)
 {

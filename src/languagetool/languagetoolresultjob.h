@@ -9,9 +9,9 @@
 
 #include <QObject>
 
-class QNetworkRequest;
-class QNetworkReply;
 class QNetworkAccessManager;
+class QNetworkReply;
+class QNetworkRequest;
 
 class LanguageToolResultJob : public QObject
 {
