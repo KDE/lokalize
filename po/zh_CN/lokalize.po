@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:46+0000\n"
+"POT-Creation-Date: 2025-07-20 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -696,13 +696,13 @@ msgid "Translation Units"
 msgstr "翻译条目"
 
 #: src/cataloglistview/cataloglistview.cpp:80
-#: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:57
+#: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:59
 #, kde-format
 msgid "Quick search..."
 msgstr "快速搜索..."
 
 #: src/cataloglistview/cataloglistview.cpp:81
-#: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:58
+#: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:60
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
@@ -718,7 +718,7 @@ msgstr "选项"
 msgid "Reset individual filter"
 msgstr "重置单独的过滤器"
 
-#: src/cataloglistview/cataloglistview.cpp:195 src/tm/tmtab.cpp:361
+#: src/cataloglistview/cataloglistview.cpp:195 src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Case insensitive"
 msgstr "不区分大小写"
@@ -814,79 +814,79 @@ msgctxt "@item:inmenu all columns"
 msgid "All"
 msgstr "全部"
 
-#: src/cataloglistview/catalogmodel.cpp:88
+#: src/cataloglistview/catalogmodel.cpp:90
 #, kde-format
 msgctxt "@title:column"
 msgid "Entry"
 msgstr "条目"
 
-#: src/cataloglistview/catalogmodel.cpp:90 src/filesearch/filesearchtab.cpp:350
-#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65
+#: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:351
+#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:94 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "原文"
 
-#: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:352
-#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:66
+#: src/cataloglistview/catalogmodel.cpp:94 src/filesearch/filesearchtab.cpp:353
+#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
 msgstr "译文"
 
-#: src/cataloglistview/catalogmodel.cpp:94
+#: src/cataloglistview/catalogmodel.cpp:96
 #, kde-format
 msgctxt "@title:column"
 msgid "Notes"
 msgstr "备注"
 
-#: src/cataloglistview/catalogmodel.cpp:96 src/tm/tmtab.cpp:67
+#: src/cataloglistview/catalogmodel.cpp:98 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "语境"
 
-#: src/cataloglistview/catalogmodel.cpp:98
+#: src/cataloglistview/catalogmodel.cpp:100
 #, kde-format
 msgctxt "@title:column"
 msgid "Files"
 msgstr "文件"
 
-#: src/cataloglistview/catalogmodel.cpp:100
-#: src/filesearch/filesearchtab.cpp:356 src/tm/tmtab.cpp:69
+#: src/cataloglistview/catalogmodel.cpp:102
+#: src/filesearch/filesearchtab.cpp:357 src/tm/tmtab.cpp:70
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
 msgstr "翻译状态"
 
-#: src/cataloglistview/catalogmodel.cpp:102
+#: src/cataloglistview/catalogmodel.cpp:104
 #, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "原始长度"
 
-#: src/cataloglistview/catalogmodel.cpp:104
+#: src/cataloglistview/catalogmodel.cpp:106
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "译文长度"
 
-#: src/cataloglistview/catalogmodel.cpp:140 src/editortab.cpp:991
-#: src/editortab.cpp:1185 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:992
+#: src/editortab.cpp:1186 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "就绪"
 
-#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:993
-#: src/editortab.cpp:1180 src/tm/tmtab.cpp:233
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:994
+#: src/editortab.cpp:1181 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "待审核"
 
-#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:989
-#: src/tm/tmtab.cpp:234
+#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:990
+#: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -910,118 +910,118 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "编辑"
 
-#: src/editortab.cpp:149 src/lokalizemainwindow.cpp:568
+#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:568
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
 msgstr "文件"
 
-#: src/editortab.cpp:150 src/project/projecttab.cpp:83
+#: src/editortab.cpp:151 src/project/projecttab.cpp:85
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
 msgstr "导航"
 
-#: src/editortab.cpp:151
+#: src/editortab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Editing"
 msgstr "编辑"
 
-#: src/editortab.cpp:152
+#: src/editortab.cpp:153
 #, kde-format
 msgid "Synchronization 1"
 msgstr "同步 1"
 
-#: src/editortab.cpp:153
+#: src/editortab.cpp:154
 #, kde-format
 msgid "Synchronization 2"
 msgstr "同步 2"
 
-#: src/editortab.cpp:154
+#: src/editortab.cpp:155
 #, kde-format
 msgid "Translation Memory"
 msgstr "翻译记忆"
 
-#: src/editortab.cpp:155 src/lokalizemainwindow.cpp:569
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:569
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
 msgstr "词汇表"
 
-#: src/editortab.cpp:168
+#: src/editortab.cpp:169
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
 msgstr "插入备选翻译 #%1"
 
-#: src/editortab.cpp:235
+#: src/editortab.cpp:236
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a note"
 msgstr "添加备注"
 
-#: src/editortab.cpp:244
+#: src/editortab.cpp:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert TM suggestion #%1"
 msgstr "插入翻译记忆建议 #%1"
 
-#: src/editortab.cpp:249
+#: src/editortab.cpp:250
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove TM suggestion #%1"
 msgstr "移除翻译记忆建议 #%1"
 
-#: src/editortab.cpp:302
+#: src/editortab.cpp:303
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
 msgstr "插入术语翻译 #%1"
 
-#: src/editortab.cpp:314
+#: src/editortab.cpp:315
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Define new term"
 msgstr "定义新术语"
 
-#: src/editortab.cpp:348
+#: src/editortab.cpp:349
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
 msgstr "阶段..."
 
-#: src/editortab.cpp:351
+#: src/editortab.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Word count"
 msgstr "单词计数"
 
-#: src/editortab.cpp:354
+#: src/editortab.cpp:355
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
 msgstr "清除所有已翻译的条目"
 
-#: src/editortab.cpp:357
+#: src/editortab.cpp:358
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
 msgstr "在此文件上启动 Pology 命令"
 
-#: src/editortab.cpp:361
+#: src/editortab.cpp:362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
 msgstr "合并翻译到 OpenDocument"
 
-#: src/editortab.cpp:381
+#: src/editortab.cpp:382
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Change searching direction"
 msgstr "更改搜索方向"
 
-#: src/editortab.cpp:390
+#: src/editortab.cpp:391
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1029,103 +1029,103 @@ msgctxt ""
 msgid "Approved"
 msgstr "已审核"
 
-#: src/editortab.cpp:409
+#: src/editortab.cpp:410
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and go to next"
 msgstr "审核通过并转到下一条"
 
-#: src/editortab.cpp:416
+#: src/editortab.cpp:417
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent translation"
 msgstr "等价翻译"
 
-#: src/editortab.cpp:427
+#: src/editortab.cpp:428
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
 
-#: src/editortab.cpp:430
+#: src/editortab.cpp:431
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "打开目标"
 
-#: src/editortab.cpp:437 src/filesearch/filesearchtab.cpp:136
+#: src/editortab.cpp:438 src/filesearch/filesearchtab.cpp:137
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
 msgstr "清除"
 
-#: src/editortab.cpp:441
+#: src/editortab.cpp:442
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
 msgstr "插入标签"
 
-#: src/editortab.cpp:445
+#: src/editortab.cpp:446
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
 msgstr "使用 LanguageTool 检查此单元"
 
-#: src/editortab.cpp:449
+#: src/editortab.cpp:450
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
 msgstr "插入下一个标签"
 
-#: src/editortab.cpp:453
+#: src/editortab.cpp:454
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
 msgstr ""
 
-#: src/editortab.cpp:457
+#: src/editortab.cpp:458
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "补齐"
 
-#: src/editortab.cpp:461
+#: src/editortab.cpp:462
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "使用最佳的拼写检查建议替换"
 
-#: src/editortab.cpp:466
+#: src/editortab.cpp:467
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "下一条(&N)"
 
-#: src/editortab.cpp:471
+#: src/editortab.cpp:472
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "上一条(&P)"
 
-#: src/editortab.cpp:477
+#: src/editortab.cpp:478
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "第一条(&F)"
 
-#: src/editortab.cpp:483
+#: src/editortab.cpp:484
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "最后一条(&L)"
 
-#: src/editortab.cpp:489
+#: src/editortab.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "跳转到条目编号"
 
-#: src/editortab.cpp:492 src/project/projecttab.cpp:98
+#: src/editortab.cpp:493 src/project/projecttab.cpp:100
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1133,7 +1133,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "上一条非空且未就绪条目"
 
-#: src/editortab.cpp:500 src/project/projecttab.cpp:104
+#: src/editortab.cpp:501 src/project/projecttab.cpp:106
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1141,19 +1141,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "下一条非空且未就绪条目"
 
-#: src/editortab.cpp:507 src/project/projecttab.cpp:110
+#: src/editortab.cpp:508 src/project/projecttab.cpp:112
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "上一条未翻译条目"
 
-#: src/editortab.cpp:512 src/project/projecttab.cpp:116
+#: src/editortab.cpp:513 src/project/projecttab.cpp:118
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "下一条未翻译条目"
 
-#: src/editortab.cpp:518 src/project/projecttab.cpp:86
+#: src/editortab.cpp:519 src/project/projecttab.cpp:88
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1161,7 +1161,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "上一条未就绪条目"
 
-#: src/editortab.cpp:526 src/project/projecttab.cpp:92
+#: src/editortab.cpp:527 src/project/projecttab.cpp:94
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1169,49 +1169,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "下一条未就绪条目"
 
-#: src/editortab.cpp:535
+#: src/editortab.cpp:536
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "聚焦翻译单元视图的搜索行"
 
-#: src/editortab.cpp:539
+#: src/editortab.cpp:540
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "添加信息书签"
 
-#: src/editortab.cpp:544
+#: src/editortab.cpp:545
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "上一个书签"
 
-#: src/editortab.cpp:548
+#: src/editortab.cpp:549
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "下一个书签"
 
-#: src/editortab.cpp:556
+#: src/editortab.cpp:557
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "填充所有精确建议"
 
-#: src/editortab.cpp:561
+#: src/editortab.cpp:562
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "填充所有精确建议并标记为模糊翻译"
 
-#: src/editortab.cpp:569
+#: src/editortab.cpp:570
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "打开要同步/合并的文件"
 
-#: src/editortab.cpp:570 src/editortab.cpp:629
+#: src/editortab.cpp:571 src/editortab.cpp:630
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1219,13 +1219,13 @@ msgid ""
 "to"
 msgstr "打开要合并到当前条目/复制到基准文件更改的目录"
 
-#: src/editortab.cpp:576 src/editortab.cpp:635
+#: src/editortab.cpp:577 src/editortab.cpp:636
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "上一个差异"
 
-#: src/editortab.cpp:578 src/editortab.cpp:637
+#: src/editortab.cpp:579 src/editortab.cpp:638
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1233,13 +1233,13 @@ msgid ""
 "including empty translations in merge source"
 msgstr "上一个合并文件中不同的翻译条目，包括合并资源中的空翻译"
 
-#: src/editortab.cpp:587 src/editortab.cpp:644
+#: src/editortab.cpp:588 src/editortab.cpp:645
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "下一个差异"
 
-#: src/editortab.cpp:589 src/editortab.cpp:646
+#: src/editortab.cpp:590 src/editortab.cpp:647
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1247,55 +1247,55 @@ msgid ""
 "including empty translations in merge source"
 msgstr "下一个合并文件中不同的翻译条目，包括合并资源中的空翻译"
 
-#: src/editortab.cpp:597
+#: src/editortab.cpp:598
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "下一个核准的差异"
 
-#: src/editortab.cpp:603 src/editortab.cpp:653
+#: src/editortab.cpp:604 src/editortab.cpp:654
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "从合并资源复制"
 
-#: src/editortab.cpp:610 src/editortab.cpp:658
+#: src/editortab.cpp:611 src/editortab.cpp:659
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "复制所有新的翻译"
 
-#: src/editortab.cpp:611
+#: src/editortab.cpp:612
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "这仅会更改基准文件中的空条目和未就绪条目"
 
-#: src/editortab.cpp:619 src/editortab.cpp:665
+#: src/editortab.cpp:620 src/editortab.cpp:666
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "复制到合并资源"
 
-#: src/editortab.cpp:628
+#: src/editortab.cpp:629
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "打开要二级同步的文件"
 
-#: src/editortab.cpp:659
+#: src/editortab.cpp:660
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "这仅会更改空条目"
 
-#: src/editortab.cpp:688
+#: src/editortab.cpp:689
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr ""
 
-#: src/editortab.cpp:717 src/lokalizemainwindow.cpp:1015
+#: src/editortab.cpp:718 src/lokalizemainwindow.cpp:1015
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1305,38 +1305,38 @@ msgstr ""
 "该文档包含尚未保存的改变。\n"
 "您想要保存还是放弃这些改变？"
 
-#: src/editortab.cpp:719 src/editortab.cpp:1290
+#: src/editortab.cpp:720 src/editortab.cpp:1291
 #: src/glossary/glossarywindow.cpp:345 src/lokalizemainwindow.cpp:1017
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "警告"
 
-#: src/editortab.cpp:739 src/mergemode/mergeview.cpp:166
+#: src/editortab.cpp:740 src/mergemode/mergeview.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "选择翻译文件"
 
-#: src/editortab.cpp:824
+#: src/editortab.cpp:825
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "打开文件 %1 时出错，行：%2"
 
-#: src/editortab.cpp:826
+#: src/editortab.cpp:827
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "打开文件 %1 时出错"
 
-#: src/editortab.cpp:834
+#: src/editortab.cpp:835
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "另存为"
 
-#: src/editortab.cpp:863
+#: src/editortab.cpp:864
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1346,13 +1346,13 @@ msgstr ""
 "保存文件 %1 时出错\n"
 "您要保存到另一个文件或者取消吗？"
 
-#: src/editortab.cpp:866
+#: src/editortab.cpp:867
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "错误"
 
-#: src/editortab.cpp:876
+#: src/editortab.cpp:877
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1362,91 +1362,91 @@ msgstr ""
 "无法进行自动保存。\n"
 "目标文件为 %1。"
 
-#: src/editortab.cpp:913
+#: src/editortab.cpp:914
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "跳转到条目"
 
-#: src/editortab.cpp:914
+#: src/editortab.cpp:915
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "输入条目号："
 
-#: src/editortab.cpp:1161
+#: src/editortab.cpp:1162
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "已翻译"
 
-#: src/editortab.cpp:1162
+#: src/editortab.cpp:1163
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "标为关闭"
 
-#: src/editortab.cpp:1163
+#: src/editortab.cpp:1164
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "已审核"
 
-#: src/editortab.cpp:1164
+#: src/editortab.cpp:1165
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "翻译已完成 (可能仍需审核)"
 
-#: src/editortab.cpp:1165
+#: src/editortab.cpp:1166
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "翻译收到正面审阅"
 
-#: src/editortab.cpp:1166
+#: src/editortab.cpp:1167
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "条目已完全本地化(例如，最终版)"
 
-#: src/editortab.cpp:1266 src/project/projecttab.cpp:295
+#: src/editortab.cpp:1267 src/project/projecttab.cpp:297
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
-#: src/editortab.cpp:1266 src/editortab.cpp:1274 src/editortab.cpp:1278
-#: src/project/projecttab.cpp:295 src/project/projecttab.cpp:303
-#: src/project/projecttab.cpp:307
+#: src/editortab.cpp:1267 src/editortab.cpp:1275 src/editortab.cpp:1279
+#: src/project/projecttab.cpp:297 src/project/projecttab.cpp:305
+#: src/project/projecttab.cpp:309
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1274 src/project/projecttab.cpp:303
+#: src/editortab.cpp:1275 src/project/projecttab.cpp:305
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1276 src/project/projecttab.cpp:305
+#: src/editortab.cpp:1277 src/project/projecttab.cpp:307
 #, kde-format
 msgid "Pology success"
 msgstr ""
 
-#: src/editortab.cpp:1276
+#: src/editortab.cpp:1277
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1278 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1279 src/project/projecttab.cpp:309
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1288
+#: src/editortab.cpp:1289
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1454,49 +1454,49 @@ msgid ""
 "Do you really want to clear all translated entries?"
 msgstr ""
 
-#: src/editortab.cpp:1326
+#: src/editortab.cpp:1327
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "原文词数：%1<br/>译文词数：%2"
 
-#: src/editortab.cpp:1327
+#: src/editortab.cpp:1328
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "单词计数"
 
-#: src/editortab.cpp:1417
+#: src/editortab.cpp:1418
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr ""
 
-#: src/editortab.cpp:1418
+#: src/editortab.cpp:1419
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "查找源文件"
 
-#: src/editortab.cpp:1419
+#: src/editortab.cpp:1420
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr ""
 
-#: src/editortab.cpp:1420 src/editortab.cpp:1464
+#: src/editortab.cpp:1421 src/editortab.cpp:1465
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr ""
 
-#: src/editortab.cpp:1423 src/editortab.cpp:1468
+#: src/editortab.cpp:1424 src/editortab.cpp:1469
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "选择源文件查找的起始目录"
 
-#: src/editortab.cpp:1460
+#: src/editortab.cpp:1461
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1504,19 +1504,19 @@ msgid ""
 "Do you want to change source files folder?"
 msgstr ""
 
-#: src/editortab.cpp:1462
+#: src/editortab.cpp:1463
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "查找源文件"
 
-#: src/editortab.cpp:1463
+#: src/editortab.cpp:1464
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr ""
 
-#: src/editortab.cpp:1505
+#: src/editortab.cpp:1506
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1529,33 +1529,33 @@ msgstr ""
 "义源代码路径。参考 Lokalize 手册中的脚本示例以及如何将脚本应用于你的项目的说"
 "明。"
 
-#: src/editortab.cpp:1519 src/project/project.cpp:413
-#: src/project/project.cpp:418
+#: src/editortab.cpp:1520 src/project/project.cpp:415
+#: src/project/project.cpp:420
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "安装 translate-toolkit 包并重试"
 
-#: src/editortab.cpp:1524
+#: src/editortab.cpp:1525
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "安装翻译工具包之后再重试。"
 
-#: src/editortab.cpp:1532
+#: src/editortab.cpp:1533
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "选择当前 XLIFF 文件基于的原始 OpenDocument"
 
-#: src/editortab.cpp:1534 src/project/project.cpp:423
+#: src/editortab.cpp:1535 src/project/project.cpp:425
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 文件 (*.odt *.ods)"
 
-#: src/editortab.cpp:1578
+#: src/editortab.cpp:1579
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "安装 python-uno 包来获得额外功能。"
 
-#: src/editortab.cpp:1701
+#: src/editortab.cpp:1702
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -1763,51 +1763,51 @@ msgstr "匹配大小写"
 msgid "&Search"
 msgstr "搜索(&S)"
 
-#: src/filesearch/filesearchtab.cpp:119
+#: src/filesearch/filesearchtab.cpp:120
 #, kde-format
 msgctxt "@title:window"
 msgid "File List"
 msgstr "文件列表"
 
-#: src/filesearch/filesearchtab.cpp:121
+#: src/filesearch/filesearchtab.cpp:122
 #, kde-format
 msgid "Drop translation files here..."
 msgstr "将翻译文件拖放到此处..."
 
-#: src/filesearch/filesearchtab.cpp:354 src/tm/tmtab.cpp:68
+#: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
 msgstr "文件"
 
-#: src/filesearch/filesearchtab.cpp:448
+#: src/filesearch/filesearchtab.cpp:449
 #, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "在多个文件中查找和替换"
 
-#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:397
+#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "复制源信息到剪贴板"
 
-#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:403
+#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "复制目标信息到剪贴板"
 
-#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:409
+#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
 #, kde-format
 msgid "Open file"
 msgstr "打开文件"
 
-#: src/filesearch/filesearchtab.cpp:517
+#: src/filesearch/filesearchtab.cpp:518
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr "在多个文件中查找和替换"
 
-#: src/filesearch/filesearchtab.cpp:722
+#: src/filesearch/filesearchtab.cpp:723
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"
@@ -1973,12 +1973,12 @@ msgstr "忽略快捷键标记"
 msgid "Include notes"
 msgstr "包含备注"
 
-#: src/languagetool/languagetoolgrammarerror.cpp:23
+#: src/languagetool/languagetoolgrammarerror.cpp:24
 #, kde-format
 msgid "Suggestions:"
 msgstr ""
 
-#: src/languagetool/languagetoolparser.cpp:26
+#: src/languagetool/languagetoolparser.cpp:27
 #, kde-format
 msgid "No errors"
 msgstr ""
@@ -2000,7 +2000,7 @@ msgstr ""
 msgid "&Configure Lokalize"
 msgstr "配置 Lokalize(&C)"
 
-#: src/lokalizemainwindow.cpp:118 src/project/projecttab.cpp:153
+#: src/lokalizemainwindow.cpp:118 src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
@@ -2024,23 +2024,23 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "无法找到 Qt Sql 模块。翻译记忆功能将无法工作。"
 
-#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:241
+#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "翻译记忆功能需要 SQLite Qt 模块。"
 
-#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:241
+#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
 #, kde-format
 msgid "No SQLite module available"
 msgstr "没有可用的 SQLite 模块"
 
-#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:478
+#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "翻译记忆"
 
-#: src/lokalizemainwindow.cpp:571 src/project/projecttab.cpp:150
+#: src/lokalizemainwindow.cpp:571 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
@@ -2078,7 +2078,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "翻译记忆"
 
-#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:481
+#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -2392,50 +2392,50 @@ msgstr ""
 "不同的条目：%1\n"
 "不匹配的条目：%2"
 
-#: src/msgctxtview.cpp:33
+#: src/msgctxtview.cpp:34
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr ""
 
-#: src/msgctxtview.cpp:89
+#: src/msgctxtview.cpp:90
 #, kde-format
 msgctxt ""
 "@info notes to translation unit which expire when the catalog is closed"
 msgid "<b>Temporary notes:</b>"
 msgstr "<b>临时备注：</b>"
 
-#: src/msgctxtview.cpp:98
+#: src/msgctxtview.cpp:99
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
 msgstr ""
 
-#: src/msgctxtview.cpp:107
+#: src/msgctxtview.cpp:108
 #, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
 msgstr ""
 
-#: src/msgctxtview.cpp:119
+#: src/msgctxtview.cpp:120
 #, kde-format
 msgctxt "@info translation unit metadata"
 msgid "<b>Phase:</b><br>"
 msgstr "<b>阶段：</b><br>"
 
-#: src/msgctxtview.cpp:143
+#: src/msgctxtview.cpp:144
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Files:</b><br>"
 msgstr "<br><b>文件：</b><br>"
 
-#: src/msgctxtview.cpp:151
+#: src/msgctxtview.cpp:152
 #, kde-format
 msgctxt "@info PO comment parsing"
 msgid "<br><b>Context:</b><br>"
 msgstr "<br><b>语境：</b><br>"
 
-#: src/msgctxtview.cpp:222
+#: src/msgctxtview.cpp:223
 #, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
@@ -2670,7 +2670,7 @@ msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "外观"
 
-#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:374
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:375
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
@@ -3485,17 +3485,17 @@ msgstr "项目"
 msgid "Language-Team:"
 msgstr ""
 
-#: src/project/project.cpp:390
+#: src/project/project.cpp:392
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "扫描保护源文件的文件夹"
 
-#: src/project/project.cpp:390
+#: src/project/project.cpp:392
 #, kde-format
 msgid "Editor"
 msgstr "编辑"
 
-#: src/project/project.cpp:430
+#: src/project/project.cpp:432
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3616,124 +3616,124 @@ msgctxt "@title:column"
 msgid "Last Translator"
 msgstr "最后翻译者"
 
-#: src/project/projecttab.cpp:52
+#: src/project/projecttab.cpp:54
 #, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "项目概况"
 
-#: src/project/projecttab.cpp:122
+#: src/project/projecttab.cpp:124
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "仅上一个模板"
 
-#: src/project/projecttab.cpp:128
+#: src/project/projecttab.cpp:130
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "仅下一个模板"
 
-#: src/project/projecttab.cpp:133
+#: src/project/projecttab.cpp:135
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "仅上一个翻译"
 
-#: src/project/projecttab.cpp:136
+#: src/project/projecttab.cpp:138
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "仅下一个翻译"
 
-#: src/project/projecttab.cpp:140
+#: src/project/projecttab.cpp:142
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr "隐藏已完成条目"
 
-#: src/project/projecttab.cpp:141
+#: src/project/projecttab.cpp:143
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "隐藏已翻译完的文件和文件夹"
 
-#: src/project/projecttab.cpp:188
+#: src/project/projecttab.cpp:190
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "打开选中的文件"
 
-#: src/project/projecttab.cpp:191
+#: src/project/projecttab.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "打开"
 
-#: src/project/projecttab.cpp:194
+#: src/project/projecttab.cpp:196
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "添加到翻译记忆"
 
-#: src/project/projecttab.cpp:196
+#: src/project/projecttab.cpp:198
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "搜索文件"
 
-#: src/project/projecttab.cpp:197
+#: src/project/projecttab.cpp:199
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr ""
 
-#: src/project/projecttab.cpp:199
+#: src/project/projecttab.cpp:201
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr ""
 
-#: src/project/projecttab.cpp:202
+#: src/project/projecttab.cpp:204
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "搜索文件(包括模板)"
 
-#: src/project/projecttab.cpp:229
+#: src/project/projecttab.cpp:231
 #, kde-format
 msgid "Project file comment"
 msgstr "项目文件备注"
 
-#: src/project/projecttab.cpp:229
+#: src/project/projecttab.cpp:231
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr "输入此项目文件的备注："
 
-#: src/project/projecttab.cpp:305
+#: src/project/projecttab.cpp:307
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:324
+#: src/project/projecttab.cpp:326
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] ""
 
-#: src/project/projecttab.cpp:325
+#: src/project/projecttab.cpp:327
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:326
+#: src/project/projecttab.cpp:328
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:327
+#: src/project/projecttab.cpp:329
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
@@ -3771,37 +3771,37 @@ msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "未翻译条目：%1"
 
-#: src/tm/dbfilesmodel.cpp:94
+#: src/tm/dbfilesmodel.cpp:95
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
 msgstr "名称"
 
-#: src/tm/dbfilesmodel.cpp:95
+#: src/tm/dbfilesmodel.cpp:96
 #, kde-format
 msgctxt "@title:column"
 msgid "Source language"
 msgstr "源语言"
 
-#: src/tm/dbfilesmodel.cpp:96
+#: src/tm/dbfilesmodel.cpp:97
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
 msgstr "目标语言"
 
-#: src/tm/dbfilesmodel.cpp:97
+#: src/tm/dbfilesmodel.cpp:98
 #, kde-format
 msgctxt "@title:column"
 msgid "Pairs"
 msgstr "数据对"
 
-#: src/tm/dbfilesmodel.cpp:98
+#: src/tm/dbfilesmodel.cpp:99
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
 msgstr "唯一原始条目"
 
-#: src/tm/dbfilesmodel.cpp:99
+#: src/tm/dbfilesmodel.cpp:100
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique translations"
@@ -3909,25 +3909,25 @@ msgstr "导出至 TMX"
 msgid "Remove"
 msgstr "删除"
 
-#: src/tm/qamodel.cpp:96
+#: src/tm/qamodel.cpp:97
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
 msgstr "易混淆"
 
-#: src/tm/qaview.cpp:20
+#: src/tm/qaview.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Quality Assurance"
 msgstr "质量保证"
 
-#: src/tm/qaview.cpp:34
+#: src/tm/qaview.cpp:35
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add"
 msgstr "添加"
 
-#: src/tm/qaview.cpp:38
+#: src/tm/qaview.cpp:39
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove"
@@ -3990,150 +3990,150 @@ msgstr "读取全部项目文件到翻译记忆，更新旧条目。扫描将在
 msgid "&Rescan project files"
 msgstr "重新扫描项目文件(&R)"
 
-#: src/tm/tmmanager.cpp:33
+#: src/tm/tmmanager.cpp:34
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memories"
 msgstr "翻译记忆"
 
-#: src/tm/tmmanager.cpp:69
+#: src/tm/tmmanager.cpp:70
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Directory to be scanned"
 msgstr "选择要扫描的目录"
 
-#: src/tm/tmmanager.cpp:78
+#: src/tm/tmmanager.cpp:79
 #, kde-format
 msgctxt "@title:window"
 msgid "New Translation Memory"
 msgstr "新建翻译记忆"
 
-#: src/tm/tmmanager.cpp:78
+#: src/tm/tmmanager.cpp:79
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
 msgstr "翻译记忆属性"
 
-#: src/tm/tmmanager.cpp:213
+#: src/tm/tmmanager.cpp:214
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr "选择要导入到选定数据库的 TMX 文件"
 
-#: src/tm/tmmanager.cpp:215 src/tm/tmmanager.cpp:236
+#: src/tm/tmmanager.cpp:216 src/tm/tmmanager.cpp:237
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
 msgstr "TMX 文件 (*.tmx *.xml)"
 
-#: src/tm/tmmanager.cpp:234
+#: src/tm/tmmanager.cpp:235
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "选定数据库要导出到的 TMX 文件"
 
-#: src/tm/tmscanapi.cpp:75
+#: src/tm/tmscanapi.cpp:78
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "正在添加文件到 Lokalize 翻译记忆"
 
-#: src/tm/tmscanapi.cpp:75
+#: src/tm/tmscanapi.cpp:78
 #, kde-format
 msgid "TM"
 msgstr "翻译记忆"
 
-#: src/tm/tmtab.cpp:78
+#: src/tm/tmtab.cpp:79
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr ""
 
-#: src/tm/tmtab.cpp:83
+#: src/tm/tmtab.cpp:84
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr ""
 
-#: src/tm/tmtab.cpp:355
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Substring"
 msgstr "子串"
 
-#: src/tm/tmtab.cpp:355
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Google-like"
 msgstr "类似 Google"
 
-#: src/tm/tmtab.cpp:355
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Wildcard"
 msgstr "通配符"
 
-#: src/tm/tmtab.cpp:362
+#: src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "空格即 AND 操作符。不区分大小写。"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Shell 通配符(* 和 ?)。区分大小写。"
 
-#: src/tm/tmtab.cpp:511
+#: src/tm/tmtab.cpp:512
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
 
-#: src/tm/tmtab.cpp:512
+#: src/tm/tmtab.cpp:513
 #, kde-format
 msgid "Rescan not possible"
 msgstr ""
 
-#: src/tm/tmtab.cpp:611 src/tm/tmview.cpp:620
+#: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr ""
 
-#: src/tm/tmview.cpp:185 src/tm/tmview.cpp:190
+#: src/tm/tmview.cpp:186 src/tm/tmview.cpp:191
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "翻译记忆"
 
-#: src/tm/tmview.cpp:225
+#: src/tm/tmview.cpp:226
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "双击任何单词以将其插入翻译"
 
-#: src/tm/tmview.cpp:330
+#: src/tm/tmview.cpp:331
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "批量翻译记忆填写"
 
-#: src/tm/tmview.cpp:333
+#: src/tm/tmview.cpp:334
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "已完成批量翻译。"
 
-#: src/tm/tmview.cpp:339
+#: src/tm/tmview.cpp:340
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "未发现任何精确匹配建议。"
 
-#: src/tm/tmview.cpp:359 src/tm/tmview.cpp:374
+#: src/tm/tmview.cpp:360 src/tm/tmview.cpp:375
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "已安排批量翻译。"
 
-#: src/tm/tmview.cpp:495
+#: src/tm/tmview.cpp:496
 #, kde-format
 msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
@@ -4141,7 +4141,7 @@ msgctxt ""
 msgid "100% (perfect match)"
 msgstr ""
 
-#: src/tm/tmview.cpp:500
+#: src/tm/tmview.cpp:501
 #, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
@@ -4149,7 +4149,7 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:506
+#: src/tm/tmview.cpp:507
 #, kde-format
 msgctxt ""
 "The number of times a Translation Memory entry exists in the database, %1 is "
@@ -4158,7 +4158,7 @@ msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
 msgstr[0] ""
 
-#: src/tm/tmview.cpp:516
+#: src/tm/tmview.cpp:517
 #, kde-format
 msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
@@ -4166,7 +4166,7 @@ msgctxt ""
 msgid "%1 • %2 • %3"
 msgstr ""
 
-#: src/tm/tmview.cpp:524
+#: src/tm/tmview.cpp:525
 #, kde-format
 msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
@@ -4174,43 +4174,43 @@ msgctxt ""
 msgid "%1 • %2"
 msgstr ""
 
-#: src/tm/tmview.cpp:576
+#: src/tm/tmview.cpp:577
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "本文件"
 
-#: src/tm/tmview.cpp:577
+#: src/tm/tmview.cpp:578
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "文件：%1<br />添加日期：%2"
 
-#: src/tm/tmview.cpp:579
+#: src/tm/tmview.cpp:580
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />最后修改日期: %1"
 
-#: src/tm/tmview.cpp:581
+#: src/tm/tmview.cpp:582
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />最后修改人: %1"
 
-#: src/tm/tmview.cpp:582
+#: src/tm/tmview.cpp:583
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />翻译记忆： %1"
 
-#: src/tm/tmview.cpp:584
+#: src/tm/tmview.cpp:585
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />不再存在于文件中"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:600
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4218,44 +4218,44 @@ msgid ""
 msgstr ""
 "<html>您确定要从翻译记忆 %2 中移除条目：<br/><i>%1</i><br/> 吗？</html>"
 
-#: src/tm/tmview.cpp:602
+#: src/tm/tmview.cpp:603
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "翻译记忆条目移除"
 
-#: src/tm/tmview.cpp:647
+#: src/tm/tmview.cpp:648
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "删除此条目"
 
-#: src/tm/tmview.cpp:650
+#: src/tm/tmview.cpp:651
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "打开包含此条目的文件"
 
-#: src/tm/tmview.cpp:660
+#: src/tm/tmview.cpp:661
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:674
+#: src/tm/tmview.cpp:675
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
 
-#: src/tm/tmview.cpp:678
+#: src/tm/tmview.cpp:679
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr ""
 
-#: src/tm/tmview.cpp:961
+#: src/tm/tmview.cpp:962
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
