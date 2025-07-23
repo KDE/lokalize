@@ -8,6 +8,22 @@
     "tags": ["nightly"],
     "desktop-file-name-suffix": " (Nightly)",
     "finish-args": ["--share=ipc", "--socket=fallback-x11", "--socket=wayland", "--device=dri" ],
+    "cleanup": [
+        "*.a",
+        "*.la",
+        "/doc",
+        "/docs",
+        "/include",
+        "/lib/cmake",
+        "/lib/pkgconfig",
+        "/lib/x86_64-linux-gnu/cmake",
+        "/lib/x86_64-linux-gnu/pkgconfig",
+        "/man",
+        "/share/cmake",
+        "/share/doc",
+        "/share/man",
+        "/share/pkgconfig"
+    ],
     "modules": [
         {
             "name": "hunspell",
