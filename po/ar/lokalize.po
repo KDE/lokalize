@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-20 00:45+0000\n"
-"PO-Revision-Date: 2025-05-14 17:05+0400\n"
+"PO-Revision-Date: 2025-08-03 16:04+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1055,7 +1055,7 @@ msgstr "عدد الكلمات"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
-msgstr "امح كل المدخلات المترجمة"
+msgstr "امحُ كل المدخلات المترجمة"
 
 #: src/editortab.cpp:358
 #, kde-format
@@ -4450,7 +4450,7 @@ msgstr "تفاعل النّقر بزرّ الفأرة الأوسط"
 #: src/tools/widgettextcaptureconfig.ui:48
 #, kde-format
 msgid "None"
-msgstr "بلا"
+msgstr "لا شيء"
 
 #. i18n: ectx: property (text), widget (QRadioButton, search)
 #: src/tools/widgettextcaptureconfig.ui:58
