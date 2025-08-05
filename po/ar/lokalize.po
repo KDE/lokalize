@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-12 02:41+0000\n"
-"PO-Revision-Date: 2025-08-03 16:04+0400\n"
+"PO-Revision-Date: 2025-08-04 15:08+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1111,7 +1111,7 @@ msgstr "أزل كسر الهدف"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
-msgstr "امسح"
+msgstr "امحُ"
 
 #: src/editortab.cpp:441
 #, kde-format
@@ -2690,14 +2690,14 @@ msgstr "البريد الإلكترونيّ للمترجم"
 #: src/prefs/lokalize.kcfg:47 src/prefs/lokalize.kcfg:48
 #, kde-format
 msgid "Default language code for new projects"
-msgstr "رمز اللغة الافتراضيّ للمشاريع الجديدة"
+msgstr "رمز اللغة المبدئي للمشاريع الجديدة"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:54 src/prefs/lokalize.kcfg:55
 #, kde-format
 msgid "Default mailing list for new projects"
-msgstr "القائمة البريدية الافتراضية للمشاريع الجديدة"
+msgstr "القائمة البريدية المبدئية للمشاريع الجديدة"
 
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
@@ -2891,7 +2891,7 @@ msgstr "أبرِز المسافات في النّهاية"
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
-"إن أُشّر، تنتقل عجلة الفأرة إلى الوحدة التّالية أو السّابقة، وإلّا فستمرّر النّّصّ"
+"إن أُشّر، تنتقل عجلة الفأرة إلى الوحدة التّالية أو السّابقة، وإلّا فستمرّر النّصّ"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
@@ -2906,7 +2906,7 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
-"<html dir=\"rtl\">عندما يكون هذا الخيار مفعّلًا، تُستخدم عجلة الفأرة للانتقال "
+"<html dir=\"rtl\">عندما يكون هذا الخيار ممكّنًا، تُستخدم عجلة الفأرة للانتقال "
 "إلى وحدة التّرجمة التّالية أو السّابقة (دون مفاتيح مُعدِّلة). يمكن استخدام "
 "المفاتيح المُعدِّلة لتغيير هذا السلوك. استخدم: <ul><li><b>Shift</b> للتّمرير في "
 "نصّ الوحدة الحاليّة، </li><li><b>Ctrl+Shift</b> للانتقال إلى الوحدة غير "
@@ -2956,7 +2956,7 @@ msgstr "عطّل إكمال الكلمات"
 #: src/prefs/prefs_editor.ui:105
 #, kde-format
 msgid "Automatically convert XML special characters in TS files"
-msgstr "حوّل محارف XML الخاصة آليًا في ملفات TS"
+msgstr "حوّل محارف XML الخاصة آليًّا في ملفات TS"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreRecentFilesOnStartup)
 #: src/prefs/prefs_general.ui:45
@@ -3009,7 +3009,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Default language:"
-msgstr "اللغة الافتراضية:"
+msgstr "اللغة المبدئية:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/prefs/prefs_identity.ui:48
@@ -3042,7 +3042,7 @@ msgstr "رجاءً أدخل اسمك ولقبك بالإنجليزيّة"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "&Default mailing list:"
-msgstr "ال&قائمة البريدية الافتراضية:"
+msgstr "ال&قائمة البريدية المبدئية:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
 #: src/prefs/prefs_identity.ui:94
@@ -3066,7 +3066,7 @@ msgstr "اللغة التي تُترجِم إليها"
 #: src/prefs/prefs_identity.ui:107
 #, kde-format
 msgid "Set the default language you are going to translate to"
-msgstr "اضبط اللغة الافتراضية التي ستُترجِم إليها"
+msgstr "اضبط اللغة المبدئية التي ستُترجِم إليها"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorEmail)
 #: src/prefs/prefs_identity.ui:127
@@ -3105,7 +3105,7 @@ msgstr "الاسم الموطّن:"
 #: src/prefs/prefs_identity.ui:164
 #, kde-format
 msgid "Default Language-Team:"
-msgstr "فريق اللغة الافتراضيّ:"
+msgstr "فريق اللغة المبدئيّ:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
 #: src/prefs/prefs_languagetool.ui:21
@@ -3145,7 +3145,7 @@ msgstr "التأخير قبل الفحص الآليّ بعد أن تتوقف ع�
 #: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
 #, kde-format
 msgid "Set to 0 to disable auto checking"
-msgstr "اضبط إلى 0 لتعطيل التدقيق الآلي"
+msgstr "اضبط إلى 0 لتعطيل التدقيق الآليّ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
 #: src/prefs/prefs_pology.ui:21
@@ -3242,7 +3242,7 @@ msgstr "اضبط أقصى عدد للاقتراحات"
 #: src/prefs/prefs_tm.ui:73
 #, kde-format
 msgid "You can change the maximum number of suggestions, default is 7."
-msgstr "يمكنك تغيير أقصى عدد للاقتراحات، الافتراضيّ هو 7."
+msgstr "يمكنك تغيير أقصى عدد للاقتراحات، المبدئي هو 7."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_tm.ui:97
@@ -3262,8 +3262,7 @@ msgstr "اضبط درجة الحد الأدنى (0-100) من الاقتراحا�
 msgid ""
 "You can change the minimum score (0-100) required for suggestions, default "
 "is 0."
-msgstr ""
-"يمكنك تغيير درجة الحد الأدنى (0-100) المطلوبة للاقتراحات، الافتراضيّ هو 0."
+msgstr "يمكنك تغيير درجة الحد الأدنى (0-100) المطلوبة للاقتراحات، المبدئيهو 0."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
 #: src/prefs/prefs_tm.ui:138
@@ -3328,7 +3327,7 @@ msgid ""
 msgstr ""
 "التعبير العاديّ للرقْم. يُستخدم لمطابقة ذاكرة الترجمة ولميزة ’أدرج وسمًا‘.\n"
 "\n"
-"القيمة الافتراضية (مناسبة للنصوص المعتمدة على XML) هي:\n"
+"القيمة المبدئية (مناسبة للنصوص المعتمدة على XML) هي:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "يُستخدم التعبير لملفّات «غَت‌تكست» PO فقط، إذ أنّ لنسق XLIFF طريقته الخاصّة بتحديد "
@@ -3349,7 +3348,7 @@ msgid ""
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
-"العَرض المستخدم للفّ الكلمات آلياً الشبيه بـ msgfmt. استخدم القيمة ’0‘ لتعطيل "
+"العَرض المستخدم للفّ الكلمات آليّاً الشبيه بـ msgfmt. استخدم القيمة ’0‘ لتعطيل "
 "لفّ الكلمات. استخدم -1 عند الترجمة لـ KDE PO Summit. من 1 إلى 3 لا يغير شيئا"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
@@ -3451,7 +3450,7 @@ msgstr ""
 "في فرعين معًا.\n"
 "\n"
 "اضبط هذا إلى المسار الذي يحوي مجلد ًّالقوالب للمشروع الفرع،\n"
-"وسينشئ عرض المزامنة الثانوية الملفّات من الفرع آليا."
+"وسينشئ عرض المزامنة الثانوية الملفّات من الفرع آليّا."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
@@ -3625,7 +3624,7 @@ msgstr "ترجمة %1 ‏%2"
 #: src/project/projectbase.kcfg:10
 #, kde-format
 msgid "default"
-msgstr "الافتراضيّ"
+msgstr "المبدئيّ"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17
