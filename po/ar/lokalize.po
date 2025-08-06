@@ -3965,7 +3965,7 @@ msgstr "المستخدم:"
 #: src/tm/dbparams.ui:75
 #, kde-format
 msgid "Password:"
-msgstr "كلمة السّرّ:"
+msgstr "كلمة السر:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, dbType)
 #: src/tm/dbparams.ui:96
