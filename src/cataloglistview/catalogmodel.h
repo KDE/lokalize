@@ -35,13 +35,14 @@ public:
         TranslationStatus,
         SourceLength,
         TargetLength,
+        IsModified,
         IsEmpty,
         State,
-        IsModified,
         IsPlural,
         ColumnCount,
     };
-    static const int DisplayedColumnCount = static_cast<int>(CatalogModelColumns::TargetLength) + 1;
+    // Only show columns above IsModified (including IsModified)
+    static const int DisplayedColumnCount = static_cast<int>(CatalogModelColumns::IsModified) + 1;
 
     // Possible values in column "Translation Status".
     enum class TranslationStatus {

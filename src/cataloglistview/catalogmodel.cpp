@@ -100,6 +100,8 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation, int role) co
         return i18nc("@title:column", "Files");
     case CatalogModelColumns::TranslationStatus:
         return i18nc("@title:column", "Translation Status");
+    case CatalogModelColumns::IsModified:
+        return i18nc("@title:column", "Modified");
     case CatalogModelColumns::SourceLength:
         return i18nc("@title:column Length of the original text", "Source length");
     case CatalogModelColumns::TargetLength:
@@ -186,6 +188,13 @@ QVariant CatalogTreeModel::data(const QModelIndex &index, int role) const
         if (column == CatalogModelColumns::TranslationStatus) {
             return static_cast<int>(getTranslationStatus(static_cast<int>(index.row())));
         }
+        if (column == CatalogModelColumns::IsModified) {
+            // true is 0, false is 1.
+            // This puts "is modified" comes before "not modified" when sorting
+            // ascending, making it behave the same as TranslationStatus where
+            // Ready is 0.
+            return m_catalog->isModified(index.row()) ? 0 : 1;
+        }
 
         role = Qt::DisplayRole;
     }
@@ -193,6 +202,10 @@ QVariant CatalogTreeModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     switch (column) {
+    case CatalogModelColumns::IsModified:
+        return m_catalog->isModified(index.row())
+            ? i18nc("@info:status", "Yes")
+            : i18nc("@info:status", "No");
     case CatalogModelColumns::Key:
         return index.row() + 1;
     case CatalogModelColumns::Source:
