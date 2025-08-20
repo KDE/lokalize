@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-20 00:45+0000\n"
+"POT-Creation-Date: 2025-08-20 00:46+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -866,6 +866,12 @@ msgid "Translation Status"
 msgstr "Stanje prijevoda"
 
 #: src/cataloglistview/catalogmodel.cpp:104
+#, kde-format
+msgctxt "@title:column"
+msgid "Modified"
+msgstr ""
+
+#: src/cataloglistview/catalogmodel.cpp:106
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Source language"
@@ -873,7 +879,7 @@ msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "Izvorni jezik"
 
-#: src/cataloglistview/catalogmodel.cpp:106
+#: src/cataloglistview/catalogmodel.cpp:108
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Target language"
@@ -881,26 +887,40 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Ciljani jezik"
 
-#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:992
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:992
 #: src/editortab.cpp:1186 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Spremno"
 
-#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:994
+#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:994
 #: src/editortab.cpp:1181 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Potrebna provjera"
 
-#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:990
+#: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:990
 #: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
 msgstr "Neprevedeno"
+
+#: src/cataloglistview/catalogmodel.cpp:207
+#, fuzzy, kde-format
+#| msgid "yes"
+msgctxt "@info:status"
+msgid "Yes"
+msgstr "da"
+
+#: src/cataloglistview/catalogmodel.cpp:208
+#, fuzzy, kde-format
+#| msgid "None"
+msgctxt "@info:status"
+msgid "No"
+msgstr "Ništa"
 
 #: src/common/languagelistmodel.cpp:74
 #, fuzzy, kde-format

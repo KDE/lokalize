@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-20 00:45+0000\n"
+"POT-Creation-Date: 2025-08-20 00:46+0000\n"
 "PO-Revision-Date: 2010-09-24 20:24+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -852,6 +852,12 @@ msgid "Translation Status"
 msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:104
+#, kde-format
+msgctxt "@title:column"
+msgid "Modified"
+msgstr ""
+
+#: src/cataloglistview/catalogmodel.cpp:106
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Source"
@@ -859,33 +865,47 @@ msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "श्रोत"
 
-#: src/cataloglistview/catalogmodel.cpp:106
+#: src/cataloglistview/catalogmodel.cpp:108
 #, fuzzy, kde-format
 #| msgid "Target language:"
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "लक्ष्यक भाषा:"
 
-#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:992
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:992
 #: src/editortab.cpp:1186 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "तैआर"
 
-#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:994
+#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:994
 #: src/editortab.cpp:1181 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr ""
 
-#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:990
+#: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:990
 #: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
 msgstr ""
+
+#: src/cataloglistview/catalogmodel.cpp:207
+#, fuzzy, kde-format
+#| msgid "yes"
+msgctxt "@info:status"
+msgid "Yes"
+msgstr "हँ"
+
+#: src/cataloglistview/catalogmodel.cpp:208
+#, fuzzy, kde-format
+#| msgid "None"
+msgctxt "@info:status"
+msgid "No"
+msgstr "किछु नहि"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format

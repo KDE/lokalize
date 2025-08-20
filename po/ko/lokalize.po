@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-20 00:45+0000\n"
+"POT-Creation-Date: 2025-08-20 00:46+0000\n"
 "PO-Revision-Date: 2025-06-11 00:21+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -888,36 +888,56 @@ msgstr "번역 상태"
 
 #: src/cataloglistview/catalogmodel.cpp:104
 #, kde-format
+msgctxt "@title:column"
+msgid "Modified"
+msgstr ""
+
+#: src/cataloglistview/catalogmodel.cpp:106
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "원본 길이"
 
-#: src/cataloglistview/catalogmodel.cpp:106
+#: src/cataloglistview/catalogmodel.cpp:108
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "대상 길이"
 
-#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:992
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:992
 #: src/editortab.cpp:1186 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "준비"
 
-#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:994
+#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:994
 #: src/editortab.cpp:1181 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "검토 필요함"
 
-#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:990
+#: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:990
 #: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
 msgstr "번역되지 않음"
+
+#: src/cataloglistview/catalogmodel.cpp:207
+#, fuzzy, kde-format
+#| msgid "yes"
+msgctxt "@info:status"
+msgid "Yes"
+msgstr "가능"
+
+#: src/cataloglistview/catalogmodel.cpp:208
+#, fuzzy, kde-format
+#| msgid "None"
+msgctxt "@info:status"
+msgid "No"
+msgstr "없음"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format

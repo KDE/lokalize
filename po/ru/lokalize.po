@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-20 00:45+0000\n"
+"POT-Creation-Date: 2025-08-20 00:46+0000\n"
 "PO-Revision-Date: 2025-06-04 19:46+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -944,36 +944,56 @@ msgstr "Состояние перевода"
 
 #: src/cataloglistview/catalogmodel.cpp:104
 #, kde-format
+msgctxt "@title:column"
+msgid "Modified"
+msgstr ""
+
+#: src/cataloglistview/catalogmodel.cpp:106
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "Исходная длина"
 
-#: src/cataloglistview/catalogmodel.cpp:106
+#: src/cataloglistview/catalogmodel.cpp:108
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Длина перевода"
 
-#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:992
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:992
 #: src/editortab.cpp:1186 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Готово"
 
-#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:994
+#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:994
 #: src/editortab.cpp:1181 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Требует проверки"
 
-#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:990
+#: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:990
 #: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
 msgstr "Без перевода"
+
+#: src/cataloglistview/catalogmodel.cpp:207
+#, fuzzy, kde-format
+#| msgid "yes"
+msgctxt "@info:status"
+msgid "Yes"
+msgstr "да"
+
+#: src/cataloglistview/catalogmodel.cpp:208
+#, fuzzy, kde-format
+#| msgid "None"
+msgctxt "@info:status"
+msgid "No"
+msgstr "Отсутствует"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format

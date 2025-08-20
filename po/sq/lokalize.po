@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-20 00:45+0000\n"
+"POT-Creation-Date: 2025-08-20 00:46+0000\n"
 "PO-Revision-Date: 2023-12-13 17:40-0500\n"
 "Last-Translator: Agron Selimaj <as9902613@gmail.com>\n"
 "Language-Team: sq\n"
@@ -853,6 +853,12 @@ msgid "Translation Status"
 msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:104
+#, kde-format
+msgctxt "@title:column"
+msgid "Modified"
+msgstr ""
+
+#: src/cataloglistview/catalogmodel.cpp:106
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Source"
@@ -860,7 +866,7 @@ msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "Burim"
 
-#: src/cataloglistview/catalogmodel.cpp:106
+#: src/cataloglistview/catalogmodel.cpp:108
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Target"
@@ -868,26 +874,40 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Shënjestra"
 
-#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:992
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:992
 #: src/editortab.cpp:1186 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Gati"
 
-#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:994
+#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:994
 #: src/editortab.cpp:1181 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr ""
 
-#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:990
+#: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:990
 #: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
 msgstr "Papërkthyer"
+
+#: src/cataloglistview/catalogmodel.cpp:207
+#, fuzzy, kde-format
+#| msgid "yes"
+msgctxt "@info:status"
+msgid "Yes"
+msgstr "po"
+
+#: src/cataloglistview/catalogmodel.cpp:208
+#, fuzzy, kde-format
+#| msgid "None"
+msgctxt "@info:status"
+msgid "No"
+msgstr "Asnjë"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-20 00:45+0000\n"
+"POT-Creation-Date: 2025-08-20 00:46+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -886,6 +886,12 @@ msgid "Translation Status"
 msgstr "Revirat"
 
 #: src/cataloglistview/catalogmodel.cpp:104
+#, kde-format
+msgctxt "@title:column"
+msgid "Modified"
+msgstr ""
+
+#: src/cataloglistview/catalogmodel.cpp:106
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox"
 #| msgid "Language:"
@@ -893,7 +899,7 @@ msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "Lenga :"
 
-#: src/cataloglistview/catalogmodel.cpp:106
+#: src/cataloglistview/catalogmodel.cpp:108
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox"
 #| msgid "Language:"
@@ -901,14 +907,14 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Lenga :"
 
-#: src/cataloglistview/catalogmodel.cpp:142 src/editortab.cpp:992
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:992
 #: src/editortab.cpp:1186 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr ""
 
-#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:994
+#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:994
 #: src/editortab.cpp:1181 src/tm/tmtab.cpp:234
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
@@ -917,11 +923,25 @@ msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Pas revirat"
 
-#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:990
+#: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:990
 #: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
+msgstr "Pas revirat"
+
+#: src/cataloglistview/catalogmodel.cpp:207
+#, kde-format
+msgctxt "@info:status"
+msgid "Yes"
+msgstr ""
+
+#: src/cataloglistview/catalogmodel.cpp:208
+#, fuzzy, kde-format
+#| msgctxt "@info:status"
+#| msgid "Untranslated"
+msgctxt "@info:status"
+msgid "No"
 msgstr "Pas revirat"
 
 #: src/common/languagelistmodel.cpp:74
