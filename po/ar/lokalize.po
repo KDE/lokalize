@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-12 02:41+0000\n"
-"PO-Revision-Date: 2025-08-04 15:08+0400\n"
+"PO-Revision-Date: 2025-08-20 18:36+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -3111,7 +3111,7 @@ msgstr "فريق اللغة المبدئيّ:"
 #: src/prefs/prefs_languagetool.ui:21
 #, kde-format
 msgid "Use custom LanguageTool server"
-msgstr "استخدم خادوم أداة اللغة LanguageTool مخصوص"
+msgstr "استخدم خادم أداة اللغة LanguageTool مخصوص"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/prefs/prefs_languagetool.ui:31
@@ -3124,13 +3124,13 @@ msgstr "مسار الخادم:"
 #: src/prefs/prefs_languagetool.ui:44
 #, kde-format
 msgid "The path of your custom Language Tool server"
-msgstr "مسار خادوم أداة اللغة Language Tool مخصوص"
+msgstr "مسار خادم أداة اللغة Language Tool مخصوص"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:47
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
-msgstr "لطفًا أدخل مسار خادوم أداة اللغة Language Tool المخصص، إن وُجد"
+msgstr "لطفًا أدخل مسار خادم أداة اللغة Language Tool المخصص، إن وُجد"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_languagetool.ui:58
