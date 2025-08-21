@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-20 00:46+0000\n"
-"PO-Revision-Date: 2025-05-20 02:01+0100\n"
+"PO-Revision-Date: 2025-08-20 12:14+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -944,7 +944,7 @@ msgstr "Estado de la traducción"
 #, kde-format
 msgctxt "@title:column"
 msgid "Modified"
-msgstr ""
+msgstr "Modificada"
 
 #: src/cataloglistview/catalogmodel.cpp:106
 #, kde-format
@@ -980,18 +980,16 @@ msgid "Untranslated"
 msgstr "Sin traducir"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr "sí"
+msgstr "Sí"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "Nada"
+msgstr "No"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format

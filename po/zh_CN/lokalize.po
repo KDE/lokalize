@@ -899,18 +899,16 @@ msgid "Untranslated"
 msgstr "未翻译"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr "是"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "无"
+msgstr ""
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format

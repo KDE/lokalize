@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-20 00:46+0000\n"
-"PO-Revision-Date: 2025-05-14 03:31+0200\n"
+"PO-Revision-Date: 2025-08-20 08:00+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -930,7 +930,7 @@ msgstr "თარგმანის სტატუსი"
 #, kde-format
 msgctxt "@title:column"
 msgid "Modified"
-msgstr ""
+msgstr "შეიცვალა"
 
 #: src/cataloglistview/catalogmodel.cpp:106
 #, kde-format
@@ -966,18 +966,16 @@ msgid "Untranslated"
 msgstr "უთარგმნელი"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr "დიახ"
+msgstr "კი"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "არაფერი"
+msgstr "არა"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format

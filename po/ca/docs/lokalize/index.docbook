@@ -39,9 +39,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->9 de març de 2020</date>
+>19 d'agost de 2025</date>
 <releaseinfo
->Aplicacions 20.04</releaseinfo>
+>Aplicacions 25.10</releaseinfo>
 
 <abstract>
 <para
@@ -120,7 +120,7 @@
 <para
 >Els fitxers de traducció s'obren en pestanyes separades, amb dos grans editors multilínia així com un conjunt de <emphasis
 >vistes d'eina</emphasis
->. Aquestes vistes es poden agrupar (com si fossin pestanyes), mostrar per separat o ocultar. Els fitxers de traducció consisteixen en un conjunt de parelles d'objectius en anglès anomenades <emphasis
+>. Aquestes vistes es poden agrupar (com si fossin pestanyes), mostrar per separat o ocultar. Els fitxers de traducció consisteixen en un conjunt de parelles anglès-traducció anomenades <emphasis
 >unitats</emphasis
 >. Una <emphasis
 >unitat</emphasis
@@ -281,7 +281,9 @@
 >Unitats de traducció</guilabel
 >. Quan estigueu llestos, premeu <keycap
 >Av Pàg</keycap
-> per a moure-us per la llista filtrada. </para>
+> per a moure-us per la llista filtrada. Prement <keycap
+>Esc</keycap
+> a l'entrada del filtre el focus tornarà al camp de text traduït sense seleccionar cap altra unitat. </para>
 </tip>
 <para
 >Si esteu treballant amb fitxers de traducció amb format XLIFF (és el cas quan traduïu OpenDocument), aleshores hi ha disponibles els estats ampliats (<emphasis

@@ -51,9 +51,23 @@
 ></address
 ></affiliation
 ><contrib
+>Traductora</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Eloy</firstname
+><surname
+>Cuadra</surname
+><affiliation
+><address
+><email
+>ecuadra@eloihr.net</email
+></address
+></affiliation
+><contrib
 >Traductor</contrib
 ></othercredit
-> 
+>  
 </authorgroup>
 
 <copyright>
@@ -67,9 +81,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2020-03-09</date>
+>2025-08-19</date>
 <releaseinfo
->Aplicaciones 20.04</releaseinfo>
+>Aplicaciones 25.10</releaseinfo>
 
 <abstract>
 <para
@@ -299,17 +313,19 @@
 
 <tip>
 <para
->Se recomienda que se acostumbre a usar los atajos de teclado en lugar de los menús y las barras de herramientas para incrementar su productividad. Por ejemplo, utilice <keycombo
+>Se le recomienda que se acostumbre a usar los atajos de teclado en lugar de los menús y las barras de herramientas para aumentar la productividad. Por ejemplo, puede usar <keycombo
 >&Ctrl;<keycap
 >L</keycap
 ></keycombo
-> para mover el foco a la entrada de <guilabel
+> para ir a la entrada de <guilabel
 >Búsqueda rápida</guilabel
 > para filtrar las unidades de la lista de <guilabel
 >Unidades de traducción</guilabel
->. Cuando termine, pulse <keycap
+>. Una vez allí, pulse <keycap
 >Av Pág</keycap
-> para moverse por la lista filtrada. </para>
+> para moverse por la lista filtrada. Pulse <keycap
+>Esc</keycap
+> en la línea de filtro para devolver el foco al campo del texto de destino sin seleccionar otra unidad. </para>
 </tip>
 <para
 >Si está trabajando con archivos de traducción en formato XLIFF (como en el caso de traducir OpenDocument), dispone de los estados avanzados (<emphasis
@@ -373,7 +389,7 @@
 
 <note>
 <para
->La memoria de traducción (al contrario que los archivos de proyecto, glosario y guiones) no se comparte entre los miembros del equipo de traducción, ya que se crea y guarda en la carpeta personal del usuario, lo que significa que las memorias de traducción de todos los proyectos se guardan en la misma carpeta y se pueden utilizar cuando se abren otros proyectos. </para>
+>La memoria de traducción (al contrario que los archivos de proyecto, glosario y guiones) no se comparte entre los miembros del equipo de traducción, ya que se crea y guarda en la carpeta personal del usuario, lo que significa que las memorias de traducción de todos los proyectos se guardan en la misma carpeta y se pueden usar cuando se abren otros proyectos. </para>
 </note>
 </sect1>
 
@@ -495,7 +511,7 @@
 ></keycombo
 > y así sucesivamente, según el número de la sugerencia. </para>
 <para
->Utilice <menuchoice
+>Use <menuchoice
 ><guimenu
 >Herramientas</guimenu
 ><guimenuitem
@@ -587,7 +603,7 @@
 >Sincronización primaria</guilabel
 > y <guilabel
 >Sincronización secundaria</guilabel
->. Son idénticas, pero el antiguo se suele utilizar para fusionar las traducciones y la segunda para mantener las traducciones de sincronización para dos ramas de software. </para>
+>. Son idénticas, pero la primera se suele usar para fusionar las traducciones y la segunda para mantener sincronizadas las traducciones de dos ramas de software. </para>
 
 <para
 >Después de que copie la traducción del archivo auxilizar(<emphasis
@@ -615,14 +631,14 @@
 > (recuerde que los atajos de teclado pueden modificarse de la misma forma que para las demás aplicaciones de &kde;) para navegar a través de las entradas que son diferentes. </para>
 <screenshot>
 <screeninfo
->&lokalize; utilizado para fusionar cambios en las traducciones</screeninfo>
+>&lokalize; durante la fusión de cambios en las traducciones</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="sync.png" format="PNG"/>
     </imageobject>
     <textobject>
       <phrase
->&lokalize; utilizado para fusionar cambios en las traducciones</phrase>
+>&lokalize; durante la fusión de cambios en las traducciones</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
@@ -635,7 +651,7 @@
 <para
 >El <guilabel
 >Modo de sincronización</guilabel
-> también puede utilizarse para hacer cambios de traducción en dos ramas simultáneamente. Especifique en la ruta de la <guilabel
+> también se puede usar para hacer cambios de traducción en dos ramas simultáneamente. Indique en la ruta de la <guilabel
 >Carpeta de la rama</guilabel
 > de las opciones de su proyecto la ruta que corresponda a la carpeta base de la rama, y la vista <guilabel
 >Sincronización secundaria</guilabel
@@ -769,7 +785,7 @@
 > </para>
 
 <para
->Algún código se ha tomado de KBabel, el predecesor de &lokalize;. </para>
+>Parte del código se ha tomado de KBabel, el predecesor de &lokalize;. </para>
 
 <para
 >Copyright de la documentación &copy; 2007-2009 Nick Shaforostoff <email
@@ -797,9 +813,15 @@
 > para obtener más detalles.</para>
 
 <para
->Traducido por <email
+>Traducido por Santiago Fernández Sancho <email
 >santi@kde-es.org</email
+> y Cristina Yenyxe González García <email
+>the.blue.valkyrie@gmail.com</email
 >.</para
+><para
+>Revisado por Eloy Cuadra <email
+>ecuadra@eloihr.net</email
+> (encargado actual de la traducción).</para
 > &underFDL; &underGPL; </chapter>
 
 &documentation.index;
