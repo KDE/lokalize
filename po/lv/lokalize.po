@@ -13,14 +13,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-20 00:46+0000\n"
-"PO-Revision-Date: 2025-06-21 13:05+0300\n"
+"PO-Revision-Date: 2025-08-21 13:00+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -934,7 +934,7 @@ msgstr "Tulkošanas statuss"
 #, kde-format
 msgctxt "@title:column"
 msgid "Modified"
-msgstr ""
+msgstr "Mainīts"
 
 #: src/cataloglistview/catalogmodel.cpp:106
 #, kde-format
@@ -970,18 +970,16 @@ msgid "Untranslated"
 msgstr "Netulkots"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr "jā"
+msgstr "Jā"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "Nav"
+msgstr "Nē"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format
@@ -2734,14 +2732,14 @@ msgstr "Tulkotāja e-pasts"
 #: src/prefs/lokalize.kcfg:47 src/prefs/lokalize.kcfg:48
 #, kde-format
 msgid "Default language code for new projects"
-msgstr "Noklusētais valodas kods jauniem projektiem"
+msgstr "Noklusējuma valodas kods jauniem projektiem"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:54 src/prefs/lokalize.kcfg:55
 #, kde-format
 msgid "Default mailing list for new projects"
-msgstr "Noklusētais adresātu saraksts jauniem projektiem"
+msgstr "Noklusējuma adresātu saraksts jauniem projektiem"
 
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
@@ -3062,7 +3060,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Default language:"
-msgstr "Noklusētā valoda:"
+msgstr "Noklusējuma valoda:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/prefs/prefs_identity.ui:48
@@ -3095,7 +3093,7 @@ msgstr "Ievadiet jūsu vārdu un uzvārdu angļu valodā"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "&Default mailing list:"
-msgstr "&Noklusētais adresātu saraksts:"
+msgstr "&Noklusējuma adresātu saraksts:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
 #: src/prefs/prefs_identity.ui:94
@@ -3119,7 +3117,7 @@ msgstr "Valoda, uz kuru tiek tulkots"
 #: src/prefs/prefs_identity.ui:107
 #, kde-format
 msgid "Set the default language you are going to translate to"
-msgstr "Norādiet noklusēto valodu, uz kuru tulkosiet"
+msgstr "Norādiet noklusējuma valodu, uz kuru tulkosiet"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorEmail)
 #: src/prefs/prefs_identity.ui:127
@@ -3391,7 +3389,7 @@ msgstr ""
 "Regulāra izteiksme marķējumam. To izmanto tulkošanas atmiņas atbilstību "
 "atrašanai un „Ievietot birku“ iespējai.\n"
 "\n"
-"Noklusētā vērtība (der XML bāzētiem tekstiem) ir:\n"
+"Noklusējuma vērtība (der XML bāzētiem tekstiem) ir:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "Tas tiek izmantots tikai „gettext“ PO datnēm, bet XLIFF formātam ir savs "
