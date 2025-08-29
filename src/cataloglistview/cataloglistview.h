@@ -54,6 +54,8 @@ public Q_SLOTS:
 Q_SIGNALS:
     void gotoEntry(const DocPosition &, int selection);
     void escaped();
+    // signaled when the filtered position of the current entry has changed
+    void entryProxiedPositionChanged();
 
 private Q_SLOTS:
     void slotItemActivated(const QModelIndex &);

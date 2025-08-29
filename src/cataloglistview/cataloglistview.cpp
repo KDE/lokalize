@@ -113,6 +113,14 @@ CatalogView::CatalogView(QWidget *parent, Catalog *catalog)
     m_browser->setPalette(p);
 #endif
 
+    // Tell the consumer (EditorTab) that it needs to check again whether the
+    // current entry is the first/last filtered entry or not..
+    // layoutChanged fires when the sort changes.
+    connect(m_proxyModel, &CatalogTreeFilterModel::layoutChanged, this, &CatalogView::entryProxiedPositionChanged);
+    // rowsInserted and rowsRemoved fire when the filtering changes.
+    connect(m_proxyModel, &CatalogTreeFilterModel::rowsInserted, this, &CatalogView::entryProxiedPositionChanged);
+    connect(m_proxyModel, &CatalogTreeFilterModel::rowsRemoved, this, &CatalogView::entryProxiedPositionChanged);
+
     m_proxyModel->setSourceModel(m_model);
     m_browser->setModel(m_proxyModel);
     m_browser->setColumnWidth(0, m_browser->columnWidth(0) / 3);
@@ -286,6 +294,7 @@ int CatalogView::prevEntryNumber()
     return siblingEntryNumber(-1);
 }
 
+// Return the corresponding source model index for `row` within `m_proxyModel`.
 static int edgeEntry(CatalogTreeFilterModel *m_proxyModel, int row)
 {
     if (!m_proxyModel->rowCount())

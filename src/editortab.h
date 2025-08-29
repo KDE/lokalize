@@ -255,6 +255,8 @@ private Q_SLOTS:
 
     void lookupSelectionInTranslationMemory();
 
+    void updateFirstOrLastDisplayed();
+
     // statusbar indication
     void numberOfFuzziesChanged();
     void numberOfUntranslatedChanged();

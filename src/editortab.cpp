@@ -219,6 +219,7 @@ void EditorTab::setupActions()
             qOverload<const DocPosition &>(&CatalogView::slotNewEntryDisplayed));
     connect(m_transUnitsView, &CatalogView::gotoEntry, this, qOverload<DocPosition, int>(&EditorTab::gotoEntry));
     connect(m_transUnitsView, &CatalogView::escaped, this, &EditorTab::setProperFocus);
+    connect(m_transUnitsView, &CatalogView::entryProxiedPositionChanged, this, &EditorTab::updateFirstOrLastDisplayed);
     connect(m_syncView, &MergeView::mergeCatalogPointerChanged, m_transUnitsView, &CatalogView::setMergeCatalogPointer);
 
     m_notesView = new MsgCtxtView(this, m_catalog);
@@ -957,8 +958,7 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
         Q_EMIT signalNewEntryDisplayed(pos);
         Q_EMIT entryDisplayed();
 
-        Q_EMIT signalFirstDisplayed(pos.entry == m_transUnitsView->firstEntryNumber());
-        Q_EMIT signalLastDisplayed(pos.entry == m_transUnitsView->lastEntryNumber());
+        updateFirstOrLastDisplayed();
 
         Q_EMIT signalPriorFuzzyAvailable(pos.entry > m_catalog->firstFuzzyIndex());
         Q_EMIT signalNextFuzzyAvailable(pos.entry < m_catalog->lastFuzzyIndex());
@@ -978,6 +978,23 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
     }
 
     Q_EMIT signalStatusBarCurrent(m_currentPos.entry + 1);
+}
+
+void EditorTab::updateFirstOrLastDisplayed()
+{
+    // These signals are hooked up above to disable the First/Previous Entry and
+    // Next/Last Entry actions when the current selected entry is the first or
+    // last filtered item.
+    //
+    // This function is hooked up to run whenever that fact could change.
+
+    int firstEntryNumber = m_transUnitsView->firstEntryNumber();
+    int lastEntryNumber = m_transUnitsView->lastEntryNumber();
+    // If entry = firstEntryNumber, it is the first filtered item.
+    // If firstEntryNumber = -1, there are no matches.
+    // Same for lastEntryNumber.
+    Q_EMIT signalFirstDisplayed(m_currentPos.entry == firstEntryNumber || firstEntryNumber == -1);
+    Q_EMIT signalLastDisplayed(m_currentPos.entry == lastEntryNumber || firstEntryNumber == -1);
 }
 
 void EditorTab::msgStrChanged()
