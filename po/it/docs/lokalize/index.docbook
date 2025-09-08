@@ -53,9 +53,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2020-03-09</date>
+>19/8/2025</date>
 <releaseinfo
->Applications 20.04</releaseinfo>
+>Applications 25.10</releaseinfo>
 
 <abstract>
 <para
@@ -295,7 +295,9 @@
 >Unità di traduzione</guilabel
 >. Quando hai finito, premi <keycap
 >Pag Giù</keycap
-> per muoverti nella lista filtrata di elementi. </para>
+> per muoverti nella lista filtrata. La pressione di <keycap
+>Esc</keycap
+> nel campo di inserimento del filtro tornerà al campo di testo di destinazione senza selezionare un'altra unità. </para>
 </tip>
 <para
 >Se stai lavorando con traduzioni in formato XLIFF (sicuramente nel caso in cui stai traducendo OpenDocument) sono disponibili gli stati estesi (<emphasis
