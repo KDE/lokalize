@@ -70,6 +70,7 @@ static const langPInfo langsWithPInfo[] = {
     {"id", "nplurals=2; plural=(n != 1);"},
     {"it", "nplurals=2; plural=(n != 1);"},
     {"ja", "nplurals=1; plural=0;"},
+    {"kab", "nplurals=2; plural=(n > 1);"},
     {"ka", "nplurals=1; plural=0;"},
     {"kk", "nplurals=1; plural=0;"},
     {"km", "nplurals=1; plural=0;"},
