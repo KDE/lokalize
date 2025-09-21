@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-30 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:44+0000\n"
 "PO-Revision-Date: 2022-11-01 00:32+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: kde-i18n-doc@kde.org\n"
@@ -649,24 +649,24 @@ msgid ""
 "template"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:456
+#: src/catalog/gettextheader.cpp:457
 #, fuzzy, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Nómine manca"
 
-#: src/catalog/gettextheader.cpp:457
+#: src/catalog/gettextheader.cpp:458
 #, kde-format
 msgid "Your name:"
 msgstr "Vor nómine:"
 
-#: src/catalog/gettextheader.cpp:468
+#: src/catalog/gettextheader.cpp:469
 #, fuzzy, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "de {author}"
 
-#: src/catalog/gettextheader.cpp:469
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgid "Your email:"
 msgstr "Vor e-post:"

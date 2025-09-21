@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-30 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:44+0000\n"
 "PO-Revision-Date: 2025-08-20 09:28-0300\n"
 "Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -745,24 +745,24 @@ msgstr ""
 "Valor anterior da origem, salvo pelo Gettext durante a transição para o mais "
 "recente modelo POT"
 
-#: src/catalog/gettextheader.cpp:456
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Está faltando o nome do autor"
 
-#: src/catalog/gettextheader.cpp:457
+#: src/catalog/gettextheader.cpp:458
 #, kde-format
 msgid "Your name:"
 msgstr "Seu nome:"
 
-#: src/catalog/gettextheader.cpp:468
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Está faltando o e-mail do autor"
 
-#: src/catalog/gettextheader.cpp:469
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgid "Your email:"
 msgstr "Seu e-mail:"

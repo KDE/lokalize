@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-30 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:44+0000\n"
 "PO-Revision-Date: 2025-03-22 12:43+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -738,24 +738,24 @@ msgstr ""
 "Poprzednia wartość źródłowa, zapisana przez Gettext przy przejściu do nowego "
 "wzorca POT"
 
-#: src/catalog/gettextheader.cpp:456
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
 msgstr "Brak nazwiska autora"
 
-#: src/catalog/gettextheader.cpp:457
+#: src/catalog/gettextheader.cpp:458
 #, kde-format
 msgid "Your name:"
 msgstr "Imię i nazwisko:"
 
-#: src/catalog/gettextheader.cpp:468
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
 msgstr "Brak adresu autora"
 
-#: src/catalog/gettextheader.cpp:469
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgid "Your email:"
 msgstr "Twój adres:"
