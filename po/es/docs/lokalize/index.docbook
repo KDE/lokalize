@@ -377,7 +377,7 @@
 >), lo que afectará a su modo de trabajo, que &lokalize; ajustará automáticamente cuando edite un archivo. </para>
 
 <para
->Es posible definir una posición de ajuste de palabras a nivel de proyecto. Solo tiene que usar la opción del menú <menuchoice
+>Es posible definir una posición de ajuste de líneas a nivel de proyecto. Solo tiene que usar la opción del menú <menuchoice
 ><guimenu
 >Proyecto</guimenu
 > <guimenuitem
