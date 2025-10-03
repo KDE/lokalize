@@ -15,6 +15,7 @@ set(KDE_COMPILERSETTINGS_LEVEL "5.85")
 
 # search packages used
 find_package(ECM ${KF_MIN_VERSION} REQUIRED CONFIG)
+find_package(KDDockWidgets-qt6 REQUIRED)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
