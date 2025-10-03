@@ -5,9 +5,16 @@
     "runtime-version": "6.9",
     "sdk": "org.kde.Sdk",
     "command": "lokalize",
-    "tags": ["nightly"],
+    "tags": [
+        "nightly"
+    ],
     "desktop-file-name-suffix": " (Nightly)",
-    "finish-args": ["--share=ipc", "--socket=fallback-x11", "--socket=wayland", "--device=dri" ],
+    "finish-args": [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri"
+    ],
     "cleanup": [
         "*.a",
         "*.la",
@@ -28,7 +35,10 @@
         {
             "name": "hunspell",
             "sources": [
-                { "type": "git", "url": "https://github.com/hunspell/hunspell.git" },
+                {
+                    "type": "git",
+                    "url": "https://github.com/hunspell/hunspell.git"
+                },
                 {
                     "type": "script",
                     "dest-filename": "autogen.sh",
@@ -41,6 +51,9 @@
         {
             "name": "kddockwidgets",
             "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DKDDockWidgets_FRONTENDS=qtwidgets"
+            ],
             "sources": [
                 {
                     "type": "archive",
@@ -52,7 +65,12 @@
         {
             "name": "lokalize",
             "buildsystem": "cmake-ninja",
-            "sources": [ { "type": "dir", "path": "." } ]
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
         }
     ]
 }
