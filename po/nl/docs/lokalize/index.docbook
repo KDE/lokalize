@@ -39,9 +39,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2020-03-09</date>
+>2025-08-19</date>
 <releaseinfo
->Applications 20.04</releaseinfo>
+>Applications 25.10</releaseinfo>
 
 <abstract>
 <para
@@ -279,7 +279,9 @@
 >Snelzoeken</guilabel
 > te gaan alwaar u de eenhedenlijst in het weergavevenster <guilabel
 >Vertaaleenheden</guilabel
-> kunt doorzoeken. </para>
+> kunt doorzoeken. Op <keycap
+>Esc</keycap
+> drukken in de filterinvoer zal de focus terug verplaatsen naar het doeltekstveld zonder een andere eenheid te selecteren. </para>
 </tip>
 <para
 >Wanneer u met vertaalbestanden in XLIFF-formaat werkt (en dat is zeker het geval wanneer u OpenDocument vertaalt), zijn er nog meer statussen beschikbaar:(<emphasis
