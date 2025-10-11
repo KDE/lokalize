@@ -1,11 +1,11 @@
 # SPDX-FileCopyrightText: 2009, 2010, 2023, 2024, 2025 Johannes Obermayr <johannesobermayr@gmx.de>
-# Thomas Reitelbach <tr@erdfunkstelle.de>, 2007, 2008, 2009.
-# Stephan Johach <hunsum@gmx.de>, 2007.
-# Burkhard Lück <lueck@hube-lueck.de>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021.
-# Frederik Schwarzer <schwarzer@kde.org>, 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2023.
-# Panagiotis Papadopoulos <pano_90@gmx.net>, 2010, 2011.
-# Rolf Eike Beer <kde@opensource.sf-tec.de>, 2010.
-# Jonas Schürmann <jonasschuermann@aol.de>, 2012.
+# SPDX-FileCopyrightText: 2007, 2008, 2009 Thomas Reitelbach <tr@erdfunkstelle.de>
+# SPDX-FileCopyrightText: 2007 Stephan Johach <hunsum@gmx.de>
+# SPDX-FileCopyrightText: 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2010, 2011 Panagiotis Papadopoulos <pano_90@gmx.net>
+# SPDX-FileCopyrightText: 2010 Rolf Eike Beer <kde@opensource.sf-tec.de>
+# SPDX-FileCopyrightText: 2012 Jonas Schürmann <jonasschuermann@aol.de>
 # SPDX-FileCopyrightText: 2024 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 msgid ""
 msgstr ""
