@@ -7,20 +7,21 @@
 # SPDX-FileCopyrightText: 2010 Rolf Eike Beer <kde@opensource.sf-tec.de>
 # SPDX-FileCopyrightText: 2012 Jonas Schürmann <jonasschuermann@aol.de>
 # SPDX-FileCopyrightText: 2024 Frank Steinmetzger <dev-kde@felsenfleischer.de>
+# SPDX-FileCopyrightText: 2025 Alois Spitzbart <spitz234@hotmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-21 00:44+0000\n"
-"PO-Revision-Date: 2025-01-08 15:37+0100\n"
-"Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
+"PO-Revision-Date: 2025-10-23 22:00+0200\n"
+"Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -940,7 +941,7 @@ msgstr "Status"
 #, kde-format
 msgctxt "@title:column"
 msgid "Modified"
-msgstr ""
+msgstr "Geändert"
 
 #: src/cataloglistview/catalogmodel.cpp:106
 #, kde-format
@@ -976,18 +977,16 @@ msgid "Untranslated"
 msgstr "Nicht übersetzt"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
 msgstr "Ja"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "Keine"
+msgstr "Nein"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format
@@ -2199,7 +2198,7 @@ msgstr "Vorheriges aktives Unterfenster"
 #: src/lokalizemainwindow.cpp:603
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "Aktuelles Unterfenster schließen"
 
 #: src/lokalizemainwindow.cpp:608
 #, kde-format
@@ -2282,7 +2281,7 @@ msgstr "Texterfassung"
 #: src/lokalizemainwindow.cpp:670
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "&Fenster-Farbschema"
 
 #: src/lokalizemainwindow.cpp:835
 #, kde-format
@@ -2764,16 +2763,13 @@ msgstr "Standard-Mailingliste für neue Projekte"
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
 #: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
 #: src/prefs/lokalize.kcfg:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "\n"
-#| "        "
+#, kde-format
 msgid ""
 "\n"
 "            "
 msgstr ""
 "\n"
-"        "
+"            "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73
@@ -4330,12 +4326,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Das erneute Einlesen von Dateien ist nur möglich, wenn ein Projekt geöffnet "
+"ist. Bitte öffnen Sie ein Projekt und versuchen Sie es erneut."
 
 #: src/tm/tmtab.cpp:513
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "P&rojektdateien neu einlesen"
+msgstr "Erneut einlesen nicht möglich"
 
 #: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:621
 #, kde-format
