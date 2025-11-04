@@ -124,7 +124,7 @@ msgstr ""
 "à-dire qu'elle n'est plus dans un état « approuvé »), soit (seulement dans "
 "le cas d'un fichier « XLIFF ») déplacée dans la section des traductions "
 "secondaires accompagnant l'unité. Cette vue d'outils affiche également la "
-"différence entre la chaîne source courante et la précédente. Ainsi, vous "
+"différence entre la chaine source courante et la précédente. Ainsi, vous "
 "pouvez voir facilement quelles sont les modifications à appliquer à la "
 "traduction courante pour refléter la source actuelle. Un double clic sur un "
 "mot quelconque dans cette vue d'outils l'insère dans la traduction. Déposez "
@@ -743,7 +743,7 @@ msgstr "Insérer du texte avec marquage"
 #: src/catalog/gettext/gettextstorage.cpp:98
 #, kde-format
 msgid "separator for different-length string alternatives"
-msgstr "séparateur pour les chaînes alternatives de longueurs différentes"
+msgstr "séparateur pour les chaines alternatives de longueurs différentes"
 
 #: src/catalog/gettext/gettextstorage.cpp:284
 #, kde-format
@@ -2976,7 +2976,7 @@ msgid ""
 "displaying it in the user interface, or when it gets concatenated with "
 "others)."
 msgstr ""
-"Vérifiez si une chaîne se termine dans un espace (ce qui est souvent "
+"Vérifiez si une chaine se termine dans un espace (ce qui est souvent "
 "important lorsqu'on l'affiche dans l'interface utilisateur ou quand elle est "
 "concaténée avec d'autres)."
 
@@ -3569,7 +3569,7 @@ msgstr ""
 "Ensuite, chaque fois que apportez des modifications dans les fichiers de "
 "votre branche\n"
 "principale, elles sont automatiquement répliquées dans la branche\n"
-"(naturellement, si elle contient la même chaîne en anglais).\n"
+"(naturellement, si elle contient la même chaine en anglais).\n"
 "\n"
 "Consultez la documentation pour plus de détails."
 
@@ -4349,7 +4349,7 @@ msgstr "Cible : %1"
 #: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Substring"
-msgstr "Sous-chaîne"
+msgstr "Sous-chaine"
 
 #: src/tm/tmtab.cpp:356
 #, kde-format
@@ -4594,7 +4594,7 @@ msgstr ""
 "capture en cliquant avec le bouton central de la souris sur n'importe quel "
 "élément non modifiable de l'interface graphique (« widget »). Passez ensuite "
 "dans la fenêtre Lokalize et choisissez le message contenant ce texte. Même "
-"si plusieurs fichiers comportent la même chaîne, celle qui convient sera "
+"si plusieurs fichiers comportent la même chaine, celle qui convient sera "
 "choisie dans la plupart des cas.</p>\n"
 "<p align=\"justify\">Rappelez-vous qu'il faut avoir une mémoire de "
 "traduction réellement à jour, avec tous les fichiers de traduction indexés "
