@@ -110,7 +110,7 @@
 >msgid</quote
 > actuel (texte source) provenant du fichier « PO » ouvert. La zone d'édition juste au-dessous contient le champ <quote
 >msgstr</quote
-> (texte cible) lié à la chaîne <quote
+> (texte cible) lié à la chaine <quote
 >msgid</quote
 > où vous pouvez y saisir ou modifier le texte traduit. </para>
 <screenshot>
@@ -144,7 +144,7 @@
 >unités</emphasis
 >. Une <emphasis
 >unité</emphasis
-> correspond généralement à une seule chaîne dans l'interface utilisateur ou à un paragraphe dans la documentation. Le but de la première zone d'édition multi-ligne est d'afficher la partie originale de la paire, celui de la seconde zone d'édition est de présenter la traduction. On peut naviguer parmi les <emphasis
+> correspond généralement à une seule chaine dans l'interface utilisateur ou à un paragraphe dans la documentation. Le but de la première zone d'édition multi-ligne est d'afficher la partie originale de la paire, celui de la seconde zone d'édition est de présenter la traduction. On peut naviguer parmi les <emphasis
 >unités</emphasis
 > par le biais de la vue <guilabel
 >Unités de traduction</guilabel
@@ -166,9 +166,9 @@
 >à mettre à jour</emphasis
 > parfois). Si l'unité n'est pas prête, sa traduction est rendue en italique. &lokalize; permet de parcourir facilement le fichier, en fonction de l'état de sa traduction. Passez dans le menu <guilabel
 >Aller</guilabel
-> pour voir les raccourcis disponibles. La barre d'état au bas de la fenêtre affiche le numéro de la chaîne actuelle, le nombre total de chaînes, le nombre total de chaînes non traduites, le nombre total de chaînes non prêtes (<quote
+> pour voir les raccourcis disponibles. La barre d'état au bas de la fenêtre affiche le numéro de la chaine actuelle, le nombre total de chaines, le nombre total de chaines non traduites, le nombre total de chaines non prêtes (<quote
 >à mettre à jour</quote
->) et l'état de la chaîne en cours de traduction, respectivement. Lorsqu'on navigue dans le fichier, les unités non traduites sont considérées comme <quote
+>) et l'état de la chaine en cours de traduction, respectivement. Lorsqu'on navigue dans le fichier, les unités non traduites sont considérées comme <quote
 >non prêtes</quote
 >. De plus, on peut utiliser la fonctionnalité de filtrage de la vue des outils <guilabel
 >Unités de traduction</guilabel
@@ -653,7 +653,7 @@
 >Dossier de la branche</guilabel
 >, dans les options de votre projet, à l'emplacement correspondant au dossier de base de la branche, et la vue <guilabel
 >Sync secondaire</guilabel
-> ouvrira automatiquement les fichiers provenant de la branche. Ensuite, chaque fois que vous effectuerez des changements dans les fichiers de votre branche principale, ils seront automatiquement répliqués dans la branche (si, naturellement, elle contient la même chaîne en anglais). </para>
+> ouvrira automatiquement les fichiers provenant de la branche. Ensuite, chaque fois que vous effectuerez des changements dans les fichiers de votre branche principale, ils seront automatiquement répliqués dans la branche (si, naturellement, elle contient la même chaine en anglais). </para>
 <para
 >Par exemple, si vous travaillez sur les traductions de &kde; vous pouvez extraire la version « trunk » à <filename class="directory"
 >/home/xx/hacking/kde/trunk/l10n-kf5/YOUR_LANG</filename
@@ -674,7 +674,7 @@
 <para
 >Chaque unité peut présenter plusieurs <emphasis
 >traductions secondaires</emphasis
-> qui lui sont associées. De telles traductions peuvent apparaître pendant la mise à jour des fichiers, lorsque la chaîne source est légèrement modifiée. Dans ce cas, l'ancienne traduction ainsi que son (ancienne) source sont déplacées dans la liste des traductions secondaires, de sorte qu'elles ne sont pas perdues. </para>
+> qui lui sont associées. De telles traductions peuvent apparaitre pendant la mise à jour des fichiers, lorsque la chaine source est légèrement modifiée. Dans ce cas, l'ancienne traduction ainsi que son (ancienne) source sont déplacées dans la liste des traductions secondaires, de sorte qu'elles ne sont pas perdues. </para>
 <para
 >Lorsqu'on traduit des logiciels, on utilise habituellement des outils <quote
 >gettext</quote
