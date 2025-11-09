@@ -36,19 +36,19 @@ msgstr "备选翻译"
 #: src/alttransview.cpp:163
 #, kde-format
 msgid "From alternate translations folder"
-msgstr ""
+msgstr "来自备选翻译文件夹"
 
 #: src/alttransview.cpp:186
 #, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "与先前上下文的对比："
 
 #: src/alttransview.cpp:201
 #, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "与先前源文的对比："
 
 #: src/alttransview.cpp:259
 #, kde-format
@@ -72,13 +72,13 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr ""
+msgstr "备选翻译可用"
 
 #: src/alttransview.cpp:265
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "显示数据视图"
 
 #: src/alttransview.cpp:284
 #, kde-format
@@ -100,6 +100,11 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
+"有时，如果源文本被更改，其原有的翻译会变得过时，并被标记为需要复审（即失去核"
+"准状态），或者（仅适用于XLIFF文件）被移至该翻译单元附带的备选翻译区段。此工具"
+"视图还会显示当前源字符串与先前源字符串之间的差异，以便您轻松了解应对现有翻译"
+"应用哪些更改，使其反映当前的源文。在此工具视图中双击任意单词，即可将其插入到"
+"翻译中。将翻译文件拖放至此工具视图，可将其用作额外的备选翻译来源。"
 
 #: src/alttransview.cpp:323
 #, kde-format
@@ -166,7 +171,7 @@ msgstr "Gettext (*.po *.pot)"
 #: src/catalog/catalog.cpp:43
 #, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr ""
+msgstr "所有支持的文件 (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:44
 #, kde-format
@@ -406,6 +411,8 @@ msgid ""
 "up a compound term when these letters are pronounced individually (e.g. "
 "'BSE' for 'bovine spongiform encephalopathy')"
 msgstr ""
+"首字母缩略词：由构成多词术语的单词或构成复合词的术语元素的首字母组成的缩写形"
+"式，这些字母单独发音（例如用\"BSE\"表示\"牛海绵状脑病\"）"
 
 #: src/catalog/catalogstring.cpp:135
 #, kde-format
@@ -413,7 +420,7 @@ msgctxt "XLIFF mark type"
 msgid ""
 "international scientific term: a term that is part of an international "
 "scientific nomenclature as adopted by an appropriate scientific body"
-msgstr ""
+msgstr "国际科学术语：作为国际科学命名体系组成部分的术语，由相关科学机构采纳"
 
 #: src/catalog/catalogstring.cpp:136
 #, kde-format
@@ -421,7 +428,7 @@ msgctxt "XLIFF mark type"
 msgid ""
 "internationalism: a term that has the same or nearly identical orthographic "
 "or phonemic form in many languages"
-msgstr ""
+msgstr "国际词：在多种语言中具有相同或几乎相同拼写或音位形式的术语"
 
 #: src/catalog/catalogstring.cpp:138
 #, kde-format
@@ -454,6 +461,8 @@ msgid ""
 "another term in the same language, but for which interchangeability is "
 "limited to some contexts and inapplicable in others"
 msgstr ""
+"近义词：与同一语言中的另一个术语表示相同或非常相似概念的术语，但其可互换性仅"
+"限于某些语境，在其他语境中不适用"
 
 #: src/catalog/catalogstring.cpp:145
 #, kde-format
@@ -461,7 +470,7 @@ msgctxt "XLIFF mark type"
 msgid ""
 "part number: a unique alphanumeric designation assigned to an object in a "
 "manufacturing system"
-msgstr ""
+msgstr "零件编号：在制造系统中分配给对象的唯一字母数字标识"
 
 #: src/catalog/catalogstring.cpp:146
 #, kde-format
@@ -477,6 +486,8 @@ msgid ""
 "of which frequently cannot be deduced based on the combined sense of the "
 "words making up the phrase"
 msgstr ""
+"短语单位：由两个或更多单词组成的单元，其含义通常无法基于组成短语的单词的合并"
+"意义推导出来"
 
 #: src/catalog/catalogstring.cpp:150
 #, kde-format
@@ -512,6 +523,8 @@ msgid ""
 "full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
+"简称：多词术语的变体形式，比术语的完整形式包含更少的单词（例如用\"二十四国集"
+"团\"表示\"国际货币事务二十四国政府间集团\"）"
 
 #: src/catalog/catalogstring.cpp:159
 #, kde-format
@@ -519,7 +532,7 @@ msgctxt "XLIFF mark type"
 msgid ""
 "stock keeping unit: an inventory item identified by a unique alphanumeric "
 "designation assigned to an object in an inventory control system"
-msgstr ""
+msgstr "库存单位：通过唯一字母数字标识在库存控制系统中标识的库存物品"
 
 #: src/catalog/catalogstring.cpp:160
 #, kde-format
@@ -549,7 +562,7 @@ msgctxt "XLIFF mark type"
 msgid ""
 "synonymous phrase: phraseological unit in a language that expresses the same "
 "semantic content as another phrase in that same language"
-msgstr ""
+msgstr "同义短语：在同一语言中表达与另一个短语相同语义内容的短语单位"
 
 #: src/catalog/catalogstring.cpp:165
 #, kde-format
@@ -566,6 +579,8 @@ msgid ""
 "writing system, taking into account the pronunciation of the characters "
 "converted"
 msgstr ""
+"转写形式：通过将一个文字系统的字符转换为另一个文字系统的字符，并考虑被转换字"
+"符的发音而产生的术语形式"
 
 #: src/catalog/catalogstring.cpp:170
 #, kde-format
@@ -575,6 +590,8 @@ msgid ""
 "the characters of an alphabetic writing system are represented by characters "
 "from another alphabetic writing system"
 msgstr ""
+"音译形式：通过将字母文字系统的字符用另一个字母文字系统的字符表示而产生的术语"
+"形式"
 
 #: src/catalog/catalogstring.cpp:173
 #, kde-format
@@ -583,6 +600,8 @@ msgid ""
 "truncated term: an abbreviated form of a term resulting from the omission of "
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
+"截短术语：通过省略一个或多个术语元素或音节而形成的术语缩写形式（例如用\"flu"
+"\"表示\"influenza\"）"
 
 #: src/catalog/catalogstring.cpp:175
 #, kde-format
@@ -653,14 +672,14 @@ msgstr "插入带标记的文本"
 #: src/catalog/gettext/gettextstorage.cpp:98
 #, kde-format
 msgid "separator for different-length string alternatives"
-msgstr ""
+msgstr "不同长度字符串备选项的分隔符"
 
 #: src/catalog/gettext/gettextstorage.cpp:284
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
-msgstr ""
+msgstr "先前源值，由 Gettext 在过渡到更新 POT 模板期间保存"
 
 #: src/catalog/gettextheader.cpp:457
 #, kde-format
@@ -706,7 +725,7 @@ msgstr "快速搜索..."
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr ""
+msgstr "通过 Ctrl+L 激活。接受正则表达式"
 
 #: src/cataloglistview/cataloglistview.cpp:88
 #, kde-format
@@ -863,7 +882,7 @@ msgstr "翻译状态"
 #, kde-format
 msgctxt "@title:column"
 msgid "Modified"
-msgstr ""
+msgstr "已修改"
 
 #: src/cataloglistview/catalogmodel.cpp:106
 #, kde-format
@@ -902,13 +921,13 @@ msgstr "未翻译"
 #, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: src/cataloglistview/catalogmodel.cpp:208
 #, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format
@@ -1099,7 +1118,7 @@ msgstr "插入下一个标签"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "跳至下一个非标签文本"
 
 #: src/editortab.cpp:459
 #, kde-format
@@ -1311,7 +1330,7 @@ msgstr "这仅会更改空条目"
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr ""
+msgstr "（已恢复）"
 
 #: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1015
 #, kde-format
@@ -1431,14 +1450,14 @@ msgstr "条目已完全本地化(例如，最终版)"
 #: src/editortab.cpp:1284 src/project/projecttab.cpp:297
 #, kde-format
 msgid "A Pology check is already in progress."
-msgstr ""
+msgstr "Pology 检查已在执行中。"
 
 #: src/editortab.cpp:1284 src/editortab.cpp:1292 src/editortab.cpp:1296
 #: src/project/projecttab.cpp:297 src/project/projecttab.cpp:305
 #: src/project/projecttab.cpp:309
 #, kde-format
 msgid "Pology error"
-msgstr ""
+msgstr "Pology 错误"
 
 #: src/editortab.cpp:1292 src/project/projecttab.cpp:305
 #, kde-format
@@ -1446,16 +1465,18 @@ msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
+"Pology 检查意外崩溃：\n"
+"%1"
 
 #: src/editortab.cpp:1294 src/project/projecttab.cpp:307
 #, kde-format
 msgid "Pology success"
-msgstr ""
+msgstr "Pology 成功"
 
 #: src/editortab.cpp:1294
 #, kde-format
 msgid "The Pology check has succeeded."
-msgstr ""
+msgstr "Pology 检查已成功完成。"
 
 #: src/editortab.cpp:1296 src/project/projecttab.cpp:309
 #, kde-format
@@ -1463,6 +1484,8 @@ msgid ""
 "The Pology check has returned an error:\n"
 "%1"
 msgstr ""
+"Pology 检查返回错误：\n"
+"%1"
 
 #: src/editortab.cpp:1306
 #, kde-format
@@ -1471,6 +1494,8 @@ msgid ""
 "This will delete all the translations from the file.\n"
 "Do you really want to clear all translated entries?"
 msgstr ""
+"此操作将从文件中删除所有翻译。\n"
+"您确定要清除所有已翻译的条目吗？"
 
 #: src/editortab.cpp:1344
 #, kde-format
@@ -1489,7 +1514,7 @@ msgstr "单词计数"
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
-msgstr ""
+msgstr "您希望在本地搜索源文件还是通过 lxr.kde.org 搜索？"
 
 #: src/editortab.cpp:1436
 #, kde-format
@@ -1501,13 +1526,13 @@ msgstr "查找源文件"
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr ""
+msgstr "本地搜索"
 
 #: src/editortab.cpp:1438 src/editortab.cpp:1482
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr ""
+msgstr "在 lxr.kde.org 上搜索"
 
 #: src/editortab.cpp:1441 src/editortab.cpp:1486
 #, kde-format
@@ -1521,6 +1546,8 @@ msgid ""
 "Could not find source file in the folder specified.\n"
 "Do you want to change source files folder?"
 msgstr ""
+"在指定文件夹中未找到源文件。\n"
+"您要更改源文件文件夹吗？"
 
 #: src/editortab.cpp:1480
 #, kde-format
@@ -1532,7 +1559,7 @@ msgstr "查找源文件"
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr ""
+msgstr "选择文件夹"
 
 #: src/editortab.cpp:1523
 #, kde-format
@@ -1994,12 +2021,12 @@ msgstr "包含备注"
 #: src/languagetool/languagetoolgrammarerror.cpp:24
 #, kde-format
 msgid "Suggestions:"
-msgstr ""
+msgstr "建议："
 
 #: src/languagetool/languagetoolparser.cpp:27
 #, kde-format
 msgid "No errors"
-msgstr ""
+msgstr "无错误"
 
 #: src/lokalizemainwindow.cpp:95
 #, kde-format
@@ -2012,6 +2039,10 @@ msgid ""
 "documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
 "what you need.</html>"
 msgstr ""
+"<html>您不必是软件开发人员也能成为 KDE 团队的一员。您可以加入翻译程序界面的语"
+"言团队。您可以提供图形、主题、声音和改进的文档。由您决定！<br /><br />访问 "
+"<a href=\"%1\">%1</a> 了解您可以参与的某些项目的信息。<br /><br />如果您需要"
+"更多信息或文档，请访问 <a href=\"%2\">%2</a> 获取所需内容。</html>"
 
 #: src/lokalizemainwindow.cpp:117
 #, kde-format
@@ -2077,7 +2108,7 @@ msgstr "上一个标签页"
 #: src/lokalizemainwindow.cpp:600
 #, kde-format
 msgid "Previously active tab"
-msgstr ""
+msgstr "先前活动的标签页"
 
 #: src/lokalizemainwindow.cpp:603
 #, kde-format
@@ -2165,7 +2196,7 @@ msgstr "部件文本捕获"
 #: src/lokalizemainwindow.cpp:670
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "窗口配色方案 (&W)"
 
 #: src/lokalizemainwindow.cpp:835
 #, kde-format
@@ -2254,12 +2285,12 @@ msgstr "提供完美的跨格式转换脚本"
 #: src/main.cpp:89
 #, kde-format
 msgid "LanguageTool"
-msgstr ""
+msgstr "LanguageTool"
 
 #: src/main.cpp:89
 #, kde-format
 msgid "grammar, style and spell checker"
-msgstr ""
+msgstr "语法、样式和拼写检查器"
 
 #: src/main.cpp:90
 #, kde-format
@@ -2324,7 +2355,7 @@ msgstr "XLIFF 改善"
 #: src/main.cpp:97
 #, kde-format
 msgid "Simon Depiets"
-msgstr ""
+msgstr "Simon Depiets"
 
 #: src/main.cpp:97 src/main.cpp:98 src/main.cpp:99
 #, kde-format
@@ -2334,12 +2365,12 @@ msgstr "bug 修复及改进"
 #: src/main.cpp:98
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #: src/main.cpp:99
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:103
 #, kde-format
@@ -2414,7 +2445,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
-msgstr ""
+msgstr "单元元数据"
 
 #: src/msgctxtview.cpp:90
 #, kde-format
@@ -2427,13 +2458,13 @@ msgstr "<b>临时备注：</b>"
 #, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
-msgstr ""
+msgstr "<b>Pology 注释：</b>"
 
 #: src/msgctxtview.cpp:108
 #, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
-msgstr ""
+msgstr "<b>LanguageTool 注释：</b>"
 
 #: src/msgctxtview.cpp:120
 #, kde-format
@@ -2842,6 +2873,11 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
+"<html>启用此选项时，鼠标滚轮用于转到上一个或下一个翻译单元（无需修饰键）。修"
+"饰键可用于改变此行为。使用：<ul><li><b>Shift</b>在当前单元的文本内滚动，</"
+"li><li><b>Ctrl+Shift</b>转到上一个或下一个未就绪单元，</li><li><b>Ctrl</b>转"
+"到上一个或下一个未就绪非空单元，</li><li><b>Alt</b>转到上一个或下一个未翻译单"
+"元。</li></ul>禁用该选项时，鼠标滚轮在当前翻译单元的文本内滚动。</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -2859,7 +2895,7 @@ msgstr "编辑开始时自动设为“已核准”状态"
 #: src/prefs/prefs_editor.ui:65
 #, kde-format
 msgid "Visualize separators such as spaces, tabs and new lines in the editor"
-msgstr ""
+msgstr "在编辑器中可视化显示空格、制表符和换行符等分隔符"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
@@ -2884,43 +2920,43 @@ msgstr "禁用单词补全"
 #: src/prefs/prefs_editor.ui:105
 #, kde-format
 msgid "Automatically convert XML special characters in TS files"
-msgstr ""
+msgstr "自动转换 TS 文件中的 XML 特殊字符"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreRecentFilesOnStartup)
 #: src/prefs/prefs_general.ui:45
 #, kde-format
 msgid "Restore the previously opened files when launching Lokalize"
-msgstr ""
+msgstr "启动 Lokalize 时恢复先前打开的文件"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:54
 #, kde-format
 msgid "Defines the behavior of the next/previous tab shortcuts"
-msgstr ""
+msgstr "定义下一个/上一个标签页快捷键的行为"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:57
 #, kde-format
 msgid "Next/previous tab shortcut behavior"
-msgstr ""
+msgstr "下一个/上一个标签页快捷键行为"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
 #: src/prefs/prefs_general.ui:68
 #, kde-format
 msgid "According to tab position"
-msgstr ""
+msgstr "根据标签页位置"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
 #: src/prefs/prefs_general.ui:73
 #, kde-format
 msgid "According to tab activation order"
-msgstr ""
+msgstr "根据标签页激活顺序"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomEditorEnabled)
 #: src/prefs/prefs_general.ui:83
 #, kde-format
 msgid "Use a custom editor to open source files"
-msgstr ""
+msgstr "使用自定义编辑器打开源文件"
 
 #. i18n: ectx: property (whatsThis), widget (QWidget, prefs_identity)
 #: src/prefs/prefs_identity.ui:14
@@ -3038,26 +3074,26 @@ msgstr "默认语言团队："
 #: src/prefs/prefs_languagetool.ui:21
 #, kde-format
 msgid "Use custom LanguageTool server"
-msgstr ""
+msgstr "使用自定义 LanguageTool 服务器"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/prefs/prefs_languagetool.ui:31
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Server Path:"
-msgstr ""
+msgstr "服务器路径："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:44
 #, kde-format
 msgid "The path of your custom Language Tool server"
-msgstr ""
+msgstr "您的自定义 Language Tool 服务器路径"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:47
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
-msgstr ""
+msgstr "请输入您的自定义 Language Tool 服务器路径（如有）"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_languagetool.ui:58
@@ -3065,20 +3101,20 @@ msgstr ""
 msgid ""
 "Delay before automatic checking after you stop typing (in seconds, 0 to "
 "disable)"
-msgstr ""
+msgstr "停止输入后自动检查前的延迟（以秒为单位，设置为 0 则禁用）"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
 #: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
 #, kde-format
 msgid "Set to 0 to disable auto checking"
-msgstr ""
+msgstr "设置为 0 以禁用自动检查"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
 #: src/prefs/prefs_pology.ui:21
 #, kde-format
 msgid "Enable Pology verification"
-msgstr ""
+msgstr "启用 Pology 验证"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3_0)
 #: src/prefs/prefs_pology.ui:28
@@ -3089,12 +3125,14 @@ msgid ""
 "following placeholders in order to set-up the commands: %u is the entry "
 "number, %f is the file name. For instance: posieve -u %u check-rules %f"
 msgstr ""
+"用于检查单个条目的 Pology 运行命令。请使用以下占位符来设置命令：%u 表示条目编"
+"号，%f 表示文件名。例如：posieve -u %u check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:44
 #, kde-format
 msgid "The Pology command to run in order to check a single entry."
-msgstr ""
+msgstr "用于检查单个条目的 Pology 运行命令。"
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:47
@@ -3102,7 +3140,7 @@ msgstr ""
 msgid ""
 "Please enter here the Pology command to be run in order to check a single "
 "entry"
-msgstr ""
+msgstr "请在此输入用于检查单个条目的 Pology 运行命令"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_0)
 #: src/prefs/prefs_pology.ui:54
@@ -3113,19 +3151,21 @@ msgid ""
 "should include \"-s lokalize\", placeholder %f is the file name. For "
 "instance: posieve -s lokalize check-rules %f"
 msgstr ""
+"用于检查整个文件的 Pology 运行命令。此命令应包含 \"-s lokalize\"，%f 为文件名"
+"占位符。例如：posieve -s lokalize check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:70
 #, kde-format
 msgid "The Pology command to run in order to check a whole file."
-msgstr ""
+msgstr "用于检查整个文件的 Pology 运行命令。"
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:73
 #, kde-format
 msgid ""
 "Please enter here the Pology command to be run in order to check a whole file"
-msgstr ""
+msgstr "请在此输入用于检查整个文件的 Pology 运行命令"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:45
@@ -3169,13 +3209,13 @@ msgstr "您可以更改建议的最大数目，默认为 7。"
 #: src/prefs/prefs_tm.ui:97
 #, kde-format
 msgid "Minimum score (0-100) of suggestions:"
-msgstr ""
+msgstr "建议的最低分数 (0-100)："
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:107
 #, kde-format
 msgid "Set the minimum score (0-100) of suggestions"
-msgstr ""
+msgstr "设置建议的最低分数 (0-100)"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:110
@@ -3183,7 +3223,7 @@ msgstr ""
 msgid ""
 "You can change the minimum score (0-100) required for suggestions, default "
 "is 0."
-msgstr ""
+msgstr "您可以更改建议所需的最低分数 (0-100)，默认为 0。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
 #: src/prefs/prefs_tm.ui:138
@@ -3203,7 +3243,7 @@ msgstr "自动添加打开的文件至翻译记忆"
 msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
-msgstr ""
+msgstr "在重新扫描时，或对缺失条目右键单击时，从翻译记忆中删除已丢失的文件"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -3266,6 +3306,8 @@ msgid ""
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
+"用于自动类似 msgfmt 换行的宽度。使用值 '0' 以禁用换行。为 KDE PO Summit 翻译"
+"时请使用 -1。1 到 3 不会产生任何变化。"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3342,7 +3384,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr ""
+msgstr "分支模板文件文件夹："
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
@@ -3360,6 +3402,12 @@ msgid ""
 "templates folder,\n"
 "and Secondary Sync view will automatically create files from branch."
 msgstr ""
+"此设置用于同步模式。\n"
+"\n"
+"同步模式可用于同时对两个分支的翻译进行修改。\n"
+"\n"
+"将此路径设置为对应分支项目模板文件夹的根目录路径，\n"
+"次级同步视图将自动从分支创建文件。"
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
@@ -3388,6 +3436,15 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
+"请将此设置为与根文件夹结构相似的文件夹路径。\n"
+"\n"
+"每次打开翻译文件时，系统将在备选翻译目录中查找对应的文件，\n"
+"如果找到该文件，则会将其用于备选翻译视图。\n"
+"\n"
+"您可能需要使用与您的语言相近的另一目标语言（即另一子项目）的翻译。\n"
+"此外，您可以直接使用其他子项目的翻译，或通过机器翻译将其预翻译为您的语言。\n"
+"\n"
+"更多详细信息，请参阅文档。"
 
 #. i18n: ectx: property (text), widget (QLabel, l0)
 #: src/project/prefs_project_local.ui:21
@@ -3483,13 +3540,13 @@ msgstr "根文件夹："
 #: src/project/prefs_projectmain.ui:155
 #, kde-format
 msgid "Automatic"
-msgstr ""
+msgstr "自动"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:160
 #, kde-format
 msgid "Application"
-msgstr ""
+msgstr "应用程序"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:165
@@ -3501,7 +3558,7 @@ msgstr "项目"
 #: src/project/prefs_projectmain.ui:180
 #, kde-format
 msgid "Language-Team:"
-msgstr ""
+msgstr "Language-Team："
 
 #: src/project/project.cpp:392
 #, kde-format
@@ -3522,7 +3579,7 @@ msgstr "%1 %2 翻译"
 #: src/project/projectbase.kcfg:10
 #, kde-format
 msgid "default"
-msgstr ""
+msgstr "默认"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17
@@ -3534,13 +3591,13 @@ msgstr "语言"
 #: src/project/projectbase.kcfg:31
 #, kde-format
 msgid "User Language Team in Lokalize settings"
-msgstr ""
+msgstr "使用 Lokalize 设置中的用户语言团队"
 
 #. i18n: ectx: label, entry (OverrideLangTeam), group (General)
 #: src/project/projectbase.kcfg:37
 #, kde-format
 msgid "Override Lokalize Language Team"
-msgstr ""
+msgstr "覆盖 Lokalize 语言团队"
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
 #: src/project/projectbase.kcfg:43
@@ -3620,7 +3677,7 @@ msgstr "最后翻译时间"
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
-msgstr ""
+msgstr "注释"
 
 #: src/project/projectmodel.cpp:486
 #, kde-format
@@ -3704,13 +3761,13 @@ msgstr "搜索文件"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
-msgstr ""
+msgstr "添加注释"
 
 #: src/project/projecttab.cpp:201
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
-msgstr ""
+msgstr "在文件上启动 Pology"
 
 #: src/project/projecttab.cpp:204
 #, kde-format
@@ -3731,31 +3788,31 @@ msgstr "输入此项目文件的备注："
 #: src/project/projecttab.cpp:307
 #, kde-format
 msgid "The Pology check has succeeded"
-msgstr ""
+msgstr "Pology 检查已成功"
 
 #: src/project/projecttab.cpp:326
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
-msgstr[0] ""
+msgstr[0] "您即将打开 %1 个文件"
 
 #: src/project/projecttab.cpp:327
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
-msgstr ""
+msgstr "同时打开大量文件可能导致 Lokalize 无响应。"
 
 #: src/project/projecttab.cpp:328
 #, kde-format
 msgid "Are you sure you want to open this many files?"
-msgstr ""
+msgstr "您确定要打开这么多文件吗？"
 
 #: src/project/projecttab.cpp:329
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
-msgstr[0] ""
+msgstr[0] "打开 %1 个文件 (&O)"
 
 #: src/statusbar.cpp:50
 #, kde-format
@@ -4063,13 +4120,13 @@ msgstr "翻译记忆"
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr ""
+msgstr "源文：%1"
 
 #: src/tm/tmtab.cpp:84
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr ""
+msgstr "译文：%1"
 
 #: src/tm/tmtab.cpp:356
 #, kde-format
@@ -4101,19 +4158,19 @@ msgstr "Shell 通配符(* 和 ?)。区分大小写。"
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
-msgstr ""
+msgstr "重新扫描文件仅在项目处于打开状态时可行。请打开一个项目后重试。"
 
 #: src/tm/tmtab.cpp:513
 #, kde-format
 msgid "Rescan not possible"
-msgstr ""
+msgstr "无法重新扫描"
 
 #: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:621
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
-msgstr ""
+msgstr "文件 %1 不存在，已从翻译记忆中移除。"
 
 #: src/tm/tmview.cpp:186 src/tm/tmview.cpp:191
 #, kde-format
@@ -4157,7 +4214,7 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100%（完全匹配）"
 
 #: src/tm/tmview.cpp:501
 #, kde-format
@@ -4174,7 +4231,7 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
+msgstr[0] "出现了 %1 次"
 
 #: src/tm/tmview.cpp:517
 #, kde-format
@@ -4182,7 +4239,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:525
 #, kde-format
@@ -4190,7 +4247,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:577
 #, kde-format
@@ -4258,7 +4315,7 @@ msgstr "打开包含此条目的文件"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
-msgstr ""
+msgstr "从翻译记忆中移除此缺失文件"
 
 #: src/tm/tmview.cpp:675
 #, kde-format
@@ -4266,12 +4323,13 @@ msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
+"<html>您确定要移除此缺失文件：<br/><i>%1</i><br/>从翻译记忆 %2 中吗？</html>"
 
 #: src/tm/tmview.cpp:679
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
-msgstr ""
+msgstr "翻译记忆缺失文件移除"
 
 #: src/tm/tmview.cpp:962
 #, kde-format
@@ -4355,7 +4413,7 @@ msgstr "没有可用的拼写检查"
 #: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
-msgstr ""
+msgstr "报告错误：%1"
 
 #: src/xlifftextedit.cpp:1171
 #, kde-format
