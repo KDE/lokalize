@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "kde-builder",
+            "args": [
+                "--no-src",
+                "--no-include-dependencies",
+                "--debug",
+                "lokalize"
+            ]
+        },
+        {
+            "label": "Build and run",
+            "type": "shell",
+            "command": "kde-builder",
+            "args": [
+                "--run",
+                "lokalize"
+            ],
+            "dependsOn": [
+                "Build"
+            ]
+        }
+    ]
+}
