@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -29,6 +29,10 @@ msgstr "ខឹម សុខែម, ម៉ន ម៉េត, សេង សុត�
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "khoemsokhem@khmeros.info,​​mornmet@khmeros.info,sutha@khmeros.info"
+
+#, kde-format
+msgid "default"
+msgstr ""
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, fuzzy, kde-format
@@ -3664,11 +3668,6 @@ msgstr "កែ​សម្រួល​"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "ការ​បក​ប្រែ​"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr ""
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -54,6 +54,10 @@ msgstr "José Nuno Pires"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "zepires@gmail.com"
+
+#, kde-format
+msgid "default"
+msgstr "por omissão"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -3814,11 +3818,6 @@ msgstr "Editor"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "Tradução do %1 em %2"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr "por omissão"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

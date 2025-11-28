@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2008-09-26 14:57+0300\n"
 "Last-Translator: kom <me@komzpa.net>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -33,6 +33,10 @@ msgstr "Вашае імя па-англійску"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Напішыце ваш паштовы адрас"
+
+#, kde-format
+msgid "default"
+msgstr ""
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, fuzzy, kde-format
@@ -3710,11 +3714,6 @@ msgstr "Змяніць"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "Пераклад"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr ""
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

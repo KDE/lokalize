@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2025-08-20 14:55+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -29,6 +29,10 @@ msgstr "Iñigo Salvador Azurmendi"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xalba@ni.eus"
+
+#, kde-format
+msgid "default"
+msgstr "lehenetsia"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -3713,11 +3717,6 @@ msgstr "Editorea"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "%1 %2 Itzulpena"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr "lehenetsia"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

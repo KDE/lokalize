@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2025-09-29 19:34+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -30,6 +30,10 @@ msgstr "Eloy Cuadra,Santiago Fernández Sancho,Cristina Yenyxe González García
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "ecuadra@eloihr.net,santi@kde-es.org,the.blue.valkyrie@gmail.com"
+
+#, kde-format
+msgid "default"
+msgstr "por omisión"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -3733,11 +3737,6 @@ msgstr "Editor"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "Traducción de %2 al %1"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr "por omisión"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

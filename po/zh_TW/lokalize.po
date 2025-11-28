@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2025-08-29 20:00+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -36,6 +36,10 @@ msgstr "Franklin Weng, Jeff Huang, Kisaragi Hiu"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "franklin@goodhorse.idv.tw, s8321414@gmail.com, mail@kisaragi-hiu.com"
+
+#, kde-format
+msgid "default"
+msgstr "預設"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -3589,11 +3593,6 @@ msgstr "編輯器"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "%1 的 %2 翻譯"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr "預設"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

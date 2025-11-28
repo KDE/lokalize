@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2025-09-14 19:10+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -31,6 +31,10 @@ msgstr "Manuel Tortosa Moreno"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "manutortosa@gmail.com"
+
+#, kde-format
+msgid "default"
+msgstr "predeterminat"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -3733,11 +3737,6 @@ msgstr "Editor"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "Traducció %1 %2"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr "predeterminat"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

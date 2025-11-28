@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -29,6 +29,10 @@ msgstr "Yannig Marchegay (Kokoyaya)"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Yannig Marchegay (Kokoyaya)"
+
+#, kde-format
+msgid "default"
+msgstr ""
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, fuzzy, kde-format
@@ -3647,11 +3651,6 @@ msgstr "Edicion"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "Revirat"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr ""
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

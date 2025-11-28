@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2025-03-03 20:07+0700\n"
 "Last-Translator: Pongsakorn S. <kde@xerusion.me>\n"
 "Language-Team: Thai\n"
@@ -26,6 +26,10 @@ msgstr ""
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
+msgstr ""
+
+#, kde-format
+msgid "default"
 msgstr ""
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
@@ -3554,11 +3558,6 @@ msgstr "แก้ไข"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "การแปล"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr ""
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

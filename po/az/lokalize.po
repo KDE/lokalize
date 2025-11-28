@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2025-10-06 01:20+0400\n"
 "Last-Translator: linux <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -27,6 +27,10 @@ msgstr "Xəyyam Qocayev"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xxmn77@gmail.com"
+
+#, kde-format
+msgid "default"
+msgstr "standart"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -3691,11 +3695,6 @@ msgstr "Redaktor"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "%1 %2 tərcüməsi"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr "standart"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

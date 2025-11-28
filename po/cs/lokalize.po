@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2024-10-18 11:29+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -28,6 +28,10 @@ msgstr "Lukáš Tinkl, Klára Cihlářová, Vít Pelčák, Tomáš Chvátal"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "lukas@kde.org,koty@seznam.cz,vit@pelcak.org, tomas.chvatal@gmail.com"
+
+#, kde-format
+msgid "default"
+msgstr "výchozí"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -3507,11 +3511,6 @@ msgstr "Editor"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "%1 %2 Překlad"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr "výchozí"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17

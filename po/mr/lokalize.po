@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2025-11-28 00:45+0000\n"
 "PO-Revision-Date: 2013-03-06 17:46+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -26,6 +26,10 @@ msgstr "चेतन खोना"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "chetan@kompkin.com"
+
+#, kde-format
+msgid "default"
+msgstr ""
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -3456,11 +3460,6 @@ msgstr "संपादन"
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
 msgstr "भाषांतर"
-
-#: src/project/projectbase.kcfg:10
-#, kde-format
-msgid "default"
-msgstr ""
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17
