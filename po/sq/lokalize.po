@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the kdesdk package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
-# SPDX-FileCopyrightText: 2023 Agron Selimaj <as9902613@gmail.com>
+# SPDX-FileCopyrightText: 2023, 2025 Agron Selimaj <as9902613@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-28 00:45+0000\n"
-"PO-Revision-Date: 2023-12-13 17:40-0500\n"
+"PO-Revision-Date: 2025-12-02 02:02-0500\n"
 "Last-Translator: Agron Selimaj <as9902613@gmail.com>\n"
 "Language-Team: sq\n"
 "Language: sq\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2011-04-22 02:10+0000\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 25.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -32,13 +32,13 @@ msgstr "kde-i18n-sq@kde.org,vilsongjeci@gmail.com"
 
 #, kde-format
 msgid "default"
-msgstr ""
+msgstr "parazgjedhje"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
-msgstr ""
+msgstr "Përkthimet alternative"
 
 #: src/alttransview.cpp:163
 #, fuzzy, kde-format
@@ -87,7 +87,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
-msgstr ""
+msgstr "Origjinë: %1"
 
 #: src/alttransview.cpp:291
 #, kde-format
@@ -108,7 +108,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
-msgstr ""
+msgstr "Përdor përkthimin alternativ"
 
 #: src/binunitsview.cpp:109
 #, kde-format
@@ -142,49 +142,49 @@ msgstr "Miratuar"
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Binary Units"
-msgstr ""
+msgstr "Njësitë Binare"
 
 #: src/binunitsview.cpp:178
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set the file"
-msgstr ""
+msgstr "Caktoje skedën"
 
 #: src/binunitsview.cpp:179
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"
-msgstr ""
+msgstr "Hape skedën burimore"
 
 #: src/catalog/catalog.cpp:40
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
-msgstr ""
+msgstr "Të gjitha skedat e përkrahura (*.po *.pot *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:41
 #, kde-format
 msgid "Gettext (*.po *.pot)"
-msgstr ""
+msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:43
 #, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr ""
+msgstr "Të gjitha skedat e përkrahura (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "Gettext (*.po)"
-msgstr ""
+msgstr "Gettext (*.po)"
 
 #: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
-msgstr ""
+msgstr "XLIFF (*.xlf *.xliff)"
 
 #: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Linguist (*.ts)"
-msgstr ""
+msgstr "Linguist (*.ts)"
 
 #: src/catalog/catalog.cpp:56
 #, kde-format
@@ -194,17 +194,17 @@ msgstr "I Ri"
 #: src/catalog/catalog.cpp:57
 #, kde-format
 msgid "Needs translation"
-msgstr ""
+msgstr "Duhet përkthyer"
 
 #: src/catalog/catalog.cpp:58
 #, kde-format
 msgid "Needs full localization"
-msgstr ""
+msgstr "Duhet përshtatje e plotë e lokalizimit"
 
 #: src/catalog/catalog.cpp:59
 #, kde-format
 msgid "Needs adaptation"
-msgstr ""
+msgstr "Duhet përshtatur"
 
 #: src/catalog/catalog.cpp:60
 #, kde-format
@@ -214,17 +214,17 @@ msgstr "Përkthyer"
 #: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation review"
-msgstr ""
+msgstr "Duhet redaktuar përkthimin"
 
 #: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
-msgstr ""
+msgstr "Duhet redaktuar përshtatjen e plotë të lokalizimit"
 
 #: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Needs adaptation review"
-msgstr ""
+msgstr "Duhet redaktuar përshtatjen"
 
 #: src/catalog/catalog.cpp:64
 #, kde-format
@@ -234,7 +234,7 @@ msgstr "Finalja"
 #: src/catalog/catalog.cpp:65
 #, kde-format
 msgid "Signed-off"
-msgstr ""
+msgstr "Miratim përfundimtar"
 
 #: src/catalog/catalogstring.cpp:56
 #, kde-format
@@ -357,7 +357,7 @@ msgstr ""
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "date and/or time"
-msgstr ""
+msgstr "data dhe/ose ora"
 
 #: src/catalog/catalogstring.cpp:125
 #, kde-format
@@ -773,7 +773,7 @@ msgstr ""
 #: src/cataloglistview/cataloglistview.cpp:214
 #, kde-format
 msgid "Plural"
-msgstr ""
+msgstr "Shumës"
 
 #: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
@@ -847,7 +847,7 @@ msgstr "Konteksti"
 #| msgid "File"
 msgctxt "@title:column"
 msgid "Files"
-msgstr "Skedari"
+msgstr "Skedat"
 
 #: src/cataloglistview/catalogmodel.cpp:102
 #: src/filesearch/filesearchtab.cpp:357 src/tm/tmtab.cpp:70
@@ -900,11 +900,10 @@ msgid "Untranslated"
 msgstr "Papërkthyer"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr "po"
+msgstr "Po"
 
 #: src/cataloglistview/catalogmodel.cpp:208
 #, fuzzy, kde-format
@@ -935,7 +934,7 @@ msgstr "Modifiko"
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
-msgstr "Skedari"
+msgstr "Skedë"
 
 #: src/editortab.cpp:151 src/project/projecttab.cpp:85
 #, kde-format
@@ -1011,7 +1010,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
-msgstr ""
+msgstr "Fazat..."
 
 #: src/editortab.cpp:353
 #, kde-format
@@ -1704,7 +1703,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
-msgstr ""
+msgstr "Trajta shumëse %1"
 
 #: src/editorview.cpp:232
 #, kde-format
@@ -1773,11 +1772,10 @@ msgid "&Search"
 msgstr "&Kërko"
 
 #: src/filesearch/filesearchtab.cpp:120
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgctxt "@title:window"
 msgid "File List"
-msgstr "Skedari"
+msgstr "Lista e Skedave"
 
 #: src/filesearch/filesearchtab.cpp:122
 #, kde-format
@@ -1788,7 +1786,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
-msgstr "Skedari"
+msgstr "Skedë"
 
 #: src/filesearch/filesearchtab.cpp:449
 #, kde-format
@@ -1809,7 +1807,7 @@ msgstr ""
 #: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
 #, kde-format
 msgid "Open file"
-msgstr "Hape skedarin"
+msgstr "Hape skedën"
 
 #: src/filesearch/filesearchtab.cpp:518
 #, kde-format
@@ -1827,11 +1825,9 @@ msgstr "Zëvendëso"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/filesearch/massreplaceoptions.ui:17
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action item"
-#| msgid "Replace"
+#, kde-format
 msgid "Replace:"
-msgstr "Zëvendëso"
+msgstr "Zëvendëso:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/filesearch/massreplaceoptions.ui:27
@@ -2013,7 +2009,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
-msgstr ""
+msgstr "Hape projektin"
 
 #: src/lokalizemainwindow.cpp:119
 #, fuzzy, kde-format
@@ -2123,7 +2119,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
-msgstr ""
+msgstr "Hape projektin..."
 
 #: src/lokalizemainwindow.cpp:637
 #, fuzzy, kde-format
@@ -2136,7 +2132,7 @@ msgstr "Projekti"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
-msgstr ""
+msgstr "Hape një projekt të mëparshëm"
 
 #: src/lokalizemainwindow.cpp:650
 #, kde-format
@@ -2605,10 +2601,9 @@ msgstr "Gjuha"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:35
-#, fuzzy, kde-format
-#| msgid "Translator"
+#, kde-format
 msgid "Translator team's name"
-msgstr "Përkthyesi"
+msgstr "Emri i ekipit"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:41
@@ -2725,11 +2720,10 @@ msgid "Create Project"
 msgstr "Projekti"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
-msgstr "Projekti"
+msgstr "Hape Projektin"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
@@ -3534,7 +3528,7 @@ msgstr ""
 #: src/project/projectbase.kcfg:73
 #, kde-format
 msgid "Project's glossary"
-msgstr ""
+msgstr "Fjalori i projektit"
 
 #: src/project/projectmodel.cpp:468
 #, kde-format
@@ -3648,11 +3642,10 @@ msgid "Hide fully translated files and folders"
 msgstr ""
 
 #: src/project/projecttab.cpp:190
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
-msgstr "Hape skedarin"
+msgstr "Hape skedat e zgjedhura"
 
 #: src/project/projecttab.cpp:193
 #, kde-format
@@ -3829,7 +3822,7 @@ msgstr ""
 #: src/tm/dbparams.ui:75
 #, kde-format
 msgid "Password:"
-msgstr ""
+msgstr "Fjalëkalimi:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, dbType)
 #: src/tm/dbparams.ui:96
@@ -3905,7 +3898,7 @@ msgstr ""
 #: src/tm/managedatabases.ui:47
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "Hiqe"
 
 #: src/tm/qamodel.cpp:97
 #, kde-format
@@ -3931,7 +3924,7 @@ msgstr "Shto..."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove"
-msgstr ""
+msgstr "Hiqe"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/queryoptions.ui:32
@@ -3960,7 +3953,7 @@ msgstr ""
 #: src/tm/queryoptions.ui:139
 #, kde-format
 msgid "File mask:"
-msgstr ""
+msgstr "Maska e skedave"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
 #: src/tm/queryoptions.ui:155
@@ -4184,7 +4177,7 @@ msgstr ""
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
-msgstr ""
+msgstr "kjo"
 
 #: src/tm/tmview.cpp:578
 #, kde-format
@@ -4239,7 +4232,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
-msgstr ""
+msgstr "Hape skedën që përmbanë këtë të dhënë"
 
 #: src/tm/tmview.cpp:661
 #, kde-format
@@ -4326,7 +4319,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
-msgstr ""
+msgstr "Zëvendëso tekstin"
 
 #: src/xlifftextedit.cpp:995
 #, kde-format
