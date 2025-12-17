@@ -1,3 +1,9 @@
-/build*
+.clang-format
+.clangd
+compile_commands.json
 CMakeLists.txt.user
+
 .cache/
+build/
+
+Session.vim
