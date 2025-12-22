@@ -240,7 +240,7 @@ void Project::showTMManager()
 {
     if (!m_tmManagerWindow) {
         if (!isTmSupported()) {
-            KMessageBox::information(nullptr, i18n("TM facility requires SQLite Qt module."), i18n("No SQLite module available"));
+            KMessageBox::information(nullptr, i18n("Translation memory facility requires SQLite Qt module."), i18n("No SQLite module available"));
             return;
         }
 

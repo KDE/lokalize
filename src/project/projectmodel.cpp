@@ -473,7 +473,7 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
         case ProjectModelColumns::TranslatedCount:
             return i18nc("@title:column Number of entries", "Translated");
         case ProjectModelColumns::FuzzyCount:
-            return i18nc("@title:column Number of entries", "Not ready");
+            return i18nc("@title:column Number of entries", "Not Ready");
         case ProjectModelColumns::UntranslatedCount:
             return i18nc("@title:column Number of entries", "Untranslated");
         case ProjectModelColumns::IncompleteCount:

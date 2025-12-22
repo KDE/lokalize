@@ -103,9 +103,9 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation, int role) co
     case CatalogModelColumns::IsModified:
         return i18nc("@title:column", "Modified");
     case CatalogModelColumns::SourceLength:
-        return i18nc("@title:column Length of the original text", "Source length");
+        return i18nc("@title:column Length of the original text", "Source Length");
     case CatalogModelColumns::TargetLength:
-        return i18nc("@title:column Length of the text in target language", "Target length");
+        return i18nc("@title:column Length of the text in target language", "Target Length");
     default:
         return {};
     }
@@ -143,7 +143,7 @@ QVariant CatalogTreeModel::data(const QModelIndex &index, int role) const
         case TranslationStatus::Ready:
             return i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
         case TranslationStatus::NeedsReview:
-            return i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
+            return i18nc("@info:status 'fuzzy' in gettext terminology", "Needs Review");
         case TranslationStatus::Untranslated:
             return i18nc("@info:status", "Untranslated");
         }

@@ -56,7 +56,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     QVBoxLayout *l = new QVBoxLayout(this);
 
     m_filterEdit->setClearButtonEnabled(true);
-    m_filterEdit->setPlaceholderText(i18n("Quick search..."));
+    m_filterEdit->setPlaceholderText(i18n("Search"));
     m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L. Accepts regular expressions"));
     connect(m_filterEdit, &QLineEdit::textChanged, this, &ProjectTab::setFilterRegExp, Qt::QueuedConnection);
     connect(m_filterEdit, &QLineEdit::returnPressed, this, [this] {
@@ -85,13 +85,13 @@ ProjectTab::ProjectTab(QWidget *parent)
     KActionCategory *nav = new KActionCategory(i18nc("@title actions category", "Navigation"), ac);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",
-                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"),
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous Not Ready"),
                              Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageUp,
                              QStringLiteral("prevfuzzyuntrans"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevFuzzyUntr);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",
-                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"),
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next Not Ready"),
                              Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageDown,
                              QStringLiteral("nextfuzzyuntrans"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextFuzzyUntr);
@@ -109,37 +109,37 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextFuzzy);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",
-                             i18nc("@action:inmenu", "Previous untranslated"),
+                             i18nc("@action:inmenu", "Previous Untranslated"),
                              Qt::AltModifier | Qt::Key_PageUp,
                              QStringLiteral("prevuntranslated"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevUntranslated);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_untrans",
-                             i18nc("@action:inmenu", "Next untranslated"),
+                             i18nc("@action:inmenu", "Next Untranslated"),
                              Qt::AltModifier | Qt::Key_PageDown,
                              QStringLiteral("nextuntranslated"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextUntranslated);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_templateOnly",
-                             i18nc("@action:inmenu", "Previous template only"),
+                             i18nc("@action:inmenu", "Previous Template Only"),
                              Qt::ControlModifier | Qt::Key_Up,
                              QStringLiteral("prevtemplate"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevTemplateOnly);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_templateOnly",
-                             i18nc("@action:inmenu", "Next template only"),
+                             i18nc("@action:inmenu", "Next Template Only"),
                              Qt::ControlModifier | Qt::Key_Down,
                              QStringLiteral("nexttemplate"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTemplateOnly);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_transOnly", i18nc("@action:inmenu", "Previous translation only"), Qt::AltModifier | Qt::Key_Up, QStringLiteral("prevpo"))
+    ADD_ACTION_SHORTCUT_ICON("go_prev_transOnly", i18nc("@action:inmenu", "Previous Translation Only"), Qt::AltModifier | Qt::Key_Up, QStringLiteral("prevpo"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevTransOnly);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_transOnly", i18nc("@action:inmenu", "Next translation only"), Qt::AltModifier | Qt::Key_Down, QStringLiteral("nextpo"))
+    ADD_ACTION_SHORTCUT_ICON("go_next_transOnly", i18nc("@action:inmenu", "Next Translation Only"), Qt::AltModifier | Qt::Key_Down, QStringLiteral("nextpo"))
     connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTransOnly);
 
     action = nav->addAction(QStringLiteral("toggle_translated_files"));
-    action->setText(i18nc("@action:inmenu", "Hide completed items"));
+    action->setText(i18nc("@action:inmenu", "Hide Completed Items"));
     action->setToolTip(i18nc("@action:inmenu", "Hide fully translated files and folders"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("hide_table_row")));
     action->setCheckable(true);
@@ -152,7 +152,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     KActionCategory *proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
 
     action = proj->addAction(QStringLiteral("project_open"), this, qOverload<>(&ProjectTab::projectOpenRequested));
-    action->setText(i18nc("@action:inmenu", "Open project"));
+    action->setText(i18nc("@action:inmenu", "Open Project"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
 }
 

@@ -234,7 +234,7 @@ void EditorTab::setupActions()
     connect(m_view->viewPort(), &TranslationUnitTextEdit::languageToolChanged, m_notesView, &MsgCtxtView::languageTool);
 
     action = edit->addAction(QStringLiteral("edit_addnote"), m_notesView, &MsgCtxtView::addNoteUI);
-    action->setText(i18nc("@action:inmenu", "Add a note"));
+    action->setText(i18nc("@action:inmenu", "Add Note"));
 
     QVector<QAction *> tmactions_insert(TM_SHORTCUTS);
     QVector<QAction *> tmactions_remove(TM_SHORTCUTS);
@@ -243,12 +243,12 @@ void EditorTab::setupActions()
     for (int i = 0; i < TM_SHORTCUTS; ++i) {
         tmaction = tm->addAction(QStringLiteral("tmquery_insert_%1").arg(i));
         ac->setDefaultShortcut(tmaction, QKeySequence(Qt::ControlModifier | tmlist[i]));
-        tmaction->setText(i18nc("@action:inmenu", "Insert TM suggestion #%1", i + 1));
+        tmaction->setText(i18nc("@action:inmenu", "Insert translation memory suggestion #%1", i + 1));
         tmactions_insert[i] = tmaction;
 
         tmaction = tm->addAction(QStringLiteral("tmquery_remove_%1").arg(i));
         ac->setDefaultShortcut(tmaction, QKeySequence(Qt::ControlModifier | Qt::AltModifier | tmlist[i]));
-        tmaction->setText(i18nc("@action:inmenu", "Remove TM suggestion #%1", i + 1));
+        tmaction->setText(i18nc("@action:inmenu", "Remove translation memory suggestion #%1", i + 1));
         tmactions_remove[i] = tmaction;
     }
 #ifndef Q_OS_DARWIN
@@ -313,7 +313,7 @@ void EditorTab::setupActions()
     connect(m_glossaryView, &GlossaryNS::GlossaryView::termInsertRequested, m_view, &EditorView::insertTerm);
 
     gaction = glossary->addAction(QStringLiteral("glossary_define"), this, &EditorTab::defineNewTerm);
-    gaction->setText(i18nc("@action:inmenu", "Define new term"));
+    gaction->setText(i18nc("@action:inmenu", "Define New Term"));
     m_glossaryView->addAction(gaction);
     m_glossaryView->setContextMenuPolicy(Qt::ActionsContextMenu);
 
@@ -347,13 +347,13 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(_shortcut));
 
     action = actionCategory->addAction(QStringLiteral("file_phases"));
-    action->setText(i18nc("@action:inmenu", "Phases..."));
+    action->setText(i18nc("@action:inmenu", "Phases…"));
     connect(action, &QAction::triggered, this, &EditorTab::openPhasesWindow);
 
-    ADD_ACTION_SHORTCUT("file_wordcount", i18nc("@action:inmenu", "Word count"), Qt::ControlModifier | Qt::AltModifier | Qt::Key_C)
+    ADD_ACTION_SHORTCUT("file_wordcount", i18nc("@action:inmenu", "Word Count"), Qt::ControlModifier | Qt::AltModifier | Qt::Key_C)
     connect(action, &QAction::triggered, this, &EditorTab::displayWordCount);
 
-    ADD_ACTION_SHORTCUT("file_cleartarget", i18nc("@action:inmenu", "Clear all translated entries"), Qt::ControlModifier | Qt::AltModifier | Qt::Key_D)
+    ADD_ACTION_SHORTCUT("file_cleartarget", i18nc("@action:inmenu", "Clear Translated Entries"), Qt::ControlModifier | Qt::AltModifier | Qt::Key_D)
     connect(action, &QAction::triggered, this, &EditorTab::clearTranslatedEntries);
 
     ADD_ACTION_SHORTCUT("file_pology", i18nc("@action:inmenu", "Launch the Pology command on this file"), Qt::ControlModifier | Qt::AltModifier | Qt::Key_P)
@@ -380,7 +380,7 @@ void EditorTab::setupActions()
     nav->addAction(KStandardActions::Find, this, &EditorTab::find);
     nav->addAction(KStandardActions::FindNext, this, qOverload<>(&EditorTab::findNext));
     action = nav->addAction(KStandardActions::FindPrev, this, &EditorTab::findPrev);
-    action->setText(i18nc("@action:inmenu", "Change searching direction"));
+    action->setText(i18nc("@action:inmenu", "Change Searching Direction"));
     edit->addAction(KStandardActions::Replace, this, &EditorTab::replace);
 
     connect(m_view, &EditorView::findRequested, this, &EditorTab::find);
@@ -408,14 +408,14 @@ void EditorTab::setupActions()
     connect(m_stateAction->popupMenu(), &QMenu::triggered, this, &EditorTab::setState);
 
     action = actionCategory->addAction(QStringLiteral("edit_approve_go_fuzzyUntr"));
-    action->setText(i18nc("@action:inmenu", "Approve and go to next"));
+    action->setText(i18nc("@action:inmenu", "Approve and Go Next"));
     connect(action, &QAction::triggered, this, &EditorTab::toggleApprovementGotoNextFuzzyUntr);
     m_approveAndGoAction = action;
 
     setApproveActionTitle();
 
     action = actionCategory->addAction(QStringLiteral("edit_nonequiv"), m_view, &EditorView::setEquivTrans);
-    action->setText(i18nc("@action:inmenu", "Equivalent translation"));
+    action->setText(i18nc("@action:inmenu", "Equivalent Translation"));
     action->setCheckable(true);
     connect(this, &EditorTab::signalEquivTranslatedEntryDisplayed, action, &QAction::setChecked);
 
@@ -426,10 +426,10 @@ void EditorTab::setupActions()
 #else
     QKeyCombination copyShortcut = Qt::META | Qt::Key_Space;
 #endif
-    ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr", i18nc("@action:inmenu", "Copy source to target"), copyShortcut, "msgid2msgstr")
+    ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr", i18nc("@action:inmenu", "Copy Source to Target"), copyShortcut, "msgid2msgstr")
     connect(action, &QAction::triggered, m_view->viewPort(), &TranslationUnitTextEdit::source2target);
 
-    ADD_ACTION_SHORTCUT("edit_unwrap-target", i18nc("@action:inmenu", "Unwrap target"), Qt::ControlModifier | Qt::Key_I)
+    ADD_ACTION_SHORTCUT("edit_unwrap-target", i18nc("@action:inmenu", "Unwrap Target"), Qt::ControlModifier | Qt::Key_I)
     connect(action, &QAction::triggered, m_view, qOverload<>(&EditorView::unwrap));
 
     action = edit->addAction(QStringLiteral("edit_clear-target"), m_view->viewPort(), [this] {
@@ -488,7 +488,7 @@ void EditorTab::setupActions()
 
     action = nav->addAction(KStandardActions::GotoPage, this, qOverload<>(&EditorTab::gotoEntry));
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_G));
-    action->setText(i18nc("@action:inmenu", "Entry by number"));
+    action->setText(i18nc("@action:inmenu", "Entry by Number"));
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",
                              i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous non-empty but not ready"),
@@ -506,18 +506,18 @@ void EditorTab::setupActions()
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyRequested, this, &EditorTab::gotoNextFuzzy);
     connect(this, &EditorTab::signalNextFuzzyAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans", i18nc("@action:inmenu", "Previous untranslated"), Qt::AltModifier | Qt::Key_PageUp, "prevuntranslated")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans", i18nc("@action:inmenu", "Previous Untranslated"), Qt::AltModifier | Qt::Key_PageUp, "prevuntranslated")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevUntranslated);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevUntranslatedRequested, this, &EditorTab::gotoPrevUntranslated);
     connect(this, &EditorTab::signalPriorUntranslatedAvailable, action, &QAction::setEnabled);
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_untrans", i18nc("@action:inmenu", "Next untranslated"), Qt::AltModifier | Qt::Key_PageDown, "nextuntranslated")
+    ADD_ACTION_SHORTCUT_ICON("go_next_untrans", i18nc("@action:inmenu", "Next Untranslated"), Qt::AltModifier | Qt::Key_PageDown, "nextuntranslated")
     connect(action, &QAction::triggered, this, &EditorTab::gotoNextUntranslated);
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoNextUntranslatedRequested, this, &EditorTab::gotoNextUntranslated);
     connect(this, &EditorTab::signalNextUntranslatedAvailable, action, &QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",
-                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous not ready"),
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous Not Ready"),
                              Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageUp,
                              "prevfuzzyuntrans")
     connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzyUntr);
@@ -525,7 +525,7 @@ void EditorTab::setupActions()
     connect(this, &EditorTab::signalPriorFuzzyOrUntrAvailable, action, &QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",
-                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next not ready"),
+                             i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next Not Ready"),
                              Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageDown,
                              "nextfuzzyuntrans")
     connect(action, &QAction::triggered, this, qOverload<>(&EditorTab::gotoNextFuzzyUntr));
@@ -538,16 +538,16 @@ void EditorTab::setupActions()
 
     // Bookmarks
     action = nav->addAction(KStandardActions::AddBookmark, m_view, &EditorView::toggleBookmark);
-    action->setText(i18nc("@option:check", "Bookmark message"));
+    action->setText(i18nc("@option:check", "Bookmark Message"));
     action->setCheckable(true);
     connect(this, &EditorTab::signalBookmarkDisplayed, action, &QAction::setChecked);
 
     action = nav->addAction(QStringLiteral("bookmark_prior"), this, &EditorTab::gotoPrevBookmark);
-    action->setText(i18nc("@action:inmenu", "Previous bookmark"));
+    action->setText(i18nc("@action:inmenu", "Previous Bookmark"));
     connect(this, &EditorTab::signalPriorBookmarkAvailable, action, &QAction::setEnabled);
 
     action = nav->addAction(QStringLiteral("bookmark_next"), this, &EditorTab::gotoNextBookmark);
-    action->setText(i18nc("@action:inmenu", "Next bookmark"));
+    action->setText(i18nc("@action:inmenu", "Next Bookmark"));
     connect(this, &EditorTab::signalNextBookmarkAvailable, action, &QAction::setEnabled);
 
     // Tools
@@ -575,7 +575,7 @@ void EditorTab::setupActions()
     m_syncView->addAction(action);
 
     action = sync1->addAction(QStringLiteral("merge_prev"), m_syncView, &MergeView::gotoPrevChanged);
-    action->setText(i18nc("@action:inmenu", "Previous different"));
+    action->setText(i18nc("@action:inmenu", "Previous Different"));
     action->setStatusTip(
         i18nc("@info:status", "Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
@@ -586,7 +586,7 @@ void EditorTab::setupActions()
     m_syncView->addAction(action);
 
     action = sync1->addAction(QStringLiteral("merge_next"), m_syncView, &MergeView::gotoNextChanged);
-    action->setText(i18nc("@action:inmenu", "Next different"));
+    action->setText(i18nc("@action:inmenu", "Next Different"));
     action->setStatusTip(
         i18nc("@info:status", "Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
@@ -596,7 +596,7 @@ void EditorTab::setupActions()
     m_syncView->addAction(action);
 
     action = sync1->addAction(QStringLiteral("merge_nextapproved"), m_syncView, &MergeView::gotoNextChangedApproved);
-    action->setText(i18nc("@action:inmenu", "Next different approved"));
+    action->setText(i18nc("@action:inmenu", "Next Different Approved"));
     ac->setDefaultShortcut(action, QKeySequence(Qt::AltModifier | Qt::MetaModifier | Qt::Key_Down));
     connect(m_syncView, &MergeView::signalNextChangedAvailable, action, &QAction::setEnabled);
     m_syncView->addAction(action);
@@ -634,7 +634,7 @@ void EditorTab::setupActions()
     m_syncViewSecondary->addAction(action);
 
     action = sync2->addAction(QStringLiteral("mergesecondary_prev"), m_syncViewSecondary, &MergeView::gotoPrevChanged);
-    action->setText(i18nc("@action:inmenu", "Previous different"));
+    action->setText(i18nc("@action:inmenu", "Previous Different"));
     action->setStatusTip(
         i18nc("@info:status", "Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
@@ -643,7 +643,7 @@ void EditorTab::setupActions()
     m_syncViewSecondary->addAction(action);
 
     action = sync2->addAction(QStringLiteral("mergesecondary_next"), m_syncViewSecondary, &MergeView::gotoNextChanged);
-    action->setText(i18nc("@action:inmenu", "Next different"));
+    action->setText(i18nc("@action:inmenu", "Next Different"));
     action->setStatusTip(
         i18nc("@info:status", "Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());

@@ -122,14 +122,14 @@ int displayNotes(QTextBrowser *browser, const QVector<Note> &notes, int active, 
             if (!multiple && content.contains(QLatin1Char('\n')))
                 content += QLatin1Char('\n');
             content.replace(QLatin1Char('\n'), BR);
-            content += QString(QStringLiteral(" (<a href=\"note:/%1\">")).arg(i) + i18nc("link to edit note", "edit...") + QStringLiteral("</a>)<br />");
+            content += QString(QStringLiteral(" (<a href=\"note:/%1\">")).arg(i) + i18nc("link to edit note", "edit…") + QStringLiteral("</a>)<br />");
             t.insertHtml(content);
             i++;
         }
         if (multiple)
-            t.insertHtml(QStringLiteral("<a href=\"note:/add\">") + i18nc("link to add a note", "Add...") + QStringLiteral("</a> "));
+            t.insertHtml(QStringLiteral("<a href=\"note:/add\">") + i18nc("link to add a note", "Add…") + QStringLiteral("</a> "));
     } else
-        browser->insertHtml(QStringLiteral("<a href=\"note:/add\">") + i18nc("link to add a note", "Add a note...") + QStringLiteral("</a> "));
+        browser->insertHtml(QStringLiteral("<a href=\"note:/add\">") + i18nc("link to add a note", "Add a note…") + QStringLiteral("</a> "));
 
     return realOffset;
 }

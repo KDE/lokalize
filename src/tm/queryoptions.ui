@@ -29,7 +29,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>TM:</string>
+        <string>Translation Memory:</string>
        </property>
       </widget>
      </item>
@@ -136,7 +136,7 @@ Press Enter to start the search.</string>
           <string/>
          </property>
          <property name="text">
-          <string>File mask:</string>
+          <string>File Mask:</string>
          </property>
          <property name="buddy">
           <cstring>filemask</cstring>
@@ -159,7 +159,7 @@ Press Enter to start the search.</string>
        <item row="2" column="1">
         <widget class="QLabel" name="label_s">
          <property name="text">
-          <string>Query syntax:</string>
+          <string>Query Syntax:</string>
          </property>
          <property name="buddy">
           <cstring>queryStyle</cstring>
@@ -197,7 +197,7 @@ Press Enter to start the search.</string>
           <string>Reads all project files into translation memory, updating old entries. The scanning will work in background.</string>
          </property>
          <property name="text">
-          <string>&amp;Rescan project files</string>
+          <string>&amp;Rescan Project</string>
          </property>
         </widget>
        </item>

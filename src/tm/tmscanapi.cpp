@@ -75,6 +75,7 @@ void RecursiveScanJob::scanJobDestroyed()
 void RecursiveScanJob::start()
 {
     m_time.start();
+    // TODO: TM -> Translation memory?
     Q_EMIT description(this, i18n("Adding files to Lokalize translation memory"), qMakePair(i18n("TM"), m_dbName));
 }
 

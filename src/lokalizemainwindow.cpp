@@ -115,8 +115,8 @@ LokalizeMainWindow::LokalizeMainWindow()
     about->setTextFormat(Qt::RichText);
 
     QPushButton *conf = new QPushButton(i18n("&Configure Lokalize"), m_welcomePage);
-    QPushButton *openProject = new QPushButton(i18nc("@action:inmenu", "Open project"), m_welcomePage);
-    QPushButton *createProject = new QPushButton(i18nc("@action:inmenu", "Translate software"), m_welcomePage);
+    QPushButton *openProject = new QPushButton(i18nc("@action:inmenu", "Open Project"), m_welcomePage);
+    QPushButton *createProject = new QPushButton(i18nc("@action:inmenu", "Translate Software"), m_welcomePage);
     QPushButton *createOdfProject = new QPushButton(i18nc("@action:inmenu", "Translate OpenDocument"), m_welcomePage);
     connect(conf, &QPushButton::clicked, SettingsController::instance(), &SettingsController::showSettingsDialog);
     connect(openProject, &QPushButton::clicked, this, qOverload<>(&LokalizeMainWindow::openProject));
@@ -489,7 +489,7 @@ void LokalizeMainWindow::showProjectOverview()
 TM::TMTab *LokalizeMainWindow::showTM()
 {
     if (!Project::instance()->isTmSupported()) {
-        KMessageBox::information(nullptr, i18n("TM facility requires SQLite Qt module."), i18n("No SQLite module available"));
+        KMessageBox::information(nullptr, i18n("Translation memory facility requires SQLite Qt module."), i18n("No SQLite module available"));
         return nullptr;
     }
 
@@ -591,16 +591,16 @@ void LokalizeMainWindow::setupActions()
 
     // Window
     actionCategory = file;
-    ADD_ACTION_SHORTCUT("next-tab", i18n("Next tab"), Qt::ControlModifier | Qt::Key_Tab)
+    ADD_ACTION_SHORTCUT("next-tab", i18n("Next Tab"), Qt::ControlModifier | Qt::Key_Tab)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::activateTabToRightOfCurrent);
 
-    ADD_ACTION_SHORTCUT("prev-tab", i18n("Previous tab"), Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_Tab)
+    ADD_ACTION_SHORTCUT("prev-tab", i18n("Previous Tab"), Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_Tab)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::activateTabToLeftOfCurrent);
 
-    ADD_ACTION_SHORTCUT("prev-active-tab", i18n("Previously active tab"), Qt::ControlModifier | Qt::Key_BracketLeft) // Ctrl+[
+    ADD_ACTION_SHORTCUT("prev-active-tab", i18n("Previously Active Tab"), Qt::ControlModifier | Qt::Key_BracketLeft) // Ctrl+[
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::activatePreviousTab);
 
-    ADD_ACTION_SHORTCUT("close-active-tab", i18n("Close current tab"), Qt::ControlModifier | Qt::Key_W)
+    ADD_ACTION_SHORTCUT("close-active-tab", i18n("Close Current Tab"), Qt::ControlModifier | Qt::Key_W)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::queryAndCloseCurrentTab);
     // Tools
     actionCategory = glossary;
@@ -609,35 +609,35 @@ void LokalizeMainWindow::setupActions()
     connect(action, &QAction::triggered, project, &Project::showGlossary);
 
     actionCategory = tm;
-    ADD_ACTION_SHORTCUT("tools_tm", i18nc("@action:inmenu", "Translation memory"), Qt::Key_F7)
+    ADD_ACTION_SHORTCUT("tools_tm", i18nc("@action:inmenu", "Translation Memory"), Qt::Key_F7)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::showTM);
 
     action = tm->addAction(QStringLiteral("tools_tm_manage"), project, &Project::showTMManager);
-    action->setText(i18nc("@action:inmenu", "Manage translation memories"));
+    action->setText(i18nc("@action:inmenu", "Manage Translation Memories"));
 
     // Project
     actionCategory = proj;
-    ADD_ACTION_SHORTCUT("project_overview", i18nc("@action:inmenu", "Project overview"), Qt::Key_F4)
+    ADD_ACTION_SHORTCUT("project_overview", i18nc("@action:inmenu", "Project Overview"), Qt::Key_F4)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::showProjectOverview);
 
     action = proj->addAction(QStringLiteral("project_configure"), sc, &SettingsController::projectConfigure);
-    action->setText(i18nc("@action:inmenu", "Configure project..."));
+    action->setText(i18nc("@action:inmenu", "Configure Project…"));
 
     action = proj->addAction(QStringLiteral("project_create"), sc, &SettingsController::projectCreate);
-    action->setText(i18nc("@action:inmenu", "Create software translation project..."));
+    action->setText(i18nc("@action:inmenu", "Create Software Translation Project…"));
 
     action = proj->addAction(QStringLiteral("project_create_odf"), Project::instance(), &Project::projectOdfCreate);
-    action->setText(i18nc("@action:inmenu", "Create OpenDocument translation project..."));
+    action->setText(i18nc("@action:inmenu", "Create OpenDocument Translation Project…"));
 
     action = proj->addAction(QStringLiteral("project_open"), this, qOverload<>(&LokalizeMainWindow::openProject));
-    action->setText(i18nc("@action:inmenu", "Open project..."));
+    action->setText(i18nc("@action:inmenu", "Open Project…"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
 
     action = proj->addAction(QStringLiteral("project_close"), this, &LokalizeMainWindow::closeProject);
-    action->setText(i18nc("@action:inmenu", "Close project"));
+    action->setText(i18nc("@action:inmenu", "Close Project"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-close")));
 
-    m_openRecentProjectAction = new KRecentFilesAction(i18nc("@action:inmenu", "Open recent project"), this);
+    m_openRecentProjectAction = new KRecentFilesAction(i18nc("@action:inmenu", "Open Recent Project"), this);
     action = proj->addAction(QStringLiteral("project_open_recent"), m_openRecentProjectAction);
     connect(m_openRecentProjectAction,
             qOverload<const QUrl &>(&KRecentFilesAction::urlSelected),
@@ -647,14 +647,14 @@ void LokalizeMainWindow::setupActions()
     // Qt::QueuedConnection: defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
     connect(Project::instance(), &Project::loaded, this, &LokalizeMainWindow::projectLoaded, Qt::QueuedConnection);
 
-    ADD_ACTION_SHORTCUT("tools_filesearch", i18nc("@action:inmenu", "Search and replace in files"), Qt::Key_F6)
+    ADD_ACTION_SHORTCUT("tools_filesearch", i18nc("@action:inmenu", "Search & Replace"), Qt::Key_F6)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::showFileSearchAction);
 
-    ADD_ACTION_SHORTCUT("tools_filesearch_next", i18nc("@action:inmenu", "Find next in files"), Qt::META | Qt::Key_F3)
+    ADD_ACTION_SHORTCUT("tools_filesearch_next", i18nc("@action:inmenu", "Go To Next Search & Replace Entry"), Qt::META | Qt::Key_F3)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::fileSearchNext);
 
     action = ac->addAction(QStringLiteral("tools_widgettextcapture"), this, &LokalizeMainWindow::widgetTextCapture);
-    action->setText(i18nc("@action:inmenu", "Widget text capture"));
+    action->setText(i18nc("@action:inmenu", "Widget Text Capture"));
 
 #if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(6, 3, 0)
     ac->addAction(QStringLiteral("settings_style"), KStyleManager::createConfigureAction(this));

@@ -96,7 +96,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout(w);
     m_filterEdit = new QLineEdit(w);
     m_filterEdit->setClearButtonEnabled(true);
-    m_filterEdit->setPlaceholderText(i18n("Quick search..."));
+    m_filterEdit->setPlaceholderText(i18n("Search"));
     m_filterEdit->setFocus();
     m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L. Accepts regular expressions"));
     new QShortcut(QKeySequence(Qt::ControlModifier | Qt::Key_L), this, SLOT(setFocus()), nullptr, Qt::WidgetWithChildrenShortcut);

@@ -577,12 +577,13 @@ bool TMView::event(QEvent *event)
                     file = i18nc("File argument in tooltip, when file is current file", "this");
                 QString tooltip = i18nc("@info:tooltip", "File: %1<br />Addition date: %2", file, tmEntry.date.toString(Qt::ISODate));
                 if (!tmEntry.changeDate.isNull() && tmEntry.changeDate != tmEntry.date)
-                    tooltip += i18nc("@info:tooltip on TM entry continues", "<br />Last change date: %1", tmEntry.changeDate.toString(Qt::ISODate));
+                    tooltip +=
+                        i18nc("@info:tooltip on translation memory entry continues", "<br />Last change date: %1", tmEntry.changeDate.toString(Qt::ISODate));
                 if (!tmEntry.changeAuthor.isEmpty())
-                    tooltip += i18nc("@info:tooltip on TM entry continues", "<br />Last change author: %1", tmEntry.changeAuthor);
-                tooltip += i18nc("@info:tooltip on TM entry continues", "<br />TM: %1", tmEntry.dbName);
+                    tooltip += i18nc("@info:tooltip on translation memory entry continues", "<br />Last change author: %1", tmEntry.changeAuthor);
+                tooltip += i18nc("@info:tooltip on translation memory entry continues", "<br />Translation memory: %1", tmEntry.dbName);
                 if (tmEntry.obsolete)
-                    tooltip += i18nc("@info:tooltip on TM entry continues", "<br />Is not present in the file anymore");
+                    tooltip += i18nc("@info:tooltip on translation memory entry continues", "<br />Is not present in the file anymore");
                 QToolTip::showText(helpEvent->globalPos(), tooltip);
                 return true;
             }
@@ -658,7 +659,7 @@ void TMView::contextMenu(const QPoint &pos)
                         return;
                     } else {
                         // Still offer manual deletion if this is not the current file.
-                        popup.addAction(i18nc("@action:inmenu", "Remove this missing file from TM"))->setData(RemoveFile);
+                        popup.addAction(i18nc("@action:inmenu", "Remove this missing file from the translation memory"))->setData(RemoveFile);
                     }
                 }
             }

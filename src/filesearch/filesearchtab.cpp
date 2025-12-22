@@ -119,7 +119,7 @@ QVariant FileListModel::data(const QModelIndex &item, int role) const
 SearchFileListView::SearchFileListView(QWidget *parent)
     : QDockWidget(i18nc("@title:window", "File List"), parent)
     , m_browser(new QTreeView(this))
-    , m_background(new QLabel(i18n("Drop translation files here..."), this))
+    , m_background(new QLabel(i18n("Drop translation files here…"), this))
     , m_model(new FileListModel(this))
 {
     setWidget(m_background);
@@ -446,7 +446,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     : LokalizeTabPageBase(parent)
     , m_model(new FileSearchModel(this))
 {
-    m_tabLabel = i18nc("@title:tab", "Search and replace in files");
+    m_tabLabel = i18nc("@title:tab", "Search & Replace");
     m_tabIcon = QIcon::fromTheme(QLatin1String("edit-find-replace"));
     setAcceptDrops(true);
 
@@ -515,7 +515,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
 #endif
 
     KActionCollection *ac = actionCollection();
-    KActionCategory *srf = new KActionCategory(i18nc("@title actions category", "Search and replace in files"), ac);
+    KActionCategory *srf = new KActionCategory(i18nc("@title actions category", "Search & Replace"), ac);
 
     m_searchFileListView = new SearchFileListView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);
@@ -720,7 +720,7 @@ void FileSearchTab::replaceJobDone(MassReplaceJob *j)
 
 // BEGIN MASS REPLACE
 MassReplaceView::MassReplaceView(QWidget *parent)
-    : QDockWidget(i18nc("@title:window", "Mass replace"), parent)
+    : QDockWidget(i18nc("@title:window", "Mass Replace"), parent)
     , ui(new Ui_MassReplaceOptions)
 {
     QWidget *base = new QWidget(this);

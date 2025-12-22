@@ -77,7 +77,7 @@ CatalogView::CatalogView(QWidget *parent, Catalog *catalog)
     mainLayout->addWidget(horizontalLine);
 
     m_lineEdit->setClearButtonEnabled(true);
-    m_lineEdit->setPlaceholderText(i18n("Quick search..."));
+    m_lineEdit->setPlaceholderText(i18n("Search"));
     m_lineEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L. Accepts regular expressions"));
     connect(m_lineEdit, &QLineEdit::textChanged, this, &CatalogView::setFilterRegExp, Qt::QueuedConnection);
     QShortcut *esc = new QShortcut(QKeySequence(Qt::Key_Escape), this, nullptr, nullptr, Qt::WidgetWithChildrenShortcut);
@@ -220,11 +220,11 @@ void CatalogView::fillFilterOptionsMenu()
     QMenu *basicMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Basic"));
     QMenu *extMenu = extStates ? m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "States")) : nullptr;
     QMenu *allmenus[2] = {basicMenu, extMenu};
-    QMenu *columnsMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Searchable column"));
+    QMenu *columnsMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu user selects a column to search within from a menu", "Search Column"));
 
     QActionGroup *columnsMenuGroup = new QActionGroup(columnsMenu);
     QAction *txt;
-    txt = m_filterOptionsMenu->addAction(i18nc("@title:inmenu", "Resort and refilter on content change"),
+    txt = m_filterOptionsMenu->addAction(i18nc("@title:inmenu", "Re-sort and refilter on content change"),
                                          m_proxyModel,
                                          &CatalogTreeFilterModel::setDynamicSortFilter);
     txt->setCheckable(true);
