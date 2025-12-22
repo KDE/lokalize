@@ -446,7 +446,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     : LokalizeTabPageBase(parent)
     , m_model(new FileSearchModel(this))
 {
-    m_tabLabel = i18nc("@title:tab", "Search & Replace");
+    m_tabLabel = i18nc("@title:tab", "Search && Replace");
     m_tabIcon = QIcon::fromTheme(QLatin1String("edit-find-replace"));
     setAcceptDrops(true);
 
@@ -515,7 +515,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
 #endif
 
     KActionCollection *ac = actionCollection();
-    KActionCategory *srf = new KActionCategory(i18nc("@title actions category", "Search & Replace"), ac);
+    KActionCategory *srf = new KActionCategory(i18nc("@title actions category", "Search && Replace"), ac);
 
     m_searchFileListView = new SearchFileListView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);

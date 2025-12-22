@@ -647,10 +647,10 @@ void LokalizeMainWindow::setupActions()
     // Qt::QueuedConnection: defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
     connect(Project::instance(), &Project::loaded, this, &LokalizeMainWindow::projectLoaded, Qt::QueuedConnection);
 
-    ADD_ACTION_SHORTCUT("tools_filesearch", i18nc("@action:inmenu", "Search & Replace"), Qt::Key_F6)
+    ADD_ACTION_SHORTCUT("tools_filesearch", i18nc("@action:inmenu", "Search && Replace"), Qt::Key_F6)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::showFileSearchAction);
 
-    ADD_ACTION_SHORTCUT("tools_filesearch_next", i18nc("@action:inmenu", "Go To Next Search & Replace Entry"), Qt::META | Qt::Key_F3)
+    ADD_ACTION_SHORTCUT("tools_filesearch_next", i18nc("@action:inmenu", "Go To Next Search && Replace Entry"), Qt::META | Qt::Key_F3)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::fileSearchNext);
 
     action = ac->addAction(QStringLiteral("tools_widgettextcapture"), this, &LokalizeMainWindow::widgetTextCapture);
