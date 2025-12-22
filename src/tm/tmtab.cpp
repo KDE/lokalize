@@ -479,7 +479,7 @@ TMTab::TMTab(QWidget *parent)
     KActionCategory *tm = new KActionCategory(i18nc("@title actions category", "Translation Memory"), ac);
 
     action = tm->addAction(QStringLiteral("tools_tm_manage"), Project::instance(), &Project::showTMManager);
-    action->setText(i18nc("@action:inmenu", "Manage translation memories"));
+    action->setText(i18nc("@action:inmenu", "Manage Translation Memories"));
 
     m_qaView = new QaView(this);
     m_qaView->hide();
