@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-28 00:45+0000\n"
+"POT-Creation-Date: 2025-12-23 00:43+0000\n"
 "PO-Revision-Date: 2025-03-03 20:07+0700\n"
 "Last-Translator: Pongsakorn S. <kde@xerusion.me>\n"
 "Language-Team: Thai\n"
@@ -658,7 +658,7 @@ msgstr ""
 #: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgctxt "@window:title"
-msgid "Author name missing"
+msgid "Author Name Missing"
 msgstr ""
 
 #: src/catalog/gettextheader.cpp:458
@@ -669,7 +669,7 @@ msgstr ""
 #: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgctxt "@window:title"
-msgid "Author email missing"
+msgid "Author Email Missing"
 msgstr ""
 
 #: src/catalog/gettextheader.cpp:470
@@ -691,9 +691,10 @@ msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:80
 #: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:59
-#, kde-format
-msgid "Quick search..."
-msgstr "ค้นหาแบบเร็ว..."
+#, fuzzy, kde-format
+#| msgid "&Search"
+msgid "Search"
+msgstr "ค้น&หา"
 
 #: src/cataloglistview/cataloglistview.cpp:81
 #: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:60
@@ -793,15 +794,17 @@ msgid "States"
 msgstr "สถานะ"
 
 #: src/cataloglistview/cataloglistview.cpp:223
-#, kde-format
-msgctxt "@title:inmenu"
-msgid "Searchable column"
-msgstr ""
+#, fuzzy, kde-format
+#| msgctxt "@title"
+#| msgid "Lokalize"
+msgctxt "@title:inmenu user selects a column to search within from a menu"
+msgid "Search Column"
+msgstr "Lokalize"
 
 #: src/cataloglistview/cataloglistview.cpp:227
 #, kde-format
 msgctxt "@title:inmenu"
-msgid "Resort and refilter on content change"
+msgid "Re-sort and refilter on content change"
 msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:247
@@ -867,7 +870,7 @@ msgstr ""
 #| msgctxt "@title:column"
 #| msgid "Source language"
 msgctxt "@title:column Length of the original text"
-msgid "Source length"
+msgid "Source Length"
 msgstr "ภาษาต้นฉบับ"
 
 #: src/cataloglistview/catalogmodel.cpp:108
@@ -875,7 +878,7 @@ msgstr "ภาษาต้นฉบับ"
 #| msgctxt "@title:column"
 #| msgid "Target language"
 msgctxt "@title:column Length of the text in target language"
-msgid "Target length"
+msgid "Target Length"
 msgstr "ภาษาเป้าหมาย"
 
 #: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:1009
@@ -885,11 +888,10 @@ msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "พร้อม"
 
-#: src/cataloglistview/catalogmodel.cpp:146 src/editortab.cpp:1011
-#: src/editortab.cpp:1198 src/tm/tmtab.cpp:234
+#: src/cataloglistview/catalogmodel.cpp:146
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
-msgid "Needs review"
+msgid "Needs Review"
 msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:1007
@@ -981,22 +983,26 @@ msgid "Insert alternate translation #%1"
 msgstr "ยอมรับงานแปลใหม่ทั้งหมด"
 
 #: src/editortab.cpp:237
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "link to add a note"
+#| msgid "Add a note..."
 msgctxt "@action:inmenu"
-msgid "Add a note"
-msgstr ""
+msgid "Add Note"
+msgstr "เพิ่มบันทึก..."
 
 #: src/editortab.cpp:246
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "If checked, get translation memory suggestions "
 msgctxt "@action:inmenu"
-msgid "Insert TM suggestion #%1"
-msgstr ""
+msgid "Insert translation memory suggestion #%1"
+msgstr "เป็นการเปิดใช้การแนะนำความจำการแปล "
 
 #: src/editortab.cpp:251
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "If checked, get translation memory suggestions "
 msgctxt "@action:inmenu"
-msgid "Remove TM suggestion #%1"
-msgstr ""
+msgid "Remove translation memory suggestion #%1"
+msgstr "เป็นการเปิดใช้การแนะนำความจำการแปล "
 
 #: src/editortab.cpp:304
 #, fuzzy, kde-format
@@ -1008,19 +1014,21 @@ msgstr "ต้องการการแปล"
 #: src/editortab.cpp:316
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Define new term"
+msgid "Define New Term"
 msgstr ""
 
 #: src/editortab.cpp:350
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Phases..."
+msgid "Phases…"
 msgstr ""
 
 #: src/editortab.cpp:353
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title"
+#| msgid "Word Count"
 msgctxt "@action:inmenu"
-msgid "Word count"
+msgid "Word Count"
 msgstr "นับจำนวนคำ"
 
 #: src/editortab.cpp:356
@@ -1028,7 +1036,7 @@ msgstr "นับจำนวนคำ"
 #| msgctxt "@action:inmenu"
 #| msgid "Copy all new translations"
 msgctxt "@action:inmenu"
-msgid "Clear all translated entries"
+msgid "Clear Translated Entries"
 msgstr "คัดลอกการแปลใหม่ทั้งหมด"
 
 #: src/editortab.cpp:359
@@ -1045,9 +1053,11 @@ msgid "Merge translation into OpenDocument"
 msgstr "แปลเอกสาร"
 
 #: src/editortab.cpp:383
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Change searching direction"
 msgctxt "@action:inmenu"
-msgid "Change searching direction"
+msgid "Change Searching Direction"
 msgstr "เปลี่ยนทิศทางการค้นหา"
 
 #: src/editortab.cpp:392
@@ -1061,26 +1071,32 @@ msgstr ""
 #: src/editortab.cpp:411
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Approve and go to next"
+msgid "Approve and Go Next"
 msgstr ""
 
 #: src/editortab.cpp:418
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Last Translation"
 msgctxt "@action:inmenu"
-msgid "Equivalent translation"
-msgstr ""
+msgid "Equivalent Translation"
+msgstr "การแปลล่าสุด"
 
 #: src/editortab.cpp:429
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Copy source to target"
 msgctxt "@action:inmenu"
-msgid "Copy source to target"
+msgid "Copy Source to Target"
 msgstr "คัดลอกต้นฉบับไปยังเป้าหมาย"
 
 #: src/editortab.cpp:432
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Target"
 msgctxt "@action:inmenu"
-msgid "Unwrap target"
-msgstr ""
+msgid "Unwrap Target"
+msgstr "เป้าหมาย"
 
 #: src/editortab.cpp:439 src/filesearch/filesearchtab.cpp:137
 #, kde-format
@@ -1149,10 +1165,12 @@ msgid "&Last Entry"
 msgstr "รายการสุ&ดท้าย"
 
 #: src/editortab.cpp:491
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@label:spinbox"
+#| msgid "Enter entry number:"
 msgctxt "@action:inmenu"
-msgid "Entry by number"
-msgstr ""
+msgid "Entry by Number"
+msgstr "ป้อนหมายเลขรายการ:"
 
 #: src/editortab.cpp:494 src/project/projecttab.cpp:100
 #, kde-format
@@ -1171,32 +1189,39 @@ msgid "Next non-empty but not ready"
 msgstr ""
 
 #: src/editortab.cpp:509 src/project/projecttab.cpp:112
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Previous translation only"
 msgctxt "@action:inmenu"
-msgid "Previous untranslated"
-msgstr ""
+msgid "Previous Untranslated"
+msgstr "การแปลก่อนหน้าเท่านั้น"
 
 #: src/editortab.cpp:514 src/project/projecttab.cpp:118
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:status"
+#| msgid "Untranslated"
 msgctxt "@action:inmenu"
-msgid "Next untranslated"
-msgstr ""
+msgid "Next Untranslated"
+msgstr "ยังไม่ได้แปล"
 
 #: src/editortab.cpp:520 src/project/projecttab.cpp:88
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Previous tab"
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
-msgid "Previous not ready"
-msgstr ""
+msgid "Previous Not Ready"
+msgstr "แท็บก่อนหน้า"
 
 #: src/editortab.cpp:528 src/project/projecttab.cpp:94
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:column Number of entries"
+#| msgid "Not ready"
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
-msgid "Next not ready"
-msgstr ""
+msgid "Next Not Ready"
+msgstr "ไม่พร้อม"
 
 #: src/editortab.cpp:537
 #, kde-format
@@ -1205,22 +1230,25 @@ msgid "Focus the search line of Translation Units view"
 msgstr ""
 
 #: src/editortab.cpp:541
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Bookmarks"
 msgctxt "@option:check"
-msgid "Bookmark message"
-msgstr ""
+msgid "Bookmark Message"
+msgstr "ที่คั่น&หน้า"
 
 #: src/editortab.cpp:546
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Previous tab"
 msgctxt "@action:inmenu"
-msgid "Previous bookmark"
-msgstr ""
+msgid "Previous Bookmark"
+msgstr "แท็บก่อนหน้า"
 
 #: src/editortab.cpp:550
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Bookmarks"
 msgctxt "@action:inmenu"
-msgid "Next bookmark"
-msgstr ""
+msgid "Next Bookmark"
+msgstr "ที่คั่น&หน้า"
 
 #: src/editortab.cpp:558
 #, no-c-format, kde-format
@@ -1249,9 +1277,11 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:578 src/editortab.cpp:637
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Previous different"
 msgctxt "@action:inmenu"
-msgid "Previous different"
+msgid "Previous Different"
 msgstr "ความแตกต่างก่อนหน้า"
 
 #: src/editortab.cpp:580 src/editortab.cpp:639
@@ -1263,9 +1293,11 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:589 src/editortab.cpp:646
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Next different"
 msgctxt "@action:inmenu"
-msgid "Next different"
+msgid "Next Different"
 msgstr "ความแตกต่างถัดไป"
 
 #: src/editortab.cpp:591 src/editortab.cpp:648
@@ -1281,7 +1313,7 @@ msgstr ""
 #| msgctxt "@action:inmenu"
 #| msgid "Next different"
 msgctxt "@action:inmenu"
-msgid "Next different approved"
+msgid "Next Different Approved"
 msgstr "ความแตกต่างถัดไป"
 
 #: src/editortab.cpp:605 src/editortab.cpp:655
@@ -1406,6 +1438,12 @@ msgstr "ข้ามไปรายการ"
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "ป้อนหมายเลขรายการ:"
+
+#: src/editortab.cpp:1011 src/editortab.cpp:1198 src/tm/tmtab.cpp:234
+#, kde-format
+msgctxt "@info:status 'fuzzy' in gettext terminology"
+msgid "Needs review"
+msgstr ""
 
 #: src/editortab.cpp:1179
 #, kde-format
@@ -1804,7 +1842,7 @@ msgstr "แฟ้ม"
 #: src/filesearch/filesearchtab.cpp:122
 #, fuzzy, kde-format
 #| msgid "Do not scan files of the project."
-msgid "Drop translation files here..."
+msgid "Drop translation files here…"
 msgstr "ไม่ต้องสำรวจแฟ้มของโครงการ"
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
@@ -1814,10 +1852,12 @@ msgid "File"
 msgstr "แฟ้ม"
 
 #: src/filesearch/filesearchtab.cpp:449
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item Undo action item"
+#| msgid "Replace"
 msgctxt "@title:tab"
-msgid "Search and replace in files"
-msgstr ""
+msgid "Search && Replace"
+msgstr "แทนที่"
 
 #: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
@@ -1835,17 +1875,19 @@ msgid "Open file"
 msgstr "เปิดแฟ้ม"
 
 #: src/filesearch/filesearchtab.cpp:518
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item Undo action item"
+#| msgid "Replace"
 msgctxt "@title actions category"
-msgid "Search and replace in files"
-msgstr ""
+msgid "Search && Replace"
+msgstr "แทนที่"
 
 #: src/filesearch/filesearchtab.cpp:723
 #, fuzzy, kde-format
 #| msgctxt "@item Undo action item"
 #| msgid "Replace"
 msgctxt "@title:window"
-msgid "Mass replace"
+msgid "Mass Replace"
 msgstr "แทนที่"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -2039,16 +2081,18 @@ msgid "&Configure Lokalize"
 msgstr "ปรับแต่งโครงการ"
 
 #: src/lokalizemainwindow.cpp:118 src/project/projecttab.cpp:155
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Open project"
+msgid "Open Project"
 msgstr "เปิดโครงการ"
 
 #: src/lokalizemainwindow.cpp:119
 #, fuzzy, kde-format
 #| msgid "Translator"
 msgctxt "@action:inmenu"
-msgid "Translate software"
+msgid "Translate Software"
 msgstr "ผู้แปล"
 
 #: src/lokalizemainwindow.cpp:120
@@ -2066,7 +2110,7 @@ msgstr ""
 
 #: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
 #, kde-format
-msgid "TM facility requires SQLite Qt module."
+msgid "Translation memory facility requires SQLite Qt module."
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
@@ -2087,24 +2131,26 @@ msgid "Project"
 msgstr "โครงการ"
 
 #: src/lokalizemainwindow.cpp:594
-#, kde-format
-msgid "Next tab"
+#, fuzzy, kde-format
+#| msgid "Next tab"
+msgid "Next Tab"
 msgstr "แท็บต่อไป"
 
 #: src/lokalizemainwindow.cpp:597
-#, kde-format
-msgid "Previous tab"
+#, fuzzy, kde-format
+#| msgid "Previous tab"
+msgid "Previous Tab"
 msgstr "แท็บก่อนหน้า"
 
 #: src/lokalizemainwindow.cpp:600
 #, fuzzy, kde-format
 #| msgid "Previous tab"
-msgid "Previously active tab"
+msgid "Previously Active Tab"
 msgstr "แท็บก่อนหน้า"
 
 #: src/lokalizemainwindow.cpp:603
 #, kde-format
-msgid "Close current tab"
+msgid "Close Current Tab"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:608
@@ -2114,21 +2160,26 @@ msgid "Glossary"
 msgstr "อภิธานศัพท์"
 
 #: src/lokalizemainwindow.cpp:612
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Translation"
 msgctxt "@action:inmenu"
-msgid "Translation memory"
-msgstr ""
+msgid "Translation Memory"
+msgstr "การแปล"
 
 #: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:482
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Next translation only"
 msgctxt "@action:inmenu"
-msgid "Manage translation memories"
-msgstr ""
+msgid "Manage Translation Memories"
+msgstr "การแปลถัดไปเท่านั้น"
 
 #: src/lokalizemainwindow.cpp:620
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Project Overview"
 msgctxt "@action:inmenu"
-msgid "Project overview"
+msgid "Project Overview"
 msgstr "ภาพรวมโครงการ"
 
 #: src/lokalizemainwindow.cpp:624
@@ -2136,28 +2187,29 @@ msgstr "ภาพรวมโครงการ"
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
 msgctxt "@action:inmenu"
-msgid "Configure project..."
+msgid "Configure Project…"
 msgstr "ปรับแต่งโครงการ"
 
 #: src/lokalizemainwindow.cpp:627
 #, fuzzy, kde-format
 #| msgid "Choose location of your software translation project"
 msgctxt "@action:inmenu"
-msgid "Create software translation project..."
+msgid "Create Software Translation Project…"
 msgstr "เลือกตำแหน่งของโครงการแปลซอฟต์แวร์ของคุณ"
 
 #: src/lokalizemainwindow.cpp:630
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Choose location of your software translation project"
 msgctxt "@action:inmenu"
-msgid "Create OpenDocument translation project..."
-msgstr ""
+msgid "Create OpenDocument Translation Project…"
+msgstr "เลือกตำแหน่งของโครงการแปลซอฟต์แวร์ของคุณ"
 
 #: src/lokalizemainwindow.cpp:633
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Open project..."
+msgid "Open Project…"
 msgstr "เปิดโครงการ"
 
 #: src/lokalizemainwindow.cpp:637
@@ -2165,31 +2217,35 @@ msgstr "เปิดโครงการ"
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Close project"
+msgid "Close Project"
 msgstr "เปิดโครงการ"
 
 #: src/lokalizemainwindow.cpp:640
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open recent project"
 msgctxt "@action:inmenu"
-msgid "Open recent project"
+msgid "Open Recent Project"
 msgstr "เปิดโครงการล่าสุด"
 
 #: src/lokalizemainwindow.cpp:650
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item Undo action item"
+#| msgid "Replace"
 msgctxt "@action:inmenu"
-msgid "Search and replace in files"
-msgstr ""
+msgid "Search && Replace"
+msgstr "แทนที่"
 
 #: src/lokalizemainwindow.cpp:653
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Find next in files"
+msgid "Go To Next Search && Replace Entry"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:657
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Widget text capture"
+msgid "Widget Text Capture"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:670
@@ -2537,19 +2593,21 @@ msgstr "<b>บันทึก:</b>"
 #: src/noteeditor.cpp:125
 #, kde-format
 msgctxt "link to edit note"
-msgid "edit..."
-msgstr "แก้ไข..."
+msgid "edit…"
+msgstr ""
 
 #: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
-msgid "Add..."
-msgstr "เพิ่ม..."
+msgid "Add…"
+msgstr ""
 
 #: src/noteeditor.cpp:132
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "link to add a note"
+#| msgid "Add a note..."
 msgctxt "link to add a note"
-msgid "Add a note..."
+msgid "Add a note…"
 msgstr "เพิ่มบันทึก..."
 
 #: src/phaseswindow.cpp:144
@@ -3632,9 +3690,11 @@ msgid "Translated"
 msgstr "แปลแล้ว"
 
 #: src/project/projectmodel.cpp:476
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:column Number of entries"
+#| msgid "Not ready"
 msgctxt "@title:column Number of entries"
-msgid "Not ready"
+msgid "Not Ready"
 msgstr "ไม่พร้อม"
 
 #: src/project/projectmodel.cpp:478
@@ -3682,33 +3742,41 @@ msgid "Project Overview"
 msgstr "ภาพรวมโครงการ"
 
 #: src/project/projecttab.cpp:124
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Previous template only"
 msgctxt "@action:inmenu"
-msgid "Previous template only"
+msgid "Previous Template Only"
 msgstr "แม่แบบก่อนหน้าเท่านั้น"
 
 #: src/project/projecttab.cpp:130
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Next template only"
 msgctxt "@action:inmenu"
-msgid "Next template only"
+msgid "Next Template Only"
 msgstr "แม่แบบถัดไปเท่านั้น"
 
 #: src/project/projecttab.cpp:135
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Previous translation only"
 msgctxt "@action:inmenu"
-msgid "Previous translation only"
+msgid "Previous Translation Only"
 msgstr "การแปลก่อนหน้าเท่านั้น"
 
 #: src/project/projecttab.cpp:138
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Next translation only"
 msgctxt "@action:inmenu"
-msgid "Next translation only"
+msgid "Next Translation Only"
 msgstr "การแปลถัดไปเท่านั้น"
 
 #: src/project/projecttab.cpp:142
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Hide completed items"
+msgid "Hide Completed Items"
 msgstr ""
 
 #: src/project/projecttab.cpp:143
@@ -4006,9 +4074,9 @@ msgstr "เอาออก"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/queryoptions.ui:32
 #, fuzzy, kde-format
-#| msgid "TM"
-msgid "TM:"
-msgstr "TM"
+#| msgid "Translation"
+msgid "Translation Memory:"
+msgstr "การแปล"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
@@ -4028,9 +4096,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
-#, kde-format
-msgid "File mask:"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "File"
+msgid "File Mask:"
+msgstr "แฟ้ม"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
 #: src/tm/queryoptions.ui:155
@@ -4041,7 +4110,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
 #, kde-format
-msgid "Query syntax:"
+msgid "Query Syntax:"
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
@@ -4056,7 +4125,7 @@ msgstr ""
 #: src/tm/queryoptions.ui:200
 #, fuzzy, kde-format
 #| msgid "&Rescan Project Files"
-msgid "&Rescan project files"
+msgid "&Rescan Project"
 msgstr "สำรวจแฟ้มโครงการอีก&ครั้ง"
 
 #: src/tm/tmmanager.cpp:34
@@ -4100,12 +4169,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "เลือกแฟ้ม TMX ที่จะส่งออกฐานข้อมูลที่เลือกไว้ไป"
 
-#: src/tm/tmscanapi.cpp:78
+#: src/tm/tmscanapi.cpp:79
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr ""
 
-#: src/tm/tmscanapi.cpp:78
+#: src/tm/tmscanapi.cpp:79
 #, kde-format
 msgid "TM"
 msgstr "TM"
@@ -4162,7 +4231,7 @@ msgstr ""
 msgid "Rescan not possible"
 msgstr "สำรวจแฟ้มโครงการอีก&ครั้ง"
 
-#: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:621
+#: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:622
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4262,75 +4331,77 @@ msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "แฟ้ม: %1<br />วันที่: %2"
 
-#: src/tm/tmview.cpp:580
+#: src/tm/tmview.cpp:581
 #, kde-format
-msgctxt "@info:tooltip on TM entry continues"
+msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change date: %1"
-msgstr ""
-
-#: src/tm/tmview.cpp:582
-#, kde-format
-msgctxt "@info:tooltip on TM entry continues"
-msgid "<br />Last change author: %1"
 msgstr ""
 
 #: src/tm/tmview.cpp:583
 #, kde-format
-msgctxt "@info:tooltip on TM entry continues"
-msgid "<br />TM: %1"
-msgstr "<br />TM: %1"
+msgctxt "@info:tooltip on translation memory entry continues"
+msgid "<br />Last change author: %1"
+msgstr ""
 
-#: src/tm/tmview.cpp:585
+#: src/tm/tmview.cpp:584
 #, kde-format
-msgctxt "@info:tooltip on TM entry continues"
+msgctxt "@info:tooltip on translation memory entry continues"
+msgid "<br />Translation memory: %1"
+msgstr ""
+
+#: src/tm/tmview.cpp:586
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip on TM entry continues"
+#| msgid "<br />Is not present in the file anymore"
+msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />ไม่ปรากฎในแฟ้มอีกต่อไป"
 
-#: src/tm/tmview.cpp:600
+#: src/tm/tmview.cpp:601
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:604
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr ""
 
-#: src/tm/tmview.cpp:648
+#: src/tm/tmview.cpp:649
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "ลบรายการนี้"
 
-#: src/tm/tmview.cpp:651
+#: src/tm/tmview.cpp:652
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "เปิดแฟ้มที่มีรายการนี้"
 
-#: src/tm/tmview.cpp:661
+#: src/tm/tmview.cpp:662
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Remove this missing file from TM"
+msgid "Remove this missing file from the translation memory"
 msgstr ""
 
-#: src/tm/tmview.cpp:675
+#: src/tm/tmview.cpp:676
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
 
-#: src/tm/tmview.cpp:679
+#: src/tm/tmview.cpp:680
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr ""
 
-#: src/tm/tmview.cpp:962
+#: src/tm/tmview.cpp:963
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
@@ -4412,6 +4483,52 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "คัดลอกต้นฉบับไปยังเป้าหมาย"
+
+#~ msgid "Quick search..."
+#~ msgstr "ค้นหาแบบเร็ว..."
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "Word count"
+#~ msgstr "นับจำนวนคำ"
+
+#, fuzzy
+#~| msgctxt "@item Undo action item"
+#~| msgid "Replace"
+#~ msgctxt "@title:window"
+#~ msgid "Mass replace"
+#~ msgstr "แทนที่"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open project"
+#~ msgstr "เปิดโครงการ"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "Project overview"
+#~ msgstr "ภาพรวมโครงการ"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open project..."
+#~ msgstr "เปิดโครงการ"
+
+#~ msgctxt "link to edit note"
+#~ msgid "edit..."
+#~ msgstr "แก้ไข..."
+
+#~ msgctxt "link to add a note"
+#~ msgid "Add..."
+#~ msgstr "เพิ่ม..."
+
+#, fuzzy
+#~| msgid "TM"
+#~ msgid "TM:"
+#~ msgstr "TM"
+
+#~ msgctxt "@info:tooltip on TM entry continues"
+#~ msgid "<br />TM: %1"
+#~ msgstr "<br />TM: %1"
 
 #~ msgctxt "@info:status message entry"
 #~ msgid "Current: %1"

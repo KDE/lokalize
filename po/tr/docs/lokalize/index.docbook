@@ -1,0 +1,805 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY lokalize "Lokalize">
+<!ENTITY kaider "Lokalize">
+<!ENTITY kappname "Lokalize">
+<!ENTITY package "kdesdk">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % Turkish "INCLUDE">
+]>
+<book id="lokalize" lang="&language;">
+<bookinfo>
+<title
+>&lokalize; El Kitabı</title>
+<authorgroup>
+<author
+><firstname
+>Nick</firstname
+> <surname
+>Shaforostoff</surname
+> <affiliation
+><address
+><email
+>shaforostoff@kde.ru</email
+></address
+></affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@îcloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2007-2009</year
+><holder
+>Nick Shaforostoff</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2025‒08‒19</date>
+<releaseinfo
+>Uygulamalar 25.10</releaseinfo>
+
+<abstract>
+<para
+>&lokalize; üretkenlik ve kalite önceliği amaçlı bir bilgisayar destekli çeviri sistemidir. Genelde CAT araçlarında da bulunan çeviri belleği, kavram dizini ve ayrıca benzersiz bir çeviri birleştirme (eşzamanlama) yeteneğine iyedir. Yazılım çevirisi için özel olarak tasarlanmıştır ve serbest ofis belgeleri çevirisi için de dış dönüştürme araçları ile tümleşir. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>&lokalize;</keyword>
+<keyword
+>yerelleştirme</keyword>
+<keyword
+>l10n</keyword>
+<keyword
+>uluslararasılaştırma</keyword>
+<keyword
+>i18n</keyword>
+<keyword
+>çeviri</keyword>
+<keyword
+>globalleştirme</keyword>
+<keyword
+>g11n</keyword>
+<keyword
+>XLIFF</keyword>
+<keyword
+>gettext</keyword>
+<keyword
+>OpenDocument</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Giriş</title>
+<para
+>Genellikle, program iletileri ve belgelendirmeler İngilizce yazılır. Gerekli araçlar ve kitaplıklardan oluşan ilgili çatıları kullanarak, favori uygulamalarınızı İngilizce olmayan kendi ana dilinize çevirmeniz olanaklıdır. Bir uygulamayı belirli bir dile adapte etme olarak bilinen bu kavrama <emphasis
+>yerelleştirme</emphasis
+> denir. Yerelleştirme süreci, programın arayüzünü ve belgelendirmesini, kullanıcıların gereksinim duyduğu çeşitli dillere çevirme ve bazı ülke ve bölgelere göre girdi ve çıktıları çeşitli göreneklere uyacak biçimde ayarlamaktır. &lokalize;, bir uygulamanın arayüzünü birden çok dili konuşacak biçimde ayarlamada yardımcı olacak bir araçtır. </para>
+<para
+>Uluslararasılaştırma destekli her program, bir veya birden çok ileti kataloğu dosyasını çeviri için kullanıma sunar. Bu dosyaların uzantısı <filename class="extension"
+>.pot</filename
+>’tur. <acronym
+>POT</acronym
+>, <quote
+>Portable Object Template</quote
+> (Taşınabilir Nesne Şablonu) ifadesinin baş harflerinden oluşan bir kısaltmadır. &lokalize;, gelişmiş ve kullanımı kolay bir PO dosyası (&GNU; gettext ileti kataloğu) düzenleyicisidir. &kde; Platform 4 çatısı kullanılarak sıfırdan yazılmıştır ve çevirmenler için gelişmiş bir bilgisayar destekli çeviri ortamı sunar. PO dosyalarının temel düzenlemesi yanında; kavram dizini, çeviri belleği, kalite önceliği için diff düğümleri, proje yönetimi vb. için destek içerir. Tam dolaşım yeteneği, gelişmiş düzenleme işlevselliği, arama işlevleri, sözdizim denetimi ve istatistik işlevleri gibi birçok özelliği vardır. </para>
+<para
+>Portable Object (.po) dosyaları: Her bir çevirmen, bu POT şablonlarından birini alır ve boşlukları doldurmaya başlar; her bir ileti, istenen dile çevrilir. Çeviri metnini içeren dosya, artık bir PO (Portable Object) dosyası olarak anılır. </para>
+
+</chapter>
+
+<chapter id="editor">
+<title
+>Düzenleyici</title>
+<sect1 id="main-window">
+<title
+>Ana Pencere</title>
+<para
+>Öntanımlı olarak, ana pencere altı bölümden oluştur. Sağ üst kutu saltokunurdur ve yalnızca açılmış PO/POT dosyasından alınan msgid’yi (kaynak metin) içerir. Bu kutunun altında bulunan düzenleme kutusu ise msgstr’yi (hedef metin) belirtir. Buraya metin girebilir veya girilen metni değiştirebilirsiniz. </para>
+<screenshot>
+<screeninfo
+>Öntanımlı ana &lokalize; penceresi</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Bu, bir dosya açıldığındaki öntanımlı pencereyi gösterir</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Ana pencerenin sol üst köşesi Çeviri Birimleri’ni gösterir. Bunun altında Birim Üst Verisi vardır ve şu anda görüntülenen kaynak metinle ilgili yorumları içerir. Sol altta, geçerli kaynak metin girdisi için çeviri veritabanındaki önerilen çevirileri gösteren bir Çeviri Belleği bölümü vardır. Pencerenin sağ alt köşesinde, Kavram Dizini bölümü görüntülenir. </para>
+<para
+>Çeviri dosyaları, ayrı sekmelerde iki büyük çoklu satır düzenleme görünümüyle ve birkaç <emphasis
+>araç görünümleriyle</emphasis
+> açılır. Bu görünümler üst üste yığılabilir (sekmeler gibi), ayrı ayrı gösterilebilir veya gizlenebilir. Çeviri dosyaları, <emphasis
+>birimler</emphasis
+> adı verilen birden çok İngilizce girdi eşinden oluşur. Bir <emphasis
+>birim</emphasis
+>, genelde kullanıcı arayüzündeki bir diziye veya belgelendirmedeki bir paragrafa denk gelir. İlk çoklu satır düzenlemesinin amacı, eşin özgün kısmını görüntülemektir. İkinci çoklu satır düzenlemesinin amacı ise çeviriyi görüntülemektir. <emphasis
+>Birimler</emphasis
+> arasında <guilabel
+>Çeviri Birimleri</guilabel
+> görünümü ile veya <keycap
+>Page Down</keycap
+> ve <keycap
+>Page Up</keycap
+> düğmeleriyle dolaşabilirsiniz. </para>
+<para
+>Bir birim,<emphasis
+>çevrilmiş</emphasis
+> veya <emphasis
+>çevrilmemiş</emphasis
+> olabilir. Çevrilmiş bir birimin çevirisi <emphasis
+>hazır olabilir</emphasis
+> veya <emphasis
+>hazır olmayabilir</emphasis
+> (buna bazen <emphasis
+>bulanık</emphasis
+> çeviri de denir). Birim hazır değilse çevirisi yatık metinle gösterilir. &lokalize;, dosyada çeviri durumlarına göre kolayca dolaşmanıza izin verir. Kısayollar için <guilabel
+>Git</guilabel
+> menüsüne bir göz atın. Pencerenin altındaki durum çubuğu, sırasıyla geçerli dizi numarasını, toplam çevrilmemiş dizi sayısını, toplam hazır olmayan dizi sayısını ve geçerli dizinin durumunu gösterir. Dolaşırken, çevrilmemiş diziler hazır değil olarak varsayılır. Ayrıca, <guilabel
+>Çeviri Birimleri</guilabel
+> araç görünümünün süzme özelliğini kullanabilirsiniz. <keycap
+>Page Down</keycap
+> düğmesine basmak, sizi bu araç görünümündeki bir sonraki süzülmüş/sıralanmış birime götürür. </para>
+<para
+>İletilerdeki boşlukların önemli olduğu konsol uygulamalarının çevirisini kolaylaştırmak için <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>&lokalize; Uygulamasını Yapılandır…</guimenuitem
+></menuchoice
+> ana menü ögesindeki <guilabel
+>Düzenleme</guilabel
+> sekmesinden, <guilabel
+>Düzenleyicide boşluklar, sekmeler ve yeni satırlar gibi ayırıcıları görselleştir</guilabel
+> seçeneğini etkinleştirin. </para>
+<para
+>Özgün çeviri şablonuna artık erişiminiz yoksa (kimi ticari çeviri projelerinde çok sık rastlanan bir durumdur) ilgili dilden bir çeviri dosyası kullanabilirsiniz. Tüm çeviri birimlerini temizlemek için <menuchoice
+><guimenu
+>Dosya</guimenu
+><guimenuitem
+>Tüm Çevrilmiş Girdileri Temizle</guimenuitem
+></menuchoice
+> menü ögesini veya <keycombo
+>&Ctrl;&Alt;<keycap
+>D</keycap
+></keycombo
+> kısayolunu kullanın. </para>
+<para
+>Ana menüden <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>Araç Görünümleri</guimenuitem
+></menuchoice
+> ögesini kullanarak <guilabel
+>Alternatif Çeviriler</guilabel
+>, <guilabel
+>Birincil Eşzamanlama</guilabel
+>, <guilabel
+>İkincil Eşzamanlama</guilabel
+>, <guilabel
+>İkili Birimler</guilabel
+> vb. gibi birçok ek bölümü ana pencereye ekleyebilirsiniz. </para>
+</sect1>
+
+<sect1 id="toolbars">
+<title
+>Araç Çubukları</title>
+<para
+>Ana menüden <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>Araç Çubuklarını Yapılandır…</guimenuitem
+></menuchoice
+> ögesini kullanarak araç çubuğuna yeni eylemler ekleyebilir veya var olanları kaldırabilirsiniz. </para>
+<screenshot>
+<screeninfo
+>Araç Çubuklarını Yapılandır</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_toolbar.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Buradan, araç çubuklarını yapılandırabilirsiniz.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Daha fazla bilgi için &kde; Temel Bilgisi içindeki <ulink url="help:/fundamentals/config.html#toolbars"
+>Araç Çubukları</ulink
+> bölümünü okuyun.</para>
+</sect1>
+
+<sect1 id="shortcut-keys">
+<title
+>Kısayol Düğmeleri</title>
+<para
+>Çeviri sırasında kısayol düğmelerini kullanarak zaman kazanabilirsiniz. Kısayol düğmelerini yapılandırmak için ana menüden <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>Klavye Kısayollarını Yapılandır…</guimenuitem
+></menuchoice
+> ögesini kullanın. </para>
+<screenshot>
+<screeninfo
+>Kısayolları Yapılandır</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_shortcuts.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Buradan, kısayol düğmelerini yapılandırabilirsiniz.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Daha fazla bilgi için &kde; Temel Bilgisi içindeki <ulink url="help:/fundamentals/config.html#toolbars"
+>Kısayollar</ulink
+> bölümünü okuyun.</para>
+</sect1>
+
+<sect1 id="general-tips">
+<title
+>Genel Öneriler</title>
+<para
+>&kde; için çeviri yapıyorsanız &lokalize; proje dosyasına büyük olasılıkla sahipsinizdir (genelde <filename
+>index.lokalize</filename
+> olarak adlandırılmıştır) veya <menuchoice
+><guimenu
+>Proje</guimenu
+><guimenuitem
+>Yeni Proje Oluştur</guimenuitem
+></menuchoice
+> menü ögesini seçtiğinizde sihirbaz diliniz için çeviri dosyalarını indirip projeyi sizin yerinize oluşturacaktır. </para>
+
+<tip>
+<para
+>Artırılmış üretkenlik için menü ve araç çubuklarına bağımlı olmak yerine klavye kısayollarına alışmanız önerilir. Örneğin, <guilabel
+>Çeviri Birimleri</guilabel
+> görünümündeki <guilabel
+>Tez ara…</guilabel
+> giriş satırına tez odaklanmak için <keycombo
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> kısayolunu kullanın. Odaklandıktan sonra <keycap
+>Sayfa Aşağı</keycap
+>’ya basıp süzülen listede gezinmeye başlayın. Süzgeç girdisinde <keycap
+>Vazgeç</keycap
+> düğmesine basmak, odağı başka bir birimi seçmeden hedef metin alanına geri taşır. </para>
+</tip>
+<para
+>Eğer XLIFF biçimindeki çeviri dosyalarıyla çalışıyorsanız (OpenDocument çevirisi yapıyorsanız bunu kesin kullanırsınız) genişletilmiş durumlar kullanıma açıktır (<emphasis
+>yeni</emphasis
+>, <emphasis
+>gözden geçirme gerekiyor</emphasis
+>, <emphasis
+>onaylanmış</emphasis
+>, vb.). Bunları, araç çubuğundaki <guilabel
+>Onaylanmış</guilabel
+> düğmesindeki açılır menüden kullanabilirsiniz. <emphasis
+>Hazır</emphasis
+> veya <emphasis
+>Hazır Değil</emphasis
+> biçimindeki bir sınıflandırmaya, geçerli <emphasis
+>iş akışı aşamalarına </emphasis
+> göre karar verilir (<emphasis
+>çeviri</emphasis
+>, <emphasis
+>gözden geçirme</emphasis
+>, <emphasis
+>onay</emphasis
+>). Sizin için kullanılacak öntanımlı faza, projedeki <emphasis
+>rolünüze</emphasis
+> göre karar verilir (proje ayarlarından belirlenir). Her birim, genelde son değiştirilen fazı hakkında bilgi içerir ve her bir faz için onun sahibi dosyaya günlüklenir. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="projects">
+<title
+>Projeler</title>
+
+<sect1 id="projects-general-notes">
+<title
+>Genel Notlar</title>
+<para
+>Projeler, &lokalize;’deki ana kavramlardan biridir. Bir proje, yolları, çevirileri olan klasörleri, şablonları ve diğer dosyaları içeren bir dosyayla temsil edilir: Kavram dizini dosyası, otomasyon komut dosyaları, çeviri bellekleri. &lokalize;, yüklü bir proje olmadan bir dosyayı açarsa ana klasörlerde (dört düzeye kadar) bir proje dosyası arar. Alternatif olarak, &lokalize;’yi başlatırken proje dosyasını <userinput
+>--project</userinput
+> bayrağıyla komut satırından belirtebilirsiniz. </para>
+
+<para
+>Her proje için rolünüzü seçersiniz (<emphasis
+>çevirmen</emphasis
+>, <emphasis
+>gözden geçiren</emphasis
+>,<emphasis
+>onaylayan</emphasis
+>), bu da iş akışı aşamasını etkiler. &lokalize;, düzenlediğiniz dosyaları otomatik olarak alır. </para>
+
+<para
+>Bir proje düzeyinde bir sözcük kaydırma konumu tanımlamak olanaklıdır. <menuchoice
+><guimenu
+>Proje</guimenu
+><guimenuitem
+>Projeyi Yapılandır…</guimenuitem
+></menuchoice
+> menü ögesini kullanmanız ve ardından <guilabel
+>Gelişmiş</guilabel
+> sayfasına gitmeniz yeterlidir. </para>
+
+<note>
+<para
+>Çeviri bellekleri (proje dosyaları, sözlük ve betiklerin aksine), çeviri ekibi üyeleri arasında paylaşılmaz; çünkü bunlar kullanıcının ana klasörü altında oluşturulur ve saklanır, yani tüm projeler için çeviri bellekleri aynı klasörde saklanır ve böylece diğer projeler açıldığında kullanılabilir. </para>
+</note>
+</sect1>
+
+<sect1 id="project-view">
+<title
+>Proje Genel Görünümü Sekmesi</title>
+<para
+>&lokalize;’yi ilk kez başlattığınızda, boş bir <guilabel
+>Proje Genel Görünümü</guilabel
+> sekmesini görürsünüz. Proje Genel Görünümü, PO dosyalarınızın çetelesini tutmanıza yardımcı olan bir dosya yöneticisi görünümüdür. &lokalize; süiti, sizi tez çevirmeye başlamanıza ve çevirilerinizi tutarlı yapmanıza yardımcı olacaktır. &lokalize; iş akışı, bir proje oluşturarak/açarak başlayacağınızı varsayar. </para>
+<para
+>Yeni bir proje oluşturmak için <menuchoice
+><guimenu
+>Proje</guimenu
+><guimenuitem
+>Yazılım Çeviri Projesi Oluştur</guimenuitem
+></menuchoice
+> ögesini kullanın. Bu, sizi yeni bir proje oluşturmak için gerekli adımlar ile yönlendirir. <guimenu
+>Proje</guimenu
+> menüsünde ayrıca <guimenuitem
+>Proje Genel Görünümü</guimenuitem
+>, <guimenuitem
+>Projeyi Yapılandır</guimenuitem
+>, <guimenuitem
+>Proje Aç</guimenuitem
+> ve <guimenuitem
+>Son Kullanılan Projeyi Aç</guimenuitem
+> gibi ögeler bulunur.</para>
+<para>
+<screenshot>
+<screeninfo
+>Proje Genel Görünümü Sekmesi</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="project_overview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Buradan projenizi yapılandırabilirsiniz.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+><guilabel
+>Proje Genel Görünümü</guilabel
+> sekmesi, geçerli bir proje için istatistikleri gösteren bir dosya ağacı görüntüler; örneğin, çevrilen birimlerin çeviri yüzdeleri ve son çevirmen gibi. Sizin geçerli &lokalize; penceresinde seçili bir dosyayı yeni bir sekmede açmanıza olanak tanır. </para>
+
+<note>
+    <para
+>Tümüyle çevrilmiş dosyaları <guilabel
+>Proje Genel Görünümü</guilabel
+>’nden ana araç çubuğundaki <guibutton
+>Tamamlanan Ögeleri Gizle</guibutton
+> düğmesiyle veya <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+> öntanımlı kısayoluyla gizleyebilirsiniz. </para>
+</note>
+<para
+>&lokalize; uygulamasını bir sonraki başlatışınızda, öntanımlı olarak son açılan dosyayı gösterir. Bu davranışı, ayarlardan <guilabel
+>&lokalize;’yi başlatırken önceden açılan dosyaları geri yükle</guilabel
+> seçeneğiyle kapatabilirsiniz (<menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>&lokalize; Uygulamasını Yapılandır…</guimenuitem
+></menuchoice
+>, <guilabel
+>Genel</guilabel
+> sekmesi). Aynı sayfa, içindeki bir sonraki/önceki sekmeye geçtiğinizde &lokalize; davranışını yapılandırmak için kullanılabilir. Sekme listesinde sekme konumlarına göre veya etkinleştirme sıralarına göre ilerlemek olanaklıdır. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="glossary">
+<title
+>Kavram Dizini</title>
+
+<para
+>Sırf kopyala yapıştır için çevirisini bulmak daha fazla zaman alacağı için aynı uzun metin dizisini birkaç kez yazmaktan yoruldunuz mu hiç? Artık yalnızca <guilabel
+>Kavram Dizini</guilabel
+> görünümünde (sık kullanılan) sözcük dizisini bulmanız ve ardından bir kısayola basarak eklemeniz yeterlidir. </para>
+
+<para
+>Elbette kavram dizini, önce sözcük dizileriyle doldurulmalıdır. &lokalize;, tüm kavram dizini üzerinde açık bir arama yapılmasına olanak tanıyan kullanışlı bir düzenleyiciye sahiptir. </para>
+
+<screenshot>
+<screeninfo
+>Sağ alt köşedeki kavram dizini görünümü, geçerli birim için uygun girdileri görüntülüyor</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Sağ alt köşedeki kavram dizini görünümü, geçerli birim için uygun girdileri görüntülüyor</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="tm">
+<title
+>Çeviri Belleği</title>
+
+<para
+><guilabel
+>Çeviri Belleği</guilabel
+> görünümü, çeviri dosyaları içeren bir klasörü; örneğin, &dolphin; dosyalarını görünüme sürükleyip bırakmanıza olanak tanır. Birkaç dakika içinde, çeviri önerileri birime geçişte kendiliğinden görüntüleneceklerdir. Bir çeviri önerisini dosyaya geçirmek için <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+>, <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+> gibi ilerleyen klavye kısayollarını kullanın. </para>
+<para
+>Çeviri belleğinize projeler eklemek/yönetmek için <menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Çeviri Belleğini Yönet</guimenuitem
+></menuchoice
+> seçeneğini kullanın. Buradan <filename role="extension"
+>tmx</filename
+> biçimli dosyalardan veri içe aktarabilir veya veriyi dışa aktarabilirsiniz. </para>
+
+<para
+><keycombo
+><keycap
+>F7</keycap
+></keycombo
+> düğmesine basıldığında, çeviri belleğini serbestçe sorgulamanızı sağlayan <guilabel
+>Çeviri Belleği</guilabel
+> sekmesi açılacaktır. Bir arama sonucuna tıkladığınızda ilgili dosya ve birim açılır. Projedeki bir dosyayı tez açmak (ve çeviri belleğine eklemek) için <guilabel
+>Proje Genel Görünümü</guilabel
+> içinde bakınmak yerine onun adını <guilabel
+>Dosya maskesi</guilabel
+> alanına “*” ile yazabilirsiniz. </para>
+
+<para
+>TM işletkesi, hazır olmayan ve çevrilmemiş olanlar da içerilmek üzere tüm girdileri indeksler. Bu, her arama yapıldığında projedeki her dosyanın taranmasını gerektiren Dosyalar İçinde Ara özelliğinin tümüyle yerini almasını sağlar. </para>
+
+<note>
+    <para
+>Ayarlardaki <guilabel
+>Eksik dosyaları yeniden tararken veya kayıp girdiye sağ tıkladığında çeviri belledğinden sil</guilabel
+> seçeneği işaretliyse eski çeviri belleği girdileri &lokalize; çeviri belleğinden yeniden tarama veya eksik bir girdiye sağ tıklandığında kaldırılır (<menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>&lokalize; Uygulamasını Yapılandır…</guimenuitem
+></menuchoice
+>, <guilabel
+>Çeviri Belleği</guilabel
+> sayfası). </para>
+</note>
+
+<screenshot>
+<screeninfo
+>Geçerli birim için çeviri belleği arama sonuçlarıyla &lokalize;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Geçerli birim için çeviri belleği arama sonuçlarıyla &lokalize;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<variablelist>
+  <varlistentry>
+    <term
+>Toplu Çeviri:</term>
+    <listitem>
+      <para
+>Çeviri belleği veritabanından tam uyuşan önerileri kendiliğinden doldurmak için <menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Tüm Tam Uyuşan Önerileri Doldur</guimenuitem
+></menuchoice
+> veya <guimenuitem
+>Tüm Tam Uyuşan Önerileri Doldur ve Belirsiz Olarak İmle</guimenuitem
+> seçeneklerini kullanın. </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</chapter>
+
+
+<chapter id="sync">
+<title
+>Çeviri Eşzamanlama Yetenekleri</title>
+
+<para
+><guilabel
+>Eşzamanlama Kipi</guilabel
+> (eski adı <guilabel
+>Birleştirme Kipi</guilabel
+>), editörlere pek çok zaman kazandırır ve iki veya daha çok çevirmen bir dosya üzerinde çalışıyorsa veya bir yazılımın birkaç dalı için çeviri bakımı gerekiyorsa çok yararlıdır. </para>
+
+<para
+>&lokalize;, farklı birimlerde tez dolaşıma olanak tanır ve sözcük başına olan farkları görüntüler. Ayrıca &lokalize;’da iki eşzamanlama görünümü vardır — <guilabel
+>Birincil Eşzamanlama</guilabel
+> ve <guilabel
+>İkincil Eşzamanlama</guilabel
+>. Bunlar eşdeğerdir; ancak iki yazılım dalı bakımını yaparken birincisi çevirileri birleştirmede, ikincisi de çevirileri eşzamanlı tutmada kullanılır. </para>
+
+<para
+>Çeviriyi yardımcı dosyadan kopyaladıktan sonra (<emphasis
+>eşzamanladığınızda</emphasis
+>), bu birimde yapılan sonraki tüm değişiklikler yardımcı dosyaya geri kopyalanacaktır. </para>
+
+<sect1 id="file-merge">
+<title
+>Birleştirme</title>
+<para
+><guilabel
+>Eşzamanlama Kipi</guilabel
+>’nin bir kullanımı da, yapılan işin kalitesinden emin olamadığınızda (yeni) katkıda bulunanlar tarafından yapılan değişiklikleri gözden geçirmektir. </para>
+<para
+>Taban dosyayı açın, değiştirilen sürümünü <guilabel
+>Birincil Eşzamanlama</guilabel
+> görünümüne sürükleyip bırakın, farklı olan girdilerde dolaşmak için <keycombo
+>&Alt;<keycap
+>Aşağı Ok Düğmesi</keycap
+></keycombo
+> veya <keycombo
+>&Alt; <keycap
+>Yukarı Ok Düğmesi</keycap
+></keycombo
+> kombinasyonlarını kullanın (&kde; uygulamalarında kısayolların tercihlerinize göre düzenlenebileceğini unutmayın). </para>
+<screenshot>
+<screeninfo
+>Çevirideki değişiklikleri birleştirmek için kullanılırken &lokalize;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Çevirideki değişiklikleri birleştirmek için kullanılırken &lokalize;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="file-sync">
+<title
+>Yineleme</title>
+<para
+><guilabel
+>Eşzamanlama Kipi</guilabel
+>, aynı anda iki dalın çevirisinde değişiklik yapmak için de kullanılabilir. Proje seçeneklerinizdeki <guilabel
+>Dal klasörü</guilabel
+> yolunu dalın temel klasörüne karşılık gelen yol olarak ayarlayın ve <guilabel
+>İkincil Eşzamanlama</guilabel
+> görünümü kendiliğinden daldaki dosyaları açacaktır. Daha sonra, ana dalınızdaki dosyalarda her değişiklik yaptığınızda, bunlar kendiliğinden dala kopyalanacaktır (tabii ki aynı İngilizce diziyi içeriyorsa). </para>
+<para
+>Örneğin, &kde; çevirileri üzerinde çalışıyorsanız trunk’ı <filename class="directory"
+>/home/xx/hacking/kde/trunk/l10n-kf5/DİL_ADI</filename
+> yoluna ve stable’ı da <filename class="directory"
+>/home/xx/hacking/kde/branches/stable/l10n-kf5/DİL_ADI</filename
+> yoluna çıkış yapın. &lokalize; projenizi: <filename
+>/home/xx/hacking/kde/trunk/l10n-kf5/DİL_ADI/proje.lokalize</filename
+> olarak oluşturun ve <filename class="directory"
+>BranchDir=../../../branches/stable/l10n-kf5/DİL_ADI</filename
+> olarak ayarlayıp hem trunk ve stable klasörlerindeki değişiklikleri işleyin. </para>
+</sect1>
+
+
+<sect1 id="alt-trans">
+<title
+>Alternatif Çeviriler</title>
+
+<para
+>Her birim, kendisiyle ilişkili birkaç <emphasis
+>alternatif çeviriye</emphasis
+> sahip olabilir. Bu tür çeviriler dosya güncellemesi sırasında, kaynak dizisi biraz değiştiğinde ortaya çıkabilir. Bu durumda, eski çeviri (eski) kaynağıyla birlikte alternatif çeviriler listesine taşınır, böylece kaybolmazlar. </para>
+<para
+>Yazılım çevirisi yaparken, çeviri dosyalarını hazırlamak için genellikle gettext araçları kullanılır. Özgün metin değiştiğinde, gettext araçları çeviri dosyalarını günceller ve değiştirilmiş özgün metne sahip girişleri <emphasis
+>bulanık</emphasis
+> (veya diğer terminolojide <emphasis
+>hazır olmayan</emphasis
+>) olarak imler. Çevirmenlerin tam olarak hangi değişikliklerin yapıldığını görebilmeleri için önceki özgün metni saklarlar. &lokalize; çevirmenin hayatını kolaylaştırır ve <guilabel
+>Alternatif Çeviriler</guilabel
+> görünümünde özgün metnin değiştirilen kısımlarını vurgular. </para>
+
+<screenshot>
+<screeninfo
+>&lokalize; çevirinin son gözden geçirilmesinden bu yana özgün metinde değiştirilen kısımların vurgularken</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; çevirinin son gözden geçirilmesinden bu yana özgün metinde değiştirilen kısımların vurgularken</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
+</chapter>
+
+<chapter id="externaltools">
+<title
+>Dış Araçlar</title>
+
+<sect1 id="pology">
+<title
+>Pology</title>
+
+<para
+><guilabel
+>Pology</guilabel
+> yapılandırma sayfasını kullanarak, <application
+>Pology</application
+> uygulaması ile etkileşimi yapılandırabilirsiniz. Yapılandırma penceresini açmak için <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>&lokalize; Uygulamasını Yapılandır…</guimenuitem
+></menuchoice
+>’ı seçin. </para>
+<para
+>Daha fazla bilgi için lütfen <ulink url="http://pology.nedohodnik.net/"
+>Pology ana sayfasına</ulink
+> başvurun. </para>
+</sect1>
+
+<sect1 id="languagetool">
+<title
+>LanguageTool</title>
+
+<para
+><application
+>LanguageTool</application
+>, çeviri birimleriniz için yazım ve dilbilgisi denetimi sunar. </para>
+<para
+><guilabel
+>LanguageTool</guilabel
+> yapılandırma sayfasını kullanarak, kendi özel <application
+>LanguageTool</application
+> sunucunuzu yapılandırabilirsiniz. Yapılandırma penceresini açmak için <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>&lokalize; Uygulamasını Yapılandır…</guimenuitem
+></menuchoice
+>’ı seçin. </para>
+<para
+><application
+>LanguageTool</application
+> denetleme yeteneklerinden yararlanmak için <menuchoice
+><guimenu
+>Düzen</guimenu
+><guimenuitem
+>Bu Birimi LanguageTool ile Denetle</guimenuitem
+></menuchoice
+> menü ögesini veya<keycombo
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+> kısayolunu kullanın. </para>
+<para
+>Daha fazla bilgi için lütfen <ulink url="https://languagetool.org/"
+>LanguageTool ana sayfasına</ulink
+> başvurun. </para>
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Katkıda Bulunanlar ve Teşekkürler</title>
+
+<para
+>&lokalize; </para>
+
+<para
+>Program telif hakkı &copy; 2007–2015, Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Bazı kodlar, &lokalize; programının atası olan KBabel’den alınmıştır. </para>
+
+<para
+>Belgelendirme telif hakkı&copy; 2007–2009 Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Yazar: <itemizedlist
+> <listitem
+> <para
+>Nick Shaforostoff <email
+>shaforostoff AT kde.ru</email
+>; Shankar Prasad <email
+>svenkate AT redhat.com</email
+>; Sweta Kothari <email
+>swkothar AT redhat.com</email
+> </para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Daha fazla ayrıntı için <ulink url="http://userbase.kde.org/lokalize"
+>&lokalize; ana sayfasını</ulink
+> ziyaret edin.</para>
+
+<para
+>Çeviri: Emir SARI <email
+>emir_sari@icloud.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->
