@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-23 00:43+0000\n"
-"PO-Revision-Date: 2025-08-20 08:00+0200\n"
+"PO-Revision-Date: 2025-12-23 03:46+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -276,7 +276,7 @@ msgstr "იზოლირებული ჭდე"
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Marker"
-msgstr "სანიშნი"
+msgstr "მარკერი"
 
 #: src/catalog/catalogstring.cpp:62
 #, kde-format
@@ -734,9 +734,7 @@ msgstr ""
 "გადასვლისას"
 
 #: src/catalog/gettextheader.cpp:457
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author name missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr "ავტორის სახელი მითითებული არაა"
@@ -747,9 +745,7 @@ msgid "Your name:"
 msgstr "თქვენი სახელი:"
 
 #: src/catalog/gettextheader.cpp:469
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author email missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
 msgstr "ავტორის ელფოსტა მითითებული არაა"
@@ -772,10 +768,9 @@ msgstr "თარგმანის ერთეულები"
 
 #: src/cataloglistview/cataloglistview.cpp:80
 #: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:59
-#, fuzzy, kde-format
-#| msgid "&Search"
+#, kde-format
 msgid "Search"
-msgstr "&ძებნა"
+msgstr "ძებნა"
 
 #: src/cataloglistview/cataloglistview.cpp:81
 #: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:60
@@ -873,20 +868,16 @@ msgid "States"
 msgstr "შტატები"
 
 #: src/cataloglistview/cataloglistview.cpp:223
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Searchable column"
+#, kde-format
 msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
-msgstr "ძებნადი სვეტები"
+msgstr "ძებნის სვეტი"
 
 #: src/cataloglistview/cataloglistview.cpp:227
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Resort and refilter on content change"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Re-sort and refilter on content change"
-msgstr "თავიდან დალაგება და თავიდან გაფილვრა შემცველობის ცვლილებისას"
+msgstr "თავიდან დალაგება და თავიდან გაფილტვრა შემცველობის ცვლილებისას"
 
 #: src/cataloglistview/cataloglistview.cpp:247
 #, kde-format
@@ -946,17 +937,13 @@ msgid "Modified"
 msgstr "შეიცვალა"
 
 #: src/cataloglistview/catalogmodel.cpp:106
-#, fuzzy, kde-format
-#| msgctxt "@title:column Length of the original text"
-#| msgid "Source length"
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source Length"
 msgstr "წყაროს სიგრძე"
 
 #: src/cataloglistview/catalogmodel.cpp:108
-#, fuzzy, kde-format
-#| msgctxt "@title:column Length of the text in target language"
-#| msgid "Target length"
+#, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
 msgstr "სამიზნის სიგრძე"
@@ -969,9 +956,7 @@ msgid "Ready"
 msgstr "მზადაა"
 
 #: src/cataloglistview/catalogmodel.cpp:146
-#, fuzzy, kde-format
-#| msgctxt "@info:status 'fuzzy' in gettext terminology"
-#| msgid "Needs review"
+#, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs Review"
 msgstr "საჭიროებს გადახედვას"
@@ -1059,28 +1044,22 @@ msgid "Insert alternate translation #%1"
 msgstr "ალტერნატიული თარგმანის #%1 ჩასმა"
 
 #: src/editortab.cpp:237
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Note"
-msgstr "შენიშვნის დამატება"
+msgstr "კომენტარის დამატება"
 
 #: src/editortab.cpp:246
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert translation memory suggestion #%1"
-msgstr "თარგმანის მეხსიერების შეთავაზების გამოყენება"
+msgstr "თარგმანის მეხსიერების შეთავაზების #%1 ჩასმა"
 
 #: src/editortab.cpp:251
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove translation memory suggestion #%1"
-msgstr "თარგმანის მეხსიერების შეთავაზების გამოყენება"
+msgstr "თარგმანის მეხსიერების შეთავაზების #%1 წაშლა"
 
 #: src/editortab.cpp:304
 #, kde-format
@@ -1089,36 +1068,28 @@ msgid "Insert term translation #%1"
 msgstr "ტერმინის თარგმანის #%1 ჩასმა"
 
 #: src/editortab.cpp:316
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define new term"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Define New Term"
 msgstr "ახალი ტერმინის აღწერა"
 
 #: src/editortab.cpp:350
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Phases..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases…"
-msgstr "ფაზები..."
+msgstr "ფაზები…"
 
 #: src/editortab.cpp:353
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Word Count"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Word Count"
 msgstr "სიტყვების რაოდენობა"
 
 #: src/editortab.cpp:356
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear all translated entries"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear Translated Entries"
-msgstr "ყველა ნათარგმნი ჩანაწერის გასუფთავება"
+msgstr "ნათარგმნი ჩანაწერების გასუფთავება"
 
 #: src/editortab.cpp:359
 #, kde-format
@@ -1133,9 +1104,7 @@ msgid "Merge translation into OpenDocument"
 msgstr "თარგმანების შერწყმა OpenDocument-ში"
 
 #: src/editortab.cpp:383
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Change searching direction"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Change Searching Direction"
 msgstr "ძებნის მიმართულები შეცვლა"
@@ -1149,33 +1118,25 @@ msgid "Approved"
 msgstr "დამტკიცებულია"
 
 #: src/editortab.cpp:411
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Approve and go to next"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and Go Next"
-msgstr "დადასტურება და შემდეგზე გადასვლა"
+msgstr "დამტკიცება და შემდეგზე გადასვლა"
 
 #: src/editortab.cpp:418
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Equivalent translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent Translation"
 msgstr "ტოლი თარგმანი"
 
 #: src/editortab.cpp:429
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy source to target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source to Target"
 msgstr "წყაროს კოპირება სამიზნეში"
 
 #: src/editortab.cpp:432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Unwrap target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap Target"
 msgstr "სამიზნის გაშლა"
@@ -1247,12 +1208,10 @@ msgid "&Last Entry"
 msgstr "&ბოლო ჩანაწერი"
 
 #: src/editortab.cpp:491
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Entry by number"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by Number"
-msgstr "ჩანაწერის მიხედვით"
+msgstr "ჩანაწერის ნომრის მიხედვით"
 
 #: src/editortab.cpp:494 src/project/projecttab.cpp:100
 #, kde-format
@@ -1271,27 +1230,19 @@ msgid "Next non-empty but not ready"
 msgstr "შემდეგი არაცარიელი, მაგრამ არა-მზა"
 
 #: src/editortab.cpp:509 src/project/projecttab.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Untranslated"
 msgstr "წინა უთარგმნელი"
 
 #: src/editortab.cpp:514 src/project/projecttab.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Untranslated"
 msgstr "შემდეგი უთარგმნელი"
 
 #: src/editortab.cpp:520 src/project/projecttab.cpp:88
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Previous not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -1299,11 +1250,7 @@ msgid "Previous Not Ready"
 msgstr "წინა არა-მზა"
 
 #: src/editortab.cpp:528 src/project/projecttab.cpp:94
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Next not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -1317,28 +1264,22 @@ msgid "Focus the search line of Translation Units view"
 msgstr "ფოკუსი თარგმანის ერთეულების ხედის ძებნის ხაზზე"
 
 #: src/editortab.cpp:541
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Bookmark message"
+#, kde-format
 msgctxt "@option:check"
 msgid "Bookmark Message"
 msgstr "შეტყობინების ჩანიშვნა"
 
 #: src/editortab.cpp:546
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
-msgstr "წინა სანიშნი"
+msgstr "წინა სანიშნე"
 
 #: src/editortab.cpp:550
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Bookmark"
-msgstr "შემდეგი სანიშნი"
+msgstr "შემდეგი სანიშნე"
 
 #: src/editortab.cpp:558
 #, no-c-format, kde-format
@@ -1368,9 +1309,7 @@ msgstr ""
 "მიმდინარე ში შესარწყმელი / საბაზისო ფაილის რეპლიკაციისთვის კატალოგის გახსნა"
 
 #: src/editortab.cpp:578 src/editortab.cpp:637
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Different"
 msgstr "წინა განსხვავებული"
@@ -1386,9 +1325,7 @@ msgstr ""
 "მიმდინარეობს, შერწყმის წყაროში არსებული ცარიელი თარგმანების ჩათვლით"
 
 #: src/editortab.cpp:589 src/editortab.cpp:646
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different"
 msgstr "შემდეგი განსხვავებული"
@@ -1404,12 +1341,10 @@ msgstr ""
 "მიმდინარეობს, შერწყმის წყაროში არსებული ცარიელი თარგმანების ჩათვლით"
 
 #: src/editortab.cpp:599
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different approved"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different Approved"
-msgstr "შემდეგი სხვაობა დადასტურებული"
+msgstr "შემდეგი განსხვავებული დადასტურებული"
 
 #: src/editortab.cpp:605 src/editortab.cpp:655
 #, kde-format
@@ -1946,10 +1881,9 @@ msgid "File List"
 msgstr "ფაილების სია"
 
 #: src/filesearch/filesearchtab.cpp:122
-#, fuzzy, kde-format
-#| msgid "Drop translation files here..."
+#, kde-format
 msgid "Drop translation files here…"
-msgstr "დაყარეთ თარგმანის ფაილები აქ..."
+msgstr "დაყარეთ თარგმანის ფაილები აქ…"
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
@@ -1958,12 +1892,10 @@ msgid "File"
 msgstr "ფაილი"
 
 #: src/filesearch/filesearchtab.cpp:449
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search && Replace"
-msgstr "ფაილებში ძებნა და ჩანაცვლება"
+msgstr "ძებნა && ჩანაცვლება"
 
 #: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
@@ -1981,16 +1913,13 @@ msgid "Open file"
 msgstr "ფაილის გახსნა"
 
 #: src/filesearch/filesearchtab.cpp:518
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title actions category"
 msgid "Search && Replace"
-msgstr "ფაილებში ძებნა და ჩანაცვლება"
+msgstr "ძებნა && ჩანაცვლება"
 
 #: src/filesearch/filesearchtab.cpp:723
-#, fuzzy, kde-format
-#| msgid "Mass Replace"
+#, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
 msgstr "მასიური ჩანაცვლება"
@@ -2196,17 +2125,13 @@ msgid "&Configure Lokalize"
 msgstr "&Lokalize-ის მორგება"
 
 #: src/lokalizemainwindow.cpp:118 src/project/projecttab.cpp:155
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project"
 msgstr "პროექტის გახსნა"
 
 #: src/lokalizemainwindow.cpp:119
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software"
 msgstr "პროგრამების თარგმნა"
@@ -2224,8 +2149,7 @@ msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Qt-ის Sql მოდულები ვერ ვიპოვე. თარგმანის მეხსიერება არ იმუშავებს."
 
 #: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
-#, fuzzy, kde-format
-#| msgid "TM facility requires SQLite Qt module."
+#, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "თარგმანის მეხსიერებას Qt-ის SQLite მოდული სჭირდება."
 
@@ -2247,26 +2171,22 @@ msgid "Project"
 msgstr "პროექტი"
 
 #: src/lokalizemainwindow.cpp:594
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Tab"
-msgstr "_შემდეგი ჩანართი"
+msgstr "შემდეგი ჩანართი"
 
 #: src/lokalizemainwindow.cpp:597
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Tab"
-msgstr "_წინა ჩანართი"
+msgstr "წინა ჩანართი"
 
 #: src/lokalizemainwindow.cpp:600
-#, fuzzy, kde-format
-#| msgid "Previously active tab"
+#, kde-format
 msgid "Previously Active Tab"
 msgstr "ადრე აქტიური ჩანართი"
 
 #: src/lokalizemainwindow.cpp:603
-#, fuzzy, kde-format
-#| msgid "Close current tab"
+#, kde-format
 msgid "Close Current Tab"
 msgstr "მიმდინარე ჩანართის დახურვა"
 
@@ -2277,94 +2197,73 @@ msgid "Glossary"
 msgstr "სარჩევი"
 
 #: src/lokalizemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "თარგმანის მეხსიერება"
 
 #: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:482
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Manage translation memories"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "თარგმანის მეხსიერებების მართვა"
 
 #: src/lokalizemainwindow.cpp:620
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "პროექტის მიმოხილვა"
 
 #: src/lokalizemainwindow.cpp:624
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Configure project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
-msgstr "პროექტის მორგება..."
+msgstr "პროექტის მორგება…"
 
 #: src/lokalizemainwindow.cpp:627
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create software translation project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
-msgstr "პროგრამის თარგმნის პროექტის შექმნა..."
+msgstr "პროგრამის თარგმნის პროექტის შექმნა…"
 
 #: src/lokalizemainwindow.cpp:630
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create OpenDocument translation project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr "OpenDocument-ის თარგმანის პროექტის შექმნა..."
+msgstr "OpenDocument-ის თარგმანის პროექტის შექმნა…"
 
 #: src/lokalizemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
-msgstr "პროექტის გახსნა"
+msgstr "პროექტის გახსნა…"
 
 #: src/lokalizemainwindow.cpp:637
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "პროექტის დახურვა"
 
 #: src/lokalizemainwindow.cpp:640
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
-msgstr "ახლახანს გახსნილი პროექტის გახსნა"
+msgstr "ახლახან გახსნილი პროექტის გახსნა"
 
 #: src/lokalizemainwindow.cpp:650
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
-msgstr "ფაილებში ძებნა და ჩანაცვლება"
+msgstr "ძებნა && ჩანაცვლება"
 
 #: src/lokalizemainwindow.cpp:653
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
-msgstr ""
+msgstr "გადასვლა შემდეგ ძებნისა && ჩანაცვლების ჩანაწერზე"
 
 #: src/lokalizemainwindow.cpp:657
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Widget Text Capture"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "ვიჯეტის ტექსტის ჩაჭერა"
@@ -2708,21 +2607,19 @@ msgstr "<b>შენიშვნები:</b>"
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit…"
-msgstr ""
+msgstr "ჩასწორება…"
 
 #: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add…"
-msgstr ""
+msgstr "დამატება…"
 
 #: src/noteeditor.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "link to add a note"
 msgid "Add a note…"
-msgstr "შენიშვნის დამატება"
+msgstr "კომენტარის დამატება…"
 
 #: src/phaseswindow.cpp:144
 #, kde-format
@@ -3867,9 +3764,7 @@ msgid "Translated"
 msgstr "თარგმნილია"
 
 #: src/project/projectmodel.cpp:476
-#, fuzzy, kde-format
-#| msgctxt "@title:column Number of entries"
-#| msgid "Not ready"
+#, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr "მზად არაა"
@@ -3917,41 +3812,31 @@ msgid "Project Overview"
 msgstr "პროექტის მიმოხილვა"
 
 #: src/project/projecttab.cpp:124
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Template Only"
 msgstr "მხოლოდ წინა შაბლონი"
 
 #: src/project/projecttab.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Template Only"
 msgstr "მხოლოდ შემდეგი შაბლონი"
 
 #: src/project/projecttab.cpp:135
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Translation Only"
 msgstr "მხოლოდ წინა თარგმანი"
 
 #: src/project/projecttab.cpp:138
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Translation Only"
 msgstr "მხოლოდ შემდეგი თარგმანი"
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide completed items"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Completed Items"
 msgstr "დასრულებული ელემენტების დამალვა"
@@ -4242,10 +4127,9 @@ msgstr "წაშლა"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/queryoptions.ui:32
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgid "Translation Memory:"
-msgstr "თარგმანის მეხსიერება"
+msgstr "თარგმანის მეხსიერება:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
@@ -4268,8 +4152,7 @@ msgstr "ჩვენება შედეგებისა, რომლებ
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
-#, fuzzy, kde-format
-#| msgid "File mask:"
+#, kde-format
 msgid "File Mask:"
 msgstr "ფაილის ნიღაბი:"
 
@@ -4283,8 +4166,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
-#, fuzzy, kde-format
-#| msgid "Query syntax:"
+#, kde-format
 msgid "Query Syntax:"
 msgstr "მოთხოვნის სინტაქსი:"
 
@@ -4300,8 +4182,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "&Rescan Project"
 msgstr "პროექტის ფაილების თავიდან სკანი&რება"
 
@@ -4505,33 +4386,25 @@ msgid "File: %1<br />Addition date: %2"
 msgstr "ფაილი: %1<br />დამატების თარიღი: %2"
 
 #: src/tm/tmview.cpp:581
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change date: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />უკანასკნელი ცვლილების თარიღი: %1"
 
 #: src/tm/tmview.cpp:583
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change author: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />უკანასკნელი ცვლილების ავტორი: %1"
 
 #: src/tm/tmview.cpp:584
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translation memory"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Translation memory: %1"
-msgstr "თარგმანის მეხსიერება"
+msgstr "<br />თარგმანის მეხსიერება: %1"
 
 #: src/tm/tmview.cpp:586
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Is not present in the file anymore"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />ფაილში აღარ არის წარმოდგენილი"
@@ -4564,12 +4437,10 @@ msgid "Open file containing this entry"
 msgstr "ამ ჩანაწერის შემცველი ფაილის გახსნა"
 
 #: src/tm/tmview.cpp:662
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this missing file from TM"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from the translation memory"
-msgstr "ამ ნაკლული ფაილის წაშლა თმ-დან"
+msgstr "ამ ნაკლული ფაილის წაშლა თარგმანის მეხსიერებიდან"
 
 #: src/tm/tmview.cpp:676
 #, kde-format

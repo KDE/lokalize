@@ -2296,7 +2296,9 @@ msgid "Glossary"
 msgstr "Glossar"
 
 #: src/lokalizemainwindow.cpp:612
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Translation Memory"
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Übersetzungsdatenbank abfragen"

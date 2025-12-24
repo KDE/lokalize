@@ -686,12 +686,10 @@ msgid ""
 msgstr "先前源值，由 Gettext 在过渡到更新 POT 模板期间保存"
 
 #: src/catalog/gettextheader.cpp:457
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author name missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
-msgstr "缺少作者姓名"
+msgstr ""
 
 #: src/catalog/gettextheader.cpp:458
 #, kde-format
@@ -699,12 +697,10 @@ msgid "Your name:"
 msgstr "您的姓名："
 
 #: src/catalog/gettextheader.cpp:469
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author email missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
-msgstr "缺少作者电子邮件"
+msgstr ""
 
 #: src/catalog/gettextheader.cpp:470
 #, kde-format
@@ -724,10 +720,9 @@ msgstr "翻译条目"
 
 #: src/cataloglistview/cataloglistview.cpp:80
 #: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:59
-#, fuzzy, kde-format
-#| msgid "&Search"
+#, kde-format
 msgid "Search"
-msgstr "搜索(&S)"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:81
 #: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:60
@@ -825,20 +820,16 @@ msgid "States"
 msgstr "状态"
 
 #: src/cataloglistview/cataloglistview.cpp:223
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Searchable column"
+#, kde-format
 msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
-msgstr "可搜索列"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:227
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Resort and refilter on content change"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Re-sort and refilter on content change"
-msgstr "在内容改变之后重新排序及过滤"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:247
 #, kde-format
@@ -898,20 +889,16 @@ msgid "Modified"
 msgstr "已修改"
 
 #: src/cataloglistview/catalogmodel.cpp:106
-#, fuzzy, kde-format
-#| msgctxt "@title:column Length of the original text"
-#| msgid "Source length"
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source Length"
-msgstr "原始长度"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:108
-#, fuzzy, kde-format
-#| msgctxt "@title:column Length of the text in target language"
-#| msgid "Target length"
+#, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
-msgstr "译文长度"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:1009
 #: src/editortab.cpp:1203 src/tm/tmtab.cpp:233
@@ -921,12 +908,10 @@ msgid "Ready"
 msgstr "就绪"
 
 #: src/cataloglistview/catalogmodel.cpp:146
-#, fuzzy, kde-format
-#| msgctxt "@info:status 'fuzzy' in gettext terminology"
-#| msgid "Needs review"
+#, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs Review"
-msgstr "待审核"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:1007
 #: src/tm/tmtab.cpp:235
@@ -1011,28 +996,22 @@ msgid "Insert alternate translation #%1"
 msgstr "插入备选翻译 #%1"
 
 #: src/editortab.cpp:237
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Note"
-msgstr "添加备注"
+msgstr ""
 
 #: src/editortab.cpp:246
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert translation memory suggestion #%1"
-msgstr "使用翻译记忆建议"
+msgstr ""
 
 #: src/editortab.cpp:251
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove translation memory suggestion #%1"
-msgstr "使用翻译记忆建议"
+msgstr ""
 
 #: src/editortab.cpp:304
 #, kde-format
@@ -1041,36 +1020,28 @@ msgid "Insert term translation #%1"
 msgstr "插入术语翻译 #%1"
 
 #: src/editortab.cpp:316
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define new term"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Define New Term"
-msgstr "定义新术语"
+msgstr ""
 
 #: src/editortab.cpp:350
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Phases..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases…"
-msgstr "阶段..."
+msgstr ""
 
 #: src/editortab.cpp:353
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Word Count"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Word Count"
-msgstr "单词计数"
+msgstr ""
 
 #: src/editortab.cpp:356
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear all translated entries"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear Translated Entries"
-msgstr "清除所有已翻译的条目"
+msgstr ""
 
 #: src/editortab.cpp:359
 #, kde-format
@@ -1085,12 +1056,10 @@ msgid "Merge translation into OpenDocument"
 msgstr "合并翻译到 OpenDocument"
 
 #: src/editortab.cpp:383
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Change searching direction"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Change Searching Direction"
-msgstr "更改搜索方向"
+msgstr ""
 
 #: src/editortab.cpp:392
 #, kde-format
@@ -1101,36 +1070,28 @@ msgid "Approved"
 msgstr "已审核"
 
 #: src/editortab.cpp:411
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Approve and go to next"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and Go Next"
-msgstr "审核通过并转到下一条"
+msgstr ""
 
 #: src/editortab.cpp:418
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Equivalent translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent Translation"
-msgstr "等价翻译"
+msgstr ""
 
 #: src/editortab.cpp:429
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy source to target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source to Target"
-msgstr "复制原文到译文"
+msgstr ""
 
 #: src/editortab.cpp:432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Unwrap target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap Target"
-msgstr "打开目标"
+msgstr ""
 
 #: src/editortab.cpp:439 src/filesearch/filesearchtab.cpp:137
 #, kde-format
@@ -1199,12 +1160,10 @@ msgid "&Last Entry"
 msgstr "最后一条(&L)"
 
 #: src/editortab.cpp:491
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Entry by number"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by Number"
-msgstr "跳转到条目编号"
+msgstr ""
 
 #: src/editortab.cpp:494 src/project/projecttab.cpp:100
 #, kde-format
@@ -1223,44 +1182,32 @@ msgid "Next non-empty but not ready"
 msgstr "下一条非空且未就绪条目"
 
 #: src/editortab.cpp:509 src/project/projecttab.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Untranslated"
-msgstr "上一条未翻译条目"
+msgstr ""
 
 #: src/editortab.cpp:514 src/project/projecttab.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Untranslated"
-msgstr "下一条未翻译条目"
+msgstr ""
 
 #: src/editortab.cpp:520 src/project/projecttab.cpp:88
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Previous not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous Not Ready"
-msgstr "上一条未就绪条目"
+msgstr ""
 
 #: src/editortab.cpp:528 src/project/projecttab.cpp:94
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Next not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Next Not Ready"
-msgstr "下一条未就绪条目"
+msgstr ""
 
 #: src/editortab.cpp:537
 #, kde-format
@@ -1269,28 +1216,22 @@ msgid "Focus the search line of Translation Units view"
 msgstr "聚焦翻译单元视图的搜索行"
 
 #: src/editortab.cpp:541
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Bookmark message"
+#, kde-format
 msgctxt "@option:check"
 msgid "Bookmark Message"
-msgstr "添加信息书签"
+msgstr ""
 
 #: src/editortab.cpp:546
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
-msgstr "上一个书签"
+msgstr ""
 
 #: src/editortab.cpp:550
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Bookmark"
-msgstr "下一个书签"
+msgstr ""
 
 #: src/editortab.cpp:558
 #, no-c-format, kde-format
@@ -1319,12 +1260,10 @@ msgid ""
 msgstr "打开要合并到当前条目/复制到基准文件更改的目录"
 
 #: src/editortab.cpp:578 src/editortab.cpp:637
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Different"
-msgstr "上一个差异"
+msgstr ""
 
 #: src/editortab.cpp:580 src/editortab.cpp:639
 #, kde-format
@@ -1335,12 +1274,10 @@ msgid ""
 msgstr "上一个合并文件中不同的翻译条目，包括合并资源中的空翻译"
 
 #: src/editortab.cpp:589 src/editortab.cpp:646
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different"
-msgstr "下一个差异"
+msgstr ""
 
 #: src/editortab.cpp:591 src/editortab.cpp:648
 #, kde-format
@@ -1351,12 +1288,10 @@ msgid ""
 msgstr "下一个合并文件中不同的翻译条目，包括合并资源中的空翻译"
 
 #: src/editortab.cpp:599
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different approved"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different Approved"
-msgstr "下一个核准的差异"
+msgstr ""
 
 #: src/editortab.cpp:605 src/editortab.cpp:655
 #, kde-format
@@ -1889,10 +1824,9 @@ msgid "File List"
 msgstr "文件列表"
 
 #: src/filesearch/filesearchtab.cpp:122
-#, fuzzy, kde-format
-#| msgid "Drop translation files here..."
+#, kde-format
 msgid "Drop translation files here…"
-msgstr "将翻译文件拖放到此处..."
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
@@ -1901,12 +1835,10 @@ msgid "File"
 msgstr "文件"
 
 #: src/filesearch/filesearchtab.cpp:449
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search && Replace"
-msgstr "在多个文件中查找和替换"
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
@@ -1924,19 +1856,16 @@ msgid "Open file"
 msgstr "打开文件"
 
 #: src/filesearch/filesearchtab.cpp:518
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title actions category"
 msgid "Search && Replace"
-msgstr "在多个文件中查找和替换"
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:723
-#, fuzzy, kde-format
-#| msgid "Mass Replace"
+#, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
-msgstr "大规模替换"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/filesearch/massreplaceoptions.ui:17
@@ -2130,20 +2059,16 @@ msgid "&Configure Lokalize"
 msgstr "配置 Lokalize(&C)"
 
 #: src/lokalizemainwindow.cpp:118 src/project/projecttab.cpp:155
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project"
-msgstr "打开项目"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:119
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software"
-msgstr "翻译软件"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:120
 #, kde-format
@@ -2158,10 +2083,9 @@ msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "无法找到 Qt Sql 模块。翻译记忆功能将无法工作。"
 
 #: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
-#, fuzzy, kde-format
-#| msgid "TM facility requires SQLite Qt module."
+#, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
-msgstr "翻译记忆功能需要 SQLite Qt 模块。"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
 #, kde-format
@@ -2181,28 +2105,24 @@ msgid "Project"
 msgstr "项目"
 
 #: src/lokalizemainwindow.cpp:594
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Tab"
-msgstr "下一个标签页"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:597
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Tab"
-msgstr "上一个标签页"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:600
-#, fuzzy, kde-format
-#| msgid "Previously active tab"
+#, kde-format
 msgid "Previously Active Tab"
-msgstr "先前活动的标签页"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:603
-#, fuzzy, kde-format
-#| msgid "Close current tab"
+#, kde-format
 msgid "Close Current Tab"
-msgstr "关闭当前标签页"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:608
 #, kde-format
@@ -2211,83 +2131,64 @@ msgid "Glossary"
 msgstr "词汇表"
 
 #: src/lokalizemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
-msgstr "翻译记忆"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:482
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Manage translation memories"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
-msgstr "管理翻译记忆"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:620
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
-msgstr "项目概况"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:624
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Configure project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
-msgstr "配置项目..."
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:627
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create software translation project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
-msgstr "创建软件翻译项目..."
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:630
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create OpenDocument translation project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr "创建 OpenDocument 翻译项目..."
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
-msgstr "打开项目"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:637
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
-msgstr "关闭项目"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:640
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
-msgstr "打开最近的项目"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:650
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
-msgstr "在文件中查找和替换"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:653
 #, kde-format
@@ -2296,12 +2197,10 @@ msgid "Go To Next Search && Replace Entry"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:657
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Widget Text Capture"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
-msgstr "部件文本捕获"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:670
 #, kde-format
@@ -2647,12 +2546,10 @@ msgid "Add…"
 msgstr ""
 
 #: src/noteeditor.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "link to add a note"
 msgid "Add a note…"
-msgstr "添加备注"
+msgstr ""
 
 #: src/phaseswindow.cpp:144
 #, kde-format
@@ -3757,12 +3654,10 @@ msgid "Translated"
 msgstr "已翻译"
 
 #: src/project/projectmodel.cpp:476
-#, fuzzy, kde-format
-#| msgctxt "@title:column Number of entries"
-#| msgid "Not ready"
+#, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
-msgstr "未就绪"
+msgstr ""
 
 #: src/project/projectmodel.cpp:478
 #, kde-format
@@ -3807,44 +3702,34 @@ msgid "Project Overview"
 msgstr "项目概况"
 
 #: src/project/projecttab.cpp:124
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Template Only"
-msgstr "仅上一个模板"
+msgstr ""
 
 #: src/project/projecttab.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Template Only"
-msgstr "仅下一个模板"
+msgstr ""
 
 #: src/project/projecttab.cpp:135
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Translation Only"
-msgstr "仅上一个翻译"
+msgstr ""
 
 #: src/project/projecttab.cpp:138
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Translation Only"
-msgstr "仅下一个翻译"
+msgstr ""
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide completed items"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Completed Items"
-msgstr "隐藏已完成条目"
+msgstr ""
 
 #: src/project/projecttab.cpp:143
 #, kde-format
@@ -4129,10 +4014,9 @@ msgstr "删除"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/queryoptions.ui:32
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgid "Translation Memory:"
-msgstr "翻译记忆"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
@@ -4155,10 +4039,9 @@ msgstr "显示不匹配搜索表达式的结果"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
-#, fuzzy, kde-format
-#| msgid "File mask:"
+#, kde-format
 msgid "File Mask:"
-msgstr "文件过滤："
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
 #: src/tm/queryoptions.ui:155
@@ -4168,10 +4051,9 @@ msgstr "只显示路径匹配指定过滤规则文件中的搜索结果"
 
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
-#, fuzzy, kde-format
-#| msgid "Query syntax:"
+#, kde-format
 msgid "Query Syntax:"
-msgstr "查询语法："
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:197
@@ -4183,10 +4065,9 @@ msgstr "读取全部项目文件到翻译记忆，更新旧条目。扫描将在
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "&Rescan Project"
-msgstr "重新扫描项目文件(&R)"
+msgstr ""
 
 #: src/tm/tmmanager.cpp:34
 #, kde-format
@@ -4385,36 +4266,28 @@ msgid "File: %1<br />Addition date: %2"
 msgstr "文件：%1<br />添加日期：%2"
 
 #: src/tm/tmview.cpp:581
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change date: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change date: %1"
-msgstr "<br />最后修改日期: %1"
+msgstr ""
 
 #: src/tm/tmview.cpp:583
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change author: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change author: %1"
-msgstr "<br />最后修改人: %1"
+msgstr ""
 
 #: src/tm/tmview.cpp:584
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translation memory"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Translation memory: %1"
-msgstr "翻译记忆"
+msgstr ""
 
 #: src/tm/tmview.cpp:586
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Is not present in the file anymore"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Is not present in the file anymore"
-msgstr "<br />不再存在于文件中"
+msgstr ""
 
 #: src/tm/tmview.cpp:601
 #, kde-format
@@ -4443,12 +4316,10 @@ msgid "Open file containing this entry"
 msgstr "打开包含此条目的文件"
 
 #: src/tm/tmview.cpp:662
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this missing file from TM"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from the translation memory"
-msgstr "从翻译记忆中移除此缺失文件"
+msgstr ""
 
 #: src/tm/tmview.cpp:676
 #, kde-format
@@ -4553,61 +4424,3 @@ msgstr "报告错误：%1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
-
-#~ msgid "Quick search..."
-#~ msgstr "快速搜索..."
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert TM suggestion #%1"
-#~ msgstr "插入翻译记忆建议 #%1"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Remove TM suggestion #%1"
-#~ msgstr "移除翻译记忆建议 #%1"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Word count"
-#~ msgstr "单词计数"
-
-#~ msgctxt "@title:window"
-#~ msgid "Mass replace"
-#~ msgstr "大规模替换"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open project"
-#~ msgstr "打开项目"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Project overview"
-#~ msgstr "项目概况"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open project..."
-#~ msgstr "打开项目..."
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Find next in files"
-#~ msgstr "在文件中查找下一个"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Widget text capture"
-#~ msgstr "部件文本捕获"
-
-#~ msgctxt "link to edit note"
-#~ msgid "edit..."
-#~ msgstr "编辑..."
-
-#~ msgctxt "link to add a note"
-#~ msgid "Add..."
-#~ msgstr "添加..."
-
-#~ msgctxt "link to add a note"
-#~ msgid "Add a note..."
-#~ msgstr "添加备注..."
-
-#~ msgid "TM:"
-#~ msgstr "翻译记忆："
-
-#~ msgctxt "@info:tooltip on TM entry continues"
-#~ msgid "<br />TM: %1"
-#~ msgstr "<br />翻译记忆： %1"

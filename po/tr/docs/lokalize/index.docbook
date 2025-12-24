@@ -132,7 +132,7 @@
 </screenshot>
 
 <para
->Ana pencerenin sol üst köşesi Çeviri Birimleri’ni gösterir. Bunun altında Birim Üst Verisi vardır ve şu anda görüntülenen kaynak metinle ilgili yorumları içerir. Sol altta, geçerli kaynak metin girdisi için çeviri veritabanındaki önerilen çevirileri gösteren bir Çeviri Belleği bölümü vardır. Pencerenin sağ alt köşesinde, Kavram Dizini bölümü görüntülenir. </para>
+>Ana pencerenin sol üst köşesi Çeviri Birimleri’ni gösterir. Bunun altında Birim Üst Verisi vardır ve şu anda görüntülenen kaynak metinle ilgili yorumları içerir. Sol altta, geçerli kaynak metin girdisi için çeviri veri tabanındaki önerilen çevirileri gösteren bir Çeviri Belleği bölümü vardır. Pencerenin sağ alt köşesinde, Kavram Dizini bölümü görüntülenir. </para>
 <para
 >Çeviri dosyaları, ayrı sekmelerde iki büyük çoklu satır düzenleme görünümüyle ve birkaç <emphasis
 >araç görünümleriyle</emphasis
@@ -544,7 +544,7 @@
 >Toplu Çeviri:</term>
     <listitem>
       <para
->Çeviri belleği veritabanından tam uyuşan önerileri kendiliğinden doldurmak için <menuchoice
+>Çeviri belleği veri tabanından tam uyuşan önerileri kendiliğinden doldurmak için <menuchoice
 ><guimenu
 >Araçlar</guimenu
 ><guimenuitem
