@@ -131,7 +131,7 @@ Name[az]=Fayyların açılmasında xəta
 Name[bg]=Грешка при отваряне на файловете
 Name[bs]=Greška u otvaranju datoteka
 Name[ca]=S'ha produït un error en obrir els fitxers
-Name[ca@valencia]=S'ha produït un error en obrir els fitxers
+Name[ca@valencia]=S'ha produït un error mentre s'obrien els fitxers
 Name[cs]=Chyba při otevírání souborů
 Name[da]=Fejl ved åbning af filer
 Name[de]=Fehler beim Öffnen von Dateien
@@ -192,7 +192,7 @@ Name[az]=Sinxronizasiya üçün faylların açılmasında xəta
 Name[bg]=Грешка при отваряне на  файлове за синхронизация
 Name[bs]=Greška u otvaranju datoteka za sinhronizaciju
 Name[ca]=S'ha produït un error en obrir els fitxers a sincronitzar
-Name[ca@valencia]=S'ha produït un error en obrir els fitxers que s'han de sincronitzar
+Name[ca@valencia]=S'ha produït un error mentre s'obrien els fitxers que s'han de sincronitzar
 Name[cs]=Chyba při otevírání souborů pro synchronizaci
 Name[da]=Fejl ved åbning af filer til synkronisering
 Name[de]=Fehler beim Öffnen von Dateien zum Abgleich
@@ -306,6 +306,15 @@ Action=Popup
 
 [Event/SourceFileScan]
 Name=Scanning folders with source files…
+Name[ca]=S'estan explorant les carpetes amb els fitxers de codi font…
+Name[ca@valencia]=S'estan explorant les carpetes amb els fitxers de codi font…
+Name[fr]=Analyse des dossiers contenant des fichiers sources...
+Name[ka]=წყაროს ფაილების შემცველი საქაღალდეების სკანირება…
+Name[nl]=Mappen scannen met bronbestanden…
+Name[pt_BR]=Analisando as pastas com os arquivos de origem…
+Name[sl]=Preiskovanje map z izvornimi datotekami…
+Name[tr]=Kaynak Dosyalı Klasörler Taranıyor…
+Name[uk]=Шукаємо початкові файли у теках…
 Action=Popup
 
 [Event/BatchTranslationCompleted]
