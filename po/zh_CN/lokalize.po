@@ -4265,13 +4265,13 @@ msgstr "文件：%1<br />添加日期：%2"
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
-msgstr "<br />最后修改日期: %1"
+msgstr ""
 
 #: src/tm/tmview.cpp:582
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
-msgstr "<br />最后修改人: %1"
+msgstr ""
 
 #: src/tm/tmview.cpp:583
 #, kde-format
@@ -4283,7 +4283,7 @@ msgstr "<br />翻译记忆： %1"
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
-msgstr "<br />不再存在于文件中"
+msgstr ""
 
 #: src/tm/tmview.cpp:600
 #, kde-format
