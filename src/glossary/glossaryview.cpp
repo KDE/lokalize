@@ -50,7 +50,7 @@ GlossaryView::GlossaryView(QWidget *parent, Catalog *catalog, const QVector<QAct
                      "<p>Translations for common terms appear here.</p>"
                      "<p>Press shortcut displayed near the term to insert its translation.</p>"
                      "<p>Use context menu to add new entry (tip:&nbsp;select words in original and translation fields before calling "
-                     "<interface>Define&nbsp;new&nbsp;term</interface>).</p>"));
+                     "<interface>Define&nbsp;New&nbsp;Term</interface>).</p>"));
 
     setWidget(m_browser);
     m_browser->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
