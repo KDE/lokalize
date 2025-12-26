@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2025-08-20 18:36+0400\n"
+"PO-Revision-Date: 2025-12-24 17:28+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1703,7 +1703,7 @@ msgstr "الترجمات البديلة"
 #: src/editorui.rc:146 src/project/projectmanagerui.rc:5
 #, kde-format
 msgid "&Go"
-msgstr "انت&قال"
+msgstr "انت&قل"
 
 #. i18n: ectx: Menu (bookmarks)
 #: src/editorui.rc:176
