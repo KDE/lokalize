@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2025-12-23 11:02+0100\n"
+"PO-Revision-Date: 2025-12-26 10:38+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2292,7 +2292,7 @@ msgid ""
 "Error opening the following files:\n"
 "\n"
 msgstr ""
-"S'ha produït un error en obrir els següents fitxers:\n"
+"S'ha produït un error en obrir els fitxers següents:\n"
 "\n"
 
 #. i18n: ectx: Menu (project)
@@ -2905,7 +2905,7 @@ msgstr "Canvia la lletra de l'editor"
 #: src/prefs/prefs_appearance.ui:47
 #, kde-format
 msgid "Choose a new font for the area where you write the translated message."
-msgstr "Trieu una lletra nou per a l'àrea on escriviu el missatge traduït."
+msgstr "Trieu una lletra nova per a l'àrea on escriviu el missatge traduït."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:54
@@ -2958,8 +2958,8 @@ msgstr "Ressalta els espais al final"
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
-"Si està activada, la roda del ratolí portarà a l'anterior o següent unitat "
-"de traducció, en cas contrari desplaçarà el text"
+"Si està activada, la roda del ratolí portarà a la unitat de traducció "
+"anterior o següent, en cas contrari desplaçarà el text"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
@@ -2974,8 +2974,8 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
-"<html>Quan s'activa aquesta opció, s'usa la roda del ratolí per a anar a "
-"l'anterior o següent unitat de traducció (sense tecles modificadores). Les "
+"<html>Quan s'activa aquesta opció, s'usa la roda del ratolí per a anar a la "
+"unitat de traducció anterior o següent (sense tecles modificadores). Les "
 "tecles modificadores es poden usar per a canviar aquest comportament. Ús: "
 "<ul><li><b>Maj</b> per a desplaçar-se dins del text de la unitat actual,</"
 "li><li><b>Ctrl+Maj</b> per a anar a la unitat anterior o a la següent no "
@@ -2988,7 +2988,7 @@ msgstr ""
 #: src/prefs/prefs_editor.ui:38
 #, kde-format
 msgid "Mouse wheel goes to previous or next translation unit"
-msgstr "La roda del ratolí porta a l'anterior o següent unitat de traducció"
+msgstr "La roda del ratolí porta a la unitat de traducció anterior o següent"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
 #: src/prefs/prefs_editor.ui:45
@@ -3246,7 +3246,7 @@ msgid ""
 "number, %f is the file name. For instance: posieve -u %u check-rules %f"
 msgstr ""
 "L'ordre del Pology a executar per tal de comprovar una entrada única. Empreu "
-"els següents marcadors de posició per a establir les ordres: %u és el número "
+"els marcadors de posició següents per a establir les ordres: %u és el número "
 "de l'entrada, %f és el nom del fitxer. Per exemple: posieve -u %u check-"
 "rules %f"
 
