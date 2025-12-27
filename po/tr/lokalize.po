@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-26 00:45+0000\n"
-"PO-Revision-Date: 2025-12-23 11:55+0300\n"
+"PO-Revision-Date: 2025-12-26 11:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1963,14 +1963,7 @@ msgid "Glossary"
 msgstr "Kavram Dizini"
 
 #: src/glossary/glossaryview.cpp:50
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;new&nbsp;term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Translations for common terms appear here.</p><p>Press shortcut displayed "
@@ -1981,7 +1974,7 @@ msgstr ""
 "<p>Ortak terim çevirileri burada görünür.</p><p>Çevirisini eklemek için "
 "gösterilen bir terimin yakınındaki kısayola basın.</p><p>Yeni bir giriş "
 "eklemek için bağlam menüsünü kullanın (ipucu:&nbsp;<interface>Yeni&nbsp;"
-"terim&nbsp;tanımla</interface> tıklamadan önce özgün ve çeviri alanlarındaki "
+"Terim&nbsp;Tanımla</interface> tıklamadan önce özgün ve çeviri alanlarındaki "
 "sözcükleri seçin).</p>"
 
 #: src/glossary/glossarywindow.cpp:116

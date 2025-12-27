@@ -1906,14 +1906,7 @@ msgid "Glossary"
 msgstr "词汇表"
 
 #: src/glossary/glossaryview.cpp:50
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;new&nbsp;term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Translations for common terms appear here.</p><p>Press shortcut displayed "
@@ -1921,9 +1914,6 @@ msgid ""
 "entry (tip:&nbsp;select words in original and translation fields before "
 "calling <interface>Define&nbsp;New&nbsp;Term</interface>).</p>"
 msgstr ""
-"<p>在此翻译一些常见的术语。</p><p>按下显示的快捷键以插入术语翻译。</p><p>使用"
-"右键菜单以添加新的术语(提示：&nbsp;在调用 <interface>定义&nbsp;新&nbsp;术语</"
-"interface> 之前先选择原始文本和翻译区域中的单词)。</p>"
 
 #: src/glossary/glossarywindow.cpp:116
 #, kde-format
