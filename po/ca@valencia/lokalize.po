@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2025-12-23 11:02+0100\n"
+"PO-Revision-Date: 2025-12-26 10:38+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2904,7 +2904,7 @@ msgstr "Canvia la lletra de l'editor"
 #: src/prefs/prefs_appearance.ui:47
 #, kde-format
 msgid "Choose a new font for the area where you write the translated message."
-msgstr "Trieu una lletra nou per a l'àrea on escriviu el missatge traduït."
+msgstr "Trieu una lletra nova per a l'àrea on escriviu el missatge traduït."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:54
@@ -2957,8 +2957,8 @@ msgstr "Ressalta els espais al final"
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
-"Si està marcada, la roda del ratolí portarà a l'anterior o següent unitat de "
-"traducció, en cas contrari desplaçarà el text"
+"Si està marcada, la roda del ratolí portarà a la unitat de traducció "
+"anterior o següent, en cas contrari desplaçarà el text"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
@@ -2974,7 +2974,7 @@ msgid ""
 "the text of the current translation unit.</html>"
 msgstr ""
 "<html>Quan es marca esta opció, s'utilitza la roda del ratolí per a anar "
-"fins a l'anterior o següent unitat de traducció (sense tecles "
+"fins a la unitat de traducció anterior o següent (sense tecles "
 "modificadores). Les tecles modificadores es poden utilitzar per a canviar "
 "este comportament. Ús: <ul><li><b>Majús</b> per a desplaçar-se dins del text "
 "de la unitat actual,</li><li><b>Ctrl+Majús</b> per a anar fins a la unitat "
@@ -2988,7 +2988,7 @@ msgstr ""
 #: src/prefs/prefs_editor.ui:38
 #, kde-format
 msgid "Mouse wheel goes to previous or next translation unit"
-msgstr "La roda del ratolí porta a l'anterior o següent unitat de traducció"
+msgstr "La roda del ratolí porta a la unitat de traducció anterior o següent"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
 #: src/prefs/prefs_editor.ui:45
@@ -3246,7 +3246,7 @@ msgid ""
 "number, %f is the file name. For instance: posieve -u %u check-rules %f"
 msgstr ""
 "L'ordre de Pology que s'executarà per tal de comprovar una entrada única. "
-"Utilitzeu els següents marcadors de posició per a establir les ordres: %u és "
+"Utilitzeu els marcadors de posició següents per a establir les ordres: %u és "
 "el número de l'entrada, %f és el nom del fitxer. Per exemple: posieve -u %u "
 "check-rules %f"
 
