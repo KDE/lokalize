@@ -339,9 +339,7 @@ void LokalizeMainWindow::updateTabDetailsByPageWidget(LokalizeTabPageBase *pageW
 
 bool LokalizeMainWindow::queryClose()
 {
-    if (!queryCloseAllTabs())
-        return false;
-    return true;
+    return queryCloseAllTabs();
 }
 
 void LokalizeMainWindow::saveCurrentEditorState()
