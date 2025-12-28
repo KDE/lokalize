@@ -37,7 +37,7 @@ SOURCES += main.cpp\
     common/htmlhelpers.cpp\
     glossary/glossaryview.cpp\
     glossary/glossary.cpp\
-    glossary/glossarywindow.cpp\
+    glossary/glossarytab.cpp\
     mergemode/mergecatalog.cpp\
     mergemode/mergeview.cpp\
     alttransview.cpp\
@@ -99,7 +99,7 @@ HEADERS  += editortab.h\
     common/stemming.h\
     glossary/glossaryview.h\
     glossary/glossary.h\
-    glossary/glossarywindow.h\
+    glossary/glossarytab.h\
     mergemode/mergecatalog.h\
     mergemode/mergeview.h\
     alttransview.h\

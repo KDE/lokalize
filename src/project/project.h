@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2009 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2022-2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -23,7 +24,7 @@ class Glossary;
 }
 namespace GlossaryNS
 {
-class GlossaryWindow;
+class GlossaryTab;
 }
 namespace TM
 {
@@ -103,7 +104,6 @@ public:
         return absolutePath(altDir());
     }
 
-    bool queryCloseForAuxiliaryWindows();
     bool isFileMissing(const QString &filePath) const;
 
     void setDefaults() override;
@@ -160,8 +160,7 @@ public Q_SLOTS:
     void populateGlossary();
 
     void showTMManager();
-    GlossaryNS::GlossaryWindow *showGlossary();
-    GlossaryNS::GlossaryWindow *defineNewTerm(QString en = QString(), QString target = QString());
+    GlossaryNS::GlossaryTab *glossaryTab();
 
     void projectOdfCreate();
 
@@ -194,7 +193,7 @@ private:
     ProjectLocal *m_localConfig{nullptr};
     ProjectModel *m_model{nullptr};
     GlossaryNS::Glossary *m_glossary{nullptr};
-    GlossaryNS::GlossaryWindow *m_glossaryWindow{nullptr};
+    GlossaryNS::GlossaryTab *m_glossaryTab{nullptr};
     TM::TMManagerWin *m_tmManagerWindow{nullptr};
 
     QMultiMap<QByteArray, QByteArray> m_sourceFilePaths;

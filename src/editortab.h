@@ -421,6 +421,8 @@ Q_SIGNALS:
     void signalBookmarkDisplayed(bool);
 
     Q_SCRIPTABLE void xliffFileOpened(bool);
+
+    void signalDefineNewGlossaryTerm(QString source, QString target);
 };
 
 #endif

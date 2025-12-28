@@ -12,6 +12,8 @@
 #include "config-lokalize.h"
 #include "editortab.h"
 #include "filesearchtab.h"
+#include "glossary.h"
+#include "glossarytab.h"
 #include "jobs.h"
 #include "lokalize_debug.h"
 #include "lokalizetabpagebase.h"
@@ -27,6 +29,7 @@
 
 #include <kcolorscheme_version.h>
 #include <kconfigwidgets_version.h>
+#include <knotification.h>
 
 #if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(6, 3, 0)
 #include <KStyleManager>
@@ -151,6 +154,13 @@ LokalizeMainWindow::LokalizeMainWindow()
             Qt::QueuedConnection);
     connect(Project::instance(), &Project::configChanged, this, &LokalizeMainWindow::projectSettingsChanged);
     connect(Project::instance(), &Project::closed, this, &LokalizeMainWindow::queryAndCloseProject);
+    connect(Project::instance(), &Project::loaded, this, [this]() {
+        connect(Project::instance()->glossaryTab(), &GlossaryNS::GlossaryTab::signalActivateGlossaryTab, this, &LokalizeMainWindow::showGlossary);
+        connect(Project::instance()->glossaryTab(),
+                &GlossaryNS::GlossaryTab::signalUpdatedTabLabelAndIconAvailable,
+                this,
+                &LokalizeMainWindow::updateTabIconByPageWidget);
+    });
 
     setAttribute(Qt::WA_DeleteOnClose, true);
 
@@ -310,6 +320,15 @@ void LokalizeMainWindow::activatePreviousTab()
     }
 }
 
+// Only used by the Glossary tab.
+// TODO: remove the QMainWindow / no QMainWindow split in tab types
+// then switch to using only updateTabDetailsByPageWidget() below.
+void LokalizeMainWindow::updateTabIconByPageWidget(LokalizeTabPageBaseNoQMainWindow *pageWidget)
+{
+    const int pageIndex = m_mainTabs->indexOf(pageWidget);
+    m_mainTabs->setTabIcon(pageIndex, pageWidget->m_tabIcon);
+}
+
 void LokalizeMainWindow::updateTabDetailsByPageWidget(LokalizeTabPageBase *pageWidget)
 {
     const int pageIndex = m_mainTabs->indexOf(pageWidget);
@@ -421,6 +440,10 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
             this,
             qOverload<const QString &, const QString &>(&LokalizeMainWindow::lookupInTranslationMemory));
     connect(newEditorTab, &LokalizeTabPageBase::signalUpdatedTabLabelAndIconAvailable, this, &LokalizeMainWindow::updateTabDetailsByPageWidget);
+    connect(newEditorTab,
+            &EditorTab::signalDefineNewGlossaryTerm,
+            Project::instance()->glossaryTab(),
+            qOverload<QString, QString>(&GlossaryNS::GlossaryTab::newTermEntry));
 
     auto fnSlashed = QStringView(filePath).mid(filePath.lastIndexOf(QLatin1Char('/')));
     FileToEditor::const_iterator i = m_fileToEditor.constBegin();
@@ -524,6 +547,20 @@ FileSearchTab *LokalizeMainWindow::showFileSearch(bool activate)
     return m_fileSearchTab;
 }
 
+GlossaryNS::GlossaryTab *LokalizeMainWindow::showGlossary()
+{
+    GlossaryNS::GlossaryTab *glossaryTab = Project::instance()->glossaryTab();
+    if (glossaryTab) {
+        const bool glossaryIsATab = m_mainTabs->indexOf(glossaryTab) != -1;
+        if (!glossaryIsATab) {
+            m_mainTabs->addTab(glossaryTab, glossaryTab->m_tabIcon, glossaryTab->m_tabLabel);
+        }
+        activateTabByPageWidget(glossaryTab);
+        m_glossaryTabIsVisible = true;
+    }
+    return glossaryTab;
+}
+
 // Used for the menu action only.
 //
 // We will connect the menu action to run this function on the signal
@@ -602,11 +639,14 @@ void LokalizeMainWindow::setupActions()
 
     ADD_ACTION_SHORTCUT("close-active-tab", i18n("Close Current Tab"), Qt::ControlModifier | Qt::Key_W)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::queryAndCloseCurrentTab);
+
     // Tools
     actionCategory = glossary;
     Project *project = Project::instance();
     ADD_ACTION_SHORTCUT("tools_glossary", i18nc("@action:inmenu", "Glossary"), Qt::ControlModifier | Qt::AltModifier | Qt::Key_G)
-    connect(action, &QAction::triggered, project, &Project::showGlossary);
+    connect(action, &QAction::triggered, this, [this]() {
+        showGlossary();
+    });
 
     actionCategory = tm;
     ADD_ACTION_SHORTCUT("tools_tm", i18nc("@action:inmenu", "Translation Memory"), Qt::Key_F7)
@@ -729,10 +769,14 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup &stateGroup)
 
     KConfig config;
     m_translationMemoryTabIsVisible = false;
+    m_glossaryTabIsVisible = false;
     while (--i >= 0) {
         // Only process the editor tabs and the Translation Memory tab
         if (qobject_cast<TM::TMTab *>(m_mainTabs->widget(i))) {
             m_translationMemoryTabIsVisible = true;
+            continue;
+        } else if (qobject_cast<GlossaryNS::GlossaryTab *>(m_mainTabs->widget(i))) {
+            m_glossaryTabIsVisible = true;
             continue;
         } else if (!qobject_cast<EditorTab *>(m_mainTabs->widget(i)))
             continue;
@@ -752,6 +796,7 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup &stateGroup)
     projectStateGroup.writeEntry("MergeFiles", mergeFiles);
     projectStateGroup.writeEntry("Entries", entries);
     projectStateGroup.writeEntry("TranslationMemoryTabIsVisible", m_translationMemoryTabIsVisible);
+    projectStateGroup.writeEntry("GlossaryTabIsVisible", m_glossaryTabIsVisible);
     if (m_projectTab) {
         if (m_projectTab->unitsCount() > 0)
             projectStateGroup.writeEntry("UnitsCount", m_projectTab->unitsCount());
@@ -814,9 +859,13 @@ void LokalizeMainWindow::projectLoaded()
     entries = projectStateGroup.readEntry("Entries", entries);
 
     m_translationMemoryTabIsVisible = projectStateGroup.readEntry("TranslationMemoryTabIsVisible", false);
+    m_glossaryTabIsVisible = projectStateGroup.readEntry("GlossaryTabIsVisible", false);
 
     if (m_translationMemoryTabIsVisible)
         showTM();
+
+    if (m_glossaryTabIsVisible)
+        showGlossary();
 
     if (Settings::self()->restoreRecentFilesOnStartup())
         files = projectStateGroup.readEntry("Files", files);
@@ -998,11 +1047,35 @@ bool LokalizeMainWindow::queryCloseTabAtIndex(int index)
 {
     // Do any relevant checks for the specific tab.
     if (index == m_mainTabs->indexOf(m_projectTab)) {
-        return Project::instance()->queryCloseForAuxiliaryWindows();
+        return true;
     } else if (index == m_mainTabs->indexOf(m_translationMemoryTab)) {
         return true;
     } else if (index == m_mainTabs->indexOf(m_fileSearchTab)) {
         return true;
+    } else if (index == m_mainTabs->indexOf(Project::instance()->glossaryTab())) {
+        GlossaryNS::Glossary *glossary = Project::instance()->glossary();
+        Project::instance()->glossaryTab()->applyEntryChange();
+        if (glossary->isClean())
+            return true;
+
+        // Activate the tab because then behind the prompt popup
+        // you can see the glossary tab.
+        activateTabAtIndex(index);
+        switch (KMessageBox::warningTwoActionsCancel(this,
+                                                     i18nc("@info",
+                                                           "The glossary contains unsaved changes.\n"
+                                                           "Do you want to save your changes or discard them?"),
+                                                     i18nc("@title:window", "Warning"),
+                                                     KStandardGuiItem::save(),
+                                                     KStandardGuiItem::discard())) {
+        case KMessageBox::PrimaryAction:
+            return Project::instance()->glossaryTab()->save();
+        case KMessageBox::SecondaryAction:
+            Project::instance()->glossaryTab()->restore();
+            return true;
+        default:
+            return false;
+        }
     } else if (EditorTab *editorTab = static_cast<EditorTab *>(m_mainTabs->widget(index))) {
         if (editorTab->isClean()) {
             return true;
@@ -1047,6 +1120,9 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
         m_translationMemoryTab = nullptr;
     } else if (m_fileSearchTab && index == m_mainTabs->indexOf(m_fileSearchTab)) {
         m_fileSearchTab = nullptr;
+    } else if (Project::instance()->glossaryTab() && index == m_mainTabs->indexOf(Project::instance()->glossaryTab())) {
+        // Don't delete the glossary instance as it's connected to signals from editor tabs.
+        // It operates differently to other tabs.
     } else if (EditorTab *editorTab = static_cast<EditorTab *>(m_mainTabs->widget(index))) {
         m_activeTabPageKeyboardShortcuts = nullptr;
         m_fileToEditor.remove(m_fileToEditor.key(editorTab));

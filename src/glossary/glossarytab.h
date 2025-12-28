@@ -3,12 +3,15 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-#ifndef GLOSSARYWINDOW_H
-#define GLOSSARYWINDOW_H
+#ifndef GLOSSARYTAB_H
+#define GLOSSARYTAB_H
+
+#include "lokalizetabpagebase.h"
 
 #include <KMainWindow>
 #include <KTextEdit>
@@ -16,6 +19,7 @@
 #include <QListView>
 #include <QStringListModel>
 #include <QTreeView>
+#include <qtmetamacros.h>
 
 class KComboBox;
 class QLineEdit;
@@ -59,13 +63,14 @@ class Glossary;
 class TermsListModel;
 class GlossarySortFilterProxyModel;
 
-class GlossaryWindow : public KMainWindow
+class GlossaryTab : public LokalizeTabPageBaseNoQMainWindow
 {
     Q_OBJECT
 public:
-    explicit GlossaryWindow(QWidget *parent = nullptr);
-    ~GlossaryWindow() override = default;
-    bool queryClose() override;
+    explicit GlossaryTab(QWidget *parent = nullptr);
+    ~GlossaryTab() override = default;
+
+    void updateTabIcon();
 
 public Q_SLOTS:
     void currentChanged(int);
@@ -80,6 +85,9 @@ public Q_SLOTS:
     void applyEntryChange();
     void selectEntry(const QByteArray &id);
     void setFocus();
+
+Q_SIGNALS:
+    void signalActivateGlossaryTab();
 
 private:
     QWidget *m_editor;
@@ -98,6 +106,9 @@ private:
     bool m_reactOnSignals;
     QByteArray m_id;
     QString m_defLang;
+
+    QIcon m_defaultTabIcon;
+    QIcon m_unsavedTabIcon;
 };
 
 class GlossaryTreeView : public QTreeView

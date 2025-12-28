@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2011 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-or-later WITH LicenseRef-Qt-Commercial-exception-1.0
 */
@@ -11,7 +12,7 @@
 #include "catalog.h"
 #include "flowlayout.h"
 #include "glossary.h"
-#include "glossarywindow.h"
+#include "glossarytab.h"
 #include "project.h"
 #include "stemming.h"
 

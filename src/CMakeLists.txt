@@ -67,7 +67,7 @@ set(liblokalize_SRCS
     common/stemming.cpp
     glossary/glossaryview.cpp
     glossary/glossary.cpp
-    glossary/glossarywindow.cpp
+    glossary/glossarytab.cpp
 
     metadata/filemetadata.cpp
 
@@ -149,7 +149,7 @@ set(liblokalize_SRCS
     common/stemming.h
     glossary/glossaryview.h
     glossary/glossary.h
-    glossary/glossarywindow.h
+    glossary/glossarytab.h
 
     metadata/filemetadata.h
 

@@ -3,13 +3,14 @@
 
   SPDX-FileCopyrightText: 2007 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "termlabel.h"
 #include "glossary.h"
-#include "glossarywindow.h"
+#include "glossarytab.h"
 #include "project.h"
 
 #include <KLocalizedString>
@@ -58,9 +59,9 @@ void TermLabel::mousePressEvent(QMouseEvent *event)
 
         QAction *txt = menu.exec(event->globalPosition().toPoint());
         if (txt) {
-            GlossaryNS::GlossaryWindow *glossaryWindow = Project::instance()->showGlossary();
-            if (glossaryWindow)
-                glossaryWindow->selectEntry(m_entryId);
+            GlossaryNS::GlossaryTab *glossaryTab = Project::instance()->glossaryTab();
+            if (glossaryTab)
+                glossaryTab->selectEntry(m_entryId);
         }
     } else
         insert();

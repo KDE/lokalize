@@ -5,6 +5,7 @@
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2022 Karl Ove Hufthammer <karl@huftis.org>
   SPDX-FileCopyrightText: 2022 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+  SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -13,7 +14,7 @@
 #include "dbfilesmodel.h"
 #include "editortab.h"
 #include "glossary.h"
-#include "glossarywindow.h"
+#include "glossarytab.h"
 #include "jobs.h"
 #include "lokalize_debug.h"
 #include "prefs.h"
@@ -202,32 +203,15 @@ void Project::populateGlossary()
     m_glossary->load(glossaryPath());
 }
 
-GlossaryNS::GlossaryWindow *Project::showGlossary()
-{
-    return defineNewTerm();
-}
-
-GlossaryNS::GlossaryWindow *Project::defineNewTerm(QString en, QString target)
+GlossaryNS::GlossaryTab *Project::glossaryTab()
 {
     if (!SettingsController::instance()->ensureProjectIsLoaded())
         return nullptr;
 
-    if (!m_glossaryWindow)
-        m_glossaryWindow = new GlossaryNS::GlossaryWindow(SettingsController::instance()->mainWindowPtr());
-    m_glossaryWindow->show();
-    m_glossaryWindow->activateWindow();
-    if (!en.isEmpty() || !target.isEmpty())
-        m_glossaryWindow->newTermEntry(en, target);
+    if (!m_glossaryTab)
+        m_glossaryTab = new GlossaryNS::GlossaryTab(SettingsController::instance()->mainWindowPtr());
 
-    return m_glossaryWindow;
-}
-
-bool Project::queryCloseForAuxiliaryWindows()
-{
-    if (m_glossaryWindow && m_glossaryWindow->isVisible())
-        return m_glossaryWindow->queryClose();
-
-    return true;
+    return m_glossaryTab;
 }
 
 bool Project::isTmSupported() const

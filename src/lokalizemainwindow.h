@@ -13,6 +13,7 @@
 
 #include "config-lokalize.h"
 #include "filesearchtab.h"
+#include "glossarytab.h"
 #include "lokalizetabpagebase.h"
 #include "pos.h"
 #include "projecttab.h"
@@ -173,6 +174,7 @@ public Q_SLOTS:
     }
     TM::TMTab *showTM();
     FileSearchTab *showFileSearch(bool activate = true);
+    GlossaryNS::GlossaryTab *showGlossary();
     void showFileSearchAction();
     void fileSearchNext();
     void addFilesToSearch(const QStringList &);
@@ -195,6 +197,7 @@ public Q_SLOTS:
     void activateTabToRightOfCurrent();
     void activatePreviousTab();
     void updateTabDetailsByPageWidget(LokalizeTabPageBase *pageWidget);
+    void updateTabIconByPageWidget(LokalizeTabPageBaseNoQMainWindow *pageWidget);
     void widgetTextCapture();
 Q_SIGNALS:
     Q_SCRIPTABLE void editorAdded();
@@ -236,6 +239,7 @@ private:
     TM::TMTab *m_translationMemoryTab{};
     FileSearchTab *m_fileSearchTab{};
     bool m_translationMemoryTabIsVisible;
+    bool m_glossaryTabIsVisible;
     LokalizeStatusBar *m_statusBar{};
 
     int m_statusBarCurrentIndex;

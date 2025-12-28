@@ -145,7 +145,7 @@ That is, there may be several entries with the same word/word sequence expressin
   <customwidget>
    <class>TermListView</class>
    <extends>QListView</extends>
-   <header>glossarywindow.h</header>
+   <header>glossarytab.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

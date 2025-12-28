@@ -1360,15 +1360,15 @@ bool EditorTab::findEntryBySourceContext(const QString &source, const QString &c
 void EditorTab::defineNewTerm()
 {
     // TODO just a word under cursor?
-    QString en(m_view->selectionInSource().toLower());
-    if (en.isEmpty())
-        en = m_catalog->msgid(m_currentPos).toLower();
+    QString source(m_view->selectionInSource().toLower());
+    if (source.isEmpty())
+        source = m_catalog->msgid(m_currentPos).toLower();
 
     QString target(m_view->selectionInTarget().toLower());
     if (target.isEmpty())
         target = m_catalog->msgstr(m_currentPos).toLower();
 
-    m_project->defineNewTerm(en, target);
+    Q_EMIT signalDefineNewGlossaryTerm(source, target);
 }
 
 void EditorTab::reloadFile()
