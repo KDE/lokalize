@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-26 00:45+0000\n"
+"POT-Creation-Date: 2025-12-29 00:46+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -820,15 +820,15 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Unidades de Tradução"
 
-#: src/cataloglistview/cataloglistview.cpp:80
-#: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:59
+#: src/cataloglistview/cataloglistview.cpp:80 src/glossary/glossarytab.cpp:124
+#: src/project/projecttab.cpp:59
 #, fuzzy, kde-format
 #| msgid "&Search"
 msgid "Search"
 msgstr "&Procurar"
 
-#: src/cataloglistview/cataloglistview.cpp:81
-#: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:60
+#: src/cataloglistview/cataloglistview.cpp:81 src/glossary/glossarytab.cpp:126
+#: src/project/projecttab.cpp:60
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
@@ -1060,13 +1060,13 @@ msgstr "%1 (%2)"
 msgid "Target language:"
 msgstr "Língua de destino:"
 
-#: src/common/termlabel.cpp:57
+#: src/common/termlabel.cpp:58
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Editar"
 
-#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:568
+#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:603
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1099,7 +1099,7 @@ msgstr "Sincronização 2"
 msgid "Translation Memory"
 msgstr "Memória de Traduções"
 
-#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:569
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:604
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1508,7 +1508,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (recuperado)"
 
-#: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1015
+#: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1086
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1518,8 +1518,8 @@ msgstr ""
 "O documento contém modificações não gravadas.\n"
 "Deseja gravá-las ou rejeitá-las?"
 
-#: src/editortab.cpp:721 src/editortab.cpp:1308
-#: src/glossary/glossarywindow.cpp:345 src/lokalizemainwindow.cpp:1017
+#: src/editortab.cpp:721 src/editortab.cpp:1308 src/lokalizemainwindow.cpp:1066
+#: src/lokalizemainwindow.cpp:1088
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1762,8 +1762,8 @@ msgstr ""
 "Lokalize para descobrir alguns exemplos de programas e como associá-los ao "
 "seu projecto."
 
-#: src/editortab.cpp:1537 src/project/project.cpp:415
-#: src/project/project.cpp:420
+#: src/editortab.cpp:1537 src/project/project.cpp:399
+#: src/project/project.cpp:404
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instalar o pacote 'translate-toolkit' e repetir"
@@ -1780,7 +1780,7 @@ msgstr ""
 "Seleccionar o OpenDocument original, no qual se baseia o ficheiro XLIFF "
 "actual"
 
-#: src/editortab.cpp:1552 src/project/project.cpp:425
+#: src/editortab.cpp:1552 src/project/project.cpp:409
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Ficheiros em OpenDocument (*.odt *.ods)"
@@ -2088,15 +2088,38 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Campo de Assunto"
 
-#: src/glossary/glossaryview.cpp:31 src/glossary/glossaryview.cpp:38
-#: src/glossary/glossarywindow.cpp:260 src/glossary/glossarywindow.cpp:286
-#: src/glossary/glossarywindow.cpp:301 src/glossary/glossarywindow.cpp:318
+#: src/glossary/glossarytab.cpp:84
+#, fuzzy, kde-format
+#| msgctxt "@title actions category"
+#| msgid "Glossary"
+msgctxt "@title"
+msgid "Glossary"
+msgstr "Glossário"
+
+#: src/glossary/glossarytab.cpp:109
+#, kde-format
+msgid "Save"
+msgstr ""
+
+#: src/glossary/glossarytab.cpp:142
+#, kde-format
+msgctxt "@action:button reloads glossary from disk"
+msgid "Restore from disk"
+msgstr "Repor a partir do disco"
+
+#: src/glossary/glossarytab.cpp:143
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reload glossary from disk, discarding any changes"
+msgstr "Volta a carregar o glossário do disco, ignorando todas as alterações"
+
+#: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
 msgstr "Glossário"
 
-#: src/glossary/glossaryview.cpp:50
+#: src/glossary/glossaryview.cpp:51
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid ""
@@ -2117,28 +2140,6 @@ msgstr ""
 "contexto para adicionar um item novo (sugestão:&nbsp;seleccione as palavras "
 "nos campos original e traduzido, antes de invocar a opção "
 "<interface>Definir&nbsp;um&nbsp;novo&nbsp;termo</interface>).</p>"
-
-#: src/glossary/glossarywindow.cpp:116
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr "Repor a partir do disco"
-
-#: src/glossary/glossarywindow.cpp:117
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr "Volta a carregar o glossário do disco, ignorando todas as alterações"
-
-#: src/glossary/glossarywindow.cpp:343
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"O glossário contém modificações não gravadas.\n"
-"Deseja gravá-las ou rejeitá-las?"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:19
@@ -2241,7 +2242,7 @@ msgstr "Sugestões:"
 msgid "No errors"
 msgstr "Sem erros"
 
-#: src/lokalizemainwindow.cpp:95
+#: src/lokalizemainwindow.cpp:98
 #, fuzzy, kde-format
 #| msgid ""
 #| "<html>You do not have to be a software developer to be a member of the "
@@ -2269,12 +2270,12 @@ msgstr ""
 "então uma visita a <a href=\"%2\">%2</a> poderá fornecer o que necessitar.</"
 "html>"
 
-#: src/lokalizemainwindow.cpp:117
+#: src/lokalizemainwindow.cpp:120
 #, kde-format
 msgid "&Configure Lokalize"
 msgstr "&Configurar o Lokalize"
 
-#: src/lokalizemainwindow.cpp:118 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "Open Project"
@@ -2282,7 +2283,7 @@ msgctxt "@action:inmenu"
 msgid "Open Project"
 msgstr "Abrir o Projecto"
 
-#: src/lokalizemainwindow.cpp:119
+#: src/lokalizemainwindow.cpp:122
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Translate software"
@@ -2290,13 +2291,13 @@ msgctxt "@action:inmenu"
 msgid "Translate Software"
 msgstr "Tradutor de aplicações"
 
-#: src/lokalizemainwindow.cpp:120
+#: src/lokalizemainwindow.cpp:123
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "Traduzir um OpenDocument"
 
-#: src/lokalizemainwindow.cpp:175
+#: src/lokalizemainwindow.cpp:185
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
@@ -2304,66 +2305,66 @@ msgstr ""
 "Não foram encontrados módulos de SQL do Qt. A memória de traduções não ira "
 "funcionar."
 
-#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
+#: src/lokalizemainwindow.cpp:513 src/project/project.cpp:227
 #, fuzzy, kde-format
 #| msgid "TM facility requires SQLite Qt module."
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "A funcionalidade de MT necessita do módulo de SQLite para o Qt."
 
-#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
+#: src/lokalizemainwindow.cpp:513 src/project/project.cpp:227
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Não está disponível o módulo do SQLite"
 
-#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:479
+#: src/lokalizemainwindow.cpp:605 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Memória de Traduções"
 
-#: src/lokalizemainwindow.cpp:571 src/project/projecttab.cpp:152
+#: src/lokalizemainwindow.cpp:606 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Projecto"
 
-#: src/lokalizemainwindow.cpp:594
+#: src/lokalizemainwindow.cpp:629
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Tab"
 msgstr "Página seguinte"
 
-#: src/lokalizemainwindow.cpp:597
+#: src/lokalizemainwindow.cpp:632
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Tab"
 msgstr "Página anterior"
 
-#: src/lokalizemainwindow.cpp:600
+#: src/lokalizemainwindow.cpp:635
 #, fuzzy, kde-format
 #| msgid "Previously active tab"
 msgid "Previously Active Tab"
 msgstr "Página activa anterior"
 
-#: src/lokalizemainwindow.cpp:603
+#: src/lokalizemainwindow.cpp:638
 #, kde-format
 msgid "Close Current Tab"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:608
+#: src/lokalizemainwindow.cpp:644
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Glossário"
 
-#: src/lokalizemainwindow.cpp:612
+#: src/lokalizemainwindow.cpp:650
 #, fuzzy, kde-format
 #| msgid "Translation Memory"
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Memória de Traduções"
 
-#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:654 src/tm/tmtab.cpp:482
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Manage translation memories"
@@ -2371,7 +2372,7 @@ msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "Gerir as memórias de tradução"
 
-#: src/lokalizemainwindow.cpp:620
+#: src/lokalizemainwindow.cpp:658
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Project Overview"
@@ -2379,7 +2380,7 @@ msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "Visão Geral do Projecto"
 
-#: src/lokalizemainwindow.cpp:624
+#: src/lokalizemainwindow.cpp:662
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project..."
@@ -2387,7 +2388,7 @@ msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "Configurar o projecto..."
 
-#: src/lokalizemainwindow.cpp:627
+#: src/lokalizemainwindow.cpp:665
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Create software translation project..."
@@ -2395,7 +2396,7 @@ msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "Criar um projecto de traduções de aplicações..."
 
-#: src/lokalizemainwindow.cpp:630
+#: src/lokalizemainwindow.cpp:668
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Create OpenDocument translation project..."
@@ -2403,7 +2404,7 @@ msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "Criar um projecto de tradução em OpenDocument..."
 
-#: src/lokalizemainwindow.cpp:633
+#: src/lokalizemainwindow.cpp:671
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "Open Project"
@@ -2411,7 +2412,7 @@ msgctxt "@action:inmenu"
 msgid "Open Project…"
 msgstr "Abrir o Projecto"
 
-#: src/lokalizemainwindow.cpp:637
+#: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Close project"
@@ -2419,7 +2420,7 @@ msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "Fechar o projecto"
 
-#: src/lokalizemainwindow.cpp:640
+#: src/lokalizemainwindow.cpp:678
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open recent project"
@@ -2427,7 +2428,7 @@ msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "Abrir um projecto recente"
 
-#: src/lokalizemainwindow.cpp:650
+#: src/lokalizemainwindow.cpp:688
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Search and replace in files"
@@ -2435,13 +2436,13 @@ msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "Procurar e substituir nos ficheiros"
 
-#: src/lokalizemainwindow.cpp:653
+#: src/lokalizemainwindow.cpp:691
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:657
+#: src/lokalizemainwindow.cpp:695
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "Widget Text Capture"
@@ -2449,12 +2450,12 @@ msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "Captura do Texto do Elemento"
 
-#: src/lokalizemainwindow.cpp:670
+#: src/lokalizemainwindow.cpp:708
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:835
+#: src/lokalizemainwindow.cpp:882
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2463,6 +2464,16 @@ msgid ""
 msgstr ""
 "Erro ao aceder aos seguintes ficheiros:\n"
 "\n"
+
+#: src/lokalizemainwindow.cpp:1064
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The glossary contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"O glossário contém modificações não gravadas.\n"
+"Deseja gravá-las ou rejeitá-las?"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:18
@@ -3915,17 +3926,17 @@ msgstr "Projecto"
 msgid "Language-Team:"
 msgstr "Equipa da Língua:"
 
-#: src/project/project.cpp:392
+#: src/project/project.cpp:376
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "A sondar as pastas com os ficheiros de origem"
 
-#: src/project/project.cpp:392
+#: src/project/project.cpp:376
 #, kde-format
 msgid "Editor"
 msgstr "Editor"
 
-#: src/project/project.cpp:432
+#: src/project/project.cpp:416
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

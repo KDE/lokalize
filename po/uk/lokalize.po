@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-26 00:45+0000\n"
+"POT-Creation-Date: 2025-12-29 00:46+0000\n"
 "PO-Revision-Date: 2025-12-26 08:12+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -772,14 +772,14 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Модулі перекладу"
 
-#: src/cataloglistview/cataloglistview.cpp:80
-#: src/glossary/glossarywindow.cpp:99 src/project/projecttab.cpp:59
+#: src/cataloglistview/cataloglistview.cpp:80 src/glossary/glossarytab.cpp:124
+#: src/project/projecttab.cpp:59
 #, kde-format
 msgid "Search"
 msgstr "Пошук"
 
-#: src/cataloglistview/cataloglistview.cpp:81
-#: src/glossary/glossarywindow.cpp:101 src/project/projecttab.cpp:60
+#: src/cataloglistview/cataloglistview.cpp:81 src/glossary/glossarytab.cpp:126
+#: src/project/projecttab.cpp:60
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
@@ -998,13 +998,13 @@ msgstr "%1 (%2)"
 msgid "Target language:"
 msgstr "Мова перекладу:"
 
-#: src/common/termlabel.cpp:57
+#: src/common/termlabel.cpp:58
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Змінити"
 
-#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:568
+#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:603
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1037,7 +1037,7 @@ msgstr "Синхронізація 2"
 msgid "Translation Memory"
 msgstr "Пам’ять перекладів"
 
-#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:569
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:604
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1395,7 +1395,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (відновлено)"
 
-#: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1015
+#: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1086
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1405,8 +1405,8 @@ msgstr ""
 "Документ містить незбережені зміни.\n"
 "Хочете зберегти ваші зміни чи відкинути їх?"
 
-#: src/editortab.cpp:721 src/editortab.cpp:1308
-#: src/glossary/glossarywindow.cpp:345 src/lokalizemainwindow.cpp:1017
+#: src/editortab.cpp:721 src/editortab.cpp:1308 src/lokalizemainwindow.cpp:1066
+#: src/lokalizemainwindow.cpp:1088
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1646,8 +1646,8 @@ msgstr ""
 "скриптів та описом способів додавання цих скриптів до вашого проєкту можна "
 "ознайомитися у підручнику з Lokalize."
 
-#: src/editortab.cpp:1537 src/project/project.cpp:415
-#: src/project/project.cpp:420
+#: src/editortab.cpp:1537 src/project/project.cpp:399
+#: src/project/project.cpp:404
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Встановіть пакунок translate-toolkit і повторіть спробу"
@@ -1664,7 +1664,7 @@ msgstr ""
 "Виберіть початковий документ OpenDocument, на якому засновано поточний файл "
 "XLIFF"
 
-#: src/editortab.cpp:1552 src/project/project.cpp:425
+#: src/editortab.cpp:1552 src/project/project.cpp:409
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "файли OpenDocument (*.odt *.ods)"
@@ -1963,15 +1963,38 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Предметна область"
 
-#: src/glossary/glossaryview.cpp:31 src/glossary/glossaryview.cpp:38
-#: src/glossary/glossarywindow.cpp:260 src/glossary/glossarywindow.cpp:286
-#: src/glossary/glossarywindow.cpp:301 src/glossary/glossarywindow.cpp:318
+#: src/glossary/glossarytab.cpp:84
+#, fuzzy, kde-format
+#| msgctxt "@title actions category"
+#| msgid "Glossary"
+msgctxt "@title"
+msgid "Glossary"
+msgstr "Глосарій"
+
+#: src/glossary/glossarytab.cpp:109
+#, kde-format
+msgid "Save"
+msgstr ""
+
+#: src/glossary/glossarytab.cpp:142
+#, kde-format
+msgctxt "@action:button reloads glossary from disk"
+msgid "Restore from disk"
+msgstr "Відновити з диска"
+
+#: src/glossary/glossarytab.cpp:143
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reload glossary from disk, discarding any changes"
+msgstr "Перезавантажити глосарій з диска, відкинувши всі зміни"
+
+#: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
 msgstr "Глосарій"
 
-#: src/glossary/glossaryview.cpp:50
+#: src/glossary/glossaryview.cpp:51
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -1985,28 +2008,6 @@ msgstr ""
 "додавання нового терміна скористайтеся контекстним меню (підказка: виберіть "
 "слова у полях початкової фрази та перекладу, перш ніж виконати команду "
 "<interface>Визначити новий термін</interface>).</p>"
-
-#: src/glossary/glossarywindow.cpp:116
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr "Відновити з диска"
-
-#: src/glossary/glossarywindow.cpp:117
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr "Перезавантажити глосарій з диска, відкинувши всі зміни"
-
-#: src/glossary/glossarywindow.cpp:343
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"У глосарії є незбережені зміни.\n"
-"Ви бажаєте зберегти ці зміни чи відкинути їх?"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:19
@@ -2109,7 +2110,7 @@ msgstr "Пропозиції:"
 msgid "No errors"
 msgstr "Немає помилок"
 
-#: src/lokalizemainwindow.cpp:95
+#: src/lokalizemainwindow.cpp:98
 #, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
@@ -2128,161 +2129,161 @@ msgstr ""
 "<br /><br />Якщо ви потребуєте більше інформації або документації, "
 "відвідайте <a href=\"%2\">%2</a>, щоб ознайомитися з нею.</html>"
 
-#: src/lokalizemainwindow.cpp:117
+#: src/lokalizemainwindow.cpp:120
 #, kde-format
 msgid "&Configure Lokalize"
 msgstr "&Налаштувати Lokalize"
 
-#: src/lokalizemainwindow.cpp:118 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project"
 msgstr "Відкрити проєкт"
 
-#: src/lokalizemainwindow.cpp:119
+#: src/lokalizemainwindow.cpp:122
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software"
 msgstr "Переклад програмного забезпечення"
 
-#: src/lokalizemainwindow.cpp:120
+#: src/lokalizemainwindow.cpp:123
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "Переклад документа OpenDocument"
 
-#: src/lokalizemainwindow.cpp:175
+#: src/lokalizemainwindow.cpp:185
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Не знайдено модулів SQL Qt. Пам’ять перекладів не працюватиме."
 
-#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
+#: src/lokalizemainwindow.cpp:513 src/project/project.cpp:227
 #, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "Для роботи з пам’яттю перекладів потрібен модуль SQLite Qt."
 
-#: src/lokalizemainwindow.cpp:492 src/project/project.cpp:243
+#: src/lokalizemainwindow.cpp:513 src/project/project.cpp:227
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Не вдалося виявити модуль SQLite"
 
-#: src/lokalizemainwindow.cpp:570 src/tm/tmtab.cpp:479
+#: src/lokalizemainwindow.cpp:605 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Пам’ять перекладів"
 
-#: src/lokalizemainwindow.cpp:571 src/project/projecttab.cpp:152
+#: src/lokalizemainwindow.cpp:606 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Проєкт"
 
-#: src/lokalizemainwindow.cpp:594
+#: src/lokalizemainwindow.cpp:629
 #, kde-format
 msgid "Next Tab"
 msgstr "Наступна вкладка"
 
-#: src/lokalizemainwindow.cpp:597
+#: src/lokalizemainwindow.cpp:632
 #, kde-format
 msgid "Previous Tab"
 msgstr "Попередня вкладка"
 
-#: src/lokalizemainwindow.cpp:600
+#: src/lokalizemainwindow.cpp:635
 #, kde-format
 msgid "Previously Active Tab"
 msgstr "Попередня активна вкладка"
 
-#: src/lokalizemainwindow.cpp:603
+#: src/lokalizemainwindow.cpp:638
 #, kde-format
 msgid "Close Current Tab"
 msgstr "Закрити поточну вкладку"
 
-#: src/lokalizemainwindow.cpp:608
+#: src/lokalizemainwindow.cpp:644
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Глосарій"
 
-#: src/lokalizemainwindow.cpp:612
+#: src/lokalizemainwindow.cpp:650
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Пам’ять перекладів"
 
-#: src/lokalizemainwindow.cpp:616 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:654 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "Керування пам’яттю перекладів"
 
-#: src/lokalizemainwindow.cpp:620
+#: src/lokalizemainwindow.cpp:658
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "Огляд проєкту"
 
-#: src/lokalizemainwindow.cpp:624
+#: src/lokalizemainwindow.cpp:662
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "Налаштувати проєкт…"
 
-#: src/lokalizemainwindow.cpp:627
+#: src/lokalizemainwindow.cpp:665
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "Створити проєкт перекладу програмного забезпечення…"
 
-#: src/lokalizemainwindow.cpp:630
+#: src/lokalizemainwindow.cpp:668
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "Створити проєкт перекладу OpenDocument…"
 
-#: src/lokalizemainwindow.cpp:633
+#: src/lokalizemainwindow.cpp:671
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
 msgstr "Відкрити проєкт…"
 
-#: src/lokalizemainwindow.cpp:637
+#: src/lokalizemainwindow.cpp:675
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "Закрити проєкт"
 
-#: src/lokalizemainwindow.cpp:640
+#: src/lokalizemainwindow.cpp:678
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "Відкрити недавній проєкт"
 
-#: src/lokalizemainwindow.cpp:650
+#: src/lokalizemainwindow.cpp:688
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "Пошук з заміною"
 
-#: src/lokalizemainwindow.cpp:653
+#: src/lokalizemainwindow.cpp:691
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr "Перейти до наступного пункту пошуку із заміною"
 
-#: src/lokalizemainwindow.cpp:657
+#: src/lokalizemainwindow.cpp:695
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "Захоплення тексту віджетів"
 
-#: src/lokalizemainwindow.cpp:670
+#: src/lokalizemainwindow.cpp:708
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "Схема кольорів в&ікна"
 
-#: src/lokalizemainwindow.cpp:835
+#: src/lokalizemainwindow.cpp:882
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2291,6 +2292,16 @@ msgid ""
 msgstr ""
 "Під час спроби відкриття цих файлів сталася помилка:\n"
 "\n"
+
+#: src/lokalizemainwindow.cpp:1064
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The glossary contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"У глосарії є незбережені зміни.\n"
+"Ви бажаєте зберегти ці зміни чи відкинути їх?"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:18
@@ -3709,17 +3720,17 @@ msgstr "Проєкт"
 msgid "Language-Team:"
 msgstr "Мовна команда:"
 
-#: src/project/project.cpp:392
+#: src/project/project.cpp:376
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Шукаємо початкові файли у теках…"
 
-#: src/project/project.cpp:392
+#: src/project/project.cpp:376
 #, kde-format
 msgid "Editor"
 msgstr "Редактор"
 
-#: src/project/project.cpp:432
+#: src/project/project.cpp:416
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
