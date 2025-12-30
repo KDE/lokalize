@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-29 00:46+0000\n"
-"PO-Revision-Date: 2025-12-26 08:44+0200\n"
+"PO-Revision-Date: 2025-12-29 09:44+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1929,9 +1929,7 @@ msgid "Subject Field"
 msgstr "שדה הנושא"
 
 #: src/glossary/glossarytab.cpp:84
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
 msgstr "מילון מונחים"
@@ -1939,7 +1937,7 @@ msgstr "מילון מונחים"
 #: src/glossary/glossarytab.cpp:109
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "שמירה"
 
 #: src/glossary/glossarytab.cpp:142
 #, kde-format
