@@ -16,6 +16,7 @@ Dependencies:
     'frameworks/kdbusaddons': '@stable-kf6'
     'frameworks/kcrash': '@stable-kf6'
     'frameworks/kcolorscheme': '@stable-kf6'
+    'third-party/kddockwidgets': '@stable-kf6'
 
 Options:
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
