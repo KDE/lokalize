@@ -1898,12 +1898,10 @@ msgid "Subject Field"
 msgstr "主题字段"
 
 #: src/glossary/glossarytab.cpp:84
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
-msgstr "词汇表"
+msgstr ""
 
 #: src/glossary/glossarytab.cpp:109
 #, kde-format
