@@ -48,10 +48,10 @@ GlossaryView::GlossaryView(QWidget *parent, Catalog *catalog, const QVector<QAct
     w->show();
 
     setToolTip(i18nc("@info:tooltip",
-                     "<p>Translations for common terms appear here.</p>"
-                     "<p>Press shortcut displayed near the term to insert its translation.</p>"
-                     "<p>Use context menu to add new entry (tip:&nbsp;select words in original and translation fields before calling "
-                     "<interface>Define&nbsp;New&nbsp;Term</interface>).</p>"));
+                     "<p>Glossary entries will be shown here.</p>"
+                     "<p>Press the shortcut displayed near a term to insert its translation.</p>"
+                     "<p>Use the context menu to add a new entry to the glossary (tip:&nbsp;select terms in the original and the translation fields before calling "
+                     "<interface>Define&nbsp;New&nbsp;Term</interface>). You can specify the location of the glossary file in the project settings.</p>"));
 
     setWidget(m_browser);
     m_browser->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
