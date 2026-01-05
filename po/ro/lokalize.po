@@ -1,7 +1,7 @@
 # Translation of lokalize.po to Romanian
 # Copyright (C) 2008-2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the lokalize package.
-# Sergiu Bivol <sergiu@cip.md>, 2008, 2009, 2012, 2014, 2020, 2022.
+# SPDX-FileCopyrightText: 2008, 2009, 2012, 2014, 2020, 2022, 2025 Sergiu Bivol <sergiu@cip.md>
 # Florin Cătălin RUSSEN <cfrussen@yahoo.co.uk>, 2009, 2011.
 # Laurenţiu Buzdugan <lbuz@rolix.org>, 2009.
 # Cristian Oneț <onet.cristian@gmail.com>, 2011.
@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-29 00:46+0000\n"
-"PO-Revision-Date: 2022-02-17 11:58+0000\n"
+"POT-Creation-Date: 2026-01-05 00:45+0000\n"
+"PO-Revision-Date: 2025-12-13 13:39+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
-"Language-Team: Romanian\n"
+"Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 # |, no-check-spell
 #, kde-format
@@ -1837,7 +1837,7 @@ msgstr "Traduceri alternative"
 #: src/editorui.rc:146 src/project/projectmanagerui.rc:5
 #, kde-format
 msgid "&Go"
-msgstr "&Mergi"
+msgstr "Mer&gi"
 
 #. i18n: ectx: Menu (bookmarks)
 #: src/editorui.rc:176
@@ -2112,10 +2112,12 @@ msgstr "Glosar"
 #| "p>"
 msgctxt "@info:tooltip"
 msgid ""
-"<p>Translations for common terms appear here.</p><p>Press shortcut displayed "
-"near the term to insert its translation.</p><p>Use context menu to add new "
-"entry (tip:&nbsp;select words in original and translation fields before "
-"calling <interface>Define&nbsp;New&nbsp;Term</interface>).</p>"
+"<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
+"near a term to insert its translation.</p><p>Use the context menu to add a "
+"new entry to the glossary (tip:&nbsp;select terms in the source and target "
+"fields in the translation unit before calling <interface>Define&nbsp;"
+"New&nbsp;Term</interface>). You can specify the location of the glossary "
+"file in the project settings.</p>"
 msgstr ""
 "<p>Aici apar traducerile pentru termeni ordinari.</p><p>Apăsați "
 "acceleratorul afișat lângă termen pentru a-i introduce traducerea.</"
@@ -2225,15 +2227,7 @@ msgid "No errors"
 msgstr "Fără erori"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2244,7 +2238,7 @@ msgid ""
 "what you need.</html>"
 msgstr ""
 "<html>Nu trebuie să fiți neapărat un programator ca să fiți un membru al "
-"echipei KDE. Vă puteți alătura echipelor naționale care traduc interfețele "
+"echipei KDE. Vă puteți alătura echipelor lingvistice care traduc interfețele "
 "programelor. Puteți să faceți imagini, tematici, sunete și să îmbunătățiți "
 "documentația. Dumneavoastră decideți!<br /><br />Vizitați <a href=\"%1\">%1</"
 "a> pentru informații despre proiectele la care puteți participa.<br /><br /"
@@ -2433,7 +2427,7 @@ msgstr "Capturare text din controale"
 #: src/lokalizemainwindow.cpp:708
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "Schema de c&ulori a ferestrei"
 
 #: src/lokalizemainwindow.cpp:882
 #, kde-format
@@ -2620,12 +2614,12 @@ msgstr "corectarea erorilor și îmbunătățiri"
 #: src/main.cpp:98
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #: src/main.cpp:99
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:103
 #, kde-format
@@ -2701,9 +2695,7 @@ msgstr ""
 "Intrări nepotrivite: %2"
 
 #: src/msgctxtview.cpp:34
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
 msgstr "Metadate unități"
@@ -2936,16 +2928,13 @@ msgstr "Lista de discuții implicită pentru proiectele noi"
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
 #: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
 #: src/prefs/lokalize.kcfg:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "\n"
-#| "        "
+#, kde-format
 msgid ""
 "\n"
 "            "
 msgstr ""
 "\n"
-"        "
+"            "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73
@@ -3013,24 +3002,19 @@ msgstr ""
 "creați un proiect nou sau să încărcați un proiect existent?"
 
 #: src/prefs/prefs.cpp:146
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Sumarul proiectului"
+msgstr "Proiectul e necesar"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Creează proiect nou"
+msgstr "Creează proiect"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Deschide proiect"
