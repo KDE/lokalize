@@ -1,17 +1,17 @@
 # Spanish translations for lokalize.po package.
-# Copyright (C) 2007-2025 This file is copyright:
+# Copyright (C) 2007-2026 This file is copyright:
 # This file is distributed under the same license as the lokalize package.
 #
 # SPDX-FileCopyrightText: 2007 Santiago Fernández Sancho <santi@kde-es.org>
 # SPDX-FileCopyrightText: 2007 Enrique Matias Sanchez (aka Quique) <cronopios@gmail.com>
-# SPDX-FileCopyrightText: 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2022, 2023, 2024, 2025, 2026 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2013 Javier Viñal <fjvinal@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-05 00:45+0000\n"
-"PO-Revision-Date: 2025-12-30 00:48+0100\n"
+"PO-Revision-Date: 2026-01-06 02:03+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -2009,14 +2009,7 @@ msgid "Glossary"
 msgstr "Glosario"
 
 #: src/glossary/glossaryview.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;New&nbsp;Term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
@@ -2026,11 +2019,13 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
-"<p>Aquí aparecen las traducciones de términos comunes.</p><p>Pulse sobre el "
-"atajo de teclado mostrado junto al término para insertar su traducción.</"
-"p><p>Use el menú de contexto para añadir nuevas entradas (consejo:&nbsp;"
-"seleccione palabras en los campos original y de traducción antes de llamar a "
-"la función <interface>Definir&nbsp;nuevo&nbsp;término</interface>).</p>"
+"<p>Las entradas del glosario se mostrarán aquí.</p><p>Pulse el atajo de "
+"teclado que se muestra junto a un término para insertar su traducción.</"
+"p><p>Use el menú de contexto para añadir una nueva entrada al glosario "
+"(consejo:&nbsp;seleccione términos en los campos de origen y de destino de "
+"la unidad de traducción antes de llamar a <interface>Definir&nbsp;nuevo&nbsp;"
+"término</interface>). Puede indicar la ubicación del archivo de glosario en "
+"la configuración del proyecto.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:19

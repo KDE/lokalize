@@ -8,13 +8,14 @@
 # SPDX-FileCopyrightText: 2012 Jonas Schürmann <jonasschuermann@aol.de>
 # SPDX-FileCopyrightText: 2024 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 # SPDX-FileCopyrightText: 2025 Alois Spitzbart <spitz234@hotmail.com>
+# SPDX-FileCopyrightText: 2026 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-05 00:45+0000\n"
-"PO-Revision-Date: 2025-12-27 19:15+0100\n"
-"Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
+"PO-Revision-Date: 2026-01-05 16:22+0100\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1088,7 +1089,7 @@ msgstr "Neuen Begriff festlegen"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases…"
-msgstr "Arbeitsschritte …"
+msgstr "Arbeitsschritte …"
 
 #: src/editortab.cpp:353
 #, kde-format
@@ -1898,7 +1899,7 @@ msgstr "Dateiliste"
 #: src/filesearch/filesearchtab.cpp:122
 #, kde-format
 msgid "Drop translation files here…"
-msgstr "Übersetzungsdateien hier ablegen …"
+msgstr "Übersetzungsdateien hier ablegen …"
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
@@ -1970,9 +1971,7 @@ msgid "Subject Field"
 msgstr "Themenbereich"
 
 #: src/glossary/glossarytab.cpp:84
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
 msgstr "Glossar"
@@ -1980,7 +1979,7 @@ msgstr "Glossar"
 #: src/glossary/glossarytab.cpp:109
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: src/glossary/glossarytab.cpp:142
 #, kde-format
@@ -2247,25 +2246,25 @@ msgstr "Projektübersicht"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
-msgstr "Projekt einrichten …"
+msgstr "Projekt einrichten …"
 
 #: src/lokalizemainwindow.cpp:665
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
-msgstr "Software-Übersetzungsprojekt erstellen …"
+msgstr "Software-Übersetzungsprojekt erstellen …"
 
 #: src/lokalizemainwindow.cpp:668
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr "OpenDocument-Übersetzungsprojekt erstellen …"
+msgstr "OpenDocument-Übersetzungsprojekt erstellen …"
 
 #: src/lokalizemainwindow.cpp:671
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
-msgstr "Projekt öffnen …"
+msgstr "Projekt öffnen …"
 
 #: src/lokalizemainwindow.cpp:675
 #, kde-format
@@ -2646,7 +2645,7 @@ msgstr "<b>Bemerkungen:</b>"
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit…"
-msgstr "Bearbeiten …"
+msgstr "Bearbeiten …"
 
 #: src/noteeditor.cpp:130
 #, kde-format
@@ -2658,7 +2657,7 @@ msgstr "Hinzufügen …"
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add a note…"
-msgstr "Bemerkung hinzufügen …"
+msgstr "Bemerkung hinzufügen …"
 
 #: src/phaseswindow.cpp:144
 #, kde-format
@@ -3382,7 +3381,7 @@ msgid ""
 "You can change the minimum score (0-100) required for suggestions, default "
 "is 0."
 msgstr ""
-"Hier können sie die minimale Bewertung (0-100) der angezeigten "
+"Hier können sie die minimale Bewertung (0–100) der angezeigten "
 "Übersetzungsvorschläge ändern (Voreinstellung: 0)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
