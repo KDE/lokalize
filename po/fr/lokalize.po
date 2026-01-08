@@ -8,7 +8,7 @@
 # Sebastien Renard <Sebastien.Renard@digitalfox.org>, 2009, 2013, 2014, 2015.
 # Joëlle Cornavin <jcorn@free.fr>, 2007, 2008, 2009, 2010, 2011, 2012, 2013.
 # Simon Depiets <sdepiets@gmail.com>, 2017, 2018, 2019, 2020.
-# SPDX-FileCopyrightText: 2020, 2021, 2023, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2020, 2021, 2023, 2024, 2025, 2026 Xavier Besnard <xavier.besnard@kde.org>
 # Xavier Besnard <xavier.besnard@kde.org>, 2023.
 #
 msgid ""
@@ -16,9 +16,9 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-05 00:45+0000\n"
-"PO-Revision-Date: 2025-12-30 11:41+0100\n"
+"PO-Revision-Date: 2026-01-06 13:21+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: French <French <kde-francophone@kde.org>>\n"
+"Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2029,14 +2029,7 @@ msgid "Glossary"
 msgstr "Glossaire"
 
 #: src/glossary/glossaryview.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;New&nbsp;Term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
@@ -2046,12 +2039,13 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
-"<p>Les traductions des termes courants apparaissent ici.</p><p>Veuillez "
-"appuyer sur le raccourci affiché à côté du terme pour en insérer la "
-"traduction.</p><p>Veuillez ensuite utiliser le menu contextuel pour l'ajout "
-"d'un nouveau message (Astuce : sélectionnez les mots dans les champs "
+"<p>Les entrées du glossaire seront affichées ici.</p><p>Veuillez appuyer sur "
+"le raccourci affiché à côté du terme pour y insérer sa traduction.</"
+"p><p>Veuillez ensuite utiliser le menu contextuel pour l'ajout d'une "
+"nouvelle entrée au glossaire (Astuce : sélectionnez les mots dans les champs "
 "« Source » et « Cible » avant d'appeler <interface>Définir un nouveau terme</"
-"interface>).</p>"
+"interface>).</p>Vous pouvez spécifier l’emplacement du fichier de glossaire "
+"dans la configuration du projet. </p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:19

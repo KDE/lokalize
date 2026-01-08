@@ -5,14 +5,14 @@
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # obsoleteman <tulliana@gmail.com>, 2008-2010,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014, 2015, 2017, 2020.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-05 00:45+0000\n"
-"PO-Revision-Date: 2025-12-29 11:16+0300\n"
-"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"PO-Revision-Date: 2026-01-07 20:28+0300\n"
+"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -1984,14 +1984,7 @@ msgid "Glossary"
 msgstr "Kavram Dizini"
 
 #: src/glossary/glossaryview.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;New&nbsp;Term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
@@ -2001,11 +1994,12 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
-"<p>Ortak terim çevirileri burada görünür.</p><p>Çevirisini eklemek için "
-"gösterilen bir terimin yakınındaki kısayola basın.</p><p>Yeni bir giriş "
-"eklemek için bağlam menüsünü kullanın (ipucu:&nbsp;<interface>Yeni&nbsp;"
-"Terim&nbsp;Tanımla</interface> tıklamadan önce özgün ve çeviri alanlarındaki "
-"sözcükleri seçin).</p>"
+"<p>Kavram dizini girdileri burada görünür.</p><p>Çevirisini eklemek için "
+"gösterilen bir terimin yakınındaki kısayola basın.</p><p>Kavram dizinine "
+"yeni bir giriş eklemek için bağlam menüsünü kullanın (ipucu:&nbsp;"
+"<interface>Yeni&nbsp;Terim&nbsp;Tanımla</interface> tıklamadan önce özgün ve "
+"çeviri alanlarındaki sözcükleri seçin). Kavram dizini dosyasının konumunu "
+"proje ayarlarından belirtebilirsiniz.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:19
