@@ -17,14 +17,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-05 00:45+0000\n"
-"PO-Revision-Date: 2026-01-02 07:35+0900\n"
+"PO-Revision-Date: 2026-01-09 00:06+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.11.70\n"
+"X-Generator: Lokalize 26.03.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -1945,14 +1945,7 @@ msgid "Glossary"
 msgstr "詞彙表"
 
 #: src/glossary/glossaryview.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;New&nbsp;Term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
@@ -1962,9 +1955,9 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
-"<p>常用的字詞的翻譯會出現在這裡。</p> <p>按下顯示的捷徑可以插入該翻譯。</p> "
-"<p>使用選單來新增項目（提示：先選好原始字串與翻譯，然後呼叫<interface>定義新"
-"名詞</interface>）。</p>"
+"<p>詞彙表項目會出現於此。</p><p>按下詞目旁邊顯示的快捷鍵來插入該翻譯。</p><p>"
+"用內文選單來新增詞彙表項目（提示：可以先在翻譯單位選取原文與譯文再呼叫"
+"<interface>定義新名詞</interface>）。詞彙表檔案位置可以在專案設定裡指定。</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:19

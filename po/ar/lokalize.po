@@ -9,13 +9,13 @@
 # Khaled Hosny <khaledhosny@eglug.org>, 2007, 2008.
 # Abdalrahim Fakhouri <abdilra7eem@yahoo.com>, 2012.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2014, 2017.
-# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024, 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-05 00:45+0000\n"
-"PO-Revision-Date: 2025-12-27 10:39+0400\n"
+"PO-Revision-Date: 2026-01-07 18:46+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1939,9 +1939,7 @@ msgid "Subject Field"
 msgstr "حقل الموضوع"
 
 #: src/glossary/glossarytab.cpp:84
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
 msgstr "المُسرَد"
@@ -1949,7 +1947,7 @@ msgstr "المُسرَد"
 #: src/glossary/glossarytab.cpp:109
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "احفظ"
 
 #: src/glossary/glossarytab.cpp:142
 #, kde-format
@@ -1970,14 +1968,7 @@ msgid "Glossary"
 msgstr "المُسرَد"
 
 #: src/glossary/glossaryview.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;New&nbsp;Term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
@@ -1987,10 +1978,11 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
-"<p>ترجمات المصطلحات الشائعة تظهر هنا.</p><p>اضغط الاختصار المعروض بجانب "
-"المصطلح لإدراجه في الترجمة.</p><p>استخدم قائمة السّياق لإضافة مُدخَلة جديدة "
-"(تلميح:&nbsp;اختر الكلمات في حقلي الأصل والترجمة قبل اختيار "
-"<interface>عرّف&nbsp;مصطلحًا&nbsp;جديدًا</interface>).</p>"
+"<p>مدخلات المسرد تظهر هنا.</p><p>اضغط الاختصار المعروض بجانب المصطلح لإدراجه "
+"في الترجمة.</p><p>استخدم قائمة السياق لإضافة مدخل جديد إلى المسرد (نصيحة: "
+"حدد المصطلحات في حقول المصدر والهدف في وحدة الترجمة قبل استدعاء "
+"<interface>عرّف&nbsp;مصطلح&nbsp;جديد</interface>). يمكنك تحديد موقع ملف "
+"المسرد في إعدادات المشروع.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:19
