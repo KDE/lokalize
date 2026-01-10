@@ -2,30 +2,32 @@
 # Copyright (C) 2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the lokalize package.
 # Kevin Scannell <kscanne@gmail.com>, 2009.
+# SPDX-FileCopyrightText: 2026 Charlotte <altronic25@protonmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-05 00:45+0000\n"
-"PO-Revision-Date: 2007-08-03 07:58-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
-"Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2026-01-06 20:08+0000\n"
+"Last-Translator: Charlotte <altronic25@protonmail.com>\n"
+"Language-Team: Irish\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
 "3 : 4\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Kevin Scannell"
+msgstr "Kevin Scannell,Charlotte"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "kscanne@gmail.com"
+msgstr "kscanne@gmail.com,altronic25@protonmail.com"
 
 #, kde-format
 msgid "default"
@@ -162,7 +164,7 @@ msgstr ""
 #: src/catalog/catalog.cpp:41
 #, kde-format
 msgid "Gettext (*.po *.pot)"
-msgstr ""
+msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:43
 #, kde-format
@@ -172,12 +174,12 @@ msgstr ""
 #: src/catalog/catalog.cpp:44
 #, kde-format
 msgid "Gettext (*.po)"
-msgstr ""
+msgstr "Gettext (*.po)"
 
 #: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
-msgstr ""
+msgstr "XLIFF (*.xlf *.xliff)"
 
 #: src/catalog/catalog.cpp:47
 #, kde-format
@@ -660,11 +662,9 @@ msgid "Author Name Missing"
 msgstr ""
 
 #: src/catalog/gettextheader.cpp:458
-#, fuzzy, kde-format
-#| msgctxt "NAME OF TRANSLATORS"
-#| msgid "Your names"
+#, kde-format
 msgid "Your name:"
-msgstr "Kevin Scannell"
+msgstr "D'ainm:"
 
 #: src/catalog/gettextheader.cpp:469
 #, kde-format
@@ -673,11 +673,9 @@ msgid "Author Email Missing"
 msgstr ""
 
 #: src/catalog/gettextheader.cpp:470
-#, fuzzy, kde-format
-#| msgctxt "EMAIL OF TRANSLATORS"
-#| msgid "Your emails"
+#, kde-format
 msgid "Your email:"
-msgstr "kscanne@gmail.com"
+msgstr "Do ríomhphost:"
 
 #: src/catalog/ts/tsstorage.cpp:437
 #, kde-format
@@ -692,10 +690,9 @@ msgstr "Aonaid Aistriúcháin"
 
 #: src/cataloglistview/cataloglistview.cpp:80 src/glossary/glossarytab.cpp:124
 #: src/project/projecttab.cpp:59
-#, fuzzy, kde-format
-#| msgid "&Search"
+#, kde-format
 msgid "Search"
-msgstr "&Cuardach"
+msgstr "Cuardach"
 
 #: src/cataloglistview/cataloglistview.cpp:81 src/glossary/glossarytab.cpp:126
 #: src/project/projecttab.cpp:60
@@ -705,10 +702,9 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:88
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
-msgstr "roghanna"
+msgstr "Roghanna"
 
 #: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
@@ -848,11 +844,10 @@ msgid "Context"
 msgstr "Comhthéacs"
 
 #: src/cataloglistview/catalogmodel.cpp:100
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Files"
-msgstr "Comhad"
+msgstr "Comhaid"
 
 #: src/cataloglistview/catalogmodel.cpp:102
 #: src/filesearch/filesearchtab.cpp:357 src/tm/tmtab.cpp:70
@@ -905,26 +900,22 @@ msgid "Untranslated"
 msgstr "Gan aistriúchán"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr "tá"
+msgstr "Tá"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "Neamhní"
+msgstr "Níl"
 
 #: src/common/languagelistmodel.cpp:74
-#, fuzzy, kde-format
-#| msgctxt "@info:status message entries"
-#| msgid "Total: %1 (%2)"
+#, kde-format
 msgctxt "%1 is a language name, e.g. Irish, %2 is language code, e.g. ga"
 msgid "%1 (%2)"
-msgstr "Iomlán: %1 (%2)"
+msgstr "%1 (%2)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/common/languagelistmodel.cpp:114 src/tm/dbparams.ui:146
@@ -1426,7 +1417,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
-msgstr ""
+msgstr "Sábháil Comhad Mar"
 
 #: src/editortab.cpp:865
 #, fuzzy, kde-format
@@ -1956,7 +1947,7 @@ msgstr "Gluais"
 #: src/glossary/glossarytab.cpp:109
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Sábháil"
 
 #: src/glossary/glossarytab.cpp:142
 #, kde-format
@@ -2471,7 +2462,7 @@ msgstr ""
 #: src/main.cpp:97
 #, kde-format
 msgid "Simon Depiets"
-msgstr ""
+msgstr "Simon Depiets"
 
 #: src/main.cpp:97 src/main.cpp:98 src/main.cpp:99
 #, fuzzy, kde-format
@@ -2482,12 +2473,12 @@ msgstr "paistí ceartaithe"
 #: src/main.cpp:98
 #, kde-format
 msgid "Karl Ove Hufthammer"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #: src/main.cpp:99
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:103
 #, kde-format
@@ -4221,7 +4212,7 @@ msgstr ""
 #: src/tm/tmmanager.cpp:216 src/tm/tmmanager.cpp:237
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
-msgstr ""
+msgstr "Comhaid TMX (*.tmx *.xml)"
 
 #: src/tm/tmmanager.cpp:235
 #, kde-format
@@ -4370,7 +4361,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:525
 #, kde-format
@@ -4378,7 +4369,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:577
 #, kde-format
