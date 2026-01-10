@@ -1,5 +1,5 @@
 /*
-  This file is part of KAider
+  This file is part of Lokalize
   This file is based on the one from KBabel
 
   SPDX-FileCopyrightText: 2002-2003 Stanislav Visnovsky <visnovsky@kde.org>

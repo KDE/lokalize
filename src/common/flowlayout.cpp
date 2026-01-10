@@ -1,5 +1,5 @@
 /*
-  This file is part of KAider
+  This file is part of Lokalize
 
   SPDX-FileCopyrightText: 2007 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2004-2007 Trolltech ASA. All rights reserved.

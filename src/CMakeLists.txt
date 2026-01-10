@@ -233,7 +233,7 @@ ki18n_wrap_ui(liblokalize_SRCS
     tm/queryoptions.ui
     tm/managedatabases.ui
     tm/dbparams.ui
-    kaider_findextension.ui
+    findextension.ui
     tools/widgettextcaptureconfig.ui
 )
 

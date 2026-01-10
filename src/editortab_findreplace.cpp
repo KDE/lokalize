@@ -15,7 +15,7 @@
 #include "pos.h"
 #include "project.h"
 #include "stemming.h"
-#include "ui_kaider_findextension.h"
+#include "ui_findextension.h"
 
 #include <KLocalizedString>
 #include <KMessageBox>
