@@ -1,12 +1,14 @@
 /*
-    Gettext translation file analyzer
+  This file is part of Lokalize
 
-    SPDX-FileCopyrightText: 2007 Montel Laurent <montel@kde.org>
-    SPDX-FileCopyrightText: 2009 Jos van den Oever <jos@vandenoever.info>
-    SPDX-FileCopyrightText: 2014 Nick Shaforostoff <shaforostoff@gmail.com>
-    SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  Gettext translation file analyzer
 
-    SPDX-License-Identifier: LGPL-2.1-or-later
+  SPDX-FileCopyrightText: 2007      Montel Laurent <montel@kde.org>
+  SPDX-FileCopyrightText: 2009      Jos van den Oever <jos@vandenoever.info>
+  SPDX-FileCopyrightText: 2014      Nick Shaforostoff <shaforostoff@gmail.com>
+  SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+
+  SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
 #include "poextractor.h"

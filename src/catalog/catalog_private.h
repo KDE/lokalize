@@ -4,7 +4,7 @@
 
   SPDX-FileCopyrightText: 1999-2000 Matthias Kiefer <matthias.kiefer@gmx.de>
   SPDX-FileCopyrightText: 2001-2004 Stanislav Visnovsky <visnovsky@kde.org>
-  SPDX-FileCopyrightText: 2007 Nick Shaforostoff <shafff@ukr.net>
+  SPDX-FileCopyrightText: 2007      Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
 
 

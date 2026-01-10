@@ -1,4 +1,6 @@
 /*
+  This file is part of Lokalize
+
   SPDX-FileCopyrightText: 2008-2014 Nick Shaforostoff <shaforostoff@kde.ru>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
 

@@ -4,7 +4,6 @@
 
   SPDX-FileCopyrightText: 2007-2009 Nick Shaforostoff <shafff@ukr.net>
 
-
   SPDX-License-Identifier: GPL-2.0-or-later WITH LicenseRef-Qt-Commercial-exception-1.0
 */
 #ifndef GETTEXTIMPORTPLUGIN_H

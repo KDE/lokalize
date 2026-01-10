@@ -1,7 +1,10 @@
 /*
+  This file is part of Lokalize
+
   SPDX-FileCopyrightText: 2007 Joris Guisson <joris.guisson@gmail.com>
   SPDX-FileCopyrightText: 2007 Ivan Vasic <ivasic@gmail.com>
   SPDX-FileCopyrightText: 2025 Finley Watson <fin-w@tutanota.com>
+
   SPDX-License-Identifier: GPL-2.0-or-later
 */
 

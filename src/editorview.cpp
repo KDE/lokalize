@@ -1,5 +1,6 @@
 /*
-  This file is part of Lokalize (some bits of KBabel code were reused)
+  This file is part of Lokalize
+  This file contains parts of KBabel code
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 1999-2000 Matthias Kiefer <matthias.kiefer@gmx.de>

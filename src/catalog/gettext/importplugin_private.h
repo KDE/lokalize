@@ -2,8 +2,7 @@
   This file is part of Lokalize
   This file contains parts of KBabel code
 
-  SPDX-FileCopyrightText: 2002-2003 Stanislav Visnovsky
-                                <visnovsky@kde.org>
+  SPDX-FileCopyrightText: 2002-2003 Stanislav Visnovsky <visnovsky@kde.org>
 
   SPDX-License-Identifier: GPL-2.0-or-later WITH LicenseRef-Qt-Commercial-exception-1.0
 */

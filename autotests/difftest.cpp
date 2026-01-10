@@ -1,6 +1,9 @@
 /*
-    SPDX-FileCopyrightText: 2024 Volker Krause <vkrause@kde.org>
-    SPDX-License-Identifier: LGPL-2.1-or-later
+  This file is part of Lokalize
+
+  SPDX-FileCopyrightText: 2024 Volker Krause <vkrause@kde.org>
+
+  SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
 #include <QtTest/qtest.h>

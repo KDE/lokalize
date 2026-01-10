@@ -1,4 +1,4 @@
-/*****************************************************************************
+/*
   This file is part of Lokalize
   This file contains parts of KBabel code
 
