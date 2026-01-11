@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-05 00:45+0000\n"
+"POT-Creation-Date: 2026-01-11 00:45+0000\n"
 "PO-Revision-Date: 2017-09-28 18:00+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -743,13 +743,13 @@ msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Umetanje teksta sa obilježavanjem"
 
-#: src/catalog/gettext/gettextstorage.cpp:98
+#: src/catalog/gettext/gettextstorage.cpp:100
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "razdvajač alternativnih niski različite brojnosti"
 
 # rewrite-msgid: /Gettext/xgettext tool/
-#: src/catalog/gettext/gettextstorage.cpp:284
+#: src/catalog/gettext/gettextstorage.cpp:286
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -786,7 +786,7 @@ msgstr "Nedostaje adresa e‑pošte autora"
 msgid "Your email:"
 msgstr "Vaša adresa e‑pošte:"
 
-#: src/catalog/ts/tsstorage.cpp:437
+#: src/catalog/ts/tsstorage.cpp:439
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Prethodna vrednost izvora, koju je sačuvala alatka lupdate."
@@ -830,7 +830,7 @@ msgid "Case insensitive"
 msgstr "Razlikuj veličinu slova"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:204 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:204 src/findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Ignoriši ubrzivačke znakove"
@@ -943,7 +943,7 @@ msgid "Entry"
 msgstr "jedinica"
 
 #: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:351
-#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:94 src/tm/tmtab.cpp:66
+#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
@@ -1884,31 +1884,31 @@ msgstr "Prikazi &alatki"
 msgid "Main Toolbar"
 msgstr "Glavna traka"
 
-#: src/editorview.cpp:42
+#: src/editorview.cpp:43
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "nespremna:"
 
-#: src/editorview.cpp:44
+#: src/editorview.cpp:45
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "neprevedena:"
 
-#: src/editorview.cpp:55
+#: src/editorview.cpp:56
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "Sakrij"
 
-#: src/editorview.cpp:65
+#: src/editorview.cpp:66
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "kolona: %1"
 
-#: src/editorview.cpp:77
+#: src/editorview.cpp:78
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1918,13 +1918,13 @@ msgstr ""
 "<qt><p><b>Izvorna niska</b></p><p>Ovaj dio prozora prikazuje izvorni tekst "
 "trenutno prikazane jedinice.</p></qt>"
 
-#: src/editorview.cpp:168
+#: src/editorview.cpp:169
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Oblik množine %1"
 
-#: src/editorview.cpp:232
+#: src/editorview.cpp:233
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -2075,6 +2075,32 @@ msgstr "Pregled"
 msgid "Mass Replace"
 msgstr "Masovna zamjena"
 
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
+#: src/findextension.ui:30
+#, kde-format
+msgid "Skip tags"
+msgstr "Preskači oznake"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
+#: src/findextension.ui:33
+#, kde-format
+msgctxt "@option:check"
+msgid "Skip markup"
+msgstr "Preskači obilježavanje"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/findextension.ui:43
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore accelerator marks"
+msgstr "Ignoriši ubrzivačke znakove"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
+#: src/findextension.ui:54
+#, kde-format
+msgid "Include notes"
+msgstr "Uključi bilješke"
+
 #: src/glossary/glossary.cpp:194
 #, kde-format
 msgctxt "@title:column"
@@ -2200,38 +2226,12 @@ msgstr ""
 "izvorni-prevedeni izraz. Odnosno, može postojati nekoliko unosa sa istim "
 "parom izraza, ali različitim značenjima."
 
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
-#: src/kaider_findextension.ui:30
-#, kde-format
-msgid "Skip tags"
-msgstr "Preskači oznake"
-
-#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
-#: src/kaider_findextension.ui:33
-#, kde-format
-msgctxt "@option:check"
-msgid "Skip markup"
-msgstr "Preskači obilježavanje"
-
-#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/kaider_findextension.ui:43
-#, kde-format
-msgctxt "@option:check"
-msgid "Ignore accelerator marks"
-msgstr "Ignoriši ubrzivačke znakove"
-
-#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
-#: src/kaider_findextension.ui:54
-#, kde-format
-msgid "Include notes"
-msgstr "Uključi bilješke"
-
-#: src/languagetool/languagetoolgrammarerror.cpp:24
+#: src/languagetool/languagetoolgrammarerror.cpp:26
 #, kde-format
 msgid "Suggestions:"
 msgstr ""
 
-#: src/languagetool/languagetoolparser.cpp:27
+#: src/languagetool/languagetoolparser.cpp:29
 #, kde-format
 msgid "No errors"
 msgstr ""
@@ -3945,13 +3945,13 @@ msgstr "Osnovna fascikla za POT fajlove (šabloni za prevođenje)"
 msgid "Project's glossary"
 msgstr "Pojmovnik projekta"
 
-#: src/project/projectmodel.cpp:468
+#: src/project/projectmodel.cpp:467
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "ime"
 
-#: src/project/projectmodel.cpp:470
+#: src/project/projectmodel.cpp:469
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3959,19 +3959,19 @@ msgctxt ""
 msgid "Graph"
 msgstr "graf"
 
-#: src/project/projectmodel.cpp:472
+#: src/project/projectmodel.cpp:471
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "ukupno"
 
-#: src/project/projectmodel.cpp:474
+#: src/project/projectmodel.cpp:473
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "prevedeno"
 
-#: src/project/projectmodel.cpp:476
+#: src/project/projectmodel.cpp:475
 #, fuzzy, kde-format
 #| msgctxt "@title:column Number of entries"
 #| msgid "Not ready"
@@ -3979,37 +3979,37 @@ msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr "nespremno"
 
-#: src/project/projectmodel.cpp:478
+#: src/project/projectmodel.cpp:477
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "neprevedeno"
 
-#: src/project/projectmodel.cpp:480
+#: src/project/projectmodel.cpp:479
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr ""
 
-#: src/project/projectmodel.cpp:482
+#: src/project/projectmodel.cpp:481
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "posljednje prevođeno"
 
-#: src/project/projectmodel.cpp:484
+#: src/project/projectmodel.cpp:483
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr ""
 
-#: src/project/projectmodel.cpp:486
+#: src/project/projectmodel.cpp:485
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "revizija šablona"
 
-#: src/project/projectmodel.cpp:488
+#: src/project/projectmodel.cpp:487
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -4158,19 +4158,19 @@ msgstr[1] "Otvori fajl"
 msgstr[2] "Otvori fajl"
 msgstr[3] "Otvori fajl"
 
-#: src/statusbar.cpp:50
+#: src/statusbar.cpp:53
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "tekuća: %1"
 
-#: src/statusbar.cpp:64
+#: src/statusbar.cpp:67
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
 msgstr "ukupno: %1"
 
-#: src/statusbar.cpp:76
+#: src/statusbar.cpp:79
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -4178,13 +4178,13 @@ msgctxt ""
 msgid "Not ready: %1"
 msgstr "nespremno: %1"
 
-#: src/statusbar.cpp:78 src/statusbar.cpp:93
+#: src/statusbar.cpp:81 src/statusbar.cpp:96
 #, kde-format
 msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/statusbar.cpp:91
+#: src/statusbar.cpp:94
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
@@ -4328,7 +4328,7 @@ msgstr "Izvezi u TMX"
 msgid "Remove"
 msgstr "Ukloni"
 
-#: src/tm/qamodel.cpp:97
+#: src/tm/qamodel.cpp:98
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"

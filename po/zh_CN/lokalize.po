@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-05 00:45+0000\n"
+"POT-Creation-Date: 2026-01-11 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -673,12 +673,12 @@ msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "插入带标记的文本"
 
-#: src/catalog/gettext/gettextstorage.cpp:98
+#: src/catalog/gettext/gettextstorage.cpp:100
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "不同长度字符串备选项的分隔符"
 
-#: src/catalog/gettext/gettextstorage.cpp:284
+#: src/catalog/gettext/gettextstorage.cpp:286
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -707,7 +707,7 @@ msgstr ""
 msgid "Your email:"
 msgstr "您的电子邮件："
 
-#: src/catalog/ts/tsstorage.cpp:437
+#: src/catalog/ts/tsstorage.cpp:439
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "lupdate 工具保存的之前的源的值"
@@ -747,7 +747,7 @@ msgid "Case insensitive"
 msgstr "不区分大小写"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:204 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:204 src/findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "忽略快捷键标记"
@@ -844,7 +844,7 @@ msgid "Entry"
 msgstr "条目"
 
 #: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:351
-#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:94 src/tm/tmtab.cpp:66
+#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
@@ -1705,31 +1705,31 @@ msgstr "工具视图(&V)"
 msgid "Main Toolbar"
 msgstr "主工具栏"
 
-#: src/editorview.cpp:42
+#: src/editorview.cpp:43
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "未就绪："
 
-#: src/editorview.cpp:44
+#: src/editorview.cpp:45
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "未翻译："
 
-#: src/editorview.cpp:55
+#: src/editorview.cpp:56
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "隐藏"
 
-#: src/editorview.cpp:65
+#: src/editorview.cpp:66
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "栏：%1"
 
-#: src/editorview.cpp:77
+#: src/editorview.cpp:78
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1739,13 +1739,13 @@ msgstr ""
 "<qt><p><b>原始字符串</b></p>\n"
 "<p>窗口的这部分显示了当前所显示条目的原始文本。</p></qt>"
 
-#: src/editorview.cpp:168
+#: src/editorview.cpp:169
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "复数形式 %1"
 
-#: src/editorview.cpp:232
+#: src/editorview.cpp:233
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1891,6 +1891,32 @@ msgstr "预览"
 msgid "Mass Replace"
 msgstr "大规模替换"
 
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
+#: src/findextension.ui:30
+#, kde-format
+msgid "Skip tags"
+msgstr "跳过标签"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
+#: src/findextension.ui:33
+#, kde-format
+msgctxt "@option:check"
+msgid "Skip markup"
+msgstr "跳过标记"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/findextension.ui:43
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore accelerator marks"
+msgstr "忽略快捷键标记"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
+#: src/findextension.ui:54
+#, kde-format
+msgid "Include notes"
+msgstr "包含备注"
+
 #: src/glossary/glossary.cpp:194
 #, kde-format
 msgctxt "@title:column"
@@ -1999,38 +2025,12 @@ msgstr ""
 "\n"
 "这意味着可能有多条相同的单词或词组分别表达不同的含义。"
 
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
-#: src/kaider_findextension.ui:30
-#, kde-format
-msgid "Skip tags"
-msgstr "跳过标签"
-
-#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
-#: src/kaider_findextension.ui:33
-#, kde-format
-msgctxt "@option:check"
-msgid "Skip markup"
-msgstr "跳过标记"
-
-#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/kaider_findextension.ui:43
-#, kde-format
-msgctxt "@option:check"
-msgid "Ignore accelerator marks"
-msgstr "忽略快捷键标记"
-
-#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
-#: src/kaider_findextension.ui:54
-#, kde-format
-msgid "Include notes"
-msgstr "包含备注"
-
-#: src/languagetool/languagetoolgrammarerror.cpp:24
+#: src/languagetool/languagetoolgrammarerror.cpp:26
 #, kde-format
 msgid "Suggestions:"
 msgstr "建议："
 
-#: src/languagetool/languagetoolparser.cpp:27
+#: src/languagetool/languagetoolparser.cpp:29
 #, kde-format
 msgid "No errors"
 msgstr "无错误"
@@ -3635,13 +3635,13 @@ msgstr "POT 文件的基准目录(待翻译的模板)"
 msgid "Project's glossary"
 msgstr "项目词汇表"
 
-#: src/project/projectmodel.cpp:468
+#: src/project/projectmodel.cpp:467
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "名称"
 
-#: src/project/projectmodel.cpp:470
+#: src/project/projectmodel.cpp:469
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3649,55 +3649,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "图表"
 
-#: src/project/projectmodel.cpp:472
+#: src/project/projectmodel.cpp:471
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "总计"
 
-#: src/project/projectmodel.cpp:474
+#: src/project/projectmodel.cpp:473
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "已翻译"
 
-#: src/project/projectmodel.cpp:476
+#: src/project/projectmodel.cpp:475
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr ""
 
-#: src/project/projectmodel.cpp:478
+#: src/project/projectmodel.cpp:477
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "未翻译"
 
-#: src/project/projectmodel.cpp:480
+#: src/project/projectmodel.cpp:479
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "未完成"
 
-#: src/project/projectmodel.cpp:482
+#: src/project/projectmodel.cpp:481
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "最后翻译时间"
 
-#: src/project/projectmodel.cpp:484
+#: src/project/projectmodel.cpp:483
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "注释"
 
-#: src/project/projectmodel.cpp:486
+#: src/project/projectmodel.cpp:485
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "模板版本"
 
-#: src/project/projectmodel.cpp:488
+#: src/project/projectmodel.cpp:487
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -3826,19 +3826,19 @@ msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
 msgstr[0] "打开 %1 个文件 (&O)"
 
-#: src/statusbar.cpp:50
+#: src/statusbar.cpp:53
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "当前：%1"
 
-#: src/statusbar.cpp:64
+#: src/statusbar.cpp:67
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
 msgstr "总计：%1"
 
-#: src/statusbar.cpp:76
+#: src/statusbar.cpp:79
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -3846,13 +3846,13 @@ msgctxt ""
 msgid "Not ready: %1"
 msgstr "未就绪：%1"
 
-#: src/statusbar.cpp:78 src/statusbar.cpp:93
+#: src/statusbar.cpp:81 src/statusbar.cpp:96
 #, kde-format
 msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/statusbar.cpp:91
+#: src/statusbar.cpp:94
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
@@ -3996,7 +3996,7 @@ msgstr "导出至 TMX"
 msgid "Remove"
 msgstr "删除"
 
-#: src/tm/qamodel.cpp:97
+#: src/tm/qamodel.cpp:98
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"

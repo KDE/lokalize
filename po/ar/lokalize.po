@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-05 00:45+0000\n"
+"POT-Creation-Date: 2026-01-11 00:45+0000\n"
 "PO-Revision-Date: 2026-01-07 18:46+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -708,12 +708,12 @@ msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "إدرّاج النّصّ الذي بداخله رقْم"
 
-#: src/catalog/gettext/gettextstorage.cpp:98
+#: src/catalog/gettext/gettextstorage.cpp:100
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr "فاصل لتنويعات السّلاسل مختلفة الطّول"
 
-#: src/catalog/gettext/gettextstorage.cpp:284
+#: src/catalog/gettext/gettextstorage.cpp:286
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -742,7 +742,7 @@ msgstr "بريد المؤلف ناقص"
 msgid "Your email:"
 msgstr "بريدك الإلكتروني:"
 
-#: src/catalog/ts/tsstorage.cpp:437
+#: src/catalog/ts/tsstorage.cpp:439
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "قيمة المصدر السّابقة، حفظتها أداة lupdate"
@@ -782,7 +782,7 @@ msgid "Case insensitive"
 msgstr "غير حسّاس للحالة"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:204 src/kaider_findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:204 src/findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "تجاهل علامات المسرّعات"
@@ -879,7 +879,7 @@ msgid "Entry"
 msgstr "المُدخَلة"
 
 #: src/cataloglistview/catalogmodel.cpp:92 src/filesearch/filesearchtab.cpp:351
-#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:94 src/tm/tmtab.cpp:66
+#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
@@ -1745,31 +1745,31 @@ msgstr "منا&ظير الأدوات"
 msgid "Main Toolbar"
 msgstr "شريط الأدوات الرّئيسيّ"
 
-#: src/editorview.cpp:42
+#: src/editorview.cpp:43
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
 msgstr "غير الجاهزة:"
 
-#: src/editorview.cpp:44
+#: src/editorview.cpp:45
 #, kde-format
 msgctxt "@label whether entry is untranslated"
 msgid "Untranslated:"
 msgstr "غير المترجمة:"
 
-#: src/editorview.cpp:55
+#: src/editorview.cpp:56
 #, kde-format
 msgctxt "@action"
 msgid "Hide"
 msgstr "أخفِ"
 
-#: src/editorview.cpp:65
+#: src/editorview.cpp:66
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "العمود: %1"
 
-#: src/editorview.cpp:77
+#: src/editorview.cpp:78
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1780,13 +1780,13 @@ msgstr ""
 "<p dir=\"RTL\">يعرض هذا الجزء من النافذة الرسالة الأصليّة\n"
 "للمُدخَلة المعروضة حاليًّا.</p></qt>"
 
-#: src/editorview.cpp:168
+#: src/editorview.cpp:169
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "صيغة الجموع %1"
 
-#: src/editorview.cpp:232
+#: src/editorview.cpp:233
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -1932,6 +1932,32 @@ msgstr "عاين"
 msgid "Mass Replace"
 msgstr "استبدال شامل"
 
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
+#: src/findextension.ui:30
+#, kde-format
+msgid "Skip tags"
+msgstr "تخطّ الوسوم"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
+#: src/findextension.ui:33
+#, kde-format
+msgctxt "@option:check"
+msgid "Skip markup"
+msgstr "تخطّ الرّقْم"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/findextension.ui:43
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore accelerator marks"
+msgstr "تجاهل علامات المسرّعات"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
+#: src/findextension.ui:54
+#, kde-format
+msgid "Include notes"
+msgstr "ضمّن الملاحظات"
+
 #: src/glossary/glossary.cpp:194
 #, kde-format
 msgctxt "@title:column"
@@ -2049,38 +2075,12 @@ msgstr ""
 "يعني هذا أنّه يمكن أن تكون هناك عدّة مدخلات فيها نفس الكلمة (أو مجموعة "
 "الكلمات) والتي تعبّر عن معانٍ مختلفة."
 
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
-#: src/kaider_findextension.ui:30
-#, kde-format
-msgid "Skip tags"
-msgstr "تخطّ الوسوم"
-
-#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
-#: src/kaider_findextension.ui:33
-#, kde-format
-msgctxt "@option:check"
-msgid "Skip markup"
-msgstr "تخطّ الرّقْم"
-
-#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/kaider_findextension.ui:43
-#, kde-format
-msgctxt "@option:check"
-msgid "Ignore accelerator marks"
-msgstr "تجاهل علامات المسرّعات"
-
-#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
-#: src/kaider_findextension.ui:54
-#, kde-format
-msgid "Include notes"
-msgstr "ضمّن الملاحظات"
-
-#: src/languagetool/languagetoolgrammarerror.cpp:24
+#: src/languagetool/languagetoolgrammarerror.cpp:26
 #, kde-format
 msgid "Suggestions:"
 msgstr "الاقتراحات:"
 
-#: src/languagetool/languagetoolparser.cpp:27
+#: src/languagetool/languagetoolparser.cpp:29
 #, kde-format
 msgid "No errors"
 msgstr "لا أخطاء"
@@ -3702,13 +3702,13 @@ msgstr "الدّليل الأساسيّ لملفّات POT (القوالب ال�
 msgid "Project's glossary"
 msgstr "مُسرَد المشروع"
 
-#: src/project/projectmodel.cpp:468
+#: src/project/projectmodel.cpp:467
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "الاسم"
 
-#: src/project/projectmodel.cpp:470
+#: src/project/projectmodel.cpp:469
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3716,55 +3716,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "المبيان"
 
-#: src/project/projectmodel.cpp:472
+#: src/project/projectmodel.cpp:471
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "المجموع"
 
-#: src/project/projectmodel.cpp:474
+#: src/project/projectmodel.cpp:473
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "المترجم"
 
-#: src/project/projectmodel.cpp:476
+#: src/project/projectmodel.cpp:475
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr "غير جاهز"
 
-#: src/project/projectmodel.cpp:478
+#: src/project/projectmodel.cpp:477
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "غير المترجم"
 
-#: src/project/projectmodel.cpp:480
+#: src/project/projectmodel.cpp:479
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "غير مكتمل"
 
-#: src/project/projectmodel.cpp:482
+#: src/project/projectmodel.cpp:481
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "آخر ترجمة"
 
-#: src/project/projectmodel.cpp:484
+#: src/project/projectmodel.cpp:483
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "ملاحظة"
 
-#: src/project/projectmodel.cpp:486
+#: src/project/projectmodel.cpp:485
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "مراجعة القالب"
 
-#: src/project/projectmodel.cpp:488
+#: src/project/projectmodel.cpp:487
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -3903,19 +3903,19 @@ msgstr[3] "ا&فتح %1 ملفات"
 msgstr[4] "ا&فتح %1 ملفاً"
 msgstr[5] "ا&فتح %1 ملف"
 
-#: src/statusbar.cpp:50
+#: src/statusbar.cpp:53
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "الحاليّة: %1"
 
-#: src/statusbar.cpp:64
+#: src/statusbar.cpp:67
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
 msgstr "المجموع: %1"
 
-#: src/statusbar.cpp:76
+#: src/statusbar.cpp:79
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -3923,13 +3923,13 @@ msgctxt ""
 msgid "Not ready: %1"
 msgstr "غير الجاهزة: %1"
 
-#: src/statusbar.cpp:78 src/statusbar.cpp:93
+#: src/statusbar.cpp:81 src/statusbar.cpp:96
 #, kde-format
 msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " ‏ (%1٪)"
 
-#: src/statusbar.cpp:91
+#: src/statusbar.cpp:94
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
@@ -4074,7 +4074,7 @@ msgid "Remove"
 msgstr "أزل"
 
 # كلمتان تتشابهان في الأحرف وتختلفان في المعنى
-#: src/tm/qamodel.cpp:97
+#: src/tm/qamodel.cpp:98
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
