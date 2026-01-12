@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2025-08-22 09:03+0200\n"
+"PO-Revision-Date: 2026-01-10 21:16+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -4384,7 +4384,7 @@ msgstr ""
 #: src/tm/tmtab.cpp:513
 #, kde-format
 msgid "Rescan not possible"
-msgstr "Impossible de refaire une  analyse"
+msgstr "Impossible de refaire une analyse"
 
 #: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:621
 #, kde-format
