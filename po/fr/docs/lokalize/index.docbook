@@ -305,7 +305,7 @@
 >Page suivante</keycap
 > pour vous déplacer dans la liste filtrée. Un appui sur la touche <keycap
 >Esc</keycap
-> dans l’entrée du filtre déplacera le focus de nouveau sur le champ de texte cible sans sélectionner une autre unité. </para>
+> dans l'entrée du filtre déplacera le focus de nouveau sur le champ de texte cible sans sélectionner une autre unité. </para>
 </tip>
 <para
 >Si vous travaillez avec des fichiers de traduction au format XLIFF (ce qui est tout à fait le cas quand on traduit un fichier OpenDocument), des états étendus sont disponibles (<emphasis
