@@ -662,12 +662,10 @@ msgstr ""
 "šablonu POT"
 
 #: src/catalog/gettextheader.cpp:457
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author name missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
-msgstr "Chybí jméno autora"
+msgstr ""
 
 #: src/catalog/gettextheader.cpp:458
 #, kde-format
@@ -675,12 +673,10 @@ msgid "Your name:"
 msgstr "Vaše jméno:"
 
 #: src/catalog/gettextheader.cpp:469
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author email missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
-msgstr "Chybí e-mail autora"
+msgstr ""
 
 #: src/catalog/gettextheader.cpp:470
 #, kde-format
@@ -801,19 +797,17 @@ msgstr "Stavy"
 
 #: src/cataloglistview/cataloglistview.cpp:223
 #, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Searchable column"
+#| msgctxt "@action"
+#| msgid "Search Locally"
 msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
-msgstr "Hledat ve sloupci"
+msgstr "Hledat místně"
 
 #: src/cataloglistview/cataloglistview.cpp:227
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Resort and refilter on content change"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Re-sort and refilter on content change"
-msgstr "Přetřídit a přefiltrovat při změně obsahu"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:247
 #, kde-format
@@ -874,19 +868,19 @@ msgstr "Změněno"
 
 #: src/cataloglistview/catalogmodel.cpp:106
 #, fuzzy, kde-format
-#| msgctxt "@title:column Length of the original text"
-#| msgid "Source length"
+#| msgctxt "@title:column"
+#| msgid "Source language"
 msgctxt "@title:column Length of the original text"
 msgid "Source Length"
-msgstr "Délka zdroje"
+msgstr "Původní jazyk"
 
 #: src/cataloglistview/catalogmodel.cpp:108
 #, fuzzy, kde-format
-#| msgctxt "@title:column Length of the text in target language"
-#| msgid "Target length"
+#| msgctxt "@title:column"
+#| msgid "Target language"
 msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
-msgstr "Délka cíle"
+msgstr "Cílový jazyk"
 
 #: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:1009
 #: src/editortab.cpp:1203 src/tm/tmtab.cpp:233
@@ -987,11 +981,10 @@ msgstr "Vložit #%1 překlad termínu"
 
 #: src/editortab.cpp:237
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#| msgid "Add Data"
 msgctxt "@action:inmenu"
 msgid "Add Note"
-msgstr "Přidat poznámku"
+msgstr "Přidat data"
 
 #: src/editortab.cpp:246
 #, fuzzy, kde-format
@@ -1016,20 +1009,16 @@ msgid "Insert term translation #%1"
 msgstr "Vložit #%1 překlad termínu"
 
 #: src/editortab.cpp:316
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define new term"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Define New Term"
-msgstr "Zadat nový termín"
+msgstr ""
 
 #: src/editortab.cpp:350
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Phases..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases…"
-msgstr "Fáze..."
+msgstr ""
 
 #: src/editortab.cpp:353
 #, fuzzy, kde-format
@@ -1041,11 +1030,11 @@ msgstr "Počet slov"
 
 #: src/editortab.cpp:356
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear all translated entries"
+#| msgctxt "@title:window"
+#| msgid "Alternate Translations"
 msgctxt "@action:inmenu"
 msgid "Clear Translated Entries"
-msgstr "Smazat všechny přeložené položky"
+msgstr "Alternativní překlady"
 
 #: src/editortab.cpp:359
 #, kde-format
@@ -1060,12 +1049,10 @@ msgid "Merge translation into OpenDocument"
 msgstr "Sloučit překlad do OpenDocument"
 
 #: src/editortab.cpp:383
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Change searching direction"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Change Searching Direction"
-msgstr "Změnit směr hledání"
+msgstr ""
 
 #: src/editortab.cpp:392
 #, kde-format
@@ -1076,24 +1063,22 @@ msgid "Approved"
 msgstr "Schváleno"
 
 #: src/editortab.cpp:411
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Approve and go to next"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and Go Next"
-msgstr "Schválit a jít na následující"
+msgstr ""
 
 #: src/editortab.cpp:418
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Equivalent translation"
+#| msgctxt "@title:column"
+#| msgid "Last Translation"
 msgctxt "@action:inmenu"
 msgid "Equivalent Translation"
-msgstr "Ekvivalentní překlad"
+msgstr "Poslední překlad"
 
 #: src/editortab.cpp:429
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
+#| msgctxt "@item Undo action item"
 #| msgid "Copy source to target"
 msgctxt "@action:inmenu"
 msgid "Copy Source to Target"
@@ -1101,11 +1086,11 @@ msgstr "Zkopírovat zdroj do cíle"
 
 #: src/editortab.cpp:432
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Unwrap target"
+#| msgctxt "@title:column"
+#| msgid "Target"
 msgctxt "@action:inmenu"
 msgid "Unwrap Target"
-msgstr "Rozbalit cíl"
+msgstr "Cíl"
 
 #: src/editortab.cpp:439 src/filesearch/filesearchtab.cpp:137
 #, kde-format
@@ -1175,11 +1160,11 @@ msgstr "P&oslední záznam"
 
 #: src/editortab.cpp:491
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Entry by number"
+#| msgctxt "@label:spinbox"
+#| msgid "Enter entry number:"
 msgctxt "@action:inmenu"
 msgid "Entry by Number"
-msgstr "Záznam podle čísla"
+msgstr "Zadejte číslo záznamu:"
 
 #: src/editortab.cpp:494 src/project/projecttab.cpp:100
 #, kde-format
@@ -1199,43 +1184,38 @@ msgstr "Následující přeložené ale neschválené"
 
 #: src/editortab.cpp:509 src/project/projecttab.cpp:112
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous untranslated"
+#| msgctxt "@info:status"
+#| msgid "Untranslated"
 msgctxt "@action:inmenu"
 msgid "Previous Untranslated"
-msgstr "Předchozí nepřeložené"
+msgstr "Nepřeloženo"
 
 #: src/editortab.cpp:514 src/project/projecttab.cpp:118
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next untranslated"
+#| msgctxt "@info:status"
+#| msgid "Untranslated"
 msgctxt "@action:inmenu"
 msgid "Next Untranslated"
-msgstr "Následující nepřeložené"
+msgstr "Nepřeloženo"
 
 #: src/editortab.cpp:520 src/project/projecttab.cpp:88
 #, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Previous not ready"
+#| msgid "Previous Tab"
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous Not Ready"
-msgstr "Předchozí neschválené"
+msgstr "Předchozí karta"
 
 #: src/editortab.cpp:528 src/project/projecttab.cpp:94
 #, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Next not ready"
+#| msgctxt "@label whether entry is fuzzy"
+#| msgid "Not ready:"
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Next Not Ready"
-msgstr "Následující neschválené"
+msgstr "Neschváleno:"
 
 #: src/editortab.cpp:537
 #, kde-format
@@ -1245,27 +1225,24 @@ msgstr ""
 
 #: src/editortab.cpp:541
 #, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Bookmark message"
+#| msgid "&Bookmarks"
 msgctxt "@option:check"
 msgid "Bookmark Message"
-msgstr "Založit si správu"
+msgstr "&Záložky"
 
 #: src/editortab.cpp:546
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous bookmark"
+#| msgid "Previous Tab"
 msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
-msgstr "Předchozí záložka"
+msgstr "Předchozí karta"
 
 #: src/editortab.cpp:550
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next bookmark"
+#| msgid "&Bookmarks"
 msgctxt "@action:inmenu"
 msgid "Next Bookmark"
-msgstr "Následující záložka"
+msgstr "&Záložky"
 
 #: src/editortab.cpp:558
 #, no-c-format, kde-format
@@ -1297,11 +1274,10 @@ msgstr ""
 
 #: src/editortab.cpp:578 src/editortab.cpp:637
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous different"
+#| msgid "Previous Tab"
 msgctxt "@action:inmenu"
 msgid "Previous Different"
-msgstr "Předchozí rozdílné"
+msgstr "Předchozí karta"
 
 #: src/editortab.cpp:580 src/editortab.cpp:639
 #, kde-format
@@ -1314,12 +1290,10 @@ msgstr ""
 "prázdných překladů v připojovaném souboru"
 
 #: src/editortab.cpp:589 src/editortab.cpp:646
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different"
-msgstr "Následující rozdílné"
+msgstr ""
 
 #: src/editortab.cpp:591 src/editortab.cpp:648
 #, kde-format
@@ -1332,12 +1306,10 @@ msgstr ""
 "prázdných překladů v připojovaném souboru"
 
 #: src/editortab.cpp:599
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different approved"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different Approved"
-msgstr "Následující rozdílné schválené"
+msgstr ""
 
 #: src/editortab.cpp:605 src/editortab.cpp:655
 #, kde-format
@@ -1862,9 +1834,10 @@ msgstr "Seznam souborů"
 
 #: src/filesearch/filesearchtab.cpp:122
 #, fuzzy, kde-format
-#| msgid "Drop translation files here..."
+#| msgctxt "@title:window"
+#| msgid "Select translation file"
 msgid "Drop translation files here…"
-msgstr "Zde upusťte soubory s překlady..."
+msgstr "Vyberte soubor překladu"
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
@@ -1874,11 +1847,11 @@ msgstr "Soubor"
 
 #: src/filesearch/filesearchtab.cpp:449
 #, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Search and replace in files"
+#| msgctxt "@action:inmenu"
+#| msgid "Search in files"
 msgctxt "@title:tab"
 msgid "Search && Replace"
-msgstr "Hledat a nahradit v souborech"
+msgstr "Hledat v souborech"
 
 #: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
@@ -1897,11 +1870,11 @@ msgstr "Otevřít soubor"
 
 #: src/filesearch/filesearchtab.cpp:518
 #, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Search and replace in files"
+#| msgctxt "@action:inmenu"
+#| msgid "Search in files"
 msgctxt "@title actions category"
 msgid "Search && Replace"
-msgstr "Hledat a nahradit v souborech"
+msgstr "Hledat v souborech"
 
 #: src/filesearch/filesearchtab.cpp:723
 #, fuzzy, kde-format
@@ -1998,14 +1971,7 @@ msgid "Glossary"
 msgstr "Glosář"
 
 #: src/glossary/glossaryview.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;new&nbsp;term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
@@ -2015,11 +1981,6 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
-"<p>Zde se nachází překlady používaných termínů.</p><p>Pro vložení překladu "
-"stiskněte zkratku zobrazenou nedaleko termínu.</p><p>Pro přidání nového "
-"záznamu použijte kontextovou nabídku (tip:&nbsp;vyberte slova v polích "
-"originálu a překladu před zavoláním <interface>Zadat&nbsp;nový&nbsp;termín</"
-"interface>).</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:19
@@ -2121,11 +2082,10 @@ msgstr "Otevřít projekt"
 
 #: src/lokalizemainwindow.cpp:122
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate software"
+#| msgid "Translator"
 msgctxt "@action:inmenu"
 msgid "Translate Software"
-msgstr "Přeložit software"
+msgstr "Překladatel"
 
 #: src/lokalizemainwindow.cpp:123
 #, kde-format
@@ -2175,9 +2135,9 @@ msgstr "Předchozí karta"
 
 #: src/lokalizemainwindow.cpp:635
 #, fuzzy, kde-format
-#| msgid "Previously active tab"
+#| msgid "Previous Tab"
 msgid "Previously Active Tab"
-msgstr "Předchozí aktivní karta"
+msgstr "Předchozí karta"
 
 #: src/lokalizemainwindow.cpp:638
 #, kde-format
@@ -2199,11 +2159,11 @@ msgstr "Paměť překladu"
 
 #: src/lokalizemainwindow.cpp:654 src/tm/tmtab.cpp:482
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Manage translation memories"
+#| msgctxt "@title:window"
+#| msgid "Translation Memories"
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
-msgstr "Spravovat paměti překladu"
+msgstr "Paměť překladu"
 
 #: src/lokalizemainwindow.cpp:658
 #, fuzzy, kde-format
@@ -2215,31 +2175,29 @@ msgstr "Přehled projektu"
 
 #: src/lokalizemainwindow.cpp:662
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Configure project..."
+#| msgctxt "@action"
+#| msgid "Create Project"
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
-msgstr "Nastavit projekt..."
+msgstr "Vytvořit projekt"
 
 #: src/lokalizemainwindow.cpp:665
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create software translation project..."
+#| msgid "Create software or OpenDocument translation project first."
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
-msgstr "Vytvořit projekt překladu softwaru..."
+msgstr "Nejdříve vytvořte projekt překladu softwaru nebo OpenDocument."
 
 #: src/lokalizemainwindow.cpp:668
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create OpenDocument translation project..."
+#| msgid "Create software or OpenDocument translation project first."
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr "Vytvořit projekt překladu OpenDocument..."
+msgstr "Nejdříve vytvořte projekt překladu softwaru nebo OpenDocument."
 
 #: src/lokalizemainwindow.cpp:671
 #, fuzzy, kde-format
-#| msgctxt "@action"
+#| msgctxt "@action:inmenu"
 #| msgid "Open Project"
 msgctxt "@action:inmenu"
 msgid "Open Project…"
@@ -2247,27 +2205,27 @@ msgstr "Otevřít projekt"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close project"
+#| msgctxt "@action"
+#| msgid "Create Project"
 msgctxt "@action:inmenu"
 msgid "Close Project"
-msgstr "Zavřít projekt"
+msgstr "Vytvořit projekt"
 
 #: src/lokalizemainwindow.cpp:678
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#| msgid "Open Project"
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
-msgstr "Otevřít nedávný projekt"
+msgstr "Otevřít projekt"
 
 #: src/lokalizemainwindow.cpp:688
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
-#| msgid "Search and replace in files"
+#| msgid "Search in files"
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
-msgstr "Najít a nahradit v souborech"
+msgstr "Hledat v souborech"
 
 #: src/lokalizemainwindow.cpp:691
 #, kde-format
@@ -2643,10 +2601,10 @@ msgstr ""
 #: src/noteeditor.cpp:132
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#| msgid "Add a comment"
 msgctxt "link to add a note"
 msgid "Add a note…"
-msgstr "Přidat poznámku"
+msgstr "Přidat komentář"
 
 #: src/phaseswindow.cpp:144
 #, kde-format
@@ -3705,11 +3663,11 @@ msgstr "Přeloženo"
 
 #: src/project/projectmodel.cpp:475
 #, fuzzy, kde-format
-#| msgctxt "@title:column Number of entries"
-#| msgid "Not ready"
+#| msgctxt "@label whether entry is fuzzy"
+#| msgid "Not ready:"
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
-msgstr "Neschváleno"
+msgstr "Neschváleno:"
 
 #: src/project/projectmodel.cpp:477
 #, kde-format
@@ -3755,43 +3713,38 @@ msgstr "Přehled projektu"
 
 #: src/project/projecttab.cpp:124
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous template only"
+#| msgid "Previous Tab"
 msgctxt "@action:inmenu"
 msgid "Previous Template Only"
-msgstr "Pouze předchozí šablonu"
+msgstr "Předchozí karta"
 
 #: src/project/projecttab.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Template Only"
-msgstr "Pouze následující šablonu"
+msgstr ""
 
 #: src/project/projecttab.cpp:135
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous translation only"
+#| msgctxt "@title:window"
+#| msgid "New Translation Memory"
 msgctxt "@action:inmenu"
 msgid "Previous Translation Only"
-msgstr "Pouze předchozí překlad"
+msgstr "Nová paměť překladu"
 
 #: src/project/projecttab.cpp:138
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next translation only"
+#| msgctxt "@title:window"
+#| msgid "New Translation Memory"
 msgctxt "@action:inmenu"
 msgid "Next Translation Only"
-msgstr "Pouze následující překlad"
+msgstr "Nová paměť překladu"
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide completed items"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Completed Items"
-msgstr "Skrýt dokončené položky"
+msgstr ""
 
 #: src/project/projecttab.cpp:143
 #, kde-format
@@ -4104,9 +4057,10 @@ msgstr "Zobrazit výsledky, které neodpovídají hledanému výrazu"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
 #, fuzzy, kde-format
-#| msgid "File mask:"
+#| msgctxt "@title:column"
+#| msgid "Files"
 msgid "File Mask:"
-msgstr "Maska souboru:"
+msgstr "Soubory"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
 #: src/tm/queryoptions.ui:155
@@ -4117,9 +4071,9 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
 #, fuzzy, kde-format
-#| msgid "Query syntax:"
+#| msgid "Syntax"
 msgid "Query Syntax:"
-msgstr "Syntaxe dotazu:"
+msgstr "Syntaxe"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:197
@@ -4134,9 +4088,10 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
 #, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#| msgctxt "@action:inmenu"
+#| msgid "Open Project"
 msgid "&Rescan Project"
-msgstr "Znovu p&rojít soubory projektu"
+msgstr "Otevřít projekt"
 
 #: src/tm/tmmanager.cpp:34
 #, kde-format
@@ -4337,36 +4292,29 @@ msgid "File: %1<br />Addition date: %2"
 msgstr "Soubor: %1<br />Datum přidání: %2"
 
 #: src/tm/tmview.cpp:581
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change date: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change date: %1"
-msgstr "<br />Datum poslední změny: %1"
+msgstr ""
 
 #: src/tm/tmview.cpp:583
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change author: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change author: %1"
-msgstr "<br />Autor poslední změny: %1"
+msgstr ""
 
 #: src/tm/tmview.cpp:584
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translation memory"
+#| msgid "Translation Memory"
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Translation memory: %1"
 msgstr "Paměť překladu"
 
 #: src/tm/tmview.cpp:586
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Is not present in the file anymore"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Is not present in the file anymore"
-msgstr "<br />V souboru již neexistuje"
+msgstr ""
 
 #: src/tm/tmview.cpp:601
 #, kde-format
@@ -4397,11 +4345,10 @@ msgstr "Otevřít soubor obsahující tento záznam"
 
 #: src/tm/tmview.cpp:662
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this missing file from TM"
+#| msgid "Adding files to Lokalize translation memory"
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from the translation memory"
-msgstr "Odstranit tento chybějící soubor z TM"
+msgstr "Přidávám soubory do paměti překladu Lokalize"
 
 #: src/tm/tmview.cpp:676
 #, kde-format
@@ -4499,61 +4446,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Zkopírovat zdroj do cíle"
-
-#~ msgid "Quick search..."
-#~ msgstr "Rychlé hledání..."
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert TM suggestion #%1"
-#~ msgstr "Vložit TM návrh #%1"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Remove TM suggestion #%1"
-#~ msgstr "Odstranit návrh TM #%1"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Word count"
-#~ msgstr "Počet slov"
-
-#~ msgctxt "@title:window"
-#~ msgid "Mass replace"
-#~ msgstr "Hromadně nahradit"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open project"
-#~ msgstr "Otevřít projekt"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Project overview"
-#~ msgstr "Přehled projektu"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open project..."
-#~ msgstr "Otevřít projekt..."
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Find next in files"
-#~ msgstr "Najít v souborech následující"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Widget text capture"
-#~ msgstr "Zachycování textu ve widgetu"
-
-#~ msgctxt "link to edit note"
-#~ msgid "edit..."
-#~ msgstr "upravit..."
-
-#~ msgctxt "link to add a note"
-#~ msgid "Add..."
-#~ msgstr "Přidat..."
-
-#~ msgctxt "link to add a note"
-#~ msgid "Add a note..."
-#~ msgstr "Přidat poznámku..."
-
-#~ msgid "TM:"
-#~ msgstr "TM:"
-
-#~ msgctxt "@info:tooltip on TM entry continues"
-#~ msgid "<br />TM: %1"
-#~ msgstr "<br />TM: %1"
