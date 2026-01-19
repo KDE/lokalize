@@ -47,6 +47,12 @@ QString GetTextHeaderParser::joinAuthor(const QString &authorName, const QString
     return outputString;
 }
 
+QString GetTextHeaderParser::simplifyYearString(const QString &years)
+{
+    //placeholder for implementation
+    return years;
+}
+
 QString GetTextHeaderParser::updateAuthorCopyrightLine(const QString &line)
 {
     QRegularExpression regExp = copyrightRegExp();
@@ -74,6 +80,8 @@ QString GetTextHeaderParser::updateAuthorCopyrightLine(const QString &line)
         if (!years.contains(sCurrentYear)) {
             years.append(QStringLiteral(", ") + sCurrentYear);
         }
+        // Simplify year string (e.g., convert "2010, 2011, 2012" to "2010-2012")
+        years = simplifyYearString(years);
         return QString(QStringLiteral("# SPDX-FileCopyrightText: %1 %2 %3")).arg(years, name, contact).trimmed();
     }
     qCDebug(LOKALIZE_LOG) << "Cannot parse copyright line" << line;
