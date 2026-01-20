@@ -31,6 +31,7 @@ public:
      * The returned line is prefixed by a "#" comment marker.
      */
     static QString updateAuthorCopyrightLine(const QString &line);
+    
     static QString simplifyYearString(const QString &years);
     static const QString sCurrentYear;
 };
