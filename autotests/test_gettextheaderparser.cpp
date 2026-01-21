@@ -163,14 +163,15 @@ void TestGetTextHeaderParser::updateAuthorsCopyrightText()
     QCOMPARE(header.at(3), expected);
 }
 
-// void TestGetTextHeaderParser::bugTestForYears()
-// {
-//     // years should be simplified into ranges
-//     const QString input = QStringLiteral("2006, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021");
-//     const QString expected = QStringLiteral("2006, 2010-2015, 2017-2021");
-//     const QString output = GetTextHeaderParser::simplifyYearString(input);
-//     QCOMPARE(output, expected);
-// }
+void TestGetTextHeaderParser::bugTestForYears()
+{
+    // years should be simplified into ranges
+    const QString input = QStringLiteral("2006, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021");
+    const QString expected = QStringLiteral("2006, 2010-2015, 2017-2021");
+    const QString output = GetTextHeaderParser::simplifyYearString(input);
+    QEXPECT_FAIL("", "Implementation remaining", Continue);
+    QCOMPARE(output, expected);
+}
 
 QTEST_MAIN(TestGetTextHeaderParser)
 
