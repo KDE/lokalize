@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2012, 2013, 2016, 2020, 2021, 2022, 2023, 2024, 2025 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2012, 2013, 2016, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Giovanni Sora <g.sora@tiscali.it>
 # giovanni <g.sora@tiscali.it>, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-11 00:45+0000\n"
-"PO-Revision-Date: 2025-05-14 12:20+0200\n"
+"PO-Revision-Date: 2026-01-20 16:34+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -785,7 +785,7 @@ msgstr "Unitates de traduction"
 #, fuzzy, kde-format
 #| msgid "&Search"
 msgid "Search"
-msgstr "&Cerca:"
+msgstr "Cerca"
 
 #: src/cataloglistview/cataloglistview.cpp:81 src/glossary/glossarytab.cpp:126
 #: src/project/projecttab.cpp:60
@@ -953,7 +953,7 @@ msgstr "Stato de traduction"
 #, kde-format
 msgctxt "@title:column"
 msgid "Modified"
-msgstr ""
+msgstr "Modificate"
 
 #: src/cataloglistview/catalogmodel.cpp:106
 #, fuzzy, kde-format
@@ -994,18 +994,16 @@ msgid "Untranslated"
 msgstr "Non Traducite"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr "si"
+msgstr "Si"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "Necun"
+msgstr "No"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format
@@ -1076,7 +1074,7 @@ msgstr "Inserta traduction alterne #%1"
 #| msgid "Add a note"
 msgctxt "@action:inmenu"
 msgid "Add Note"
-msgstr "Adde un nota"
+msgstr "Adde nota..."
 
 #: src/editortab.cpp:246
 #, fuzzy, kde-format
@@ -1117,9 +1115,7 @@ msgid "Phases…"
 msgstr "Phases..."
 
 #: src/editortab.cpp:353
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Word Count"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Word Count"
 msgstr "Computo de parola"
@@ -1337,17 +1333,13 @@ msgid "Bookmark Message"
 msgstr "Pone message in marcator de libro"
 
 #: src/editortab.cpp:546
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
 msgstr "Previe marcator de libro"
 
 #: src/editortab.cpp:550
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Bookmark"
 msgstr "Proxime marcator de libro"
@@ -1976,7 +1968,7 @@ msgstr "File"
 #| msgid "Search and replace in files"
 msgctxt "@title:tab"
 msgid "Search && Replace"
-msgstr "Cerca e reimplacia in files"
+msgstr "Cerca & Reimplacia"
 
 #: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
@@ -1999,11 +1991,10 @@ msgstr "Aperi file"
 #| msgid "Search and replace in files"
 msgctxt "@title actions category"
 msgid "Search && Replace"
-msgstr "Cerca e reimplacia in files"
+msgstr "Cerca & Reimplacia"
 
 #: src/filesearch/filesearchtab.cpp:723
-#, fuzzy, kde-format
-#| msgid "Mass Replace"
+#, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
 msgstr "Reimplacia globalmente"
@@ -2065,9 +2056,7 @@ msgid "Subject Field"
 msgstr "Campo Subjecto"
 
 #: src/glossary/glossarytab.cpp:84
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
 msgstr "Glossario"
@@ -2075,7 +2064,7 @@ msgstr "Glossario"
 #: src/glossary/glossarytab.cpp:109
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Salveguarda"
 
 #: src/glossary/glossarytab.cpp:142
 #, kde-format
@@ -2219,9 +2208,7 @@ msgid "&Configure Lokalize"
 msgstr "&Configura Lokalize"
 
 #: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project"
 msgstr "Aperi projecto"
@@ -2272,14 +2259,12 @@ msgid "Project"
 msgstr "Projecto"
 
 #: src/lokalizemainwindow.cpp:629
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Tab"
 msgstr "Proxime scheda"
 
 #: src/lokalizemainwindow.cpp:632
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Tab"
 msgstr "Previe scheda"
 
@@ -2290,8 +2275,7 @@ msgid "Previously Active Tab"
 msgstr "Previe scheda active"
 
 #: src/lokalizemainwindow.cpp:638
-#, fuzzy, kde-format
-#| msgid "Close current tab"
+#, kde-format
 msgid "Close Current Tab"
 msgstr "Claude scheda currente"
 
@@ -2302,8 +2286,7 @@ msgid "Glossary"
 msgstr "Glossario"
 
 #: src/lokalizemainwindow.cpp:650
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Memoria de Traduction (TM)"
@@ -2317,9 +2300,7 @@ msgid "Manage Translation Memories"
 msgstr "Gere memorias de traduction"
 
 #: src/lokalizemainwindow.cpp:658
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "Vista general  de Projecto"
@@ -2357,17 +2338,13 @@ msgid "Open Project…"
 msgstr "Aperi projecto"
 
 #: src/lokalizemainwindow.cpp:675
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "Claude projecto"
 
 #: src/lokalizemainwindow.cpp:678
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "Aperi projecto recente"
@@ -2378,7 +2355,7 @@ msgstr "Aperi projecto recente"
 #| msgid "Search and replace in files"
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
-msgstr "Cerca e reimplacia in files"
+msgstr "Cerca & Reimplacia"
 
 #: src/lokalizemainwindow.cpp:691
 #, kde-format
@@ -2387,9 +2364,7 @@ msgid "Go To Next Search && Replace Entry"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:695
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Widget Text Capture"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "Captura texto de widget"
@@ -2744,16 +2719,16 @@ msgid "<b>Notes:</b>"
 msgstr "<b>Notas:</b>"
 
 #: src/noteeditor.cpp:125
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "link to edit note"
 msgid "edit…"
-msgstr ""
+msgstr "modifica..."
 
 #: src/noteeditor.cpp:130
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "link to add a note"
 msgid "Add…"
-msgstr ""
+msgstr "Adde…"
 
 #: src/noteeditor.cpp:132
 #, fuzzy, kde-format
@@ -2761,7 +2736,7 @@ msgstr ""
 #| msgid "Add a note"
 msgctxt "link to add a note"
 msgid "Add a note…"
-msgstr "Adde un nota"
+msgstr "Adde un nota..."
 
 #: src/phaseswindow.cpp:144
 #, kde-format
@@ -3917,9 +3892,7 @@ msgid "Translated"
 msgstr "Traducite"
 
 #: src/project/projectmodel.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@title:column Number of entries"
-#| msgid "Not ready"
+#, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr "Non Preste"
@@ -4560,17 +4533,13 @@ msgid "File: %1<br />Addition date: %2"
 msgstr "File: %1<br />Data de Addition: %2"
 
 #: src/tm/tmview.cpp:581
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change date: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Ultime data de modification: %1"
 
 #: src/tm/tmview.cpp:583
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change author: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Ultime autor de modification: %1"
@@ -4581,12 +4550,10 @@ msgstr "<br />Ultime autor de modification: %1"
 #| msgid "Translation memory"
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Translation memory: %1"
-msgstr "Memoria de Traduction"
+msgstr "Memoria de Traduction (TM)"
 
 #: src/tm/tmview.cpp:586
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Is not present in the file anymore"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br /> Non es plus presente in le file"
