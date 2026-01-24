@@ -144,8 +144,8 @@ bool SettingsController::ensureProjectIsLoaded()
         m_mainWindowPtr,
         i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
         i18nc("@title", "Project Required"),
-        KGuiItem(i18nc("@action", "Create Project"), QIcon::fromTheme(QStringLiteral("document-new"))),
-        KGuiItem(i18nc("@action", "Open Project"), QIcon::fromTheme(QStringLiteral("project-open"))));
+        KGuiItem(i18nc("@action", "Create Project…"), QIcon::fromTheme(QStringLiteral("document-new"))),
+        KGuiItem(i18nc("@action", "Open Project…"), QIcon::fromTheme(QStringLiteral("project-open"))));
 
     if (answer == KMessageBox::PrimaryAction)
         return projectCreate();

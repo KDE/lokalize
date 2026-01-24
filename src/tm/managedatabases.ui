@@ -30,14 +30,14 @@
      <item>
       <widget class="QPushButton" name="importTMX">
        <property name="text">
-        <string>Add Data from TMX</string>
+        <string>Add Data from TMX…</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="exportTMX">
        <property name="text">
-        <string>Export to TMX</string>
+        <string>Export to TMX…</string>
        </property>
       </widget>
      </item>

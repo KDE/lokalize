@@ -117,10 +117,10 @@ LokalizeMainWindow::LokalizeMainWindow()
     about->setTextInteractionFlags(Qt::TextBrowserInteraction);
     about->setTextFormat(Qt::RichText);
 
-    QPushButton *conf = new QPushButton(i18n("&Configure Lokalize"), m_welcomePage);
-    QPushButton *openProject = new QPushButton(i18nc("@action:inmenu", "Open Project"), m_welcomePage);
-    QPushButton *createProject = new QPushButton(i18nc("@action:inmenu", "Translate Software"), m_welcomePage);
-    QPushButton *createOdfProject = new QPushButton(i18nc("@action:inmenu", "Translate OpenDocument"), m_welcomePage);
+    QPushButton *conf = new QPushButton(i18n("&Configure Lokalize…"), m_welcomePage);
+    QPushButton *openProject = new QPushButton(i18nc("@action:inmenu", "Open Project…"), m_welcomePage);
+    QPushButton *createProject = new QPushButton(i18nc("@action:inmenu", "Translate Software…"), m_welcomePage);
+    QPushButton *createOdfProject = new QPushButton(i18nc("@action:inmenu", "Translate OpenDocument…"), m_welcomePage);
     connect(conf, &QPushButton::clicked, SettingsController::instance(), &SettingsController::showSettingsDialog);
     connect(openProject, &QPushButton::clicked, this, qOverload<>(&LokalizeMainWindow::openProject));
     connect(createProject, &QPushButton::clicked, SettingsController::instance(), &SettingsController::projectCreate);

@@ -152,7 +152,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     KActionCategory *proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
 
     action = proj->addAction(QStringLiteral("project_open"), this, qOverload<>(&ProjectTab::projectOpenRequested));
-    action->setText(i18nc("@action:inmenu", "Open Project"));
+    action->setText(i18nc("@action:inmenu", "Open Project…"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
 }
 
