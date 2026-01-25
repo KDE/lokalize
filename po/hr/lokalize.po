@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -2126,29 +2126,30 @@ msgstr ""
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
-msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "Podešavanje projekta"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Otvaranje projekta"
 
 #: src/lokalizemainwindow.cpp:122
 #, fuzzy, kde-format
 #| msgid "Translator"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "Prevoditelj"
 
 #: src/lokalizemainwindow.cpp:123
 #, fuzzy, kde-format
 #| msgid "Translate a document"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "Prevesti dokument"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2254,14 +2255,6 @@ msgstr "Izaberite lokaciju vašeg projekta prevođenja softvera"
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "Izaberite lokaciju vašeg projekta prevođenja softvera"
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "Otvaranje projekta"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -2888,7 +2881,7 @@ msgstr "Pregled projekta"
 #, fuzzy, kde-format
 #| msgid "Create new project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "Stvori novi projekt"
 
 #: src/prefs/prefs.cpp:148
@@ -2896,7 +2889,7 @@ msgstr "Stvori novi projekt"
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Otvaranje projekta"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -4086,14 +4079,16 @@ msgstr "Dodaj podatke"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
+#, fuzzy, kde-format
+#| msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "Dodaj podatke iz TMX-a"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "Izvoz u TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4569,6 +4564,20 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopiraj izvorno u prevedeno"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "Otvaranje projekta"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "Otvaranje projekta"
 
 #~ msgid "Quick search..."
 #~ msgstr "Brzo traženje…"

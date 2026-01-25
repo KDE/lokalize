@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2026-01-05 09:46+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -2122,26 +2122,32 @@ msgstr ""
 "<a href=\"%2\">%2</a>.</html>"
 
 #: src/lokalizemainwindow.cpp:120
-#, kde-format
-msgid "&Configure Lokalize"
+#, fuzzy, kde-format
+#| msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "&Lokalize-ის მორგება"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Open Project"
-msgstr "პროექტის გახსნა"
+msgid "Open Project…"
+msgstr "პროექტის გახსნა…"
 
 #: src/lokalizemainwindow.cpp:122
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Translate Software"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "პროგრამების თარგმნა"
 
 #: src/lokalizemainwindow.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Translate OpenDocument"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "OpenDocument-ის თარგმნა"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2233,12 +2239,6 @@ msgstr "პროგრამის თარგმნის პროექტ�
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "OpenDocument-ის თარგმანის პროექტის შექმნა…"
-
-#: src/lokalizemainwindow.cpp:671
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "პროექტის გახსნა…"
 
 #: src/lokalizemainwindow.cpp:675
 #, kde-format
@@ -2848,16 +2848,20 @@ msgid "Project Required"
 msgstr "პროექტი აუცილებელია"
 
 #: src/prefs/prefs.cpp:147
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Create Project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "პროექტის შექმნა"
 
 #: src/prefs/prefs.cpp:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open Project…"
 msgctxt "@action"
-msgid "Open Project"
-msgstr "პროექტის გახსნა"
+msgid "Open Project…"
+msgstr "პროექტის გახსნა…"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
@@ -4097,14 +4101,16 @@ msgstr "მონაცემების დამატება"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
+#, fuzzy, kde-format
+#| msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "დაამატეთ მონაცემები TMX– დან"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "TMX-ში გატანა"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4562,6 +4568,14 @@ msgstr "შეცდომა: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "წყაროს კოპირება სამიზნეში"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "პროექტის გახსნა"
+
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "პროექტის გახსნა"
 
 #~ msgid "Quick search..."
 #~ msgstr "სწრაფი ძებნა..."

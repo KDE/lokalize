@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2022-11-01 00:32+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: kde-i18n-doc@kde.org\n"
@@ -2042,16 +2042,18 @@ msgstr ""
 "wva provider a vos to quel vu besona.</html>"
 
 #: src/lokalizemainwindow.cpp:120
-#, kde-format
-msgid "&Configure Lokalize"
+#, fuzzy, kde-format
+#| msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "&Configurar Lokalize"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Aperter un projecte"
 
 #: src/lokalizemainwindow.cpp:122
@@ -2059,13 +2061,15 @@ msgstr "Aperter un projecte"
 #| msgctxt "@action:inmenu"
 #| msgid "Translate software"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "Traducter programmas"
 
 #: src/lokalizemainwindow.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Translate OpenDocument"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "Traducter un OpenDocument"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2167,14 +2171,6 @@ msgstr "Projecte de traduction de Lokalize (*.lokalize)"
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "Projecte de traduction de Lokalize (*.lokalize)"
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "Aperter un projecte"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -2779,7 +2775,7 @@ msgstr "Compendie"
 #, fuzzy, kde-format
 #| msgid "Project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "Projecte"
 
 #: src/prefs/prefs.cpp:148
@@ -2787,7 +2783,7 @@ msgstr "Projecte"
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Aperter un projecte"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -3935,14 +3931,16 @@ msgstr "Adjunter data"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
+#, fuzzy, kde-format
+#| msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "Adjunter data de TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "Exportar a TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4391,6 +4389,20 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copiar li traduction al Paperiere"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "Aperter un projecte"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "Aperter un projecte"
 
 #, fuzzy
 #~ msgid "Quick search..."

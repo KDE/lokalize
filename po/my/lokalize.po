@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2021-09-19 19:52+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -1989,25 +1989,26 @@ msgstr ""
 
 #: src/lokalizemainwindow.cpp:120
 #, kde-format
-msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:122
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:123
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:185
@@ -2098,12 +2099,6 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr ""
-
-#: src/lokalizemainwindow.cpp:671
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Open Project…"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:675
@@ -2694,13 +2689,13 @@ msgstr ""
 #: src/prefs/prefs.cpp:147
 #, kde-format
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr ""
 
 #: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr ""
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -3840,14 +3835,16 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
-msgstr ""
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Add a note"
+msgid "Add Data from TMX…"
+msgstr "မှတ်စုထည့်မည်"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
 #, kde-format
-msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)

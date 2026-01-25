@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2008-09-26 14:57+0300\n"
 "Last-Translator: kom <me@komzpa.net>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -2177,15 +2177,16 @@ msgstr ""
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
-msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "Наставіць праект"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Адкрыць праект"
 
 #: src/lokalizemainwindow.cpp:122
@@ -2193,7 +2194,7 @@ msgstr "Адкрыць праект"
 #| msgctxt "@title:column"
 #| msgid "Translation"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "Пераклад"
 
 #: src/lokalizemainwindow.cpp:123
@@ -2201,7 +2202,7 @@ msgstr "Пераклад"
 #| msgctxt "@title:column"
 #| msgid "Translated"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "Перакладзеныя"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2311,14 +2312,6 @@ msgstr ""
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr ""
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "Адкрыць праект"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -2950,7 +2943,7 @@ msgstr "Праект"
 #| msgctxt "@action:inmenu"
 #| msgid "Create new project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "Стварыць новы праект"
 
 #: src/prefs/prefs.cpp:148
@@ -2958,7 +2951,7 @@ msgstr "Стварыць новы праект"
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Адкрыць праект"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -4211,13 +4204,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
 #, kde-format
-msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
 #, kde-format
-msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4695,6 +4688,20 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Скапіраваць з крыніцы"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "Адкрыць праект"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "Адкрыць праект"
 
 #, fuzzy
 #~| msgctxt "@action:inmenu"

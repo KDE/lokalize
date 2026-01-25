@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2023-12-06 19:07+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -2225,16 +2225,18 @@ msgstr ""
 "alebo dokumentáciu, navštívte <a href=\"%2\">%2</a>.</html>"
 
 #: src/lokalizemainwindow.cpp:120
-#, kde-format
-msgid "&Configure Lokalize"
+#, fuzzy, kde-format
+#| msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "&Nastaviť Lokalize"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "Open Project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Otvoriť projekt"
 
 #: src/lokalizemainwindow.cpp:122
@@ -2242,13 +2244,15 @@ msgstr "Otvoriť projekt"
 #| msgctxt "@action:inmenu"
 #| msgid "Translate software"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "Preložiť softvér"
 
 #: src/lokalizemainwindow.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Translate OpenDocument"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "Preložiť OpenDocument"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2355,14 +2359,6 @@ msgstr "Vytvoriť projekt prekladu softvéru..."
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "Vytvoriť projekt prekladu OpenDocument..."
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "Otvoriť projekt"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -2987,15 +2983,19 @@ msgid "Project Required"
 msgstr "Prehľad projektu"
 
 #: src/prefs/prefs.cpp:147
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Create Project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "Vytvoriť projekt"
 
 #: src/prefs/prefs.cpp:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Open Project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Otvoriť projekt"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -4276,14 +4276,16 @@ msgstr "Pridať údaje"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
+#, fuzzy, kde-format
+#| msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "Pridať údaje z TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "Exportovať do TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4755,6 +4757,17 @@ msgstr "Bola nahlásená chyba: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopírovať zdroj do cieľa"
+
+#, fuzzy
+#~| msgctxt "@action"
+#~| msgid "Open Project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "Otvoriť projekt"
+
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "Otvoriť projekt"
 
 #~ msgid "Quick search..."
 #~ msgstr "Rýchle hľadanie..."

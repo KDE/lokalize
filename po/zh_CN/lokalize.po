@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -2052,26 +2052,31 @@ msgstr ""
 "更多信息或文档，请访问 <a href=\"%2\">%2</a> 获取所需内容。</html>"
 
 #: src/lokalizemainwindow.cpp:120
-#, kde-format
-msgid "&Configure Lokalize"
+#, fuzzy, kde-format
+#| msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "配置 Lokalize(&C)"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:122
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Translator"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
-msgstr ""
+msgid "Translate Software…"
+msgstr "翻译者"
 
 #: src/lokalizemainwindow.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Translate OpenDocument"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "翻译 OpenDocument"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2162,12 +2167,6 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr ""
-
-#: src/lokalizemainwindow.cpp:671
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Open Project…"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:675
@@ -2770,15 +2769,19 @@ msgid "Project Required"
 msgstr "需要加载项目"
 
 #: src/prefs/prefs.cpp:147
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Create Project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "创建项目"
 
 #: src/prefs/prefs.cpp:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Open Project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "打开项目"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -3980,14 +3983,16 @@ msgstr "添加数据"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
+#, fuzzy, kde-format
+#| msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "从 TMX 添加数据"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "导出至 TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)

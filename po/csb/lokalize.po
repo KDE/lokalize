@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2009-12-19 02:29+0100\n"
 "Last-Translator: Mark Kwidzińśczi <mark@linuxcsb.org>\n"
 "Language-Team: Kaszëbsczi <i18n-csb@linuxcsb.org>\n"
@@ -2022,29 +2022,31 @@ msgid ""
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:120
-#, kde-format
-msgid "&Configure Lokalize"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "&Project"
+msgid "&Configure Lokalize…"
+msgstr "&Projekt"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgid "&Project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "&Projekt"
 
 #: src/lokalizemainwindow.cpp:122
 #, fuzzy, kde-format
 #| msgid "Translator"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "Dolmôcz"
 
 #: src/lokalizemainwindow.cpp:123
 #, fuzzy, kde-format
 #| msgid "Translation"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "Dolmaczënk"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2141,13 +2143,6 @@ msgstr ""
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr ""
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgid "&Project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "&Projekt"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -2754,14 +2749,14 @@ msgstr "&Projekt"
 #, fuzzy, kde-format
 #| msgid "&Project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "&Projekt"
 
 #: src/prefs/prefs.cpp:148
 #, fuzzy, kde-format
 #| msgid "&Project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "&Projekt"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -3925,14 +3920,16 @@ msgstr "Dodôj pòdôwczi"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
+#, fuzzy, kde-format
+#| msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "Dodôj pòdôwczi z TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "Ekspòrtëjë do TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4380,6 +4377,18 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr ""
+
+#, fuzzy
+#~| msgid "&Project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "&Projekt"
+
+#, fuzzy
+#~| msgid "&Project"
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "&Projekt"
 
 #~ msgctxt "link to edit note"
 #~ msgid "edit..."

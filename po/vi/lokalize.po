@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -2236,16 +2236,18 @@ msgstr ""
 "\"%2\">%2</a>.</html>"
 
 #: src/lokalizemainwindow.cpp:120
-#, kde-format
-msgid "&Configure Lokalize"
+#, fuzzy, kde-format
+#| msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "&Cấu hình Lokalize"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Mở dự án"
 
 #: src/lokalizemainwindow.cpp:122
@@ -2253,13 +2255,15 @@ msgstr "Mở dự án"
 #| msgctxt "@action:inmenu"
 #| msgid "Translate software"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "Dịch phần mềm"
 
 #: src/lokalizemainwindow.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Translate OpenDocument"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "Dịch OpenDocument"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2366,14 +2370,6 @@ msgstr "Tạo dự án dịch phần mềm..."
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "Tạo dự án dịch OpenDocument..."
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "Mở dự án"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -3001,7 +2997,7 @@ msgstr "Tổng quan dự án"
 #, fuzzy, kde-format
 #| msgid "Project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "Dự án"
 
 #: src/prefs/prefs.cpp:148
@@ -3009,7 +3005,7 @@ msgstr "Dự án"
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Mở dự án"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -4287,14 +4283,16 @@ msgstr "Thêm dữ liệu"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
+#, fuzzy, kde-format
+#| msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "Thêm dữ liệu từ TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "Xuất khẩu ra TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4766,6 +4764,20 @@ msgstr "Một lỗi đã được báo: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Chép nguồn vào đích"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "Mở dự án"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "Mở dự án"
 
 #~ msgid "Quick search..."
 #~ msgstr "Tìm kiếm nhanh..."

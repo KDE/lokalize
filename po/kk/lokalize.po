@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2013-06-27 04:19+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -2237,29 +2237,30 @@ msgstr ""
 #: src/lokalizemainwindow.cpp:120
 #, fuzzy, kde-format
 #| msgid "&Configure Lokalize..."
-msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "Lokalize &баптауы..."
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Жобаны ашу"
 
 #: src/lokalizemainwindow.cpp:122
 #, fuzzy, kde-format
 #| msgid "Translator"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "Аудармашы"
 
 #: src/lokalizemainwindow.cpp:123
 #, fuzzy, kde-format
 #| msgid "Translate a document"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "Құжатты аудару"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2364,14 +2365,6 @@ msgstr "Аударма жобаңыздын орналасуын таңдаңы�
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "Аударма жобаңыздын орналасуын таңдаңыз"
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "Жобаны ашу"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -3012,7 +3005,7 @@ msgstr "Жоба шолуы"
 #, fuzzy, kde-format
 #| msgid "Create new project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "Жаңа жобаны құру"
 
 #: src/prefs/prefs.cpp:148
@@ -3020,7 +3013,7 @@ msgstr "Жаңа жобаны құру"
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Жобаны ашу"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -4299,14 +4292,16 @@ msgstr "Деректерді қосу"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
+#, fuzzy, kde-format
+#| msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "TMX деректерді қосып алу"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "TMX экспорттау"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4784,6 +4779,20 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Түпнұсқасын аудармаға көшірмелеу"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "Жобаны ашу"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "Жобаны ашу"
 
 #~ msgid "Quick search..."
 #~ msgstr "Жедел іздеу..."

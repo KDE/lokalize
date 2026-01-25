@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -2129,16 +2129,19 @@ msgid ""
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:120
-#, kde-format
-msgid "&Configure Lokalize"
-msgstr ""
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open project"
+msgid "&Configure Lokalize…"
+msgstr "Dobrir un projècte"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Dobrir un projècte"
 
 #: src/lokalizemainwindow.cpp:122
@@ -2146,7 +2149,7 @@ msgstr "Dobrir un projècte"
 #| msgctxt "@title:column"
 #| msgid "Translated"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "Revirat"
 
 #: src/lokalizemainwindow.cpp:123
@@ -2154,7 +2157,7 @@ msgstr "Revirat"
 #| msgctxt "@title:column"
 #| msgid "Translated"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "Revirat"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2265,14 +2268,6 @@ msgstr ""
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr ""
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "Dobrir un projècte"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -2901,7 +2896,7 @@ msgstr "Projècte"
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "Dobrir un projècte"
 
 #: src/prefs/prefs.cpp:148
@@ -2909,7 +2904,7 @@ msgstr "Dobrir un projècte"
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Dobrir un projècte"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -4136,13 +4131,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
 #, kde-format
-msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
 #, kde-format
-msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4607,6 +4602,20 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr ""
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "Dobrir un projècte"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "Dobrir un projècte"
 
 #, fuzzy
 #~| msgctxt "@item Undo action item"

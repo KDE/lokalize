@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2010-09-24 20:24+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -2036,29 +2036,31 @@ msgid ""
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:120
-#, kde-format
-msgid "&Configure Lokalize"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Project"
+msgid "&Configure Lokalize…"
+msgstr "प्रोजेक्ट"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgid "Project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "प्रोजेक्ट"
 
 #: src/lokalizemainwindow.cpp:122
 #, fuzzy, kde-format
 #| msgid "Translator"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "अनुवादक"
 
 #: src/lokalizemainwindow.cpp:123
 #, fuzzy, kde-format
 #| msgid "Translation"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "अनुवाद"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2158,13 +2160,6 @@ msgstr ""
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr ""
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgid "Project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "प्रोजेक्ट"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -2763,14 +2758,14 @@ msgstr "प्रोजेक्ट"
 #, fuzzy, kde-format
 #| msgid "Project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "प्रोजेक्ट"
 
 #: src/prefs/prefs.cpp:148
 #, fuzzy, kde-format
 #| msgid "Project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "प्रोजेक्ट"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -3936,13 +3931,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
 #, kde-format
-msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
 #, kde-format
-msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4383,6 +4378,18 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "प्रोजेक्ट"
+
+#, fuzzy
+#~| msgid "Project"
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "प्रोजेक्ट"
 
 #, fuzzy
 #~| msgctxt "@item Undo action item"

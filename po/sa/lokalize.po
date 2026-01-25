@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -2182,16 +2182,18 @@ msgstr ""
 "%2 इत्यस्य</a> दर्शनेन भवतां कृते यत् आवश्यकं तत् प्रदास्यति ।</html>"
 
 #: src/lokalizemainwindow.cpp:120
-#, kde-format
-msgid "&Configure Lokalize"
+#, fuzzy, kde-format
+#| msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "&Lokalize विन्यस्तं कुर्वन्तु"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "Open Project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Open Project इति परियोजना"
 
 #: src/lokalizemainwindow.cpp:122
@@ -2199,13 +2201,15 @@ msgstr "Open Project इति परियोजना"
 #| msgctxt "@action:inmenu"
 #| msgid "Translate software"
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "सॉफ्टवेयर अनुवाद करें"
 
 #: src/lokalizemainwindow.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Translate OpenDocument"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "OpenDocument इत्यस्य अनुवादं कुर्वन्तु"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2312,14 +2316,6 @@ msgstr "सॉफ्टवेयर अनुवाद परियोजना 
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "OpenDocument अनुवाद परियोजना रचयन्तु..."
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "Open Project इति परियोजना"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -2938,15 +2934,19 @@ msgid "Project Required"
 msgstr "परियोजना आवश्यकी"
 
 #: src/prefs/prefs.cpp:147
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Create Project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "परियोजना रचयन्तु"
 
 #: src/prefs/prefs.cpp:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Open Project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "Open Project इति परियोजना"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -4182,14 +4182,16 @@ msgstr "Data योजयतु"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, kde-format
-msgid "Add Data from TMX"
+#, fuzzy, kde-format
+#| msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "TMX तः Data योजयन्तु"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "TMX - मध्ये निर्यातं कुर्वन्तु"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4654,6 +4656,17 @@ msgstr "एकः त्रुटिः निवेदिता: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "स्रोतः लक्ष्यं प्रति प्रतिलिख्यताम्"
+
+#, fuzzy
+#~| msgctxt "@action"
+#~| msgid "Open Project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "Open Project इति परियोजना"
+
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "Open Project इति परियोजना"
 
 #~ msgid "Quick search..."
 #~ msgstr "त्वरित अन्वेषण..."

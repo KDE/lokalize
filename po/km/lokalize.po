@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:45+0000\n"
+"POT-Creation-Date: 2026-01-25 00:47+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -2138,28 +2138,29 @@ msgstr ""
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
-msgid "&Configure Lokalize"
+msgid "&Configure Lokalize…"
 msgstr "កំណត់​រចនាសម្ព័ន្ធ​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:121 src/project/projecttab.cpp:155
+#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action:inmenu"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "បើក​គម្រោង​"
 
 #: src/lokalizemainwindow.cpp:122
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
-msgid "Translate Software"
+msgid "Translate Software…"
 msgstr "អ្នកបកប្រែ"
 
 #: src/lokalizemainwindow.cpp:123
 #, fuzzy, kde-format
 #| msgid "Translate a document"
 msgctxt "@action:inmenu"
-msgid "Translate OpenDocument"
+msgid "Translate OpenDocument…"
 msgstr "ឯកសារ​បក​ប្រែ"
 
 #: src/lokalizemainwindow.cpp:185
@@ -2261,14 +2262,6 @@ msgstr "ជ្រើស​ទីតាំង​​នៃ​គម្រោង​
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "ជ្រើស​ទីតាំង​​នៃ​គម្រោង​បកប្រែ​ផ្នែកទន់​របស់​អ្នក​"
-
-#: src/lokalizemainwindow.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
-msgctxt "@action:inmenu"
-msgid "Open Project…"
-msgstr "បើក​គម្រោង​"
 
 #: src/lokalizemainwindow.cpp:675
 #, fuzzy, kde-format
@@ -2890,7 +2883,7 @@ msgstr "ទិដ្ឋភាពទូទៅ​គម្រោង​"
 #, fuzzy, kde-format
 #| msgid "Create new project"
 msgctxt "@action"
-msgid "Create Project"
+msgid "Create Project…"
 msgstr "បង្កើត​គម្រោង​ថ្មី"
 
 #: src/prefs/prefs.cpp:148
@@ -2898,7 +2891,7 @@ msgstr "បង្កើត​គម្រោង​ថ្មី"
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
 msgctxt "@action"
-msgid "Open Project"
+msgid "Open Project…"
 msgstr "បើក​គម្រោង​"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
@@ -4139,13 +4132,14 @@ msgstr "បន្ថែម​ទិន្នន័យ​"
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
 #, fuzzy, kde-format
-msgid "Add Data from TMX"
+msgid "Add Data from TMX…"
 msgstr "បន្ថែម​ទិន្នន័យ​ចេញពី​​ TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, kde-format
-msgid "Export to TMX"
+#, fuzzy, kde-format
+#| msgid "Export to TMX"
+msgid "Export to TMX…"
 msgstr "នាំចេញ​ទៅកាន់​​ TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
@@ -4614,6 +4608,20 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "ចម្លង​ប្រភព​ទៅគោលដៅ​"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Project"
+#~ msgstr "បើក​គម្រោង​"
+
+#, fuzzy
+#~| msgctxt "@action:inmenu"
+#~| msgid "Open project"
+#~ msgctxt "@action"
+#~ msgid "Open Project"
+#~ msgstr "បើក​គម្រោង​"
 
 #~ msgid "Quick search..."
 #~ msgstr "ស្វែងរករហ័ស​​..."
