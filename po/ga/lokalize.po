@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-25 00:47+0000\n"
+"POT-Creation-Date: 2026-01-26 00:45+0000\n"
 "PO-Revision-Date: 2026-01-06 20:08+0000\n"
 "Last-Translator: Charlotte <altronic25@protonmail.com>\n"
 "Language-Team: Irish\n"
@@ -928,7 +928,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Eagar"
 
-#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:603
+#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:598
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -961,7 +961,7 @@ msgstr "Sioncrónú 2"
 msgid "Translation Memory"
 msgstr "Cuimhne Aistriúcháin"
 
-#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:604
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:599
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1367,7 +1367,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(athchóirithe)"
 
-#: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1086
+#: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1081
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1377,8 +1377,8 @@ msgstr ""
 "Tá athruithe gan sábháil sa cháipéis.\n"
 "An bhfuil fonn ort do chuid athruithe a shábháil?"
 
-#: src/editortab.cpp:721 src/editortab.cpp:1308 src/lokalizemainwindow.cpp:1066
-#: src/lokalizemainwindow.cpp:1088
+#: src/editortab.cpp:721 src/editortab.cpp:1308 src/lokalizemainwindow.cpp:1061
+#: src/lokalizemainwindow.cpp:1083
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2094,9 +2094,7 @@ msgid ""
 "team. You can join the language teams that translate program interfaces. You "
 "can provide graphics, themes, sounds, and improved documentation. You decide!"
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
-"which you can participate.<br /><br />If you need more information or "
-"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
-"what you need.</html>"
+"which you can participate.</html>"
 msgstr ""
 "<html>Ní gá duit a bheith i d'fhorbróir bogearraí chun cabhrú le KDE. Má tá "
 "Gaeilge mhaith agat, cláraigh leis an bhfoireann aistriúcháin agus cabhraigh "
@@ -2107,13 +2105,13 @@ msgstr ""
 "tuilleadh eolais nó doiciméadú de dhíth ort, tabhair cuairt ar <a href="
 "\"%2\">%2</a> agus aimseoidh tú an rud atá de dhíth ort.</html>"
 
-#: src/lokalizemainwindow.cpp:120
+#: src/lokalizemainwindow.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Configure %1..."
 msgid "&Configure Lokalize…"
 msgstr "&Cumraigh %1..."
 
-#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
@@ -2122,87 +2120,87 @@ msgctxt "@action:inmenu"
 msgid "Open Project…"
 msgstr "Oscail tionscadal"
 
-#: src/lokalizemainwindow.cpp:122
+#: src/lokalizemainwindow.cpp:117
 #, fuzzy, kde-format
 #| msgid "Translator"
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
 msgstr "Aistritheoir"
 
-#: src/lokalizemainwindow.cpp:123
+#: src/lokalizemainwindow.cpp:118
 #, fuzzy, kde-format
 #| msgid "Translate a document"
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
 msgstr "Aistrigh cáipéis"
 
-#: src/lokalizemainwindow.cpp:185
+#: src/lokalizemainwindow.cpp:180
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:513 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Translation Memories"
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "Cuimhní Aistriúcháin"
 
-#: src/lokalizemainwindow.cpp:513 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
 #, kde-format
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:605 src/tm/tmtab.cpp:479
+#: src/lokalizemainwindow.cpp:600 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Cuimhne Aistriúcháin"
 
-#: src/lokalizemainwindow.cpp:606 src/project/projecttab.cpp:152
+#: src/lokalizemainwindow.cpp:601 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Tionscadal"
 
-#: src/lokalizemainwindow.cpp:629
+#: src/lokalizemainwindow.cpp:624
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Tab"
 msgstr "An chéad chluaisín eile"
 
-#: src/lokalizemainwindow.cpp:632
+#: src/lokalizemainwindow.cpp:627
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Tab"
 msgstr "An cluaisín roimhe seo"
 
-#: src/lokalizemainwindow.cpp:635
+#: src/lokalizemainwindow.cpp:630
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previously Active Tab"
 msgstr "An cluaisín roimhe seo"
 
-#: src/lokalizemainwindow.cpp:638
+#: src/lokalizemainwindow.cpp:633
 #, kde-format
 msgid "Close Current Tab"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:644
+#: src/lokalizemainwindow.cpp:639
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Gluais"
 
-#: src/lokalizemainwindow.cpp:650
+#: src/lokalizemainwindow.cpp:645
 #, fuzzy, kde-format
 #| msgid "Translation Memory"
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Cuimhne Aistriúcháin"
 
-#: src/lokalizemainwindow.cpp:654 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:649 src/tm/tmtab.cpp:482
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Manage translation memories"
@@ -2210,7 +2208,7 @@ msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "Bainistigh cuimhne aistriúcháin"
 
-#: src/lokalizemainwindow.cpp:658
+#: src/lokalizemainwindow.cpp:653
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Project Overview"
@@ -2218,7 +2216,7 @@ msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "Foramharc an Tionscadail"
 
-#: src/lokalizemainwindow.cpp:662
+#: src/lokalizemainwindow.cpp:657
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
@@ -2226,21 +2224,21 @@ msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "Cumraigh tionscadal"
 
-#: src/lokalizemainwindow.cpp:665
+#: src/lokalizemainwindow.cpp:660
 #, fuzzy, kde-format
 #| msgid "*.lokalize|Lokalize translation project"
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
 
-#: src/lokalizemainwindow.cpp:668
+#: src/lokalizemainwindow.cpp:663
 #, fuzzy, kde-format
 #| msgid "*.lokalize|Lokalize translation project"
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
 
-#: src/lokalizemainwindow.cpp:675
+#: src/lokalizemainwindow.cpp:670
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2248,7 +2246,7 @@ msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "Oscail tionscadal"
 
-#: src/lokalizemainwindow.cpp:678
+#: src/lokalizemainwindow.cpp:673
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open recent project"
@@ -2256,7 +2254,7 @@ msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "Oscail tionscadal le déanaí"
 
-#: src/lokalizemainwindow.cpp:688
+#: src/lokalizemainwindow.cpp:683
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Search in files"
@@ -2264,24 +2262,24 @@ msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "Cuardaigh i gcomhaid"
 
-#: src/lokalizemainwindow.cpp:691
+#: src/lokalizemainwindow.cpp:686
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:695
+#: src/lokalizemainwindow.cpp:690
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:708
+#: src/lokalizemainwindow.cpp:703
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:882
+#: src/lokalizemainwindow.cpp:877
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2291,7 +2289,7 @@ msgstr ""
 "Earráid agus na comhaid seo a leanas á n-oscailt:\n"
 "\n"
 
-#: src/lokalizemainwindow.cpp:1064
+#: src/lokalizemainwindow.cpp:1059
 #, kde-format
 msgctxt "@info"
 msgid ""

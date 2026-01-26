@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-25 00:47+0000\n"
+"POT-Creation-Date: 2026-01-26 00:45+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1000,7 +1000,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "सम्पादन"
 
-#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:603
+#: src/editortab.cpp:150 src/lokalizemainwindow.cpp:598
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1033,7 +1033,7 @@ msgstr "समन्वयः २"
 msgid "Translation Memory"
 msgstr "अनुवाद स्मृति"
 
-#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:604
+#: src/editortab.cpp:156 src/lokalizemainwindow.cpp:599
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1440,7 +1440,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (पुनर्प्राप्तः)"
 
-#: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1086
+#: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1081
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1450,8 +1450,8 @@ msgstr ""
 "दस्तावेजे अरक्षिताः परिवर्तनाः सन्ति ।\n"
 "किं भवन्तः स्वपरिवर्तनानि रक्षितुं इच्छन्ति वा परित्यक्तुं इच्छन्ति वा?"
 
-#: src/editortab.cpp:721 src/editortab.cpp:1308 src/lokalizemainwindow.cpp:1066
-#: src/lokalizemainwindow.cpp:1088
+#: src/editortab.cpp:721 src/editortab.cpp:1308 src/lokalizemainwindow.cpp:1061
+#: src/lokalizemainwindow.cpp:1083
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2164,15 +2164,21 @@ msgid "No errors"
 msgstr "न दोषाः"
 
 #: src/lokalizemainwindow.cpp:98
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "<html>You do not have to be a software developer to be a member of the "
+#| "KDE team. You can join the language teams that translate program "
+#| "interfaces. You can provide graphics, themes, sounds, and improved "
+#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
+#| "information on some projects in which you can participate.<br /><br />If "
+#| "you need more information or documentation, then a visit to <a href="
+#| "\"%2\">%2</a> will provide you with what you need.</html>"
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
 "can provide graphics, themes, sounds, and improved documentation. You decide!"
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
-"which you can participate.<br /><br />If you need more information or "
-"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
-"what you need.</html>"
+"which you can participate.</html>"
 msgstr ""
 "<html>KDE दलस्य सदस्यः भवितुम् भवता सॉफ्टवेयरविकासकः भवितुम् आवश्यकं नास्ति । प्रोग्राम्-"
 "अन्तरफलकानाम् अनुवादं कुर्वन्ति भाषादलेषु भवान् सम्मिलितुं शक्नोति । चित्राणि, विषयवस्तु, "
@@ -2181,13 +2187,13 @@ msgstr ""
 "><br /> यदि भवतां कृते अधिकसूचना अथवा दस्तावेजस्य आवश्यकता अस्ति तर्हि <a href=\"%2\">"
 "%2 इत्यस्य</a> दर्शनेन भवतां कृते यत् आवश्यकं तत् प्रदास्यति ।</html>"
 
-#: src/lokalizemainwindow.cpp:120
+#: src/lokalizemainwindow.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Configure Lokalize"
 msgid "&Configure Lokalize…"
 msgstr "&Lokalize विन्यस्तं कुर्वन्तु"
 
-#: src/lokalizemainwindow.cpp:121 src/lokalizemainwindow.cpp:671
+#: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action"
@@ -2196,7 +2202,7 @@ msgctxt "@action:inmenu"
 msgid "Open Project…"
 msgstr "Open Project इति परियोजना"
 
-#: src/lokalizemainwindow.cpp:122
+#: src/lokalizemainwindow.cpp:117
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Translate software"
@@ -2204,7 +2210,7 @@ msgctxt "@action:inmenu"
 msgid "Translate Software…"
 msgstr "सॉफ्टवेयर अनुवाद करें"
 
-#: src/lokalizemainwindow.cpp:123
+#: src/lokalizemainwindow.cpp:118
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Translate OpenDocument"
@@ -2212,72 +2218,72 @@ msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
 msgstr "OpenDocument इत्यस्य अनुवादं कुर्वन्तु"
 
-#: src/lokalizemainwindow.cpp:185
+#: src/lokalizemainwindow.cpp:180
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "कोऽपि Qt Sql मॉड्यूलः न प्राप्तः । अनुवादस्मृतिः कार्यं न करिष्यति।"
 
-#: src/lokalizemainwindow.cpp:513 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
 #, fuzzy, kde-format
 #| msgid "TM facility requires SQLite Qt module."
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "TM सुविधायाः कृते SQLite Qt मॉड्यूलस्य आवश्यकता भवति ।"
 
-#: src/lokalizemainwindow.cpp:513 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
 #, kde-format
 msgid "No SQLite module available"
 msgstr "SQLite मॉड्यूल् उपलब्धं नास्ति"
 
-#: src/lokalizemainwindow.cpp:605 src/tm/tmtab.cpp:479
+#: src/lokalizemainwindow.cpp:600 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "अनुवाद स्मृति"
 
-#: src/lokalizemainwindow.cpp:606 src/project/projecttab.cpp:152
+#: src/lokalizemainwindow.cpp:601 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "प्रकल्प"
 
-#: src/lokalizemainwindow.cpp:629
+#: src/lokalizemainwindow.cpp:624
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Tab"
 msgstr "अग्रिमः ट्याब्"
 
-#: src/lokalizemainwindow.cpp:632
+#: src/lokalizemainwindow.cpp:627
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Tab"
 msgstr "पूर्वः ट्याब्"
 
-#: src/lokalizemainwindow.cpp:635
+#: src/lokalizemainwindow.cpp:630
 #, fuzzy, kde-format
 #| msgid "Previously active tab"
 msgid "Previously Active Tab"
 msgstr "पूर्वं सक्रियः ट्याब्"
 
-#: src/lokalizemainwindow.cpp:638
+#: src/lokalizemainwindow.cpp:633
 #, kde-format
 msgid "Close Current Tab"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:644
+#: src/lokalizemainwindow.cpp:639
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "शब्दावली"
 
-#: src/lokalizemainwindow.cpp:650
+#: src/lokalizemainwindow.cpp:645
 #, fuzzy, kde-format
 #| msgid "Translation Memory"
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "अनुवाद स्मृति"
 
-#: src/lokalizemainwindow.cpp:654 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:649 src/tm/tmtab.cpp:482
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Manage translation memories"
@@ -2285,7 +2291,7 @@ msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "अनुवादस्मृतयः प्रबन्धयन्तु"
 
-#: src/lokalizemainwindow.cpp:658
+#: src/lokalizemainwindow.cpp:653
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Project Overview"
@@ -2293,7 +2299,7 @@ msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "परियोजना अवलोकन"
 
-#: src/lokalizemainwindow.cpp:662
+#: src/lokalizemainwindow.cpp:657
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project..."
@@ -2301,7 +2307,7 @@ msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "परियोजना विन्यस्तं कुर्वन्तु..."
 
-#: src/lokalizemainwindow.cpp:665
+#: src/lokalizemainwindow.cpp:660
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Create software translation project..."
@@ -2309,7 +2315,7 @@ msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "सॉफ्टवेयर अनुवाद परियोजना रचयन्तु..."
 
-#: src/lokalizemainwindow.cpp:668
+#: src/lokalizemainwindow.cpp:663
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Create OpenDocument translation project..."
@@ -2317,7 +2323,7 @@ msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "OpenDocument अनुवाद परियोजना रचयन्तु..."
 
-#: src/lokalizemainwindow.cpp:675
+#: src/lokalizemainwindow.cpp:670
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Close project"
@@ -2325,7 +2331,7 @@ msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "परियोजनां बन्दं कुर्वन्तु"
 
-#: src/lokalizemainwindow.cpp:678
+#: src/lokalizemainwindow.cpp:673
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open recent project"
@@ -2333,7 +2339,7 @@ msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "हाले एव परियोजनां उद्घाटयन्तु"
 
-#: src/lokalizemainwindow.cpp:688
+#: src/lokalizemainwindow.cpp:683
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Search and replace in files"
@@ -2341,13 +2347,13 @@ msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "सञ्चिकासु अन्वेषणं कृत्वा प्रतिस्थापनं कुर्वन्तु"
 
-#: src/lokalizemainwindow.cpp:691
+#: src/lokalizemainwindow.cpp:686
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:695
+#: src/lokalizemainwindow.cpp:690
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "Widget Text Capture"
@@ -2355,12 +2361,12 @@ msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "विजेट् पाठग्रहणम्"
 
-#: src/lokalizemainwindow.cpp:708
+#: src/lokalizemainwindow.cpp:703
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:882
+#: src/lokalizemainwindow.cpp:877
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2370,7 +2376,7 @@ msgstr ""
 "निम्नलिखितसञ्चिकाः उद्घाटयितुं त्रुटिः:\n"
 "\n"
 
-#: src/lokalizemainwindow.cpp:1064
+#: src/lokalizemainwindow.cpp:1059
 #, kde-format
 msgctxt "@info"
 msgid ""
