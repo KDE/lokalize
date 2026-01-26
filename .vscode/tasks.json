@@ -13,15 +13,24 @@
             ]
         },
         {
-            "label": "Build and run",
+            "label": "Run",
             "type": "shell",
             "command": "kde-builder",
             "args": [
                 "--run",
                 "lokalize"
-            ],
-            "dependsOn": [
-                "Build"
+            ]
+        },
+        {
+            "label": "Build and run",
+            "type": "shell",
+            "command": "kde-builder",
+            "args": [
+                "--no-src",
+                "--no-include-dependencies",
+                "--debug",
+                "--run",
+                "lokalize"
             ]
         }
     ]
