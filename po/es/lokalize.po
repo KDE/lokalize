@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-26 00:45+0000\n"
-"PO-Revision-Date: 2026-01-25 07:43+0100\n"
+"PO-Revision-Date: 2026-01-27 00:44+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -2129,15 +2129,7 @@ msgid "No errors"
 msgstr "Sin errores"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2149,9 +2141,8 @@ msgstr ""
 "de KDE. Puede unirse a los equipos de idiomas que traducen las interfaces de "
 "los programas. Puede proporcionar imágenes, temas, sonidos y mejorar la "
 "documentación. Usted decide.<br /><br />Visite <a href=\"%1\">%1</a> para "
-"más información sobre algunos de los proyectos en los que puede participar."
-"<br /><br />Si necesita más información o documentación, visite <a href="
-"\"%2\">%2</a>, donde encontrará lo que necesita.</html>"
+"más información sobre algunos de los proyectos en los que puede participar.</"
+"html>"
 
 #: src/lokalizemainwindow.cpp:115
 #, kde-format

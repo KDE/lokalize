@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-26 00:45+0000\n"
-"PO-Revision-Date: 2026-01-07 20:28+0300\n"
+"PO-Revision-Date: 2026-01-26 17:18+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2103,15 +2103,7 @@ msgid "No errors"
 msgstr "Hata yok"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2124,14 +2116,12 @@ msgstr ""
 "katılabilirsiniz. İsterseniz grafikler, temalar, sesler yaratabilir ve "
 "yardım belgeleri yazıp var olanları geliştirebilirsiniz. Karar sizin!<br /"
 "><br /><a href=\"%1\">%1</a> adresini ziyaret ederek katkıda "
-"bulunabileceğiniz projeler hakkında bilgi alabilirsiniz.<br /><br />Daha "
-"fazla bilgi ve belge için <a href=\"%2\">%2</a> adresine bakın.</html>"
+"bulunabileceğiniz projeler hakkında bilgi alabilirsiniz.</html>"
 
 #: src/lokalizemainwindow.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "&Lokalize’yi Yapılandır"
+msgstr "&Lokalize’yi Yapılandır…"
 
 #: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
@@ -2141,20 +2131,16 @@ msgid "Open Project…"
 msgstr "Proje Aç…"
 
 #: src/lokalizemainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate Software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "Yazılım Çevir"
+msgstr "Yazılım Çevir…"
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "OpenDocument Belgesi Çevir"
+msgstr "OpenDocument Belgesi Çevir…"
 
 #: src/lokalizemainwindow.cpp:180
 #, kde-format
@@ -2852,17 +2838,13 @@ msgid "Project Required"
 msgstr "Proje Gerekli"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "Proje Oluştur"
+msgstr "Proje Oluştur…"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project…"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
 msgstr "Proje Aç…"
@@ -4111,17 +4093,15 @@ msgstr "Veri Ekle"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "TMX’ten Veri Ekle"
+msgstr "TMX’ten Veri Ekle…"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "Verileri TMX’e Aktar"
+msgstr "Verileri TMX’e Dışa Aktar… "
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #: src/tm/managedatabases.ui:47

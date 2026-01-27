@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-26 00:45+0000\n"
-"PO-Revision-Date: 2026-01-05 08:37+0100\n"
+"PO-Revision-Date: 2026-01-26 10:17+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -2122,15 +2122,7 @@ msgid "No errors"
 msgstr "Sense errors"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2142,15 +2134,12 @@ msgstr ""
 "Podeu unir-vos als equips d'idiomes que traduïxen les interfícies dels "
 "programes. Podeu proporcionar gràfics, temes, sons i millorar la "
 "documentació. Vós decidiu!<br /><br />Visiteu <a href=\"%1\">%1</a> si voleu "
-"informació sobre els projectes en els quals podeu participar.<br /><br />Si "
-"us cal més informació o documentació, llavors una visita a <a href=\"%2\">"
-"%2</a> us proporcionarà el que necessiteu.</html>"
+"informació sobre els projectes en els quals podeu participar.</html>"
 
 #: src/lokalizemainwindow.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "&Configura Lokalize"
+msgstr "&Configura Lokalize…"
 
 #: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
@@ -2160,20 +2149,16 @@ msgid "Open Project…"
 msgstr "Obri un projecte…"
 
 #: src/lokalizemainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate Software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "Traducció de programari"
+msgstr "Traducció de programari…"
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "Traducció d'OpenDocument"
+msgstr "Traducció d'OpenDocument…"
 
 #: src/lokalizemainwindow.cpp:180
 #, kde-format
@@ -2879,17 +2864,13 @@ msgid "Project Required"
 msgstr "Es requerix un projecte"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "Crea un projecte"
+msgstr "Crea un projecte…"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project…"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
 msgstr "Obri un projecte…"
@@ -4159,17 +4140,15 @@ msgstr "Afig dades"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "Afig dades des de TMX"
+msgstr "Afig dades des de TMX…"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "Exporta cap a TMX"
+msgstr "Exporta cap a TMX…"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #: src/tm/managedatabases.ui:47
@@ -4630,11 +4609,3 @@ msgstr "S'ha notificat un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia l'origen a la destinació"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open Project"
-#~ msgstr "Obri un projecte"
-
-#~ msgctxt "@action"
-#~ msgid "Open Project"
-#~ msgstr "Obri un projecte"

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-26 00:45+0000\n"
-"PO-Revision-Date: 2026-01-25 08:07+0200\n"
+"PO-Revision-Date: 2026-01-26 13:23+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2112,15 +2112,7 @@ msgid "No errors"
 msgstr "Немає помилок"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2132,9 +2124,8 @@ msgstr ""
 "приєднатися до команд, що перекладають інтерфейс програм. Можете "
 "забезпечувати користувачів графікою, темами, звуками та вдосконаленою "
 "документацію. Вам вирішувати!<br /><br />Завітайте на сторінку <a href="
-"\"%1\">%1</a> щодо інформації про деякі проєкти, у яких можна взяти участь."
-"<br /><br />Якщо ви потребуєте більше інформації або документації, "
-"відвідайте <a href=\"%2\">%2</a>, щоб ознайомитися з нею.</html>"
+"\"%1\">%1</a> щодо інформації про деякі проєкти, у яких можна взяти участь.</"
+"html>"
 
 #: src/lokalizemainwindow.cpp:115
 #, kde-format

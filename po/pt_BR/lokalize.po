@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-26 00:45+0000\n"
-"PO-Revision-Date: 2026-01-05 08:31-0300\n"
+"PO-Revision-Date: 2026-01-26 14:37-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2122,15 +2122,7 @@ msgid "No errors"
 msgstr "Sem erros"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2143,14 +2135,12 @@ msgstr ""
 "traduzem as interfaces dos programas. Você pode fornecer gráficos, temas, "
 "sons e documentação atualizada. Você decide!<br /><br />Visite <a href="
 "\"%1\">%1</a> para obter informações sobre alguns projetos em que você possa "
-"participar.<br /><br />Caso necessite de mais informações ou documentação, "
-"visite <a href=\"%2\">%2</a>, onde você encontrará o que precisa.</html>"
+"participar.</html>"
 
 #: src/lokalizemainwindow.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "&Configurar o Lokalize"
+msgstr "&Configurar o Lokalize…"
 
 #: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
@@ -2160,20 +2150,16 @@ msgid "Open Project…"
 msgstr "Abrir projeto…"
 
 #: src/lokalizemainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate Software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "Traduzir software"
+msgstr "Traduzir software…"
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "Traduzir OpenDocument"
+msgstr "Traduzir OpenDocument…"
 
 #: src/lokalizemainwindow.cpp:180
 #, kde-format
@@ -2874,17 +2860,13 @@ msgid "Project Required"
 msgstr "Projeto obrigatório"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "Criar projeto"
+msgstr "Criar projeto…"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project…"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
 msgstr "Abrir projeto…"
@@ -4143,17 +4125,15 @@ msgstr "Adicionar dados"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "Adicionar dados do TMX"
+msgstr "Adicionar dados do TMX…"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "Exportar para o TMX"
+msgstr "Exportar para o TMX…"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #: src/tm/managedatabases.ui:47
