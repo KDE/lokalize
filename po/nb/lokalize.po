@@ -4623,10 +4623,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopier kilden til oversettelsen"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Open project"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open Project"
-#~ msgstr "Åpne prosjekt"

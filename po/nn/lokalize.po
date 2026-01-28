@@ -4707,14 +4707,3 @@ msgstr "Feil meld: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopier kjelde til omsetjing"
-
-#, fuzzy
-#~| msgctxt "@action"
-#~| msgid "Open Project"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open Project"
-#~ msgstr "Opna prosjekt"
-
-#~ msgctxt "@action"
-#~ msgid "Open Project"
-#~ msgstr "Opna prosjekt"

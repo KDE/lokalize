@@ -2036,15 +2036,7 @@ msgid "No errors"
 msgstr "无错误"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2052,16 +2044,11 @@ msgid ""
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
 "which you can participate.</html>"
 msgstr ""
-"<html>您不必是软件开发人员也能成为 KDE 团队的一员。您可以加入翻译程序界面的语"
-"言团队。您可以提供图形、主题、声音和改进的文档。由您决定！<br /><br />访问 "
-"<a href=\"%1\">%1</a> 了解您可以参与的某些项目的信息。<br /><br />如果您需要"
-"更多信息或文档，请访问 <a href=\"%2\">%2</a> 获取所需内容。</html>"
 
 #: src/lokalizemainwindow.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "配置 Lokalize(&C)"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
@@ -2071,19 +2058,16 @@ msgid "Open Project…"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgid "Translator"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "翻译者"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "翻译 OpenDocument"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:180
 #, kde-format
@@ -2775,20 +2759,16 @@ msgid "Project Required"
 msgstr "需要加载项目"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "创建项目"
+msgstr ""
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
-msgstr "打开项目"
+msgstr ""
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
@@ -3989,17 +3969,15 @@ msgstr "添加数据"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "从 TMX 添加数据"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "导出至 TMX"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #: src/tm/managedatabases.ui:47
