@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-26 00:45+0000\n"
-"PO-Revision-Date: 2026-01-09 00:06+0900\n"
+"PO-Revision-Date: 2026-01-28 21:01+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -2042,9 +2042,9 @@ msgid ""
 "That is, there may be several entries with the same word/word sequence "
 "expressing different meanings."
 msgstr ""
-"注意：一個詞彙表項目只符合一個名詞，而不是單字序列。\n"
+"請注意：詞彙表項目對應的是詞彙的一個定義（義項），不是單詞或單詞序列。\n"
 "\n"
-"意思是說，有可能有數個項目有同樣的單字序列，而表達的是不同的意義。"
+"也就是說，多個項目可以描述同一個單詞或單詞序列，來對應不同的定義。"
 
 #: src/languagetool/languagetoolgrammarerror.cpp:26
 #, kde-format
@@ -2057,15 +2057,7 @@ msgid "No errors"
 msgstr "沒有錯誤"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2075,15 +2067,13 @@ msgid ""
 msgstr ""
 "<html>您不需要是軟體工程師也可以成為 KDE 團隊的一份子。您可以加入翻譯團隊來翻"
 "譯程式的介面。您可以提供圖形、佈景主題、音效，或幫忙撰寫文件，看您喜歡做哪一"
-"項。<br /><br />請參考 <a href=\"%1\">%1</a> 上的資訊看看您能幫上什麼忙。"
-"<br /><br />如果您需要更多資訊或文件，請參考 <a href=\"%2\">%2</a> 上面也許有"
-"一些能幫助您的資訊。</html>"
+"項。<br /><br />請參考 <a href=\"%1\">%1</a> 上的資訊看看您能幫上什麼忙。</"
+"html>"
 
 #: src/lokalizemainwindow.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "設定 Lokalize(&C)"
+msgstr "設定 Lokalize(&C)…"
 
 #: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
@@ -2093,20 +2083,16 @@ msgid "Open Project…"
 msgstr "開啟專案…"
 
 #: src/lokalizemainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate Software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "翻譯軟體"
+msgstr "翻譯軟體…"
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "翻譯 OpenDocument"
+msgstr "翻譯 OpenDocument…"
 
 #: src/lokalizemainwindow.cpp:180
 #, kde-format
@@ -2798,17 +2784,13 @@ msgid "Project Required"
 msgstr "需要專案"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "建立專案"
+msgstr "建立專案…"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project…"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
 msgstr "開啟專案…"
@@ -4007,17 +3989,15 @@ msgstr "新增資料"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "從 TMX 新增資料"
+msgstr "從 TMX 新增資料…"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "匯出到 TMX"
+msgstr "匯出到 TMX…"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #: src/tm/managedatabases.ui:47

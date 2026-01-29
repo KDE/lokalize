@@ -10,20 +10,20 @@
 # Julia Dronova <juliette.tux@gmail.com>, 2012.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013, 2014.
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2024, 2025 Alexander Yavorsky <kekcuha@gmail.com>
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2024, 2025, 2026 Alexander Yavorsky <kekcuha@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-26 00:45+0000\n"
-"PO-Revision-Date: 2025-08-18 11:27+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"PO-Revision-Date: 2026-01-28 17:01+0200\n"
+"Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.07.90\n"
+"X-Generator: Lokalize 25.12.1\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -959,7 +959,7 @@ msgstr "Состояние перевода"
 #, kde-format
 msgctxt "@title:column"
 msgid "Modified"
-msgstr ""
+msgstr "Изменён"
 
 #: src/cataloglistview/catalogmodel.cpp:106
 #, fuzzy, kde-format
@@ -1000,18 +1000,16 @@ msgid "Untranslated"
 msgstr "Без перевода"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr "да"
+msgstr "Да"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "Отсутствует"
+msgstr "Нет"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format
