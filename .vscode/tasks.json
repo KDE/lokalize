@@ -26,11 +26,11 @@
             "type": "shell",
             "command": "kde-builder",
             "args": [
-                "--no-src",
-                "--no-include-dependencies",
-                "--debug",
                 "--run",
                 "lokalize"
+            ],
+            "dependsOn": [
+                "Build"
             ]
         }
     ]
