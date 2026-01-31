@@ -153,6 +153,10 @@ void CatalogView::slotNewEntryDisplayed(const DocPosition &pos)
     m_lastKnownDocPosition = pos.entry;
 }
 
+/*
+ * reads the current searchbox text
+ * if updated then updates the proxy model
+ */
 void CatalogView::setFilterRegExp()
 {
     QString expr = m_lineEdit->text();

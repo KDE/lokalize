@@ -53,13 +53,19 @@ public:
     // for wrapping
     short _maxLineLength{80};
 
-    std::list<int> _nonApprovedIndex;
-    std::list<int> _nonApprovedNonEmptyIndex;
-    std::list<int> _emptyIndex;
+    std::list<int> _nonApprovedIndex; ///< stores all unapproved entries
+    std::list<int> _nonApprovedNonEmptyIndex; ///< stores unapproved entries with  non-empty translation
+    std::list<int> _emptyIndex; ///< stores entries with empty translation
     std::list<int> _errorIndex;
 
     std::list<int> _bookmarkIndex;
 
+    /*
+     * Each element corresponds to a translation state and stores
+     * a list of entry indices currently in that state.
+     * Possible states include approved,unapproved,translated,untranslated etc
+     * @see Catalog::setState for how states are assigned to each entry.
+     */
     QVector<std::list<int>> _statesIndex;
 
     std::list<Catalog *> _altTransCatalogs;

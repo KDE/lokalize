@@ -329,7 +329,7 @@ private:
 
 private:
     Project *m_project{};
-    Catalog *m_catalog{};
+    Catalog *m_catalog{}; ///< holds the currently opened translation catalog and entry data
 
     EditorView *m_view{};
     QAction *m_approveAndGoAction{};
