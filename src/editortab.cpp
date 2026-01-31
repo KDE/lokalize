@@ -524,6 +524,10 @@ void EditorTab::setupActions()
     connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyUntrRequested, this, &EditorTab::gotoPrevFuzzyUntr);
     connect(this, &EditorTab::signalPriorFuzzyOrUntrAvailable, action, &QAction::setEnabled);
 
+    /**
+     * @brief Action to navigate to the next fuzzy or untranslated unit.
+     * @see gotoNextFuzzyUntr()
+     */
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",
                              i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Next Not Ready"),
                              Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageDown,
@@ -928,6 +932,7 @@ void EditorTab::gotoEntry(DocPosition pos)
 {
     return gotoEntry(pos, 0);
 }
+// validates the position and updates current position, emits signals to update UI
 void EditorTab::gotoEntry(DocPosition pos, int selection)
 {
     // specially for dbus users
@@ -1145,6 +1150,11 @@ bool EditorTab::gotoNextFuzzyUntr()
     return gotoNextFuzzyUntr(DocPosition());
 }
 
+/**
+ * From specified position, gets the next fuzzy and untranslated entry
+ * it gets that from the entire catalog instead of considering only filtered entries
+ * @return true on jumping to next unit using gotoEntry() and false if no such entries exist
+ */
 bool EditorTab::gotoNextFuzzyUntr(const DocPosition &p)
 {
     int index = (p.entry == -1) ? m_currentPos.entry : p.entry;

@@ -332,6 +332,10 @@ void Catalog::setActivePhase(const QString &phase, ProjectLocal::PersonRole role
     Q_EMIT activePhaseChanged();
 }
 
+/**
+ * @see nextFuzzyIndex() nextUntranslatedIndex() findNextInList()
+ * it maintains lists which are used by above mentioned methods
+ */
 void Catalog::updateApprovedEmptyIndexCache()
 {
     if (Q_UNLIKELY(!m_storage))
@@ -911,6 +915,7 @@ bool Catalog::isModified(int entry) const
 
 // END UNDO/REDO
 
+// from the passed list, gets next entry relative to passed index
 int findNextInList(const std::list<int> &list, int index)
 {
     int nextIndex = -1;

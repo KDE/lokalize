@@ -267,6 +267,7 @@ void CatalogView::setMergeCatalogPointer(MergeCatalog *pointer)
     m_proxyModel->setMergeCatalogPointer(pointer);
 }
 
+// maps proxy to source row
 int CatalogView::siblingEntryNumber(int step)
 {
     QModelIndex item = m_browser->currentIndex();

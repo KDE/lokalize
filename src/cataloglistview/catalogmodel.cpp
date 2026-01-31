@@ -291,6 +291,7 @@ void CatalogTreeFilterModel::setFilterOptions(int o)
     invalidateFilter();
 }
 
+// contains the filter logic for what entries are to be displayed
 bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     int filerOptions = m_filterOptions;
