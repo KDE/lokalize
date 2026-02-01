@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-26 00:45+0000\n"
+"POT-Creation-Date: 2026-02-01 00:46+0000\n"
 "PO-Revision-Date: 2025-12-13 13:39+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: \n"
@@ -815,90 +815,90 @@ msgstr "Acceptă expresiile regulate"
 msgid "Options"
 msgstr "opțiuni"
 
-#: src/cataloglistview/cataloglistview.cpp:198
+#: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Reinițializează filtrul individual"
 
-#: src/cataloglistview/cataloglistview.cpp:203 src/tm/tmtab.cpp:362
+#: src/cataloglistview/cataloglistview.cpp:207 src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Case insensitive"
 msgstr "Insensibil la majuscule"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:204 src/findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:208 src/findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Ignoră marcajele acceleratorilor"
 
-#: src/cataloglistview/cataloglistview.cpp:205
+#: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
 msgid "Ready"
 msgstr "Gata"
 
-#: src/cataloglistview/cataloglistview.cpp:206
+#: src/cataloglistview/cataloglistview.cpp:210
 #, kde-format
 msgid "Non-ready"
 msgstr "Nerevizuit"
 
-#: src/cataloglistview/cataloglistview.cpp:207
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgid "Non-empty"
 msgstr "Nevid"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:212
 #, kde-format
 msgid "Empty"
 msgstr "Vid"
 
-#: src/cataloglistview/cataloglistview.cpp:209
+#: src/cataloglistview/cataloglistview.cpp:213
 #, kde-format
 msgid "Changed since file open"
 msgstr "Modificat după deschiderea fișierului"
 
-#: src/cataloglistview/cataloglistview.cpp:210
+#: src/cataloglistview/cataloglistview.cpp:214
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Nemodificat după deschiderea fișierului"
 
-#: src/cataloglistview/cataloglistview.cpp:211
+#: src/cataloglistview/cataloglistview.cpp:215
 #, kde-format
 msgid "Same in sync file"
 msgstr "Aceleași în fișierul de sincronizare"
 
-#: src/cataloglistview/cataloglistview.cpp:212
+#: src/cataloglistview/cataloglistview.cpp:216
 #, kde-format
 msgid "Different in sync file"
 msgstr "Diferite în fișierul de sincronizare"
 
-#: src/cataloglistview/cataloglistview.cpp:213
+#: src/cataloglistview/cataloglistview.cpp:217
 #, kde-format
 msgid "Not in sync file"
 msgstr "Lipsesc în fișierul de sincronizare"
 
-#: src/cataloglistview/cataloglistview.cpp:214
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgid "Plural"
 msgstr "Plural"
 
-#: src/cataloglistview/cataloglistview.cpp:215
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgid "Non-plural"
 msgstr "Non-plural"
 
-#: src/cataloglistview/cataloglistview.cpp:220
+#: src/cataloglistview/cataloglistview.cpp:224
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "De bază"
 
-#: src/cataloglistview/cataloglistview.cpp:221
+#: src/cataloglistview/cataloglistview.cpp:225
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Stări"
 
-#: src/cataloglistview/cataloglistview.cpp:223
+#: src/cataloglistview/cataloglistview.cpp:227
 #, fuzzy, kde-format
 #| msgctxt "@title:inmenu"
 #| msgid "Searchable column"
@@ -906,7 +906,7 @@ msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
 msgstr "Coloană consultabilă"
 
-#: src/cataloglistview/cataloglistview.cpp:227
+#: src/cataloglistview/cataloglistview.cpp:231
 #, fuzzy, kde-format
 #| msgctxt "@title:inmenu"
 #| msgid "Resort and refilter on content change"
@@ -914,7 +914,7 @@ msgctxt "@title:inmenu"
 msgid "Re-sort and refilter on content change"
 msgstr "Resortează și refiltrează la schimbări de conținut"
 
-#: src/cataloglistview/cataloglistview.cpp:247
+#: src/cataloglistview/cataloglistview.cpp:251
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -987,8 +987,8 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
 msgstr "Lungimea țintei"
 
-#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:1009
-#: src/editortab.cpp:1203 src/tm/tmtab.cpp:233
+#: src/cataloglistview/catalogmodel.cpp:144 src/editortab.cpp:1014
+#: src/editortab.cpp:1213 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
@@ -1002,7 +1002,7 @@ msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs Review"
 msgstr "Necesită revizuire"
 
-#: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:1007
+#: src/cataloglistview/catalogmodel.cpp:148 src/editortab.cpp:1012
 #: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
@@ -1326,7 +1326,7 @@ msgctxt ""
 msgid "Previous Not Ready"
 msgstr "Precedentul nerevizuit"
 
-#: src/editortab.cpp:528 src/project/projecttab.cpp:94
+#: src/editortab.cpp:532 src/project/projecttab.cpp:94
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "@action:inmenu\n"
@@ -1338,13 +1338,13 @@ msgctxt ""
 msgid "Next Not Ready"
 msgstr "Următorul nerevizuit"
 
-#: src/editortab.cpp:537
+#: src/editortab.cpp:541
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Focusează linia de căutare al ferestrei cu unități de traducere"
 
-#: src/editortab.cpp:541
+#: src/editortab.cpp:545
 #, fuzzy, kde-format
 #| msgctxt "@option:check"
 #| msgid "Bookmark message"
@@ -1352,7 +1352,7 @@ msgctxt "@option:check"
 msgid "Bookmark Message"
 msgstr "Pune semn de carte la mesaj"
 
-#: src/editortab.cpp:546
+#: src/editortab.cpp:550
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Previous bookmark"
@@ -1360,7 +1360,7 @@ msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
 msgstr "Semnul de carte precedent"
 
-#: src/editortab.cpp:550
+#: src/editortab.cpp:554
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Next bookmark"
@@ -1368,25 +1368,25 @@ msgctxt "@action:inmenu"
 msgid "Next Bookmark"
 msgstr "Semnul de carte următor"
 
-#: src/editortab.cpp:558
+#: src/editortab.cpp:562
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "Inserează toate sugestiile exacte"
 
-#: src/editortab.cpp:563
+#: src/editortab.cpp:567
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Inserează toate sugestiile exacte și marchează ca aproximativ"
 
-#: src/editortab.cpp:571
+#: src/editortab.cpp:575
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Deschide fișier pentru sincronizare/fuzionare"
 
-#: src/editortab.cpp:572 src/editortab.cpp:631
+#: src/editortab.cpp:576 src/editortab.cpp:635
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1396,7 +1396,7 @@ msgstr ""
 "Deschide un catalog pentru fuzionare cu cel actual / reprodu modificările "
 "fișierului de bază în"
 
-#: src/editortab.cpp:578 src/editortab.cpp:637
+#: src/editortab.cpp:582 src/editortab.cpp:641
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Previous different"
@@ -1404,7 +1404,7 @@ msgctxt "@action:inmenu"
 msgid "Previous Different"
 msgstr "Diferența precedentă"
 
-#: src/editortab.cpp:580 src/editortab.cpp:639
+#: src/editortab.cpp:584 src/editortab.cpp:643
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1414,7 +1414,7 @@ msgstr ""
 "Înregistrarea precedentă care este tradusă diferit în fișierul fuzionat, "
 "incluzând mesajele netraduse din sursa fuziunii"
 
-#: src/editortab.cpp:589 src/editortab.cpp:646
+#: src/editortab.cpp:593 src/editortab.cpp:650
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Next different"
@@ -1422,7 +1422,7 @@ msgctxt "@action:inmenu"
 msgid "Next Different"
 msgstr "Diferența următoare"
 
-#: src/editortab.cpp:591 src/editortab.cpp:648
+#: src/editortab.cpp:595 src/editortab.cpp:652
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1432,7 +1432,7 @@ msgstr ""
 "Înregistrarea următoare care este tradusă diferit în fișierul fuzionat, "
 "incluzând mesajele netraduse din sursa fuziunii"
 
-#: src/editortab.cpp:599
+#: src/editortab.cpp:603
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Next different approved"
@@ -1440,44 +1440,44 @@ msgctxt "@action:inmenu"
 msgid "Next Different Approved"
 msgstr "Următoarea diferență aprobată"
 
-#: src/editortab.cpp:605 src/editortab.cpp:655
+#: src/editortab.cpp:609 src/editortab.cpp:659
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Copiază din sursa fuziunii"
 
-#: src/editortab.cpp:612 src/editortab.cpp:660
+#: src/editortab.cpp:616 src/editortab.cpp:664
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Copiază toate traducerile noi"
 
-#: src/editortab.cpp:613
+#: src/editortab.cpp:617
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr ""
 "Aceasta modifică numai mesajele vide și cele neterminate în fișierul de bază"
 
-#: src/editortab.cpp:621 src/editortab.cpp:667
+#: src/editortab.cpp:625 src/editortab.cpp:671
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Copiază în sursa fuzionării"
 
-#: src/editortab.cpp:630
+#: src/editortab.cpp:634
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "Deschide fișier pentru sincronizare secundară"
 
-#: src/editortab.cpp:661
+#: src/editortab.cpp:665
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Aceasta modifică numai mesajele vide"
 
-#: src/editortab.cpp:690
+#: src/editortab.cpp:694
 #, fuzzy, kde-format
 #| msgctxt "editor tab name"
 #| msgid "(recovered)"
@@ -1485,7 +1485,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(recuperat)"
 
-#: src/editortab.cpp:719 src/lokalizemainwindow.cpp:1081
+#: src/editortab.cpp:723 src/lokalizemainwindow.cpp:1081
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1495,38 +1495,38 @@ msgstr ""
 "Documentul conține modificări nesalvate.\n"
 "Le salvați sau le respingeți?"
 
-#: src/editortab.cpp:721 src/editortab.cpp:1308 src/lokalizemainwindow.cpp:1061
+#: src/editortab.cpp:725 src/editortab.cpp:1318 src/lokalizemainwindow.cpp:1061
 #: src/lokalizemainwindow.cpp:1083
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Avertisment"
 
-#: src/editortab.cpp:741 src/mergemode/mergeview.cpp:166
+#: src/editortab.cpp:745 src/mergemode/mergeview.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Alegeți fișierul cu traduceri"
 
-#: src/editortab.cpp:826
+#: src/editortab.cpp:830
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Eroare la deschiderea fișierului %1, linia: %2"
 
-#: src/editortab.cpp:828
+#: src/editortab.cpp:832
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Eroare la deschiderea fișierului %1"
 
-#: src/editortab.cpp:836
+#: src/editortab.cpp:840
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Salvează fișierul ca"
 
-#: src/editortab.cpp:865
+#: src/editortab.cpp:869
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1536,13 +1536,13 @@ msgstr ""
 "Eroare la salvarea fișierului %1\n"
 "Doriți să salvați în alt fișier sau renunțați?"
 
-#: src/editortab.cpp:868
+#: src/editortab.cpp:872
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Eroare"
 
-#: src/editortab.cpp:878
+#: src/editortab.cpp:882
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1552,73 +1552,73 @@ msgstr ""
 "Nu s-a putut salva automat fișierul.\n"
 "Fișierul țintă a fost %1."
 
-#: src/editortab.cpp:915
+#: src/editortab.cpp:919
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Salt la înregistrare"
 
-#: src/editortab.cpp:916
+#: src/editortab.cpp:920
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Introduceți numărul înregistrării:"
 
-#: src/editortab.cpp:1011 src/editortab.cpp:1198 src/tm/tmtab.cpp:234
+#: src/editortab.cpp:1016 src/editortab.cpp:1208 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Necesită revizuire"
 
-#: src/editortab.cpp:1179
+#: src/editortab.cpp:1189
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Tradus"
 
-#: src/editortab.cpp:1180
+#: src/editortab.cpp:1190
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Deconectat"
 
-#: src/editortab.cpp:1181
+#: src/editortab.cpp:1191
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Aprobat"
 
-#: src/editortab.cpp:1182
+#: src/editortab.cpp:1192
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Traducerea este terminată (deși mai trebuie revizuită)"
 
-#: src/editortab.cpp:1183
+#: src/editortab.cpp:1193
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Traducerea a primit o recenzie pozitivă"
 
-#: src/editortab.cpp:1184
+#: src/editortab.cpp:1194
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Înregistrarea este complet localizată (adică finală)"
 
-#: src/editortab.cpp:1284 src/project/projecttab.cpp:297
+#: src/editortab.cpp:1294 src/project/projecttab.cpp:297
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "O verificare Pology e în curs deja."
 
-#: src/editortab.cpp:1284 src/editortab.cpp:1292 src/editortab.cpp:1296
+#: src/editortab.cpp:1294 src/editortab.cpp:1302 src/editortab.cpp:1306
 #: src/project/projecttab.cpp:297 src/project/projecttab.cpp:305
 #: src/project/projecttab.cpp:309
 #, kde-format
 msgid "Pology error"
 msgstr "Eroare Pology"
 
-#: src/editortab.cpp:1292 src/project/projecttab.cpp:305
+#: src/editortab.cpp:1302 src/project/projecttab.cpp:305
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1627,17 +1627,17 @@ msgstr ""
 "Verificarea Pology s-a prăbușit pe neașteptate:\n"
 "%1"
 
-#: src/editortab.cpp:1294 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1304 src/project/projecttab.cpp:307
 #, kde-format
 msgid "Pology success"
 msgstr "Succes Pology"
 
-#: src/editortab.cpp:1294
+#: src/editortab.cpp:1304
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Verificarea Pology a reușit."
 
-#: src/editortab.cpp:1296 src/project/projecttab.cpp:309
+#: src/editortab.cpp:1306 src/project/projecttab.cpp:309
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1646,7 +1646,7 @@ msgstr ""
 "Verificarea Pology a întors o eroare:\n"
 "%1"
 
-#: src/editortab.cpp:1306
+#: src/editortab.cpp:1316
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1656,26 +1656,26 @@ msgstr ""
 "Aceasta va șterge toate traducerile din fișier.\n"
 "Sigur doriți să curățați toate înregistrările traduse?"
 
-#: src/editortab.cpp:1344
+#: src/editortab.cpp:1354
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Cuvinte în textul sursă: %1<br/>Cuvinte în textul destinație: %2"
 
-#: src/editortab.cpp:1345
+#: src/editortab.cpp:1355
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Contor de cuvinte"
 
-#: src/editortab.cpp:1435
+#: src/editortab.cpp:1445
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Doriți să căutați fișierul sursă local sau pe lxr.kde.org?"
 
-#: src/editortab.cpp:1436
+#: src/editortab.cpp:1446
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Source file lookup"
@@ -1683,27 +1683,27 @@ msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Căutare fișier sursă"
 
-#: src/editortab.cpp:1437
+#: src/editortab.cpp:1447
 #, fuzzy, kde-format
 #| msgid "Locally"
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Local"
 
-#: src/editortab.cpp:1438 src/editortab.cpp:1482
+#: src/editortab.cpp:1448 src/editortab.cpp:1492
 #, fuzzy, kde-format
 #| msgid "lxr.kde.org"
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1441 src/editortab.cpp:1486
+#: src/editortab.cpp:1451 src/editortab.cpp:1496
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr ""
 "Alegeți dosarul de bază al proiectului pentru căutarea fișierelor sursă"
 
-#: src/editortab.cpp:1478
+#: src/editortab.cpp:1488
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1713,20 +1713,20 @@ msgstr ""
 "Nu s-a găsit fișier sursă în dosarul specificat.\n"
 "Doriți să schimbați dosarul fișierelor sursă?"
 
-#: src/editortab.cpp:1480
+#: src/editortab.cpp:1490
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Căutare fișier sursă"
 
-#: src/editortab.cpp:1481
+#: src/editortab.cpp:1491
 #, fuzzy, kde-format
 #| msgid "Select a folder:"
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Alegeți un dosar:"
 
-#: src/editortab.cpp:1523
+#: src/editortab.cpp:1533
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid ""
@@ -1745,33 +1745,33 @@ msgstr ""
 "exemple de scripturi și pentru modul de integrare a lor în proiectul "
 "dumneavoastră."
 
-#: src/editortab.cpp:1537 src/project/project.cpp:399
+#: src/editortab.cpp:1547 src/project/project.cpp:399
 #: src/project/project.cpp:404
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instalați pachetul cu unelte de traducere și reîncercați"
 
-#: src/editortab.cpp:1542
+#: src/editortab.cpp:1552
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Instalați pachetul translate-toolkit și reîncercați."
 
-#: src/editortab.cpp:1550
+#: src/editortab.cpp:1560
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Alegeți OpenDocument original pe care e bazat fișierul XLIFF actual"
 
-#: src/editortab.cpp:1552 src/project/project.cpp:409
+#: src/editortab.cpp:1562 src/project/project.cpp:409
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Fișiere OpenDocument (*.odt *.ods)"
 
-#: src/editortab.cpp:1596
+#: src/editortab.cpp:1606
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Instalați pachetul python-uno pentru funcționalitate suplimentară."
 
-#: src/editortab.cpp:1719
+#: src/editortab.cpp:1729
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
