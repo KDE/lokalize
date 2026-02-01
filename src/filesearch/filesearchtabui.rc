@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="FileSearch" version="0">
+<gui name="FileSearch" version="1">
 <MenuBar>
-  <Menu name="tools">
+  <Menu name="tools" index="6">
     <Action name="showfilelist_action"/>
     <Separator/>
     <MergeLocal/>
+  </Menu>
+  <Menu name="edit" index="2"><text>&amp;Edit</text>
+  </Menu>
+  <Menu name="go" index="3"><text>&amp;Go</text>
+  </Menu>
+  <Menu name="merge" index="5"><text>S&amp;ync</text>
   </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="LokalizeMainWindow" version="10">
+<gui name="LokalizeMainWindow" version="11">
 <MenuBar>
-  <Menu name="file"><text>&amp;File</text>
+  <Menu name="file" index="1"><text>&amp;File</text>
     <Action name="file_new"/>
     <MergeLocal name="new_merge"/>
     <Action name="file_open"/>
@@ -15,7 +15,7 @@
   </Menu>
 
   <Merge/>
-  <Menu name="project"><text>&amp;Project</text>
+  <Menu name="project" index="4"><text>&amp;Project</text>
     <Action name="project_overview"/>
     <Action name="project_configure"/>
     <Separator/>
@@ -31,7 +31,7 @@
     <Menu name="project_actions"><text>&amp;Scripts</text>
     </Menu>-->
   </Menu>
-  <Menu name="tools">
+  <Menu name="tools" index="6">
     <MergeLocal name="tools_spelling_merge"/>
     <Separator/>
     <Action name="tools_filesearch"/>
@@ -45,12 +45,21 @@
     <Action name="tools_tm_manage"/>
     <Merge/>
   </Menu>
-  <Menu name="settings">
+  <Menu name="settings" index="7">
     <Action name="settings_style"/>
     <Action name="colorscheme_menu"/>
     <Menu name="toolviews"><text>Tool&amp;views</text>
     </Menu>
     <Merge/>
+  </Menu>
+  <Menu name="edit" index="2"><text>&amp;Edit</text>
+    <MergeLocal/>
+  </Menu>
+  <Menu name="go" index="3"><text>&amp;Go</text>
+    <MergeLocal/>
+  </Menu>
+  <Menu name="merge" index="5"><text>S&amp;ync</text>
+    <MergeLocal/>
   </Menu>
 </MenuBar>
 <!--<State name="po" >
