@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-01 00:46+0000\n"
+"POT-Creation-Date: 2026-02-02 00:46+0000\n"
 "PO-Revision-Date: 2026-01-26 15:27+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -1712,62 +1712,68 @@ msgid "&File"
 msgstr "&File"
 
 #. i18n: ectx: Menu (edit)
-#: src/editorui.rc:37 src/project/projectmanagerui.rc:22
+#: src/editorui.rc:37 src/filesearch/filesearchtabui.rc:10
+#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:22
+#: src/tm/translationmemoryrui.rc:10
 #, kde-format
 msgid "&Edit"
 msgstr "&Modifica"
 
 #. i18n: ectx: Menu (glossary)
-#: src/editorui.rc:71
+#: src/editorui.rc:72
 #, kde-format
 msgid "&Glossary"
 msgstr "&Glossario"
 
 #. i18n: ectx: Menu (tmquery)
-#: src/editorui.rc:97
+#: src/editorui.rc:98
 #, kde-format
 msgid "Translation &Memory"
 msgstr "&Memoria de Traduction"
 
 #. i18n: ectx: Menu (alttrans)
-#: src/editorui.rc:128
+#: src/editorui.rc:129
 #, kde-format
 msgid "Alternate Translations"
 msgstr "Traductiones alterne"
 
 #. i18n: ectx: Menu (go)
-#: src/editorui.rc:146 src/project/projectmanagerui.rc:5
+#: src/editorui.rc:147 src/filesearch/filesearchtabui.rc:12
+#: src/lokalizemainwindowui.rc:58 src/project/projectmanagerui.rc:5
+#: src/tm/translationmemoryrui.rc:12
 #, kde-format
 msgid "&Go"
 msgstr "&Vade"
 
 #. i18n: ectx: Menu (bookmarks)
-#: src/editorui.rc:176
+#: src/editorui.rc:177
 #, kde-format
 msgid "&Bookmarks"
 msgstr "&Marcatores de libro"
 
 #. i18n: ectx: Menu (merge)
-#: src/editorui.rc:183
+#: src/editorui.rc:184 src/filesearch/filesearchtabui.rc:14
+#: src/lokalizemainwindowui.rc:61 src/project/projectmanagerui.rc:25
+#: src/tm/translationmemoryrui.rc:14
 #, kde-format
 msgid "S&ync"
 msgstr "S&ync"
 
 #. i18n: ectx: Menu (mergesecondary)
-#: src/editorui.rc:193
+#: src/editorui.rc:194
 #, kde-format
 msgid "&Secondary sync source"
 msgstr "Fonte de sync &Secundari"
 
 #. i18n: ectx: Menu (toolviews)
-#: src/editorui.rc:213 src/lokalizemainwindowui.rc:51
+#: src/editorui.rc:214 src/lokalizemainwindowui.rc:51
 #, kde-format
 msgid "Tool&views"
 msgstr "&Vistas de instrumento"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/editorui.rc:235 src/filesearch/filesearchtabui.rc:11
-#: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
+#: src/editorui.rc:236 src/filesearch/filesearchtabui.rc:17
+#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Barra de instrumento principal"

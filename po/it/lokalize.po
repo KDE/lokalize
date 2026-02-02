@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-01 00:46+0000\n"
-"PO-Revision-Date: 2026-01-05 14:29+0100\n"
+"POT-Creation-Date: 2026-02-02 00:46+0000\n"
+"PO-Revision-Date: 2026-01-27 12:23+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1717,62 +1717,68 @@ msgid "&File"
 msgstr "&File"
 
 #. i18n: ectx: Menu (edit)
-#: src/editorui.rc:37 src/project/projectmanagerui.rc:22
+#: src/editorui.rc:37 src/filesearch/filesearchtabui.rc:10
+#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:22
+#: src/tm/translationmemoryrui.rc:10
 #, kde-format
 msgid "&Edit"
 msgstr "&Modifica"
 
 #. i18n: ectx: Menu (glossary)
-#: src/editorui.rc:71
+#: src/editorui.rc:72
 #, kde-format
 msgid "&Glossary"
 msgstr "&Glossario"
 
 #. i18n: ectx: Menu (tmquery)
-#: src/editorui.rc:97
+#: src/editorui.rc:98
 #, kde-format
 msgid "Translation &Memory"
 msgstr "&Memoria di traduzione"
 
 #. i18n: ectx: Menu (alttrans)
-#: src/editorui.rc:128
+#: src/editorui.rc:129
 #, kde-format
 msgid "Alternate Translations"
 msgstr "Traduzioni alternative"
 
 #. i18n: ectx: Menu (go)
-#: src/editorui.rc:146 src/project/projectmanagerui.rc:5
+#: src/editorui.rc:147 src/filesearch/filesearchtabui.rc:12
+#: src/lokalizemainwindowui.rc:58 src/project/projectmanagerui.rc:5
+#: src/tm/translationmemoryrui.rc:12
 #, kde-format
 msgid "&Go"
 msgstr "&Vai"
 
 #. i18n: ectx: Menu (bookmarks)
-#: src/editorui.rc:176
+#: src/editorui.rc:177
 #, kde-format
 msgid "&Bookmarks"
 msgstr "&Segnalibri"
 
 #. i18n: ectx: Menu (merge)
-#: src/editorui.rc:183
+#: src/editorui.rc:184 src/filesearch/filesearchtabui.rc:14
+#: src/lokalizemainwindowui.rc:61 src/project/projectmanagerui.rc:25
+#: src/tm/translationmemoryrui.rc:14
 #, kde-format
 msgid "S&ync"
 msgstr "S&incronizzazione"
 
 #. i18n: ectx: Menu (mergesecondary)
-#: src/editorui.rc:193
+#: src/editorui.rc:194
 #, kde-format
 msgid "&Secondary sync source"
 msgstr "&Sorgente di sincronizzazione secondaria"
 
 #. i18n: ectx: Menu (toolviews)
-#: src/editorui.rc:213 src/lokalizemainwindowui.rc:51
+#: src/editorui.rc:214 src/lokalizemainwindowui.rc:51
 #, kde-format
 msgid "Tool&views"
 msgstr "&Viste degli strumenti"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/editorui.rc:235 src/filesearch/filesearchtabui.rc:11
-#: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
+#: src/editorui.rc:236 src/filesearch/filesearchtabui.rc:17
+#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Barra degli strumenti principale"
@@ -2119,15 +2125,7 @@ msgid "No errors"
 msgstr "Nessun errore"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2135,19 +2133,17 @@ msgid ""
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
 "which you can participate.</html>"
 msgstr ""
-"<html>Non c'è bisogno di essere uno sviluppatore di software per far parte "
-"della squadra di KDE. Puoi unirti ai gruppi linguistici che traducono le "
-"interfacce dei programmi. Puoi creare grafica, temi e suoni o migliorare la "
-"documentazione. Decidi tu!<br /><br/>Visita <a href=\"%1\">%1</a> per "
-"informazioni sui progetti a cui puoi partecipare.<br /><br />Se hai bisogno "
-"di ulteriori informazioni o di documentazione, una visita a <a href=\"%2\"> "
-"%2</a> ti darà tutto ciò di cui hai bisogno.</html>"
+"<html>Non devi essere uno sviluppatore di software per essere un membro "
+"della squadra di KDE. Puoi unirti alle squadre di localizzazione che "
+"traducono le interfacce dei programmi. Puoi produrre lavori grafici, temi, "
+"suoni, e migliorare la documentazione. Sei tu che decidi!.<br /><br />Visita "
+"<a href=\"%1\">%1</a> per informazioni su alcuni progetti a cui puoi "
+"partecipare.</html>"
 
 #: src/lokalizemainwindow.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "&Configura Lokalize"
+msgstr "&Configura Lokalize…"
 
 #: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
@@ -2157,20 +2153,16 @@ msgid "Open Project…"
 msgstr "Apri progetto…"
 
 #: src/lokalizemainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate Software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "Traduci software"
+msgstr "Traduci software…"
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "Traduci OpenDocument"
+msgstr "Traduci OpenDocument…"
 
 #: src/lokalizemainwindow.cpp:180
 #, kde-format
@@ -2872,17 +2864,13 @@ msgid "Project Required"
 msgstr "Progetto richiesto"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "Crea progetto"
+msgstr "Crea progetto…"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project…"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
 msgstr "Apri progetto…"
@@ -4146,17 +4134,15 @@ msgstr "Aggiungi dati"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "Aggiungi dati da TMX"
+msgstr "Aggiungi dati da TMX…"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "Esporta come TMX"
+msgstr "Esporta come TMX…"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #: src/tm/managedatabases.ui:47
