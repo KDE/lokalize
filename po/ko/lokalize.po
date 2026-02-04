@@ -1,14 +1,14 @@
 # Translation of kaider to Korean.
 # Copyright (C) 2007 This_file_is_part_of_KDE
 # This file is distributed under the same license as the extragear-sdk package.
-# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2014, 2015, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2014, 2015, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-02 00:46+0000\n"
-"PO-Revision-Date: 2025-10-09 01:07+0200\n"
+"PO-Revision-Date: 2026-02-04 00:01+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -694,9 +694,7 @@ msgid ""
 msgstr "새 POT 템플릿으로 전환할 때 Gettext에서 저장한 이전 원본 값"
 
 #: src/catalog/gettextheader.cpp:457
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author name missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr "번역자 이름 없음"
@@ -707,9 +705,7 @@ msgid "Your name:"
 msgstr "내 이름:"
 
 #: src/catalog/gettextheader.cpp:469
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author email missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
 msgstr "번역자 이메일 없음"
@@ -732,10 +728,9 @@ msgstr "번역 단위"
 
 #: src/cataloglistview/cataloglistview.cpp:80 src/glossary/glossarytab.cpp:124
 #: src/project/projecttab.cpp:59
-#, fuzzy, kde-format
-#| msgid "&Search"
+#, kde-format
 msgid "Search"
-msgstr "찾기(&S)"
+msgstr "검색"
 
 #: src/cataloglistview/cataloglistview.cpp:81 src/glossary/glossarytab.cpp:126
 #: src/project/projecttab.cpp:60
@@ -833,17 +828,13 @@ msgid "States"
 msgstr "상태"
 
 #: src/cataloglistview/cataloglistview.cpp:227
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Searchable column"
+#, kde-format
 msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
-msgstr "검색 가능한 열"
+msgstr "검색할 열"
 
 #: src/cataloglistview/cataloglistview.cpp:231
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Resort and refilter on content change"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Re-sort and refilter on content change"
 msgstr "내용 변경 시 다시 정렬하고 필터 다시 적용"
@@ -906,17 +897,13 @@ msgid "Modified"
 msgstr "수정됨"
 
 #: src/cataloglistview/catalogmodel.cpp:106
-#, fuzzy, kde-format
-#| msgctxt "@title:column Length of the original text"
-#| msgid "Source length"
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source Length"
 msgstr "원본 길이"
 
 #: src/cataloglistview/catalogmodel.cpp:108
-#, fuzzy, kde-format
-#| msgctxt "@title:column Length of the text in target language"
-#| msgid "Target length"
+#, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
 msgstr "대상 길이"
@@ -929,9 +916,7 @@ msgid "Ready"
 msgstr "준비"
 
 #: src/cataloglistview/catalogmodel.cpp:146
-#, fuzzy, kde-format
-#| msgctxt "@info:status 'fuzzy' in gettext terminology"
-#| msgid "Needs review"
+#, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs Review"
 msgstr "검토 필요함"
@@ -1019,28 +1004,22 @@ msgid "Insert alternate translation #%1"
 msgstr "대체 번역 #%1 삽입"
 
 #: src/editortab.cpp:237
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Note"
-msgstr "주석 추가"
+msgstr "메모 추가"
 
 #: src/editortab.cpp:246
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert translation memory suggestion #%1"
-msgstr "번역 메모리 제안 사용"
+msgstr "번역 메모리 제안 #%1 삽입"
 
 #: src/editortab.cpp:251
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove translation memory suggestion #%1"
-msgstr "번역 메모리 제안 사용"
+msgstr "번역 메모리 제안 #%1 삭제"
 
 #: src/editortab.cpp:304
 #, kde-format
@@ -1049,36 +1028,28 @@ msgid "Insert term translation #%1"
 msgstr "용어 번역 #%1 삽입"
 
 #: src/editortab.cpp:316
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define new term"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Define New Term"
 msgstr "새 단어 정의"
 
 #: src/editortab.cpp:350
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Phases..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases…"
 msgstr "단계..."
 
 #: src/editortab.cpp:353
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Word Count"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Word Count"
 msgstr "단어 개수"
 
 #: src/editortab.cpp:356
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear all translated entries"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear Translated Entries"
-msgstr "모든 번역된 항목 삭제"
+msgstr "번역된 항목 삭제"
 
 #: src/editortab.cpp:359
 #, kde-format
@@ -1093,9 +1064,7 @@ msgid "Merge translation into OpenDocument"
 msgstr "OpenDocument로 번역 합치기"
 
 #: src/editortab.cpp:383
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Change searching direction"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Change Searching Direction"
 msgstr "검색 방향 전환"
@@ -1109,33 +1078,25 @@ msgid "Approved"
 msgstr "승인됨"
 
 #: src/editortab.cpp:411
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Approve and go to next"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and Go Next"
 msgstr "승인하고 다음으로 이동"
 
 #: src/editortab.cpp:418
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Equivalent translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent Translation"
 msgstr "동등한 번역"
 
 #: src/editortab.cpp:429
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy source to target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source to Target"
 msgstr "원본을 대상으로 복사"
 
 #: src/editortab.cpp:432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Unwrap target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap Target"
 msgstr "대상 줄 바꿈 해제"
@@ -1207,9 +1168,7 @@ msgid "&Last Entry"
 msgstr "마지막 항목(&L)"
 
 #: src/editortab.cpp:491
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Entry by number"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by Number"
 msgstr "번호순 항목"
@@ -1231,27 +1190,19 @@ msgid "Next non-empty but not ready"
 msgstr "다음 번역되었지만 준비되지 않은 문자열"
 
 #: src/editortab.cpp:509 src/project/projecttab.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Untranslated"
 msgstr "이전 번역되지 않은 문자열"
 
 #: src/editortab.cpp:514 src/project/projecttab.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Untranslated"
 msgstr "다음 번역되지 않은 문자열"
 
 #: src/editortab.cpp:520 src/project/projecttab.cpp:88
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Previous not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -1259,11 +1210,7 @@ msgid "Previous Not Ready"
 msgstr "이전 준비되지 않은 문자열"
 
 #: src/editortab.cpp:532 src/project/projecttab.cpp:94
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Next not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -1277,28 +1224,22 @@ msgid "Focus the search line of Translation Units view"
 msgstr "번역 단위 보기의 검색 줄에 포커스 맞추기"
 
 #: src/editortab.cpp:545
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Bookmark message"
+#, kde-format
 msgctxt "@option:check"
 msgid "Bookmark Message"
 msgstr "책갈피에 메시지 추가"
 
 #: src/editortab.cpp:550
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
-msgstr "이전 책갈피 항목"
+msgstr "이전 책갈피"
 
 #: src/editortab.cpp:554
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Bookmark"
-msgstr "다음 책갈피 항목"
+msgstr "다음 책갈피"
 
 #: src/editortab.cpp:562
 #, no-c-format, kde-format
@@ -1327,9 +1268,7 @@ msgid ""
 msgstr "현재 카탈로그에 합칠 카탈로그 열기/기본 파일의 변경 사항 반영"
 
 #: src/editortab.cpp:582 src/editortab.cpp:641
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Different"
 msgstr "이전 다른 항목"
@@ -1343,9 +1282,7 @@ msgid ""
 msgstr "합쳐지는 파일에 없거나 다르게 번역된 이전 항목을 찾습니다"
 
 #: src/editortab.cpp:593 src/editortab.cpp:650
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different"
 msgstr "다음 다른 항목"
@@ -1359,12 +1296,10 @@ msgid ""
 msgstr "합쳐지는 파일에 없거나 다르게 번역된 다음 항목을 찾습니다"
 
 #: src/editortab.cpp:603
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different approved"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different Approved"
-msgstr "다음 승인된 항목"
+msgstr "다음 다른 승인된 항목"
 
 #: src/editortab.cpp:609 src/editortab.cpp:659
 #, kde-format
@@ -1904,10 +1839,9 @@ msgid "File List"
 msgstr "파일 목록"
 
 #: src/filesearch/filesearchtab.cpp:122
-#, fuzzy, kde-format
-#| msgid "Drop translation files here..."
+#, kde-format
 msgid "Drop translation files here…"
-msgstr "번역 파일을 여기에 끌어 놓으십시오..."
+msgstr "번역 파일을 여기에 끌어 놓으십시오…"
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
@@ -1916,12 +1850,10 @@ msgid "File"
 msgstr "파일"
 
 #: src/filesearch/filesearchtab.cpp:449
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search && Replace"
-msgstr "파일에서 찾아 바꾸기"
+msgstr "찾아 바꾸기"
 
 #: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
@@ -1939,16 +1871,13 @@ msgid "Open file"
 msgstr "파일 열기"
 
 #: src/filesearch/filesearchtab.cpp:518
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title actions category"
 msgid "Search && Replace"
-msgstr "파일에서 찾아 바꾸기"
+msgstr "찾아 바꾸기"
 
 #: src/filesearch/filesearchtab.cpp:723
-#, fuzzy, kde-format
-#| msgid "Mass Replace"
+#, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
 msgstr "대량으로 바꾸기"
@@ -2010,17 +1939,15 @@ msgid "Subject Field"
 msgstr "제목 필드"
 
 #: src/glossary/glossarytab.cpp:84
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
-msgstr "상용구"
+msgstr "용어집"
 
 #: src/glossary/glossarytab.cpp:109
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "저장"
 
 #: src/glossary/glossarytab.cpp:142
 #, kde-format
@@ -2137,15 +2064,7 @@ msgid "No errors"
 msgstr "오류 없음"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2157,39 +2076,31 @@ msgstr ""
 "페이스를 번역하는 각 언어 번역팀을 도울 수도 있습니다. 또한 그래픽, 테마, 소"
 "리, 더 나은 문서 등을 기여할 수도 있습니다. 직접 결정하십시오!<br /><br /><a "
 "href=\"%1\">%1</a> 페이지를 방문하셔서 참여할 수 있는 프로젝트를 찾아 보십시"
-"오.<br /><br />만약 더 많은 정보나 문서가 필요하다면, <a href=\"%2\">%2</a> "
-"사이트를 방문하셔서 원하는 정보를 찾으십시오.</html>"
+"오.</html>"
 
 #: src/lokalizemainwindow.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "Lokalize 설정(&C)"
+msgstr "Lokalize 설정(&C)…"
 
 #: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
-msgstr "프로젝트 열기"
+msgstr "프로젝트 열기…"
 
 #: src/lokalizemainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "소프트웨어 번역"
+msgstr "소프트웨어 번역…"
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "OpenDocument 번역"
+msgstr "OpenDocument 번역…"
 
 #: src/lokalizemainwindow.cpp:180
 #, kde-format
@@ -2198,10 +2109,9 @@ msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Qt SQL 모듈을 찾을 수 없습니다. 번역 메모리를 사용할 수 없습니다."
 
 #: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
-#, fuzzy, kde-format
-#| msgid "TM facility requires SQLite Qt module."
+#, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
-msgstr "TM 기능에는 SQLite Qt 모듈이 필요합니다."
+msgstr "번역 메모리 기능에는 SQLite Qt 모듈이 필요합니다."
 
 #: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
 #, kde-format
@@ -2221,26 +2131,22 @@ msgid "Project"
 msgstr "프로젝트"
 
 #: src/lokalizemainwindow.cpp:624
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Tab"
 msgstr "다음 탭"
 
 #: src/lokalizemainwindow.cpp:627
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Tab"
 msgstr "이전 탭"
 
 #: src/lokalizemainwindow.cpp:630
-#, fuzzy, kde-format
-#| msgid "Previously active tab"
+#, kde-format
 msgid "Previously Active Tab"
 msgstr "이전 활성화된 탭"
 
 #: src/lokalizemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Close current tab"
+#, kde-format
 msgid "Close Current Tab"
 msgstr "현재 탭 닫기"
 
@@ -2251,86 +2157,67 @@ msgid "Glossary"
 msgstr "상용구"
 
 #: src/lokalizemainwindow.cpp:645
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "번역 메모리"
 
 #: src/lokalizemainwindow.cpp:649 src/tm/tmtab.cpp:482
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Manage translation memories"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "번역 메모리 관리"
 
 #: src/lokalizemainwindow.cpp:653
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "프로젝트 개요"
 
 #: src/lokalizemainwindow.cpp:657
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Configure project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
-msgstr "프로젝트 설정..."
+msgstr "프로젝트 설정…"
 
 #: src/lokalizemainwindow.cpp:660
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create software translation project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
-msgstr "소프트웨어 번역 프로젝트 만들기..."
+msgstr "소프트웨어 번역 프로젝트 만들기…"
 
 #: src/lokalizemainwindow.cpp:663
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create OpenDocument translation project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr "OpenDocument 번역 프로젝트 만들기..."
+msgstr "OpenDocument 번역 프로젝트 만들기…"
 
 #: src/lokalizemainwindow.cpp:670
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "프로젝트 닫기"
 
 #: src/lokalizemainwindow.cpp:673
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "최근 프로젝트 열기"
 
 #: src/lokalizemainwindow.cpp:683
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
-msgstr "파일에서 찾아 바꾸기"
+msgstr "찾아 바꾸기"
 
 #: src/lokalizemainwindow.cpp:686
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
-msgstr ""
+msgstr "다음 찾아 바꾸기 항목으로 이동"
 
 #: src/lokalizemainwindow.cpp:690
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Widget Text Capture"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "위젯 텍스트 캡처"
@@ -2684,21 +2571,19 @@ msgstr "<b>주석:</b>"
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit…"
-msgstr ""
+msgstr "편집…"
 
 #: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add…"
-msgstr ""
+msgstr "추가…"
 
 #: src/noteeditor.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "link to add a note"
 msgid "Add a note…"
-msgstr "주석 추가"
+msgstr "주석 추가…"
 
 #: src/phaseswindow.cpp:144
 #, kde-format
@@ -2913,20 +2798,16 @@ msgid "Project Required"
 msgstr "프로젝트가 필요함"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "프로젝트 만들기"
+msgstr "프로젝트 만들기…"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
-msgstr "프로젝트 열기"
+msgstr "프로젝트 열기…"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
@@ -3819,9 +3700,7 @@ msgid "Translated"
 msgstr "번역됨"
 
 #: src/project/projectmodel.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@title:column Number of entries"
-#| msgid "Not ready"
+#, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr "준비되지 않음"
@@ -3869,41 +3748,31 @@ msgid "Project Overview"
 msgstr "프로젝트 개요"
 
 #: src/project/projecttab.cpp:124
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Template Only"
 msgstr "이전 템플릿만"
 
 #: src/project/projecttab.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Template Only"
 msgstr "다음 템플릿만"
 
 #: src/project/projecttab.cpp:135
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Translation Only"
 msgstr "이전 번역만"
 
 #: src/project/projecttab.cpp:138
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Translation Only"
 msgstr "다음 번역만"
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide completed items"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Completed Items"
 msgstr "완료된 항목 숨기기"
@@ -4149,17 +4018,15 @@ msgstr "데이터 추가"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "TMX에서 데이터 추가"
+msgstr "TMX에서 데이터 추가…"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "TMX로 내보내기"
+msgstr "TMX로 내보내기…"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #: src/tm/managedatabases.ui:47
@@ -4193,10 +4060,9 @@ msgstr "삭제"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/queryoptions.ui:32
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgid "Translation Memory:"
-msgstr "번역 메모리"
+msgstr "번역 메모리:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
@@ -4219,8 +4085,7 @@ msgstr "검색 표현식과 일치하지 않는 결과도 표시"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
-#, fuzzy, kde-format
-#| msgid "File mask:"
+#, kde-format
 msgid "File Mask:"
 msgstr "파일 마스크:"
 
@@ -4232,8 +4097,7 @@ msgstr "지정한 마스크와 일치하는 경로에 있는 파일만 표시"
 
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
-#, fuzzy, kde-format
-#| msgid "Query syntax:"
+#, kde-format
 msgid "Query Syntax:"
 msgstr "질의 문법:"
 
@@ -4249,10 +4113,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "&Rescan Project"
-msgstr "프로젝트 파일 재검사(&R)"
+msgstr "프로젝트 재검사(&R)"
 
 #: src/tm/tmmanager.cpp:34
 #, kde-format
@@ -4453,33 +4316,25 @@ msgid "File: %1<br />Addition date: %2"
 msgstr "파일: %1<br />추가한 날짜: %2"
 
 #: src/tm/tmview.cpp:581
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change date: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />마지막 변경 날짜: %1"
 
 #: src/tm/tmview.cpp:583
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change author: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />마지막 변경자: %1"
 
 #: src/tm/tmview.cpp:584
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translation memory"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Translation memory: %1"
-msgstr "번역 메모리"
+msgstr "<br />번역 메모리: %1"
 
 #: src/tm/tmview.cpp:586
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Is not present in the file anymore"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />파일에 더 이상 없음"
@@ -4511,9 +4366,7 @@ msgid "Open file containing this entry"
 msgstr "이 파일이 들어 있는 항목 열기"
 
 #: src/tm/tmview.cpp:662
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this missing file from TM"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from the translation memory"
 msgstr "번역 메모리에서 이 없는 파일 삭제"
