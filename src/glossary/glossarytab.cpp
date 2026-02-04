@@ -138,6 +138,8 @@ GlossaryTab::GlossaryTab(QWidget *parent)
         connect(rmBtn, &QPushButton::clicked, this, qOverload<>(&GlossaryTab::rmTermEntry));
         KGuiItem::assign(addBtn, KStandardGuiItem::add());
         KGuiItem::assign(rmBtn, KStandardGuiItem::remove());
+        addBtn->setToolTip(i18nc("@info:tooltip", "Add new glossary entry"));
+        rmBtn->setToolTip(i18nc("@info:tooltip", "Remove selected glossary entry"));
 
         QPushButton *restoreBtn = new QPushButton(i18nc("@action:button reloads glossary from disk", "Restore from disk"), w);
         restoreBtn->setToolTip(i18nc("@info:tooltip", "Reload glossary from disk, discarding any changes"));
@@ -174,10 +176,10 @@ GlossaryTab::GlossaryTab(QWidget *parent)
     ui_termEdit.sourceTermsView->setModel(m_sourceTermsModel);
     ui_termEdit.targetTermsView->setModel(m_targetTermsModel);
 
-    connect(ui_termEdit.addEngTerm, &QToolButton::clicked, ui_termEdit.sourceTermsView, &TermListView::addTerm);
-    connect(ui_termEdit.remEngTerm, &QToolButton::clicked, ui_termEdit.sourceTermsView, &TermListView::rmTerms);
-    connect(ui_termEdit.addTargetTerm, &QToolButton::clicked, ui_termEdit.targetTermsView, &TermListView::addTerm);
-    connect(ui_termEdit.remTargetTerm, &QToolButton::clicked, ui_termEdit.targetTermsView, &TermListView::rmTerms);
+    connect(ui_termEdit.addEngTerm, &QPushButton::clicked, ui_termEdit.sourceTermsView, &TermListView::addTerm);
+    connect(ui_termEdit.remEngTerm, &QPushButton::clicked, ui_termEdit.sourceTermsView, &TermListView::rmTerms);
+    connect(ui_termEdit.addTargetTerm, &QPushButton::clicked, ui_termEdit.targetTermsView, &TermListView::addTerm);
+    connect(ui_termEdit.remTargetTerm, &QPushButton::clicked, ui_termEdit.targetTermsView, &TermListView::rmTerms);
 
     m_sourceTermsView = ui_termEdit.sourceTermsView;
     m_targetTermsView = ui_termEdit.targetTermsView;

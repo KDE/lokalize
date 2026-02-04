@@ -15,22 +15,40 @@
     <layout class="QHBoxLayout" name="engTermHL">
      <item>
       <widget class="QLabel" name="label">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>English synonyms (double-click to edit):</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="addEngTerm">
+      <widget class="QPushButton" name="addEngTerm">
        <property name="text">
-        <string>+</string>
+        <string>Add</string>
+       </property>
+       <property name="toolTip">
+        <string>Add new source synonym</string>
+       </property>
+       <property name="icon">
+        <iconset theme="list-add"/>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="remEngTerm">
+      <widget class="QPushButton" name="remEngTerm">
        <property name="text">
-        <string>-</string>
+        <string>Remove</string>
+       </property>
+       <property name="toolTip">
+        <string>Remove selected source synonym</string>
+       </property>
+       <property name="icon">
+        <iconset theme="list-remove"/>
        </property>
       </widget>
      </item>
@@ -43,22 +61,40 @@
     <layout class="QHBoxLayout" name="targetTermHL">
      <item>
       <widget class="QLabel" name="l2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Corresponding target language synonyms:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="addTargetTerm">
+      <widget class="QPushButton" name="addTargetTerm">
        <property name="text">
-        <string>+</string>
+        <string>Add</string>
+       </property>
+       <property name="toolTip">
+        <string>Add new target synonym</string>
+       </property>
+       <property name="icon">
+        <iconset theme="list-add"/>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="remTargetTerm">
+      <widget class="QPushButton" name="remTargetTerm">
        <property name="text">
-        <string>-</string>
+        <string>Remove</string>
+       </property>
+       <property name="toolTip">
+        <string>Remove selected target synonym</string>
+       </property>
+       <property name="icon">
+        <iconset theme="list-remove"/>
        </property>
       </widget>
      </item>
