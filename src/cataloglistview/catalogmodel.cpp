@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2026      Navya Sai Sadu <navyas.sadu@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -203,9 +204,7 @@ QVariant CatalogTreeModel::data(const QModelIndex &index, int role) const
 
     switch (column) {
     case CatalogModelColumns::IsModified:
-        return m_catalog->isModified(index.row())
-            ? i18nc("@info:status", "Yes")
-            : i18nc("@info:status", "No");
+        return m_catalog->isModified(index.row()) ? i18nc("@info:status", "Yes") : i18nc("@info:status", "No");
     case CatalogModelColumns::Key:
         return index.row() + 1;
     case CatalogModelColumns::Source:
