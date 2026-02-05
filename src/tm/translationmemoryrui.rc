@@ -1,23 +1,27 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="TranslationMemory" version="4">
-<MenuBar>
-  <Menu name="tools" index="6">
-    <Action name="showqa_action"/>
-    <Separator/>
-    <MergeLocal/>
-  </Menu>
-  <Menu name="edit" index="2"><text>&amp;Edit</text>
-  </Menu>
-  <Menu name="go" index="3"><text>&amp;Go</text>
-  </Menu>
-  <Menu name="merge" index="5"><text>S&amp;ync</text>
-  </Menu>
-</MenuBar>
-<ToolBar name="mainToolBar"><text>Main Toolbar</text>
-  <Separator/>
-  <Action name="tools_tm_manage"/>
-  <Separator/>
-  <Action name="showqa_action"/>
-</ToolBar>
+    <MenuBar>
+        <Menu name="tools" index="6">
+            <Action name="showqa_action" />
+            <Separator />
+            <MergeLocal />
+        </Menu>
+        <Menu name="edit" index="2">
+            <text>&amp;Edit</text>
+        </Menu>
+        <Menu name="go" index="3">
+            <text>&amp;Go</text>
+        </Menu>
+        <Menu name="merge" index="5">
+            <text>S&amp;ync</text>
+        </Menu>
+    </MenuBar>
+    <ToolBar name="mainToolBar">
+        <text>Main Toolbar</text>
+        <Separator />
+        <Action name="tools_tm_manage" />
+        <Separator />
+        <Action name="showqa_action" />
+    </ToolBar>
 </gui>

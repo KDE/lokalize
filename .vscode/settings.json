@@ -1,0 +1,5 @@
+{
+    "xml.catalogs": [
+        "${workspaceFolder}/resources/xml/catalog.xml"
+    ]
+}

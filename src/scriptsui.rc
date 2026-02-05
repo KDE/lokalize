@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="Scripts" version="1">
-<MenuBar>
-  <Menu name="tools">
-    <Separator/>
-    <Action name="odf2xliff"/>
-    <Merge/>
-  </Menu>
-</MenuBar>
+    <MenuBar>
+        <Menu name="tools">
+            <Separator />
+            <Action name="odf2xliff" />
+            <Merge />
+        </Menu>
+    </MenuBar>
 </gui>

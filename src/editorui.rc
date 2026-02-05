@@ -1,258 +1,260 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="Editor" version="16">
-<MenuBar>
-  <Menu name="file"><text>&amp;File</text>
-    <Action name="file_new"/>
-    <MergeLocal name="new_merge"/>
-    <Action name="file_open"/>
-    <Action name="file_open_recent"/>
-    <MergeLocal name="open_merge"/>
-    <Separator/>
-    <Action name="file_save"/>
-    <Action name="file_save_as"/>
-    <Action name="file_save_all"/>
-    <MergeLocal name="save_merge"/>
-    <Action name="file_revert"/>
-    <Action name="file_revert_all"/>
-    <MergeLocal name="revert_merge"/>
-    <Separator/>
-    <Action name="file_print"/>
-    <Action name="file_print_preview"/>
-    <MergeLocal name="print_merge"/>
-    <Action name="file_mail"/>
-    <MergeLocal name="mail_merge"/>
-    <Separator/>
-    <Action name="file_pology"/>
-    <Action name="file_cleartarget"/>
-    <Action name="file_phases"/>
-    <Action name="file_wordcount"/>
-    <Action name="file_xliff2odf"/>
-    <MergeLocal/>
-    <Separator/>
-    <Action name="file_close"/>
-    <Action name="file_close_all"/>
-    <MergeLocal name="close_merge"/>
-  </Menu>
-  <Menu name="edit"><text>&amp;Edit</text>
-    <Action name="edit_undo"/>
-    <Action name="edit_redo"/>
-    <MergeLocal name="edit_undo_merge"/>
-    <Separator/>
-    <Action name="edit_cut"/>
-    <Action name="edit_copy"/>
-    <Action name="edit_paste"/>
-    <MergeLocal name="edit_paste_merge"/>
-    <Action name="edit_clear"/>
-    <Separator/>
-    <Action name="edit_select_all"/>
-    <Action name="edit_deselect"/>
-    <MergeLocal name="edit_select_merge"/>
-    <Separator/>
-    <Action name="edit_find"/>
-    <Action name="edit_find_next"/>
-    <Action name="edit_find_prev"/>
-    <Action name="edit_replace"/>
-    <MergeLocal name="edit_find_merge"/>
-    <Separator/>
-    <MergeLocal/>
-    <Action name="edit_approve"/>
-    <Action name="edit_approve_go_fuzzyUntr"/>
-    <Action name="edit_nonequiv"/>
-    <Action name="edit_msgid2msgstr"/>
-    <Action name="edit_unwrap-target"/>
-    <Action name="edit_clear-target"/>
-    <Action name="edit_completion"/>
-    <Action name="edit_tagmenu"/>
-    <Action name="edit_tagimmediate"/>
-    <Action name="edit_skiptags"/>
-    <Action name="edit_spellreplace"/>
-    <Action name="edit_languagetool"/>
-    <Action name="edit_addnote"/>
-    <Menu name="glossary"><text>&amp;Glossary</text>
-        <Action name="glossary_define"/>
-        <Separator/>
-        <Action name="glossary_insert_0"/>
-        <Action name="glossary_insert_1"/>
-        <Action name="glossary_insert_2"/>
-        <Action name="glossary_insert_3"/>
-        <Action name="glossary_insert_4"/>
-        <Action name="glossary_insert_5"/>
-        <Action name="glossary_insert_6"/>
-        <Action name="glossary_insert_7"/>
-        <Action name="glossary_insert_8"/>
-        <Action name="glossary_insert_9"/>
-        <Action name="glossary_insert_10"/>
-        <Action name="glossary_insert_11"/>
-        <Action name="glossary_insert_12"/>
-        <Action name="glossary_insert_13"/>
-        <Action name="glossary_insert_14"/>
-        <Action name="glossary_insert_15"/>
-        <Action name="glossary_insert_16"/>
-        <Action name="glossary_insert_17"/>
-        <Action name="glossary_insert_18"/>
-        <Action name="glossary_insert_19"/>
-        <Action name="glossary_insert_20"/>
-    </Menu>
-    <!-- </Menu> -->
-    <Menu name="tmquery"><text>Translation &amp;Memory</text>
-        <Action name="tmquery_do"/>
-        <Separator/>
-        <Action name="tmquery_insert_0"/>
-        <Action name="tmquery_insert_1"/>
-        <Action name="tmquery_insert_2"/>
-        <Action name="tmquery_insert_3"/>
-        <Action name="tmquery_insert_4"/>
-        <Action name="tmquery_insert_5"/>
-        <Action name="tmquery_insert_6"/>
-        <Action name="tmquery_insert_7"/>
-        <Action name="tmquery_insert_8"/>
-        <Action name="tmquery_insert_9"/>
-        <Action name="tmquery_insert_10"/>
-        <Action name="tmquery_insert_11"/>
-        <Action name="tmquery_insert_12"/>
-        <Separator/>
-        <Action name="tmquery_remove_0"/>
-        <Action name="tmquery_remove_1"/>
-        <Action name="tmquery_remove_2"/>
-        <Action name="tmquery_remove_3"/>
-        <Action name="tmquery_remove_4"/>
-        <Action name="tmquery_remove_5"/>
-        <Action name="tmquery_remove_6"/>
-        <Action name="tmquery_remove_7"/>
-        <Action name="tmquery_remove_8"/>
-        <Action name="tmquery_remove_9"/>
-        <Action name="tmquery_remove_10"/>
-        <Action name="tmquery_remove_11"/>
-        <Action name="tmquery_remove_12"/>
-    </Menu>
-    <Menu name="alttrans"><text>Alternate Translations</text>
-        <Action name="alttrans_attach"/>
-        <Separator/>
-        <Action name="alttrans_insert_0"/>
-        <Action name="alttrans_insert_1"/>
-        <Action name="alttrans_insert_2"/>
-        <Action name="alttrans_insert_3"/>
-        <Action name="alttrans_insert_4"/>
-        <Action name="alttrans_insert_5"/>
-        <Action name="alttrans_insert_6"/>
-        <Action name="alttrans_insert_7"/>
-        <Action name="alttrans_insert_8"/>
-        <Action name="alttrans_insert_9"/>
-        <Action name="alttrans_insert_10"/>
-        <Action name="alttrans_insert_11"/>
-        <Action name="alttrans_insert_12"/>
-    </Menu>
-  </Menu>
-  <Menu name="go"><text>&amp;Go</text>
-    <Action name="go_up"/>
-    <Action name="go_back"/>
-    <Action name="go_forward"/>
-    <Action name="go_home"/>
-    <Separator/>
-    <Action name="go_previous"/>
-    <Action name="go_next"/>
-    <Action name="go_goto_page"/>
-    <Action name="go_goto_line"/>
-    <Action name="go_goto"/>
-    <Separator/>
-    <Action name="go_first"/>
-    <Action name="go_last"/>
-    <Separator/>
-    <Action name="go_document_back"/>
-    <Action name="go_document_forward"/>
-    <Separator/>
-    <MergeLocal/>
-    <Action name="go_goto"/>
-    <Separator/>
-    <Action name="go_first"/>
-    <Action name="go_last"/>
-    <Separator/>
-    <Action name="go_prev_fuzzyUntr"/>
-    <Action name="go_next_fuzzyUntr"/>
-    <Action name="go_prev_fuzzy"/>
-    <Action name="go_next_fuzzy"/>
-    <Action name="go_prev_untrans"/>
-    <Action name="go_next_untrans"/>
-    <Menu name="bookmarks"><text>&amp;Bookmarks</text>
-      <Action name="bookmark_prior"/>
-      <Action name="bookmark_next"/>
-      <Action name="bookmark_add"/>
-      <Action name="bookmark_edit"/>
-    </Menu>
-  </Menu>
-  <Menu name="merge"><text>S&amp;ync</text>
-    <Action name="merge_open"/>
-    <Separator/>
-    <Action name="merge_prev"/>
-    <Action name="merge_next"/>
-    <Action name="merge_nextapproved"/>
-    <Separator/>
-    <Action name="merge_accept"/>
-    <Action name="merge_acceptnew"/>
-    <Separator/>
-    <Menu name="mergesecondary"><text>&amp;Secondary sync source</text>
-      <Action name="mergesecondary_open"/>
-      <Separator/>
-      <Action name="mergesecondary_prev"/>
-      <Action name="mergesecondary_next"/>
-      <Separator/>
-      <Action name="mergesecondary_accept"/>
-      <Action name="mergesecondary_acceptnew"/>
-      <Separator/>
-    </Menu>
-  </Menu>
-  <Menu name="tools">
-    <Separator/>
-    <Action name="tools_tm_batch"/>
-    <Action name="tools_tm_batch_fuzzy"/>
-    <Separator/>
-    <Action name="tools_spelling"/>
-    <Separator/>
-  </Menu>
-  <Menu name="settings">
-    <Menu name="toolviews"><text>Tool&amp;views</text>
-        <Action name="showmsgiddiff_action" />
-        <Action name="showprojectview_action" />
-        <Action name="showmergeview_action" />
-        <Action name="showmergeviewsecondary_action" />
-        <Action name="showmsgctxt_action" />
-        <Action name="showcatalogtreeview_action" />
-        <Action name="showglossaryview_action" />
-        <Action name="showtmqueryview_action" />
-        <Action name="showbinunitsview_action" />
-    </Menu>
-    <MergeLocal/>
-  </Menu>
-</MenuBar>
-<!--<State name="po" >
-  <disable>
-  </disable>
-</State>
-<State name="xliff" >
-  <enable>
-  </enable>
-</State>-->
-<ToolBar name="mainToolBar"><text>Main Toolbar</text>
-  <Action name="file_new"/>
-  <Action name="file_open"/>
-  <Action name="file_save"/>
-  <Action name="file_print"/>
-  <Action name="file_mail"/>
-  <Separator/>
-  <Action name="edit_undo"/>
-  <Action name="edit_redo"/>
-  <Action name="edit_cut"/>
-  <Action name="edit_copy"/>
-  <Action name="edit_paste"/>
-  <Separator/>
-  <Action name="edit_find"/>
-  <Action name="view_zoom"/>
-  <Separator/>
-  <Action name="go_previous"/>
-  <Action name="go_next"/>
-  <Action name="go_home"/>
-  <Separator/>
-  <Action name="edit_approve"/>
-</ToolBar>
+    <MenuBar>
+        <Menu name="file">
+            <text>&amp;File</text>
+            <Action name="file_new" />
+            <MergeLocal name="new_merge" />
+            <Action name="file_open" />
+            <Action name="file_open_recent" />
+            <MergeLocal name="open_merge" />
+            <Separator />
+            <Action name="file_save" />
+            <Action name="file_save_as" />
+            <Action name="file_save_all" />
+            <MergeLocal name="save_merge" />
+            <Action name="file_revert" />
+            <Action name="file_revert_all" />
+            <MergeLocal name="revert_merge" />
+            <Separator />
+            <Action name="file_print" />
+            <Action name="file_print_preview" />
+            <MergeLocal name="print_merge" />
+            <Action name="file_mail" />
+            <MergeLocal name="mail_merge" />
+            <Separator />
+            <Action name="file_pology" />
+            <Action name="file_cleartarget" />
+            <Action name="file_phases" />
+            <Action name="file_wordcount" />
+            <Action name="file_xliff2odf" />
+            <MergeLocal />
+            <Separator />
+            <Action name="file_close" />
+            <Action name="file_close_all" />
+            <MergeLocal name="close_merge" />
+        </Menu>
+        <Menu name="edit">
+            <text>&amp;Edit</text>
+            <Action name="edit_undo" />
+            <Action name="edit_redo" />
+            <MergeLocal name="edit_undo_merge" />
+            <Separator />
+            <Action name="edit_cut" />
+            <Action name="edit_copy" />
+            <Action name="edit_paste" />
+            <MergeLocal name="edit_paste_merge" />
+            <Action name="edit_clear" />
+            <Separator />
+            <Action name="edit_select_all" />
+            <Action name="edit_deselect" />
+            <MergeLocal name="edit_select_merge" />
+            <Separator />
+            <Action name="edit_find" />
+            <Action name="edit_find_next" />
+            <Action name="edit_find_prev" />
+            <Action name="edit_replace" />
+            <MergeLocal name="edit_find_merge" />
+            <Separator />
+            <MergeLocal />
+            <Action name="edit_approve" />
+            <Action name="edit_approve_go_fuzzyUntr" />
+            <Action name="edit_nonequiv" />
+            <Action name="edit_msgid2msgstr" />
+            <Action name="edit_unwrap-target" />
+            <Action name="edit_clear-target" />
+            <Action name="edit_completion" />
+            <Action name="edit_tagmenu" />
+            <Action name="edit_tagimmediate" />
+            <Action name="edit_skiptags" />
+            <Action name="edit_spellreplace" />
+            <Action name="edit_languagetool" />
+            <Action name="edit_addnote" />
+            <Menu name="glossary">
+                <text>&amp;Glossary</text>
+                <Action name="glossary_define" />
+                <Separator />
+                <Action name="glossary_insert_0" />
+                <Action name="glossary_insert_1" />
+                <Action name="glossary_insert_2" />
+                <Action name="glossary_insert_3" />
+                <Action name="glossary_insert_4" />
+                <Action name="glossary_insert_5" />
+                <Action name="glossary_insert_6" />
+                <Action name="glossary_insert_7" />
+                <Action name="glossary_insert_8" />
+                <Action name="glossary_insert_9" />
+                <Action name="glossary_insert_10" />
+                <Action name="glossary_insert_11" />
+                <Action name="glossary_insert_12" />
+                <Action name="glossary_insert_13" />
+                <Action name="glossary_insert_14" />
+                <Action name="glossary_insert_15" />
+                <Action name="glossary_insert_16" />
+                <Action name="glossary_insert_17" />
+                <Action name="glossary_insert_18" />
+                <Action name="glossary_insert_19" />
+                <Action name="glossary_insert_20" />
+            </Menu>
+            <Menu name="tmquery">
+                <text>Translation &amp;Memory</text>
+                <Action name="tmquery_do" />
+                <Separator />
+                <Action name="tmquery_insert_0" />
+                <Action name="tmquery_insert_1" />
+                <Action name="tmquery_insert_2" />
+                <Action name="tmquery_insert_3" />
+                <Action name="tmquery_insert_4" />
+                <Action name="tmquery_insert_5" />
+                <Action name="tmquery_insert_6" />
+                <Action name="tmquery_insert_7" />
+                <Action name="tmquery_insert_8" />
+                <Action name="tmquery_insert_9" />
+                <Action name="tmquery_insert_10" />
+                <Action name="tmquery_insert_11" />
+                <Action name="tmquery_insert_12" />
+                <Separator />
+                <Action name="tmquery_remove_0" />
+                <Action name="tmquery_remove_1" />
+                <Action name="tmquery_remove_2" />
+                <Action name="tmquery_remove_3" />
+                <Action name="tmquery_remove_4" />
+                <Action name="tmquery_remove_5" />
+                <Action name="tmquery_remove_6" />
+                <Action name="tmquery_remove_7" />
+                <Action name="tmquery_remove_8" />
+                <Action name="tmquery_remove_9" />
+                <Action name="tmquery_remove_10" />
+                <Action name="tmquery_remove_11" />
+                <Action name="tmquery_remove_12" />
+            </Menu>
+            <Menu name="alttrans">
+                <text>Alternate Translations</text>
+                <Action name="alttrans_attach" />
+                <Separator />
+                <Action name="alttrans_insert_0" />
+                <Action name="alttrans_insert_1" />
+                <Action name="alttrans_insert_2" />
+                <Action name="alttrans_insert_3" />
+                <Action name="alttrans_insert_4" />
+                <Action name="alttrans_insert_5" />
+                <Action name="alttrans_insert_6" />
+                <Action name="alttrans_insert_7" />
+                <Action name="alttrans_insert_8" />
+                <Action name="alttrans_insert_9" />
+                <Action name="alttrans_insert_10" />
+                <Action name="alttrans_insert_11" />
+                <Action name="alttrans_insert_12" />
+            </Menu>
+        </Menu>
+        <Menu name="go">
+            <text>&amp;Go</text>
+            <Action name="go_up" />
+            <Action name="go_back" />
+            <Action name="go_forward" />
+            <Action name="go_home" />
+            <Separator />
+            <Action name="go_previous" />
+            <Action name="go_next" />
+            <Action name="go_goto_page" />
+            <Action name="go_goto_line" />
+            <Action name="go_goto" />
+            <Separator />
+            <Action name="go_first" />
+            <Action name="go_last" />
+            <Separator />
+            <Action name="go_document_back" />
+            <Action name="go_document_forward" />
+            <Separator />
+            <MergeLocal />
+            <Action name="go_goto" />
+            <Separator />
+            <Action name="go_first" />
+            <Action name="go_last" />
+            <Separator />
+            <Action name="go_prev_fuzzyUntr" />
+            <Action name="go_next_fuzzyUntr" />
+            <Action name="go_prev_fuzzy" />
+            <Action name="go_next_fuzzy" />
+            <Action name="go_prev_untrans" />
+            <Action name="go_next_untrans" />
+            <Menu name="bookmarks">
+                <text>&amp;Bookmarks</text>
+                <Action name="bookmark_prior" />
+                <Action name="bookmark_next" />
+                <Action name="bookmark_add" />
+                <Action name="bookmark_edit" />
+            </Menu>
+        </Menu>
+        <Menu name="merge">
+            <text>S&amp;ync</text>
+            <Action name="merge_open" />
+            <Separator />
+            <Action name="merge_prev" />
+            <Action name="merge_next" />
+            <Action name="merge_nextapproved" />
+            <Separator />
+            <Action name="merge_accept" />
+            <Action name="merge_acceptnew" />
+            <Separator />
+            <Menu name="mergesecondary">
+                <text>&amp;Secondary sync source</text>
+                <Action name="mergesecondary_open" />
+                <Separator />
+                <Action name="mergesecondary_prev" />
+                <Action name="mergesecondary_next" />
+                <Separator />
+                <Action name="mergesecondary_accept" />
+                <Action name="mergesecondary_acceptnew" />
+                <Separator />
+            </Menu>
+        </Menu>
+        <Menu name="tools">
+            <Separator />
+            <Action name="tools_tm_batch" />
+            <Action name="tools_tm_batch_fuzzy" />
+            <Separator />
+            <Action name="tools_spelling" />
+            <Separator />
+        </Menu>
+        <Menu name="settings">
+            <Menu name="toolviews">
+                <text>Tool&amp;views</text>
+                <Action name="showmsgiddiff_action" />
+                <Action name="showprojectview_action" />
+                <Action name="showmergeview_action" />
+                <Action name="showmergeviewsecondary_action" />
+                <Action name="showmsgctxt_action" />
+                <Action name="showcatalogtreeview_action" />
+                <Action name="showglossaryview_action" />
+                <Action name="showtmqueryview_action" />
+                <Action name="showbinunitsview_action" />
+            </Menu>
+            <MergeLocal />
+        </Menu>
+    </MenuBar>
+    <ToolBar name="mainToolBar">
+        <text>Main Toolbar</text>
+        <Action name="file_new" />
+        <Action name="file_open" />
+        <Action name="file_save" />
+        <Action name="file_print" />
+        <Action name="file_mail" />
+        <Separator />
+        <Action name="edit_undo" />
+        <Action name="edit_redo" />
+        <Action name="edit_cut" />
+        <Action name="edit_copy" />
+        <Action name="edit_paste" />
+        <Separator />
+        <Action name="edit_find" />
+        <Action name="view_zoom" />
+        <Separator />
+        <Action name="go_previous" />
+        <Action name="go_next" />
+        <Action name="go_home" />
+        <Separator />
+        <Action name="edit_approve" />
+    </ToolBar>
 </gui>

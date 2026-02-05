@@ -1,36 +1,40 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="ProjectOverview" version="6">
-<MenuBar>
-  <Menu name="go" index="3"><text>&amp;Go</text>
-    <Action name="go_prev_fuzzyUntr"/>
-    <Action name="go_next_fuzzyUntr"/>
-    <Action name="go_prev_fuzzy"/>
-    <Action name="go_next_fuzzy"/>
-    <Action name="go_prev_untrans"/>
-    <Action name="go_next_untrans"/>
-    <Separator/>
-    <Action name="go_prev_templateOnly"/>
-    <Action name="go_next_templateOnly"/>
-    <Action name="go_prev_transOnly"/>
-    <Action name="go_next_transOnly"/>
-  </Menu>
-  <Menu name="settings" index="7">
-    <Separator/>
-    <Action name="toggle_translated_files"/>
-  </Menu>
-  <Menu name="edit" index="2"><text>&amp;Edit</text>
-    <Action name="edit_find"/>
-  </Menu>
-  <Menu name="merge" index="5"><text>S&amp;ync</text>
-  </Menu>
-</MenuBar>
-<ToolBar name="mainToolBar"><text>Main Toolbar</text>
-  <Action name="project_open"/>
-  <Separator/>
-  <Action name="go_prev_fuzzyUntr"/>
-  <Action name="go_next_fuzzyUntr"/>
-  <Separator/>
-  <Action name="toggle_translated_files"/>
-</ToolBar>
+    <MenuBar>
+        <Menu name="go" index="3">
+            <text>&amp;Go</text>
+            <Action name="go_prev_fuzzyUntr" />
+            <Action name="go_next_fuzzyUntr" />
+            <Action name="go_prev_fuzzy" />
+            <Action name="go_next_fuzzy" />
+            <Action name="go_prev_untrans" />
+            <Action name="go_next_untrans" />
+            <Separator />
+            <Action name="go_prev_templateOnly" />
+            <Action name="go_next_templateOnly" />
+            <Action name="go_prev_transOnly" />
+            <Action name="go_next_transOnly" />
+        </Menu>
+        <Menu name="settings" index="7">
+            <Separator />
+            <Action name="toggle_translated_files" />
+        </Menu>
+        <Menu name="edit" index="2">
+            <text>&amp;Edit</text>
+            <Action name="edit_find" />
+        </Menu>
+        <Menu name="merge" index="5">
+            <text>S&amp;ync</text>
+        </Menu>
+    </MenuBar>
+    <ToolBar name="mainToolBar">
+        <text>Main Toolbar</text>
+        <Action name="project_open" />
+        <Separator />
+        <Action name="go_prev_fuzzyUntr" />
+        <Action name="go_next_fuzzyUntr" />
+        <Separator />
+        <Action name="toggle_translated_files" />
+    </ToolBar>
 </gui>
