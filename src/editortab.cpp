@@ -7,7 +7,8 @@
   SPDX-FileCopyrightText: 2024      Karl Ove Hufthammer <karl@huftis.org>
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
   SPDX-FileCopyrightText: 2026      Navya Sai Sadu <navyas.sadu@gmail.com>
-  SPDX-FileCopyrightText: 2026      Kumud         <kumud1665@gmail.com>
+  SPDX-FileCopyrightText: 2026      Kumud <kumud1665@gmail.com>
+
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
