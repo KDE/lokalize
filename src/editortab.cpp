@@ -7,7 +7,7 @@
   SPDX-FileCopyrightText: 2024      Karl Ove Hufthammer <karl@huftis.org>
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
   SPDX-FileCopyrightText: 2026      Navya Sai Sadu <navyas.sadu@gmail.com>
-
+  SPDX-FileCopyrightText: 2026      Kumud         <kumud1665@gmail.com>
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -408,6 +408,7 @@ void EditorTab::setupActions()
     connect(m_stateAction->popupMenu(), &QMenu::aboutToShow, this, &EditorTab::showStatesMenu);
     connect(m_stateAction->popupMenu(), &QMenu::triggered, this, &EditorTab::setState);
 
+    // call for approve and next
     action = actionCategory->addAction(QStringLiteral("edit_approve_go_fuzzyUntr"));
     action->setText(i18nc("@action:inmenu", "Approve and Go Next"));
     connect(action, &QAction::triggered, this, &EditorTab::toggleApprovementGotoNextFuzzyUntr);
@@ -1070,6 +1071,7 @@ void EditorTab::gotoLast()
 
 void EditorTab::gotoNext()
 {
+    qCDebug(LOKALIZE_LOG) << "goto Next called here ";
     DocPosition pos = m_currentPos;
     if (m_catalog->isPlural(pos) && pos.form + 1 < m_catalog->numberOfPluralForms())
         pos.form++;
@@ -1161,28 +1163,23 @@ bool EditorTab::gotoNextFuzzyUntr(const DocPosition &p)
     int index = (p.entry == -1) ? m_currentPos.entry : p.entry;
 
     DocPosition pos;
+    pos.entry = nextMatchingVisibleIndex();
 
-    short fu = m_catalog->nextFuzzyIndex(index);
-    short un = m_catalog->nextUntranslatedIndex(index);
-    if ((fu == -1) && (un == -1))
+    if (pos.entry == -1) {
+        gotoEntry(DocPosition(index)); // restoring the initial pos
         return false;
-
-    if (fu == -1)
-        fu = un;
-    else if (un == -1)
-        un = fu;
-
-    pos.entry = fu < un ? fu : un;
+    }
     gotoEntry(pos);
     return true;
 }
 
 void EditorTab::toggleApprovementGotoNextFuzzyUntr()
 {
+    qCDebug(LOKALIZE_LOG) << "toggleApprovementCalled";
     if (!m_catalog->isApproved(m_currentPos.entry))
         m_view->toggleApprovement();
-    if (!gotoNextFuzzyUntr())
-        gotoNextFuzzyUntr(DocPosition(-2)); // so that we don't skip the first
+
+    gotoNextFuzzyUntr();
 }
 
 void EditorTab::setApproveActionTitle()
@@ -1735,5 +1732,19 @@ void EditorTab::setEntryTarget(int entry, int form, const QString &content)
         m_view->gotoEntry();
 }
 // END DBus interface
+
+short EditorTab::nextMatchingVisibleIndex()
+{
+    short idx = m_transUnitsView->nextEntryNumber();
+    while (idx != -1) {
+        // get the  visibly closer of the untranslated or empty entry
+        if (!m_catalog->isApproved(idx) || m_catalog->isEmpty(idx)) {
+            return idx;
+        }
+        gotoEntry(DocPosition(idx));
+        idx = m_transUnitsView->nextEntryNumber();
+    }
+    return -1;
+}
 
 #include "moc_editortab.cpp"

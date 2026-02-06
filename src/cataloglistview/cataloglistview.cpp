@@ -77,6 +77,7 @@ CatalogView::CatalogView(QWidget *parent, Catalog *catalog)
     horizontalLine->setFrameShape(QFrame::HLine);
     mainLayout->addWidget(horizontalLine);
 
+    // configures the catalog search input field
     m_lineEdit->setClearButtonEnabled(true);
     m_lineEdit->setPlaceholderText(i18n("Search"));
     m_lineEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L. Accepts regular expressions"));
@@ -167,6 +168,10 @@ void CatalogView::setFilterRegExp()
     refreshCurrentIndex();
 }
 
+/*
+ * updates the view selection and scroll selection
+ * this ensures that same entry remains selected after filtering
+ */
 void CatalogView::refreshCurrentIndex()
 {
     QModelIndex newPositionOfSelectedItem = m_proxyModel->mapFromSource(m_model->index(m_lastKnownDocPosition, 0));

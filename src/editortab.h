@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2026      Kumud         <kumud1665@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -326,6 +327,14 @@ private:
 
     void findNext(const DocPosition &startingPos);
     void replaceNext(const DocPosition &);
+
+    /*
+     * @short Finds the next visible unApproved entry
+     * @returns next fuzzy entry index or untranslated entry index
+     * depending on which comes first in filtered view
+     * @author Kumud
+     */
+    short nextMatchingVisibleIndex();
 
 private:
     Project *m_project{};
