@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-05 00:46+0000\n"
-"PO-Revision-Date: 2026-01-26 15:27+0100\n"
+"POT-Creation-Date: 2026-02-06 00:47+0000\n"
+"PO-Revision-Date: 2026-02-05 10:31+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1706,74 +1706,74 @@ msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize ha terminate le controlo orthographic"
 
 #. i18n: ectx: Menu (file)
-#: src/editorui.rc:5 src/lokalizemainwindowui.rc:5
+#: src/editorui.rc:6 src/lokalizemainwindowui.rc:6
 #, kde-format
 msgid "&File"
 msgstr "&File"
 
 #. i18n: ectx: Menu (edit)
-#: src/editorui.rc:37 src/filesearch/filesearchtabui.rc:10
-#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:22
-#: src/tm/translationmemoryrui.rc:10
+#: src/editorui.rc:39 src/filesearch/filesearchtabui.rc:11
+#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:24
+#: src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "&Edit"
 msgstr "&Modifica"
 
 #. i18n: ectx: Menu (glossary)
-#: src/editorui.rc:72
+#: src/editorui.rc:75
 #, kde-format
 msgid "&Glossary"
 msgstr "&Glossario"
 
 #. i18n: ectx: Menu (tmquery)
-#: src/editorui.rc:98
+#: src/editorui.rc:101
 #, kde-format
 msgid "Translation &Memory"
 msgstr "&Memoria de Traduction"
 
 #. i18n: ectx: Menu (alttrans)
-#: src/editorui.rc:129
+#: src/editorui.rc:133
 #, kde-format
 msgid "Alternate Translations"
 msgstr "Traductiones alterne"
 
 #. i18n: ectx: Menu (go)
-#: src/editorui.rc:147 src/filesearch/filesearchtabui.rc:12
-#: src/lokalizemainwindowui.rc:58 src/project/projectmanagerui.rc:5
-#: src/tm/translationmemoryrui.rc:12
+#: src/editorui.rc:152 src/filesearch/filesearchtabui.rc:14
+#: src/lokalizemainwindowui.rc:59 src/project/projectmanagerui.rc:6
+#: src/tm/translationmemoryrui.rc:14
 #, kde-format
 msgid "&Go"
 msgstr "&Vade"
 
 #. i18n: ectx: Menu (bookmarks)
-#: src/editorui.rc:177
+#: src/editorui.rc:183
 #, kde-format
 msgid "&Bookmarks"
 msgstr "&Marcatores de libro"
 
 #. i18n: ectx: Menu (merge)
-#: src/editorui.rc:184 src/filesearch/filesearchtabui.rc:14
-#: src/lokalizemainwindowui.rc:61 src/project/projectmanagerui.rc:25
-#: src/tm/translationmemoryrui.rc:14
+#: src/editorui.rc:191 src/filesearch/filesearchtabui.rc:17
+#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:28
+#: src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "S&ync"
 msgstr "S&ync"
 
 #. i18n: ectx: Menu (mergesecondary)
-#: src/editorui.rc:194
+#: src/editorui.rc:202
 #, kde-format
 msgid "&Secondary sync source"
 msgstr "Fonte de sync &Secundari"
 
 #. i18n: ectx: Menu (toolviews)
-#: src/editorui.rc:214 src/lokalizemainwindowui.rc:51
+#: src/editorui.rc:223 src/lokalizemainwindowui.rc:50
 #, kde-format
 msgid "Tool&views"
 msgstr "&Vistas de instrumento"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/editorui.rc:236 src/filesearch/filesearchtabui.rc:17
-#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:17
+#: src/editorui.rc:238 src/filesearch/filesearchtabui.rc:21
+#: src/project/projectmanagerui.rc:32 src/tm/translationmemoryrui.rc:21
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Barra de instrumento principal"
@@ -2012,15 +2012,13 @@ msgstr "Salveguarda"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
-msgstr ""
+msgstr "Adde nove entrata de glossario"
 
 #: src/glossary/glossarytab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this entry"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
-msgstr "Remove iste entrata"
+msgstr "Remove entrata de glossario seligite"
 
 #: src/glossary/glossarytab.cpp:144
 #, kde-format
@@ -2067,9 +2065,7 @@ msgstr "Synonymos Anglese (duple pulsa per modificar):"
 #. i18n: ectx: property (text), widget (QPushButton, addEngTerm)
 #. i18n: ectx: property (text), widget (QPushButton, addTargetTerm)
 #: src/glossary/termedit.ui:32 src/glossary/termedit.ui:78
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add"
+#, kde-format
 msgid "Add"
 msgstr "Adde"
 
@@ -2077,7 +2073,7 @@ msgstr "Adde"
 #: src/glossary/termedit.ui:35
 #, kde-format
 msgid "Add new source synonym"
-msgstr ""
+msgstr "Adde nove synonymo fonte"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #. i18n: ectx: property (text), widget (QPushButton, remEngTerm)
@@ -2092,7 +2088,7 @@ msgstr "Remove"
 #: src/glossary/termedit.ui:48
 #, kde-format
 msgid "Remove selected source synonym"
-msgstr ""
+msgstr "Remove synonymo fonte seligite"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/glossary/termedit.ui:71
@@ -2104,13 +2100,13 @@ msgstr "Synonymos de linguage objectivo correspondente: "
 #: src/glossary/termedit.ui:81
 #, kde-format
 msgid "Add new target synonym"
-msgstr ""
+msgstr "Adde nove synonymo objectivo"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, remTargetTerm)
 #: src/glossary/termedit.ui:94
 #, kde-format
 msgid "Remove selected target synonym"
-msgstr ""
+msgstr "Remove synonymo objectivo seligite"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:109
@@ -2348,16 +2344,10 @@ msgstr ""
 "Tu vole salveguardar cambiamentos o abandonar los?"
 
 #. i18n: ectx: Menu (project)
-#: src/lokalizemainwindowui.rc:18
+#: src/lokalizemainwindowui.rc:20
 #, kde-format
 msgid "&Project"
 msgstr "&Projecto"
-
-#. i18n: ectx: Menu (project_actions)
-#: src/lokalizemainwindowui.rc:31
-#, kde-format
-msgid "&Scripts"
-msgstr "&Scripts"
 
 #: src/main.cpp:75
 #, kde-format
@@ -4632,6 +4622,9 @@ msgstr "Un error esseva reportate: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia fonte a objectivo"
+
+#~ msgid "&Scripts"
+#~ msgstr "&Scripts"
 
 #~ msgid "+"
 #~ msgstr "+"

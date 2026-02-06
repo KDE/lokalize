@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-05 00:46+0000\n"
+"POT-Creation-Date: 2026-02-06 00:47+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -1804,33 +1804,33 @@ msgid "Lokalize has finished spellchecking"
 msgstr "Lokalize telah selesai memeriksa ejaan"
 
 #. i18n: ectx: Menu (file)
-#: src/editorui.rc:5 src/lokalizemainwindowui.rc:5
+#: src/editorui.rc:6 src/lokalizemainwindowui.rc:6
 #, kde-format
 msgid "&File"
 msgstr "&File"
 
 #. i18n: ectx: Menu (edit)
-#: src/editorui.rc:37 src/filesearch/filesearchtabui.rc:10
-#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:22
-#: src/tm/translationmemoryrui.rc:10
+#: src/editorui.rc:39 src/filesearch/filesearchtabui.rc:11
+#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:24
+#: src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "&Edit"
 msgstr "&Edit"
 
 #. i18n: ectx: Menu (glossary)
-#: src/editorui.rc:72
+#: src/editorui.rc:75
 #, kde-format
 msgid "&Glossary"
 msgstr "&Glosarium"
 
 #. i18n: ectx: Menu (tmquery)
-#: src/editorui.rc:98
+#: src/editorui.rc:101
 #, kde-format
 msgid "Translation &Memory"
 msgstr "Memori &Terjemahan"
 
 #. i18n: ectx: Menu (alttrans)
-#: src/editorui.rc:129
+#: src/editorui.rc:133
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Alternate Translations"
@@ -1838,42 +1838,42 @@ msgid "Alternate Translations"
 msgstr "Terjemahan Alternatif"
 
 #. i18n: ectx: Menu (go)
-#: src/editorui.rc:147 src/filesearch/filesearchtabui.rc:12
-#: src/lokalizemainwindowui.rc:58 src/project/projectmanagerui.rc:5
-#: src/tm/translationmemoryrui.rc:12
+#: src/editorui.rc:152 src/filesearch/filesearchtabui.rc:14
+#: src/lokalizemainwindowui.rc:59 src/project/projectmanagerui.rc:6
+#: src/tm/translationmemoryrui.rc:14
 #, kde-format
 msgid "&Go"
 msgstr "&Menuju"
 
 #. i18n: ectx: Menu (bookmarks)
-#: src/editorui.rc:177
+#: src/editorui.rc:183
 #, kde-format
 msgid "&Bookmarks"
 msgstr "&Markah"
 
 #. i18n: ectx: Menu (merge)
-#: src/editorui.rc:184 src/filesearch/filesearchtabui.rc:14
-#: src/lokalizemainwindowui.rc:61 src/project/projectmanagerui.rc:25
-#: src/tm/translationmemoryrui.rc:14
+#: src/editorui.rc:191 src/filesearch/filesearchtabui.rc:17
+#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:28
+#: src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "S&ync"
 msgstr "S&inkron"
 
 #. i18n: ectx: Menu (mergesecondary)
-#: src/editorui.rc:194
+#: src/editorui.rc:202
 #, kde-format
 msgid "&Secondary sync source"
 msgstr "&Sumber sinkron sekunder"
 
 #. i18n: ectx: Menu (toolviews)
-#: src/editorui.rc:214 src/lokalizemainwindowui.rc:51
+#: src/editorui.rc:223 src/lokalizemainwindowui.rc:50
 #, kde-format
 msgid "Tool&views"
 msgstr "Tampilan &Alat"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/editorui.rc:236 src/filesearch/filesearchtabui.rc:17
-#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:17
+#: src/editorui.rc:238 src/filesearch/filesearchtabui.rc:21
+#: src/project/projectmanagerui.rc:32 src/tm/translationmemoryrui.rc:21
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Bilah Alat Utama"
@@ -2503,16 +2503,10 @@ msgstr ""
 "Apakah ingin menyimpan perubahan Andaatau membuangnya?"
 
 #. i18n: ectx: Menu (project)
-#: src/lokalizemainwindowui.rc:18
+#: src/lokalizemainwindowui.rc:20
 #, kde-format
 msgid "&Project"
 msgstr "Pro&yek"
-
-#. i18n: ectx: Menu (project_actions)
-#: src/lokalizemainwindowui.rc:31
-#, kde-format
-msgid "&Scripts"
-msgstr "&Skrip"
 
 #: src/main.cpp:75
 #, kde-format
@@ -4847,6 +4841,9 @@ msgstr "Melaporkan sebuah kesalahan: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Salin sumber ke sasaran"
+
+#~ msgid "&Scripts"
+#~ msgstr "&Skrip"
 
 #~ msgid "+"
 #~ msgstr "+"
