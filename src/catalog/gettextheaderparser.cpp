@@ -49,7 +49,7 @@ QString GetTextHeaderParser::joinAuthor(const QString &authorName, const QString
 
 QString GetTextHeaderParser::simplifyYearString(const QString &years)
 {
-    //placeholder for implementation
+    // placeholder for implementation
     return years;
 }
 
