@@ -322,7 +322,11 @@ public:
     void finish()
     {
         emitResult();
+        // clang-format is broken here for some reason, adds spaces.
+        // Q_EMIT Project::instance() -> sourceFilePathsAreReady();
+        // clang-format off
         Q_EMIT Project::instance()->sourceFilePathsAreReady();
+        // clang-format on
     }
 
 protected:

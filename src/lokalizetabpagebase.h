@@ -61,7 +61,7 @@ public:
     // Manually trigger the tab page signals for the
     // status bar. Forces a full update of the status
     // bar content, useful when switching tabs.
-    virtual void updateStatusBarContents() { };
+    virtual void updateStatusBarContents() {};
 
     QString m_tabLabel;
     QString m_tabToolTip;
@@ -103,7 +103,7 @@ public:
     // Manually trigger the tab page signals for the
     // status bar. Forces a full update of the status
     // bar content, useful when switching tabs.
-    virtual void updateStatusBarContents() { };
+    virtual void updateStatusBarContents() {};
 
     QString m_tabLabel;
     QString m_tabToolTip;
