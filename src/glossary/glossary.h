@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2009 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2026      Jaimukund Bhan <bhanjaimukund@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -134,6 +135,9 @@ public:
     // general
     void hashTermEntry(const QDomElement &);
     void unhashTermEntry(const QDomElement &);
+
+    // Warn and prompt the user to enter a valid Glossary file path
+    bool ensureFileExists();
 
 Q_SIGNALS:
     void changed();

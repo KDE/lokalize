@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2011 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2026      Jaimukund Bhan <bhanjaimukund@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -10,15 +11,22 @@
 #include "glossary.h"
 #include "domroutines.h"
 #include "lokalize_debug.h"
+#include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "stemming.h"
 
+#include <KConfigDialog>
+#include <KMessageBox>
+
 #include <QApplication>
 #include <QBuffer>
+#include <QDir>
 #include <QElapsedTimer>
 #include <QFile>
+#include <QFileInfo>
 #include <QStringBuilder>
+#include <QTimer>
 #include <QXmlStreamReader>
 
 using namespace GlossaryNS;
@@ -61,6 +69,7 @@ bool Glossary::load(const QString &newPath)
                        "        </body>\n"
                        "    </text>\n"
                        "</martif>\n"));
+        device->open(QFile::ReadOnly);
     }
 
     QXmlStreamReader reader(device);
@@ -97,14 +106,13 @@ bool Glossary::load(const QString &newPath)
 
 bool Glossary::save()
 {
-    if (m_path.isEmpty())
-        return false;
-
-    QFile *device = new QFile(m_path);
-    if (!device->open(QFile::WriteOnly | QFile::Truncate)) {
-        device->deleteLater();
+    if (!ensureFileExists()) {
         return false;
     }
+
+    QFile *device = new QFile(m_path);
+    device->open(QFile::WriteOnly | QFile::Truncate);
+
     QTextStream stream(device);
     m_doc.save(stream, 2);
 
@@ -643,5 +651,45 @@ QByteArray GlossaryModel::appendRow(const QString &_source, const QString &_targ
 }
 
 // END EDITING
+
+bool Glossary::ensureFileExists()
+{
+    bool exists = false;
+    QWidget *mainWindowPtr = SettingsController::instance()->mainWindowPtr();
+
+    auto reportError = [&](const QString &msg, const QString &detail) {
+        KMessageBox::error(mainWindowPtr, i18nc("@info", "Glossary Save Failed\n%1\nDetails: %2", msg, detail), i18n("Glossary Error"));
+    };
+
+    QFileInfo fileInfo(m_path);
+    QDir dir = fileInfo.absoluteDir();
+    QFile *device = new QFile(m_path);
+    if (!dir.exists()) {
+        qCWarning(LOKALIZE_LOG) << "Glossary Save Failed. Directory missing: " << dir.absolutePath();
+        reportError(i18n("The folder for the glossary does not exist."), dir.absolutePath());
+    } else if (fileInfo.exists() && fileInfo.isDir()) {
+        qCWarning(LOKALIZE_LOG) << "Glossary Save Failed. Path is a directory";
+        reportError(i18n("The path points to a folder, not a file."), m_path);
+    } else if (!device->open(QFile::WriteOnly | QFile::Truncate)) {
+        qCWarning(LOKALIZE_LOG) << "Glossary Save Failed. Write permission missing for: " << dir.absolutePath();
+        reportError(i18n("Cannot write to file. Check permissions."), device->errorString());
+    } else {
+        exists = true;
+    }
+
+    device->deleteLater();
+
+    if (!exists) {
+        Project::instance()->setGlossaryTbx(QStringLiteral("terms.tbx"));
+        Project::instance()->glossary()->load(Project::instance()->glossaryPath());
+        const QList<KConfigDialog *> dialogs = mainWindowPtr->findChildren<KConfigDialog *>(QStringLiteral("project_settings"));
+        for (KConfigDialog *dialog : dialogs) {
+            dialog->close();
+        }
+        QTimer::singleShot(0, SettingsController::instance(), &SettingsController::projectConfigure);
+    }
+
+    return exists;
+}
 
 #include "moc_glossary.cpp"
