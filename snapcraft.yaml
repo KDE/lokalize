@@ -23,7 +23,7 @@ plugs:
     target: "$SNAP/usr/share/hunspell"
     default-provider: hunspell-dictionaries:hunspell-dictionaries
 environment:
-    DICPATH: "$SNAP/usr/share/hunspell"
+  DICPATH: "$SNAP/usr/share/hunspell"
 slots:
   session-dbus-interface:
     interface: dbus
@@ -99,4 +99,3 @@ parts:
       for snap in "core24" "kf6-core24"; do
           cd "/snap/$snap/current" && find . -type f,l -exec rm -rf "${CRAFT_PRIME}/{}" \;
       done
-

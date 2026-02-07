@@ -2,21 +2,21 @@
 # SPDX-License-Identifier: CC0-1.0
 
 Dependencies:
-- 'on': ['@all']
-  'require':
-    'frameworks/extra-cmake-modules': '@stable-kf6'
-    'frameworks/ki18n': '@stable-kf6'
-    'frameworks/kio': '@stable-kf6'
-    'frameworks/kxmlgui': '@stable-kf6'
-    'frameworks/knotifications': '@stable-kf6'
-    'frameworks/kconfig': '@stable-kf6'
-    'frameworks/kcoreaddons': '@stable-kf6'
-    'frameworks/kdoctools': '@stable-kf6'
-    'frameworks/sonnet': '@stable-kf6'
-    'frameworks/kdbusaddons': '@stable-kf6'
-    'frameworks/kcrash': '@stable-kf6'
-    'frameworks/kcolorscheme': '@stable-kf6'
-    'third-party/kddockwidgets': '@stable-kf6'
+  - 'on': ['@all']
+    'require':
+      'frameworks/extra-cmake-modules': '@stable-kf6'
+      'frameworks/ki18n': '@stable-kf6'
+      'frameworks/kio': '@stable-kf6'
+      'frameworks/kxmlgui': '@stable-kf6'
+      'frameworks/knotifications': '@stable-kf6'
+      'frameworks/kconfig': '@stable-kf6'
+      'frameworks/kcoreaddons': '@stable-kf6'
+      'frameworks/kdoctools': '@stable-kf6'
+      'frameworks/sonnet': '@stable-kf6'
+      'frameworks/kdbusaddons': '@stable-kf6'
+      'frameworks/kcrash': '@stable-kf6'
+      'frameworks/kcolorscheme': '@stable-kf6'
+      'third-party/kddockwidgets': '@stable-kf6'
 
 Options:
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
