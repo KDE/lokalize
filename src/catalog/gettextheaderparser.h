@@ -2,6 +2,7 @@
   This file is part of Lokalize
 
   SPDX-FileCopyrightText: 2022 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+  SPDX-FileCopyrightText: 2026 Varun Sajith Dass <varunsajithdas@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -32,7 +33,14 @@ public:
      */
     static QString updateAuthorCopyrightLine(const QString &line);
 
-    static QString simplifyYearString(const QString &years);
+    static /**
+            * Simplifies a list of copyright years by sorting them and grouping consecutive years.
+            * Example: "2020, 2021, 2022" -> "2020-2022"
+            * @param years The raw string of years (e.g. from regex capture)
+            * @return The formatted, simplified string
+            */
+        QString
+        simplifyYearString(const QString &years);
     static const QString sCurrentYear;
 };
 

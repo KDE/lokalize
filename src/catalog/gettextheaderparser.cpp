@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2008-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2022      Andreas Cord-Landwehr <cordlandwehr@kde.org>
+  SPDX-FileCopyrightText: 2026      Varun Sajith Dass <varunsajithdas@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -47,10 +48,72 @@ QString GetTextHeaderParser::joinAuthor(const QString &authorName, const QString
     return outputString;
 }
 
-QString GetTextHeaderParser::simplifyYearString(const QString &years)
+QString GetTextHeaderParser::simplifyYearString(const QString &input)
 {
-    // placeholder for implementation
-    return years;
+    QList<int> years;
+    // Handle both commas and existing separators like " - " or " to " if they exist in legacy headers
+    const QStringList parts = input.split(QLatin1Char(','), Qt::SkipEmptyParts);
+
+    for (const QString &part : parts) {
+        QString cleanPart = part.trimmed();
+
+        // Check for range (e.g., "2010-2012" or "2010 - 2012")
+        if (cleanPart.contains(QLatin1Char('-'))) {
+            const QStringList range = cleanPart.split(QLatin1Char('-'));
+            if (range.size() >= 2) {
+                bool startOk, endOk;
+                int start = range.first().trimmed().toInt(&startOk);
+                int end = range.last().trimmed().toInt(&endOk);
+
+                if (startOk && endOk && start <= end) {
+                    for (int y = start; y <= end; ++y) {
+                        if (!years.contains(y))
+                            years.append(y);
+                    }
+                }
+            }
+        } else {
+            // Single year case
+            bool ok;
+            const int year = cleanPart.toInt(&ok);
+            if (ok && !years.contains(year)) {
+                years.append(year);
+            }
+        }
+    }
+
+    if (years.isEmpty()) {
+        return input;
+    }
+
+    std::sort(years.begin(), years.end());
+
+    QStringList resultParts;
+    int rangeStart = years.first();
+    int prev = years.first();
+
+    for (int i = 1; i < years.size(); ++i) {
+        const int current = years.at(i);
+        if (current == prev + 1) {
+            prev = current;
+        } else {
+            if (rangeStart == prev) {
+                resultParts << QString::number(rangeStart);
+            } else {
+                resultParts << QStringLiteral("%1-%2").arg(rangeStart).arg(prev);
+            }
+            rangeStart = current;
+            prev = current;
+        }
+    }
+
+    if (rangeStart == prev) {
+        resultParts << QString::number(rangeStart);
+    } else {
+        resultParts << QStringLiteral("%1-%2").arg(rangeStart).arg(prev);
+    }
+
+    return resultParts.join(QStringLiteral(", "));
 }
 
 QString GetTextHeaderParser::updateAuthorCopyrightLine(const QString &line)
@@ -80,8 +143,10 @@ QString GetTextHeaderParser::updateAuthorCopyrightLine(const QString &line)
         if (!years.contains(sCurrentYear)) {
             years.append(QStringLiteral(", ") + sCurrentYear);
         }
+
         // Simplify year string (e.g., convert "2010, 2011, 2012" to "2010-2012")
         years = simplifyYearString(years);
+
         return QString(QStringLiteral("# SPDX-FileCopyrightText: %1 %2 %3")).arg(years, name, contact).trimmed();
     }
     qCDebug(LOKALIZE_LOG) << "Cannot parse copyright line" << line;
