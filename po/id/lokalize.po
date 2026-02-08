@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-07 00:46+0000\n"
+"POT-Creation-Date: 2026-02-08 00:45+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -930,14 +930,14 @@ msgid "Entry"
 msgstr "Entri"
 
 #: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:351
-#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
+#: src/glossary/glossary.cpp:197 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "Sumber"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:200 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -1746,8 +1746,8 @@ msgstr ""
 "petunjuk Lokalize untuk contoh-contoh skrip dan bagaimana mencolokkan mereka "
 "ke dalam proyek Anda."
 
-#: src/editortab.cpp:1546 src/project/project.cpp:399
-#: src/project/project.cpp:404
+#: src/editortab.cpp:1546 src/project/project.cpp:405
+#: src/project/project.cpp:410
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instal paket translate-toolkit dan coba lagi"
@@ -1762,7 +1762,7 @@ msgstr "Instal paket translate-toolkit dan coba lagi."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Pilih OpenDocument asli yang mana file XLIFF saat ini didasarkan"
 
-#: src/editortab.cpp:1561 src/project/project.cpp:409
+#: src/editortab.cpp:1561 src/project/project.cpp:415
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "File-file OpenDocument (*.odt *.ods)"
@@ -2097,11 +2097,42 @@ msgstr "Abaikan tanda akselerator"
 msgid "Include notes"
 msgstr "Sisipkan catatan"
 
-#: src/glossary/glossary.cpp:194
+#: src/glossary/glossary.cpp:202
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Bidang Subjek"
+
+#: src/glossary/glossary.cpp:661
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Glossary Save Failed\n"
+"%1\n"
+"Details: %2"
+msgstr ""
+
+#: src/glossary/glossary.cpp:661
+#, fuzzy, kde-format
+#| msgctxt "@title actions category"
+#| msgid "Glossary"
+msgid "Glossary Error"
+msgstr "Glosarium"
+
+#: src/glossary/glossary.cpp:669
+#, kde-format
+msgid "The folder for the glossary does not exist."
+msgstr ""
+
+#: src/glossary/glossary.cpp:672
+#, kde-format
+msgid "The path points to a folder, not a file."
+msgstr ""
+
+#: src/glossary/glossary.cpp:675
+#, kde-format
+msgid "Cannot write to file. Check permissions."
+msgstr ""
 
 #: src/glossary/glossarytab.cpp:84
 #, fuzzy, kde-format
@@ -2340,13 +2371,13 @@ msgstr ""
 "Tidak ada modul-modul Qt Sql yang ditemukan. Memori terjemahan tidak akan "
 "bekerja."
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
 #, fuzzy, kde-format
 #| msgid "TM facility requires SQLite Qt module."
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "Fasilitas MT memerlukan modul SQLite Qt"
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Tidak ada modul SQLite yang tersedia"
@@ -3943,17 +3974,17 @@ msgstr "proyek"
 msgid "Language-Team:"
 msgstr "Tim-Bahasa:"
 
-#: src/project/project.cpp:376
+#: src/project/project.cpp:382
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Memindai folder-folder dengan file sumber"
 
-#: src/project/project.cpp:376
+#: src/project/project.cpp:382
 #, kde-format
 msgid "Editor"
 msgstr "Pengedit"
 
-#: src/project/project.cpp:416
+#: src/project/project.cpp:422
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

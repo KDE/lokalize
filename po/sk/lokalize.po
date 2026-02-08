@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-07 00:46+0000\n"
+"POT-Creation-Date: 2026-02-08 00:45+0000\n"
 "PO-Revision-Date: 2023-12-06 19:07+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -921,14 +921,14 @@ msgid "Entry"
 msgstr "Položka"
 
 #: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:351
-#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
+#: src/glossary/glossary.cpp:197 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "Zdroj"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:200 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -1727,8 +1727,8 @@ msgstr ""
 "si príručku Lokalize kvôli príkladom skriptov a ako ich pripojiť k vášmu "
 "projektu."
 
-#: src/editortab.cpp:1546 src/project/project.cpp:399
-#: src/project/project.cpp:404
+#: src/editortab.cpp:1546 src/project/project.cpp:405
+#: src/project/project.cpp:410
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Nainštalujte balík translate-toolkit a skúste znova"
@@ -1743,7 +1743,7 @@ msgstr "Nainštalujte balík translate-toolkit a skúste znova."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Vyberte pôvodný OpenDocument, na ktorom je založený aktuálny XLIFF"
 
-#: src/editortab.cpp:1561 src/project/project.cpp:409
+#: src/editortab.cpp:1561 src/project/project.cpp:415
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Súbory OpenDocument (*.odt *.ods)"
@@ -2076,11 +2076,42 @@ msgstr "Ignorovať značky akcelerátora"
 msgid "Include notes"
 msgstr "Vrátane poznámok"
 
-#: src/glossary/glossary.cpp:194
+#: src/glossary/glossary.cpp:202
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Pole predmetu"
+
+#: src/glossary/glossary.cpp:661
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Glossary Save Failed\n"
+"%1\n"
+"Details: %2"
+msgstr ""
+
+#: src/glossary/glossary.cpp:661
+#, fuzzy, kde-format
+#| msgctxt "@title actions category"
+#| msgid "Glossary"
+msgid "Glossary Error"
+msgstr "Slovník"
+
+#: src/glossary/glossary.cpp:669
+#, kde-format
+msgid "The folder for the glossary does not exist."
+msgstr ""
+
+#: src/glossary/glossary.cpp:672
+#, kde-format
+msgid "The path points to a folder, not a file."
+msgstr ""
+
+#: src/glossary/glossary.cpp:675
+#, kde-format
+msgid "Cannot write to file. Check permissions."
+msgstr ""
 
 #: src/glossary/glossarytab.cpp:84
 #, fuzzy, kde-format
@@ -2315,13 +2346,13 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Nenašli sa žiadne Qt Sql moduly. Pamäť prekladov nebude fungovať."
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
 #, fuzzy, kde-format
 #| msgid "TM facility requires SQLite Qt module."
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "Funkcia TM vyžaduje SQLite Qt modul."
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
 #, kde-format
 msgid "No SQLite module available"
 msgstr "SQLite modul nedostupný"
@@ -3901,17 +3932,17 @@ msgstr "Projekt"
 msgid "Language-Team:"
 msgstr "Jazykový tým:"
 
-#: src/project/project.cpp:376
+#: src/project/project.cpp:382
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Prehľadávam priečinky so zdrojovými súbormi"
 
-#: src/project/project.cpp:376
+#: src/project/project.cpp:382
 #, kde-format
 msgid "Editor"
 msgstr "Editor"
 
-#: src/project/project.cpp:416
+#: src/project/project.cpp:422
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

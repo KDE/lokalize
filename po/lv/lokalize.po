@@ -7,20 +7,20 @@
 # Maris Nartiss <maris.kde@gmail.com>, 2009.
 # Einars Sprugis <einars8@gmail.com>, 2010, 2012.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
-# SPDX-FileCopyrightText: 2024, 2025 Toms Trasuns <toms.trasuns@posteo.net>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-07 00:46+0000\n"
-"PO-Revision-Date: 2025-08-21 13:00+0300\n"
+"POT-Creation-Date: 2026-02-08 00:45+0000\n"
+"PO-Revision-Date: 2026-02-06 15:18+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -738,9 +738,7 @@ msgstr ""
 "jaunāku POT veidni"
 
 #: src/catalog/gettextheader.cpp:457
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author name missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr "Trūkst autora vārda"
@@ -751,12 +749,10 @@ msgid "Your name:"
 msgstr "Jūsu vārds:"
 
 #: src/catalog/gettextheader.cpp:469
-#, fuzzy, kde-format
-#| msgctxt "@window:title"
-#| msgid "Author email missing"
+#, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
-msgstr "Trūkst autora e-pasta adreses:"
+msgstr "Trūkst autora e-pasta adreses"
 
 #: src/catalog/gettextheader.cpp:470
 #, kde-format
@@ -776,10 +772,9 @@ msgstr "Tulkošanas vienības"
 
 #: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:124
 #: src/project/projecttab.cpp:59
-#, fuzzy, kde-format
-#| msgid "&Search"
+#, kde-format
 msgid "Search"
-msgstr "&Meklēt"
+msgstr "Meklēt"
 
 #: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:126
 #: src/project/projecttab.cpp:60
@@ -877,20 +872,16 @@ msgid "States"
 msgstr "Stāvokļi"
 
 #: src/cataloglistview/cataloglistview.cpp:233
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Searchable column"
+#, kde-format
 msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
-msgstr "Meklējama kolonna"
+msgstr "Meklēt kolonnā"
 
 #: src/cataloglistview/cataloglistview.cpp:237
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Resort and refilter on content change"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Re-sort and refilter on content change"
-msgstr "Kārtot un filtrēt no jauna, mainoties saturam"
+msgstr "No jauna sakārtot un filtrēt, mainoties saturam"
 
 #: src/cataloglistview/cataloglistview.cpp:257
 #, kde-format
@@ -905,14 +896,14 @@ msgid "Entry"
 msgstr "Ieraksts"
 
 #: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:351
-#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
+#: src/glossary/glossary.cpp:197 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "Avota teksts"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:200 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -950,20 +941,16 @@ msgid "Modified"
 msgstr "Mainīts"
 
 #: src/cataloglistview/catalogmodel.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "@title:column Length of the original text"
-#| msgid "Source length"
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source Length"
 msgstr "Avota teksta garums"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#, fuzzy, kde-format
-#| msgctxt "@title:column Length of the text in target language"
-#| msgid "Target length"
+#, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
-msgstr "Tulkojuma garums"
+msgstr "Tulkojuma teksta garums"
 
 #: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1017
 #: src/editortab.cpp:1212 src/tm/tmtab.cpp:233
@@ -973,9 +960,7 @@ msgid "Ready"
 msgstr "Gatavs"
 
 #: src/cataloglistview/catalogmodel.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@info:status 'fuzzy' in gettext terminology"
-#| msgid "Needs review"
+#, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs Review"
 msgstr "Nepieciešams pārbaudīt"
@@ -1063,66 +1048,52 @@ msgid "Insert alternate translation #%1"
 msgstr "Ievietot alternatīvu tulkojumu #%1"
 
 #: src/editortab.cpp:239
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Note"
 msgstr "Pievienot piezīmi"
 
 #: src/editortab.cpp:248
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert translation memory suggestion #%1"
-msgstr "Tulkošanas atmiņas ieteikuma izmantošana"
+msgstr "Ievietot tulkošanas atmiņas ieteikumu Nr. %1"
 
 #: src/editortab.cpp:253
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove translation memory suggestion #%1"
-msgstr "Tulkošanas atmiņas ieteikuma izmantošana"
+msgstr "Noņemt tulkošanas atmiņas ieteikumu Nr. %1"
 
 #: src/editortab.cpp:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
-msgstr "Ievietot alternatīvo tulkojumu #%1"
+msgstr "Ievietot alternatīvo tulkojumu Nr. %1"
 
 #: src/editortab.cpp:318
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define new term"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Define New Term"
-msgstr "Pievienot jaunu terminu"
+msgstr "Definēt jaunu terminu"
 
 #: src/editortab.cpp:352
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Phases..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases…"
-msgstr "Posmi..."
+msgstr "Posmi…"
 
 #: src/editortab.cpp:355
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Word Count"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Word Count"
 msgstr "Vārdu skaits"
 
 #: src/editortab.cpp:358
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear all translated entries"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear Translated Entries"
-msgstr "Notīrīt visus tulkotos ierakstus"
+msgstr "Notīrīt tulkojumus"
 
 #: src/editortab.cpp:361
 #, kde-format
@@ -1137,9 +1108,7 @@ msgid "Merge translation into OpenDocument"
 msgstr "Sapludināt „OpenDocument“ dokumentā"
 
 #: src/editortab.cpp:385
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Change searching direction"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Change Searching Direction"
 msgstr "Mainīt meklēšanas virzienu"
@@ -1153,42 +1122,34 @@ msgid "Approved"
 msgstr "Apstiprināts"
 
 #: src/editortab.cpp:414
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Approve and go to next"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and Go Next"
-msgstr "Apstiprināt un doties uz nākamo"
+msgstr "Apstiprināt un iet tālāk"
 
 #: src/editortab.cpp:421
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Equivalent translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent Translation"
-msgstr "Vienādā tulkošana"
+msgstr "Ekvivalents tulkojums"
 
 #: src/editortab.cpp:432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy source to target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source to Target"
-msgstr "Kopēt avota tekstu uz tulkojumu"
+msgstr "Kopēt avotu uz tulkojumu"
 
 #: src/editortab.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Unwrap target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap Target"
-msgstr "Noņemt aplaušanu tulkojumā"
+msgstr "Noņemt teksta aplaušanu tulkojumā"
 
 #: src/editortab.cpp:442 src/filesearch/filesearchtab.cpp:137
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
-msgstr "Tīrīt"
+msgstr "Notīrīt"
 
 #: src/editortab.cpp:446
 #, kde-format
@@ -1251,9 +1212,7 @@ msgid "&Last Entry"
 msgstr "Pē&dējais ieraksts"
 
 #: src/editortab.cpp:494
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Entry by number"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by Number"
 msgstr "Ieraksts pēc numura"
@@ -1275,27 +1234,19 @@ msgid "Next non-empty but not ready"
 msgstr "Nākamais tulkotais, bet negatavais"
 
 #: src/editortab.cpp:512 src/project/projecttab.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Untranslated"
 msgstr "Iepriekšējais netulkotais"
 
 #: src/editortab.cpp:517 src/project/projecttab.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Untranslated"
 msgstr "Nākamais netulkotais"
 
 #: src/editortab.cpp:523 src/project/projecttab.cpp:88
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Previous not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -1303,11 +1254,7 @@ msgid "Previous Not Ready"
 msgstr "Iepriekšējais negatavais"
 
 #: src/editortab.cpp:535 src/project/projecttab.cpp:94
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Next not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
@@ -1321,25 +1268,19 @@ msgid "Focus the search line of Translation Units view"
 msgstr "Fokusēties uz meklēšanas rindu Tulkošanas vienību skatā"
 
 #: src/editortab.cpp:548
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Bookmark message"
+#, kde-format
 msgctxt "@option:check"
 msgid "Bookmark Message"
-msgstr "Pievienot ierakstu grāmatzīmēm"
+msgstr "Pievienot ziņojumu grāmatzīmēm"
 
 #: src/editortab.cpp:553
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
 msgstr "Iepriekšējā grāmatzīme"
 
 #: src/editortab.cpp:557
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Bookmark"
 msgstr "Nākamā grāmatzīme"
@@ -1373,9 +1314,7 @@ msgstr ""
 "to"
 
 #: src/editortab.cpp:585 src/editortab.cpp:644
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Different"
 msgstr "Iepriekšējais atšķirīgais"
@@ -1391,9 +1330,7 @@ msgstr ""
 "ietverot arī avotā esošos tukšos tulkojumus"
 
 #: src/editortab.cpp:596 src/editortab.cpp:653
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different"
 msgstr "Nākamais atšķirīgais"
@@ -1409,9 +1346,7 @@ msgstr ""
 "esošos tukšos tulkojumus"
 
 #: src/editortab.cpp:606
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different approved"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different Approved"
 msgstr "Nākamais atšķirīgais apstiprinātais"
@@ -1707,8 +1642,8 @@ msgstr ""
 "apstrādātu avota teksta datnes pielāgotajos ceļos. Apskatiet „Lokalize“ "
 "rokasgrāmatu skriptu paraugiem un to, kā tos pievienot projektam."
 
-#: src/editortab.cpp:1546 src/project/project.cpp:399
-#: src/project/project.cpp:404
+#: src/editortab.cpp:1546 src/project/project.cpp:405
+#: src/project/project.cpp:410
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instalējiet „translate-toolkit“ pakotni un mēģiniet vēlreiz"
@@ -1724,7 +1659,7 @@ msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "Atlasiet oriģinālo „OpenDocument“, uz kura pamata ir izveidota šī XLIFF datne"
 
-#: src/editortab.cpp:1561 src/project/project.cpp:409
+#: src/editortab.cpp:1561 src/project/project.cpp:415
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "„OpenDocument“ datnes (*.odt *.ods)"
@@ -1957,10 +1892,9 @@ msgid "File List"
 msgstr "Datņu saraksts"
 
 #: src/filesearch/filesearchtab.cpp:122
-#, fuzzy, kde-format
-#| msgid "Drop translation files here..."
+#, kde-format
 msgid "Drop translation files here…"
-msgstr "Ievelciet tulkojuma datnes te..."
+msgstr "Te ievelciet tulkojuma datnes…"
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
@@ -1969,12 +1903,10 @@ msgid "File"
 msgstr "Datne"
 
 #: src/filesearch/filesearchtab.cpp:449
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search && Replace"
-msgstr "Meklēt un aizvietot datnēs"
+msgstr "Meklēt un aizvietot"
 
 #: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
@@ -1992,16 +1924,13 @@ msgid "Open file"
 msgstr "Atvērt datni"
 
 #: src/filesearch/filesearchtab.cpp:518
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title actions category"
 msgid "Search && Replace"
-msgstr "Meklēt un aizvietot datnēs"
+msgstr "Meklēt un aizvietot"
 
 #: src/filesearch/filesearchtab.cpp:723
-#, fuzzy, kde-format
-#| msgid "Mass Replace"
+#, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
 msgstr "Aizvietot viscaur"
@@ -2056,16 +1985,45 @@ msgstr "Ignorēt paātrinātāju zīmes"
 msgid "Include notes"
 msgstr "Iekļaut piezīmes"
 
-#: src/glossary/glossary.cpp:194
+#: src/glossary/glossary.cpp:202
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Temata lauks"
 
-#: src/glossary/glossarytab.cpp:84
+#: src/glossary/glossary.cpp:661
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Glossary Save Failed\n"
+"%1\n"
+"Details: %2"
+msgstr ""
+
+#: src/glossary/glossary.cpp:661
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
+msgid "Glossary Error"
+msgstr "Glosārijs"
+
+#: src/glossary/glossary.cpp:669
+#, kde-format
+msgid "The folder for the glossary does not exist."
+msgstr ""
+
+#: src/glossary/glossary.cpp:672
+#, kde-format
+msgid "The path points to a folder, not a file."
+msgstr ""
+
+#: src/glossary/glossary.cpp:675
+#, kde-format
+msgid "Cannot write to file. Check permissions."
+msgstr ""
+
+#: src/glossary/glossarytab.cpp:84
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
 msgstr "Glosārijs"
@@ -2073,21 +2031,19 @@ msgstr "Glosārijs"
 #: src/glossary/glossarytab.cpp:109
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: src/glossary/glossarytab.cpp:141
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
-msgstr ""
+msgstr "Pievienot jaunu glosārija ierakstu"
 
 #: src/glossary/glossarytab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this entry"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
-msgstr "Izņemt šo ierakstu"
+msgstr "Noņemt atlasīto glosārija ierakstu"
 
 #: src/glossary/glossarytab.cpp:144
 #, kde-format
@@ -2108,14 +2064,7 @@ msgid "Glossary"
 msgstr "Glosārijs"
 
 #: src/glossary/glossaryview.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;new&nbsp;term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
@@ -2125,11 +2074,12 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
-"<p>Šeit parādās bieži sastopamo terminu tulkojumi.</p><p>Nospiežot uz īsceļa "
-"pie termina, programma ievietos termina tulkojumu.</p><p>Izmantojot "
-"konteksta izvēlni, varat pievienot jaunu ierakstu (padoms:&nbsp;iezīmējiet "
-"vārdus oriģinālā un tulkojumā, bet tad spiediet <interface>Pievienot&nbsp;"
-"jaunu&nbsp;terminu</interface>).</p>"
+"<p>Te būs redzami glosārija ieraksti.</p><p>Nospiežot uz īsceļa pie termina, "
+"programma terminu ievietos tulkojumā.</p><p>Izmantojiet konteksta izvēlni, "
+"lai glosārijam pievienotu jaunu ierakstu (padoms:&nbsp;iezīmējiet vārdus "
+"oriģinālā un tulkojumā, bet tad spiediet <interface>Pievienot&nbsp;"
+"jaunu&nbsp;terminu</interface>). Glosārija datnes vietu varat norādīt "
+"projekta iestatījumos.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:25
@@ -2140,9 +2090,7 @@ msgstr "Angļu sinonīmi (dubultklikšķis, lai rediģētu):"
 #. i18n: ectx: property (text), widget (QPushButton, addEngTerm)
 #. i18n: ectx: property (text), widget (QPushButton, addTargetTerm)
 #: src/glossary/termedit.ui:32 src/glossary/termedit.ui:78
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add"
+#, kde-format
 msgid "Add"
 msgstr "Pievienot"
 
@@ -2150,7 +2098,7 @@ msgstr "Pievienot"
 #: src/glossary/termedit.ui:35
 #, kde-format
 msgid "Add new source synonym"
-msgstr ""
+msgstr "Pievienot jaunu avota sinonīmu"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #. i18n: ectx: property (text), widget (QPushButton, remEngTerm)
@@ -2165,7 +2113,7 @@ msgstr "Izņemt"
 #: src/glossary/termedit.ui:48
 #, kde-format
 msgid "Remove selected source synonym"
-msgstr ""
+msgstr "Noņemt atlasīto avota sinonīmu"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/glossary/termedit.ui:71
@@ -2177,13 +2125,13 @@ msgstr "Atbilstošie tulkojuma valodas sinonīmi:"
 #: src/glossary/termedit.ui:81
 #, kde-format
 msgid "Add new target synonym"
-msgstr ""
+msgstr "Pievienot jaunu tulkojuma sinonīmu"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, remTargetTerm)
 #: src/glossary/termedit.ui:94
 #, kde-format
 msgid "Remove selected target synonym"
-msgstr ""
+msgstr "Noņemt atlasīto tulkojuma sinonīmu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:109
@@ -2235,15 +2183,7 @@ msgid "No errors"
 msgstr "Kļūdu nav"
 
 #: src/lokalizemainwindow.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2251,44 +2191,35 @@ msgid ""
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
 "which you can participate.</html>"
 msgstr ""
-"<html>Tev nav jābūt programmētājam, lai būtu KDE komandas dalībnieks. Vari "
+"<html>Lai iesaistītos KDE komandā, tev nav jābūt programmētājam. Vari "
 "pievienoties arī valodu komandām, kas tulko programmu saskarnes. Tāpat vari "
-"nodrošināt attēlus, motīvus, skaņas un uzlabot dokumentāciju. Izlemt vari Tu!"
-"<br /><br />Apmeklē <a href=\"%1\">%1</a>, lai uzzinātu vairāk par "
-"projektiem, kuros vari piedalīties.<br /><br />Ja Tev ir vajadzīga papildu "
-"informācija vai dokumentācija, apmeklē <a href=\"%2\">%2</a>, kur atradīsi "
-"meklēto.</html>"
+"veidot attēlus, motīvus, skaņas un uzlabot dokumentāciju. Izlem, ko vēlies!"
+"<br /><br />Lai uzzinātu vairāk par projektiem, kuros vari piedalīties, "
+"apmeklē <a href=\"%1\">%1</a>.</html>"
 
 #: src/lokalizemainwindow.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "&Konfigurēt „Lokalize“"
+msgstr "&Konfigurēt „Lokalize“…"
 
 #: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
 #: src/project/projecttab.cpp:155
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
-msgstr "Atvērt projektu"
+msgstr "Atvērt projektu…"
 
 #: src/lokalizemainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "Tulkot programmatūru"
+msgstr "Tulkot programmatūru…"
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "Tulkot „OpenDocument“"
+msgstr "Tulkot „OpenDocument“…"
 
 #: src/lokalizemainwindow.cpp:180
 #, kde-format
@@ -2296,13 +2227,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "„Qt Sql“ moduļi nav atrasti. Tulkošanas atmiņa nedarbosies."
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
-#, fuzzy, kde-format
-#| msgid "TM facility requires SQLite Qt module."
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
+#, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
-msgstr "TA funkcijai nepieciešams „SQLite Qt“ modulis."
+msgstr "Tulkošanas atmiņās darbībai ir nepieciešams „SQLite Qt“ modulis."
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
 #, kde-format
 msgid "No SQLite module available"
 msgstr "„SQLite“ modulis nav pieejams"
@@ -2320,26 +2250,22 @@ msgid "Project"
 msgstr "Projekts"
 
 #: src/lokalizemainwindow.cpp:624
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Tab"
 msgstr "Nākamā cilne"
 
 #: src/lokalizemainwindow.cpp:627
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Tab"
 msgstr "Iepriekšējā cilne"
 
 #: src/lokalizemainwindow.cpp:630
-#, fuzzy, kde-format
-#| msgid "Previously active tab"
+#, kde-format
 msgid "Previously Active Tab"
 msgstr "Iepriekš aktīvā cilne"
 
 #: src/lokalizemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Close current tab"
+#, kde-format
 msgid "Close Current Tab"
 msgstr "Aizvērt pašreizējo cilni"
 
@@ -2350,86 +2276,67 @@ msgid "Glossary"
 msgstr "Glosārijs"
 
 #: src/lokalizemainwindow.cpp:645
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Tulkošanas atmiņa"
 
 #: src/lokalizemainwindow.cpp:649 src/tm/tmtab.cpp:482
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Manage translation memories"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "Pārvaldīt tulkošanas atmiņas"
 
 #: src/lokalizemainwindow.cpp:653
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "Projekta kopskats"
 
 #: src/lokalizemainwindow.cpp:657
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Configure project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
-msgstr "Konfigurēt projektu..."
+msgstr "Konfigurēt projektu…"
 
 #: src/lokalizemainwindow.cpp:660
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create software translation project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
-msgstr "Izveidot programmatūras tulkojuma projektu..."
+msgstr "Izveidot programmatūras tulkošanas projektu…"
 
 #: src/lokalizemainwindow.cpp:663
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Create OpenDocument translation project..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr "Izveidot „OpenDocument“ tulkojuma projektu..."
+msgstr "Izveidot „OpenDocument“ tulkošanas projektu…"
 
 #: src/lokalizemainwindow.cpp:670
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "Aizvērt projektu"
 
 #: src/lokalizemainwindow.cpp:673
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "Atvērt nesenu projektu"
 
 #: src/lokalizemainwindow.cpp:683
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
-msgstr "Meklēt un aizvietot datnēs"
+msgstr "Meklēt un aizvietot"
 
 #: src/lokalizemainwindow.cpp:686
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
-msgstr ""
+msgstr "Iet uz nākamo meklēšanas un aizvietošanas ierakstu"
 
 #: src/lokalizemainwindow.cpp:690
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Widget Text Capture"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "Logdaļu teksta tveršana"
@@ -2776,21 +2683,19 @@ msgstr "<b>Komentāri:</b>"
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit…"
-msgstr ""
+msgstr "rediģēt…"
 
 #: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add…"
-msgstr ""
+msgstr "Pievienot…"
 
 #: src/noteeditor.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "link to add a note"
 msgid "Add a note…"
-msgstr "Pievienot piezīmi"
+msgstr "Pievienot piezīmi…"
 
 #: src/phaseswindow.cpp:144
 #, kde-format
@@ -3005,20 +2910,16 @@ msgid "Project Required"
 msgstr "Nepieciešams projekts"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "Izveidot projektu"
+msgstr "Izveidot projektu…"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
-msgstr "Atvērt projektu"
+msgstr "Atvērt projektu…"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
@@ -3852,17 +3753,17 @@ msgstr "Projekts"
 msgid "Language-Team:"
 msgstr "Valodas komanda:"
 
-#: src/project/project.cpp:376
+#: src/project/project.cpp:382
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Skenē mapi ar avota datnēm"
 
-#: src/project/project.cpp:376
+#: src/project/project.cpp:382
 #, kde-format
 msgid "Editor"
 msgstr "Redaktors"
 
-#: src/project/project.cpp:416
+#: src/project/project.cpp:422
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3937,9 +3838,7 @@ msgid "Translated"
 msgstr "Iztulkots"
 
 #: src/project/projectmodel.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@title:column Number of entries"
-#| msgid "Not ready"
+#, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr "Nav gatavs"
@@ -3987,50 +3886,40 @@ msgid "Project Overview"
 msgstr "Projekta kopskats"
 
 #: src/project/projecttab.cpp:124
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Template Only"
 msgstr "Tikai iepriekšējā sagatave"
 
 #: src/project/projecttab.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Template Only"
 msgstr "Tikai nākamā sagatave"
 
 #: src/project/projecttab.cpp:135
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Translation Only"
 msgstr "Tikai iepriekšējais tulkojums"
 
 #: src/project/projecttab.cpp:138
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Translation Only"
 msgstr "Tikai nākamais tulkojums"
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide completed items"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Completed Items"
-msgstr "Paslēpt pabeigtos vienumus"
+msgstr "Slēpt pabeigtos vienumus"
 
 #: src/project/projecttab.cpp:143
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
-msgstr "Paslēpt pilnībā iztulkotas datnes un mapes"
+msgstr "Slēpt pilnībā iztulkotas datnes un mapes"
 
 #: src/project/projecttab.cpp:190
 #, kde-format
@@ -4272,17 +4161,15 @@ msgstr "Pievienot datus"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "Pievienot datus no TMX"
+msgstr "Pievienot datus no TMX…"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "Eksportēt uz TMX"
+msgstr "Eksportēt uz TMX…"
 
 #: src/tm/qamodel.cpp:98
 #, kde-format
@@ -4310,10 +4197,9 @@ msgstr "Izņemt"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/queryoptions.ui:32
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgid "Translation Memory:"
-msgstr "Tulkošanas atmiņa"
+msgstr "Tulkošanas atmiņa:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
@@ -4336,8 +4222,7 @@ msgstr "Rādīt rezultātus, kas neatbilst izteiksmei"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
-#, fuzzy, kde-format
-#| msgid "File mask:"
+#, kde-format
 msgid "File Mask:"
 msgstr "Datņu maska:"
 
@@ -4349,8 +4234,7 @@ msgstr "Rādīt tikai rezultātus no datnēm, kuru ceļš atbilst norādītajai 
 
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
-#, fuzzy, kde-format
-#| msgid "Query syntax:"
+#, kde-format
 msgid "Query Syntax:"
 msgstr "Vaicājuma sintakse:"
 
@@ -4366,10 +4250,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "&Rescan Project"
-msgstr "&Pārskenēt projekta datnes"
+msgstr "&Pārskenēt projektu"
 
 #: src/tm/tmmanager.cpp:34
 #, kde-format
@@ -4572,33 +4455,25 @@ msgid "File: %1<br />Addition date: %2"
 msgstr "Datne: %1<br /> Pievienošanas datums: %2"
 
 #: src/tm/tmview.cpp:581
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change date: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Pēdējās izmaiņas datums: %1"
 
 #: src/tm/tmview.cpp:583
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Last change author: %1"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Pēdējās izmaiņas autors: %1"
 
 #: src/tm/tmview.cpp:584
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translation memory"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Translation memory: %1"
-msgstr "Tulkošanas atmiņa"
+msgstr "<br />Tulkošanas atmiņa: %1"
 
 #: src/tm/tmview.cpp:586
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip on TM entry continues"
-#| msgid "<br />Is not present in the file anymore"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Vairs nav atrodams šajā datnē"
@@ -4631,12 +4506,10 @@ msgid "Open file containing this entry"
 msgstr "Atvērt datni, kas satur ierakstu"
 
 #: src/tm/tmview.cpp:662
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this missing file from TM"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from the translation memory"
-msgstr "Noņemt trūkstošo datni no TA"
+msgstr "No tulkošanas atmiņas izņemt šo trūkstošo datni"
 
 #: src/tm/tmview.cpp:676
 #, kde-format

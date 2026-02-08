@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-07 00:46+0000\n"
-"PO-Revision-Date: 2026-01-27 21:32+0200\n"
+"POT-Creation-Date: 2026-02-08 00:45+0000\n"
+"PO-Revision-Date: 2026-02-06 10:42+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -870,14 +870,14 @@ msgid "Entry"
 msgstr "רשומה"
 
 #: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:351
-#: src/glossary/glossary.cpp:189 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
+#: src/glossary/glossary.cpp:197 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "מקור"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:192 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:200 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -1613,8 +1613,8 @@ msgstr ""
 "מותאמים מראש. יש לפנות לספרון ההדרכה של Lokalize לעיון בדוגמאות לסקריפטים "
 "ואיך להתאים אותם למיזם שלך."
 
-#: src/editortab.cpp:1546 src/project/project.cpp:399
-#: src/project/project.cpp:404
+#: src/editortab.cpp:1546 src/project/project.cpp:405
+#: src/project/project.cpp:410
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "נא להתקין את translate-toolkit ולנסות שוב"
@@ -1629,7 +1629,7 @@ msgstr "נא להתקין את translate-toolkit ולנסות שוב."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "בחירת ה־OpenDocument המקורי עליו מבוסס קובץ ה־XLIFF הנוכחי"
 
-#: src/editortab.cpp:1561 src/project/project.cpp:409
+#: src/editortab.cpp:1561 src/project/project.cpp:415
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "קובצי OpenDocument‏ (‎*.odt‏ ‎*.ods)"
@@ -1954,11 +1954,42 @@ msgstr "התעלמות ממקשי האצה"
 msgid "Include notes"
 msgstr "כולל הערות"
 
-#: src/glossary/glossary.cpp:194
+#: src/glossary/glossary.cpp:202
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "שדה הנושא"
+
+#: src/glossary/glossary.cpp:661
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Glossary Save Failed\n"
+"%1\n"
+"Details: %2"
+msgstr ""
+
+#: src/glossary/glossary.cpp:661
+#, fuzzy, kde-format
+#| msgctxt "@title actions category"
+#| msgid "Glossary"
+msgid "Glossary Error"
+msgstr "מילון מונחים"
+
+#: src/glossary/glossary.cpp:669
+#, kde-format
+msgid "The folder for the glossary does not exist."
+msgstr ""
+
+#: src/glossary/glossary.cpp:672
+#, kde-format
+msgid "The path points to a folder, not a file."
+msgstr ""
+
+#: src/glossary/glossary.cpp:675
+#, kde-format
+msgid "Cannot write to file. Check permissions."
+msgstr ""
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
@@ -1975,15 +2006,13 @@ msgstr "שמירה"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
-msgstr ""
+msgstr "הוספת רשומת מילון מונחים חדשה"
 
 #: src/glossary/glossarytab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this entry"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
-msgstr "הסרת הרשומה הזאת"
+msgstr "הסרת הרשומה הנבחרת ממילון המונחים"
 
 #: src/glossary/glossarytab.cpp:144
 #, kde-format
@@ -2029,9 +2058,7 @@ msgstr "מילים נרדפות באנגלית (לחיצה כפולה לעריכ
 #. i18n: ectx: property (text), widget (QPushButton, addEngTerm)
 #. i18n: ectx: property (text), widget (QPushButton, addTargetTerm)
 #: src/glossary/termedit.ui:32 src/glossary/termedit.ui:78
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add"
+#, kde-format
 msgid "Add"
 msgstr "הוספה"
 
@@ -2039,7 +2066,7 @@ msgstr "הוספה"
 #: src/glossary/termedit.ui:35
 #, kde-format
 msgid "Add new source synonym"
-msgstr ""
+msgstr "הוספת מילת מקור נרדפת חדשה"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #. i18n: ectx: property (text), widget (QPushButton, remEngTerm)
@@ -2054,7 +2081,7 @@ msgstr "הסרה"
 #: src/glossary/termedit.ui:48
 #, kde-format
 msgid "Remove selected source synonym"
-msgstr ""
+msgstr "הסרת מילת המקור הנרדפת הנבחרת"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/glossary/termedit.ui:71
@@ -2066,13 +2093,13 @@ msgstr "המילים הנרדפות המתאימות בשפת היעד:"
 #: src/glossary/termedit.ui:81
 #, kde-format
 msgid "Add new target synonym"
-msgstr ""
+msgstr "הוספת מילת יעד נרדפת"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, remTargetTerm)
 #: src/glossary/termedit.ui:94
 #, kde-format
 msgid "Remove selected target synonym"
-msgstr ""
+msgstr "הסרת מילת היעד הנרדפת"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:109
@@ -2165,12 +2192,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "לא נמצאו מודולים של SQL ב־Qt. זיכרון התרגום לא יעבוד."
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
 #, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "מערכת זיכרון התרגום צריכה מודול SQLite של Qt"
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:227
+#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
 #, kde-format
 msgid "No SQLite module available"
 msgstr "אין מודול SQLite זמין"
@@ -3664,17 +3691,17 @@ msgstr "מיזם"
 msgid "Language-Team:"
 msgstr "צוות שפה:"
 
-#: src/project/project.cpp:376
+#: src/project/project.cpp:382
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "התיקיות עם קובצי המקור נסרקות"
 
-#: src/project/project.cpp:376
+#: src/project/project.cpp:382
 #, kde-format
 msgid "Editor"
 msgstr "עורך"
 
-#: src/project/project.cpp:416
+#: src/project/project.cpp:422
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
