@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-08 00:45+0000\n"
-"PO-Revision-Date: 2026-02-05 10:19+0100\n"
+"PO-Revision-Date: 2026-02-08 11:14+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2012,28 +2012,29 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"No s'ha pogut fer la guardada del glossari\n"
+"%1\n"
+"Detalls: %2"
 
 #: src/glossary/glossary.cpp:661
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "Glossari"
+msgstr "S'ha produït un error del glossari"
 
 #: src/glossary/glossary.cpp:669
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "No existix la carpeta per al glossari."
 
 #: src/glossary/glossary.cpp:672
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "El camí apunta cap a una carpeta, no a un fitxer."
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "No es pot escriure el fitxer. Comproveu els permisos."
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
@@ -4672,6 +4673,3 @@ msgstr "S'ha notificat un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia l'origen a la destinació"
-
-#~ msgid "&Scripts"
-#~ msgstr "&Scripts"

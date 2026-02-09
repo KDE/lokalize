@@ -1939,11 +1939,9 @@ msgid ""
 msgstr ""
 
 #: src/glossary/glossary.cpp:661
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "词汇表"
+msgstr ""
 
 #: src/glossary/glossary.cpp:669
 #, kde-format
