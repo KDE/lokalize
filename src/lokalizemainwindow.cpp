@@ -1051,24 +1051,7 @@ bool LokalizeMainWindow::queryCloseTabAtIndex(int index)
         if (glossary->isClean())
             return true;
 
-        // Activate the tab because then behind the prompt popup
-        // you can see the glossary tab.
-        activateTabAtIndex(index);
-        switch (KMessageBox::warningTwoActionsCancel(this,
-                                                     i18nc("@info",
-                                                           "The glossary contains unsaved changes.\n"
-                                                           "Do you want to save your changes or discard them?"),
-                                                     i18nc("@title:window", "Warning"),
-                                                     KStandardGuiItem::save(),
-                                                     KStandardGuiItem::discard())) {
-        case KMessageBox::PrimaryAction:
-            return Project::instance()->glossaryTab()->save();
-        case KMessageBox::SecondaryAction:
-            Project::instance()->glossaryTab()->restore();
-            return true;
-        default:
-            return false;
-        }
+        return glossary->save();
     } else if (EditorTab *editorTab = static_cast<EditorTab *>(m_mainTabs->widget(index))) {
         if (editorTab->isClean()) {
             return true;

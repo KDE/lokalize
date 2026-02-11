@@ -80,7 +80,6 @@ public Q_SLOTS:
     void newTermEntry();
     void rmTermEntry(int i);
     void rmTermEntry();
-    void restore();
     bool save();
     void applyEntryChange();
     void selectEntry(const QByteArray &id);

@@ -141,21 +141,15 @@ GlossaryTab::GlossaryTab(QWidget *parent)
         addBtn->setToolTip(i18nc("@info:tooltip", "Add new glossary entry"));
         rmBtn->setToolTip(i18nc("@info:tooltip", "Remove selected glossary entry"));
 
-        QPushButton *restoreBtn = new QPushButton(i18nc("@action:button reloads glossary from disk", "Restore from disk"), w);
-        restoreBtn->setToolTip(i18nc("@info:tooltip", "Reload glossary from disk, discarding any changes"));
-        connect(restoreBtn, &QPushButton::clicked, this, &GlossaryTab::restore);
-
         QWidget *btns = new QWidget(w);
         QHBoxLayout *btnsLayout = new QHBoxLayout(btns);
         btnsLayout->setContentsMargins(0, 0, 0, 0);
         btnsLayout->addWidget(addBtn);
         btnsLayout->addWidget(rmBtn);
-        btnsLayout->addWidget(restoreBtn);
 
         layout->addWidget(btns);
         QWidget::setTabOrder(addBtn, rmBtn);
-        QWidget::setTabOrder(rmBtn, restoreBtn);
-        QWidget::setTabOrder(restoreBtn, m_filterEdit);
+        QWidget::setTabOrder(rmBtn, m_filterEdit);
     }
     QWidget::setTabOrder(m_filterEdit, m_browser);
 
@@ -339,15 +333,6 @@ void GlossaryTab::rmTermEntry(int i)
 
     sourceModel->removeRow(i);
     updateTabIcon();
-}
-
-void GlossaryTab::restore()
-{
-    Glossary *glossary = Project::instance()->glossary();
-    glossary->load(glossary->path());
-    m_reactOnSignals = false;
-    showEntryInEditor(m_id);
-    m_reactOnSignals = true;
 }
 
 bool GlossaryTab::save()
