@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:45+0000\n"
+"POT-Creation-Date: 2026-02-12 00:46+0000\n"
 "PO-Revision-Date: 2025-11-08 22:40+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1463,7 +1463,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(helyreállítva)"
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1081
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1473,8 +1473,7 @@ msgstr ""
 "A dokumentum nem mentett változtatásokat tartalmaz.\n"
 "Szeretné elmenteni a változásokat vagy eldobja azokat?"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1061
-#: src/lokalizemainwindow.cpp:1083
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2128,18 +2127,6 @@ msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
 msgstr "Bejegyzés eltávolítása"
 
-#: src/glossary/glossarytab.cpp:144
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr "Visszaállítás a lemezről"
-
-#: src/glossary/glossarytab.cpp:145
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr "Szójegyzék újratöltése a lemezről, a változtatások eldobása"
-
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
 msgctxt "@title:window"
@@ -2489,16 +2476,6 @@ msgid ""
 msgstr ""
 "Hiba a következő fájlok megnyitásakor:\n"
 "\n"
-
-#: src/lokalizemainwindow.cpp:1059
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"A szójegyzék nem mentett változtatásokat tartalmaz.\n"
-"Szeretné elmenteni a változásokat vagy eldobja azokat?"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:20
@@ -4801,6 +4778,22 @@ msgstr "Hibát jelentettek: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Forrás másolása a célba"
+
+#~ msgctxt "@action:button reloads glossary from disk"
+#~ msgid "Restore from disk"
+#~ msgstr "Visszaállítás a lemezről"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Reload glossary from disk, discarding any changes"
+#~ msgstr "Szójegyzék újratöltése a lemezről, a változtatások eldobása"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The glossary contains unsaved changes.\n"
+#~ "Do you want to save your changes or discard them?"
+#~ msgstr ""
+#~ "A szójegyzék nem mentett változtatásokat tartalmaz.\n"
+#~ "Szeretné elmenteni a változásokat vagy eldobja azokat?"
 
 #~ msgid "&Scripts"
 #~ msgstr "&Parancsfájlok"

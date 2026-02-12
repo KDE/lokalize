@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:45+0000\n"
+"POT-Creation-Date: 2026-02-12 00:46+0000\n"
 "PO-Revision-Date: 2008-09-26 14:57+0300\n"
 "Last-Translator: kom <me@komzpa.net>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -1429,7 +1429,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr ""
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1081
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1439,8 +1439,7 @@ msgstr ""
 "Дакумент быў зменены.\n"
 "Хочаце запісаць змены?"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1061
-#: src/lokalizemainwindow.cpp:1083
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2109,18 +2108,6 @@ msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
 msgstr ""
 
-#: src/glossary/glossarytab.cpp:144
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr ""
-
-#: src/glossary/glossarytab.cpp:145
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr ""
-
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
 msgctxt "@title:window"
@@ -2436,16 +2423,6 @@ msgid ""
 "Error opening the following files:\n"
 "\n"
 msgstr ""
-
-#: src/lokalizemainwindow.cpp:1059
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"Дакумент быў зменены.\n"
-"Хочаце запісаць змены?"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:20
@@ -4749,6 +4726,14 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Скапіраваць з крыніцы"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The glossary contains unsaved changes.\n"
+#~ "Do you want to save your changes or discard them?"
+#~ msgstr ""
+#~ "Дакумент быў зменены.\n"
+#~ "Хочаце запісаць змены?"
 
 #, fuzzy
 #~| msgctxt "@action:inmenu"

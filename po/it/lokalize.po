@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:45+0000\n"
+"POT-Creation-Date: 2026-02-12 00:46+0000\n"
 "PO-Revision-Date: 2026-02-07 10:47+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -1402,7 +1402,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (ripristinato)"
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1081
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1412,8 +1412,7 @@ msgstr ""
 "Il documento contiene modifiche non salvate.\n"
 "Vuoi salvare le modifiche o perderle?"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1061
-#: src/lokalizemainwindow.cpp:1083
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2056,18 +2055,6 @@ msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
 msgstr "Rimuovi la voce di glossario selezionata"
 
-#: src/glossary/glossarytab.cpp:144
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr "Ripristina dal disco"
-
-#: src/glossary/glossarytab.cpp:145
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr "Ricarica il glossario dal disco, scartando eventuali modifiche"
-
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
 msgctxt "@title:window"
@@ -2368,16 +2355,6 @@ msgid ""
 msgstr ""
 "Errore durante l'apertura dei file seguenti:\n"
 "\n"
-
-#: src/lokalizemainwindow.cpp:1059
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"Il glossario contiene modifiche non salvate.\n"
-"Vuoi salvarle o ignorarle?"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:20
@@ -4655,6 +4632,22 @@ msgstr "È stato segnalato un errore: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia originale nella destinazione"
+
+#~ msgctxt "@action:button reloads glossary from disk"
+#~ msgid "Restore from disk"
+#~ msgstr "Ripristina dal disco"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Reload glossary from disk, discarding any changes"
+#~ msgstr "Ricarica il glossario dal disco, scartando eventuali modifiche"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The glossary contains unsaved changes.\n"
+#~ "Do you want to save your changes or discard them?"
+#~ msgstr ""
+#~ "Il glossario contiene modifiche non salvate.\n"
+#~ "Vuoi salvarle o ignorarle?"
 
 #~ msgid "&Scripts"
 #~ msgstr "&Script"

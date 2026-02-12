@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:45+0000\n"
-"PO-Revision-Date: 2026-02-05 10:31+0100\n"
+"POT-Creation-Date: 2026-02-12 00:46+0000\n"
+"PO-Revision-Date: 2026-02-11 14:30+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1399,7 +1399,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(recuperate)"
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1081
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1409,8 +1409,7 @@ msgstr ""
 "Le documentos contine cambiamentos non salveguardate.\n"
 "Tu vole salveguardar tu cambiamentos o abandonar los?"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1061
-#: src/lokalizemainwindow.cpp:1083
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2005,28 +2004,29 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"Salvamento de Glossario Falleva\n"
+"%1\n"
+"Detalios: %2"
 
 #: src/glossary/glossary.cpp:661
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "Glossario"
+msgstr "Error de Glossario"
 
 #: src/glossary/glossary.cpp:669
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "Le dossier per le glossario non existe."
 
 #: src/glossary/glossary.cpp:672
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "Le percursopuncta a un dossier, non un file."
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "Non pote scriber in file. Verifica permissiones."
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
@@ -2050,18 +2050,6 @@ msgstr "Adde nove entrata de glossario"
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
 msgstr "Remove entrata de glossario seligite"
-
-#: src/glossary/glossarytab.cpp:144
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr "Restabili ex disco"
-
-#: src/glossary/glossarytab.cpp:145
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr "Recarga glossario ex disco, abandonante ulle  cambiamentos"
 
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
@@ -2363,16 +2351,6 @@ msgid ""
 msgstr ""
 "Error quando aperi le sequente files:\n"
 "\n"
-
-#: src/lokalizemainwindow.cpp:1059
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"Le glossario contine cambiamentos non salveguardate.\n"
-"Tu vole salveguardar cambiamentos o abandonar los?"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:20
@@ -4653,6 +4631,22 @@ msgstr "Un error esseva reportate: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia fonte a objectivo"
+
+#~ msgctxt "@action:button reloads glossary from disk"
+#~ msgid "Restore from disk"
+#~ msgstr "Restabili ex disco"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Reload glossary from disk, discarding any changes"
+#~ msgstr "Recarga glossario ex disco, abandonante ulle  cambiamentos"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The glossary contains unsaved changes.\n"
+#~ "Do you want to save your changes or discard them?"
+#~ msgstr ""
+#~ "Le glossario contine cambiamentos non salveguardate.\n"
+#~ "Tu vole salveguardar cambiamentos o abandonar los?"
 
 #~ msgid "&Scripts"
 #~ msgstr "&Scripts"

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:45+0000\n"
-"PO-Revision-Date: 2026-01-28 20:56+0400\n"
+"POT-Creation-Date: 2026-02-12 00:46+0000\n"
+"PO-Revision-Date: 2026-02-11 20:22+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1374,7 +1374,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (مُستَعاد)"
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1081
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1384,8 +1384,7 @@ msgstr ""
 "في المستند تعديلات لم تُحفظ.\n"
 "أتريد حفظ تعديلاتك أو رفضها؟"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1061
-#: src/lokalizemainwindow.cpp:1083
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1978,28 +1977,29 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"فشل حفظ المسرد\n"
+"%1\n"
+"التفاصيل: %2"
 
 #: src/glossary/glossary.cpp:661
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "المُسرَد"
+msgstr "خطأ المُسرَد"
 
 #: src/glossary/glossary.cpp:669
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "مجلد المسرد غير موجود."
 
 #: src/glossary/glossary.cpp:672
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "يشير المسار إلى مجلد، وليس إلى ملف."
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "لا يمكن الكتابة إلى الملف. تحقق من الأذونات."
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
@@ -2016,27 +2016,13 @@ msgstr "احفظ"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
-msgstr ""
+msgstr "إضافة مصطلح جديد إلى المسرد"
 
 #: src/glossary/glossarytab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this entry"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
-msgstr "أزِل هذه المُدخَلة"
-
-#: src/glossary/glossarytab.cpp:144
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr "استعد من القرص"
-
-#: src/glossary/glossarytab.cpp:145
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr "أعد تحميل المُسرَد من القرص، متجاهلًا أيّ تغييرات"
+msgstr "أزِل مُدخَلة المسرد المحددة"
 
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
@@ -2070,9 +2056,7 @@ msgstr "المترادفات الإنجليزيّة (انقر مزدوجًا ل�
 #. i18n: ectx: property (text), widget (QPushButton, addEngTerm)
 #. i18n: ectx: property (text), widget (QPushButton, addTargetTerm)
 #: src/glossary/termedit.ui:32 src/glossary/termedit.ui:78
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add"
+#, kde-format
 msgid "Add"
 msgstr "أضف"
 
@@ -2080,7 +2064,7 @@ msgstr "أضف"
 #: src/glossary/termedit.ui:35
 #, kde-format
 msgid "Add new source synonym"
-msgstr ""
+msgstr "أضف مرادفًا جديدًا للمصدر"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #. i18n: ectx: property (text), widget (QPushButton, remEngTerm)
@@ -2095,7 +2079,7 @@ msgstr "أزل"
 #: src/glossary/termedit.ui:48
 #, kde-format
 msgid "Remove selected source synonym"
-msgstr ""
+msgstr "أزل مرادف المصدر المحدد"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/glossary/termedit.ui:71
@@ -2107,13 +2091,13 @@ msgstr "مترادفات اللغة الهدف المقابلة:"
 #: src/glossary/termedit.ui:81
 #, kde-format
 msgid "Add new target synonym"
-msgstr ""
+msgstr "أضف المرادف الهدف جديد"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, remTargetTerm)
 #: src/glossary/termedit.ui:94
 #, kde-format
 msgid "Remove selected target synonym"
-msgstr ""
+msgstr "أزل مرادف الهدف المحدد"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:109
@@ -2336,16 +2320,6 @@ msgid ""
 msgstr ""
 "خطأ في فتح الملفّات الآتية:\n"
 "\n"
-
-#: src/lokalizemainwindow.cpp:1059
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"في المُسرَد تعديلات لم تُحفظ.\n"
-"أتريد حفظ تعديلاتك أو رفضها؟"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:20
@@ -4582,6 +4556,22 @@ msgstr "أُبلغ عن خطأ: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "انسخ المصدر إلى الهدف"
+
+#~ msgctxt "@action:button reloads glossary from disk"
+#~ msgid "Restore from disk"
+#~ msgstr "استعد من القرص"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Reload glossary from disk, discarding any changes"
+#~ msgstr "أعد تحميل المُسرَد من القرص، متجاهلًا أيّ تغييرات"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The glossary contains unsaved changes.\n"
+#~ "Do you want to save your changes or discard them?"
+#~ msgstr ""
+#~ "في المُسرَد تعديلات لم تُحفظ.\n"
+#~ "أتريد حفظ تعديلاتك أو رفضها؟"
 
 #~ msgid "&Scripts"
 #~ msgstr "س&كربتات"

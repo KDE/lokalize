@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:45+0000\n"
+"POT-Creation-Date: 2026-02-12 00:46+0000\n"
 "PO-Revision-Date: 2026-01-06 20:08+0000\n"
 "Last-Translator: Charlotte <altronic25@protonmail.com>\n"
 "Language-Team: Irish\n"
@@ -1367,7 +1367,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(athchóirithe)"
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1081
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1377,8 +1377,7 @@ msgstr ""
 "Tá athruithe gan sábháil sa cháipéis.\n"
 "An bhfuil fonn ort do chuid athruithe a shábháil?"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1061
-#: src/lokalizemainwindow.cpp:1083
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2025,18 +2024,6 @@ msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
 msgstr "Bain an iontráil seo"
 
-#: src/glossary/glossarytab.cpp:144
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr ""
-
-#: src/glossary/glossarytab.cpp:145
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr "Athluchtaigh an ghluais ón diosca, agus faigh réidh le haon athruithe"
-
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
 msgctxt "@title:window"
@@ -2367,16 +2354,6 @@ msgid ""
 msgstr ""
 "Earráid agus na comhaid seo a leanas á n-oscailt:\n"
 "\n"
-
-#: src/lokalizemainwindow.cpp:1059
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"Tá athruithe gan sábháil sa ghluais.\n"
-"An bhfuil fonn ort do chuid athruithe a shábháil?"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:20
@@ -4595,6 +4572,19 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr ""
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Reload glossary from disk, discarding any changes"
+#~ msgstr ""
+#~ "Athluchtaigh an ghluais ón diosca, agus faigh réidh le haon athruithe"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The glossary contains unsaved changes.\n"
+#~ "Do you want to save your changes or discard them?"
+#~ msgstr ""
+#~ "Tá athruithe gan sábháil sa ghluais.\n"
+#~ "An bhfuil fonn ort do chuid athruithe a shábháil?"
 
 #~ msgid "&Scripts"
 #~ msgstr "&Scripteanna"

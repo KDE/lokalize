@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:45+0000\n"
+"POT-Creation-Date: 2026-02-12 00:46+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -1392,7 +1392,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(obnovljeno)"
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1081
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1402,8 +1402,7 @@ msgstr ""
 "Ovaj dokument sadrži nespremljene promjene.\n"
 "Želite li ih spremiti ili odbaciti?"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1061
-#: src/lokalizemainwindow.cpp:1083
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2056,18 +2055,6 @@ msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
 msgstr "Ukloni ovaj unos"
 
-#: src/glossary/glossarytab.cpp:144
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr ""
-
-#: src/glossary/glossarytab.cpp:145
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr "Ponovno učitaj pojmovnik s diska, odbacujući sve promjene"
-
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
 msgctxt "@title:window"
@@ -2385,16 +2372,6 @@ msgid ""
 "Error opening the following files:\n"
 "\n"
 msgstr "Pogreška prilikom otvaranja sljedećih datoteka:"
-
-#: src/lokalizemainwindow.cpp:1059
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"Pojmovnik sadrži nespremljene promjene.\n"
-"Želite li ih spremiti ili odbaciti?"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:20
@@ -4629,6 +4606,18 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopiraj izvorno u prevedeno"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Reload glossary from disk, discarding any changes"
+#~ msgstr "Ponovno učitaj pojmovnik s diska, odbacujući sve promjene"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The glossary contains unsaved changes.\n"
+#~ "Do you want to save your changes or discard them?"
+#~ msgstr ""
+#~ "Pojmovnik sadrži nespremljene promjene.\n"
+#~ "Želite li ih spremiti ili odbaciti?"
 
 #~ msgid "&Scripts"
 #~ msgstr "&Skripte"

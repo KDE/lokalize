@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-08 00:45+0000\n"
+"POT-Creation-Date: 2026-02-12 00:46+0000\n"
 "PO-Revision-Date: 2024-07-21 22:25-0500\n"
 "Last-Translator: aalam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -1372,7 +1372,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (ਰਿਕਵਰ ਕੀਤਾ)"
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1081
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1382,8 +1382,7 @@ msgstr ""
 "ਡੌਕੂਮੈਂਟ ਵਿੱਚ ਕੁਝ ਅਣ-ਸੰਭਾਲੀਆਂ ਤਬਦੀਲੀਆਂ ਹਨ।\n"
 "ਕੀ ਤੁਸੀਂ ਆਪਣੇ ਬਦਲਾ ਸੰਭਾਲਣੇ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਅਣਡਿੱਠੇ ਕਰਨੇ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1061
-#: src/lokalizemainwindow.cpp:1083
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2027,18 +2026,6 @@ msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
 msgstr "ਇਹ ਐਂਟਰੀ ਹਟਾਓ"
 
-#: src/glossary/glossarytab.cpp:144
-#, kde-format
-msgctxt "@action:button reloads glossary from disk"
-msgid "Restore from disk"
-msgstr "ਡਿਸਕ ਤੋਂ ਬਹਾਲ ਕਰੋ"
-
-#: src/glossary/glossarytab.cpp:145
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Reload glossary from disk, discarding any changes"
-msgstr "ਡਿਸਕ ਤੋਂ ਸ਼ਬਦਾਵਲੀ ਫਿਰ-ਲੋਡ ਕਰੋ, ਕੋਈ ਵੀ ਬਦਲਾਅ ਅਣਡਿੱਠਾ ਕਰ ਦਿਓ"
-
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
 msgctxt "@title:window"
@@ -2365,16 +2352,6 @@ msgid ""
 msgstr ""
 "ਹੇਠ ਦਿੱਤੀਆਂ ਫਾਇਲਾਂ ਖੋਲ੍ਹਣ ਦੌਰਾਨ ਗਲਤੀ:\n"
 "\n"
-
-#: src/lokalizemainwindow.cpp:1059
-#, kde-format
-msgctxt "@info"
-msgid ""
-"The glossary contains unsaved changes.\n"
-"Do you want to save your changes or discard them?"
-msgstr ""
-"ਡੌਕੂਮੈਂਟ ਵਿੱਚ ਕੁਝ ਅਣ-ਸੰਭਾਲੀਆਂ ਤਬਦੀਲੀਆਂ ਹਨ।\n"
-"ਕੀ ਤੁਸੀਂ ਬਦਲਾਅ ਸੰਭਾਲਣੇ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਅਣਡਿੱਠੇ ਕਰਨੇ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #. i18n: ectx: Menu (project)
 #: src/lokalizemainwindowui.rc:20
@@ -4619,6 +4596,22 @@ msgstr "ਗਲਤੀ ਬਾਰੇ ਰਿਪੋਰਟ ਮਿਲੀ: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "ਸਰੋਤ ਤੋਂ ਟਾਰਗੇਟ ਵਿੱਚ ਕਾਪੀ ਕਰੋ"
+
+#~ msgctxt "@action:button reloads glossary from disk"
+#~ msgid "Restore from disk"
+#~ msgstr "ਡਿਸਕ ਤੋਂ ਬਹਾਲ ਕਰੋ"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Reload glossary from disk, discarding any changes"
+#~ msgstr "ਡਿਸਕ ਤੋਂ ਸ਼ਬਦਾਵਲੀ ਫਿਰ-ਲੋਡ ਕਰੋ, ਕੋਈ ਵੀ ਬਦਲਾਅ ਅਣਡਿੱਠਾ ਕਰ ਦਿਓ"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The glossary contains unsaved changes.\n"
+#~ "Do you want to save your changes or discard them?"
+#~ msgstr ""
+#~ "ਡੌਕੂਮੈਂਟ ਵਿੱਚ ਕੁਝ ਅਣ-ਸੰਭਾਲੀਆਂ ਤਬਦੀਲੀਆਂ ਹਨ।\n"
+#~ "ਕੀ ਤੁਸੀਂ ਬਦਲਾਅ ਸੰਭਾਲਣੇ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਅਣਡਿੱਠੇ ਕਰਨੇ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #~ msgid "&Scripts"
 #~ msgstr "ਸਕ੍ਰਿਪਟਾਂ(&S)"
