@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2008-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2026      Tanish Kumar <tanishkrsh6061@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -35,6 +36,7 @@ class KRecentFilesAction;
 class KXMLGUIClient;
 class QActionGroup;
 class QLabel;
+class QMenu;
 class QUrl;
 class QStackedLayout;
 
@@ -205,6 +207,8 @@ Q_SIGNALS:
 
 private:
     bool eventFilter(QObject *object, QEvent *event) override;
+    bool menuHasVisibleAction(const QMenu *menu) const;
+    void updateMenuAvailability();
     int previousActiveTabIndex;
     KXMLGUIClient *m_activeTabPageKeyboardShortcuts{};
     QActionGroup *m_editorActions{};

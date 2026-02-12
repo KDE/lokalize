@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2008-2015 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2026      Tanish Kumar <tanishkrsh6061@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -286,6 +287,38 @@ void LokalizeMainWindow::activateTabAtIndex(int i)
         m_activeTabPageKeyboardShortcuts = activeTab->guiClient();
     }
     guiFactory()->addClient(m_activeTabPageKeyboardShortcuts);
+    updateMenuAvailability();
+}
+
+void LokalizeMainWindow::updateMenuAvailability()
+{
+    QMenuBar *bar = menuBar();
+    if (!bar)
+        return;
+    // Refresh top-level menu state based on currently available actions.
+    for (QAction *action : bar->actions()) {
+        QMenu *menu = action->menu();
+        if (!menu)
+            continue;
+        // Disable top-level menu when it has no visible actions.
+        action->setEnabled(menuHasVisibleAction(menu));
+    }
+}
+
+bool LokalizeMainWindow::menuHasVisibleAction(const QMenu *menu) const
+{
+    for (QAction *action : menu->actions()) {
+        if (action->isSeparator() || !action->isVisible())
+            continue;
+        if (QMenu *subMenu = action->menu()) {
+            // Check submenu actions too.
+            if (menuHasVisibleAction(subMenu))
+                return true;
+            continue;
+        }
+        return true;
+    }
+    return false;
 }
 
 void LokalizeMainWindow::activateTabToLeftOfCurrent()
