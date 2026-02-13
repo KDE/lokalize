@@ -33,14 +33,13 @@ public:
      */
     static QString updateAuthorCopyrightLine(const QString &line);
 
-    static /**
-            * Simplifies a list of copyright years by sorting them and grouping consecutive years.
-            * Example: "2020, 2021, 2022" -> "2020-2022"
-            * @param years The raw string of years (e.g. from regex capture)
-            * @return The formatted, simplified string
-            */
-        QString
-        simplifyYearString(const QString &years);
+    /**
+     * Simplifies a list of copyright years by sorting them and grouping consecutive years.
+     * Example: "2020, 2021, 2022" -> "2020-2022"
+     * @param years The raw string of years (e.g. from regex capture)
+     * @return The formatted, simplified string
+     */
+    static QString simplifyYearString(const QString &years);
     static const QString sCurrentYear;
 };
 
