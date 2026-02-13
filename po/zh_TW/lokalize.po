@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-12 00:46+0000\n"
-"PO-Revision-Date: 2026-01-28 21:01+0900\n"
+"POT-Creation-Date: 2026-02-13 00:46+0000\n"
+"PO-Revision-Date: 2026-02-12 16:30+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -968,7 +968,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "編輯"
 
-#: src/editortab.cpp:152 src/lokalizemainwindow.cpp:598
+#: src/editortab.cpp:152 src/lokalizemainwindow.cpp:631
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1001,7 +1001,7 @@ msgstr "同步 2"
 msgid "Translation Memory"
 msgstr "翻譯記憶體"
 
-#: src/editortab.cpp:158 src/lokalizemainwindow.cpp:599
+#: src/editortab.cpp:158 src/lokalizemainwindow.cpp:632
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1353,7 +1353,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "（已復原）"
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1097
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1363,7 +1363,7 @@ msgstr ""
 "文件中有未儲存的變更。\n"
 "您要儲存還是要捨棄？"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1099
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1954,28 +1954,29 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"詞彙表儲存失敗\n"
+"%1\n"
+"細節：%2"
 
 #: src/glossary/glossary.cpp:661
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "詞彙表"
+msgstr "詞彙表錯誤"
 
 #: src/glossary/glossary.cpp:669
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "詞彙表的資料夾不存在。"
 
 #: src/glossary/glossary.cpp:672
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "路徑指向資料夾而非檔案。"
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "無法寫入檔案。請檢查權限。"
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
@@ -1992,15 +1993,13 @@ msgstr "儲存"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
-msgstr ""
+msgstr "新增詞彙表項目"
 
 #: src/glossary/glossarytab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this entry"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
-msgstr "移除此項目"
+msgstr "移除選取的詞彙表項目"
 
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
@@ -2032,9 +2031,7 @@ msgstr "英語同義詞（雙擊可編輯）："
 #. i18n: ectx: property (text), widget (QPushButton, addEngTerm)
 #. i18n: ectx: property (text), widget (QPushButton, addTargetTerm)
 #: src/glossary/termedit.ui:32 src/glossary/termedit.ui:78
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add"
+#, kde-format
 msgid "Add"
 msgstr "新增"
 
@@ -2042,7 +2039,7 @@ msgstr "新增"
 #: src/glossary/termedit.ui:35
 #, kde-format
 msgid "Add new source synonym"
-msgstr ""
+msgstr "新增原文同義詞"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #. i18n: ectx: property (text), widget (QPushButton, remEngTerm)
@@ -2057,7 +2054,7 @@ msgstr "移除"
 #: src/glossary/termedit.ui:48
 #, kde-format
 msgid "Remove selected source synonym"
-msgstr ""
+msgstr "移除選取的原文同義詞"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/glossary/termedit.ui:71
@@ -2069,13 +2066,13 @@ msgstr "目標語言中對應的同義詞："
 #: src/glossary/termedit.ui:81
 #, kde-format
 msgid "Add new target synonym"
-msgstr ""
+msgstr "新增譯文同義詞"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, remTargetTerm)
 #: src/glossary/termedit.ui:94
 #, kde-format
 msgid "Remove selected target synonym"
-msgstr ""
+msgstr "移除選取的譯文同義詞"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:109
@@ -2122,7 +2119,7 @@ msgstr "建議："
 msgid "No errors"
 msgstr "沒有錯誤"
 
-#: src/lokalizemainwindow.cpp:98
+#: src/lokalizemainwindow.cpp:99
 #, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
@@ -2136,156 +2133,156 @@ msgstr ""
 "項。<br /><br />請參考 <a href=\"%1\">%1</a> 上的資訊看看您能幫上什麼忙。</"
 "html>"
 
-#: src/lokalizemainwindow.cpp:115
+#: src/lokalizemainwindow.cpp:116
 #, kde-format
 msgid "&Configure Lokalize…"
 msgstr "設定 Lokalize(&C)…"
 
-#: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
+#: src/lokalizemainwindow.cpp:117 src/lokalizemainwindow.cpp:699
 #: src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
 msgstr "開啟專案…"
 
-#: src/lokalizemainwindow.cpp:117
+#: src/lokalizemainwindow.cpp:118
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
 msgstr "翻譯軟體…"
 
-#: src/lokalizemainwindow.cpp:118
+#: src/lokalizemainwindow.cpp:119
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
 msgstr "翻譯 OpenDocument…"
 
-#: src/lokalizemainwindow.cpp:180
+#: src/lokalizemainwindow.cpp:181
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "沒有找到 Qt Sql 模組。翻譯記憶體可能無法運作。"
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
+#: src/lokalizemainwindow.cpp:541 src/project/project.cpp:228
 #, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "翻譯記憶體工具需要 SQLite Qt 模組。"
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
+#: src/lokalizemainwindow.cpp:541 src/project/project.cpp:228
 #, kde-format
 msgid "No SQLite module available"
 msgstr "找不到 SQLite 模組"
 
-#: src/lokalizemainwindow.cpp:600 src/tm/tmtab.cpp:479
+#: src/lokalizemainwindow.cpp:633 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "翻譯記憶體"
 
-#: src/lokalizemainwindow.cpp:601 src/project/projecttab.cpp:152
+#: src/lokalizemainwindow.cpp:634 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "專案"
 
-#: src/lokalizemainwindow.cpp:624
+#: src/lokalizemainwindow.cpp:657
 #, kde-format
 msgid "Next Tab"
 msgstr "下一個分頁"
 
-#: src/lokalizemainwindow.cpp:627
+#: src/lokalizemainwindow.cpp:660
 #, kde-format
 msgid "Previous Tab"
 msgstr "上一個分頁"
 
-#: src/lokalizemainwindow.cpp:630
+#: src/lokalizemainwindow.cpp:663
 #, kde-format
 msgid "Previously Active Tab"
 msgstr "上次使用的分頁"
 
-#: src/lokalizemainwindow.cpp:633
+#: src/lokalizemainwindow.cpp:666
 #, kde-format
 msgid "Close Current Tab"
 msgstr "關閉目前的分頁"
 
-#: src/lokalizemainwindow.cpp:639
+#: src/lokalizemainwindow.cpp:672
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "詞彙表"
 
-#: src/lokalizemainwindow.cpp:645
+#: src/lokalizemainwindow.cpp:678
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "翻譯記憶體"
 
-#: src/lokalizemainwindow.cpp:649 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:682 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "管理翻譯記憶體"
 
-#: src/lokalizemainwindow.cpp:653
+#: src/lokalizemainwindow.cpp:686
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "專案概觀"
 
-#: src/lokalizemainwindow.cpp:657
+#: src/lokalizemainwindow.cpp:690
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "設定專案…"
 
-#: src/lokalizemainwindow.cpp:660
+#: src/lokalizemainwindow.cpp:693
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "建立軟體翻譯專案…"
 
-#: src/lokalizemainwindow.cpp:663
+#: src/lokalizemainwindow.cpp:696
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "建立 OpenDocument 翻譯專案…"
 
-#: src/lokalizemainwindow.cpp:670
+#: src/lokalizemainwindow.cpp:703
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "關閉專案"
 
-#: src/lokalizemainwindow.cpp:673
+#: src/lokalizemainwindow.cpp:706
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "開啟最近的專案"
 
-#: src/lokalizemainwindow.cpp:683
+#: src/lokalizemainwindow.cpp:716
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "搜尋與取代"
 
-#: src/lokalizemainwindow.cpp:686
+#: src/lokalizemainwindow.cpp:719
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr "跳到下一個搜尋與取代條目"
 
-#: src/lokalizemainwindow.cpp:690
+#: src/lokalizemainwindow.cpp:723
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "元件文字擷取"
 
-#: src/lokalizemainwindow.cpp:703
+#: src/lokalizemainwindow.cpp:736
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "視窗配色(&W)"
 
-#: src/lokalizemainwindow.cpp:877
+#: src/lokalizemainwindow.cpp:910
 #, kde-format
 msgctxt "@info"
 msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-12 00:46+0000\n"
+"POT-Creation-Date: 2026-02-13 00:46+0000\n"
 "PO-Revision-Date: 2026-02-08 06:16+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -998,7 +998,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "რედაქტირება"
 
-#: src/editortab.cpp:152 src/lokalizemainwindow.cpp:598
+#: src/editortab.cpp:152 src/lokalizemainwindow.cpp:631
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1031,7 +1031,7 @@ msgstr "სინქრონიზაცია 3"
 msgid "Translation Memory"
 msgstr "თარგმანის მეხსიერება"
 
-#: src/editortab.cpp:158 src/lokalizemainwindow.cpp:599
+#: src/editortab.cpp:158 src/lokalizemainwindow.cpp:632
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1388,7 +1388,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (აღდგენილია)"
 
-#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1064
+#: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1097
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1398,7 +1398,7 @@ msgstr ""
 "დოკუმენტი შეუნახავ ცვლილებებს შეიცავს.\n"
 "გნებავთ ცვლილებების შენახვა, თუ მოვაცილო ისინი?"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1066
+#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1099
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2165,7 +2165,7 @@ msgstr "შეთავაზებები:"
 msgid "No errors"
 msgstr "შეცდომების გარეშე"
 
-#: src/lokalizemainwindow.cpp:98
+#: src/lokalizemainwindow.cpp:99
 #, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
@@ -2181,156 +2181,156 @@ msgstr ""
 "პროექტების გასაცნობად და მონაწილეობის მისაღებად მოინახულეთ <a href=\"%1\">"
 "%1</a>.</html>"
 
-#: src/lokalizemainwindow.cpp:115
+#: src/lokalizemainwindow.cpp:116
 #, kde-format
 msgid "&Configure Lokalize…"
 msgstr "&Lokalize-ის მორგება…"
 
-#: src/lokalizemainwindow.cpp:116 src/lokalizemainwindow.cpp:666
+#: src/lokalizemainwindow.cpp:117 src/lokalizemainwindow.cpp:699
 #: src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
 msgstr "პროექტის გახსნა…"
 
-#: src/lokalizemainwindow.cpp:117
+#: src/lokalizemainwindow.cpp:118
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
 msgstr "პროგრამების თარგმნა…"
 
-#: src/lokalizemainwindow.cpp:118
+#: src/lokalizemainwindow.cpp:119
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
 msgstr "OpenDocument-ის თარგმნა…"
 
-#: src/lokalizemainwindow.cpp:180
+#: src/lokalizemainwindow.cpp:181
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Qt-ის Sql მოდულები ვერ ვიპოვე. თარგმანის მეხსიერება არ იმუშავებს."
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
+#: src/lokalizemainwindow.cpp:541 src/project/project.cpp:228
 #, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "თარგმანის მეხსიერებას Qt-ის SQLite მოდული სჭირდება."
 
-#: src/lokalizemainwindow.cpp:508 src/project/project.cpp:228
+#: src/lokalizemainwindow.cpp:541 src/project/project.cpp:228
 #, kde-format
 msgid "No SQLite module available"
 msgstr "მოდულ SQLite ხელმისაწვდომი არაა"
 
-#: src/lokalizemainwindow.cpp:600 src/tm/tmtab.cpp:479
+#: src/lokalizemainwindow.cpp:633 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "თარგმანის მეხსიერება"
 
-#: src/lokalizemainwindow.cpp:601 src/project/projecttab.cpp:152
+#: src/lokalizemainwindow.cpp:634 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "პროექტი"
 
-#: src/lokalizemainwindow.cpp:624
+#: src/lokalizemainwindow.cpp:657
 #, kde-format
 msgid "Next Tab"
 msgstr "შემდეგი ჩანართი"
 
-#: src/lokalizemainwindow.cpp:627
+#: src/lokalizemainwindow.cpp:660
 #, kde-format
 msgid "Previous Tab"
 msgstr "წინა ჩანართი"
 
-#: src/lokalizemainwindow.cpp:630
+#: src/lokalizemainwindow.cpp:663
 #, kde-format
 msgid "Previously Active Tab"
 msgstr "ადრე აქტიური ჩანართი"
 
-#: src/lokalizemainwindow.cpp:633
+#: src/lokalizemainwindow.cpp:666
 #, kde-format
 msgid "Close Current Tab"
 msgstr "მიმდინარე ჩანართის დახურვა"
 
-#: src/lokalizemainwindow.cpp:639
+#: src/lokalizemainwindow.cpp:672
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "სიტყვარი"
 
-#: src/lokalizemainwindow.cpp:645
+#: src/lokalizemainwindow.cpp:678
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "თარგმანის მეხსიერება"
 
-#: src/lokalizemainwindow.cpp:649 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:682 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "თარგმანის მეხსიერებების მართვა"
 
-#: src/lokalizemainwindow.cpp:653
+#: src/lokalizemainwindow.cpp:686
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "პროექტის მიმოხილვა"
 
-#: src/lokalizemainwindow.cpp:657
+#: src/lokalizemainwindow.cpp:690
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "პროექტის მორგება…"
 
-#: src/lokalizemainwindow.cpp:660
+#: src/lokalizemainwindow.cpp:693
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "პროგრამის თარგმნის პროექტის შექმნა…"
 
-#: src/lokalizemainwindow.cpp:663
+#: src/lokalizemainwindow.cpp:696
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "OpenDocument-ის თარგმანის პროექტის შექმნა…"
 
-#: src/lokalizemainwindow.cpp:670
+#: src/lokalizemainwindow.cpp:703
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "პროექტის დახურვა"
 
-#: src/lokalizemainwindow.cpp:673
+#: src/lokalizemainwindow.cpp:706
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "ახლახან გახსნილი პროექტის გახსნა"
 
-#: src/lokalizemainwindow.cpp:683
+#: src/lokalizemainwindow.cpp:716
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "ძებნა && ჩანაცვლება"
 
-#: src/lokalizemainwindow.cpp:686
+#: src/lokalizemainwindow.cpp:719
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr "გადასვლა შემდეგ ძებნისა && ჩანაცვლების ჩანაწერზე"
 
-#: src/lokalizemainwindow.cpp:690
+#: src/lokalizemainwindow.cpp:723
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "ვიჯეტის ტექსტის ჩაჭერა"
 
-#: src/lokalizemainwindow.cpp:703
+#: src/lokalizemainwindow.cpp:736
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "&ფანჯრის ფერის სქემა"
 
-#: src/lokalizemainwindow.cpp:877
+#: src/lokalizemainwindow.cpp:910
 #, kde-format
 msgctxt "@info"
 msgid ""
