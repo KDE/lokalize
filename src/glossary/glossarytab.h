@@ -35,9 +35,10 @@ public:
 
     void focusOutEvent(QFocusEvent *e) override
     {
-        Q_UNUSED(e);
         Q_EMIT editingFinished();
+        KTextEdit::focusOutEvent(e);
     }
+
 Q_SIGNALS:
     void editingFinished();
 };
