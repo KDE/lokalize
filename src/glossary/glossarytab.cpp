@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2026      Jaimukund Bhan <bhanjaimukund@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -77,10 +78,7 @@ GlossaryTab::GlossaryTab(QWidget *parent)
     , m_proxyModel(new GlossarySortFilterProxyModel(this))
     , m_reactOnSignals(true)
 {
-    m_defaultTabIcon = QIcon::fromTheme(QStringLiteral("view-list-text"));
-    m_unsavedTabIcon = QIcon::fromTheme(QLatin1String("document-save"));
-
-    m_tabIcon = m_defaultTabIcon;
+    m_tabIcon = QIcon::fromTheme(QStringLiteral("view-list-text"));
     m_tabLabel = i18nc("@title", "Glossary");
 
     setAttribute(Qt::WA_DeleteOnClose, false);
@@ -105,12 +103,6 @@ GlossaryTab::GlossaryTab(QWidget *parent)
     m_browser->setColumnWidth(GlossaryModel::Target, m_browser->columnWidth(GlossaryModel::Target) * 2);
     m_browser->setAlternatingRowColors(true);
     m_browser->setContentsMargins(0, 0, 0, 0);
-
-    QAction *a = new QAction(i18n("Save"), this);
-    a->setShortcut(Qt::ControlModifier | Qt::Key_S);
-    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a, &QAction::triggered, this, &GlossaryTab::save);
-    addAction(a);
 
     // left
     QWidget *w = new QWidget(splitter);
@@ -194,12 +186,8 @@ GlossaryTab::GlossaryTab(QWidget *parent)
     connect(m_definitionLang, qOverload<int>(&KComboBox::activated), this, &GlossaryTab::showDefinitionForLang);
     m_definitionLang->setModel(LanguageListModel::emptyLangInstance()->sortModel());
     m_definitionLang->setCurrentIndex(LanguageListModel::emptyLangInstance()->sortModelRowForLangCode(m_defLang)); // empty lang
-}
 
-void GlossaryTab::updateTabIcon()
-{
-    m_tabIcon = Project::instance()->glossary()->isClean() ? m_defaultTabIcon : m_unsavedTabIcon;
-    Q_EMIT signalUpdatedTabLabelAndIconAvailable(qobject_cast<LokalizeTabPageBaseNoQMainWindow *>(this));
+    connect(m_definition, &AuxTextEdit::editingFinished, this, &GlossaryTab::applyEntryChange);
 }
 
 void GlossaryTab::setFocus()
@@ -311,7 +299,7 @@ void GlossaryTab::newTermEntry(QString _source, QString _target)
     QByteArray id = sourceModel->appendRow(_source, _target);
 
     selectEntry(id);
-    updateTabIcon();
+    Project::instance()->glossary()->save();
 }
 
 void GlossaryTab::rmTermEntry()
@@ -332,15 +320,7 @@ void GlossaryTab::rmTermEntry(int i)
     }
 
     sourceModel->removeRow(i);
-    updateTabIcon();
-}
-
-bool GlossaryTab::save()
-{
-    // TODO add error message
-    const bool savedSuccessfully = Project::instance()->glossary()->save();
-    updateTabIcon();
-    return savedSuccessfully;
+    Project::instance()->glossary()->save();
 }
 
 // END GlossaryTab

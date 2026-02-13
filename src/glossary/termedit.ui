@@ -141,7 +141,7 @@
     </layout>
    </item>
    <item>
-    <widget class="KTextEdit" name="definition">
+    <widget class="AuxTextEdit" name="definition">
      <property name="tabChangesFocus">
       <bool>true</bool>
      </property>
@@ -177,6 +177,11 @@ That is, there may be several entries with the same word/word sequence expressin
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>AuxTextEdit</class>
+   <extends>KTextEdit</extends>
+   <header>glossarytab.h</header>
   </customwidget>
   <customwidget>
    <class>TermListView</class>

@@ -365,18 +365,19 @@ void Glossary::setTerm(const QByteArray &id, QString lang, int index, const QStr
 
     if (!termElement.isNull()) {
         setText(termElement, termText);
-        return;
+    } else {
+        QDomElement entry = m_entriesById.value(id);
+        QDomDocument document = entry.ownerDocument();
+        if (ourLangSetElement.isNull()) {
+            ourLangSetElement = entry.appendChild(document.createElement(langSet)).toElement();
+            lang.replace(QLatin1Char('_'), QLatin1Char('-'));
+            ourLangSetElement.setAttribute(xmlLang, lang);
+        }
+        tigElement = ourLangSetElement.appendChild(document.createElement(tig)).toElement();
+        termElement = tigElement.appendChild(document.createElement(term)).toElement();
+        termElement.appendChild(document.createTextNode(termText));
     }
-    QDomElement entry = m_entriesById.value(id);
-    QDomDocument document = entry.ownerDocument();
-    if (ourLangSetElement.isNull()) {
-        ourLangSetElement = entry.appendChild(document.createElement(langSet)).toElement();
-        lang.replace(QLatin1Char('_'), QLatin1Char('-'));
-        ourLangSetElement.setAttribute(xmlLang, lang);
-    }
-    tigElement = ourLangSetElement.appendChild(document.createElement(tig)).toElement();
-    termElement = tigElement.appendChild(document.createElement(term)).toElement();
-    termElement.appendChild(document.createTextNode(termText));
+    save();
 }
 
 void Glossary::rmTerm(const QByteArray &id, QString lang, int index)
@@ -390,6 +391,8 @@ void Glossary::rmTerm(const QByteArray &id, QString lang, int index)
 
     if (!tigElement.isNull())
         ourLangSetElement.removeChild(tigElement);
+
+    save();
 }
 
 static QDomElement firstDescripElemForLang(QDomElement termEntry, const QString &lang)
@@ -441,9 +444,11 @@ void Glossary::setDescrip(const QByteArray &id, QString lang, const QString &typ
 
     QDomDocument document = descripElem.ownerDocument();
     while (!descripElem.isNull()) {
-        if (descripElem.attribute(QStringLiteral("type")) == type)
-            return setText(descripElem, value);
-        ;
+        if (descripElem.attribute(QStringLiteral("type")) == type) {
+            setText(descripElem, value);
+            save();
+            return;
+        }
 
         descripElem = descripElem.nextSiblingElement(QStringLiteral("descrip"));
     }
@@ -478,6 +483,7 @@ void Glossary::setDescrip(const QByteArray &id, QString lang, const QString &typ
     QDomElement descrip = parentForDescrip.insertBefore(document.createElement(QStringLiteral("descrip")), parentForDescrip.firstChild()).toElement();
     descrip.setAttribute(QStringLiteral("type"), type);
     descrip.appendChild(document.createTextNode(value));
+    save();
 }
 
 QString Glossary::subjectField(const QByteArray &id, const QString &lang) const

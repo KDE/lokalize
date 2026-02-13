@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2026      Jaimukund Bhan <bhanjaimukund@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -71,8 +72,6 @@ public:
     explicit GlossaryTab(QWidget *parent = nullptr);
     ~GlossaryTab() override = default;
 
-    void updateTabIcon();
-
 public Q_SLOTS:
     void currentChanged(int);
     void showEntryInEditor(const QByteArray &id);
@@ -81,7 +80,6 @@ public Q_SLOTS:
     void newTermEntry();
     void rmTermEntry(int i);
     void rmTermEntry();
-    bool save();
     void applyEntryChange();
     void selectEntry(const QByteArray &id);
     void setFocus();
@@ -98,7 +96,7 @@ private:
     QLineEdit *m_filterEdit;
 
     KComboBox *m_subjectField;
-    KTextEdit *m_definition;
+    AuxTextEdit *m_definition;
     KComboBox *m_definitionLang;
     QListView *m_sourceTermsView;
     QListView *m_targetTermsView;
@@ -106,9 +104,6 @@ private:
     bool m_reactOnSignals;
     QByteArray m_id;
     QString m_defLang;
-
-    QIcon m_defaultTabIcon;
-    QIcon m_unsavedTabIcon;
 };
 
 class GlossaryTreeView : public QTreeView
