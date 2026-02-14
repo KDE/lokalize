@@ -175,10 +175,10 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
         return;
 
     QMenu menu;
-    QAction *setTarget = menu.addAction(i18nc("@action:inmenu", "Set the file"));
-    QAction *useSource = menu.addAction(i18nc("@action:inmenu", "Use source file"));
+    const QAction *setTarget = menu.addAction(i18nc("@action:inmenu", "Set the file"));
+    const QAction *useSource = menu.addAction(i18nc("@action:inmenu", "Use source file"));
 
-    QAction *result = menu.exec(event->globalPos());
+    const QAction *result = menu.exec(event->globalPos());
     if (!result)
         return;
 
