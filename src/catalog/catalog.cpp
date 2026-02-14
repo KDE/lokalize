@@ -269,7 +269,7 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition &pos) const
     if (m_storage)
         result = m_storage->altTrans(pos);
 
-    for (Catalog *altCat : d._altTransCatalogs) {
+    for (const Catalog *altCat : d._altTransCatalogs) {
         if (pos.entry >= altCat->numberOfEntries()) {
             qCDebug(LOKALIZE_LOG) << "ignoring" << altCat->url() << "this time because" << pos.entry << "<" << altCat->numberOfEntries();
             continue;
@@ -280,10 +280,10 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition &pos) const
             continue;
         }
 
-        QString target = altCat->msgstr(pos);
-        if (!target.isEmpty() && altCat->isApproved(pos)) {
+        QString alternateTranslation = altCat->msgstr(pos);
+        if (!alternateTranslation.isEmpty() && altCat->isApproved(pos)) {
             result << AltTrans();
-            result.last().target = CatalogString(target);
+            result.last().target = CatalogString(alternateTranslation);
             result.last().type = AltTrans::Reference;
             result.last().origin = altCat->url();
         }
@@ -388,7 +388,7 @@ QVector<Note> Catalog::phaseNotes(const QString &phase) const
     return m_storage->phaseNotes(phase);
 }
 
-QVector<Note> Catalog::setPhaseNotes(const QString &phase, QVector<Note> notes)
+QVector<Note> Catalog::setPhaseNotes(const QString &phase, const QVector<Note> notes)
 {
     return m_storage->setPhaseNotes(phase, notes);
 }
@@ -768,7 +768,7 @@ void Catalog::setLastModifiedPos(const DocPosition &pos)
     d._lastModifiedPos = pos;
 }
 
-bool CatalogPrivate::addToEmptyIndexIfAppropriate(CatalogStorage *storage, const DocPosition &pos, bool alreadyEmpty)
+bool CatalogPrivate::addToEmptyIndexIfAppropriate(const CatalogStorage *storage, const DocPosition &pos, bool alreadyEmpty)
 {
     if ((!pos.offset) && (storage->target(pos).isEmpty()) && (!alreadyEmpty)) {
         insertInList(_emptyIndex, pos.entry);
@@ -790,7 +790,7 @@ void Catalog::targetDelete(const DocPosition &pos, int count)
     Q_EMIT signalEntryModified(pos);
 }
 
-bool CatalogPrivate::removeFromUntransIndexIfAppropriate(CatalogStorage *storage, const DocPosition &pos)
+bool CatalogPrivate::removeFromUntransIndexIfAppropriate(const CatalogStorage *storage, const DocPosition &pos)
 {
     if ((!pos.offset) && (storage->isEmpty(pos))) {
         _emptyIndex.remove(pos.entry);
