@@ -87,8 +87,8 @@ public:
         _statesIndex.resize(StateCount);
     }
 
-    bool addToEmptyIndexIfAppropriate(CatalogStorage *, const DocPosition &pos, bool alreadyEmpty);
-    bool removeFromUntransIndexIfAppropriate(CatalogStorage *, const DocPosition &pos);
+    bool addToEmptyIndexIfAppropriate(const CatalogStorage *, const DocPosition &pos, bool alreadyEmpty);
+    bool removeFromUntransIndexIfAppropriate(const CatalogStorage *, const DocPosition &pos);
 };
 
 #endif // CATALOG_PRIVATE_H
