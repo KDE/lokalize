@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-13 00:46+0000\n"
+"POT-Creation-Date: 2026-02-14 00:46+0000\n"
 "PO-Revision-Date: 2025-08-20 08:40+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -772,14 +772,14 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Översättningsenheter"
 
-#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:124
+#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:116
 #: src/project/projecttab.cpp:59
 #, fuzzy, kde-format
 #| msgid "&Search"
 msgid "Search"
 msgstr "&Sök"
 
-#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:126
+#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:118
 #: src/project/projecttab.cpp:60
 #, kde-format
 msgctxt "@info:tooltip"
@@ -2057,7 +2057,7 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Rubrikfält"
 
-#: src/glossary/glossary.cpp:661
+#: src/glossary/glossary.cpp:667
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2066,29 +2066,29 @@ msgid ""
 "Details: %2"
 msgstr ""
 
-#: src/glossary/glossary.cpp:661
+#: src/glossary/glossary.cpp:667
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
 msgid "Glossary Error"
 msgstr "Ordlista"
 
-#: src/glossary/glossary.cpp:669
+#: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr ""
 
-#: src/glossary/glossary.cpp:672
+#: src/glossary/glossary.cpp:678
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr ""
 
-#: src/glossary/glossary.cpp:675
+#: src/glossary/glossary.cpp:681
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr ""
 
-#: src/glossary/glossarytab.cpp:84
+#: src/glossary/glossarytab.cpp:82
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
@@ -2096,18 +2096,13 @@ msgctxt "@title"
 msgid "Glossary"
 msgstr "Ordlista"
 
-#: src/glossary/glossarytab.cpp:109
-#, kde-format
-msgid "Save"
-msgstr ""
-
-#: src/glossary/glossarytab.cpp:141
+#: src/glossary/glossarytab.cpp:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
 msgstr ""
 
-#: src/glossary/glossarytab.cpp:142
+#: src/glossary/glossarytab.cpp:134
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Remove this entry"
