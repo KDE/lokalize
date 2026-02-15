@@ -1,27 +1,27 @@
 # Translation of lokalize into Japanese.
-# SPDX-FileCopyrightText: 2024 UTUMI Hirosi <utuhiro78@yahoo.co.jp>
+# SPDX-FileCopyrightText: 2020, 2026 bbch <suzihi248@ruru.be>
 # This file is distributed under the same license as the kdesdk package.
 # Taiki Komoda <kom@kde.gr.jp>, 2002,2003, 2004, 2010.
 # Noboru Sinohara <shinobo@leo.bekkoame.ne.jp>, 2004.
 # Toyohiro Asukai <toyohiro@ksmplus.com>, 2004.
 # KIMIZUKA Tomokazu <sgtom@pluto.dti.ne.jp>, 2005.
 # Yukiko Bando <ybando@k6.dion.ne.jp>, 2006, 2007, 2008.
-# bbch <suzihi248@ruru.be>, 2020.
 # Fumiaki Okushi <fumiaki.okushi@gmail.com>, 2006, 2011, 2020.
+# SPDX-FileCopyrightText: 2024 UTUMI Hirosi <utuhiro78@yahoo.co.jp>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2024-09-15 06:03+0900\n"
-"Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>\n"
+"PO-Revision-Date: 2026-02-14 08:46+0900\n"
+"Last-Translator: bbch <suzihi248@ruru.be>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 26.03.70\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -41,26 +41,24 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
-msgstr "その他の翻訳"
+msgstr "代替翻訳"
 
 #: src/alttransview.cpp:163
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Alternate translations folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "その他の翻訳のフォルダ:"
+msgstr "代替翻訳のフォルダから"
 
 #: src/alttransview.cpp:186
 #, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "前の文脈との比較:"
 
 #: src/alttransview.cpp:201
 #, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "前の原文との比較:"
 
 #: src/alttransview.cpp:259
 #, kde-format
@@ -73,7 +71,7 @@ msgid ""
 "\n"
 "Do you want to show the view with the data?"
 msgstr ""
-"その他の翻訳ビューには便利なデータが存在します。\n"
+"代替翻訳ビューには便利なデータが存在します。\n"
 "\n"
 "Gettext PO ファイルの場合、POT テンプレートに基づいて PO ファイルを更新すると"
 "きに、msgmerge によって検出された要確認の翻訳に一致するソーステキストと現在の"
@@ -82,12 +80,10 @@ msgstr ""
 "ビューにデータを表示しますか？"
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Alternative Translations Available"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "別の翻訳も利用可能"
+msgstr "代替翻訳を適用"
 
 #: src/alttransview.cpp:265
 #, kde-format
@@ -102,20 +98,7 @@ msgid "Origin: %1"
 msgstr "原文: %1"
 
 #: src/alttransview.cpp:291
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if source text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between current source string and the previous source string, so that you "
-#| "can easily see which changes should be applied to existing translation to "
-#| "make it reflect current source.</p><p>Double-clicking any word in this "
-#| "toolview inserts it into translation.</p><p>Drop translation file onto "
-#| "this toolview to use it as a source for additional alternate translations."
-#| "</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -128,20 +111,19 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>ソーステキストが変更されると、その翻訳が非推奨となり、<emphasis>要確認</"
-"emphasis> (承認状態を失う) としてマークされるか、XLIFF ファイルの場合はユニッ"
-"トに付随する<emphasis>代替翻訳</emphasis>セクションに移動されます。</p><p>こ"
-"のツールビューには、現在のソース文字列と以前のソース文字列の違いが表示される"
-"ため、現在のソースを反映するため既存の翻訳に適用する必要がある変更を、簡単に"
-"確認できます。</p><p>このツールビューで任意の単語をダブルクリックすると、その"
-"単語が翻訳に挿入されます。</p><p>翻訳ファイルをこのツールビューにドロップする"
-"と、追加の代替翻訳のソースとして使用できます。</p>"
+"原文テキストが変更されると、その翻訳が非推奨となり、要確認 (承認状態を失う) "
+"としてマークされるか、(XLIFF ファイルの場合) ユニットに付随する代替翻訳セク"
+"ションに移動されます。このツールビューには、現在の原文と以前の原文の違いが表"
+"示されるため、既存の翻訳にどの変更を適用すれば現在の原文が反映されるかを、簡"
+"単に確認できます。このツールビューで任意の単語をダブルクリックすると、その単"
+"語が翻訳に挿入されます。翻訳ファイルをこのツールビューにドロップすると、追加"
+"の代替翻訳のソースとして使用できます。"
 
 #: src/alttransview.cpp:323
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
-msgstr "その他の翻訳を適用"
+msgstr "代替翻訳を適用"
 
 #: src/binunitsview.cpp:109
 #, kde-format
@@ -187,7 +169,7 @@ msgstr "ファイルをセット"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"
-msgstr "ソースファイルを使用"
+msgstr "原文ファイルを使用"
 
 #: src/catalog/catalog.cpp:40
 #, kde-format
@@ -232,7 +214,7 @@ msgstr "翻訳が必要"
 #: src/catalog/catalog.cpp:58
 #, kde-format
 msgid "Needs full localization"
-msgstr "全ローカル化が必要"
+msgstr "ローカライズが必要"
 
 #: src/catalog/catalog.cpp:59
 #, kde-format
@@ -252,7 +234,7 @@ msgstr "翻訳レビューが必要"
 #: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
-msgstr "全ローカル化レビューが必要"
+msgstr "ローカライズレビューが必要"
 
 #: src/catalog/catalog.cpp:63
 #, kde-format
@@ -903,7 +885,7 @@ msgstr "翻訳状態"
 #, kde-format
 msgctxt "@title:column"
 msgid "Modified"
-msgstr ""
+msgstr "変更したか"
 
 #: src/cataloglistview/catalogmodel.cpp:106
 #, kde-format
@@ -939,18 +921,16 @@ msgid "Untranslated"
 msgstr "未翻訳"
 
 #: src/cataloglistview/catalogmodel.cpp:207
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
 msgstr "はい"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "なし"
+msgstr "いいえ"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format
@@ -1013,7 +993,7 @@ msgstr "用語集"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
-msgstr "その他の翻訳を適用 # %1"
+msgstr "代替翻訳を挿入 # %1"
 
 #: src/editortab.cpp:237
 #, kde-format
@@ -1191,7 +1171,7 @@ msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous non-empty but not ready"
-msgstr "前の空でない要確認"
+msgstr "前の作業中項目"
 
 #: src/editortab.cpp:502 src/project/projecttab.cpp:106
 #, kde-format
@@ -1199,7 +1179,7 @@ msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Next non-empty but not ready"
-msgstr "次の空でない要確認"
+msgstr "次の作業中項目"
 
 #: src/editortab.cpp:509 src/project/projecttab.cpp:112
 #, kde-format
@@ -1219,7 +1199,7 @@ msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous not ready"
-msgstr "前の要確認"
+msgstr "前の未完了"
 
 #: src/editortab.cpp:528 src/project/projecttab.cpp:94
 #, kde-format
@@ -1227,7 +1207,7 @@ msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Next not ready"
-msgstr "次の要確認"
+msgstr "次の未完了"
 
 #: src/editortab.cpp:537
 #, kde-format
@@ -1683,11 +1663,9 @@ msgstr "翻訳メモリ(&M)"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:128
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
-msgstr "その他の翻訳"
+msgstr "代替翻訳"
 
 #. i18n: ectx: Menu (go)
 #: src/editorui.rc:146 src/project/projectmanagerui.rc:5
@@ -1857,9 +1835,7 @@ msgid "File"
 msgstr "ファイル"
 
 #: src/filesearch/filesearchtab.cpp:449
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search and replace in files"
 msgstr "ファイル内の検索と置換"
@@ -2025,10 +2001,10 @@ msgid ""
 "That is, there may be several entries with the same word/word sequence "
 "expressing different meanings."
 msgstr ""
-"注意: 1つの用語集エントリは、単語/１語句ではなく、1つの用語に正確に対応しま"
+"注意: 1つの用語集エントリは、単語/1語句ではなく、1つの用語に正確に対応しま"
 "す。\n"
 "\n"
-"つまり、同じ単語/１語句を持つ複数のエントリが異なる意味を表す場合があります。"
+"つまり、同じ単語/1語句を持つ複数のエントリが異なる意味を表す場合があります。"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
 #: src/kaider_findextension.ui:30
@@ -2154,7 +2130,7 @@ msgstr "前のアクティブタブ"
 #: src/lokalizemainwindow.cpp:603
 #, kde-format
 msgid "Close current tab"
-msgstr ""
+msgstr "現在のタブを閉じる"
 
 #: src/lokalizemainwindow.cpp:608
 #, kde-format
@@ -2237,7 +2213,7 @@ msgstr "ウィジェットテキストキャプチャ"
 #: src/lokalizemainwindow.cpp:670
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "&ウィンドウの配色"
 
 #: src/lokalizemainwindow.cpp:835
 #, kde-format
@@ -2411,7 +2387,7 @@ msgstr "Karl Ove Hufthammer"
 #: src/main.cpp:99
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:103
 #, kde-format
@@ -2486,12 +2462,10 @@ msgstr ""
 "マッチしなかった: %2"
 
 #: src/msgctxtview.cpp:34
-#, fuzzy, kde-format
-#| msgctxt "@title toolview name"
-#| msgid "Unit metadata"
+#, kde-format
 msgctxt "@title toolview name"
 msgid "Unit Metadata"
-msgstr "ユニットメタデータ"
+msgstr "メタデータのユニット"
 
 #: src/msgctxtview.cpp:90
 #, kde-format
@@ -2637,7 +2611,7 @@ msgstr "承認"
 #, kde-format
 msgctxt "noun"
 msgid "Process (this will also change your role):"
-msgstr "プロセス(自分の役割も変更されます):"
+msgstr "プロセス (自分の役割も変更されます):"
 
 #: src/phaseswindow.cpp:255
 #, kde-format
@@ -2718,16 +2692,13 @@ msgstr "新しいプロジェクトのデフォルトのメーリングリスト
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
 #: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
 #: src/prefs/lokalize.kcfg:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "\n"
-#| "        "
+#, kde-format
 msgid ""
 "\n"
 "            "
 msgstr ""
 "\n"
-"        "
+"            "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73
@@ -3303,16 +3274,13 @@ msgstr "開いたファイルを自動的に翻訳メモリに取り込む"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
 #: src/prefs/prefs_tm.ui:152
-#, fuzzy, kde-format
-#| msgid ""
-#| "Delete missing files from translation memory on Rescan or when clicking a "
-#| "missing entry"
+#, kde-format
 msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
 msgstr ""
-"再スキャン時もしくは存在しないエントリをクリックしたときに、\n"
-"存在しないファイルを翻訳メモリから削除する"
+"再スキャン時もしくは存在しないエントリを右クリックしたときに、存在しないファ"
+"イルを翻訳メモリから削除する"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -3490,7 +3458,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
-msgstr "その他の翻訳のフォルダ:"
+msgstr "代替翻訳のフォルダ:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
 #: src/project/prefs_project_advanced.ui:227
@@ -3574,11 +3542,12 @@ msgid ""
 "For example, if you have several projects for translating KDE applications\n"
 "(e.g. they are in different repositories), use same ID for all of them."
 msgstr ""
-"プロジェクトID は、まったく異なるプロジェクトや言語の 翻訳メモリを区別するた"
+"プロジェクト ID は、まったく異なるプロジェクトや言語の 翻訳メモリを区別するた"
 "めに使用されます。\n"
 "\n"
 "例として KDE アプリケーションを翻訳するための複数のプロジェクトがある場合 (例"
-"えば、それらが異なるリポジトリにある場合)、それらすべてに同じIDを使用します。"
+"えば、それらが異なるリポジトリにある場合)、それらすべてに同じ ID を使用しま"
+"す。"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:59
@@ -3734,7 +3703,7 @@ msgstr "翻訳済み"
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
-msgstr "要確認"
+msgstr "未完了"
 
 #: src/project/projectmodel.cpp:478
 #, kde-format
@@ -3773,9 +3742,7 @@ msgid "Last Translator"
 msgstr "最終翻訳者"
 
 #: src/project/projecttab.cpp:54
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "プロジェクトの概要"
@@ -4149,7 +4116,7 @@ msgstr ""
 #: src/tm/queryoptions.ui:200
 #, kde-format
 msgid "&Rescan project files"
-msgstr "プロジェクトファイルを再スキャン(&R)"
+msgstr "&プロジェクトファイルを再スキャン"
 
 #: src/tm/tmmanager.cpp:34
 #, kde-format
@@ -4245,12 +4212,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"ファイルの再スキャンは、プロジェクトが開いているときにのみ可能です。プロジェ"
+"クトを開いてから、もう一度実行してください。"
 
 #: src/tm/tmtab.cpp:513
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "プロジェクトファイルを再スキャン(&R)"
+msgstr "再スキャン不可能"
 
 #: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:621
 #, kde-format
@@ -4301,12 +4269,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (完全一致)"
 
 #: src/tm/tmview.cpp:501
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4320,7 +4286,7 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
+msgstr[0] "%1 回発生"
 
 #: src/tm/tmview.cpp:517
 #, kde-format
@@ -4328,7 +4294,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:525
 #, kde-format
@@ -4336,7 +4302,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:577
 #, kde-format
@@ -4372,7 +4338,7 @@ msgstr "<br />翻訳メモリ: %1"
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
-msgstr "<br />これ以上ファイルにはありません"
+msgstr "<br />ファイルに存在しません"
 
 #: src/tm/tmview.cpp:600
 #, kde-format
@@ -4514,84 +4480,3 @@ msgstr "エラーが発生しました: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "原文を翻訳にコピー"
-
-#~ msgctxt "@info:status message entry"
-#~ msgid "Current: %1"
-#~ msgstr "現在: %1"
-
-#~ msgctxt ""
-#~ "Loading bar percentage indicator %p will be replaced by the actual "
-#~ "percentage number, so make sure you include it in your translation"
-#~ msgid "%p%"
-#~ msgstr "%p%"
-
-#~ msgctxt "@info:status message entries"
-#~ msgid "Total: %1 (%2)"
-#~ msgstr "合計: %1 (%2)"
-
-#~ msgid "Tools"
-#~ msgstr "ツール"
-
-#~ msgid "Compile .po"
-#~ msgstr ".po ファイルのコンパイル"
-
-#~ msgid "Compile .po and make it available to applications"
-#~ msgstr ".po ファイルをコンパイルしてアプリケーションで使用可能にします"
-
-#~ msgid "Gettext not found"
-#~ msgstr "Gettext が見つかりません"
-
-#~ msgid "Install gettext package for this feature to work"
-#~ msgstr "この機能を利用するには gettext パッケージをインストールしてください"
-
-#~ msgid "Updating from templates..."
-#~ msgstr "テンプレートから更新..."
-
-#~ msgid "Merge has been completed"
-#~ msgstr "マージが完了しました"
-
-#~ msgid ""
-#~ "Merge has been completed.\n"
-#~ "Template modification time: %1 (%2 days ago)."
-#~ msgstr ""
-#~ "マージが完了しました。\n"
-#~ "テンプレート更新日時: %1 (%2 日前)。"
-
-#~ msgid "Merge failed."
-#~ msgstr "マージに失敗しました。"
-
-#~ msgid ""
-#~ "Could not find template file for the merge:\n"
-#~ "%1"
-#~ msgstr ""
-#~ "マージのためのテンプレートファイルが見つかりませんでした:\n"
-#~ "%1"
-
-#~ msgid "File"
-#~ msgstr "ファイル"
-
-#~ msgid "Update file from template"
-#~ msgstr "テンプレートからファイルを更新"
-
-#~ msgid "Merge into ODF"
-#~ msgstr "ODF にマージ"
-
-#~ msgid "Generates translated version of ODF document"
-#~ msgstr "ODF 文書の翻訳されたバージョンを生成"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Spellcheck"
-#~ msgstr "スペルチェック"
-
-#~ msgid "Alternative Translations"
-#~ msgstr "その他の翻訳"
-
-#, fuzzy
-#~| msgid "bug fixing and improvements"
-#~ msgid "bug fixing and improvments"
-#~ msgstr "バグ修正と改善"
-
-#~ msgctxt "%1 is the number of times this TM entry has been found"
-#~ msgid "(1 time)"
-#~ msgid_plural "(%1 times)"
-#~ msgstr[0] "(%1 回)"
