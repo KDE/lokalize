@@ -64,7 +64,7 @@ struct InlineTag {
               QString id_ = QString(),
               QString xid_ = QString(),
               QString equivText_ = QString(),
-              QString ctype_ = QString())
+              const QString &ctype_ = QString())
         : start(start_)
         , end(end_)
         , type(type_)
@@ -145,11 +145,11 @@ struct CatalogString {
     QList<InlineTag> tags;
 
     CatalogString() = default;
-    explicit CatalogString(QString str)
+    explicit CatalogString(const QString &str)
         : string(str)
     {
     }
-    CatalogString(QString str, QByteArray tagsByteArray);
+    CatalogString(const QString &str, QByteArray tagsByteArray);
     QMap<QString, int> tagIdToIndex() const; // assigns same indexes for tags with same ids
 
     QByteArray tagsAsByteArray() const;

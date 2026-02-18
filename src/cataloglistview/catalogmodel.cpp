@@ -303,7 +303,7 @@ void CatalogTreeFilterModel::setFilterOptions(int o)
     beginFilterChange();
 #endif
     m_filterOptions = o;
-    setFilterCaseSensitivity(o & CaseInsensitive ? Qt::CaseInsensitive : Qt::CaseSensitive);
+    setFilterCaseSensitivity((o & CaseInsensitive) ? Qt::CaseInsensitive : Qt::CaseSensitive);
     static_cast<CatalogTreeModel *>(sourceModel())->setIgnoreAccel(o & IgnoreAccel);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
     endFilterChange();

@@ -48,7 +48,7 @@ void generatePhaseForCatalogIfNeeded(Catalog *catalog)
     catalog->setActivePhase(phase.name, roleForProcess(phase.process));
 }
 
-bool initPhaseForCatalog(Catalog *catalog, Phase &phase, int options)
+bool initPhaseForCatalog(const Catalog *catalog, Phase &phase, int options)
 {
     askAuthorInfoIfEmpty();
 
