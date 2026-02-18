@@ -285,7 +285,7 @@ void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
 void CatalogTreeFilterModel::setFilterOptions(int o)
 {
     m_filterOptions = o;
-    setFilterCaseSensitivity(o & CaseInsensitive ? Qt::CaseInsensitive : Qt::CaseSensitive);
+    setFilterCaseSensitivity((o & CaseInsensitive) ? Qt::CaseInsensitive : Qt::CaseSensitive);
     static_cast<CatalogTreeModel *>(sourceModel())->setIgnoreAccel(o & IgnoreAccel);
     invalidateFilter();
 }

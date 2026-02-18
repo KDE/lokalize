@@ -64,14 +64,14 @@
 
 EditorTab::EditorTab(QWidget *parent, bool valid)
     : LokalizeTabPageBase(parent)
+    , m_defaultTabIcon(QIcon::fromTheme(QLatin1String("translate")))
+    , m_unsavedTabIcon(QIcon::fromTheme(QLatin1String("document-save")))
     , m_resizeWatcher(new SaveLayoutAfterResizeWatcher(this))
     , m_project(Project::instance())
     , m_catalog(new Catalog(this))
     , m_view(new EditorView(this, m_catalog))
     , m_valid(valid)
 {
-    m_defaultTabIcon = QIcon::fromTheme(QLatin1String("translate"));
-    m_unsavedTabIcon = QIcon::fromTheme(QLatin1String("document-save"));
     m_tabIcon = m_defaultTabIcon;
     setAcceptDrops(true);
     setCentralWidget(m_view);
@@ -163,7 +163,7 @@ void EditorTab::setupActions()
 
     // BEGIN dockwidgets
     QVector<QAction *> altactions(ALTTRANS_SHORTCUTS);
-    Qt::Key altlist[ALTTRANS_SHORTCUTS] = {Qt::Key_1, Qt::Key_2, Qt::Key_3, Qt::Key_4, Qt::Key_5, Qt::Key_6, Qt::Key_7, Qt::Key_8, Qt::Key_9};
+    const Qt::Key altlist[ALTTRANS_SHORTCUTS] = {Qt::Key_1, Qt::Key_2, Qt::Key_3, Qt::Key_4, Qt::Key_5, Qt::Key_6, Qt::Key_7, Qt::Key_8, Qt::Key_9};
     QAction *altaction;
     for (int i = 0; i < ALTTRANS_SHORTCUTS; ++i) {
         altaction = tm->addAction(QStringLiteral("alttrans_insert_%1").arg(i));
@@ -329,6 +329,7 @@ void EditorTab::setupActions()
     actionCategory = file;
 
     // File
+    // FIXME: does action need to be assigned to here?
     action = file->addAction(KStandardActions::Save, this, [this] {
         saveFile();
     });
@@ -718,7 +719,7 @@ void EditorTab::updateCaptionPath()
         m_relativeOrAbsoluteFilePath = m_relativeOrAbsoluteFilePath.mid(2);
 }
 
-bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, EditorTab *> openedFiles, bool silent)
+bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, const QMap<QString, EditorTab *> &openedFiles, bool silent)
 {
     if (!m_catalog->isClean()) {
         switch (KMessageBox::warningTwoActionsCancel(SettingsController::instance()->mainWindowPtr(),
@@ -1217,14 +1218,14 @@ void EditorTab::showStatesMenu()
         return;
     }
 
-    TargetState state = m_catalog->state(m_currentPos);
+    TargetState catalogState = m_catalog->state(m_currentPos);
 
     const QStringList states = Catalog::translatedStates();
     for (int i = 0; i < StateCount; ++i) {
         QAction *a = m_stateAction->popupMenu()->addAction(states[i]);
         a->setData(QVariant(i));
         a->setCheckable(true);
-        a->setChecked(state == i);
+        a->setChecked(catalogState == i);
 
         if (i == New || i == Translated || i == Final)
             m_stateAction->popupMenu()->addSeparator();
@@ -1472,7 +1473,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString &srcFileRelPath, int li
             QByteArray fn = QStringView(srcFileRelPath).mid(srcFileRelPath.lastIndexOf(QLatin1Char('/')) + 1).toUtf8();
             auto it = sourceFilePaths.constFind(fn);
             while (it != sourceFilePaths.constEnd() && it.key() == fn) {
-                const QString absFilePath = QString::fromUtf8(it.value() + '/' + fn);
+                absFilePath = QString::fromUtf8(it.value() + '/' + fn);
                 if (!absFilePath.endsWith(srcFileRelPath) || !QFileInfo::exists(absFilePath)) { // for the case when link contained also folders
                     it++;
                     continue;
@@ -1570,10 +1571,9 @@ void EditorTab::mergeIntoOpenDocument()
     // TODO check if odt did update (merge with new template is needed)
 
     QFileInfo originalOdfFileInfo(originalOdfFilePath);
-    QString targetLangCode = m_catalog->targetLangCode();
 
     QStringList args(m_catalog->url());
-    args.append(xliffFolder + QLatin1Char('/') + originalOdfFileInfo.baseName() + QLatin1Char('-') + targetLangCode + QLatin1Char('.')
+    args.append(xliffFolder + QLatin1Char('/') + originalOdfFileInfo.baseName() + QLatin1Char('-') + m_catalog->targetLangCode() + QLatin1Char('.')
                 + originalOdfFileInfo.suffix());
     args.append(QStringLiteral("-t"));
     args.append(originalOdfFilePath);
@@ -1595,12 +1595,10 @@ void EditorTab::mergeIntoOpenDocument()
     QString reloaderScript = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("scripts/odf/xliff2odf-standalone.py"));
     if (reloaderScript.length()) {
         QString python = QStandardPaths::findExecutable(QStringLiteral("python"));
-        QStringList unoArgs(QStringLiteral("-c"));
-        unoArgs.append(QStringLiteral("import uno"));
+        QStringList unoArgs{QStringLiteral("-c"), QStringLiteral("import uno")};
+
         if (python.isEmpty() || QProcess::execute(python, unoArgs) != 0) {
             python = QStandardPaths::findExecutable(QStringLiteral("python3"));
-            QStringList unoArgs(QStringLiteral("-c"));
-            unoArgs.append(QStringLiteral("import uno"));
             if (python.isEmpty() || QProcess::execute(python, unoArgs) != 0) {
                 KMessageBox::information(SettingsController::instance()->mainWindowPtr(), i18n("Install python-uno package for additional functionality."));
                 return;

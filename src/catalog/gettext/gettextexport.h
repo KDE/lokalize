@@ -34,7 +34,7 @@ private:
     /**
      * Write a PO comment to @p stream and take care that each comment lines start with a # character
      */
-    void writeComment(QTextStream &stream, const QString &comment) const;
+    static void writeComment(QTextStream &stream, const QString &comment);
 
     /**
      * Write a PO keyword (msgctxt, msgid, msgstr, msgstr_plural, msgstr[0]) and the corresponding text.

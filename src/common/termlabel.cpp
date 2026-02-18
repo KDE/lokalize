@@ -37,7 +37,7 @@ void TermLabel::insert()
         for (; i < limit; ++i)
             menu.addAction(termTarget.at(i));
 
-        QAction *txt = menu.exec(mapToGlobal(QPoint(0, 0)));
+        const QAction *txt = menu.exec(mapToGlobal(QPoint(0, 0)));
         if (!txt)
             return;
         termTrans = txt->text();
@@ -57,7 +57,7 @@ void TermLabel::mousePressEvent(QMouseEvent *event)
 
         menu.addAction(i18nc("@action:inmenu Edit term", "Edit"));
 
-        QAction *txt = menu.exec(event->globalPosition().toPoint());
+        const QAction *txt = menu.exec(event->globalPosition().toPoint());
         if (txt) {
             GlossaryNS::GlossaryTab *glossaryTab = Project::instance()->glossaryTab();
             if (glossaryTab)

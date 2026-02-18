@@ -54,7 +54,7 @@ enum InitOptions {
     ForceAdd = 1,
 };
 ///@returns true if phase must be added to catalog
-bool initPhaseForCatalog(Catalog *catalog, Phase &phase, int options = 0);
+bool initPhaseForCatalog(const Catalog *catalog, Phase &phase, int options = 0);
 void generatePhaseForCatalogIfNeeded(Catalog *catalog);
 
 #endif

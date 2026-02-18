@@ -228,11 +228,11 @@ public:
     {
     }
 
-    QString sourceLangCode() const
+    const QString &sourceLangCode() const
     {
         return m_sourceLangCode;
     }
-    QString targetLangCode() const
+    const QString &targetLangCode() const
     {
         return m_targetLangCode;
     }

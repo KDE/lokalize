@@ -52,19 +52,19 @@ InlineTag::InlineElement InlineTag::getElementType(const QByteArray &tag)
 
 QString InlineTag::displayName() const
 {
-    static QString inlineElementNames[(int)InlineElementCount] = {QLatin1String("_unknown"),
-                                                                  i18nc("XLIFF inline tag name", "Start of paired tag"),
-                                                                  i18nc("XLIFF inline tag name", "End of paired tag"),
-                                                                  i18nc("XLIFF inline tag name", "Stand-alone tag"),
-                                                                  i18nc("XLIFF inline tag name", "Isolated tag"),
-                                                                  //"_NEVERSHOULDBECHOSEN",
-                                                                  i18nc("XLIFF inline tag name", "Marker"),
-                                                                  i18nc("XLIFF inline tag name", "Generic group placeholder"),
-                                                                  i18nc("XLIFF inline tag name", "Sub-flow"),
-                                                                  QLatin1String("_NEVERSHOULDBECHOSEN"),
-                                                                  i18nc("XLIFF inline tag name", "Generic placeholder"),
-                                                                  i18nc("XLIFF inline tag name", "Start of paired placeholder"),
-                                                                  i18nc("XLIFF inline tag name", "End of paired placeholder")};
+    static const QString inlineElementNames[(int)InlineElementCount] = {QLatin1String("_unknown"),
+                                                                        i18nc("XLIFF inline tag name", "Start of paired tag"),
+                                                                        i18nc("XLIFF inline tag name", "End of paired tag"),
+                                                                        i18nc("XLIFF inline tag name", "Stand-alone tag"),
+                                                                        i18nc("XLIFF inline tag name", "Isolated tag"),
+                                                                        //"_NEVERSHOULDBECHOSEN",
+                                                                        i18nc("XLIFF inline tag name", "Marker"),
+                                                                        i18nc("XLIFF inline tag name", "Generic group placeholder"),
+                                                                        i18nc("XLIFF inline tag name", "Sub-flow"),
+                                                                        QLatin1String("_NEVERSHOULDBECHOSEN"),
+                                                                        i18nc("XLIFF inline tag name", "Generic placeholder"),
+                                                                        i18nc("XLIFF inline tag name", "Start of paired placeholder"),
+                                                                        i18nc("XLIFF inline tag name", "End of paired placeholder")};
 
     QString result = inlineElementNames[type];
 
@@ -107,7 +107,7 @@ QString InlineTag::displayName() const
                                          "truncated-term",
                                          "variant"};
 
-        static QString mrkTypeNames[] = {
+        static const QString mrkTypeNames[] = {
             i18nc("XLIFF mark type", "abbreviation"),
             i18nc("XLIFF mark type", "abbreviated form: a term resulting from the omission of any part of the full term while designating the same concept"),
             i18nc("XLIFF mark type",
@@ -211,7 +211,7 @@ QByteArray CatalogString::tagsAsByteArray() const
     return result;
 }
 
-CatalogString::CatalogString(QString str, QByteArray tagsByteArray)
+CatalogString::CatalogString(const QString &str, QByteArray tagsByteArray)
     : string(str)
 {
     if (tagsByteArray.size()) {
@@ -302,8 +302,8 @@ void adaptCatalogString(CatalogString &target, const CatalogString &ref)
             // we're _taking_ first so the next one becomes new 'first' for the next time.
             QList<InlineTag> possibleRefMatches;
             const auto indexes = tagType2tagIndex.values(targetTag.type);
-            for (int i : indexes)
-                possibleRefMatches << ref.tags.at(i);
+            for (int j : indexes)
+                possibleRefMatches << ref.tags.at(j);
             std::sort(possibleRefMatches.begin(), possibleRefMatches.end());
             qCWarning(LOKALIZE_LOG) << "setting id:" << targetTag.id << possibleRefMatches.first().id;
             targetTag.id = possibleRefMatches.first().id;
