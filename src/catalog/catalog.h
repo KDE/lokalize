@@ -102,7 +102,7 @@ public Q_SLOTS: // DBus interface
     ///@returns previous phase-name
     QString setPhase(const DocPosition &pos, const QString &phase);
     QString phase(const DocPosition &pos) const;
-    QString activePhase() const
+    const QString &activePhase() const
     {
         return d._phase;
     }

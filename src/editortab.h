@@ -14,6 +14,7 @@
 #ifndef EDITORTAB_H
 #define EDITORTAB_H
 
+#include <qobject.h>
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -133,7 +134,7 @@ public:
     EditorState state();
     KXMLGUIClient *guiClient() override
     {
-        return (KXMLGUIClient *)this;
+        return qobject_cast<KXMLGUIClient *>(this);
     }
 #if HAVE_DBUS
     QString dbusObjectPath();
@@ -152,7 +153,7 @@ public:
 
     bool fileOpen(QString filePath = QString(),
                   QString suggestedDirPath = QString(),
-                  QMap<QString, EditorTab *> openedFiles = QMap<QString, EditorTab *>(),
+                  const QMap<QString, EditorTab *> &openedFiles = QMap<QString, EditorTab *>(),
                   bool silent = false);
 
     void setModificationSign();
@@ -240,7 +241,7 @@ public Q_SLOTS:
     Q_SCRIPTABLE QString targetLangCode();
 
     Q_SCRIPTABLE void attachAlternateTranslationFile(const QString &path);
-    Q_SCRIPTABLE void openSyncSource(QString path)
+    Q_SCRIPTABLE void openSyncSource(const QString &path)
     {
         mergeOpen(path);
     }
@@ -337,7 +338,7 @@ private Q_SLOTS:
 
     void defineNewTerm();
     void attachAlternateTranslationFileDialog();
-    void initLater();
+    static void initLater();
     void showStatesMenu();
     void setState(QAction *);
     void dispatchSrcFileOpenRequest(const QString &srcPath, int line);
