@@ -57,6 +57,8 @@ void GlossaryTreeView::currentChanged(const QModelIndex &current, /*previous*/ c
     if (current.isValid()) {
         Q_EMIT currentChanged(modelIndexToId(current));
         scrollTo(current);
+    } else {
+        Q_EMIT currentChanged(QByteArray());
     }
 }
 
@@ -188,6 +190,12 @@ GlossaryTab::GlossaryTab(QWidget *parent)
     m_definitionLang->setCurrentIndex(LanguageListModel::emptyLangInstance()->sortModelRowForLangCode(m_defLang)); // empty lang
 
     connect(m_definition, &AuxTextEdit::editingFinished, this, &GlossaryTab::applyEntryChange);
+
+    QModelIndex firstVisualItem = m_browser->model()->index(0, 0);
+    if (firstVisualItem.isValid()) {
+        m_browser->setCurrentIndex(firstVisualItem);
+        m_browser->scrollTo(firstVisualItem);
+    }
 }
 
 void GlossaryTab::setFocus()
