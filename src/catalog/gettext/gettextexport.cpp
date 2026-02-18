@@ -99,7 +99,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice *device, const GettextStora
     return OK;
 }
 
-void GettextExportPlugin::writeComment(QTextStream &stream, const QString &comment) const
+void GettextExportPlugin::writeComment(QTextStream &stream, const QString &comment)
 {
     if (!comment.isEmpty()) {
         // We must check that each comment line really starts with a #, to avoid syntax errors
@@ -165,7 +165,7 @@ void GettextExportPlugin::writeKeyword(QTextStream &stream, const QString &keywo
         QStringList list;
         int pos = 0;
         int startPos = 0;
-        bool closing = false;
+        bool closing;
 
         QStringList tagBrNormal = getTagBrNormal();
 

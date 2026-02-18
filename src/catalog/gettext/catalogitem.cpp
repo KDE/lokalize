@@ -166,10 +166,10 @@ void CatalogItem::setFuzzy()
         return;
     }
 
-    QString comment = d.m_comment;
+    QString _comment = d.m_comment;
     static const QRegularExpression a(QStringLiteral("\\#\\:[^\n]*\n"));
-    if (const auto match = a.match(comment); match.hasMatch()) {
-        d.m_comment = comment.insert(match.capturedStart() + match.capturedLength(), QLatin1String("#, fuzzy\n"));
+    if (const auto match = a.match(_comment); match.hasMatch()) {
+        d.m_comment = _comment.insert(match.capturedStart() + match.capturedLength(), QLatin1String("#, fuzzy\n"));
         return;
     }
     p = d.m_comment.indexOf(QLatin1String("\n#|"));

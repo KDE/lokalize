@@ -37,7 +37,7 @@ void TermLabel::insert()
         for (; i < limit; ++i)
             menu.addAction(termTarget.at(i));
 
-        QAction *txt = menu.exec(mapToGlobal(QPoint(0, 0)));
+        const QAction *txt = menu.exec(mapToGlobal(QPoint(0, 0)));
         if (!txt)
             return;
         termTrans = txt->text();

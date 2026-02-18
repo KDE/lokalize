@@ -167,7 +167,7 @@ public:
     }
     void doRedo() override;
     void doUndo() override;
-    InlineTag tag() const
+    const InlineTag &tag() const
     {
         return _tag; // used to get proprties of deleted tag
     }
