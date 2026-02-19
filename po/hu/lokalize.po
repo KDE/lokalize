@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-14 00:46+0000\n"
+"POT-Creation-Date: 2026-02-19 00:51+0000\n"
 "PO-Revision-Date: 2025-11-08 22:40+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -778,14 +778,14 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Fordítási egységek"
 
-#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:116
+#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:118
 #: src/project/projecttab.cpp:59
 #, fuzzy, kde-format
 #| msgid "&Search"
 msgid "Search"
 msgstr "&Keresés"
 
-#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:118
+#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:120
 #: src/project/projecttab.cpp:60
 #, kde-format
 msgctxt "@info:tooltip"
@@ -2100,7 +2100,7 @@ msgstr ""
 msgid "Cannot write to file. Check permissions."
 msgstr ""
 
-#: src/glossary/glossarytab.cpp:82
+#: src/glossary/glossarytab.cpp:84
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
@@ -2108,13 +2108,13 @@ msgctxt "@title"
 msgid "Glossary"
 msgstr "Szójegyzék"
 
-#: src/glossary/glossarytab.cpp:133
+#: src/glossary/glossarytab.cpp:135
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
 msgstr ""
 
-#: src/glossary/glossarytab.cpp:134
+#: src/glossary/glossarytab.cpp:136
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Remove this entry"

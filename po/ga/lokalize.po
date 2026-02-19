@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-14 00:46+0000\n"
+"POT-Creation-Date: 2026-02-19 00:51+0000\n"
 "PO-Revision-Date: 2026-01-06 20:08+0000\n"
 "Last-Translator: Charlotte <altronic25@protonmail.com>\n"
 "Language-Team: Irish\n"
@@ -687,13 +687,13 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Aonaid Aistriúcháin"
 
-#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:116
+#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:118
 #: src/project/projecttab.cpp:59
 #, kde-format
 msgid "Search"
 msgstr "Cuardach"
 
-#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:118
+#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:120
 #: src/project/projecttab.cpp:60
 #, kde-format
 msgctxt "@info:tooltip"
@@ -1997,7 +1997,7 @@ msgstr ""
 msgid "Cannot write to file. Check permissions."
 msgstr ""
 
-#: src/glossary/glossarytab.cpp:82
+#: src/glossary/glossarytab.cpp:84
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
@@ -2005,13 +2005,13 @@ msgctxt "@title"
 msgid "Glossary"
 msgstr "Gluais"
 
-#: src/glossary/glossarytab.cpp:133
+#: src/glossary/glossarytab.cpp:135
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
 msgstr ""
 
-#: src/glossary/glossarytab.cpp:134
+#: src/glossary/glossarytab.cpp:136
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Remove this entry"
