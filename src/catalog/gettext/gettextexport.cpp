@@ -165,7 +165,7 @@ void GettextExportPlugin::writeKeyword(QTextStream &stream, const QString &keywo
         QStringList list;
         int pos = 0;
         int startPos = 0;
-        bool closing;
+        bool closing = false;
 
         QStringList tagBrNormal = getTagBrNormal();
 
@@ -188,7 +188,6 @@ void GettextExportPlugin::writeKeyword(QTextStream &stream, const QString &keywo
                 tag.remove(QLatin1Char(' '));
                 tag.remove(QLatin1Char('<'));
                 tag.remove(QLatin1Char('>'));
-                closing = false;
 
                 if (tag.contains(QLatin1Char('/'))) {
                     tag.remove(QLatin1Char('/'));
