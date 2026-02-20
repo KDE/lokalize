@@ -39,11 +39,9 @@ msgid "Alternate Translations"
 msgstr "Aistriúcháin Mhalartacha"
 
 #: src/alttransview.cpp:163
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Insert alternate translation # %1"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "Ionsáigh aistriúchán malartach # %1"
+msgstr ""
 
 #: src/alttransview.cpp:186
 #, kde-format
@@ -70,11 +68,10 @@ msgid ""
 msgstr ""
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Aistriúcháin Mhalartacha"
+msgstr ""
 
 #: src/alttransview.cpp:265
 #, kde-format
@@ -752,11 +749,9 @@ msgid "Unchanged since file open"
 msgstr "Comhad gan athrú ó osclaíodh é"
 
 #: src/cataloglistview/cataloglistview.cpp:221
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search in files"
+#, kde-format
 msgid "Same in sync file"
-msgstr "Cuardaigh i gcomhaid"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
@@ -774,10 +769,9 @@ msgid "Plural"
 msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:225
-#, fuzzy, kde-format
-#| msgid "Non-ready"
+#, kde-format
 msgid "Non-plural"
-msgstr "Gan cheadú"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:230
 #, kde-format
@@ -792,11 +786,10 @@ msgid "States"
 msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:233
-#, fuzzy, kde-format
-#| msgid "Local"
+#, kde-format
 msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
-msgstr "Logánta"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:237
 #, kde-format
@@ -862,20 +855,16 @@ msgid "Modified"
 msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source language"
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source Length"
-msgstr "Bunteanga"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target language"
+#, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
-msgstr "Sprioctheanga"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1017
 #: src/editortab.cpp:1212 src/tm/tmtab.cpp:233
@@ -885,11 +874,10 @@ msgid "Ready"
 msgstr "Réidh"
 
 #: src/cataloglistview/catalogmodel.cpp:147
-#, fuzzy, kde-format
-#| msgid "Review"
+#, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs Review"
-msgstr "Athbhreithnigh"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:149 src/editortab.cpp:1015
 #: src/tm/tmtab.cpp:235
@@ -968,74 +956,58 @@ msgid "Glossary"
 msgstr "Gluais"
 
 #: src/editortab.cpp:171
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Insert alternate translation # %1"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
-msgstr "Ionsáigh aistriúchán malartach # %1"
+msgstr ""
 
 #: src/editortab.cpp:239
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Note"
-msgstr "Cuir nóta leis"
+msgstr ""
 
 #: src/editortab.cpp:248
-#, fuzzy, kde-format
-#| msgid "If checked, get translation memory suggestions "
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert translation memory suggestion #%1"
-msgstr "Más ticeáilte é seo, faigh moltaí ón chuimhne aistriúchán "
+msgstr ""
 
 #: src/editortab.cpp:253
-#, fuzzy, kde-format
-#| msgid "If checked, get translation memory suggestions "
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove translation memory suggestion #%1"
-msgstr "Más ticeáilte é seo, faigh moltaí ón chuimhne aistriúchán "
+msgstr ""
 
 #: src/editortab.cpp:306
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Insert alternate translation # %1"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
-msgstr "Ionsáigh aistriúchán malartach # %1"
+msgstr ""
 
 #: src/editortab.cpp:318
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define new term"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Define New Term"
-msgstr "Sainmhínigh téarma nua"
+msgstr ""
 
 #: src/editortab.cpp:352
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Phases..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases…"
-msgstr "Ceimeanna..."
+msgstr ""
 
 #: src/editortab.cpp:355
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Word Count"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Word Count"
-msgstr "Líon na bhFocal"
+msgstr ""
 
 #: src/editortab.cpp:358
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Manage translation memories"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear Translated Entries"
-msgstr "Bainistigh cuimhne aistriúcháin"
+msgstr ""
 
 #: src/editortab.cpp:361
 #, kde-format
@@ -1044,19 +1016,16 @@ msgid "Launch the Pology command on this file"
 msgstr ""
 
 #: src/editortab.cpp:365
-#, fuzzy, kde-format
-#| msgid "Translate a document"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
-msgstr "Aistrigh cáipéis"
+msgstr ""
 
 #: src/editortab.cpp:385
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Change searching direction"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Change Searching Direction"
-msgstr "Athraigh treo cuardaigh"
+msgstr ""
 
 #: src/editortab.cpp:394
 #, kde-format
@@ -1073,28 +1042,22 @@ msgid "Approve and Go Next"
 msgstr ""
 
 #: src/editortab.cpp:421
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Equivalent translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent Translation"
-msgstr "Aistriúchán ar comhbhrí"
+msgstr ""
 
 #: src/editortab.cpp:432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy source to target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source to Target"
-msgstr "Cóipeáil foinse go sprioc"
+msgstr ""
 
 #: src/editortab.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Unwrap target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap Target"
-msgstr "Dífhill an sprioc"
+msgstr ""
 
 #: src/editortab.cpp:442 src/filesearch/filesearchtab.cpp:137
 #, kde-format
@@ -1163,12 +1126,10 @@ msgid "&Last Entry"
 msgstr "An Iontráil &Deiridh"
 
 #: src/editortab.cpp:494
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Entry by number"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by Number"
-msgstr "Iontráil de réir uimhreach"
+msgstr ""
 
 #: src/editortab.cpp:497 src/project/projecttab.cpp:100
 #, kde-format
@@ -1187,44 +1148,32 @@ msgid "Next non-empty but not ready"
 msgstr ""
 
 #: src/editortab.cpp:512 src/project/projecttab.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Untranslated"
-msgstr "Tcht gan aistriúchán roimhe seo"
+msgstr ""
 
 #: src/editortab.cpp:517 src/project/projecttab.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Untranslated"
-msgstr "An chéad tcht eile gan aistriúchán"
+msgstr ""
 
 #: src/editortab.cpp:523 src/project/projecttab.cpp:88
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Previous not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous Not Ready"
-msgstr "Tcht roimhe seo gan cheadú"
+msgstr ""
 
 #: src/editortab.cpp:535 src/project/projecttab.cpp:94
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action:inmenu\n"
-#| "'not ready' means 'fuzzy' in gettext terminology"
-#| msgid "Next not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Next Not Ready"
-msgstr "An chéad tcht eile gan cheadú"
+msgstr ""
 
 #: src/editortab.cpp:544
 #, kde-format
@@ -1233,28 +1182,22 @@ msgid "Focus the search line of Translation Units view"
 msgstr ""
 
 #: src/editortab.cpp:548
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Bookmark message"
+#, kde-format
 msgctxt "@option:check"
 msgid "Bookmark Message"
-msgstr "Leabharmharc don teachtaireacht seo"
+msgstr ""
 
 #: src/editortab.cpp:553
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
-msgstr "An leabharmharc roimhe seo"
+msgstr ""
 
 #: src/editortab.cpp:557
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Bookmark"
-msgstr "An chéad leabharmharc eile"
+msgstr ""
 
 #: src/editortab.cpp:565
 #, no-c-format, kde-format
@@ -1283,12 +1226,10 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:585 src/editortab.cpp:644
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Different"
-msgstr "Difríocht roimhe seo"
+msgstr ""
 
 #: src/editortab.cpp:587 src/editortab.cpp:646
 #, kde-format
@@ -1299,12 +1240,10 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:596 src/editortab.cpp:653
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different"
-msgstr "An chéad difríocht eile"
+msgstr ""
 
 #: src/editortab.cpp:598 src/editortab.cpp:655
 #, kde-format
@@ -1315,12 +1254,10 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:606
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next different"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different Approved"
-msgstr "An chéad difríocht eile"
+msgstr ""
 
 #: src/editortab.cpp:612 src/editortab.cpp:662
 #, kde-format
@@ -1360,12 +1297,10 @@ msgid "This changes only empty entries"
 msgstr "Athraíonn sé seo iontrálacha folmha amháin"
 
 #: src/editortab.cpp:697
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(athchóirithe)"
+msgstr ""
 
 #: src/editortab.cpp:726 src/lokalizemainwindow.cpp:1097
 #, kde-format
@@ -1384,32 +1319,22 @@ msgid "Warning"
 msgstr "Rabhadh"
 
 #: src/editortab.cpp:748 src/mergemode/mergeview.cpp:166
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next translation only"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
-msgstr "An chéad aistriúchán eile amháin"
+msgstr ""
 
 #: src/editortab.cpp:833
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "Error opening the file <filename>%1</filename>, line: %2"
+#, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
-msgstr "Earráid agus comhad <filename>%1</filename> á oscailt, líne %2"
+msgstr ""
 
 #: src/editortab.cpp:835
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Error opening the following files:\n"
-#| "\n"
+#, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr ""
-"Earráid agus na comhaid seo a leanas á n-oscailt:\n"
-"\n"
 
 #: src/editortab.cpp:843
 #, kde-format
@@ -1418,18 +1343,12 @@ msgid "Save File As"
 msgstr "Sábháil Comhad Mar"
 
 #: src/editortab.cpp:872
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Error saving the file <filename>%1</filename>\n"
-#| "Do you want to save to another file or cancel?"
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Error saving the file %1\n"
 "Do you want to save to another file or cancel?"
 msgstr ""
-"Earráid agus comhad <filename>%1</filename> á shábháil\n"
-"An bhfuil fonn ort sábháil i gcomhad eile, nó cealú?"
 
 #: src/editortab.cpp:875
 #, kde-format
@@ -1569,19 +1488,16 @@ msgid "Source file lookup"
 msgstr ""
 
 #: src/editortab.cpp:1446
-#, fuzzy, kde-format
-#| msgid "Local"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Logánta"
+msgstr ""
 
 #: src/editortab.cpp:1447 src/editortab.cpp:1491
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search in files"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "Cuardaigh i gcomhaid"
+msgstr ""
 
 #: src/editortab.cpp:1450 src/editortab.cpp:1495
 #, kde-format
@@ -1603,11 +1519,10 @@ msgid "Source file lookup"
 msgstr ""
 
 #: src/editortab.cpp:1490
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Roghnaigh fillteán:"
+msgstr ""
 
 #: src/editortab.cpp:1532
 #, kde-format
@@ -1702,11 +1617,9 @@ msgstr "Cui&mhne Aistriúcháin"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:133
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgid "Alternate Translations"
-msgstr "Aistriúcháin Mhalartacha"
+msgstr ""
 
 #. i18n: ectx: Menu (go)
 #: src/editorui.rc:152 src/filesearch/filesearchtabui.rc:14
@@ -1860,10 +1773,9 @@ msgid "File List"
 msgstr "Liosta Comhad"
 
 #: src/filesearch/filesearchtab.cpp:122
-#, fuzzy, kde-format
-#| msgid "Drop translation files here..."
+#, kde-format
 msgid "Drop translation files here…"
-msgstr "Cuir comhaid aistriúcháin anseo..."
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
@@ -1872,12 +1784,10 @@ msgid "File"
 msgstr "Comhad"
 
 #: src/filesearch/filesearchtab.cpp:449
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search && Replace"
-msgstr "Cuardaigh i gcomhaid"
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
@@ -1895,20 +1805,16 @@ msgid "Open file"
 msgstr "Oscail comhad"
 
 #: src/filesearch/filesearchtab.cpp:518
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search in files"
+#, kde-format
 msgctxt "@title actions category"
 msgid "Search && Replace"
-msgstr "Cuardaigh i gcomhaid"
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:723
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action item"
-#| msgid "Replace"
+#, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
-msgstr "Ionadaigh"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/filesearch/massreplaceoptions.ui:17
@@ -1976,11 +1882,9 @@ msgid ""
 msgstr ""
 
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "Gluais"
+msgstr ""
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
@@ -1998,12 +1902,10 @@ msgid "Cannot write to file. Check permissions."
 msgstr ""
 
 #: src/glossary/glossarytab.cpp:84
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
-msgstr "Gluais"
+msgstr ""
 
 #: src/glossary/glossarytab.cpp:135
 #, kde-format
@@ -2012,12 +1914,10 @@ msgid "Add new glossary entry"
 msgstr ""
 
 #: src/glossary/glossarytab.cpp:136
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this entry"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
-msgstr "Bain an iontráil seo"
+msgstr ""
 
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
@@ -2046,11 +1946,9 @@ msgstr "Comhchiallaigh Bhéarla (déchliceáil chun cur in eagar):"
 #. i18n: ectx: property (text), widget (QPushButton, addEngTerm)
 #. i18n: ectx: property (text), widget (QPushButton, addTargetTerm)
 #: src/glossary/termedit.ui:32 src/glossary/termedit.ui:78
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add"
+#, kde-format
 msgid "Add"
-msgstr "Cuir Leis"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, addEngTerm)
 #: src/glossary/termedit.ui:35
@@ -2141,15 +2039,7 @@ msgid "No errors"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:99
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2157,43 +2047,30 @@ msgid ""
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
 "which you can participate.</html>"
 msgstr ""
-"<html>Ní gá duit a bheith i d'fhorbróir bogearraí chun cabhrú le KDE. Má tá "
-"Gaeilge mhaith agat, cláraigh leis an bhfoireann aistriúcháin agus cabhraigh "
-"linn an comhéadan KDE a aistriú. Nó is féidir leat grafaic, téamaí, "
-"fuaimeanna, agus doiciméadú a sholáthar. Is leatsa an rogha!<br /><br /"
-">Tabhair cuairt ar <a href=\"%1\">%1</a> chun tuilleadh eolais a fháil "
-"maidir le tionscadail eile ar féidir leat cabhrú leo.<br /><br />Má tá "
-"tuilleadh eolais nó doiciméadú de dhíth ort, tabhair cuairt ar <a href="
-"\"%2\">%2</a> agus aimseoidh tú an rud atá de dhíth ort.</html>"
 
 #: src/lokalizemainwindow.cpp:116
-#, fuzzy, kde-format
-#| msgid "&Configure %1..."
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "&Cumraigh %1..."
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:117 src/lokalizemainwindow.cpp:699
 #: src/project/projecttab.cpp:155
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
-msgstr "Oscail tionscadal"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgid "Translator"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "Aistritheoir"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:119
-#, fuzzy, kde-format
-#| msgid "Translate a document"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "Aistrigh cáipéis"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:181
 #, kde-format
@@ -2202,11 +2079,9 @@ msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:541 src/project/project.cpp:228
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Translation Memories"
+#, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
-msgstr "Cuimhní Aistriúcháin"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:541 src/project/project.cpp:228
 #, kde-format
@@ -2226,22 +2101,19 @@ msgid "Project"
 msgstr "Tionscadal"
 
 #: src/lokalizemainwindow.cpp:657
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Tab"
-msgstr "An chéad chluaisín eile"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:660
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Tab"
-msgstr "An cluaisín roimhe seo"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:663
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previously Active Tab"
-msgstr "An cluaisín roimhe seo"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:666
 #, kde-format
@@ -2255,73 +2127,58 @@ msgid "Glossary"
 msgstr "Gluais"
 
 #: src/lokalizemainwindow.cpp:678
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
-msgstr "Cuimhne Aistriúcháin"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:682 src/tm/tmtab.cpp:482
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Manage translation memories"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
-msgstr "Bainistigh cuimhne aistriúcháin"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:686
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
-msgstr "Foramharc an Tionscadail"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:690
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Configure project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
-msgstr "Cumraigh tionscadal"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:693
-#, fuzzy, kde-format
-#| msgid "*.lokalize|Lokalize translation project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
-msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:696
-#, fuzzy, kde-format
-#| msgid "*.lokalize|Lokalize translation project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:703
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
-msgstr "Oscail tionscadal"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:706
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
-msgstr "Oscail tionscadal le déanaí"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:716
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search in files"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
-msgstr "Cuardaigh i gcomhaid"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:719
 #, kde-format
@@ -2372,19 +2229,13 @@ msgstr ""
 "Ná haistrigh rudaí atá aistrithe cheana."
 
 #: src/main.cpp:78
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid ""
-#| "(c) 2007-2012 Nick Shaforostoff\n"
-#| "(c) 1999-2006 The KBabel developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid ""
 "(c) 2018-2019 Simon Depiets\n"
 "(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 The KBabel developers"
 msgstr ""
-"© 2007-2012 Nick Shaforostoff\n"
-"© 1999-2006 Forbróirí KBabel"
 
 #: src/main.cpp:79
 #, kde-format
@@ -2424,10 +2275,9 @@ msgid "provided excellent cross-format converting scripts"
 msgstr ""
 
 #: src/main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "LanguageTool"
-msgstr "Teanga"
+msgstr ""
 
 #: src/main.cpp:89
 #, kde-format
@@ -2500,10 +2350,9 @@ msgid "Simon Depiets"
 msgstr "Simon Depiets"
 
 #: src/main.cpp:97 src/main.cpp:98 src/main.cpp:99
-#, fuzzy, kde-format
-#| msgid "bug fixing patches"
+#, kde-format
 msgid "bug fixing and improvements"
-msgstr "paistí ceartaithe"
+msgstr ""
 
 #: src/main.cpp:98
 #, kde-format
@@ -2598,22 +2447,16 @@ msgid "<b>Temporary notes:</b>"
 msgstr "<b>Nótaí sealadacha:</b>"
 
 #: src/msgctxtview.cpp:99
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@info notes to translation unit which expire when the catalog is closed"
-#| msgid "<b>Temporary notes:</b>"
+#, kde-format
 msgctxt "@info notes generated by the pology check"
 msgid "<b>Pology notes:</b>"
-msgstr "<b>Nótaí sealadacha:</b>"
+msgstr ""
 
 #: src/msgctxtview.cpp:108
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@info notes to translation unit which expire when the catalog is closed"
-#| msgid "<b>Temporary notes:</b>"
+#, kde-format
 msgctxt "@info notes generated by the languagetool check"
 msgid "<b>LanguageTool notes:</b>"
-msgstr "<b>Nótaí sealadacha:</b>"
+msgstr ""
 
 #: src/msgctxtview.cpp:120
 #, kde-format
@@ -2634,11 +2477,10 @@ msgid "<br><b>Context:</b><br>"
 msgstr "<br><b>Comhthéacs:</b><br>"
 
 #: src/msgctxtview.cpp:223
-#, fuzzy, kde-format
-#| msgid "Empty"
+#, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
-msgstr "Folamh"
+msgstr ""
 
 #: src/noteeditor.cpp:41
 #, kde-format
@@ -2687,12 +2529,10 @@ msgid "Add…"
 msgstr ""
 
 #: src/noteeditor.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "link to add a note"
 msgid "Add a note…"
-msgstr "Cuir nóta leis"
+msgstr ""
 
 #: src/phaseswindow.cpp:144
 #, kde-format
@@ -2789,17 +2629,15 @@ msgstr ""
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:34
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "Language Team"
-msgstr "Teanga"
+msgstr ""
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:35
-#, fuzzy, kde-format
-#| msgid "Translator's name"
+#, kde-format
 msgid "Translator team's name"
-msgstr "Ainm an aistritheora"
+msgstr ""
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:41
@@ -2826,16 +2664,11 @@ msgstr "Liosta réamhshocraithe ríomhphoist le haghaidh tionscadail nua"
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
 #: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
 #: src/prefs/lokalize.kcfg:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "\n"
-#| "        "
+#, kde-format
 msgid ""
 "\n"
 "            "
 msgstr ""
-"\n"
-"        "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73
@@ -2888,11 +2721,10 @@ msgid "Pology"
 msgstr ""
 
 #: src/prefs/prefs.cpp:131
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
-msgstr "Teanga"
+msgstr ""
 
 #: src/prefs/prefs.cpp:145
 #, kde-format
@@ -2902,33 +2734,27 @@ msgid ""
 msgstr ""
 
 #: src/prefs/prefs.cpp:146
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Foramharc an tionscadail"
+msgstr ""
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "Cruthaigh tionscadal nua"
+msgstr ""
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
-msgstr "Oscail tionscadal"
+msgstr ""
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgid "*.lokalize|Lokalize translation project"
+#, kde-format
 msgid "Lokalize translation project (*.lokalize)"
-msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
+msgstr ""
 
 #: src/prefs/prefs.cpp:175
 #, kde-format
@@ -2937,10 +2763,9 @@ msgid "Select folder with Gettext .po files to translate"
 msgstr ""
 
 #: src/prefs/prefs.cpp:196
-#, fuzzy, kde-format
-#| msgid "*.lokalize|Lokalize translation project"
+#, kde-format
 msgid "Create software or OpenDocument translation project first."
-msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
+msgstr ""
 
 #: src/prefs/prefs.cpp:252
 #, kde-format
@@ -3128,21 +2953,17 @@ msgstr "Teanga réamhshocraithe:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/prefs/prefs_identity.ui:48
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Email:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Email:"
-msgstr "Ríomhphost:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/prefs/prefs_identity.ui:61
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Name:"
-msgstr "Ainm:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorName)
 #: src/prefs/prefs_identity.ui:74
@@ -3158,12 +2979,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_identity.ui:84
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Default mailing list:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Default mailing list:"
-msgstr "Liosta réamhshocraithe ríomhphoist:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
 #: src/prefs/prefs_identity.ui:94
@@ -3224,11 +3043,9 @@ msgstr "Ainm logánaithe:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_overrideLangTeam)
 #: src/prefs/prefs_identity.ui:164
-#, fuzzy, kde-format
-#| msgctxt "@label:chooser"
-#| msgid "Default language:"
+#, kde-format
 msgid "Default Language-Team:"
-msgstr "Teanga réamhshocraithe:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
 #: src/prefs/prefs_languagetool.ui:21
@@ -3357,33 +3174,29 @@ msgstr "Socraigh líon uasta na moltaí"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggCount)
 #: src/prefs/prefs_tm.ui:73
-#, fuzzy, kde-format
-#| msgid "Set the maximum number of suggestions"
+#, kde-format
 msgid "You can change the maximum number of suggestions, default is 7."
-msgstr "Socraigh líon uasta na moltaí"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_tm.ui:97
-#, fuzzy, kde-format
-#| msgid "Maximum number of suggestions:"
+#, kde-format
 msgid "Minimum score (0-100) of suggestions:"
-msgstr "Líon uasta na moltaí:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:107
-#, fuzzy, kde-format
-#| msgid "Set the maximum number of suggestions"
+#, kde-format
 msgid "Set the minimum score (0-100) of suggestions"
-msgstr "Socraigh líon uasta na moltaí"
+msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:110
-#, fuzzy, kde-format
-#| msgid "Set the maximum number of suggestions"
+#, kde-format
 msgid ""
 "You can change the minimum score (0-100) required for suggestions, default "
 "is 0."
-msgstr "Socraigh líon uasta na moltaí"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
 #: src/prefs/prefs_tm.ui:138
@@ -3516,12 +3329,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "Comhadlann na dteimpléad:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
@@ -3660,10 +3471,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:160
-#, fuzzy, kde-format
-#| msgid "Location:"
+#, kde-format
 msgid "Application"
-msgstr "Suíomh:"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:165
@@ -3673,11 +3483,9 @@ msgstr "Tionscadal"
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_projectmain.ui:180
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Language:"
+#, kde-format
 msgid "Language-Team:"
-msgstr "Teanga:"
+msgstr ""
 
 #: src/project/project.cpp:382
 #, kde-format
@@ -3685,18 +3493,15 @@ msgid "Scanning folders with source files"
 msgstr ""
 
 #: src/project/project.cpp:382
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Edit term"
-#| msgid "Edit"
+#, kde-format
 msgid "Editor"
-msgstr "Eagar"
+msgstr ""
 
 #: src/project/project.cpp:422
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
-msgstr "Aistriúchán"
+msgstr ""
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17
@@ -3718,11 +3523,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
 #: src/project/projectbase.kcfg:43
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target language"
+#, kde-format
 msgid "Project Language Team"
-msgstr "Sprioctheanga"
+msgstr ""
 
 #. i18n: ectx: label, entry (PoBaseDir), group (General)
 #: src/project/projectbase.kcfg:58
@@ -3769,14 +3572,10 @@ msgid "Translated"
 msgstr "Aistrithe"
 
 #: src/project/projectmodel.cpp:475
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@info:status message entries\n"
-#| "'fuzzy' in gettext terminology"
-#| msgid "Not ready: %1"
+#, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
-msgstr "Gan cheadú: %1"
+msgstr ""
 
 #: src/project/projectmodel.cpp:477
 #, kde-format
@@ -3785,12 +3584,10 @@ msgid "Untranslated"
 msgstr "Gan aistriúchán"
 
 #: src/project/projectmodel.cpp:479
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Scanning complete"
+#, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
-msgstr "Scanadh críochnaithe"
+msgstr ""
 
 #: src/project/projectmodel.cpp:481
 #, kde-format
@@ -3817,44 +3614,34 @@ msgid "Last Translator"
 msgstr "Aistritheoir Is Déanaí"
 
 #: src/project/projecttab.cpp:54
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
-msgstr "Foramharc an Tionscadail"
+msgstr ""
 
 #: src/project/projecttab.cpp:124
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Template Only"
-msgstr "An teimpléad roimhe seo amháin"
+msgstr ""
 
 #: src/project/projecttab.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next template only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Template Only"
-msgstr "An chéad teimpléad eile amháin"
+msgstr ""
 
 #: src/project/projecttab.cpp:135
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Translation Only"
-msgstr "An t-aistriúchán roimhe seo amháin"
+msgstr ""
 
 #: src/project/projecttab.cpp:138
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next translation only"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Translation Only"
-msgstr "An chéad aistriúchán eile amháin"
+msgstr ""
 
 #: src/project/projecttab.cpp:142
 #, kde-format
@@ -3869,11 +3656,10 @@ msgid "Hide fully translated files and folders"
 msgstr ""
 
 #: src/project/projecttab.cpp:190
-#, fuzzy, kde-format
-#| msgid "Select file:"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
-msgstr "Roghnaigh comhad:"
+msgstr ""
 
 #: src/project/projecttab.cpp:193
 #, kde-format
@@ -3894,12 +3680,10 @@ msgid "Search in files"
 msgstr "Cuardaigh i gcomhaid"
 
 #: src/project/projecttab.cpp:199
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a note"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
-msgstr "Cuir nóta leis"
+msgstr ""
 
 #: src/project/projecttab.cpp:201
 #, kde-format
@@ -3934,9 +3718,6 @@ msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: src/project/projecttab.cpp:327
 #, kde-format
@@ -3951,15 +3732,11 @@ msgid "Are you sure you want to open this many files?"
 msgstr ""
 
 #: src/project/projecttab.cpp:329
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
-msgstr[0] "Oscail comhad"
-msgstr[1] "Oscail comhad"
-msgstr[2] "Oscail comhad"
-msgstr[3] "Oscail comhad"
-msgstr[4] "Oscail comhad"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/statusbar.cpp:53
 #, kde-format
@@ -4115,17 +3892,15 @@ msgstr "Cuir Sonraí Leis"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "Cuir Sonraí ó TMX leis"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "Easpórtáil go TMX"
+msgstr ""
 
 #: src/tm/qamodel.cpp:98
 #, kde-format
@@ -4153,10 +3928,9 @@ msgstr "Bain"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/queryoptions.ui:32
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgid "Translation Memory:"
-msgstr "Cuimhne Aistriúcháin"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
@@ -4176,10 +3950,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgid "File Mask:"
-msgstr "Comhad"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
 #: src/tm/queryoptions.ui:155
@@ -4189,10 +3962,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
-#, fuzzy, kde-format
-#| msgid "Syntax"
+#, kde-format
 msgid "Query Syntax:"
-msgstr "Comhréir"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:197
@@ -4204,11 +3976,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgid "&Rescan Project"
-msgstr "Oscail tionscadal"
+msgstr ""
 
 #: src/tm/tmmanager.cpp:34
 #, kde-format
@@ -4262,18 +4032,16 @@ msgid "TM"
 msgstr "CA"
 
 #: src/tm/tmtab.cpp:79
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Foinse:"
+msgstr ""
 
 #: src/tm/tmtab.cpp:84
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Sprioc:"
+msgstr ""
 
 #: src/tm/tmtab.cpp:356
 #, kde-format
@@ -4364,14 +4132,12 @@ msgid "100% (perfect match)"
 msgstr ""
 
 #: src/tm/tmview.cpp:501
-#, fuzzy, kde-format
-#| msgctxt "percentages in statusbar"
-#| msgid " (%1%)"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
 msgid "%1%"
-msgstr " (%1%)"
+msgstr ""
 
 #: src/tm/tmview.cpp:507
 #, kde-format
@@ -4382,9 +4148,6 @@ msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: src/tm/tmview.cpp:517
 #, kde-format
@@ -4427,12 +4190,10 @@ msgid "<br />Last change author: %1"
 msgstr ""
 
 #: src/tm/tmview.cpp:584
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translation memory"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Translation memory: %1"
-msgstr "Cuimhne aistriúcháin"
+msgstr ""
 
 #: src/tm/tmview.cpp:586
 #, kde-format
@@ -4479,12 +4240,10 @@ msgid ""
 msgstr ""
 
 #: src/tm/tmview.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Translation Memories"
+#, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
-msgstr "Cuimhní Aistriúcháin"
+msgstr ""
 
 #: src/tm/tmview.cpp:963
 #, kde-format
@@ -4567,527 +4326,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr ""
-
-#~ msgid "Save"
-#~ msgstr "Sábháil"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Reload glossary from disk, discarding any changes"
-#~ msgstr ""
-#~ "Athluchtaigh an ghluais ón diosca, agus faigh réidh le haon athruithe"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "The glossary contains unsaved changes.\n"
-#~ "Do you want to save your changes or discard them?"
-#~ msgstr ""
-#~ "Tá athruithe gan sábháil sa ghluais.\n"
-#~ "An bhfuil fonn ort do chuid athruithe a shábháil?"
-
-#~ msgid "&Scripts"
-#~ msgstr "&Scripteanna"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "-"
-#~ msgstr "-"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Open project"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open Project"
-#~ msgstr "Oscail tionscadal"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Open project"
-#~ msgctxt "@action"
-#~ msgid "Open Project"
-#~ msgstr "Oscail tionscadal"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Insert TM suggestion # %1"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert TM suggestion #%1"
-#~ msgstr "Ionsáigh moladh # %1 ón chuimhne aistriúcháin"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Insert TM suggestion # %1"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Remove TM suggestion #%1"
-#~ msgstr "Ionsáigh moladh # %1 ón chuimhne aistriúcháin"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Word count"
-#~ msgstr "Líon focal"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open project"
-#~ msgstr "Oscail tionscadal"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Project overview"
-#~ msgstr "Foramharc an tionscadail"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Open project"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open project..."
-#~ msgstr "Oscail tionscadal"
-
-#~ msgctxt "link to edit note"
-#~ msgid "edit..."
-#~ msgstr "eagar..."
-
-#~ msgctxt "link to add a note"
-#~ msgid "Add..."
-#~ msgstr "Cuir Leis..."
-
-#~ msgctxt "link to add a note"
-#~ msgid "Add a note..."
-#~ msgstr "Cuir nóta leis..."
-
-#~ msgid "TM:"
-#~ msgstr "CA:"
-
-#~ msgctxt "@info:tooltip on TM entry continues"
-#~ msgid "<br />TM: %1"
-#~ msgstr "<br />CA: %1"
-
-#~ msgctxt "@info:status message entry"
-#~ msgid "Current: %1"
-#~ msgstr "Reatha: %1"
-
-#, fuzzy
-#~| msgctxt "percentages in statusbar"
-#~| msgid " (%1%)"
-#~ msgctxt ""
-#~ "Loading bar percentage indicator %p will be replaced by the actual "
-#~ "percentage number, so make sure you include it in your translation"
-#~ msgid "%p%"
-#~ msgstr " (%1%)"
-
-#~ msgctxt "@info:status message entries"
-#~ msgid "Total: %1 (%2)"
-#~ msgstr "Iomlán: %1 (%2)"
-
-#~ msgid "Tools"
-#~ msgstr "Uirlisí"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Completion"
-#~ msgid "Compile .po"
-#~ msgstr "Comhlánú"
-
-#~ msgid "Gettext not found"
-#~ msgstr "Gettext gan aimsiú"
-
-#~ msgid "Install gettext package for this feature to work"
-#~ msgstr ""
-#~ "Caithfidh tú an pacáiste gettext a shuitéail chun an ghné seo a úsáid"
-
-#~ msgid "Updating from templates..."
-#~ msgstr "Á nuashonrú ó theimpléid..."
-
-#~ msgid "Merge failed."
-#~ msgstr "Theip ar chumasc."
-
-#~ msgid "File"
-#~ msgstr "Comhad"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Spellcheck"
-#~ msgstr "Seiceáil Litrithe"
-
-#~ msgid "Alternative Translations"
-#~ msgstr "Aistriúcháin Mhalartacha"
-
-#, fuzzy
-#~| msgid "bug fixing patches"
-#~ msgid "bug fixing and improvments"
-#~ msgstr "paistí ceartaithe"
-
-#~ msgid "String Matching"
-#~ msgstr "Comhoiriúnú Teaghrán"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text added in the newer string:"
-#~ msgstr "Téacs a cuireadh leis an teaghrán níos nuaí:"
-
-#~ msgctxt "@label:chooser"
-#~ msgid "Text removed in the newer string:"
-#~ msgstr "Téacs a baineadh sa teaghrán níos nuaí:"
-
-#, fuzzy
-#~| msgid "Local"
-#~ msgid "Locally"
-#~ msgstr "Logánta"
-
-#~ msgctxt "@action"
-#~ msgid "New"
-#~ msgstr "Nua"
-
-#~ msgctxt "@action"
-#~ msgid "Open"
-#~ msgstr "Oscail"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Insert WebQuery result # %1"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert WebQuery result #%1"
-#~ msgstr "Ionsáigh toradh # %1 ón iarratas Gréasáin"
-
-#~ msgid "&WebQuery"
-#~ msgstr "&Iarratas Gréasáin"
-
-#~ msgid "Query"
-#~ msgstr "Iarratas"
-
-#~ msgid "Autoquery"
-#~ msgstr "Iarratas Uathoibríoch"
-
-#~ msgid "Prefetch for the next untranslated"
-#~ msgstr "Réamhghabh le haghaidh an chéad cheann eile gan aistriú"
-
-#~ msgid "Prefetch"
-#~ msgstr "Réamhghabh"
-
-#~ msgid "Web Queries"
-#~ msgstr "Iarratais Ghréasáin"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation complete"
-#~ msgstr "Baisc-Aistriúchán críochnaithe"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation"
-#~ msgstr "Baisc-aistriúchán"
-
-#, fuzzy
-#~| msgid "Remove"
-#~ msgctxt "Button label"
-#~ msgid "Remove"
-#~ msgstr "Bain"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Scripts"
-#~ msgstr "Scripteanna"
-
-#, fuzzy
-#~| msgctxt "@info"
-#~| msgid ""
-#~| "Error opening the following files:\n"
-#~| "\n"
-#~ msgctxt "@info"
-#~ msgid "Error opening the file"
-#~ msgstr ""
-#~ "Earráid agus na comhaid seo a leanas á n-oscailt:\n"
-#~ "\n"
-
-#, fuzzy
-#~| msgctxt "@label:chooser"
-#~| msgid "Default language:"
-#~ msgid "Default source language:"
-#~ msgstr "Teanga réamhshocraithe:"
-
-#, fuzzy
-#~| msgctxt "@label:chooser"
-#~| msgid "Default language:"
-#~ msgid "Default target language:"
-#~ msgstr "Teanga réamhshocraithe:"
-
-#, fuzzy
-#~| msgctxt "@label:textbox"
-#~| msgid "Glossary:"
-#~ msgid "Glossary file:"
-#~ msgstr "Gluais:"
-
-#~ msgctxt "@title actions category"
-#~ msgid "Tools"
-#~ msgstr "Uirlisí"
-
-#~ msgid "What do you want to do?"
-#~ msgstr "Cad ba mhaith leat a dhéanamh?"
-
-#~ msgid "Choose source and target languages"
-#~ msgstr "Roghnaigh bunteanga agus sprioctheanga"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Existing:"
-#~ msgstr "Atá Ann:"
-
-#~ msgid "Subversion client not found"
-#~ msgstr "Cliant subversion gan aimsiú"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Create new project"
-#~ msgstr "Cruthaigh tionscadal nua"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Insert # %1 term translation"
-#~ msgstr "Ionsáigh aistriúchán téarma # %1"
-
-#~ msgctxt "@info"
-#~ msgid "Error opening the file <filename>%1</filename>"
-#~ msgstr "Earráid agus comhad <filename>%1</filename> á oscailt"
-
-#~ msgid "Process"
-#~ msgstr "Próiseas"
-
-#~ msgid ""
-#~ "*.tmx *.xml|TMX files\n"
-#~ "*|All files"
-#~ msgstr ""
-#~ "*.tmx *.xml|Comhaid TMX\n"
-#~ "*|Gach comhad"
-
-#~ msgctxt "@action:button reloads glossary from disk"
-#~ msgid "Restore"
-#~ msgstr "Athchóirigh"
-
-#~ msgctxt "@title:inmenu"
-#~ msgid "Columns"
-#~ msgstr "Colúin"
-
-#~ msgid "Case sensitive"
-#~ msgstr "Cásíogair"
-
-#~ msgctxt "@label:textbox"
-#~ msgid "Localized Name:"
-#~ msgstr "Ainm Logánaithe:"
-
-#~ msgid "Select a directory:"
-#~ msgstr "Roghnaigh comhadlann:"
-
-#~ msgctxt "@info:status message entries"
-#~ msgid "Fuzzy: %1"
-#~ msgstr "Doiléir: %1"
-
-#~ msgctxt "@label whether entry is fuzzy"
-#~ msgid "Fuzzy:"
-#~ msgstr "Doiléir:"
-
-#~ msgctxt "@title:window"
-#~ msgid "Original Diff"
-#~ msgstr "Bundifríocht"
-
-#~ msgctxt "@label:textbox"
-#~ msgid "Translation directory:"
-#~ msgstr "Comhadlann aistriúcháin:"
-
-#~ msgctxt "@title:window"
-#~ msgid "Message Tree"
-#~ msgstr "Crann Teachtaireachtaí"
-
-#~ msgctxt "@title:column Number of entries"
-#~ msgid "Fuzzy"
-#~ msgstr "Doiléir"
-
-#~ msgid "Untranslated"
-#~ msgstr "Gan aistriúchán"
-
-#~ msgctxt "@title:window"
-#~ msgid "Message Context"
-#~ msgstr "Comhthéacs na Teachtaireachta"
-
-#~ msgid "Project Type"
-#~ msgstr "Cineál Tionscadail"
-
-#~ msgctxt "@option:check"
-#~ msgid "Skip tags"
-#~ msgstr "Ná bac le clibeanna"
-
-#~ msgctxt "@info PO comment parsing. contains filename"
-#~ msgid "<br><i>Place:</i>"
-#~ msgstr "<br><i>Ionad:</i>"
-
-#~ msgctxt "@info PO comment parsing"
-#~ msgid "<br><i>GUI place:</i>"
-#~ msgstr "<br><i>Ionad GUI:</i>"
-
-#~ msgctxt "@info PO comment parsing"
-#~ msgid "<br><i>Misc:</i>"
-#~ msgstr "<br><i>Éagsúil:</i>"
-
-#~ msgctxt "@info PO comment parsing"
-#~ msgid "<br><i>Previous string:</i>"
-#~ msgstr "<br><i>Teaghrán roimhe seo:</i>"
-
-#~ msgctxt "@info PO comment parsing"
-#~ msgid "<br><i>Previous context:</i>"
-#~ msgstr "<br><i>Comhthéacs roimhe seo:</i>"
-
-#~ msgctxt "@title:window"
-#~ msgid "Scanning Files..."
-#~ msgstr "Comhaid á Scanadh..."
-
-#~ msgctxt "@item Undo action item"
-#~ msgid "Fuzzy toggling"
-#~ msgstr "Scoránú stádais Doiléir"
-
-#~ msgctxt "@info"
-#~ msgid "Files: %1, New pairs: %2, New versions: %3"
-#~ msgstr "Comhaid: %1, Péirí nua: %2, Leaganacha nua: %3"
-
-#~ msgctxt "@label:textbox"
-#~ msgid "PO directory:"
-#~ msgstr "Comhadlann PO:"
-
-#~ msgctxt "@label"
-#~ msgid "Web Query Scripts"
-#~ msgstr "Scripteanna Iarratas Gréasáin"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Web Query"
-#~ msgstr "Iarratas Gréasáin"
-
-#~ msgctxt "@title:column"
-#~ msgid "Fuzzy"
-#~ msgstr "Doiléir"
-
-#~ msgctxt "@action:inmenu Open currently selected file in Editor"
-#~ msgid "Open"
-#~ msgstr "Oscail"
-
-#~ msgctxt "@action:inmenu Open currently selected file in Editor"
-#~ msgid "Open in new window"
-#~ msgstr "Oscail i bhfuinneog nua"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open stand-alone window"
-#~ msgstr "Oscail i bhfuinneog shaorsheasaimh"
-
-#~ msgid "Source for the merge mode"
-#~ msgstr "Bunchód le haghaidh móid cumaisc"
-
-#~ msgid ""
-#~ "Project file. Opens specified project-file in Project Manager if no "
-#~ "translation files specified"
-#~ msgstr ""
-#~ "Comhad tionscadail.  Oscail an comhad roghnaithe i mBainisteoir na "
-#~ "dTionscadal mura bhfuil aon chomhad aistriúcháin ann"
-
-#~ msgid "&Settings"
-#~ msgstr "&Socruithe"
-
-#~ msgid "Merge"
-#~ msgstr "Cumaisc"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Misc"
-#~ msgstr "Éagsúil"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Catalog Manager"
-#~ msgstr "Bainisteoir Catalóg"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open in new window"
-#~ msgstr "Oscail i bhfuinneog nua"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open in existing window"
-#~ msgstr "Oscail i bhfuinneog atá ann"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Scan selected directories"
-#~ msgstr "Scan na comhadlanna roghnaithe"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Copy Msgid to Msgstr"
-#~ msgstr "Cóipeáil Msgid go Msgstr"
-
-#~ msgctxt "@info:status"
-#~ msgid "Fuzzy"
-#~ msgstr "Doiléir"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Previous Fuzzy"
-#~ msgstr "Tcht Doiléir Roimhe Seo"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Next Fuzzy"
-#~ msgstr "An Chéad Tcht Dhoiléir Eile"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Previous Fuzzy or Untranslated"
-#~ msgstr "Tcht Dhoiléir nó Gan Aistriúchán Roimhe Seo"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Next Fuzzy or Untranslated"
-#~ msgstr "An Chéad Tcht Dhoiléir nó Gan Aistriúchán Eile"
-
-#~ msgctxt "@title:column"
-#~ msgid "English"
-#~ msgstr "Béarla"
-
-#~ msgctxt "@title:column"
-#~ msgid "Untranslated"
-#~ msgstr "Gan aistriúchán"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Close all LoKalize windows"
-#~ msgstr "Dún gach fuinneog LoKalize"
-
-#~ msgctxt "@title:window"
-#~ msgid "KAider Catalog Manager"
-#~ msgstr "Bainisteoir Catalóg KAider"
-
-#~ msgctxt ""
-#~ "@title:window that displays difference between current file and 'merge "
-#~ "source'"
-#~ msgid "Merge Diff"
-#~ msgstr "Cumaisc Difríochtaí"
-
-#~ msgctxt "@title"
-#~ msgid "KAider"
-#~ msgstr "KAider"
-
-#~ msgctxt "@info:status"
-#~ msgid "Fuzzy: %1"
-#~ msgstr "Doiléir: %1"
-
-#~ msgctxt "@info:status"
-#~ msgid "Untranslated: %1"
-#~ msgstr "Gan aistriúchán: %1"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "The document contains unsaved changes.\n"
-#~ "                                                      Do you want to save "
-#~ "your changes or discard them?"
-#~ msgstr ""
-#~ "Tá athruithe gan sábháil sa cháipéis.\n"
-#~ "               An bhfuil fonn ort do chuid athruithe a shábháil?"
-
-#~ msgctxt "@title"
-#~ msgid "Warning"
-#~ msgstr "Rabhadh"
-
-#~ msgctxt "@info:status"
-#~ msgid "Total: %1"
-#~ msgstr "Iomlán: %1"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "The document contains unsaved changes.\n"
-#~ "                                                  Do you want to save "
-#~ "your changes or discard them?"
-#~ msgstr ""
-#~ "Tá athruithe gan sábháil sa cháipéis.\n"
-#~ "               An bhfuil fonn ort do chuid athruithe a shábháil?"
-
-#~ msgid "Google-like, respecting order"
-#~ msgstr "Cosúil le Google, ord á chaomhnú"
-
-#~ msgid "RegEx"
-#~ msgstr "SlonnIonad"

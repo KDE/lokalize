@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-19 00:51+0000\n"
-"PO-Revision-Date: 2026-02-07 16:58+0100\n"
+"PO-Revision-Date: 2026-02-18 23:37+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -652,7 +652,7 @@ msgid ""
 "truncated term: an abbreviated form of a term resulting from the omission of "
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
-"truncated term: en forkortt form av en term som er resultatet av at de "
+"truncated term: en forkortet form av en term som er resultatet av at de "
 "utelates ett eller flere termelementer eller stavelser (f.eks. «uni» for "
 "«universitet»)"
 
@@ -862,7 +862,7 @@ msgstr "Entall"
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
-msgstr "Grunnnleggende"
+msgstr "Grunnleggende"
 
 #: src/cataloglistview/cataloglistview.cpp:231
 #, kde-format
@@ -2000,29 +2000,29 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"Lagring av ordbok feilet\n"
+"%1\n"
+"Detaljer: %2"
 
-# unreviewed-context
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "Ordliste"
+msgstr "Ordlistefeil"
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "Mappen for ordlisten finnes ikke."
 
 #: src/glossary/glossary.cpp:678
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "Stien peker til en mappe, ikke en fil."
 
 #: src/glossary/glossary.cpp:681
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "Kan ikke skrive til filen. Sjekk tillatelsene dine."
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
@@ -4600,6 +4600,3 @@ msgstr "Det ble rapportert en feil: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kopier kilden til oversettelsen"
-
-#~ msgid "Save"
-#~ msgstr "Lagre"
