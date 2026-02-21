@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-19 00:51+0000\n"
-"PO-Revision-Date: 2026-02-06 07:40+0100\n"
+"PO-Revision-Date: 2026-02-13 17:09+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 25.12.2\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -2037,28 +2037,28 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"Echec de l'enregistrement du glossaire %1\n"
+"Détails : %2"
 
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "Glossaire"
+msgstr "Erreur du glossaire"
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "Le dossier du glossaire n'existe pas."
 
 #: src/glossary/glossary.cpp:678
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "L'emplacement visé est un dossier et non un fichier."
 
 #: src/glossary/glossary.cpp:681
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "Impossible d'écrire dans le fichier. Veuillez vérifier les droits."
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
