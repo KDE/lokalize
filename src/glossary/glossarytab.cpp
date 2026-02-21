@@ -216,7 +216,7 @@ void GlossaryTab::showEntryInEditor(const QByteArray &id)
     m_reactOnSignals = false;
 
     Project *project = Project::instance();
-    Glossary *glossary = project->glossary();
+    const Glossary *glossary = project->glossary();
     m_subjectField->setCurrentItem(glossary->subjectField(id), /*insert*/ true);
 
     const QStringList langsToTry = QStringList(m_defLang) << QStringLiteral("en") << QStringLiteral("en_US") << project->targetLangCode();
@@ -301,7 +301,7 @@ void GlossaryTab::newTermEntry()
     newTermEntry(QString(), QString());
 }
 
-void GlossaryTab::newTermEntry(QString _source, QString _target)
+void GlossaryTab::newTermEntry(const QString &_source, const QString &_target)
 {
     GlossaryModel *sourceModel = static_cast<GlossaryModel *>(m_proxyModel->sourceModel());
     QByteArray id = sourceModel->appendRow(_source, _target);

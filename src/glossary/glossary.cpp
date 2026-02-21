@@ -211,18 +211,18 @@ QVariant GlossaryModel::data(const QModelIndex &index, int role) const
 
     static const QString nl = QLatin1Char(' ') + QChar(0x00B7) + QLatin1Char(' ');
     static Project *project = Project::instance();
-    Glossary *glossary = m_glossary;
+    const Glossary *glossary = m_glossary;
 
-    QByteArray id = glossary->id(index.row());
+    QByteArray _id = glossary->id(index.row());
     switch (index.column()) {
     case ID:
-        return id;
+        return _id;
     case English:
-        return glossary->terms(id, project->sourceLangCode()).join(nl);
+        return glossary->terms(_id, project->sourceLangCode()).join(nl);
     case Target:
-        return glossary->terms(id, project->targetLangCode()).join(nl);
+        return glossary->terms(_id, project->targetLangCode()).join(nl);
     case SubjectField:
-        return glossary->subjectField(id);
+        return glossary->subjectField(_id);
     }
     return QVariant();
 }
@@ -245,8 +245,8 @@ QByteArray Glossary::generateNewId()
     authorId.replace(QLatin1Char(' '), QLatin1Char('_'));
     const QRegularExpression rx(QRegularExpression::anchoredPattern(QLatin1Char('^') + authorId + QStringLiteral("\\-([0-9]*)$")));
 
-    for (const QByteArray &id : std::as_const(m_idsForEntriesById)) {
-        if (const auto match = rx.match(QString::fromLatin1(id)); match.hasMatch())
+    for (const QByteArray &_id : std::as_const(m_idsForEntriesById)) {
+        if (const auto match = rx.match(QString::fromLatin1(_id)); match.hasMatch())
             busyIdNumbers.append(match.capturedView(1).toInt());
     }
 
@@ -268,8 +268,8 @@ QByteArray Glossary::generateNewId()
 QStringList Glossary::subjectFields() const
 {
     QSet<QString> result;
-    for (const QByteArray &id : m_idsForEntriesById)
-        result.insert(subjectField(id));
+    for (const QByteArray &_id : m_idsForEntriesById)
+        result.insert(subjectField(_id));
     return result.values();
 }
 
@@ -480,9 +480,9 @@ void Glossary::setDescrip(const QByteArray &id, QString lang, const QString &typ
             parentForDescrip.setAttribute(xmlLang, lang);
         }
     }
-    QDomElement descrip = parentForDescrip.insertBefore(document.createElement(QStringLiteral("descrip")), parentForDescrip.firstChild()).toElement();
-    descrip.setAttribute(QStringLiteral("type"), type);
-    descrip.appendChild(document.createTextNode(value));
+    QDomElement _descrip = parentForDescrip.insertBefore(document.createElement(QStringLiteral("descrip")), parentForDescrip.firstChild()).toElement();
+    _descrip.setAttribute(QStringLiteral("type"), type);
+    _descrip.appendChild(document.createTextNode(value));
     save();
 }
 
@@ -647,13 +647,13 @@ QByteArray GlossaryModel::appendRow(const QString &_source, const QString &_targ
     if (notify)
         beginInsertRows(QModelIndex(), rowCount(), rowCount());
 
-    QByteArray id = m_glossary->append(QStringList(_source), QStringList(_target));
+    QByteArray _id = m_glossary->append(QStringList(_source), QStringList(_target));
 
     if (notify) {
         m_visibleCount++;
         endInsertRows();
     }
-    return id;
+    return _id;
 }
 
 // END EDITING

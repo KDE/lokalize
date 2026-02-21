@@ -76,7 +76,7 @@ public Q_SLOTS:
     void currentChanged(int);
     void showEntryInEditor(const QByteArray &id);
     void showDefinitionForLang(int);
-    void newTermEntry(QString _source, QString _target);
+    void newTermEntry(const QString &_source, const QString &_target);
     void newTermEntry();
     void rmTermEntry(int i);
     void rmTermEntry();
