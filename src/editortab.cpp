@@ -523,8 +523,8 @@ void EditorTab::setupActions()
                              i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology", "Previous Not Ready"),
                              Qt::ControlModifier | Qt::ShiftModifier | Qt::Key_PageUp,
                              "prevfuzzyuntrans")
-    connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzyUntr);
-    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyUntrRequested, this, &EditorTab::gotoPrevFuzzyUntr);
+    connect(action, &QAction::triggered, this, qOverload<>(&EditorTab::gotoPrevFuzzyUntr));
+    connect(m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyUntrRequested, this, qOverload<>(&EditorTab::gotoPrevFuzzyUntr));
     connect(this, &EditorTab::signalPriorFuzzyOrUntrAvailable, action, &QAction::setEnabled);
 
     /**
@@ -1135,18 +1135,24 @@ void EditorTab::gotoNextUntranslated()
     gotoEntry(pos);
 }
 
-void EditorTab::gotoPrevFuzzyUntr()
+bool EditorTab::gotoPrevFuzzyUntr()
 {
+    return gotoPrevFuzzyUntr(DocPosition());
+}
+
+bool EditorTab::gotoPrevFuzzyUntr(const DocPosition &p)
+{
+    int index = (p.entry == -1) ? m_currentPos.entry : p.entry;
+
     DocPosition pos;
+    pos.entry = fuzzyUntrSiblingIndex(NavDirection::Up);
 
-    short fu = m_catalog->prevFuzzyIndex(m_currentPos.entry);
-    short un = m_catalog->prevUntranslatedIndex(m_currentPos.entry);
-
-    pos.entry = fu > un ? fu : un;
-    if (pos.entry == -1)
-        return;
-
+    if (pos.entry == -1) {
+        gotoEntry(DocPosition(index));
+        return false;
+    }
     gotoEntry(pos);
+    return true;
 }
 
 bool EditorTab::gotoNextFuzzyUntr()
@@ -1164,7 +1170,7 @@ bool EditorTab::gotoNextFuzzyUntr(const DocPosition &p)
     int index = (p.entry == -1) ? m_currentPos.entry : p.entry;
 
     DocPosition pos;
-    pos.entry = nextMatchingVisibleIndex();
+    pos.entry = fuzzyUntrSiblingIndex(NavDirection::Down);
 
     if (pos.entry == -1) {
         gotoEntry(DocPosition(index)); // restoring the initial pos
@@ -1734,16 +1740,16 @@ void EditorTab::setEntryTarget(int entry, int form, const QString &content)
 }
 // END DBus interface
 
-short EditorTab::nextMatchingVisibleIndex()
+short EditorTab::fuzzyUntrSiblingIndex(NavDirection step)
 {
-    short idx = m_transUnitsView->nextEntryNumber();
+    short idx = m_transUnitsView->siblingEntryNumber(step);
     while (idx != -1) {
         // get the  visibly closer of the untranslated or empty entry
         if (!m_catalog->isApproved(idx) || m_catalog->isEmpty(idx)) {
             return idx;
         }
         gotoEntry(DocPosition(idx));
-        idx = m_transUnitsView->nextEntryNumber();
+        idx = m_transUnitsView->siblingEntryNumber(step);
     }
     return -1;
 }

@@ -5,6 +5,7 @@
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
   SPDX-FileCopyrightText: 2026      Kumud         <kumud1665@gmail.com>
+  SPDX-FileCopyrightText: 2026      Navya Sai Sadu <navyas.sadu@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -87,6 +88,11 @@ public:
     QString filePath;
     QString mergeFilePath;
     int entry;
+};
+
+enum NavDirection {
+    Up = -1,
+    Down = 1
 };
 
 /**
@@ -282,7 +288,8 @@ private Q_SLOTS:
 
     void gotoEntry();
 
-    void gotoPrevFuzzyUntr();
+    bool gotoPrevFuzzyUntr();
+    bool gotoPrevFuzzyUntr(const DocPosition &pos);
     bool gotoNextFuzzyUntr(const DocPosition &pos);
     bool gotoNextFuzzyUntr();
     void gotoNextFuzzy();
@@ -328,13 +335,12 @@ private:
     void findNext(const DocPosition &startingPos);
     void replaceNext(const DocPosition &);
 
-    /*
-     * @short Finds the next visible unApproved entry
-     * @returns next fuzzy entry index or untranslated entry index
-     * depending on which comes first in filtered view
-     * @author Kumud
+    /**
+     * iterates from the next/prev visible index(respecting the filter) and checks if the
+     * entry is either not-ready or untranslated and selects that entry
+     * @author Navya Sai Sadu
      */
-    short nextMatchingVisibleIndex();
+    short fuzzyUntrSiblingIndex(NavDirection step);
 
 private:
     Project *m_project{};
