@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-19 00:51+0000\n"
+"POT-Creation-Date: 2026-02-22 00:49+0000\n"
 "PO-Revision-Date: 2026-02-07 16:46+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
@@ -944,7 +944,7 @@ msgid "Target Length"
 msgstr "Lengd marktexta"
 
 #: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1017
-#: src/editortab.cpp:1212 src/tm/tmtab.cpp:233
+#: src/editortab.cpp:1218 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
@@ -1394,7 +1394,7 @@ msgstr ""
 "Skjalið inniheldur óvistaðar breytingar.\n"
 "Viltu vista breytingarnar eða henda þeim?"
 
-#: src/editortab.cpp:728 src/editortab.cpp:1317 src/lokalizemainwindow.cpp:1099
+#: src/editortab.cpp:728 src/editortab.cpp:1323 src/lokalizemainwindow.cpp:1099
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1462,61 +1462,61 @@ msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Sláðu inn færslunúmer:"
 
-#: src/editortab.cpp:1019 src/editortab.cpp:1207 src/tm/tmtab.cpp:234
+#: src/editortab.cpp:1019 src/editortab.cpp:1213 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Þarfnast yfirferðar"
 
-#: src/editortab.cpp:1188
+#: src/editortab.cpp:1194
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Þýtt"
 
-#: src/editortab.cpp:1189
+#: src/editortab.cpp:1195
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Útskrifað"
 
-#: src/editortab.cpp:1190
+#: src/editortab.cpp:1196
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Samþykkt"
 
-#: src/editortab.cpp:1191
+#: src/editortab.cpp:1197
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Þýðingu er lokið (þótt hún gæti þarfnast yfirferðar)"
 
-#: src/editortab.cpp:1192
+#: src/editortab.cpp:1198
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Þýðing hefur fengið jákvætt álit"
 
-#: src/editortab.cpp:1193
+#: src/editortab.cpp:1199
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Færslan er að fullu staðfærð (þ.e.a.s. lokaútgáfa)"
 
-#: src/editortab.cpp:1293 src/project/projecttab.cpp:297
+#: src/editortab.cpp:1299 src/project/projecttab.cpp:297
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Pology-yfirferð er þegar í vinnslu."
 
-#: src/editortab.cpp:1293 src/editortab.cpp:1301 src/editortab.cpp:1305
+#: src/editortab.cpp:1299 src/editortab.cpp:1307 src/editortab.cpp:1311
 #: src/project/projecttab.cpp:297 src/project/projecttab.cpp:305
 #: src/project/projecttab.cpp:309
 #, kde-format
 msgid "Pology error"
 msgstr "Pology-villa"
 
-#: src/editortab.cpp:1301 src/project/projecttab.cpp:305
+#: src/editortab.cpp:1307 src/project/projecttab.cpp:305
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1525,17 +1525,17 @@ msgstr ""
 "Pology-yfirferðin hrundi óvænt:\n"
 "%1"
 
-#: src/editortab.cpp:1303 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1309 src/project/projecttab.cpp:307
 #, kde-format
 msgid "Pology success"
 msgstr "Pology-yfirferð tókst"
 
-#: src/editortab.cpp:1303
+#: src/editortab.cpp:1309
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pology-yfirferðin tókst."
 
-#: src/editortab.cpp:1305 src/project/projecttab.cpp:309
+#: src/editortab.cpp:1311 src/project/projecttab.cpp:309
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1544,7 +1544,7 @@ msgstr ""
 "Pology-yfirferðin skilaði villu:\n"
 "%1"
 
-#: src/editortab.cpp:1315
+#: src/editortab.cpp:1321
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1554,49 +1554,49 @@ msgstr ""
 "Þetta mun eyða út öllum þýðingum úr skránni.\n"
 "Viltu í alvörunni hreinsa allar þýddar færslur?"
 
-#: src/editortab.cpp:1353
+#: src/editortab.cpp:1359
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Orð í frumtexta: %1<br/>Orð í marktexta: %2"
 
-#: src/editortab.cpp:1354
+#: src/editortab.cpp:1360
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Fjöldi orða"
 
-#: src/editortab.cpp:1444
+#: src/editortab.cpp:1450
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Viltu leita að upprunaskránni á tölvunni eða í gegnum lxr.kde.org?"
 
-#: src/editortab.cpp:1445
+#: src/editortab.cpp:1451
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Uppfletting í upprunaskrá"
 
-#: src/editortab.cpp:1446
+#: src/editortab.cpp:1452
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Leita staðvært"
 
-#: src/editortab.cpp:1447 src/editortab.cpp:1491
+#: src/editortab.cpp:1453 src/editortab.cpp:1497
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "Leita á lxr.kde.org"
 
-#: src/editortab.cpp:1450 src/editortab.cpp:1495
+#: src/editortab.cpp:1456 src/editortab.cpp:1501
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Veldu grunnmöppu verkefnis þar sem flett er upp í frumskrám"
 
-#: src/editortab.cpp:1487
+#: src/editortab.cpp:1493
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1606,19 +1606,19 @@ msgstr ""
 "Fann ekki upprunaskrá í tilgreindri möppu.\n"
 "Myndirðu vilja skipta um grunnmöppu upprunaskráa?"
 
-#: src/editortab.cpp:1489
+#: src/editortab.cpp:1495
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Uppfletting í upprunaskrá"
 
-#: src/editortab.cpp:1490
+#: src/editortab.cpp:1496
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Veldu möppu"
 
-#: src/editortab.cpp:1532
+#: src/editortab.cpp:1538
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1632,34 +1632,34 @@ msgstr ""
 "opna grunnkóðaskrár á sérsniðnum slóðum. Skoðaðu handbók Lokalize til að sjá "
 "dæmi um skriftur og hvernig hægt er að tengja þær við verkefnið þitt."
 
-#: src/editortab.cpp:1546 src/project/project.cpp:405
+#: src/editortab.cpp:1552 src/project/project.cpp:405
 #: src/project/project.cpp:410
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Settu upp translate-toolkit pakka og reyndu svo aftur"
 
-#: src/editortab.cpp:1551
+#: src/editortab.cpp:1557
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Settu upp translate-toolkit pakka og reyndu svo aftur"
 
-#: src/editortab.cpp:1559
+#: src/editortab.cpp:1565
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "Veldu upprunalegt OpenDocument-skjal sem núverandi XLIFF-skrá byggist á"
 
-#: src/editortab.cpp:1561 src/project/project.cpp:415
+#: src/editortab.cpp:1567 src/project/project.cpp:415
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument-skrár (*.odt *.ods)"
 
-#: src/editortab.cpp:1605
+#: src/editortab.cpp:1611
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Settu upp python-uno pakka til að fá fleiri eiginleika."
 
-#: src/editortab.cpp:1728
+#: src/editortab.cpp:1734
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
