@@ -664,20 +664,20 @@ bool Glossary::ensureFileExists()
     QWidget *mainWindowPtr = SettingsController::instance()->mainWindowPtr();
 
     auto reportError = [&](const QString &msg, const QString &detail) {
-        KMessageBox::error(mainWindowPtr, i18nc("@info", "Glossary Save Failed\n%1\nDetails: %2", msg, detail), i18n("Glossary Error"));
+        KMessageBox::error(mainWindowPtr, i18nc("@info", "Failed to Save Glossary\n%1\nDetails: %2", msg, detail), i18n("Glossary Error"));
     };
 
     QFileInfo fileInfo(m_path);
     QDir dir = fileInfo.absoluteDir();
     QFile *device = new QFile(m_path);
     if (!dir.exists()) {
-        qCWarning(LOKALIZE_LOG) << "Glossary Save Failed. Directory missing: " << dir.absolutePath();
+        qCWarning(LOKALIZE_LOG) << "Failed to Save Glossary. Directory missing: " << dir.absolutePath();
         reportError(i18n("The folder for the glossary does not exist."), dir.absolutePath());
     } else if (fileInfo.exists() && fileInfo.isDir()) {
-        qCWarning(LOKALIZE_LOG) << "Glossary Save Failed. Path is a directory";
+        qCWarning(LOKALIZE_LOG) << "Failed to Save Glossary. Path is a directory";
         reportError(i18n("The path points to a folder, not a file."), m_path);
     } else if (!device->open(QFile::WriteOnly | QFile::Truncate)) {
-        qCWarning(LOKALIZE_LOG) << "Glossary Save Failed. Write permission missing for: " << dir.absolutePath();
+        qCWarning(LOKALIZE_LOG) << "Failed to Save Glossary. Write permission missing for: " << dir.absolutePath();
         reportError(i18n("Cannot write to file. Check permissions."), device->errorString());
     } else {
         exists = true;
