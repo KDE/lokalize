@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2026-02-07 10:47+0100\n"
+"PO-Revision-Date: 2026-02-14 12:11+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -2009,28 +2009,29 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"Salvataggio del glossario non riuscito\n"
+"%1\n"
+"Dettagli: %2"
 
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "Glossario"
+msgstr "Errore del glossario"
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "La cartella per il glossario non esiste."
 
 #: src/glossary/glossary.cpp:678
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "Il percorso punta a una cartella, non a un file."
 
 #: src/glossary/glossary.cpp:681
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "Impossibile scrivere sul file. Controlla i permessi."
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
