@@ -140,7 +140,7 @@ bool SettingsController::ensureProjectIsLoaded()
     if (Project::instance()->isLoaded())
         return true;
 
-    const int answer = KMessageBox::questionTwoActions(
+    const int answer = KMessageBox::questionTwoActionsCancel(
         m_mainWindowPtr,
         i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
         i18nc("@title", "Project Required"),
