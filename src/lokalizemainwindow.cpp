@@ -1133,7 +1133,7 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
         // Don't delete the glossary instance as it's connected to signals from editor tabs.
         // It operates differently to other tabs.
     } else if (EditorTab *editorTab = static_cast<EditorTab *>(m_mainTabs->widget(index))) {
-        m_activeTabPageKeyboardShortcuts = nullptr;
+        m_activeTabPageKeyboardShortcuts = nullptr; // TODO: Should this be deleted? It's handled below.
         m_fileToEditor.remove(m_fileToEditor.key(editorTab));
         KConfig config;
         KConfigGroup stateGroup(&config, QStringLiteral("State"));
