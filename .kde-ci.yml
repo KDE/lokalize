@@ -19,4 +19,5 @@ Dependencies:
       'third-party/kddockwidgets': '@stable-kf6'
 
 Options:
+  use-ccache: True
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
