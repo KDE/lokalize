@@ -19,5 +19,7 @@ Dependencies:
       'third-party/kddockwidgets': '@stable-kf6'
 
 Options:
-  use-ccache: True
+  # Only heavy KDE projects should use this, to save storage space on the servers.
+  # So don't use for something like Lokalize.
+  use-ccache: False
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
