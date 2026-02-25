@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2026-02-18 23:37+0100\n"
+"PO-Revision-Date: 2026-02-23 23:11+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -1096,7 +1096,7 @@ msgstr "Tøm alle oversatte elementer"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
-msgstr "Kjør Pology-kommandoen på denne filen"
+msgstr "Kjør Pology-kommandoen på denne fila"
 
 #: src/editortab.cpp:363
 #, kde-format
@@ -1268,7 +1268,7 @@ msgstr "Bytt fokus til søkelinja i oversettelsesvisninga"
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
-msgstr "Bokmerk meldingen"
+msgstr "Bokmerk meldinga"
 
 #: src/editortab.cpp:546
 #, kde-format
@@ -1417,13 +1417,13 @@ msgstr "Velg fil for oversettelse"
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
-msgstr "Klarte ikke åpne filen %1 – linje: %2"
+msgstr "Klarte ikke åpne fila %1 – linje: %2"
 
 #: src/editortab.cpp:828
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
-msgstr "Feil ved åpning av filen %1"
+msgstr "Feil ved åpning av fila %1"
 
 #: src/editortab.cpp:836
 #, kde-format
@@ -1438,7 +1438,7 @@ msgid ""
 "Error saving the file %1\n"
 "Do you want to save to another file or cancel?"
 msgstr ""
-"Klarte ikke å lagre filen %1.\n"
+"Klarte ikke å lagre fila %1.\n"
 "Vil du lagre til en annen fil eller avbryte?"
 
 #: src/editortab.cpp:868
@@ -1455,7 +1455,7 @@ msgid ""
 "The target file was %1."
 msgstr ""
 "Klarte ikke å autolagre.\n"
-"Målfilen var %1."
+"Målfila var %1."
 
 #: src/editortab.cpp:915
 #, kde-format
@@ -1552,7 +1552,7 @@ msgid ""
 "This will delete all the translations from the file.\n"
 "Do you really want to clear all translated entries?"
 msgstr ""
-"Dette vil slette alle oversettelser i filen.\n"
+"Dette vil slette alle oversettelser i fila.\n"
 "Er du sikker på at du vil slette dem?"
 
 #: src/editortab.cpp:1344
@@ -1604,7 +1604,7 @@ msgid ""
 "Could not find source file in the folder specified.\n"
 "Do you want to change source files folder?"
 msgstr ""
-"Kan ikke finne kildefiler i den oppgitte mappen.\n"
+"Kan ikke finne kildefiler i den oppgitte mappa.\n"
 "Vil du endre mappe for kildefiler?"
 
 #: src/editortab.cpp:1480
@@ -1628,8 +1628,8 @@ msgid ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 msgstr ""
-"Kan ikke åpne kildefilen: Adressa til kildefilen er ikke relativ til "
-"oversettelsesfilen, og det er for tiden ingen skript lastet som kan håndtere "
+"Kan ikke åpne kildefila: Adressen til kildefila er ikke relativ til "
+"oversettelsesfila, og det er for tiden ingen skript lastet som kan håndtere "
 "å åpne kildefiler fra andre mapper. Det finnes skript-eksempler i Lokalize-"
 "håndboka og veiledning til hvordan bruke de i prosjektet ditt."
 
@@ -1648,7 +1648,7 @@ msgstr "Installer pakken «translate-toolkit» og prøv på ny."
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
-"Velg den originale OpenDocument-filen som den gjeldende XLIFF-fila er basert "
+"Velg den originale OpenDocument-fila som den gjeldende XLIFF-fila er basert "
 "på"
 
 #: src/editortab.cpp:1552 src/project/project.cpp:425
@@ -2776,7 +2776,7 @@ msgid ""
 "%2 - Line number"
 msgstr ""
 "De følgende parametere er tilgjengelige\n"
-"%1 - Stien til kildefilen\n"
+"%1 - Stien til kildefila\n"
 "%2 - Linjenummer"
 
 #: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
@@ -3042,7 +3042,7 @@ msgstr "I henhold til aktiveringsrekkefølge"
 #: src/prefs/prefs_general.ui:83
 #, kde-format
 msgid "Use a custom editor to open source files"
-msgstr "Bruk et selvvalgt skriveprogram til å åpne kildefilen"
+msgstr "Bruk et selvvalgt skriveprogram til å åpne kildefila"
 
 #. i18n: ectx: property (whatsThis), widget (QWidget, prefs_identity)
 #: src/prefs/prefs_identity.ui:14
@@ -3178,13 +3178,13 @@ msgstr "Tjeneradresse:"
 #: src/prefs/prefs_languagetool.ui:44
 #, kde-format
 msgid "The path of your custom Language Tool server"
-msgstr "Adressa til selvvalgt LanguageTool-tjener"
+msgstr "Adressen til selvvalgt LanguageTool-tjener"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:47
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
-msgstr "Skriv inn adressa til eventuell selvvalgt LanguageTool-tjeneren"
+msgstr "Skriv inn adressen til eventuell selvvalgt LanguageTool-tjeneren"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_languagetool.ui:58
@@ -3546,7 +3546,7 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
-"Sett dette til stien til en mappe med struktur som likner rotmappen.\n"
+"Sett dette til stien til en mappe med struktur som likner rotmappa.\n"
 "\n"
 "Hver gang en oversettelsesfil åpnes, så blir det lett etter en tilsvarende "
 "fil i mappa Alternative oversettelser\n"
@@ -3903,7 +3903,7 @@ msgstr "Kommentar til prosjektfil"
 #: src/project/projecttab.cpp:231
 #, kde-format
 msgid "Input a comment for this project file:"
-msgstr "Skriv inn en kommentar til denne prosjektfilen:"
+msgstr "Skriv inn en kommentar til denne prosjektfila:"
 
 #: src/project/projecttab.cpp:307
 #, kde-format
@@ -3914,7 +3914,7 @@ msgstr "Pology-sjekken er fullført"
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
-msgstr[0] "Du er i ferd med å åpne filen %1"
+msgstr[0] "Du er i ferd med å åpne fila %1"
 msgstr[1] "Du er i ferd med å endre %1 på disse filene."
 
 #: src/project/projecttab.cpp:327
@@ -4299,7 +4299,7 @@ msgstr "Filgjennomsøk er ikke mulig"
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
-msgstr "Filen %1 finnes ikke, den har blitt fjernet fra oversettelsesminnet."
+msgstr "Fila %1 finnes ikke, den har blitt fjernet fra oversettelsesminnet."
 
 #: src/tm/tmview.cpp:186 src/tm/tmview.cpp:191
 #, kde-format
@@ -4446,7 +4446,7 @@ msgstr "Fjern fil som inneholder denne oppføringa"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
-msgstr "Fjern denne  manglende filen fra oversettelsesminnet"
+msgstr "Fjern denne  manglende fila fra oversettelsesminnet"
 
 #: src/tm/tmview.cpp:675
 #, kde-format
@@ -4454,7 +4454,7 @@ msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr ""
-"<html>Er du sikker på at du vil fjerne denne manglende filen:<br /><i>%1</"
+"<html>Er du sikker på at du vil fjerne denne manglende fila:<br /><i>%1</"
 "i><br />fra oversettelsesminne %2?</html> "
 
 #: src/tm/tmview.cpp:679
