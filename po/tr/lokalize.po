@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-25 00:50+0000\n"
-"PO-Revision-Date: 2026-02-09 20:00+0300\n"
+"PO-Revision-Date: 2026-02-25 10:57+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
-"Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.07.70\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1986,12 +1986,7 @@ msgid "Subject Field"
 msgstr "Konu Alanı"
 
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Glossary Save Failed\n"
-#| "%1\n"
-#| "Details: %2"
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Failed to Save Glossary\n"

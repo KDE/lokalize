@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-25 00:50+0000\n"
-"PO-Revision-Date: 2026-02-07 16:46+0000\n"
+"PO-Revision-Date: 2026-02-25 11:58+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -1988,28 +1988,29 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"Mistókst að vista atriðisorðaskrá\n"
+"%1\n"
+"Nánar: %2"
 
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "Orðasafn"
+msgstr "Villa í orðasafni"
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "Mappan fyrir atriðisorðaskrá er ekki til."
 
 #: src/glossary/glossary.cpp:678
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "Slóðin beinir á möppu en ekki skrá."
 
 #: src/glossary/glossary.cpp:681
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "Tekst ekki að skrifa í skrá . Athugaðu aðgangsheimildir."
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
