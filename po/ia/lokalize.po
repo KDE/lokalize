@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-25 00:50+0000\n"
-"PO-Revision-Date: 2026-02-11 14:30+0100\n"
+"PO-Revision-Date: 2026-02-26 15:10+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1997,12 +1997,7 @@ msgid "Subject Field"
 msgstr "Campo Subjecto"
 
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Glossary Save Failed\n"
-#| "%1\n"
-#| "Details: %2"
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Failed to Save Glossary\n"
