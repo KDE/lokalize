@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-25 00:50+0000\n"
-"PO-Revision-Date: 2026-02-13 17:09+0100\n"
+"PO-Revision-Date: 2026-02-26 07:26+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -2030,19 +2030,14 @@ msgid "Subject Field"
 msgstr "Champ sujet"
 
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Glossary Save Failed\n"
-#| "%1\n"
-#| "Details: %2"
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Failed to Save Glossary\n"
 "%1\n"
 "Details: %2"
 msgstr ""
-"Echec de l'enregistrement du glossaire %1\n"
+"Impossible d'enregistrer le glossaire %1\n"
 "Détails : %2"
 
 #: src/glossary/glossary.cpp:667
