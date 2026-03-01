@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2026-02-09 16:56+0000\n"
+"PO-Revision-Date: 2026-02-28 23:48+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 # |, no-check-spell
 #, kde-format
@@ -2813,6 +2813,9 @@ msgid ""
 "%1 - Path of the source file\n"
 "%2 - Line number"
 msgstr ""
+"Sunt disponibili următorii parametri\n"
+"%1 - Calea fișierului-sursă\n"
+"%2 - Numărul rândului"
 
 #: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
 #, kde-format
@@ -3045,7 +3048,7 @@ msgstr "Dezactivează completarea cuvintelor"
 #: src/prefs/prefs_editor.ui:105
 #, kde-format
 msgid "Automatically convert XML special characters in TS files"
-msgstr ""
+msgstr "Convertește automat caracterele speciale XML în fișierele TS"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreRecentFilesOnStartup)
 #: src/prefs/prefs_general.ui:45
@@ -3202,26 +3205,28 @@ msgstr "Echipă lingvistică implicită:"
 #: src/prefs/prefs_languagetool.ui:21
 #, kde-format
 msgid "Use custom LanguageTool server"
-msgstr ""
+msgstr "Folosește server LanguageTool personalizat"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/prefs/prefs_languagetool.ui:31
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Server Path:"
-msgstr "Cale server:"
+msgstr "Calea serverului:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:44
 #, kde-format
 msgid "The path of your custom Language Tool server"
-msgstr ""
+msgstr "Calea spre serverul Language Tool personalizat"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:47
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
 msgstr ""
+"Introduceți calea spre serverul dumneavoastră Language Tool personalizat, "
+"dacă aveți unul"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_languagetool.ui:58
@@ -3230,6 +3235,8 @@ msgid ""
 "Delay before automatic checking after you stop typing (in seconds, 0 to "
 "disable)"
 msgstr ""
+"Întârziere înainte de verificarea automată după ce încetați tastarea (în "
+"secunde, 0 pentru dezactivare)"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
@@ -3253,6 +3260,10 @@ msgid ""
 "following placeholders in order to set-up the commands: %u is the entry "
 "number, %f is the file name. For instance: posieve -u %u check-rules %f"
 msgstr ""
+"Comanda Pology de rulat pentru a verifica o singură înregistrare. Folosiți "
+"următorii substituenți pentru a compune comenzile: %u e numărul "
+"înregistrării, %f e denumirea fișierului. De exemplu: posieve -u %u check-"
+"rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:44
@@ -3267,6 +3278,8 @@ msgid ""
 "Please enter here the Pology command to be run in order to check a single "
 "entry"
 msgstr ""
+"Introduceți aici comanda Pology de rulat pentru a verifica o singură "
+"înregistrare"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_0)
 #: src/prefs/prefs_pology.ui:54
@@ -3277,12 +3290,15 @@ msgid ""
 "should include \"-s lokalize\", placeholder %f is the file name. For "
 "instance: posieve -s lokalize check-rules %f"
 msgstr ""
+"Comand Pology de rulat pentru a verifica un întreg fișier. Această comandă "
+"trebuie să includă „-s lokalize”, substituentul %f e denumirea fișierului. "
+"De exemplu: posieve -s lokalize check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:70
 #, kde-format
 msgid "The Pology command to run in order to check a whole file."
-msgstr ""
+msgstr "Comanda Pology de rulat pentru a verifica un întreg fișier."
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:73
@@ -3290,12 +3306,13 @@ msgstr ""
 msgid ""
 "Please enter here the Pology command to be run in order to check a whole file"
 msgstr ""
+"Introduceți aici comanda Pology de rulat pentru a verifica un întreg fișier"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:45
 #, kde-format
 msgid "If checked, get translation memory suggestions "
-msgstr "Dacă este bifată, obțineți sugestii din memoria traducerilor"
+msgstr "Dacă este bifată, obțineți sugestii din memoria traducerilor "
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:48
@@ -3339,19 +3356,19 @@ msgstr "Scor minim (0-100) al sugestiilor:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:107
-#, fuzzy, kde-format
-#| msgid "Set the maximum number of suggestions"
+#, kde-format
 msgid "Set the minimum score (0-100) of suggestions"
-msgstr "Stabiliți numărul maxim de sugestii"
+msgstr "Stabiliți scorul minim (0-100) al sugestiilor"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:110
-#, fuzzy, kde-format
-#| msgid "You can change the maximum number of suggestions, default is 7."
+#, kde-format
 msgid ""
 "You can change the minimum score (0-100) required for suggestions, default "
 "is 0."
-msgstr "Puteți modifica numărul maxim de sugestii, implicit este 7."
+msgstr ""
+"Puteți modifica scorul minim (0-100) necesar pentru sugestii, implicit este "
+"0."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
 #: src/prefs/prefs_tm.ui:138
@@ -3372,6 +3389,8 @@ msgid ""
 "Delete missing files from translation memory on rescan or when right-"
 "clicking on a missing entry"
 msgstr ""
+"Șterge fișierele lipsă din memoria traducerilor la recitire sau la clic "
+"drept pe o înregistrare lipsă"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -3437,6 +3456,9 @@ msgid ""
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
+"Lățimea folosită pentru limitarea automată a cuvintelor în stil msgfmt. "
+"Folosiți valoarea „0” pentru a dezactiva limitarea cuvintelor. Folosiți -1 "
+"când traduceți pentru KDE PO Summit. De la 1 la 3 nu se schimbă nimic."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3513,32 +3535,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Template files folder:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr "Dosarul cu șabloane:"
+msgstr "Dosarul cu șabloane ale ramurii:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
+#, kde-format
 msgctxt ""
 "this message contains text from documentation, so use its translation when "
 "you're translating docs"
@@ -3555,17 +3559,13 @@ msgstr ""
 "Acest parametru este pentru regimul de sincronizare.\n"
 "\n"
 "Regimul de sincronizare poate fi utilizat pentru a efectua modificări "
-"simultane între\n"
-"două ramuri de traduceri.\n"
+"simultane\n"
+"între două ramuri de traduceri.\n"
 "\n"
-"Stabiliți acest parametru la calea ce corespunde dosarului rădăcină a "
-"ramurii\n"
-"și vizualizarea Sync secundară va deschide automat fișierele din această\n"
-"ramură. Ulterior, modificările făcute în ramura principală vor fi reproduse\n"
-"în mod automat în ramura secundară (bineînțeles, numai în cazul în care\n"
-"același șir în engleză este prezent)\n"
-"\n"
-"Consultați documentația pentru informații suplimentare."
+"Stabiliți acest parametru la calea ce corespunde dosarului-rădăcină al "
+"dosarului cu șabloane ale\n"
+"proiectului ramurii și vizualizarea de sincronizare secundară va deschide "
+"automat fișierele din această ramură."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
@@ -3858,9 +3858,7 @@ msgid "Last Translator"
 msgstr "Ultimul traducător"
 
 #: src/project/projecttab.cpp:54
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
 msgstr "Sumarul proiectului"
@@ -4294,18 +4292,16 @@ msgid "TM"
 msgstr "MT"
 
 #: src/tm/tmtab.cpp:79
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Sursă:"
+msgstr "Sursă: %1"
 
 #: src/tm/tmtab.cpp:84
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Destinație:"
+msgstr "Destinație: %1"
 
 #: src/tm/tmtab.cpp:356
 #, kde-format
@@ -4338,12 +4334,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Recitirea fișierelor e posibilă doar când e deschis un proiect. Deschideți "
+"un proiect și încercați din nou."
 
 #: src/tm/tmtab.cpp:513
-#, fuzzy, kde-format
-#| msgid "&Rescan project files"
+#, kde-format
 msgid "Rescan not possible"
-msgstr "&Recitește fișierele proiectului"
+msgstr "Recitirea nu e posibilă"
 
 #: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:621
 #, kde-format
@@ -4394,12 +4391,10 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (potrivire perfectă)"
 
 #: src/tm/tmview.cpp:501
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
@@ -4413,9 +4408,9 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Văzut %1 dată"
+msgstr[1] "Văzut de %1 ori"
+msgstr[2] "Văzut de %1 de ori"
 
 #: src/tm/tmview.cpp:517
 #, kde-format
@@ -4423,7 +4418,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:525
 #, kde-format
@@ -4431,7 +4426,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:577
 #, kde-format
@@ -4482,7 +4477,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
-msgstr "Înlăturare intrări memorie traduceri"
+msgstr "Înlăturarea înregistrării din memoria traducerilor"
 
 #: src/tm/tmview.cpp:648
 #, kde-format
