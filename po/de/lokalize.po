@@ -1,13 +1,13 @@
-# SPDX-FileCopyrightText: 2009, 2010, 2023, 2024, 2025 Johannes Obermayr <johannesobermayr@gmx.de>
-# SPDX-FileCopyrightText: 2007, 2008, 2009 Thomas Reitelbach <tr@erdfunkstelle.de>
 # SPDX-FileCopyrightText: 2007 Stephan Johach <hunsum@gmx.de>
-# SPDX-FileCopyrightText: 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
-# SPDX-FileCopyrightText: 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2023 Frederik Schwarzer <schwarzer@kde.org>
-# SPDX-FileCopyrightText: 2010, 2011 Panagiotis Papadopoulos <pano_90@gmx.net>
+# SPDX-FileCopyrightText: 2007-2009 Thomas Reitelbach <tr@erdfunkstelle.de>
+# SPDX-FileCopyrightText: 2008-2013, 2016, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2008-2016, 2018-2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2009-2010, 2023-2025 Johannes Obermayr <johannesobermayr@gmx.de>
 # SPDX-FileCopyrightText: 2010 Rolf Eike Beer <kde@opensource.sf-tec.de>
+# SPDX-FileCopyrightText: 2010-2011 Panagiotis Papadopoulos <pano_90@gmx.net>
 # SPDX-FileCopyrightText: 2012 Jonas Schürmann <jonasschuermann@aol.de>
 # SPDX-FileCopyrightText: 2024 Frank Steinmetzger <dev-kde@felsenfleischer.de>
-# SPDX-FileCopyrightText: 2025 Alois Spitzbart <spitz234@hotmail.com>
+# SPDX-FileCopyrightText: 2025-2026 Alois Spitzbart <spitz234@hotmail.com>
 # SPDX-FileCopyrightText: 2026 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # SPDX-FileCopyrightText: 2026 Philipp Kiemle <l10n.daphipz@fastmail.de>
 msgid ""
@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-25 00:50+0000\n"
-"PO-Revision-Date: 2026-01-06 16:06+0100\n"
-"Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
+"PO-Revision-Date: 2026-02-24 22:34+0100\n"
+"Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 26.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2012,26 +2012,25 @@ msgid ""
 msgstr ""
 
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "Glossar"
+msgstr "Glossarfehler"
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "Der Ordner für das Glossar existiert nicht."
 
 #: src/glossary/glossary.cpp:678
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "Der Pfad ist ein Ordner- und kein Dateipfad."
 
 #: src/glossary/glossary.cpp:681
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr ""
+"Datei kann nicht gespeichert werden. Überprüfen Sie die Berechtigungen."
 
 #: src/glossary/glossarytab.cpp:84
 #, kde-format
@@ -2043,15 +2042,13 @@ msgstr "Glossar"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
-msgstr ""
+msgstr "Neuen Glossareintrag hinzufügen"
 
 #: src/glossary/glossarytab.cpp:136
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this entry"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
-msgstr "Diesen Eintrag löschen"
+msgstr "Ausgewählten Glossareintrag entfernen"
 
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
@@ -2087,9 +2084,7 @@ msgstr "Englische Synonyme (Doppelklicken zum Bearbeiten):"
 #. i18n: ectx: property (text), widget (QPushButton, addEngTerm)
 #. i18n: ectx: property (text), widget (QPushButton, addTargetTerm)
 #: src/glossary/termedit.ui:32 src/glossary/termedit.ui:78
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add"
+#, kde-format
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -2097,7 +2092,7 @@ msgstr "Hinzufügen"
 #: src/glossary/termedit.ui:35
 #, kde-format
 msgid "Add new source synonym"
-msgstr ""
+msgstr "Neues Quell-Synonym hinzufügen"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #. i18n: ectx: property (text), widget (QPushButton, remEngTerm)
@@ -2112,7 +2107,7 @@ msgstr "Entfernen"
 #: src/glossary/termedit.ui:48
 #, kde-format
 msgid "Remove selected source synonym"
-msgstr ""
+msgstr "Ausgewähltes Quell-Synonym entfernen"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/glossary/termedit.ui:71
@@ -2124,13 +2119,13 @@ msgstr "Gleichbedeutende Synonyme in der Zielsprache:"
 #: src/glossary/termedit.ui:81
 #, kde-format
 msgid "Add new target synonym"
-msgstr ""
+msgstr "Neues Ziel-Synonym hinzufügen"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, remTargetTerm)
 #: src/glossary/termedit.ui:94
 #, kde-format
 msgid "Remove selected target synonym"
-msgstr ""
+msgstr "Ausgewähltes Ziel-Synonym entfernen"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:109
@@ -2182,15 +2177,7 @@ msgid "No errors"
 msgstr "Keine Fehler"
 
 #: src/lokalizemainwindow.cpp:99
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2198,20 +2185,17 @@ msgid ""
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
 "which you can participate.</html>"
 msgstr ""
-"<html>Sie brauchen kein Programmierer zu sein, um ein Mitglied des KDE-Teams "
-"zu werden. Sie können den Sprachgruppen beitreten, die Programmoberflächen "
-"übersetzen. Sie können Grafik, Design, Klänge oder verbesserte Dokumentation "
-"beitragen. Entscheiden Sie selbst.<br /><br />Besuchen Sie bitte <a href="
-"\"%1\">%1</a>, um Information über Projekte zu erhalten, an denen Sie sich "
-"beteiligen können.<br /><br />Wenn Sie mehr Information oder Dokumentation "
-"benötigen, besuchen Sie <a href=\"%2\">%2</a>. Dort finden Sie, was Sie "
-"brauchen.</html>"
+"<html>Sie müssen kein Programmierer sein, um Mitglied des KDE-Teams zu "
+"werden. Sie können den Sprachgruppen beitreten, die Programmoberflächen "
+"übersetzen. Sie können Grafiken, Designs, Klänge oder verbesserte "
+"Dokumentation beitragen. Entscheiden Sie selbst!<br /><br />Besuchen Sie <a "
+"href=\"%1\">%1</a>, um Informationen über Projekte zu erhalten, an denen Sie "
+"sich beteiligen können.</html>"
 
 #: src/lokalizemainwindow.cpp:116
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "Lokalize &einrichten"
+msgstr "Lokalize &einrichten …"
 
 #: src/lokalizemainwindow.cpp:117 src/lokalizemainwindow.cpp:699
 #: src/project/projecttab.cpp:155
@@ -2221,20 +2205,16 @@ msgid "Open Project…"
 msgstr "Projekt öffnen …"
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate Software"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "Software übersetzen"
+msgstr "Software übersetzen …"
 
 #: src/lokalizemainwindow.cpp:119
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "OpenDocument übersetzen"
+msgstr "OpenDocument übersetzen …"
 
 #: src/lokalizemainwindow.cpp:181
 #, kde-format
@@ -2921,17 +2901,13 @@ msgid "Project Required"
 msgstr "Projekt erforderlich"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "Projekt erstellen"
+msgstr "Projekt erstellen …"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project…"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
 msgstr "Projekt öffnen …"
@@ -4194,17 +4170,15 @@ msgstr "Daten hinzufügen"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "Daten von TMX hinzufügen"
+msgstr "Daten von TMX hinzufügen …"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "Zu TMX exportieren"
+msgstr "Als TMX exportieren …"
 
 #: src/tm/qamodel.cpp:98
 #, kde-format
