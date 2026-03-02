@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2026-02-23 23:11+0100\n"
+"PO-Revision-Date: 2026-03-01 00:43+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -36,7 +36,7 @@ msgstr "fri_programvare@bojer.no,translate@sorlund.no"
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
-msgstr "Andre oversettelser"
+msgstr "Sammenligningsoversettelser"
 
 #: src/alttransview.cpp:163
 #, kde-format
@@ -78,7 +78,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Sammenligningsoversettelser"
+msgstr "Sammenligningsoversettelser er tilgjengelige"
 
 #: src/alttransview.cpp:265
 #, kde-format
@@ -118,7 +118,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
-msgstr "Bruk alternativ oversettelse"
+msgstr "Bruk sammenligningsoversettelse"
 
 #: src/binunitsview.cpp:109
 #, kde-format
@@ -721,7 +721,7 @@ msgstr "Sett inn tekst med oppmerking"
 #: src/catalog/gettext/gettextstorage.cpp:98
 #, kde-format
 msgid "separator for different-length string alternatives"
-msgstr "skilletegn for streng-alternativer av forskjellig legde"
+msgstr "skilletegn for streng-alternativer av forskjellig lengde"
 
 #: src/catalog/gettext/gettextstorage.cpp:284
 #, kde-format
@@ -1827,7 +1827,7 @@ msgstr ""
 #: src/tm/queryoptions.ui:118
 #, kde-format
 msgid "Invert"
-msgstr "Omvend"
+msgstr "Omvent"
 
 #. i18n: ectx: property (text), widget (QLabel, querySourceLabel)
 #: src/filesearch/filesearchoptions.ui:38 src/tm/queryoptions.ui:85
@@ -3524,7 +3524,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
-msgstr "Mappe for andre oversettelser"
+msgstr "Mappe for sammenligningsoversettelser"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
 #: src/project/prefs_project_advanced.ui:227
@@ -3548,10 +3548,9 @@ msgid ""
 msgstr ""
 "Sett dette til stien til en mappe med struktur som likner rotmappa.\n"
 "\n"
-"Hver gang en oversettelsesfil åpnes, så blir det lett etter en tilsvarende "
-"fil i mappa Alternative oversettelser\n"
-"og hvis den finnes, så blir den brukt i visningen Alternative "
-"oversettelser.\n"
+"Hver gang en oversettelsesfil åpnes, så blir en tilsvarende fil i mappa "
+"sammenligningsoversettelser hentet inn\n"
+"og blir brukt i visningen Sammenligningsoversettelser.\n"
 "\n"
 "Du vil antakelig bruke oversettelser til et annet språk (dvs, et annet "
 "delprosjekt) som ligger nær ditt eget.\n"
