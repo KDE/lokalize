@@ -5,6 +5,7 @@
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
   SPDX-FileCopyrightText: 2026      Jaimukund Bhan <bhanjaimukund@gmail.com>
+  SPDX-FileCopyrightText: 2026      Aditya Sarna <adityasarna80@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -125,8 +126,6 @@ GlossaryTab::GlossaryTab(QWidget *parent)
     new QShortcut(QKeySequence(Qt::ControlModifier | Qt::Key_L), this, SLOT(setFocus()), nullptr, Qt::WidgetWithChildrenShortcut);
     connect(m_filterEdit, &QLineEdit::textChanged, m_proxyModel, &GlossaryNS::GlossarySortFilterProxyModel::setFilterRegExp);
 
-    layout->addWidget(m_filterEdit);
-    layout->addWidget(m_browser);
     {
         QPushButton *addBtn = new QPushButton(w);
         connect(addBtn, &QPushButton::clicked, this, qOverload<>(&GlossaryTab::newTermEntry));
@@ -138,16 +137,18 @@ GlossaryTab::GlossaryTab(QWidget *parent)
         addBtn->setToolTip(i18nc("@info:tooltip", "Add new glossary entry"));
         rmBtn->setToolTip(i18nc("@info:tooltip", "Remove selected glossary entry"));
 
-        QWidget *btns = new QWidget(w);
-        QHBoxLayout *btnsLayout = new QHBoxLayout(btns);
-        btnsLayout->setContentsMargins(0, 0, 0, 0);
-        btnsLayout->addWidget(addBtn);
-        btnsLayout->addWidget(rmBtn);
-
-        layout->addWidget(btns);
+        QWidget *searchRow = new QWidget(w);
+        QHBoxLayout *searchLayout = new QHBoxLayout(searchRow);
+        searchLayout->setContentsMargins(0, 0, 0, 0);
+        searchLayout->addWidget(m_filterEdit);
+        searchLayout->addWidget(addBtn);
+        searchLayout->addWidget(rmBtn);
         QWidget::setTabOrder(addBtn, rmBtn);
         QWidget::setTabOrder(rmBtn, m_filterEdit);
+
+        layout->addWidget(searchRow);
     }
+    layout->addWidget(m_browser);
     QWidget::setTabOrder(m_filterEdit, m_browser);
 
     splitter->addWidget(w);
