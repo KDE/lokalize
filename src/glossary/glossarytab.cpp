@@ -24,6 +24,9 @@
 
 #include <QAbstractItemModel>
 #include <QApplication>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QFormLayout>
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QLineEdit>
@@ -298,7 +301,33 @@ void GlossaryTab::selectEntry(const QByteArray &id)
 
 void GlossaryTab::newTermEntry()
 {
-    newTermEntry(QString(), QString());
+    QDialog dialog(this);
+    dialog.setWindowTitle(i18nc("@title:window", "Add New Term"));
+    dialog.setMinimumWidth(400);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
+    QFormLayout *formLayout = new QFormLayout();
+
+    QLineEdit *sourceEdit = new QLineEdit(&dialog);
+    QLineEdit *targetEdit = new QLineEdit(&dialog);
+
+    formLayout->addRow(i18n("English Term:"), sourceEdit);
+    formLayout->addRow(i18n("Target Term:"), targetEdit);
+    mainLayout->addLayout(formLayout);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    mainLayout->addWidget(buttonBox);
+
+    connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+    if (dialog.exec() == QDialog::Accepted) {
+        QString sourceText = sourceEdit->text().trimmed();
+        QString targetText = targetEdit->text().trimmed();
+
+        if (!sourceText.isEmpty() || !targetText.isEmpty()) {
+            newTermEntry(sourceText, targetText);
+        }
+    }
 }
 
 void GlossaryTab::newTermEntry(QString _source, QString _target)
