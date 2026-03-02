@@ -182,6 +182,7 @@ QVariant CatalogTreeModel::data(const QModelIndex &index, int role) const
         else if (column == CatalogModelColumns::Source || column == CatalogModelColumns::Target) {
             QString str = column == CatalogModelColumns::Source ? m_catalog->msgidWithPlurals(DocPosition(index.row()), false)
                                                                 : m_catalog->msgstrWithPlurals(DocPosition(index.row()), false);
+            str.replace(QLatin1Char('|'), QLatin1Char('\n'));
             return m_ignoreAccel ? str.remove(Project::instance()->accel()) : str;
         }
         role = Qt::DisplayRole;
