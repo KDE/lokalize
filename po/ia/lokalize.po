@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-25 00:50+0000\n"
+"POT-Creation-Date: 2026-03-03 00:50+0000\n"
 "PO-Revision-Date: 2026-02-26 15:10+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -776,13 +776,13 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "Unitates de traduction"
 
-#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:118
+#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:122
 #: src/project/projecttab.cpp:59
 #, kde-format
 msgid "Search"
 msgstr "Cerca"
 
-#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:120
+#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:124
 #: src/project/projecttab.cpp:60
 #, kde-format
 msgctxt "@info:tooltip"
@@ -794,102 +794,102 @@ msgstr "Activate per Ctrl+L. Accepta expressiones regular"
 msgid "Options"
 msgstr "Optiones"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgid "Reset individual filter"
 msgstr "Refixa filtro individual"
 
-#: src/cataloglistview/cataloglistview.cpp:213 src/tm/tmtab.cpp:362
+#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Case insensitive"
 msgstr "Non differentia inter majusculas e minusculas"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:214 src/findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:217 src/findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "Ignora marcas de accelerator"
 
-#: src/cataloglistview/cataloglistview.cpp:215
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgid "Ready"
 msgstr "Preste"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgid "Non-ready"
 msgstr "Non-preste"
 
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:220
 #, kde-format
 msgid "Non-empty"
 msgstr "Non-vacue"
 
-#: src/cataloglistview/cataloglistview.cpp:218
+#: src/cataloglistview/cataloglistview.cpp:221
 #, kde-format
 msgid "Empty"
 msgstr "Vacue"
 
-#: src/cataloglistview/cataloglistview.cpp:219
+#: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
 msgid "Changed since file open"
 msgstr "Cambiate usque aperir de file"
 
-#: src/cataloglistview/cataloglistview.cpp:220
+#: src/cataloglistview/cataloglistview.cpp:223
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "Non cambiate usque aperir de file"
 
-#: src/cataloglistview/cataloglistview.cpp:221
+#: src/cataloglistview/cataloglistview.cpp:224
 #, kde-format
 msgid "Same in sync file"
 msgstr "Mesme in file de sync"
 
-#: src/cataloglistview/cataloglistview.cpp:222
+#: src/cataloglistview/cataloglistview.cpp:225
 #, kde-format
 msgid "Different in sync file"
 msgstr "Differente in file de sync"
 
-#: src/cataloglistview/cataloglistview.cpp:223
+#: src/cataloglistview/cataloglistview.cpp:226
 #, kde-format
 msgid "Not in sync file"
 msgstr "Non in file de sync"
 
-#: src/cataloglistview/cataloglistview.cpp:224
+#: src/cataloglistview/cataloglistview.cpp:227
 #, kde-format
 msgid "Plural"
 msgstr "Plural"
 
-#: src/cataloglistview/cataloglistview.cpp:225
+#: src/cataloglistview/cataloglistview.cpp:228
 #, kde-format
 msgid "Non-plural"
 msgstr "Non-plural"
 
-#: src/cataloglistview/cataloglistview.cpp:230
+#: src/cataloglistview/cataloglistview.cpp:233
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "Basic"
 
-#: src/cataloglistview/cataloglistview.cpp:231
+#: src/cataloglistview/cataloglistview.cpp:234
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "Statos"
 
-#: src/cataloglistview/cataloglistview.cpp:233
+#: src/cataloglistview/cataloglistview.cpp:236
 #, kde-format
 msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
 msgstr "Columna recercabile"
 
-#: src/cataloglistview/cataloglistview.cpp:237
+#: src/cataloglistview/cataloglistview.cpp:240
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Re-sort and refilter on content change"
 msgstr "Resorta e refiltra sur cambiamento de contento"
 
-#: src/cataloglistview/cataloglistview.cpp:257
+#: src/cataloglistview/cataloglistview.cpp:260
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -978,13 +978,13 @@ msgctxt "@info:status"
 msgid "Untranslated"
 msgstr "Non Traducite"
 
-#: src/cataloglistview/catalogmodel.cpp:207
+#: src/cataloglistview/catalogmodel.cpp:208
 #, kde-format
 msgctxt "@info:status"
 msgid "Yes"
 msgstr "Si"
 
-#: src/cataloglistview/catalogmodel.cpp:207
+#: src/cataloglistview/catalogmodel.cpp:208
 #, kde-format
 msgctxt "@info:status"
 msgid "No"
@@ -2028,23 +2028,42 @@ msgstr "Le percursopuncta a un dossier, non un file."
 msgid "Cannot write to file. Check permissions."
 msgstr "Non pote scriber in file. Verifica permissiones."
 
-#: src/glossary/glossarytab.cpp:84
+#: src/glossary/glossarytab.cpp:88
 #, kde-format
 msgctxt "@title"
 msgid "Glossary"
 msgstr "Glossario"
 
-#: src/glossary/glossarytab.cpp:135
+#: src/glossary/glossarytab.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
 msgstr "Adde nove entrata de glossario"
 
-#: src/glossary/glossarytab.cpp:136
+#: src/glossary/glossarytab.cpp:138
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
 msgstr "Remove entrata de glossario seligite"
+
+#: src/glossary/glossarytab.cpp:306
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Define New Term"
+msgctxt "@title:window"
+msgid "Add New Term"
+msgstr "Define nove termino"
+
+#: src/glossary/glossarytab.cpp:315
+#, kde-format
+msgid "English Term:"
+msgstr ""
+
+#: src/glossary/glossarytab.cpp:316
+#, fuzzy, kde-format
+#| msgid "Target:"
+msgid "Target Term:"
+msgstr "Objectivo:"
 
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format

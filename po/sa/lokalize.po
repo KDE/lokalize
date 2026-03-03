@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-25 00:50+0000\n"
+"POT-Creation-Date: 2026-03-03 00:50+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -755,14 +755,14 @@ msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
 msgstr "अनुवाद इकाइयाँ"
 
-#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:118
+#: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:122
 #: src/project/projecttab.cpp:59
 #, fuzzy, kde-format
 #| msgid "&Search"
 msgid "Search"
 msgstr "&अन्वेषण"
 
-#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:120
+#: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:124
 #: src/project/projecttab.cpp:60
 #, kde-format
 msgctxt "@info:tooltip"
@@ -774,90 +774,90 @@ msgstr "Ctrl+L द्वारा सक्रियः । नियमित�
 msgid "Options"
 msgstr "विकल्पाः"
 
-#: src/cataloglistview/cataloglistview.cpp:208
+#: src/cataloglistview/cataloglistview.cpp:211
 #, kde-format
 msgid "Reset individual filter"
 msgstr "व्यक्तिगत फ़िल्टर पुनः सेट् करें"
 
-#: src/cataloglistview/cataloglistview.cpp:213 src/tm/tmtab.cpp:362
+#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Case insensitive"
 msgstr "प्रकरणं असंवेदनशीलम्"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
-#: src/cataloglistview/cataloglistview.cpp:214 src/findextension.ui:40
+#: src/cataloglistview/cataloglistview.cpp:217 src/findextension.ui:40
 #, kde-format
 msgid "Ignore accelerator marks"
 msgstr "त्वरकचिह्नानां अवहेलनां कुर्वन्तु"
 
-#: src/cataloglistview/cataloglistview.cpp:215
+#: src/cataloglistview/cataloglistview.cpp:218
 #, kde-format
 msgid "Ready"
 msgstr "आत्त"
 
-#: src/cataloglistview/cataloglistview.cpp:216
+#: src/cataloglistview/cataloglistview.cpp:219
 #, kde-format
 msgid "Non-ready"
 msgstr "असज्जम्"
 
-#: src/cataloglistview/cataloglistview.cpp:217
+#: src/cataloglistview/cataloglistview.cpp:220
 #, kde-format
 msgid "Non-empty"
 msgstr "अशून्यः"
 
-#: src/cataloglistview/cataloglistview.cpp:218
+#: src/cataloglistview/cataloglistview.cpp:221
 #, kde-format
 msgid "Empty"
 msgstr "रिक्तम्‌"
 
-#: src/cataloglistview/cataloglistview.cpp:219
+#: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
 msgid "Changed since file open"
 msgstr "सञ्चिका उद्घाटितात् परं परिवर्तितम्"
 
-#: src/cataloglistview/cataloglistview.cpp:220
+#: src/cataloglistview/cataloglistview.cpp:223
 #, kde-format
 msgid "Unchanged since file open"
 msgstr "सञ्चिका उद्घाटितात् अपरिवर्तितम्"
 
-#: src/cataloglistview/cataloglistview.cpp:221
+#: src/cataloglistview/cataloglistview.cpp:224
 #, kde-format
 msgid "Same in sync file"
 msgstr "समन्वयनसञ्चिकायां अपि तथैव"
 
-#: src/cataloglistview/cataloglistview.cpp:222
+#: src/cataloglistview/cataloglistview.cpp:225
 #, kde-format
 msgid "Different in sync file"
 msgstr "समन्वयनसञ्चिकायां भिन्नम्"
 
-#: src/cataloglistview/cataloglistview.cpp:223
+#: src/cataloglistview/cataloglistview.cpp:226
 #, kde-format
 msgid "Not in sync file"
 msgstr "समन्वयसञ्चिकायां न"
 
-#: src/cataloglistview/cataloglistview.cpp:224
+#: src/cataloglistview/cataloglistview.cpp:227
 #, kde-format
 msgid "Plural"
 msgstr "बहुवाचक"
 
-#: src/cataloglistview/cataloglistview.cpp:225
+#: src/cataloglistview/cataloglistview.cpp:228
 #, kde-format
 msgid "Non-plural"
 msgstr "अबहुवचनम्"
 
-#: src/cataloglistview/cataloglistview.cpp:230
+#: src/cataloglistview/cataloglistview.cpp:233
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Basic"
 msgstr "आधारभूत"
 
-#: src/cataloglistview/cataloglistview.cpp:231
+#: src/cataloglistview/cataloglistview.cpp:234
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "States"
 msgstr "राज्यानि"
 
-#: src/cataloglistview/cataloglistview.cpp:233
+#: src/cataloglistview/cataloglistview.cpp:236
 #, fuzzy, kde-format
 #| msgctxt "@title:inmenu"
 #| msgid "Searchable column"
@@ -865,7 +865,7 @@ msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
 msgstr "अन्वेषणीय स्तम्भ"
 
-#: src/cataloglistview/cataloglistview.cpp:237
+#: src/cataloglistview/cataloglistview.cpp:240
 #, fuzzy, kde-format
 #| msgctxt "@title:inmenu"
 #| msgid "Resort and refilter on content change"
@@ -873,7 +873,7 @@ msgctxt "@title:inmenu"
 msgid "Re-sort and refilter on content change"
 msgstr "सामग्रीपरिवर्तने रिसोर्टं कृत्वा पुनः फ़िल्टरं कुर्वन्तु"
 
-#: src/cataloglistview/cataloglistview.cpp:257
+#: src/cataloglistview/cataloglistview.cpp:260
 #, kde-format
 msgctxt "@item:inmenu all columns"
 msgid "All"
@@ -968,14 +968,14 @@ msgctxt "@info:status"
 msgid "Untranslated"
 msgstr "अननुवादः"
 
-#: src/cataloglistview/catalogmodel.cpp:207
+#: src/cataloglistview/catalogmodel.cpp:208
 #, fuzzy, kde-format
 #| msgid "yes"
 msgctxt "@info:status"
 msgid "Yes"
 msgstr "आम्‌"
 
-#: src/cataloglistview/catalogmodel.cpp:207
+#: src/cataloglistview/catalogmodel.cpp:208
 #, fuzzy, kde-format
 #| msgid "None"
 msgctxt "@info:status"
@@ -2074,7 +2074,7 @@ msgstr ""
 msgid "Cannot write to file. Check permissions."
 msgstr ""
 
-#: src/glossary/glossarytab.cpp:84
+#: src/glossary/glossarytab.cpp:88
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
@@ -2082,19 +2082,38 @@ msgctxt "@title"
 msgid "Glossary"
 msgstr "शब्दावली"
 
-#: src/glossary/glossarytab.cpp:135
+#: src/glossary/glossarytab.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
 msgstr ""
 
-#: src/glossary/glossarytab.cpp:136
+#: src/glossary/glossarytab.cpp:138
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Remove this entry"
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
 msgstr "एतत् प्रविष्टिम् अपसारयन्तु"
+
+#: src/glossary/glossarytab.cpp:306
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Define new term"
+msgctxt "@title:window"
+msgid "Add New Term"
+msgstr "नूतनपदं परिभाषयतु"
+
+#: src/glossary/glossarytab.cpp:315
+#, kde-format
+msgid "English Term:"
+msgstr ""
+
+#: src/glossary/glossarytab.cpp:316
+#, fuzzy, kde-format
+#| msgid "Target:"
+msgid "Target Term:"
+msgstr "लक्ष्य:"
 
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
