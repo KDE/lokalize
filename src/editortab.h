@@ -6,6 +6,7 @@
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
   SPDX-FileCopyrightText: 2026      Kumud <kumud1665@gmail.com>
   SPDX-FileCopyrightText: 2026      Navya Sai Sadu <navyas.sadu@gmail.com>
+  SPDX-FileCopyrightText: 2026      Tanish Kumar <tanishkrsh6061@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -317,7 +318,7 @@ private Q_SLOTS:
     void openPhasesWindow();
 
     void defineNewTerm();
-
+    void attachAlternateTranslationFileDialog();
     void initLater();
     void showStatesMenu();
     void setState(QAction *);
@@ -331,6 +332,14 @@ private Q_SLOTS:
 private:
     void setupAccel();
     void setupActions();
+    // Invokes the named edit slot (e.g. "cut", "copy", "paste") on the
+    // currently focused widget using QMetaObject::invokeMethod(), since
+    // the target widget type is not known at compile time; falls back to
+    // the main editor viewport when the focused widget cannot handle it.
+    void triggerFocusedEditAction(const char *methodName);
+    void cutFocused();
+    void copyFocused();
+    void pasteFocused();
 
     void findNext(const DocPosition &startingPos);
     void replaceNext(const DocPosition &);

@@ -8,6 +8,7 @@
   SPDX-FileCopyrightText: 2025      Finley Watson <fin-w@tutanota.com>
   SPDX-FileCopyrightText: 2026      Navya Sai Sadu <navyas.sadu@gmail.com>
   SPDX-FileCopyrightText: 2026      Kumud <kumud1665@gmail.com>
+  SPDX-FileCopyrightText: 2026      Tanish Kumar <tanishkrsh6061@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -137,6 +138,32 @@ void EditorTab::numberOfUntranslatedChanged()
     Q_EMIT signalStatusBarUntranslated(m_catalog->numberOfUntranslated(), m_catalog->numberOfEntries());
 }
 
+void EditorTab::triggerFocusedEditAction(const char *methodName)
+{
+    // The focused widget changes depending on what the user is interacting with,
+    // so invokeMethod() is used instead of a direct call.
+    QWidget *focusWidget = QApplication::focusWidget();
+    if (focusWidget && QMetaObject::invokeMethod(focusWidget, methodName, Qt::DirectConnection))
+        return;
+
+    QMetaObject::invokeMethod(m_view->viewPort(), methodName, Qt::DirectConnection);
+}
+
+void EditorTab::cutFocused()
+{
+    triggerFocusedEditAction("cut");
+}
+
+void EditorTab::copyFocused()
+{
+    triggerFocusedEditAction("copy");
+}
+
+void EditorTab::pasteFocused()
+{
+    triggerFocusedEditAction("paste");
+}
+
 void EditorTab::setupActions()
 {
     // all operations that can be done after initial setup
@@ -171,6 +198,8 @@ void EditorTab::setupActions()
         altaction->setText(i18nc("@action:inmenu", "Insert alternate translation #%1", QString::number(i)));
         altactions[i] = altaction;
     }
+    action = tm->addAction(QStringLiteral("alttrans_attach"), this, &EditorTab::attachAlternateTranslationFileDialog);
+    action->setText(i18nc("@action:inmenu", "Attach Alternate Translation File…"));
 
     m_alternateTranslationView = new AltTransView(this, m_catalog, altactions);
     addDockWidget(Qt::BottomDockWidgetArea, m_alternateTranslationView);
@@ -378,6 +407,10 @@ void EditorTab::setupActions()
     connect(m_view->viewPort(), &TranslationUnitTextEdit::redoRequested, this, &EditorTab::redo);
     connect(m_catalog, &Catalog::canRedoChanged, action, &QAction::setEnabled);
     action->setEnabled(false);
+
+    edit->addAction(KStandardActions::Cut, this, &EditorTab::cutFocused);
+    edit->addAction(KStandardActions::Copy, this, &EditorTab::copyFocused);
+    edit->addAction(KStandardActions::Paste, this, &EditorTab::pasteFocused);
 
     nav->addAction(KStandardActions::Find, this, &EditorTab::find);
     nav->addAction(KStandardActions::FindNext, this, qOverload<>(&EditorTab::findNext));
@@ -1359,6 +1392,20 @@ void EditorTab::displayWordCount()
                              i18nc("@info words count", "Source text words: %1<br/>Target text words: %2", sourceCount, targetCount),
                              i18nc("@title", "Word Count"));
 }
+
+void EditorTab::attachAlternateTranslationFileDialog()
+{
+    const QString path = QFileDialog::getOpenFileName(this,
+                                                      i18nc("@title:window", "Attach Alternate Translation File"),
+                                                      QFileInfo(currentFilePath()).absolutePath(),
+                                                      Catalog::supportedFileTypes(true));
+    if (path.isEmpty())
+        return;
+
+    attachAlternateTranslationFile(path);
+    Q_EMIT signalNewEntryDisplayed(m_currentPos);
+}
+
 bool EditorTab::findEntryBySourceContext(const QString &source, const QString &ctxt)
 {
     DocPosition pos(0);
