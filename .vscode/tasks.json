@@ -32,6 +32,19 @@
             "dependsOn": [
                 "Build"
             ]
+        },
+        {
+            "label": "Run Selenium tests",
+            "type": "shell",
+            "command": "kde-builder",
+            "args": [
+                "--debug",
+                "--run-tests",
+                "lokalize",
+                "--no-include-dependencies",
+                "--no-src",
+                "--cmake-options='-DBUILD_APPIUM_TESTS=ON'"
+            ]
         }
     ]
 }
