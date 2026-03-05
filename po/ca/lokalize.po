@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-04 00:48+0000\n"
-"PO-Revision-Date: 2026-03-03 10:11+0100\n"
+"PO-Revision-Date: 2026-03-04 10:24+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -1055,11 +1055,10 @@ msgid "Insert alternate translation #%1"
 msgstr "Insereix la traducció alternativa núm. %1"
 
 #: src/editortab.cpp:202
-#, fuzzy, kde-format
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "Traduccions alternatives"
+msgstr "Adjunta un fitxer de traducció alternatiu…"
 
 #: src/editortab.cpp:268
 #, kde-format
@@ -1593,12 +1592,10 @@ msgid "Word Count"
 msgstr "Compta les paraules"
 
 #: src/editortab.cpp:1399
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "Traduccions alternatives"
+msgstr "Adjunta un fitxer de traducció alternatiu"
 
 #: src/editortab.cpp:1497
 #, kde-format
