@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-04 00:48+0000\n"
-"PO-Revision-Date: 2026-02-25 19:07+0400\n"
+"PO-Revision-Date: 2026-03-05 10:13+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1031,11 +1031,10 @@ msgid "Insert alternate translation #%1"
 msgstr "أدرج ترجمة بديلة رقم %1"
 
 #: src/editortab.cpp:202
-#, fuzzy, kde-format
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "الترجمات البديلة"
+msgstr "أرفق ملف الترجمة البديلة..."
 
 #: src/editortab.cpp:268
 #, kde-format
@@ -1564,12 +1563,10 @@ msgid "Word Count"
 msgstr "عدد الكلمات"
 
 #: src/editortab.cpp:1399
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "ترجمات بديلة"
+msgstr "أرفق ملف الترجمة البديلة..."
 
 #: src/editortab.cpp:1497
 #, kde-format
@@ -2035,23 +2032,20 @@ msgid "Remove selected glossary entry"
 msgstr "أزِل مُدخَلة المسرد المحددة"
 
 #: src/glossary/glossarytab.cpp:306
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define New Term"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Term"
-msgstr "عرّف مصطلحًا جديدًا"
+msgstr "أضف مصطلحًا جديدًا"
 
 #: src/glossary/glossarytab.cpp:315
 #, kde-format
 msgid "English Term:"
-msgstr ""
+msgstr "مصطلح باللغة الإنجليزية:"
 
 #: src/glossary/glossarytab.cpp:316
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgid "Target Term:"
-msgstr "الهدف:"
+msgstr "المصطلح الهدف:"
 
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format

@@ -1,0 +1,805 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY lokalize "Lokalize">
+<!ENTITY kaider "Lokalize">
+<!ENTITY kappname "Lokalize">
+<!ENTITY package "kdesdk">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % English "INCLUDE">
+]>
+<book id="lokalize" lang="&language;">
+<bookinfo>
+<title
+>كُتَيِّب لوكالايز</title>
+<authorgroup>
+<author
+><firstname
+>Nick</firstname
+> <surname
+>Shaforostoff</surname
+> <affiliation
+><address
+><email
+>shaforostoff@kde.ru</email
+></address
+></affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>عبدالرحيم</firstname
+><surname
+>فاخوري</surname
+><affiliation
+><address
+><email
+>abdilra7eem@yahoo.com</email
+></address
+></affiliation
+><contrib
+>الترجمة العربية</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2007-2009</year
+><holder
+>Nick Shaforostoff</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2025-08-19</date>
+<releaseinfo
+>تطبيقات 25.10</releaseinfo>
+
+<abstract>
+<para
+>لوكالايز هو نظام ترجمة بمساعدة الحاسوب (CAT) يركّز على الإنتاجية والتأكد من الجودة. في لوكالايز مكونات تكون مضمّنة عادة في برامج الترجمة بمساعدة الحاسوب، مثل ذواكر الترجمة، والمُسرد، وكذلك إمكانية فريدة وهي دمج (مزامنة) الترجمات. البرنامج موجَّه لترجمة البرمجيات، ويحوي أيضاً أدوات تحويل خارجيّة مضمّنة لترجمة وثائق المكتب كعمل حُرّ. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>لوكالايز</keyword>
+<keyword
+>توطين</keyword>
+<keyword
+>l10n</keyword>
+<keyword
+>عولمة</keyword>
+<keyword
+>i18n</keyword>
+<keyword
+>ترجمة</keyword>
+<keyword
+>عولمة</keyword>
+<keyword
+>g11n</keyword>
+<keyword
+>XLIFF</keyword>
+<keyword
+>جِتِّكست</keyword>
+<keyword
+>المكتب المفتوح</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>مقدمة</title>
+<para
+>عادة ما تكون نصوص البرامج ووثائقها مكتوبة باللغة الإنجليزية. باستخدام إطار عمل مكون من مجموعة من الأدوات والمكتبات، يمكنك جعل تطبيقاتك المفضلة تتكلم بلغتك الأصليّة غير الإنجليزية. عملية تطويع التطبيق هذه للغة معينة تُدعى <emphasis
+>التوطين</emphasis
+>. تتضمن عملية التوطين ترجمة واجهات البرنامج ووثائقه إلى لغات عديدة يحتاجها المستخدمون، وفي بعض البلدان والأقاليم تشمل أيضاً جعل المدخلات والمخرجات تندرج تحت معايير معينة. لوكالايز هو الأداة التي ستساعدك في عملية التوطين لجعل واجهة البرنامج تتكلم لغات كثيرة. </para>
+<para
+>كلّ برنامج يدعم العولمة يتيح ملف نموذج نصوص واحد أو أكثر للترجمة. إن امتداد هذه الملفات هو <filename class="extension"
+>‎.pot</filename
+>. و <acronym
+>POT</acronym
+> هو اختصار لعبارة "قالب كائن محمول" <quote
+>Portable Object Template</quote
+>. إنّ لوكالايز محرر ملفات PO (فهرس نصوص GNU gettext) متقدم وسهل. هو نظام ترجمة بمساعدة الحاسوب للمترجمين، مكتوب من البداية باستخدام أطر منصة كِيدِي 4 البرمجية. إضافة إلى التحرير البسيط لملفات PO بتفاصيل إضافية أنيقة، يتضمن لوكالايز دعم المُسرد، وذاكرة الترجمة، وأوضاع المقارنة لتأكيد الجودة، وإدارة المشاريع، وغيرها. وفيه خصائص عديدة مثل إمكانيات تنقل كاملة، ووظائف تحرير شاملة، ودوالّ البحث، وفحص السياق، ووظائف الإحصائيات. </para>
+<para
+>ملفات الكائنات المحمولة (‎.po):يأخذ كل مترجم نسخة من أحد قوالب POT هذه ويبدأ بملء الفراغات: يُترجَم كلّ نصٍّ إلى اللغة المرغوبة. يُشار إلى الملف الذي يحوي النصّ المترجَم بملف PO (أو ملف الكائنات المحمولة). </para>
+
+</chapter>
+
+<chapter id="editor">
+<title
+>المحرّر</title>
+<sect1 id="main-window">
+<title
+>النافذة الرئيسيّة</title>
+<para
+>مبدئيًّا، تحوي الواجهة الرئيسيّة ستة أجزاء. الصندوق العلويّ الأيسَر للقراءة فقط، ويحوي حقل النصّ المصدر (msgid) الحالي من ملف PO المفتوح. صندوق النص الذي يأتي تحته مباشرة يحوي حقل النصّ الهدف (msgstr) المرتبط بنصّ msgid المعروض، وهنا يمكنك إدخال أو تعديل النصّ المترجَم. </para>
+<screenshot>
+<screeninfo
+>نافذة لوكالايز الرئيسيّة المبدئيّة</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>تظهر هنا النافذة المبدئية عندما يكون هناك ملف مفتوح</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>يُظهِر الجزء العلويّ الأيمن من النافذة الرئيسية وِحدات الترجمة. وتحته قسم للبيانات الوصفية للوحدة التي تحوي تعليقاتٍ متعلقة بالنصّ المصدر المعروض حاليًّا. وفي المنطقة اليمنى السُفلى، هناك قسم لذاكرة الترجمة يحوي ترجمات مقترَحة من قاعدة بيانات ذاكرة الترجمة للمدخلة النصيّة المصدر المعروضة. في الزاوية اليمنى السُفلى من النافذة، يظهر قسم المُسرد. </para>
+<para
+>تُفتَح ملفات الترجمة في ألسنة منفصلة، مع صندوقين كبيرين للتحرير متعدّدا السطور، إضافة إلى العديد من <emphasis
+>صناديق العرض</emphasis
+>. هذه الصناديق يمكن رصّها (مثل الألسنة)، أو عرضها منفصلة، أو إخفاؤها. تتكون ملفات الترجمة من العديد من أزواج (اللغة الإنجليزية – اللغة الهدف) تُدعى <emphasis
+>وِحدات</emphasis
+>. تكون <emphasis
+>الوِحدة</emphasis
+> عادة مرتبطة بسلسلة نصيّة واحدة في واجهة المستخدم، أو فقرة واحدة في التوثيق. الهدف من وجود صندوق التحرير متعدد السطور الأول هو عرض الجزء الأصلي من الزوج. والهدف من الصندوق الثاني عرض الترجمة. يمكنك التنقل بين <emphasis
+>الوِحدات</emphasis
+> باستخدام عرض <guilabel
+>وِحدات الترجمة</guilabel
+> أو باستخدام المفتاحين <keycap
+>Page Down</keycap
+> و <keycap
+>Page Up</keycap
+>. </para>
+<para
+>يُمكِن أن تكون الوِحدة <emphasis
+>مُترجَمة</emphasis
+> أو <emphasis
+>غير مترجمة</emphasis
+>. وترجمة الوِحدة المترجمَة قد تكون <emphasis
+>جاهزة</emphasis
+> أو <emphasis
+>غير جاهزة</emphasis
+> (وتُدعى أيضاً <emphasis
+>مُبهمة</emphasis
+> في بعض الأحيان). إذا لم تكن الترجمة جاهزة، فستُعرَض بخط مائل. يسمح لك لوكالايز بالتنقل في الملف بسهولة بالاعتماد على حالة الترجمات. أنظر إلى قائمة <guilabel
+>اذهب</guilabel
+> للاختصارات. يُظهِر شريط الحالة الموجود أسفَل النافذة رقم النصّ الحاليّ، والعدد الكليّ للنصوص، والعدد الكليّ للنصوص غير المترجَمة، والعدد الكليّ للنصوص غير الجاهزة (المبهمة)، وحالة النصّ الحاليّ على الترتيب. عند التنقُّل، يتم التعامل مع الوِحدات غير المترجمَة على أنها غير جاهزة. يمكنك أيضاً استخدام ميزة المرشّحات لصندوق عرض <guilabel
+>وحدات الترجمة</guilabel
+>. بالضغط على  <keycap
+>Page Down</keycap
+> ستنتقل إلى الوِحدة التالية في القائمة المُرشّحة/المُسرَدة في صندوق العرض ذاك. </para>
+<para
+>لتسهيل ترجمة تطبيقات الطرفية حيث تكون الفواصل في الرسائل مهمة، يمكنك تفعيل عنصر <guilabel
+>تصور الفواصل مثل المسافات وعلامات الجدولة والأسطر الجديدة في المحرر</guilabel
+> في صفحة <guilabel
+>التحرير</guilabel
+> في نافذة التهيئة التي يمكن فتحها باختيار عنصر القائمة الرئيسية <menuchoice
+><guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط لوكالايز...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>إذا لم تملك وصولاً إلى ملف قالب الترجمة الأصلي (وهي ممارسة شائعة في بعض مشاريع الترجمة التجارية) فيمكنك استخدام ملف ترجمة من لغة ذات صلة. فقط اختر عنصر القائمة <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>امسح كل المدخلات المترجمة</guimenuitem
+></menuchoice
+> أو استخدم اختصار <keycombo
+>&Ctrl;&Alt;<keycap
+>D</keycap
+></keycombo
+> لمسح كل وحدات الترجمة. </para>
+<para
+>يمكنن للمستخدم إضافة العديد من الأقسام الأخرى إلى النافذة الرئيسيّة، مثل <guilabel
+>الترجمة البديلة</guilabel
+>، <guilabel
+>المزامنة الرئيسيّة</guilabel
+>، <guilabel
+>المزامنة الثانوية</guilabel
+>، <guilabel
+>والوِحدات الثُنائيّة</guilabel
+> باستخدام <menuchoice
+><guimenu
+>الإعدادات</guimenu
+><guimenuitem
+>صناديق العرض </guimenuitem
+></menuchoice
+> من النافذة الرئيسيّة. </para>
+</sect1>
+
+<sect1 id="toolbars">
+<title
+>شريط الأدوات</title>
+<para
+>يمكن إضافة وإزالة الإجراءات من صناديق الأدوات باستخدام <menuchoice
+><guimenu
+> الإعدادات</guimenu
+><guimenuitem
+>اضبط أشرطة الأدوات...</guimenuitem
+></menuchoice
+> من القائمة الرئيسيّة. </para>
+<screenshot>
+<screeninfo
+>اضبط أشرطة الأدوات</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_toolbar.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>يمكنك هنا ضبط أشرطة الأدوات.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>لمزيد من المعلومات، اقرأ القسم عن <ulink url="help:/fundamentals/config.html#toolbars"
+>أشرطة الأدوات</ulink
+> من أساسيّات كِيدِي.</para>
+</sect1>
+
+<sect1 id="shortcut-keys">
+<title
+>مفاتيح الاختصارات</title>
+<para
+>يمكنك توفير الوقت باستخدام مفاتيح الاختصارات أثناء الترجمة. لضبط مفاتيح الاختصارات، استخدم <menuchoice
+><guimenu
+>الإعدادات</guimenu
+><guimenuitem
+>اضبط الاختصارات...</guimenuitem
+></menuchoice
+> من القائمة الرئيسية. </para>
+<screenshot>
+<screeninfo
+>اضبط الاختصارات</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_shortcuts.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>يمكنك هنا أن تضبط مفاتيح الاختصارات.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>لمزيد من المعلومات اقرأ القسم عن <ulink url="help:/fundamentals/config.html#shortcuts"
+>الاختصارات</ulink
+> من أساسيات كِيدِي.</para>
+</sect1>
+
+<sect1 id="general-tips">
+<title
+>تلميحات عامّة</title>
+<para
+>إذا كنت تترجم لكِيدِي، فإما أن يكون لديك ملف مشروع لوكالايز في مجلد لغتك (غالباً يسمّى <filename
+>index.lokalize</filename
+>)، أو يمكنك اختيار <menuchoice
+><guimenu
+>مشروع</guimenu
+><guimenuitem
+>أنشئ مشروعاً جديداً</guimenuitem
+></menuchoice
+>، وسينزّل المُرشد ملفات الترجمة للغتك، وسينشئ لك المشروع. </para>
+
+<tip>
+<para
+>يُنصَح بالاعتماد على اختصارات لوحة المفاتيح عوضاً عن القوائم وأشرطة الأدوات لزيادة الإنتاجية. على سبيل المثال، استخدم <keycombo
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> للانتقال إلى شريط <guilabel
+>البحث السريع </guilabel
+> وأدخل نصّاً لترشيح قائمة الوحدات في عرض <guilabel
+>وحدات الترجمة</guilabel
+>. بمجرد أن تنتهي، اضغط على <keycap
+>Page Down</keycap
+> لتبدأ التنقل في القائمة المرشَّحة. الضغط على <keycap
+>Esc</keycap
+> في إدخال المرشح سيعيد التركيز إلى حقل النص المستهدف دون تحديد وحدة أخرى. </para>
+</tip>
+<para
+>إذا كنت تتعامل مع ملفات ترجمة بهيئة XLIFF (وهي بالتأكيد الهيئة التي ستستخدمها إذا كنت تترجم ملفات المكتب المفتوح)، فالحالات الممتدة متاحة (<emphasis
+>جديد</emphasis
+>، <emphasis
+>يحتاج مراجعة</emphasis
+>، <emphasis
+>معتمد</emphasis
+>، إلخ.) يمكنك اختيارها من القائمة المنسدلة من زر <guilabel
+>معتمد</guilabel
+> في شريط الأدوات. تصنيف الحالة على أنها <emphasis
+>جاهزة</emphasis
+> أو <emphasis
+>غير جاهزة</emphasis
+> يعتمد على <emphasis
+>مرحلة سير العمل</emphasis
+> (<emphasis
+>الترجمة</emphasis
+>، <emphasis
+>المراجعة</emphasis
+>، <emphasis
+>الاعتماد</emphasis
+>). تعتمد المرحلة المبدئيّة بالنسبة لك على <emphasis
+>دورك</emphasis
+> في المشروع (المحدد في إعدادات المشروع). عادة تحوي كل وحدة معلومات عن المرحلة التي عُدِّلَت فيها، وفي كل مرحلة سيتم إدراج صاحبها في السجل بداخل الملف. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="projects">
+<title
+>المشاريع</title>
+
+<sect1 id="projects-general-notes">
+<title
+>ملاحظات عامة</title>
+<para
+>المشاريع من المفاهيم الرئيسيّة في لوكالايز. يقدّم المشروع على أنه ملف يحوي الروابط، والمجلدات التي تحوي الترجمات، والقوالب، وملفات أخرى: ملفات المسارد، سكرِبتات الأتمتة، ذواكر الترجمة. متى ما فتح لوكالايز ملفاً دون تحميل مشروع، فسيبحث عن ملف مشروع في المجلدات الأعلى (حتى أربع مستويات). بدلاً عن ذلك، يمكنك تحديد ملف المشروع بتمرير الخيار <userinput
+>‎-- project</userinput
+> عند فتح لوكالايز من سطر الأوامر. </para>
+
+<para
+>تختار لكل مشروع دورك فيه (<emphasis
+>مترجِم</emphasis
+>، <emphasis
+>مُراجِع</emphasis
+>، <emphasis
+>معتمِد</emphasis
+>)، الذي يؤثر بدوره على مرحلة سير العمل التي يختارها لوكالايز لكل ملف تحرّره. </para>
+
+<para
+>يمكن تحديد موضع لف الكلمات على مستوى المشروع. فقط استخدم عنصر القائمة <menuchoice
+><guimenu
+>مشروع</guimenu
+> <guimenuitem
+>اضبط المشروع...</guimenuitem
+></menuchoice
+> ثم اذهب إلى صفحة <guilabel
+>متقدم</guilabel
+>. </para>
+
+<note>
+<para
+>ذواكر الترجمة (على النقيض من ملفات المشروع والمسارد والسكربتات) ليست مشتركة بين أعضاء فريق الترجمة، حيث أنه يتم إنشاؤها وتخزينها في مجلد المنزل للمستخدم، مما يعني أن ذواكر الترجمة لكل المشاريع مخزنة في نفس المجلد، وهكذا يمكن استخدامها عند فتح مشاريع أخرى. </para>
+</note>
+</sect1>
+
+<sect1 id="project-view">
+<title
+>لسان عرض المشروع</title>
+<para
+>عندما تفتح لوكالايز للمرة الأولى، سترى لسان <guilabel
+>عرض المشروع</guilabel
+> فارغاً. إنّ عرض المشروع هو عرض مدير الملفات الذي يساعدك في الاطلاع على حالة ملفات PO لديك. ستساعدك حزمة لوكالايز على الترجمة بسرعة، وعلى إبقاء الترجمات متّسقة أيضاً. يتضمن سير العمل على لوكالايز أن تبدأ بإنشاء/فتح مشروع. </para>
+<para
+>لإنشاء مشروع جديد، استخدم <menuchoice
+><guimenu
+>مشروع</guimenu
+><guimenuitem
+>أنشئ مشروعاً جديداً</guimenuitem
+></menuchoice
+>. سيقودك هذا في خطوات إنشاء مشروع جديد. يمكنك في قائمة <guimenu
+>مشروع</guimenu
+> أيضاً أن تجد خيارات مثل <guimenuitem
+>اعرض المشروع</guimenuitem
+> ، <guimenuitem
+>اضبط المشروع</guimenuitem
+>، <guimenuitem
+>افتح مشروعاً</guimenuitem
+>، و<guimenuitem
+>افتح مشروعاً حديثاً</guimenuitem
+>.</para>
+<para>
+<screenshot>
+<screeninfo
+>لسان عرض المشروع</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="project_overview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>يمكنك ضبط المشروع هنا.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>يعرض لسان <guilabel
+>عرض المشروع</guilabel
+> شجرة ملفات بإحصائيات لمشروع حاليّ، مثل نسبة الوحدات المترجمة والمترجم الأخير. ويسمح لك بفتح ملف محدد في لسان جديد من نافذة لوكالايز الحالية. </para>
+
+<note>
+    <para
+>يمكن إخفاء الملفات المترجمة بالكامل من <guilabel
+>نظرة عامة على المشروع</guilabel
+> باستخدام زر <guibutton
+>أخفِ العناصر المكتملة</guibutton
+> في شريط الأدوات الرئيسي أو اختصار <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+> المبدئي. </para>
+</note>
+<para
+>عند تشغيل لوكالايز في المرة القادمة، سيُظهر آخر ملف مفتوح مبدئياً. يمكن إيقاف هذا السلوك باستخدام عنصر <guilabel
+>استعد الملفات المفتوحة سابقاً عند فتح لوكالايز</guilabel
+> في صفحة <guilabel
+>عام</guilabel
+> في نافذة التهيئة التي يمكن فتحها باختيار <menuchoice
+><guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط لوكالايز...</guimenuitem
+></menuchoice
+> من القائمة الرئيسية. يمكن استخدام الصفحة نفسها لتهيئة سلوك لوكالايز عند الانتقال إلى اللسان التالي/السابق. يمكن التنقل عبر قائمة الألسنة وفقاً لمواقعها أو وفقاً لترتيب تفعيلها. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="glossary">
+<title
+>المُسرد</title>
+
+<para
+>هل تعبت يوماً من كتابة نفس تسلسل النصّ الطويل عدّة مرات فقط لأن البحث عن ترجمتها لنسخها ولصقها يأخذ وقتاً أطول؟ الآن سيكون عليك فقط أن تجد تسلسل الكلمات (المتكرر) في عرض <guilabel
+>المسرد</guilabel
+>، وبعد ذلك إدخالها باستخدام اختصار. </para>
+
+<para
+>بالتأكيد يجب تعبئة المسرد بتسلسل كلمات أولاً. لدى لوكالايز محرر مسارد مريح يسمح بالبحث عن شيء محدد في كامل المسرد. </para>
+
+<screenshot>
+<screeninfo
+>يُظهر عرض المسارد في الزاوية اليسرى السفليةِ مدخلات مسرد مناسبة للوحدة الحالية</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>يُظهر عرض المسارد في الزاوية اليسرى السفليةِ مدخلات مسرد مناسبة للوحدة الحالية</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="tm">
+<title
+>ذاكرة الترجمة</title>
+
+<para
+>يسمح لك عرض <guilabel
+>ذاكرة الترجمة</guilabel
+> أن تسحب وتفلت مجلداً فيه ملفات ترجمة من مدير الملفات دولفين مثلاً إلى العرض، ومن ثم سيتم خلال دقائق عرض مقترحات الترجمة آليًّا في مبدّل الوحدة. لإدخال مقترحات الترجمة إلى الملف، استخدم  <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+>، و<keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>، وهكذا، اعتماداً على عدد الاقتراحات. </para>
+<para
+>استخدم <menuchoice
+><guimenu
+>أدوات</guimenu
+><guimenuitem
+>أدِر ذواكر الترجمة</guimenuitem
+></menuchoice
+> لإضافة/إدارة مشاريع في ذاكرة الترجمة لديك. هنا يمكنك أيضاً أن تستورد أو تصدّر بيانات من هيئة ملفات <filename role="extension"
+>tmx</filename
+>. </para>
+
+<para
+>بالضغط على <keycombo
+><keycap
+>F7</keycap
+></keycombo
+> سيُفتَح لسان <guilabel
+>ذاكرة الترجمة</guilabel
+> الذي يسمح لك بالاستعلام عن الترجمات في ذاكرة الترجمة بحرّية. النقر على نتيجة بحث سيفتح الملف والوحدة ذوا العلاقة. إذا كنت ترغب بفتح ملف في المشروع بسرعة (وهو مُضاف إلى ذاكرة الترجمة)، فبدلاً من تصفح <guilabel
+>عرض المشروع</guilabel
+> يمكنك أن تكتفي بكتابة اسمه في حقل <guilabel
+>قناع الملف</guilabel
+>، متبوعاً بنجمة. </para>
+
+<para
+>يُفَهرِس محرّك ذواكر الترجمة كلّ المُدخلات، بما فيها غير الجاهزة وغير المترجمة. هذا يسمح بأن تحل بالكامل محل ميزة "البحث في الملفّات" التي تتطلب تصفح كل الملفات في المشروع في كل مرة يُبحَث فيها. </para>
+
+<note>
+    <para
+>تُحذف مدخلات ذاكرة الترجمة القديمة من ذاكرة ترجمة لوكالايز عند إعادة الفحص أو عند النقر على مدخلة مفقودة إذا نُشط عنصر <guilabel
+>احذف الملفات المفقودة من ذاكرة الترجمة عند إعادة الفحص أو عند النقر على مدخلة مفقودة</guilabel
+> في صفحة <guilabel
+>ذاكرة الترجمة</guilabel
+> في نافذة التهيئة التي يمكن فتحها باختيار <menuchoice
+><guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط لوكالايز...</guimenuitem
+></menuchoice
+> من القائمة الرئيسية. </para>
+</note>
+
+<screenshot>
+<screeninfo
+>لوكالايز مع نتائج البحث في ذاكرة الترجمة للوحدة الحاليّة</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لوكالايز مع نتائج البحث في ذاكرة الترجمة للوحدة الحاليّة</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<variablelist>
+  <varlistentry>
+    <term
+>دَفعة الترجمة:</term>
+    <listitem>
+      <para
+>للإدراج الآليّ للاقتراح المطابق كليًّا من قاعدة بيانات ذاكرة الترجمة، استخدم <menuchoice
+><guimenu
+>أدوات</guimenu
+><guimenuitem
+>أدخِل كلّ الاقتراحات المطابِقة</guimenuitem
+></menuchoice
+> أو <guimenuitem
+>أدخِل كلّ الاقتراحات المطابقة واجعلها مُبهمة</guimenuitem
+>. </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</chapter>
+
+
+<chapter id="sync">
+<title
+>إمكانيات مزامنة الترجمات</title>
+
+<para
+>إن <guilabel
+>وضع المزامنة</guilabel
+> الذي كان يُعرف سابقاً بـ<guilabel
+>وضع الدَّمج</guilabel
+>) يوفّر الكثير من الوقت على المحرّرين، وفي حال كان هناك مترجمان أو أكثر يعملون على ذات الملف في نفس الوقت، أو عندما يكون على المُترجِم أن يهتمّ بالترجمات في عدّة فروع من البرمجية. </para>
+
+<para
+>يسمح لوكالايز بالتنقل السريع بين الوحدات المختلفة، ويُظهر الاختلافات كلمة بكلمة. وفي لوكالايز أيضاً صندوقان لعرض المزامنة، هما <guilabel
+>المزامنة الرئيسيّة</guilabel
+> و<guilabel
+>المزامنة الثانوية</guilabel
+>. الاثنان متطابقان، لكن عادة يُستخدَم الأول لدمج الترجمات والثاني لإبقاء ترجمات فرعي البرمجيّة متزامنة. </para>
+
+<para
+>بعد أن تكون قد نسخت الترجمة من ملف إضافيّ (أي <emphasis
+>زامَنْتَه</emphasis
+>)، ستنعكس أيّ تعديلات على هذه الوحدة تقوم بها بعد ذلك على الملف الإضافيّ أيضاً. </para>
+
+<sect1 id="file-merge">
+<title
+>الدَّمج</title>
+<para
+>إنّ أحد استخدامات <guilabel
+>وضع المزامنة</guilabel
+> عرضُ التغييرات التي قام بها مساهم (جديد)، عندما تكون غير متأكدٍ من جودة العمل. </para>
+<para
+>افتح ملفاً أساسيًّا، ثم ألقِ بنسخته المعدّلة في صندوق <guilabel
+>المزامنة الرئيسيّة</guilabel
+>، متبوعاً بالضغط على <keycombo
+>&Alt;<keycap
+>Down</keycap
+></keycombo
+> أو <keycombo
+>&Alt; <keycap
+>Up</keycap
+></keycombo
+> (تذكر أن الاختصارات يمكن تغييرها بطريقة عادية لكل تطبيقات كِيدِي) للتنقل بين المُدخلات المختلفة. </para>
+<screenshot>
+<screeninfo
+>يُستخدَم لوكالايز لدمج التغييرات في الترجمة</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>يُستخدَم لوكالايز لدمج التغييرات في الترجمة</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="file-sync">
+<title
+>الاستنساخ</title>
+<para
+>يمكن أيضاً استخدام <guilabel
+>وضع المزامنة</guilabel
+> لعمل تغييرات على الترجمة لفرعين في نفس الوقت. اضبط مسار <guilabel
+>مجلد الفرع</guilabel
+> في خيارات المشروع لديك إلى المسار الذي يشير إلى المجلد الرئيسيّ للفرع، و سيقوم صندوق <guilabel
+>المزامنة الثانوية</guilabel
+> بفتح الملفات من الفرع آليًّا. ومن ثم، لكل مرة تقوم في بعمل تعديلات في ملفات للفرع الرئيسيّ لديك، سيتم استنساخها تلقائيًّا إلى الفرع (طبعاً إذا كان يحوي نفس النصّ الإنجليزيّ). </para>
+<para
+>على سبيل المثال، إذا كنت تعمل على ترجمة كِيدِي، فيمكنك أن تنزّل (checkout) فرع trunk الاختباريّ<filename class="directory"
+>‎/home/xx/hacking/kde/trunk/l10n-kf5/YOUR_LANG</filename
+> والفرع إلى <filename class="directory"
+>‎/home/xx/hacking/kde/branches/stable/l10n-kf5/YOUR_LANG</filename
+>. لإنشاء مشروع لوكالايز: <filename
+>‎/home/xx/hacking/kde/trunk/l10n-kf5/YOUR_LANG/project.lokalize</filename
+> واجعل <filename class="directory"
+>مجلد الفرع=‎../../../branches/stable/l10n-kf5/YOUR_LANG</filename
+>، ثمّ اعمل عبر هذا المشروع، وأودِع التغييرات في كلا مجلدّي الاختباريّ والمستقرّ. </para>
+</sect1>
+
+
+<sect1 id="alt-trans">
+<title
+>الترجمات البديلة</title>
+
+<para
+>يمكن أن يكون لكل وِحدة عدد من <emphasis
+>الترجمات البديلة</emphasis
+> المرتبطة بها. يمكن أن تظهر هذه الترجمات أثناء تحديث الملف، عندما يكون النصّ الأصليّ قد تغيّر قليلاً. في هذه الحالة، يتم نقل الترجمة القديمة ومصدرها (القديم) إلى قائمة الترجمات البديلة، بحيث لا تُفقَد. </para>
+<para
+>عند ترجمة البرمجيات، تُستَخدَم أدوات جِتِّكست عادة لتحضير ملفات الترجمة. عندما يتغير النصّ الأصليّ، تقوم أدوات جِتِّكست بتحديث ملفات الترجمة وتَسِم المدخلات التي تغير نصّها الأصليّ بأنها <emphasis
+>مُبهمة</emphasis
+> (أو <emphasis
+>غير جاهزة</emphasis
+> بعبارة أخرى). تُخزِّن هذه الأدوات النصّ الأصلي السابق بحيث يرى المترجمون التغييرات التي حصلت بالضبّط. يُسهِّل لوكالايز حياة المترجِم، ويُبرِز الأجزاء التي تغيّر نصّها الأساسيّ في صندوق <guilabel
+>الترجمات البديلة</guilabel
+>. </para>
+
+<screenshot>
+<screeninfo
+>لوكالايز يُبرِز أجزاء النصّ الأصلي التي تغيّرت منذ آخر مراجعة للترجمة</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لوكالايز يُبرِز أجزاء النصّ الأصلي التي تغيّرت منذ آخر مراجعة للترجمة</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
+</chapter>
+
+<chapter id="externaltools">
+<title
+>الأدوات الخارجية</title>
+
+<sect1 id="pology">
+<title
+>Pology</title>
+
+<para
+>يمكن ضبط التفاعل مع <application
+>Pology</application
+> باستخدام صفحة <guilabel
+>Pology</guilabel
+> في نافذة التهيئة التي يمكن فتحها باختيار <menuchoice
+><guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط لوكالايز...</guimenuitem
+></menuchoice
+> من القائمة الرئيسية. </para>
+<para
+>لمزيد من المعلومات، يرجى الرجوع إلى <ulink url="http://pology.nedohodnik.net/"
+>صفحة Pology الرئيسية</ulink
+>. </para>
+</sect1>
+
+<sect1 id="languagetool">
+<title
+>أداة اللغة LanguageTool</title>
+
+<para
+>يوفر <application
+>LanguageTool</application
+> فحصاً للإملاء والقواعد لوحدات ترجمتك. </para>
+<para
+>يمكنك ضبط خادوم <application
+>LanguageTool</application
+> المخصص باستخدام صفحة <guilabel
+>LanguageTool</guilabel
+> في نافذة التهيئة التي تفتح باختيار <menuchoice
+><guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط لوكالايز...</guimenuitem
+></menuchoice
+> من القائمة الرئيسية. </para>
+<para
+>للاستفادة من قدرات فحص <application
+>LanguageTool</application
+>، استخدم عنصر القائمة <menuchoice
+><guimenu
+>تحرير</guimenu
+><guimenuitem
+>افحص هذه الوحدة باستخدام LanguageTool</guimenuitem
+></menuchoice
+> أو استخدم اختصار <keycombo
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+>. </para>
+<para
+>لمزيد من المعلومات، يرجى الرجوع إلى <ulink url="https://languagetool.org/"
+>صفحة LanguageTool الرئيسية</ulink
+>. </para>
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>النِّسبة والترخيص</title>
+
+<para
+>لوكالايز </para>
+
+<para
+>الحقوق محفوظة &copy; 2007-2015, Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>تم أخذ بعض النصوص البرمجية من كيبابِل، سَلَف لوكالايز. </para>
+
+<para
+>Documentation Copyright &copy; 2007-2009 Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>المؤلف: <itemizedlist
+> <listitem
+> <para
+>Nick Shaforostoff <email
+>shaforostoff AT kde.ru</email
+>; Shankar Prasad <email
+>svenkate AT redhat.com</email
+>; Sweta Kothari <email
+>swkothar AT redhat.com</email
+> </para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>طالع <ulink url="http://userbase.kde.org/lokalize"
+>الصفحة الرئيسية للوكالايز</ulink
+> لمزيد من المعلومات.</para>
+
+<para
+>عبدالرحيم الفاخوري<email
+>abdilra7eem@yahoo.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->
