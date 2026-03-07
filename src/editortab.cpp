@@ -366,6 +366,24 @@ void EditorTab::setupActions()
         saveFileAs();
     });
 
+    action = file->addAction(QStringLiteral("file_save_all"));
+    action->setText(i18nc("@action:inmenu", "Save All"));
+    connect(action, &QAction::triggered, this, &EditorTab::signalSaveAllRequested);
+
+    file->addAction(KStandardActions::Revert, this, &EditorTab::reloadFile);
+
+    action = file->addAction(QStringLiteral("file_revert_all"));
+    action->setText(i18nc("@action:inmenu", "Revert All"));
+    connect(action, &QAction::triggered, this, &EditorTab::signalRevertAllRequested);
+
+    action = file->addAction(KStandardActions::Close);
+    ac->setDefaultShortcut(action, QKeySequence());
+    connect(action, &QAction::triggered, this, &EditorTab::signalCloseCurrentRequested);
+
+    action = file->addAction(QStringLiteral("file_close_all"));
+    action->setText(i18nc("@action:inmenu", "Close All"));
+    connect(action, &QAction::triggered, this, &EditorTab::signalCloseAllRequested);
+
 #define ADD_ACTION_SHORTCUT_ICON(_name, _text, _shortcut, _icon)                                                                                               \
     action = actionCategory->addAction(QStringLiteral(_name));                                                                                                 \
     action->setText(_text);                                                                                                                                    \

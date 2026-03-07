@@ -110,6 +110,9 @@ private Q_SLOTS:
     bool queryCloseTabAtIndex(int index);
     void queryAndCloseTabAtIndex(int index);
     void queryAndCloseCurrentTab();
+    void queryAndCloseAllEditorTabs();
+    void saveAllEditorTabs();
+    void revertAllEditorTabs();
     void closeTabByPageWidget(QWidget *widget);
     /*
      * @short Destroys a tab and deletes the tab page data.

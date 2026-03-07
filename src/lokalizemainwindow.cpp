@@ -74,6 +74,7 @@
 #include <QtAssert>
 #include <QtContainerFwd>
 #include <QtLogging>
+#include <algorithm>
 
 LokalizeMainWindow::LokalizeMainWindow()
     : KXmlGuiWindow()
@@ -465,6 +466,10 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
             qOverload<const QString &, const QString &>(&EditorTab::tmLookupRequested),
             this,
             qOverload<const QString &, const QString &>(&LokalizeMainWindow::lookupInTranslationMemory));
+    connect(newEditorTab, &EditorTab::signalSaveAllRequested, this, &LokalizeMainWindow::saveAllEditorTabs);
+    connect(newEditorTab, &EditorTab::signalRevertAllRequested, this, &LokalizeMainWindow::revertAllEditorTabs);
+    connect(newEditorTab, &EditorTab::signalCloseCurrentRequested, this, &LokalizeMainWindow::queryAndCloseCurrentTab);
+    connect(newEditorTab, &EditorTab::signalCloseAllRequested, this, &LokalizeMainWindow::queryAndCloseAllEditorTabs);
     connect(newEditorTab, &LokalizeTabPageBase::signalUpdatedTabLabelAndIconAvailable, this, &LokalizeMainWindow::updateTabDetailsByPageWidget);
     connect(newEditorTab,
             &EditorTab::signalDefineNewGlossaryTerm,
@@ -1041,6 +1046,41 @@ void LokalizeMainWindow::queryAndCloseTabAtIndex(int index)
 {
     if (queryCloseTabAtIndex(index))
         closeTabAtIndex(index);
+}
+
+void LokalizeMainWindow::queryAndCloseAllEditorTabs()
+{
+    QList<int> editorTabIndexes;
+    for (int i = m_mainTabs->count() - 1; i >= 0; --i) {
+        if (qobject_cast<EditorTab *>(m_mainTabs->widget(i)))
+            editorTabIndexes.append(i);
+    }
+
+    if (std::any_of(editorTabIndexes.cbegin(), editorTabIndexes.cend(), [this](int index) {
+            return !queryCloseTabAtIndex(index);
+        }))
+        return;
+
+    for (int index : editorTabIndexes)
+        closeTabAtIndex(index);
+}
+
+void LokalizeMainWindow::saveAllEditorTabs()
+{
+    const auto editors = m_fileToEditor.values();
+    for (EditorTab *editorTab : editors) {
+        if (editorTab)
+            editorTab->saveFile();
+    }
+}
+
+void LokalizeMainWindow::revertAllEditorTabs()
+{
+    const auto editors = m_fileToEditor.values();
+    for (EditorTab *editorTab : editors) {
+        if (editorTab)
+            editorTab->reloadFile();
+    }
 }
 
 void LokalizeMainWindow::closeCurrentTab()

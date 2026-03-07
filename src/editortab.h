@@ -444,6 +444,11 @@ Q_SIGNALS:
     void signalNextBookmarkAvailable(bool);
     void signalBookmarkDisplayed(bool);
 
+    void signalSaveAllRequested();
+    void signalRevertAllRequested();
+    void signalCloseCurrentRequested();
+    void signalCloseAllRequested();
+
     Q_SCRIPTABLE void xliffFileOpened(bool);
 
     void signalDefineNewGlossaryTerm(QString source, QString target);
