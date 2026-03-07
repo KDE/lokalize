@@ -9,14 +9,14 @@
 # Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>, 2009, 2010, 2012.
 # Frederico Gonçalves Guimarães <frederico@teia.bio.br>, 2020.
 # SPDX-FileCopyrightText: 2023, 2024, 2025 Geraldo Simiao <geraldosimiao@fedoraproject.org>
-# SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-04 00:48+0000\n"
-"PO-Revision-Date: 2026-03-04 07:34-0300\n"
-"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
+"PO-Revision-Date: 2026-03-06 16:25-0300\n"
+"Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -2217,7 +2217,7 @@ msgid ""
 "which you can participate.</html>"
 msgstr ""
 "<html>Não é necessário ser um desenvolvedor de software para ser um membro "
-"da equipe do KDE. Você pode tornar-se um membro das equipes de idiomas que "
+"da equipe da KDE. Você pode tornar-se um membro das equipes de idiomas que "
 "traduzem as interfaces dos programas. Você pode fornecer gráficos, temas, "
 "sons e documentação atualizada. Você decide!<br /><br />Visite <a href="
 "\"%1\">%1</a> para obter informações sobre alguns projetos em que você possa "

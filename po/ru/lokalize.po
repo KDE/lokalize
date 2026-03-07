@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-04 00:48+0000\n"
-"PO-Revision-Date: 2026-02-26 19:38+0200\n"
+"PO-Revision-Date: 2026-03-06 14:20+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -1060,11 +1060,10 @@ msgid "Insert alternate translation #%1"
 msgstr "Вставить альтернативный перевод %1"
 
 #: src/editortab.cpp:202
-#, fuzzy, kde-format
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "Альтернативные версии"
+msgstr "Подключить альтернативный файл перевода…"
 
 #: src/editortab.cpp:268
 #, kde-format
@@ -1597,12 +1596,10 @@ msgid "Word Count"
 msgstr "Статистика по словам"
 
 #: src/editortab.cpp:1399
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "Альтернативные версии"
+msgstr "Подключение альтернативного файла перевода"
 
 #: src/editortab.cpp:1497
 #, kde-format
@@ -2070,21 +2067,18 @@ msgid "Remove selected glossary entry"
 msgstr "Удалить выбранную запись глоссария"
 
 #: src/glossary/glossarytab.cpp:306
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define New Term"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Term"
-msgstr "Добавить запись в глоссарий"
+msgstr "Добавление нового термина"
 
 #: src/glossary/glossarytab.cpp:315
 #, kde-format
 msgid "English Term:"
-msgstr ""
+msgstr "Термин:"
 
 #: src/glossary/glossarytab.cpp:316
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgid "Target Term:"
 msgstr "Перевод:"
 
