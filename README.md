@@ -30,3 +30,8 @@ Lokalize uses the TBX file format to save its glossary data. Here are some links
 - [Wikipedia](https://en.wikipedia.org/wiki/TermBase_eXchange)
 - [TBX XML Schemas](https://github.com/LTAC-Global/TBX-Basic_dialect)
 - [Weblate TBX glossary docs](https://docs.weblate.org/en/latest/formats/tbx.html)
+
+### UI Strings
+
+Context list for `i18nc()` function context strings is available
+[here](https://techbase.kde.org/Development/Tutorials/Localization/i18n_Semantics).
