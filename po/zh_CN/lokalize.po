@@ -997,7 +997,6 @@ msgstr "插入备选翻译 #%1"
 
 #: src/editortab.cpp:202
 #, fuzzy, kde-format
-#| msgid "Alternate Translations"
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
 msgstr "备选翻译"
@@ -1526,8 +1525,6 @@ msgstr "单词计数"
 
 #: src/editortab.cpp:1399
 #, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr "备选翻译"

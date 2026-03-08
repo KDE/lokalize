@@ -6,7 +6,7 @@
 <!ENTITY kappname "Lokalize">
 <!ENTITY package "kdesdk">
 <!ENTITY % addindex "IGNORE">
-<!ENTITY % English "INCLUDE">
+<!ENTITY % Arabic "INCLUDE">
 ]>
 <book id="lokalize" lang="&language;">
 <bookinfo>
