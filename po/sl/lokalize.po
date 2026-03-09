@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-08 00:49+0000\n"
-"PO-Revision-Date: 2026-03-04 07:41+0100\n"
+"PO-Revision-Date: 2026-03-08 07:14+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1078,23 +1078,22 @@ msgid "Define New Term"
 msgstr "Določi nov termin"
 
 #: src/editortab.cpp:370
-#, fuzzy, kde-format
-#| msgid "Save"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Save All"
-msgstr "Shrani"
+msgstr "Shrani vse"
 
 #: src/editortab.cpp:376
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Revert All"
-msgstr ""
+msgstr "Razveljavi vse"
 
 #: src/editortab.cpp:384
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
-msgstr ""
+msgstr "Zapri vse"
 
 #: src/editortab.cpp:399
 #, kde-format
@@ -1598,7 +1597,7 @@ msgstr "Štetje besed"
 #, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "Priloži datoteko z nadomestnim prevodom "
+msgstr "Priloži datoteko z nadomestnim prevodom"
 
 #: src/editortab.cpp:1515
 #, kde-format

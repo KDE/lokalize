@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-08 00:49+0000\n"
-"PO-Revision-Date: 2026-03-05 10:13+0400\n"
+"PO-Revision-Date: 2026-03-08 10:04+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -252,7 +252,7 @@ msgstr "منتهية"
 #: src/catalog/catalog.cpp:66
 #, kde-format
 msgid "Signed-off"
-msgstr "موقّعة"
+msgstr "موقعة"
 
 #: src/catalog/catalogstring.cpp:56
 #, kde-format
@@ -423,7 +423,7 @@ msgctxt "XLIFF mark type"
 msgid ""
 "head term: the concept designation that has been chosen to head a "
 "terminological record"
-msgstr "صيغة رئيسة: تسمية معنًى اختيرت كأساسٍ لسجلّ إصطلاحيّ"
+msgstr "صيغة رئيسة: تسمية معنًى اختيرت كأساسٍ لسجلّ اصطلاحيّ"
 
 #: src/catalog/catalogstring.cpp:131
 #, kde-format
@@ -706,7 +706,7 @@ msgstr "إزالة النّصّ الذي بداخله رقْم"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
-msgstr "إدرّاج النّصّ الذي بداخله رقْم"
+msgstr "إدراج النّصّ الذي بداخله رقْم"
 
 #: src/catalog/gettext/gettextstorage.cpp:100
 #, kde-format
@@ -1034,7 +1034,7 @@ msgstr "أدرج ترجمة بديلة رقم %1"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "أرفق ملف الترجمة البديلة..."
+msgstr "أرفق ملف ترجمات البديلة…"
 
 #: src/editortab.cpp:268
 #, kde-format
@@ -1493,7 +1493,7 @@ msgstr "مترجمة"
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
-msgstr "موقّعة"
+msgstr "موقعة"
 
 #: src/editortab.cpp:1247
 #, kde-format
@@ -1585,7 +1585,7 @@ msgstr "عدد الكلمات"
 #, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "أرفق ملف الترجمة البديلة..."
+msgstr "أرفق ملف ترجمات البديلة"
 
 #: src/editortab.cpp:1515
 #, kde-format
@@ -2059,7 +2059,7 @@ msgstr "أضف مصطلحًا جديدًا"
 #: src/glossary/glossarytab.cpp:315
 #, kde-format
 msgid "English Term:"
-msgstr "مصطلح باللغة الإنجليزية:"
+msgstr "المصطلح الإنجليزي:"
 
 #: src/glossary/glossarytab.cpp:316
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-08 00:49+0000\n"
-"PO-Revision-Date: 2026-03-04 03:41+0100\n"
+"PO-Revision-Date: 2026-03-08 03:56+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1080,23 +1080,22 @@ msgid "Define New Term"
 msgstr "ახალი ტერმინის აღწერა"
 
 #: src/editortab.cpp:370
-#, fuzzy, kde-format
-#| msgid "Save"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Save All"
-msgstr "შენახვა"
+msgstr "ყველას შენახვა"
 
 #: src/editortab.cpp:376
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Revert All"
-msgstr ""
+msgstr "ყველას დაბრუნება"
 
 #: src/editortab.cpp:384
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
-msgstr ""
+msgstr "ყველას დახურვა"
 
 #: src/editortab.cpp:399
 #, kde-format

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-08 00:49+0000\n"
-"PO-Revision-Date: 2026-03-04 12:30+0100\n"
+"PO-Revision-Date: 2026-03-08 17:01+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -1097,23 +1097,22 @@ msgid "Define New Term"
 msgstr "Nieuwe term definiëren"
 
 #: src/editortab.cpp:370
-#, fuzzy, kde-format
-#| msgid "Save"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Save All"
-msgstr "Opslaan"
+msgstr "Alles opslaan"
 
 #: src/editortab.cpp:376
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Revert All"
-msgstr ""
+msgstr "Alles terugdraaien"
 
 #: src/editortab.cpp:384
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
-msgstr ""
+msgstr "Alles sluiten"
 
 #: src/editortab.cpp:399
 #, kde-format
