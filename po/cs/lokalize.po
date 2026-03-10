@@ -1039,7 +1039,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
-msgstr ""
+msgstr "Zavřít vše"
 
 #: src/editortab.cpp:399
 #, kde-format
