@@ -30,6 +30,7 @@
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QShortcut>
@@ -307,6 +308,7 @@ void GlossaryTab::newTermEntry()
     dialog.setMinimumWidth(400);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
+    mainLayout->addStretch();
     QFormLayout *formLayout = new QFormLayout();
 
     QLineEdit *sourceEdit = new QLineEdit(&dialog);
@@ -315,8 +317,17 @@ void GlossaryTab::newTermEntry()
     formLayout->addRow(i18n("English Term:"), sourceEdit);
     formLayout->addRow(i18n("Target Term:"), targetEdit);
     mainLayout->addLayout(formLayout);
+    mainLayout->addSpacing(15);
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    buttonBox->setCenterButtons(true);
     mainLayout->addWidget(buttonBox);
+    mainLayout->addStretch();
+    QLabel *noteLabel = new QLabel(i18n("Note: Glossary entries represent individual meanings of a word. Words with multiple meanings should have separate "
+                                        "glossary entries, each corresponding to a specific definition."),
+                                   &dialog);
+    noteLabel->setWordWrap(true);
+    noteLabel->setAlignment(Qt::AlignCenter);
+    mainLayout->addWidget(noteLabel);
 
     connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
