@@ -91,15 +91,16 @@ public:
     int entry;
 };
 
-enum NavDirection {
+enum NavigationDirection {
     Up = -1,
     Down = 1
 };
 
-enum TranslationState {
+enum NavigationTarget {
     Fuzzy,
     Untranslated,
-    FuzzyOrUntranslated
+    FuzzyOrUntranslated,
+    Bookmarked
 };
 
 /**
@@ -357,8 +358,9 @@ private:
      * @returns entry index if matching entry found or -1 if no such entry exists in that direction
      *
      * @author Navya Sai Sadu <navyas.sadu@gmail.com>
+     * @author Kumud <kumud1665@gmail.com>
      */
-    short siblingIndex(TranslationState state, NavDirection step);
+    short siblingIndex(NavigationTarget state, NavigationDirection step);
 
 private:
     Project *m_project{};
