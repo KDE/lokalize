@@ -334,7 +334,7 @@ void Catalog::setActivePhase(const QString &phase, ProjectLocal::PersonRole role
 }
 
 /**
- * @see nextFuzzyIndex() nextUntranslatedIndex() findNextInList()
+ * @see findNextInList()
  * it maintains lists which are used by above mentioned methods
  */
 void Catalog::updateApprovedEmptyIndexCache()

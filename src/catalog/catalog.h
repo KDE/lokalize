@@ -175,18 +175,6 @@ public:
         return d._nonApprovedIndex.empty() ? -1 : d._nonApprovedIndex.back();
     }
 
-    /**
-     * Gets next, relative to the passed index, from the list containing
-     * fuzzy entries from the entire catalog
-     */
-    int nextFuzzyIndex(uint index) const
-    {
-        return findNextInList(d._nonApprovedIndex, index);
-    }
-    int prevFuzzyIndex(uint index) const
-    {
-        return findPrevInList(d._nonApprovedIndex, index);
-    }
     int firstUntranslatedIndex() const
     {
         return d._emptyIndex.empty() ? numberOfEntries() : d._emptyIndex.front();
@@ -194,19 +182,6 @@ public:
     int lastUntranslatedIndex() const
     {
         return d._emptyIndex.empty() ? -1 : d._emptyIndex.back();
-    }
-
-    /**
-     * Gets next, relative to the passed index, from the list containing
-     * untranslated entries from the entire catalog
-     */
-    int nextUntranslatedIndex(uint index) const
-    {
-        return findNextInList(d._emptyIndex, index);
-    }
-    int prevUntranslatedIndex(uint index) const
-    {
-        return findPrevInList(d._emptyIndex, index);
     }
 
     int firstBookmarkIndex() const

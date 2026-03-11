@@ -284,14 +284,15 @@ void CatalogView::setMergeCatalogPointer(MergeCatalog *pointer)
 int CatalogView::siblingEntryNumber(int step)
 {
     QModelIndex item = m_browser->currentIndex();
+
     int lastRow = m_proxyModel->rowCount() - 1;
     if (!item.isValid()) {
         if (lastRow == -1)
             return -1;
-        item = m_proxyModel->index((step == 1) ? 0 : lastRow, 0);
+        item = m_proxyModel->index((step >= 1) ? 0 : lastRow, 0);
         m_browser->setCurrentIndex(item);
     } else {
-        if (item.row() == ((step == -1) ? 0 : lastRow))
+        if (item.row() == ((step <= -1) ? 0 : lastRow))
             return -1;
         item = item.sibling(item.row() + step, 0);
     }

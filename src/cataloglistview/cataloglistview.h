@@ -40,6 +40,12 @@ public:
     int prevEntryNumber();
     int firstEntryNumber();
     int lastEntryNumber();
+    /**
+     * navigates to a sibling entry in the filtered translation units view
+     * @param step number of steps to navigate(positive for next entries, negative for previous entries)
+     *
+     * @return row number of the sibling entry, or -1 if navigation fails in case of no entries exist or boundary is reached
+     */
     int siblingEntryNumber(int step);
 
 private:

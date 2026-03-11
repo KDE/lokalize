@@ -1019,14 +1019,14 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
 
         updateFirstOrLastDisplayed();
 
-        Q_EMIT signalPriorFuzzyAvailable(pos.entry > m_catalog->firstFuzzyIndex());
-        Q_EMIT signalNextFuzzyAvailable(pos.entry < m_catalog->lastFuzzyIndex());
+        Q_EMIT signalPriorFuzzyAvailable(siblingIndex(TranslationState::Fuzzy, NavDirection::Up) != -1);
+        Q_EMIT signalNextFuzzyAvailable(siblingIndex(TranslationState::Fuzzy, NavDirection::Down) != -1);
 
-        Q_EMIT signalPriorUntranslatedAvailable(pos.entry > m_catalog->firstUntranslatedIndex());
-        Q_EMIT signalNextUntranslatedAvailable(pos.entry < m_catalog->lastUntranslatedIndex());
+        Q_EMIT signalPriorUntranslatedAvailable(siblingIndex(TranslationState::Untranslated, NavDirection::Up) != -1);
+        Q_EMIT signalNextUntranslatedAvailable(siblingIndex(TranslationState::Untranslated, NavDirection::Down) != -1);
 
-        Q_EMIT signalPriorFuzzyOrUntrAvailable(pos.entry > m_catalog->firstFuzzyIndex() || pos.entry > m_catalog->firstUntranslatedIndex());
-        Q_EMIT signalNextFuzzyOrUntrAvailable(pos.entry < m_catalog->lastFuzzyIndex() || pos.entry < m_catalog->lastUntranslatedIndex());
+        Q_EMIT signalPriorFuzzyOrUntrAvailable(siblingIndex(TranslationState::FuzzyOrUntranslated, NavDirection::Up) != -1);
+        Q_EMIT signalNextFuzzyOrUntrAvailable(siblingIndex(TranslationState::FuzzyOrUntranslated, NavDirection::Down) != -1);
 
         Q_EMIT signalPriorBookmarkAvailable(pos.entry > m_catalog->firstBookmarkIndex());
         Q_EMIT signalNextBookmarkAvailable(pos.entry < m_catalog->lastBookmarkIndex());
@@ -1149,8 +1149,9 @@ void EditorTab::gotoPrev()
 void EditorTab::gotoPrevFuzzy()
 {
     DocPosition pos;
+    pos.entry = siblingIndex(TranslationState::Fuzzy, NavDirection::Up);
 
-    if ((pos.entry = m_catalog->prevFuzzyIndex(m_currentPos.entry)) == -1)
+    if (pos.entry == -1)
         return;
 
     gotoEntry(pos);
@@ -1159,8 +1160,9 @@ void EditorTab::gotoPrevFuzzy()
 void EditorTab::gotoNextFuzzy()
 {
     DocPosition pos;
+    pos.entry = siblingIndex(TranslationState::Fuzzy, NavDirection::Down);
 
-    if ((pos.entry = m_catalog->nextFuzzyIndex(m_currentPos.entry)) == -1)
+    if (pos.entry == -1)
         return;
 
     gotoEntry(pos);
@@ -1169,8 +1171,9 @@ void EditorTab::gotoNextFuzzy()
 void EditorTab::gotoPrevUntranslated()
 {
     DocPosition pos;
+    pos.entry = siblingIndex(TranslationState::Untranslated, NavDirection::Up);
 
-    if ((pos.entry = m_catalog->prevUntranslatedIndex(m_currentPos.entry)) == -1)
+    if (pos.entry == -1)
         return;
 
     gotoEntry(pos);
@@ -1179,8 +1182,9 @@ void EditorTab::gotoPrevUntranslated()
 void EditorTab::gotoNextUntranslated()
 {
     DocPosition pos;
+    pos.entry = siblingIndex(TranslationState::Untranslated, NavDirection::Down);
 
-    if ((pos.entry = m_catalog->nextUntranslatedIndex(m_currentPos.entry)) == -1)
+    if (pos.entry == -1)
         return;
 
     gotoEntry(pos);
@@ -1196,7 +1200,7 @@ bool EditorTab::gotoPrevFuzzyUntr(const DocPosition &p)
     int index = (p.entry == -1) ? m_currentPos.entry : p.entry;
 
     DocPosition pos;
-    pos.entry = fuzzyUntrSiblingIndex(NavDirection::Up);
+    pos.entry = siblingIndex(TranslationState::FuzzyOrUntranslated, NavDirection::Up);
 
     if (pos.entry == -1) {
         gotoEntry(DocPosition(index));
@@ -1221,7 +1225,7 @@ bool EditorTab::gotoNextFuzzyUntr(const DocPosition &p)
     int index = (p.entry == -1) ? m_currentPos.entry : p.entry;
 
     DocPosition pos;
-    pos.entry = fuzzyUntrSiblingIndex(NavDirection::Down);
+    pos.entry = siblingIndex(TranslationState::FuzzyOrUntranslated, NavDirection::Down);
 
     if (pos.entry == -1) {
         gotoEntry(DocPosition(index)); // restoring the initial pos
@@ -1805,17 +1809,37 @@ void EditorTab::setEntryTarget(int entry, int form, const QString &content)
 }
 // END DBus interface
 
-short EditorTab::fuzzyUntrSiblingIndex(NavDirection step)
+short EditorTab::siblingIndex(TranslationState state, NavDirection step)
 {
+    short distance = step;
     short idx = m_transUnitsView->siblingEntryNumber(step);
+
     while (idx != -1) {
-        // get the  visibly closer of the untranslated or empty entry
-        if (!m_catalog->isApproved(idx) || m_catalog->isEmpty(idx)) {
+        bool matches = false;
+
+        switch (state) {
+        case Fuzzy:
+            matches = !m_catalog->isApproved(idx) && !m_catalog->isEmpty(idx);
+            break;
+        case Untranslated:
+            matches = m_catalog->isEmpty(idx);
+            break;
+        case FuzzyOrUntranslated:
+            matches = !m_catalog->isApproved(idx) || m_catalog->isEmpty(idx);
+            break;
+        default:
+            qCWarning(LOKALIZE_LOG) << "unexpected translation state- " << state;
+            break;
+        }
+
+        if (matches) {
             return idx;
         }
-        gotoEntry(DocPosition(idx));
-        idx = m_transUnitsView->siblingEntryNumber(step);
+
+        distance += step;
+        idx = m_transUnitsView->siblingEntryNumber(distance);
     }
+
     return -1;
 }
 

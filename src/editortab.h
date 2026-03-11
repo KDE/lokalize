@@ -96,6 +96,12 @@ enum NavDirection {
     Down = 1
 };
 
+enum TranslationState {
+    Fuzzy,
+    Untranslated,
+    FuzzyOrUntranslated
+};
+
 /**
  * @short Editor tab
  *
@@ -345,11 +351,14 @@ private:
     void replaceNext(const DocPosition &);
 
     /**
-     * iterates from the next/prev visible index(respecting the filter) and checks if the
-     * entry is either not-ready or untranslated and selects that entry
-     * @author Navya Sai Sadu
+     * iterates through filtered entries in specified direction and checks if the next/previous filtered entry matches the passed translation state- Fuzzy,
+     * Untranslated, or FuzzyOrUntranslated
+     *
+     * @returns entry index if matching entry found or -1 if no such entry exists in that direction
+     *
+     * @author Navya Sai Sadu <navyas.sadu@gmail.com>
      */
-    short fuzzyUntrSiblingIndex(NavDirection step);
+    short siblingIndex(TranslationState state, NavDirection step);
 
 private:
     Project *m_project{};
