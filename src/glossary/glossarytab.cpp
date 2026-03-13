@@ -26,8 +26,6 @@
 #include <QAbstractItemModel>
 #include <QApplication>
 #include <QDialog>
-#include <QDialogButtonBox>
-#include <QFormLayout>
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QLabel>
@@ -306,31 +304,35 @@ void GlossaryTab::newTermEntry()
     QDialog dialog(this);
     dialog.setWindowTitle(i18nc("@title:window", "Add New Term"));
     dialog.setMinimumWidth(400);
-
     QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
-    mainLayout->addStretch();
-    QFormLayout *formLayout = new QFormLayout();
-
-    QLineEdit *sourceEdit = new QLineEdit(&dialog);
-    QLineEdit *targetEdit = new QLineEdit(&dialog);
-
-    formLayout->addRow(i18n("English Term:"), sourceEdit);
-    formLayout->addRow(i18n("Target Term:"), targetEdit);
-    mainLayout->addLayout(formLayout);
-    mainLayout->addSpacing(15);
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
-    buttonBox->setCenterButtons(true);
-    mainLayout->addWidget(buttonBox);
-    mainLayout->addStretch();
-    QLabel *noteLabel = new QLabel(i18n("Note: Glossary entries represent individual meanings of a word. Words with multiple meanings should have separate "
-                                        "glossary entries, each corresponding to a specific definition."),
-                                   &dialog);
+    QLabel *noteLabel =
+        new QLabel(i18n(" <b>Note:</b> Glossary entries represent individual meanings of a word. Words with multiple meanings should have separate "
+                        "glossary entries, each corresponding to a specific definition."),
+                   &dialog);
     noteLabel->setWordWrap(true);
-    noteLabel->setAlignment(Qt::AlignCenter);
+    noteLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     mainLayout->addWidget(noteLabel);
-
-    connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    mainLayout->addSpacing(4);
+    QLabel *sourceLabel = new QLabel(i18n("English term:"), &dialog);
+    QLineEdit *sourceEdit = new QLineEdit(&dialog);
+    mainLayout->addWidget(sourceLabel);
+    mainLayout->addWidget(sourceEdit);
+    mainLayout->addSpacing(4);
+    QLabel *targetLabel = new QLabel(i18n("Target term:"), &dialog);
+    QLineEdit *targetEdit = new QLineEdit(&dialog);
+    mainLayout->addWidget(targetLabel);
+    mainLayout->addWidget(targetEdit);
+    QPushButton *okButton = new QPushButton(i18n("OK"), &dialog);
+    okButton->setDefault(true);
+    QPushButton *cancelButton = new QPushButton(i18n("Cancel"), &dialog);
+    QHBoxLayout *buttonLayout = new QHBoxLayout();
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(okButton);
+    buttonLayout->addWidget(cancelButton);
+    mainLayout->addSpacing(8);
+    mainLayout->addLayout(buttonLayout);
+    connect(okButton, &QPushButton::clicked, &dialog, &QDialog::accept);
+    connect(cancelButton, &QPushButton::clicked, &dialog, &QDialog::reject);
 
     if (dialog.exec() == QDialog::Accepted) {
         QString sourceText = sourceEdit->text().trimmed();
