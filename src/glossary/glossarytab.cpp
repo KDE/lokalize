@@ -305,6 +305,7 @@ void GlossaryTab::newTermEntry()
     dialog.setWindowTitle(i18nc("@title:window", "Add New Term"));
     dialog.setMinimumWidth(400);
     QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
+    mainLayout->setAlignment(Qt::AlignTop);
     QLabel *noteLabel =
         new QLabel(i18n(" <b>Note:</b> Glossary entries represent individual meanings of a word. Words with multiple meanings should have separate "
                         "glossary entries, each corresponding to a specific definition."),
