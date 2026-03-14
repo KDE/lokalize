@@ -274,7 +274,6 @@ target_link_libraries(liblokalize
     KF6::ConfigWidgets
     KF6::ColorScheme
     Qt::Sql
-    KDAB::kddockwidgets
 )
 if(USE_DBUS)
 target_link_libraries(liblokalize
