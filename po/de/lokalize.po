@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-12 00:47+0000\n"
-"PO-Revision-Date: 2026-02-24 22:34+0100\n"
-"Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
+"PO-Revision-Date: 2026-03-10 23:31+0100\n"
+"Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.03.70\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1057,11 +1057,10 @@ msgid "Insert alternate translation #%1"
 msgstr "Alternative Übersetzung #%1 einfügen"
 
 #: src/editortab.cpp:202
-#, fuzzy, kde-format
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "Alternative Übersetzungen"
+msgstr "Alternative Übersetzungsdatei anhängen …"
 
 #: src/editortab.cpp:268
 #, kde-format
@@ -1094,23 +1093,22 @@ msgid "Define New Term"
 msgstr "Neuen Begriff festlegen"
 
 #: src/editortab.cpp:370
-#, fuzzy, kde-format
-#| msgid "Save"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Save All"
-msgstr "Speichern"
+msgstr "Alle speichern"
 
 #: src/editortab.cpp:376
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Revert All"
-msgstr ""
+msgstr "Alle zurücksetzen"
 
 #: src/editortab.cpp:384
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
-msgstr ""
+msgstr "Alle schließen"
 
 #: src/editortab.cpp:399
 #, kde-format
@@ -1611,12 +1609,10 @@ msgid "Word Count"
 msgstr "Wortzählung"
 
 #: src/editortab.cpp:1419
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "Alternative Übersetzungen"
+msgstr "Alternative Übersetzungsdatei anhängen"
 
 #: src/editortab.cpp:1517
 #, kde-format
@@ -2044,6 +2040,9 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"Speichern des Glossars fehlgeschlagen\n"
+"%1\n"
+"Details: %2"
 
 #: src/glossary/glossary.cpp:667
 #, kde-format
@@ -2085,25 +2084,20 @@ msgid "Remove selected glossary entry"
 msgstr "Ausgewählten Glossareintrag entfernen"
 
 #: src/glossary/glossarytab.cpp:306
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define New Term"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Term"
-msgstr "Neuen Begriff festlegen"
+msgstr "Neuen Begriff hinzufügen"
 
 #: src/glossary/glossarytab.cpp:315
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "English"
+#, kde-format
 msgid "English Term:"
-msgstr "Englisch"
+msgstr "Englischer Begriff:"
 
 #: src/glossary/glossarytab.cpp:316
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgid "Target Term:"
-msgstr "Zielsprache:"
+msgstr "Zielbegriff:"
 
 #: src/glossary/glossaryview.cpp:32 src/glossary/glossaryview.cpp:39
 #, kde-format
