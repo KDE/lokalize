@@ -305,20 +305,16 @@ void GlossaryTab::newTermEntry()
     dialog.setWindowTitle(i18nc("@title:window", "Add New Term"));
     dialog.setMinimumWidth(400);
     QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
-    mainLayout->setAlignment(Qt::AlignTop);
-    QLabel *noteLabel =
-        new QLabel(i18n(" <b>Note:</b> Glossary entries represent individual meanings of a word. Words with multiple meanings should have separate "
-                        "glossary entries, each corresponding to a specific definition."),
-                   &dialog);
+    QLabel *noteLabel = new QLabel(i18n("Glossary entries represent individual meanings of a word. Words with multiple meanings should have separate "
+                                        "glossary entries, each corresponding to a specific definition."),
+                                   &dialog);
     noteLabel->setWordWrap(true);
-    noteLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     mainLayout->addWidget(noteLabel);
-    mainLayout->addSpacing(4);
+    mainLayout->addSpacing(style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing));
     QLabel *sourceLabel = new QLabel(i18n("English term:"), &dialog);
     QLineEdit *sourceEdit = new QLineEdit(&dialog);
     mainLayout->addWidget(sourceLabel);
     mainLayout->addWidget(sourceEdit);
-    mainLayout->addSpacing(4);
     QLabel *targetLabel = new QLabel(i18n("Target term:"), &dialog);
     QLineEdit *targetEdit = new QLineEdit(&dialog);
     mainLayout->addWidget(targetLabel);
@@ -330,8 +326,8 @@ void GlossaryTab::newTermEntry()
     buttonLayout->addStretch();
     buttonLayout->addWidget(okButton);
     buttonLayout->addWidget(cancelButton);
-    mainLayout->addSpacing(8);
     mainLayout->addLayout(buttonLayout);
+    mainLayout->addStretch();
     connect(okButton, &QPushButton::clicked, &dialog, &QDialog::accept);
     connect(cancelButton, &QPushButton::clicked, &dialog, &QDialog::reject);
 
