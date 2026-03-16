@@ -73,6 +73,12 @@ EditorView::EditorView(QWidget *parent, Catalog *catalog)
     , m_targetTextEdit(new TranslationUnitTextEdit(catalog, DocPosition::Target, this))
     , m_pluralTabBar(new QTabBar(this))
 {
+    m_sourceTextEdit->setObjectName(QStringLiteral("SourceTextEdit"));
+    m_sourceTextEdit->setAccessibleName(QStringLiteral("source-text-edit"));
+    m_targetTextEdit->setObjectName(QStringLiteral("TargetTextEdit"));
+    m_targetTextEdit->setAccessibleName(QStringLiteral("target-text-edit"));
+    setObjectName(QStringLiteral("EditorView"));
+    setAccessibleName(QStringLiteral("editor-view"));
     m_pluralTabBar->hide();
     m_sourceTextEdit->setWhatsThis(
         i18n("<qt><p><b>Original String</b></p>\n"

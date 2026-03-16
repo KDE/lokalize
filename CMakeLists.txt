@@ -64,6 +64,11 @@ add_subdirectory(src)
 add_subdirectory(icons)
 add_subdirectory(autotests)
 
+option(BUILD_APPIUM_TESTS "Build and register Appium UI tests" OFF)
+if(BUILD_APPIUM_TESTS)
+    add_subdirectory(appiumtests)
+endif()
+
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h *.hpp *.c)
 kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})
 

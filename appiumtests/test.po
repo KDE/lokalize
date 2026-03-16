@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2026 Vishesh <visheshkratos@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: Test 1.0\n"
+"Language: hi\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: vishesh <s@d>\n"
+"PO-Revision-Date: 2026-03-03 18:18+0530\n"
+"Language-Team: English <kde-i18n-doc@kde.org>\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"X-Generator: Lokalize 26.03.70\n"
+
+#: main.cpp:10
+msgid "Hello, world!"
+msgstr ""
+
+#: main.cpp:11
+msgid "Goodbye!"
+msgstr ""
