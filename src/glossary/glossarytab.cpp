@@ -319,17 +319,11 @@ void GlossaryTab::newTermEntry()
     QLineEdit *targetEdit = new QLineEdit(&dialog);
     mainLayout->addWidget(targetLabel);
     mainLayout->addWidget(targetEdit);
-    QPushButton *okButton = new QPushButton(i18n("OK"), &dialog);
-    okButton->setDefault(true);
-    QPushButton *cancelButton = new QPushButton(i18n("Cancel"), &dialog);
-    QHBoxLayout *buttonLayout = new QHBoxLayout();
-    buttonLayout->addStretch();
-    buttonLayout->addWidget(okButton);
-    buttonLayout->addWidget(cancelButton);
-    mainLayout->addLayout(buttonLayout);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    mainLayout->addWidget(buttonBox);
     mainLayout->addStretch();
-    connect(okButton, &QPushButton::clicked, &dialog, &QDialog::accept);
-    connect(cancelButton, &QPushButton::clicked, &dialog, &QDialog::reject);
+    connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
 
     if (dialog.exec() == QDialog::Accepted) {
         QString sourceText = sourceEdit->text().trimmed();
