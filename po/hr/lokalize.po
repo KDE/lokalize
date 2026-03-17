@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-12 00:47+0000\n"
+"POT-Creation-Date: 2026-03-17 00:46+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -1827,7 +1827,7 @@ msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "Stupac: %1"
 
-#: src/editorview.cpp:78
+#: src/editorview.cpp:84
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1838,13 +1838,13 @@ msgstr ""
 "<p>Ovo je dio prozora koji prikazuje originalnu poruku\n"
 "trenutno prikazanog unosa.</p></qt>"
 
-#: src/editorview.cpp:169
+#: src/editorview.cpp:175
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Množinska forma %1"
 
-#: src/editorview.cpp:233
+#: src/editorview.cpp:239
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

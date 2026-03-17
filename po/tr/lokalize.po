@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-12 00:47+0000\n"
+"POT-Creation-Date: 2026-03-17 00:46+0000\n"
 "PO-Revision-Date: 2026-03-09 18:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -1820,7 +1820,7 @@ msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "Sütun: %1"
 
-#: src/editorview.cpp:78
+#: src/editorview.cpp:84
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1831,13 +1831,13 @@ msgstr ""
 "<p>Pencerenin bu bölümü şimdi gösterilen girdiye ait iletinin aslını "
 "gösterir.</p></qt>"
 
-#: src/editorview.cpp:169
+#: src/editorview.cpp:175
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Çoğul Biçim %1"
 
-#: src/editorview.cpp:233
+#: src/editorview.cpp:239
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

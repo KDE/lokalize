@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-12 00:47+0000\n"
+"POT-Creation-Date: 2026-03-17 00:46+0000\n"
 "PO-Revision-Date: 2026-02-28 23:48+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -1857,7 +1857,7 @@ msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "Coloana: %1"
 
-#: src/editorview.cpp:78
+#: src/editorview.cpp:84
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1868,13 +1868,13 @@ msgstr ""
 "<p>Această parte a ferestrei arată mesajul original\n"
 "al înregistrării afișate acum.</p></qt>"
 
-#: src/editorview.cpp:169
+#: src/editorview.cpp:175
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "Forma de plural %1"
 
-#: src/editorview.cpp:233
+#: src/editorview.cpp:239
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

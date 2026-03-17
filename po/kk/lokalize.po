@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-12 00:47+0000\n"
+"POT-Creation-Date: 2026-03-17 00:46+0000\n"
 "PO-Revision-Date: 2013-06-27 04:19+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -1918,7 +1918,7 @@ msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "Баған: %1"
 
-#: src/editorview.cpp:78
+#: src/editorview.cpp:84
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1928,13 +1928,13 @@ msgstr ""
 "<qt><p><b>Түпнұсқа жазуы</b></p>\n"
 "<p>Бұл бөлігінде назардағы аударатын жазу орналасады.</p></qt>"
 
-#: src/editorview.cpp:169
+#: src/editorview.cpp:175
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "%1-көптік жалғау"
 
-#: src/editorview.cpp:233
+#: src/editorview.cpp:239
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

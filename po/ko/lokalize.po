@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-12 00:47+0000\n"
+"POT-Creation-Date: 2026-03-17 00:46+0000\n"
 "PO-Revision-Date: 2026-02-04 00:01+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1777,7 +1777,7 @@ msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "열: %1"
 
-#: src/editorview.cpp:78
+#: src/editorview.cpp:84
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1787,13 +1787,13 @@ msgstr ""
 "<qt><p><b>원문</b></p>\n"
 "<p>이 부분은 현재 표시된 항목의 원문을 표시합니다.</p></qt>"
 
-#: src/editorview.cpp:169
+#: src/editorview.cpp:175
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "복수 형태 %1"
 
-#: src/editorview.cpp:233
+#: src/editorview.cpp:239
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

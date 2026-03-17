@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-12 00:47+0000\n"
+"POT-Creation-Date: 2026-03-17 00:46+0000\n"
 "PO-Revision-Date: 2024-07-21 22:25-0500\n"
 "Last-Translator: aalam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -1801,7 +1801,7 @@ msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "ਕਾਲਮ: %1"
 
-#: src/editorview.cpp:78
+#: src/editorview.cpp:84
 #, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1812,13 +1812,13 @@ msgstr ""
 "<p>ਵਿੰਡੋ ਦਾ ਇਹ ਭਾਗ ਇਸ ਸਮੇਂ ਵੇਖਾਈ ਜਾ ਰਹੀ ਐਂਟਰੀ ਦਾ ਅਸਲੀ\n"
 "ਸੁਨੇਹਾ ਵੇਖਾਉਂਦਾ ਹੈ।</p></qt>"
 
-#: src/editorview.cpp:169
+#: src/editorview.cpp:175
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "ਬਹੁ-ਵਚਨ ਫਾਰਮ %1"
 
-#: src/editorview.cpp:233
+#: src/editorview.cpp:239
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"

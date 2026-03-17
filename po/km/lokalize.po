@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-12 00:47+0000\n"
+"POT-Creation-Date: 2026-03-17 00:46+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1833,7 +1833,7 @@ msgctxt "@info:label cursor position"
 msgid "Column: %1"
 msgstr "ជួរឈរ​ ៖​ %1"
 
-#: src/editorview.cpp:78
+#: src/editorview.cpp:84
 #, fuzzy, kde-format
 msgid ""
 "<qt><p><b>Original String</b></p>\n"
@@ -1844,13 +1844,13 @@ msgstr ""
 "<p>ចំណែក​នៃបង្អួចនេះ​បង្ហាញ​សារដើម​\n"
 "​នៃ​ធាតុ​ដែល​បាន​បង្ហាញ​បច្ចុប្បន្ន​ ។​</p></qt>"
 
-#: src/editorview.cpp:169
+#: src/editorview.cpp:175
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "សំណុំបែបបទ​ច្រើន​​ %1"
 
-#: src/editorview.cpp:233
+#: src/editorview.cpp:239
 #, fuzzy, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
