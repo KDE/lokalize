@@ -26,12 +26,14 @@
 #include <QAbstractItemModel>
 #include <QApplication>
 #include <QDialog>
+#include <QDialogButtonBox>
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QShortcut>
+#include <QSizePolicy>
 #include <QSortFilterProxyModel>
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -309,6 +311,7 @@ void GlossaryTab::newTermEntry()
                                         "glossary entries, each corresponding to a specific definition."),
                                    &dialog);
     noteLabel->setWordWrap(true);
+    noteLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
     mainLayout->addWidget(noteLabel);
     mainLayout->addSpacing(style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing));
     QLabel *sourceLabel = new QLabel(i18n("English term:"), &dialog);
@@ -319,9 +322,9 @@ void GlossaryTab::newTermEntry()
     QLineEdit *targetEdit = new QLineEdit(&dialog);
     mainLayout->addWidget(targetLabel);
     mainLayout->addWidget(targetEdit);
+    mainLayout->addStretch();
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
     mainLayout->addWidget(buttonBox);
-    mainLayout->addStretch();
     connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
 
