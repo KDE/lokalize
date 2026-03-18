@@ -27,12 +27,13 @@
 #include <QApplication>
 #include <QDialog>
 #include <QDialogButtonBox>
-#include <QFormLayout>
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QShortcut>
+#include <QSizePolicy>
 #include <QSortFilterProxyModel>
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -307,14 +308,22 @@ void GlossaryTab::newTermEntry()
     dialog.setMinimumWidth(400);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
-    QFormLayout *formLayout = new QFormLayout();
-
+    QLabel *noteLabel = new QLabel(i18n("Glossary entries represent individual meanings of a word. Words with multiple meanings should have separate "
+                                        "glossary entries, each corresponding to a specific definition."),
+                                   &dialog);
+    noteLabel->setWordWrap(true);
+    noteLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    mainLayout->addWidget(noteLabel);
+    mainLayout->addSpacing(style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing));
+    QLabel *sourceLabel = new QLabel(i18n("English term:"), &dialog);
     QLineEdit *sourceEdit = new QLineEdit(&dialog);
+    mainLayout->addWidget(sourceLabel);
+    mainLayout->addWidget(sourceEdit);
+    QLabel *targetLabel = new QLabel(i18n("Target term:"), &dialog);
     QLineEdit *targetEdit = new QLineEdit(&dialog);
-
-    formLayout->addRow(i18n("English Term:"), sourceEdit);
-    formLayout->addRow(i18n("Target Term:"), targetEdit);
-    mainLayout->addLayout(formLayout);
+    mainLayout->addWidget(targetLabel);
+    mainLayout->addWidget(targetEdit);
+    mainLayout->addStretch();
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
     mainLayout->addWidget(buttonBox);
 
