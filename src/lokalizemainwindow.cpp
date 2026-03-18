@@ -480,8 +480,8 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     FileToEditor::const_iterator i = m_fileToEditor.constBegin();
     while (i != m_fileToEditor.constEnd()) {
         if (i.key().endsWith(fnSlashed)) {
-            static_cast<EditorTab *>(i.value())->setFullPathShown(true);
-            newEditorTab->setFullPathShown(true);
+            static_cast<EditorTab *>(i.value())->setDirectoryShown(true);
+            newEditorTab->setDirectoryShown(true);
         }
         ++i;
     }

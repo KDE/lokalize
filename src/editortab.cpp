@@ -731,9 +731,9 @@ void EditorTab::setProperFocus()
     m_view->setProperFocus();
 }
 
-void EditorTab::setFullPathShown(bool fullPathShown)
+void EditorTab::setDirectoryShown(bool directoryShown)
 {
-    m_fullPathShown = fullPathShown;
+    m_directoryShown = directoryShown;
 
     updateCaptionPath();
     updateTabLabelAndIcon();
@@ -742,8 +742,7 @@ void EditorTab::setFullPathShown(bool fullPathShown)
 void EditorTab::updateTabLabelAndIcon()
 {
     m_tabIcon = isClean() ? m_defaultTabIcon : m_unsavedTabIcon;
-    m_tabToolTip = m_catalog->url();
-    m_tabLabel = m_relativeOrAbsoluteFilePath;
+    updateCaptionPath();
     if (m_catalog->autoSaveRecovered())
         m_tabLabel += i18nc("editor tab title addition", " (recovered)");
 
@@ -754,19 +753,35 @@ void EditorTab::updateCaptionPath()
 {
     QString url = m_catalog->url();
     m_tabToolTip = url;
+
+    if (!m_directoryShown) {
+        m_tabLabel = QFileInfo(url).fileName();
+        return;
+    }
+
+    QString fileName = QFileInfo(url).fileName();
+    QString dirPath;
+
     if (!m_project->isLoaded()) {
-        m_relativeOrAbsoluteFilePath = url;
-        return;
+        dirPath = QFileInfo(url).dir().dirName();
+    } else {
+        QString relPath = QDir(QFileInfo(m_project->path()).absolutePath()).relativeFilePath(url);
+
+        if (relPath.contains(QLatin1String("../.."))) {
+            dirPath = QFileInfo(url).dir().dirName();
+        } else if (relPath.startsWith(QLatin1String("./"))) {
+            relPath = relPath.mid(2);
+            dirPath = QFileInfo(relPath).path();
+        } else {
+            dirPath = QFileInfo(relPath).path();
+        }
     }
-    if (!m_fullPathShown) {
-        m_relativeOrAbsoluteFilePath = QFileInfo(url).fileName();
-        return;
+
+    if (dirPath == QLatin1String(".")) {
+        m_tabLabel = fileName;
+    } else {
+        m_tabLabel = fileName + QStringLiteral(" — ") + dirPath;
     }
-    m_relativeOrAbsoluteFilePath = QDir(QFileInfo(m_project->path()).absolutePath()).relativeFilePath(url);
-    if (m_relativeOrAbsoluteFilePath.contains(QLatin1String("../..")))
-        m_relativeOrAbsoluteFilePath = url;
-    else if (m_relativeOrAbsoluteFilePath.startsWith(QLatin1String("./")))
-        m_relativeOrAbsoluteFilePath = m_relativeOrAbsoluteFilePath.mid(2);
 }
 
 bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, EditorTab *> openedFiles, bool silent)

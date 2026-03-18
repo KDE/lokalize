@@ -125,7 +125,7 @@ public:
 
     // interface for LokalizeMainWindow
     QString currentFilePath() override;
-    void setFullPathShown(bool);
+    void setDirectoryShown(bool);
     void updateStatusBarContents() override;
 
 public Q_SLOTS:
@@ -388,7 +388,7 @@ private:
     bool m_currentIsApproved{true}; // for statusbar animation
     bool m_currentIsUntr{true}; // for statusbar animation
 
-    bool m_fullPathShown{};
+    bool m_directoryShown{};
 
     bool m_doReplaceCalled{}; // used to prevent non-clean catalog status
     KFind *m_find{};
@@ -403,8 +403,6 @@ private:
     AltTransView *m_alternateTranslationView{};
     TM::TMView *m_translationMemoryView{};
     // END views
-
-    QString m_relativeOrAbsoluteFilePath;
 
     bool m_srcFileOpenRequestAccepted{};
 
