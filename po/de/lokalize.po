@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-17 00:46+0000\n"
-"PO-Revision-Date: 2026-03-10 23:31+0100\n"
+"PO-Revision-Date: 2026-03-14 09:43+0100\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1594,7 +1594,7 @@ msgid ""
 "Do you really want to clear all translated entries?"
 msgstr ""
 "Damit werden alle Übersetzungen aus der Datei gelöscht.\n"
-"Möchten Sie wirklich die Übersetzungen alle Einträge entfernen?"
+"Möchten Sie wirklich die Übersetzungen aller Einträge entfernen?"
 
 #: src/editortab.cpp:1412
 #, kde-format
