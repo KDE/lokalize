@@ -90,7 +90,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     m_mainTabs->setMovable(true);
     m_mainTabs->setTabsClosable(true);
     m_mainTabs->tabBar()->installEventFilter(this);
-    previousActiveTabIndex = -1;
+    previousActiveTab = nullptr;
 
     connect(m_mainTabs, &QTabWidget::tabCloseRequested, this, &LokalizeMainWindow::queryAndCloseTabAtIndex);
     connect(m_mainTabs, &QTabWidget::currentChanged, this, &LokalizeMainWindow::activateTabAtIndex);
@@ -213,8 +213,20 @@ LokalizeMainWindow::~LokalizeMainWindow()
 
 bool LokalizeMainWindow::eventFilter(QObject *object, QEvent *event)
 {
+    // Set pointer to previous active tab when user clicks
+    if (object == m_mainTabs->tabBar()) {
+        if (event->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+            if (mouseEvent->button() == Qt::LeftButton) {
+                int clickedTabIndex = m_mainTabs->tabBar()->tabAt(mouseEvent->pos());
+                if (clickedTabIndex != -1 && clickedTabIndex != m_mainTabs->currentIndex()) {
+                    previousActiveTab = m_mainTabs->currentWidget();
+                }
+            }
+        }
+    }
     // Handle middle button click events on the tab bar
-    if (object == m_mainTabs->tabBar() && event->type() == QEvent::MouseButtonRelease) {
+    else if (object == m_mainTabs->tabBar() && event->type() == QEvent::MouseButtonRelease) {
         QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
         if (mouseEvent->button() == Qt::MiddleButton) {
             int tabIndex = m_mainTabs->tabBar()->tabAt(mouseEvent->pos());
@@ -252,11 +264,9 @@ void LokalizeMainWindow::activateTabAtIndex(int i)
     else
         showTabs();
 
-    int indexPriorToSwitching = m_mainTabs->currentIndex();
     m_mainTabs->setCurrentIndex(i);
     m_statusBar->clear();
     m_statusBar->disconnectSignals();
-    previousActiveTabIndex = indexPriorToSwitching;
 
     if (m_projectTab && m_mainTabs->indexOf(m_projectTab) == i) {
         m_statusBar->connectSignals(m_projectTab);
@@ -344,8 +354,10 @@ void LokalizeMainWindow::activateTabToRightOfCurrent()
 
 void LokalizeMainWindow::activatePreviousTab()
 {
-    if (m_mainTabs->count() > 1 && previousActiveTabIndex >= 0) {
-        activateTabAtIndex(previousActiveTabIndex);
+    if (m_mainTabs->count() > 1 && previousActiveTab) {
+        QWidget *tabToActivate = previousActiveTab;
+        previousActiveTab = m_mainTabs->currentWidget();
+        activateTabByPageWidget(tabToActivate);
     }
 }
 
@@ -1194,6 +1206,11 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
     if (m_mainTabs->currentIndex() == index) {
         m_activeTabPageKeyboardShortcuts = nullptr;
     }
+
+    if (previousActiveTab && m_mainTabs->widget(index) == previousActiveTab) {
+        previousActiveTab = nullptr;
+    }
+
     m_mainTabs->removeTab(index);
 
     if (m_mainTabs->count() == 0) {
