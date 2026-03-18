@@ -306,12 +306,13 @@ void GlossaryTab::newTermEntry()
     QDialog dialog(this);
     dialog.setWindowTitle(i18nc("@title:window", "Add New Term"));
     dialog.setMinimumWidth(400);
+
     QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
     QLabel *noteLabel = new QLabel(i18n("Glossary entries represent individual meanings of a word. Words with multiple meanings should have separate "
                                         "glossary entries, each corresponding to a specific definition."),
                                    &dialog);
     noteLabel->setWordWrap(true);
-    noteLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+    noteLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     mainLayout->addWidget(noteLabel);
     mainLayout->addSpacing(style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing));
     QLabel *sourceLabel = new QLabel(i18n("English term:"), &dialog);
@@ -325,6 +326,7 @@ void GlossaryTab::newTermEntry()
     mainLayout->addStretch();
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
     mainLayout->addWidget(buttonBox);
+
     connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
 
