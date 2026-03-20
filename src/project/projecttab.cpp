@@ -154,7 +154,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     action->setCheckable(true);
     action->setChecked(Settings::expandUntranslatedFolders());
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_U));
-    connect(action, &QAction::triggered, this, &ProjectTab::toggleExpandUntranslatedFolders);
+    connect(action, &QAction::triggered, m_browser, &ProjectWidget::toggleExpandUntranslatedFolders);
 
     action = nav->addAction(KStandardActions::Find, this, &ProjectTab::findTriggered);
 
@@ -163,11 +163,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     action = proj->addAction(QStringLiteral("project_open"), this, qOverload<>(&ProjectTab::projectOpenRequested));
     action->setText(i18nc("@action:inmenu", "Open Project…"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
-}
-
-void ProjectTab::toggleExpandUntranslatedFolders()
-{
-    m_browser->toggleExpandUntranslatedFolders();
 }
 
 QString ProjectTab::currentFilePath()
