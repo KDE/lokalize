@@ -147,6 +147,15 @@ ProjectTab::ProjectTab(QWidget *parent)
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_T));
     connect(action, &QAction::triggered, m_browser, &ProjectWidget::toggleTranslatedFiles);
 
+    action = nav->addAction(QStringLiteral("expand_untranslated_folders"));
+    action->setText(i18nc("@action:inmenu", "Expand Untranslated Folders"));
+    action->setToolTip(i18nc("@action:inmenu", "Open the directory tree to untranslated files"));
+    action->setIcon(QIcon::fromTheme(QStringLiteral("view-list-tree")));
+    action->setCheckable(true);
+    action->setChecked(Settings::expandUntranslatedFolders());
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_U));
+    connect(action, &QAction::triggered, this, &ProjectTab::toggleExpandUntranslatedFolders);
+
     action = nav->addAction(KStandardActions::Find, this, &ProjectTab::findTriggered);
 
     KActionCategory *proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
@@ -154,6 +163,11 @@ ProjectTab::ProjectTab(QWidget *parent)
     action = proj->addAction(QStringLiteral("project_open"), this, qOverload<>(&ProjectTab::projectOpenRequested));
     action->setText(i18nc("@action:inmenu", "Open Project…"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
+}
+
+void ProjectTab::toggleExpandUntranslatedFolders()
+{
+    m_browser->toggleExpandUntranslatedFolders();
 }
 
 QString ProjectTab::currentFilePath()

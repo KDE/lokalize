@@ -121,14 +121,16 @@ QString PoItemDelegate::displayText(const QVariant &value, [[maybe_unused]] cons
 
 ProjectOverviewSortFilterProxyModel::ProjectOverviewSortFilterProxyModel(QObject *parent)
     : KDirSortFilterProxyModel(parent)
+    , m_hideTranslatedFiles(Settings::hideCompletedItems())
+    , m_expandUntranslatedFolders(Settings::expandUntranslatedFolders())
 {
     connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectOverviewSortFilterProxyModel::invalidate);
-    m_hideTranslatedFiles = Settings::hideCompletedItems();
 }
 
 ProjectOverviewSortFilterProxyModel::~ProjectOverviewSortFilterProxyModel()
 {
     Settings::setHideCompletedItems(m_hideTranslatedFiles);
+    Settings::setExpandUntranslatedFolders(m_expandUntranslatedFolders);
     Settings::self()->save();
 }
 
@@ -137,6 +139,11 @@ void ProjectOverviewSortFilterProxyModel::toggleTranslatedFiles()
     beginFilterChange();
     m_hideTranslatedFiles = !m_hideTranslatedFiles;
     endFilterChange(Direction::Rows);
+}
+
+void ProjectOverviewSortFilterProxyModel::toggleExpandUntranslatedFolders()
+{
+    m_expandUntranslatedFolders = !m_expandUntranslatedFolders;
 }
 
 bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
@@ -517,6 +524,10 @@ void ProjectWidget::gotoNextTransOnly()
 void ProjectWidget::toggleTranslatedFiles()
 {
     m_proxyModel->toggleTranslatedFiles();
+}
+void ProjectWidget::toggleExpandUntranslatedFolders()
+{
+    m_proxyModel->toggleExpandUntranslatedFolders();
 }
 
 QSortFilterProxyModel *ProjectWidget::proxyModel()

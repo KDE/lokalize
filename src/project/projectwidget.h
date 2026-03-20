@@ -51,6 +51,7 @@ public:
     void gotoPrevTransOnly();
     void gotoNextTransOnly();
     void toggleTranslatedFiles();
+    void toggleExpandUntranslatedFolders();
 
 Q_SIGNALS:
     void fileOpenRequested(const QString &, const bool setAsActive);
@@ -85,6 +86,7 @@ public:
     ~ProjectOverviewSortFilterProxyModel();
 
     void toggleTranslatedFiles();
+    void toggleExpandUntranslatedFolders();
     /**
      * @short Filter the list of files and dirs by their relative path from the project root.
      *
@@ -101,6 +103,7 @@ protected:
 
 private:
     bool m_hideTranslatedFiles = false;
+    bool m_expandUntranslatedFolders = false;
 };
 
 #endif

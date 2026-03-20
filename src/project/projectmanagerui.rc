@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="ProjectOverview" version="6">
+<gui name="ProjectOverview" version="7">
     <MenuBar>
         <Menu name="go" index="3">
             <text>&amp;Go</text>
@@ -19,6 +19,7 @@
         <Menu name="settings" index="7">
             <Separator />
             <Action name="toggle_translated_files" />
+            <Action name="expand_untranslated_folders" />
         </Menu>
         <Menu name="edit" index="2">
             <text>&amp;Edit</text>
@@ -36,5 +37,6 @@
         <Action name="go_next_fuzzyUntr" />
         <Separator />
         <Action name="toggle_translated_files" />
+        <Action name="expand_untranslated_folders" />
     </ToolBar>
 </gui>
