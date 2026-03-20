@@ -134,8 +134,9 @@ ProjectOverviewSortFilterProxyModel::~ProjectOverviewSortFilterProxyModel()
 
 void ProjectOverviewSortFilterProxyModel::toggleTranslatedFiles()
 {
+    beginFilterChange();
     m_hideTranslatedFiles = !m_hideTranslatedFiles;
-    invalidateFilter();
+    endFilterChange(Direction::Rows);
 }
 
 bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
