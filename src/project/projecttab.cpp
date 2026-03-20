@@ -145,7 +145,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     action->setCheckable(true);
     action->setChecked(Settings::hideCompletedItems());
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_T));
-    connect(action, &QAction::triggered, this, &ProjectTab::toggleTranslatedFiles);
+    connect(action, &QAction::triggered, m_browser, &ProjectWidget::toggleTranslatedFiles);
 
     action = nav->addAction(KStandardActions::Find, this, &ProjectTab::findTriggered);
 
@@ -154,11 +154,6 @@ ProjectTab::ProjectTab(QWidget *parent)
     action = proj->addAction(QStringLiteral("project_open"), this, qOverload<>(&ProjectTab::projectOpenRequested));
     action->setText(i18nc("@action:inmenu", "Open Project…"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
-}
-
-void ProjectTab::toggleTranslatedFiles()
-{
-    m_browser->toggleTranslatedFiles();
 }
 
 QString ProjectTab::currentFilePath()
