@@ -143,7 +143,9 @@ void ProjectOverviewSortFilterProxyModel::toggleTranslatedFiles()
 
 void ProjectOverviewSortFilterProxyModel::toggleExpandUntranslatedFolders()
 {
+    beginFilterChange();
     m_expandUntranslatedFolders = !m_expandUntranslatedFolders;
+    endFilterChange();
 }
 
 bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
