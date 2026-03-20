@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:49+0000\n"
-"PO-Revision-Date: 2026-03-09 00:56+0100\n"
+"PO-Revision-Date: 2026-03-19 12:01+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -2103,16 +2103,18 @@ msgid ""
 "multiple meanings should have separate glossary entries, each corresponding "
 "to a specific definition."
 msgstr ""
+"Las entradas del glosario representan significados individuales de una "
+"palabra. Las palabras con múltiples significados deberían tener distintas "
+"entradas en el glosario, cada una de ellas correspondiente a una determinada "
+"definición."
 
 #: src/glossary/glossarytab.cpp:318
-#, fuzzy, kde-format
-#| msgid "English Term:"
+#, kde-format
 msgid "English term:"
 msgstr "Término en inglés:"
 
 #: src/glossary/glossarytab.cpp:322
-#, fuzzy, kde-format
-#| msgid "Target Term:"
+#, kde-format
 msgid "Target term:"
 msgstr "Término traducido:"
 
@@ -4687,16 +4689,3 @@ msgstr "Se ha informado de un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copiar el origen al destino"
-
-#~ msgid ""
-#~ "Note: one glossary entry corresponds exactly to one term, not word/word "
-#~ "sequence.\n"
-#~ "\n"
-#~ "That is, there may be several entries with the same word/word sequence "
-#~ "expressing different meanings."
-#~ msgstr ""
-#~ "Nota: una entrada de glosario se corresponde exactamente con un término, "
-#~ "no palabra/secuencia de palabras.\n"
-#~ "\n"
-#~ "Esto quiere decir que pueden existir varias entradas con la misma palabra/"
-#~ "secuencia de palabras que impliquen significados diferentes."

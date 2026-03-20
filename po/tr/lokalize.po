@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:49+0000\n"
-"PO-Revision-Date: 2026-03-09 18:34+0300\n"
+"PO-Revision-Date: 2026-03-19 14:49+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2078,16 +2078,17 @@ msgid ""
 "multiple meanings should have separate glossary entries, each corresponding "
 "to a specific definition."
 msgstr ""
+"Kavram dizini girdileri, bir sözcüğün ayrı ayrı anlamlarını temsil eder. "
+"Birden fazla anlamı olan sözcüklerin, her biri belirli bir tanıma karşılık "
+"gelen ayrı dizin girdileri olmalıdır."
 
 #: src/glossary/glossarytab.cpp:318
-#, fuzzy, kde-format
-#| msgid "English Term:"
+#, kde-format
 msgid "English term:"
 msgstr "İngilizce terim:"
 
 #: src/glossary/glossarytab.cpp:322
-#, fuzzy, kde-format
-#| msgid "Target Term:"
+#, kde-format
 msgid "Target term:"
 msgstr "Hedef terim:"
 

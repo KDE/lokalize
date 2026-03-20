@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:49+0000\n"
-"PO-Revision-Date: 2026-03-08 07:25-0300\n"
+"PO-Revision-Date: 2026-03-19 07:46-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2097,16 +2097,17 @@ msgid ""
 "multiple meanings should have separate glossary entries, each corresponding "
 "to a specific definition."
 msgstr ""
+"As entradas do glossário representam os significados individuais de uma "
+"palavra. Palavras com múltiplos significados devem ter entradas separadas no "
+"glossário, cada uma correspondendo a uma definição específica."
 
 #: src/glossary/glossarytab.cpp:318
-#, fuzzy, kde-format
-#| msgid "English Term:"
+#, kde-format
 msgid "English term:"
 msgstr "Termo em inglês:"
 
 #: src/glossary/glossarytab.cpp:322
-#, fuzzy, kde-format
-#| msgid "Target Term:"
+#, kde-format
 msgid "Target term:"
 msgstr "Termo de destino:"
 

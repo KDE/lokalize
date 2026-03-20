@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:49+0000\n"
-"PO-Revision-Date: 2026-03-08 18:34+0100\n"
+"PO-Revision-Date: 2026-03-19 10:59+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -2089,16 +2089,17 @@ msgid ""
 "multiple meanings should have separate glossary entries, each corresponding "
 "to a specific definition."
 msgstr ""
+"Entratas de glossario representa significatos individual de un parola. "
+"Parolas con multiple significatos deberea haber entratas de glossario "
+"separate, cata uncorrespondente a un definition specific."
 
 #: src/glossary/glossarytab.cpp:318
-#, fuzzy, kde-format
-#| msgid "English Term:"
+#, kde-format
 msgid "English term:"
 msgstr "Termino anglese:"
 
 #: src/glossary/glossarytab.cpp:322
-#, fuzzy, kde-format
-#| msgid "Target Term:"
+#, kde-format
 msgid "Target term:"
 msgstr "Termino Objectivo:"
 
