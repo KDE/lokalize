@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-19 00:49+0000\n"
+"POT-Creation-Date: 2026-03-21 00:47+0000\n"
 "PO-Revision-Date: 2024-09-20 09:57+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -834,7 +834,7 @@ msgstr "Επιλογές"
 msgid "Reset individual filter"
 msgstr "Καθαρισμός του συγκεκριμένου φίλτρου"
 
-#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:362
+#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Case insensitive"
 msgstr "Μη διάκριση πεζών/κεφαλαίων"
@@ -1641,19 +1641,19 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Η καταχώρηση είναι πλήρως μεταφρασμένη (τελική)"
 
-#: src/editortab.cpp:1367 src/project/projecttab.cpp:297
+#: src/editortab.cpp:1367 src/project/projecttab.cpp:292
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Ο έλεγχος Pology είναι ήδη σε εξέλιξη."
 
 #: src/editortab.cpp:1367 src/editortab.cpp:1375 src/editortab.cpp:1379
-#: src/project/projecttab.cpp:297 src/project/projecttab.cpp:305
-#: src/project/projecttab.cpp:309
+#: src/project/projecttab.cpp:292 src/project/projecttab.cpp:300
+#: src/project/projecttab.cpp:304
 #, kde-format
 msgid "Pology error"
 msgstr "Σφάλμα Pology"
 
-#: src/editortab.cpp:1375 src/project/projecttab.cpp:305
+#: src/editortab.cpp:1375 src/project/projecttab.cpp:300
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1662,7 +1662,7 @@ msgstr ""
 "Ο έλεγχος Pology κατέρρευσε απροσδόκητα:\n"
 "%1"
 
-#: src/editortab.cpp:1377 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1377 src/project/projecttab.cpp:302
 #, kde-format
 msgid "Pology success"
 msgstr "Επιτυχία Pology"
@@ -1672,7 +1672,7 @@ msgstr "Επιτυχία Pology"
 msgid "The Pology check has succeeded."
 msgstr "Ο έλεγχος Pology ήταν επιτυχής."
 
-#: src/editortab.cpp:1379 src/project/projecttab.cpp:309
+#: src/editortab.cpp:1379 src/project/projecttab.cpp:304
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -2049,17 +2049,17 @@ msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "Εύρεση και αντικατάσταση σε αρχεία"
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
+#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:399
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Αντιγραφή πηγής στο πρόχειρο"
 
-#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
+#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:405
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Αντιγραφή προορισμού στο πρόχειρο"
 
-#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
+#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:411
 #, kde-format
 msgid "Open file"
 msgstr "Άνοιγμα αρχείου"
@@ -2407,7 +2407,7 @@ msgstr "Η δυνατότητα μεταφραστικής μνήμης απαι
 msgid "No SQLite module available"
 msgstr "Δεν υπάρχει διαθέσιμο άρθρωμα SQLite"
 
-#: src/lokalizemainwindow.cpp:650 src/tm/tmtab.cpp:479
+#: src/lokalizemainwindow.cpp:650 src/tm/tmtab.cpp:480
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2455,7 +2455,7 @@ msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Μεταφραστική μνήμη"
 
-#: src/lokalizemainwindow.cpp:699 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:699 src/tm/tmtab.cpp:483
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Manage translation memories"
@@ -3064,7 +3064,7 @@ msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Εμφάνιση"
 
-#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:375
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:376
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
@@ -4175,71 +4175,71 @@ msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "Απόκρυψη πλήρως μεταφρασμένων αρχείων και φακέλων"
 
-#: src/project/projecttab.cpp:190
+#: src/project/projecttab.cpp:185
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Άνοιγμα επιλεγμένων αρχείων"
 
-#: src/project/projecttab.cpp:193
+#: src/project/projecttab.cpp:188
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "Άνοιγμα"
 
-#: src/project/projecttab.cpp:196
+#: src/project/projecttab.cpp:191
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Προσθήκη στη μεταφραστική μνήμη"
 
-#: src/project/projecttab.cpp:198
+#: src/project/projecttab.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "Αναζήτηση σε αρχεία"
 
-#: src/project/projecttab.cpp:199
+#: src/project/projecttab.cpp:194
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Προσθήκη σχολίου"
 
-#: src/project/projecttab.cpp:201
+#: src/project/projecttab.cpp:196
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr "Εκτέλεση Pology σε αρχεία"
 
-#: src/project/projecttab.cpp:204
+#: src/project/projecttab.cpp:199
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "Αναζήτηση σε αρχεία (και στα πρότυπα)"
 
-#: src/project/projecttab.cpp:231
+#: src/project/projecttab.cpp:226
 #, kde-format
 msgid "Project file comment"
 msgstr "Σχόλια αρχείου έργου"
 
-#: src/project/projecttab.cpp:231
+#: src/project/projecttab.cpp:226
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr "Εισαγωγή σχολίου για αυτό το αρχείο έργου:"
 
-#: src/project/projecttab.cpp:307
+#: src/project/projecttab.cpp:302
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Ο έλεγχος Pology ήταν επιτυχής"
 
-#: src/project/projecttab.cpp:326
+#: src/project/projecttab.cpp:321
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "Πρόκειται να ανοίξετε το %1 αρχείο"
 msgstr[1] "Πρόκειται να ανοίξετε τα %1 αρχεία"
 
-#: src/project/projecttab.cpp:327
+#: src/project/projecttab.cpp:322
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4248,12 +4248,12 @@ msgstr ""
 "Το άνοιγμα μεγάλου αριθμού αρχείων μπορεί, ορισμένες φορές, να κάνει το "
 "Lokalize να μην ανταποκρίνεται."
 
-#: src/project/projecttab.cpp:328
+#: src/project/projecttab.cpp:323
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "Θέλετε σίγουρα να ανοίξετε τόσα πολλά αρχεία;"
 
-#: src/project/projecttab.cpp:329
+#: src/project/projecttab.cpp:324
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
@@ -4578,45 +4578,45 @@ msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "Προορισμός: %1"
 
-#: src/tm/tmtab.cpp:356
+#: src/tm/tmtab.cpp:357
 #, kde-format
 msgid "Substring"
 msgstr "Υποσυμβολοσειρά"
 
-#: src/tm/tmtab.cpp:356
+#: src/tm/tmtab.cpp:357
 #, kde-format
 msgid "Google-like"
 msgstr "τύπου-Google"
 
-#: src/tm/tmtab.cpp:356
+#: src/tm/tmtab.cpp:357
 #, kde-format
 msgid "Wildcard"
 msgstr "Σύμβολο υποκατάστασης"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "Το κενό είναι τελεστής ΚΑΙ. Μη διάκριση πεζών/κεφαλαίων."
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:365
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Υποκαταστάτες κελύφους (* και ?). Διάκριση πεζών/κεφαλαίων."
 
-#: src/tm/tmtab.cpp:512
+#: src/tm/tmtab.cpp:513
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:514
 #, fuzzy, kde-format
 #| msgid "&Rescan project files"
 msgid "Rescan not possible"
 msgstr "&Επανασάρωση αρχείων έργου"
 
-#: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:622
+#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:622
 #, kde-format
 msgctxt "@info"
 msgid ""

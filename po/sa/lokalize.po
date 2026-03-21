@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-19 00:49+0000\n"
+"POT-Creation-Date: 2026-03-21 00:47+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -779,7 +779,7 @@ msgstr "विकल्पाः"
 msgid "Reset individual filter"
 msgstr "व्यक्तिगत फ़िल्टर पुनः सेट् करें"
 
-#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:362
+#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Case insensitive"
 msgstr "प्रकरणं असंवेदनशीलम्"
@@ -1586,19 +1586,19 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "प्रवेशः पूर्णतया स्थानीयकृतः (अर्थात् अन्तिमः) अस्ति ।"
 
-#: src/editortab.cpp:1367 src/project/projecttab.cpp:297
+#: src/editortab.cpp:1367 src/project/projecttab.cpp:292
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "पूर्वमेव Pology check प्रचलति।"
 
 #: src/editortab.cpp:1367 src/editortab.cpp:1375 src/editortab.cpp:1379
-#: src/project/projecttab.cpp:297 src/project/projecttab.cpp:305
-#: src/project/projecttab.cpp:309
+#: src/project/projecttab.cpp:292 src/project/projecttab.cpp:300
+#: src/project/projecttab.cpp:304
 #, kde-format
 msgid "Pology error"
 msgstr "क्षमायाचना त्रुटिः"
 
-#: src/editortab.cpp:1375 src/project/projecttab.cpp:305
+#: src/editortab.cpp:1375 src/project/projecttab.cpp:300
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1607,7 +1607,7 @@ msgstr ""
 "Pology check अप्रत्याशितरूपेण दुर्घटनाम् अभवत्:\n"
 "%1"
 
-#: src/editortab.cpp:1377 src/project/projecttab.cpp:307
+#: src/editortab.cpp:1377 src/project/projecttab.cpp:302
 #, kde-format
 msgid "Pology success"
 msgstr "Pology सफलता"
@@ -1617,7 +1617,7 @@ msgstr "Pology सफलता"
 msgid "The Pology check has succeeded."
 msgstr "Pology check सफला अभवत्।"
 
-#: src/editortab.cpp:1379 src/project/projecttab.cpp:309
+#: src/editortab.cpp:1379 src/project/projecttab.cpp:304
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1991,17 +1991,17 @@ msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "सञ्चिकासु अन्वेषणं कृत्वा प्रतिस्थापनं कुर्वन्तु"
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
+#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:399
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "स्रोतः क्लिप्बोर्ड् प्रति प्रतिलिख्यताम्"
 
-#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
+#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:405
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "लक्ष्यं क्लिप्बोर्ड् प्रति प्रतिलिख्यताम्"
 
-#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
+#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:411
 #, kde-format
 msgid "Open file"
 msgstr "सञ्चिकां उद्घाटयन्तु"
@@ -2343,7 +2343,7 @@ msgstr "TM सुविधायाः कृते SQLite Qt मॉड्यू
 msgid "No SQLite module available"
 msgstr "SQLite मॉड्यूल् उपलब्धं नास्ति"
 
-#: src/lokalizemainwindow.cpp:650 src/tm/tmtab.cpp:479
+#: src/lokalizemainwindow.cpp:650 src/tm/tmtab.cpp:480
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2391,7 +2391,7 @@ msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "अनुवाद स्मृति"
 
-#: src/lokalizemainwindow.cpp:699 src/tm/tmtab.cpp:482
+#: src/lokalizemainwindow.cpp:699 src/tm/tmtab.cpp:483
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Manage translation memories"
@@ -2998,7 +2998,7 @@ msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "स्वरूपम्‌"
 
-#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:375
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:376
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
@@ -4043,83 +4043,83 @@ msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "पूर्णतया अनुवादिताः सञ्चिकाः, पुटं च गोपयन्तु"
 
-#: src/project/projecttab.cpp:190
+#: src/project/projecttab.cpp:185
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "चयनितसञ्चिकाः उद्घाटयन्तु"
 
-#: src/project/projecttab.cpp:193
+#: src/project/projecttab.cpp:188
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "उद्घाटित"
 
-#: src/project/projecttab.cpp:196
+#: src/project/projecttab.cpp:191
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "अनुवादस्मृतौ योजयतु"
 
-#: src/project/projecttab.cpp:198
+#: src/project/projecttab.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "सञ्चिकासु अन्वेषणं कुर्वन्तु"
 
-#: src/project/projecttab.cpp:199
+#: src/project/projecttab.cpp:194
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "टिप्पणीं योजयन्तु"
 
-#: src/project/projecttab.cpp:201
+#: src/project/projecttab.cpp:196
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr "सञ्चिकासु Pology प्रारम्भं कुर्वन्तु"
 
-#: src/project/projecttab.cpp:204
+#: src/project/projecttab.cpp:199
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "सञ्चिकासु (टेम्पलेट् सहितम्) अन्वेषणं कुर्वन्तु ।"
 
-#: src/project/projecttab.cpp:231
+#: src/project/projecttab.cpp:226
 #, kde-format
 msgid "Project file comment"
 msgstr "परियोजना सञ्चिका टिप्पणी"
 
-#: src/project/projecttab.cpp:231
+#: src/project/projecttab.cpp:226
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr "अस्याः परियोजनासञ्चिकायाः कृते टिप्पणीं निवेशयन्तु:"
 
-#: src/project/projecttab.cpp:307
+#: src/project/projecttab.cpp:302
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Pology check सफला अभवत्"
 
-#: src/project/projecttab.cpp:326
+#: src/project/projecttab.cpp:321
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "भवान् %1 सञ्चिकां उद्घाटयितुं प्रवृत्तः अस्ति"
 msgstr[1] "भवान् %1 सञ्चिकाः उद्घाटयितुं प्रवृत्तः अस्ति"
 
-#: src/project/projecttab.cpp:327
+#: src/project/projecttab.cpp:322
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr "एकस्मिन् समये बहूनां सञ्चिकानां उद्घाटनेन Lokalize अप्रतिसादः भवितुम् अर्हति ।"
 
-#: src/project/projecttab.cpp:328
+#: src/project/projecttab.cpp:323
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "किं भवन्तः निश्चयेन एतावता सञ्चिकाः उद्घाटयितुम् इच्छन्ति?"
 
-#: src/project/projecttab.cpp:329
+#: src/project/projecttab.cpp:324
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
@@ -4442,45 +4442,45 @@ msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "लक्ष्यम् : %1"
 
-#: src/tm/tmtab.cpp:356
+#: src/tm/tmtab.cpp:357
 #, kde-format
 msgid "Substring"
 msgstr "उपतारः"
 
-#: src/tm/tmtab.cpp:356
+#: src/tm/tmtab.cpp:357
 #, kde-format
 msgid "Google-like"
 msgstr "गूगल-सदृशम्"
 
-#: src/tm/tmtab.cpp:356
+#: src/tm/tmtab.cpp:357
 #, kde-format
 msgid "Wildcard"
 msgstr "वाइल्डकार्ड"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "अन्तरिक्षं AND संचालकः अस्ति। प्रकरणं असंवेदनशीलम्।"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:365
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "शंखग्लोब्स् (* तथा ?)। प्रकरणसंवेदनशीलम्।"
 
-#: src/tm/tmtab.cpp:512
+#: src/tm/tmtab.cpp:513
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:514
 #, fuzzy, kde-format
 #| msgid "&Rescan project files"
 msgid "Rescan not possible"
 msgstr "&प्रकल्पसञ्चिकाः पुनः स्कैन् कुर्वन्तु"
 
-#: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:622
+#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:622
 #, kde-format
 msgctxt "@info"
 msgid ""
