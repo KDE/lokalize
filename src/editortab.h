@@ -457,6 +457,7 @@ Q_SIGNALS:
     void signalRevertAllRequested();
     void signalCloseCurrentRequested();
     void signalCloseAllRequested();
+    void signalActivateThisTabRequested(QWidget *tabWidget);
 
     Q_SCRIPTABLE void xliffFileOpened(bool);
 

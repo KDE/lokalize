@@ -787,6 +787,7 @@ void EditorTab::updateCaptionPath()
 bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, EditorTab *> openedFiles, bool silent)
 {
     if (!m_catalog->isClean()) {
+        Q_EMIT signalActivateThisTabRequested(this);
         switch (KMessageBox::warningTwoActionsCancel(SettingsController::instance()->mainWindowPtr(),
                                                      i18nc("@info",
                                                            "The document contains unsaved changes.\n"

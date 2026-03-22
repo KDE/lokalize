@@ -484,6 +484,7 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     connect(newEditorTab, &EditorTab::signalRevertAllRequested, this, &LokalizeMainWindow::revertAllEditorTabs);
     connect(newEditorTab, &EditorTab::signalCloseCurrentRequested, this, &LokalizeMainWindow::queryAndCloseCurrentTab);
     connect(newEditorTab, &EditorTab::signalCloseAllRequested, this, &LokalizeMainWindow::queryAndCloseAllEditorTabs);
+    connect(newEditorTab, &EditorTab::signalActivateThisTabRequested, this, &LokalizeMainWindow::activateTabByPageWidget);
     connect(newEditorTab, &LokalizeTabPageBase::signalUpdatedTabLabelAndIconAvailable, this, &LokalizeMainWindow::updateTabDetailsByPageWidget);
     connect(newEditorTab,
             &EditorTab::signalDefineNewGlossaryTerm,
