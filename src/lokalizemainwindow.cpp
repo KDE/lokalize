@@ -143,6 +143,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     m_welcomePageAndTabsPage->addWidget(m_mainTabs);
     setCentralWidget(wrapperWidget);
     setupActions();
+    showWelcome();
 
     connect(Project::instance(),
             qOverload<const QString &, const bool>(&Project::fileOpenRequested),
@@ -249,6 +250,7 @@ void LokalizeMainWindow::showWelcome()
 {
     m_welcomePageAndTabsPage->setCurrentIndex(0);
     statusBar()->hide();
+    updateMenuAvailability();
 }
 
 void LokalizeMainWindow::activateTabByPageWidget(QWidget *w)
