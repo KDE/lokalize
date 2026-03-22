@@ -5,20 +5,29 @@
 # Full workflow test: open a file, write two translation entries,
 # approve both, verify the status bar, and save.
 
+import shlex
 import time
 import unittest
+from pathlib import Path
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
 
-from test_support import TEST_FILE, create_driver, dismiss_project_prompt
+from test_support import TEST_FILE, create_driver
 
+PROJECT_FILE = Path(__file__).with_name("index.lokalize").resolve()
 
 class LokalizeEditorWorkflow(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.original_test_file = TEST_FILE.read_text(encoding="utf-8")
-        cls.driver, cls.config_dir = create_driver(open_test_file=True)
+        if not PROJECT_FILE.exists():
+            raise unittest.SkipTest(f"Missing project file: {PROJECT_FILE}")
+        app_command = (
+            f"lokalize --project {shlex.quote(str(PROJECT_FILE))} "
+            f"{shlex.quote(str(TEST_FILE))}"
+        )
+        cls.driver, cls.config_dir = create_driver(app_command=app_command)
         cls.wait = WebDriverWait(cls.driver, 30)
 
     @classmethod
@@ -56,14 +65,6 @@ class LokalizeEditorWorkflow(unittest.TestCase):
         return " | ".join([l.text for l in labels if l.text])
 
     def test_workflow_two_entries(self):
-        dismiss_project_prompt(self.driver)
-        try:
-            editor_tab = self.wait.until(
-                lambda d: d.find_element(AppiumBy.NAME, "Editor")
-            )
-            editor_tab.click()
-        except Exception:
-            pass
         # Adding text and checking if the gui updated properly
         field = self.type_translation("Appium entry 1")
         self.assertEqual(field.text, "Appium entry 1")

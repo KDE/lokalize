@@ -10,15 +10,9 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
         TYPE OPTIONAL
     )
 
-    file(GLOB APPIUM_TESTS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.py)
-    list(REMOVE_ITEM APPIUM_TESTS test_support.py)
-
-    foreach(appium_test ${APPIUM_TESTS})
-        get_filename_component(test_name ${appium_test} NAME_WE)
-        add_test(
-            NAME appium_${test_name}
-            COMMAND selenium-webdriver-at-spi-run ${CMAKE_CURRENT_SOURCE_DIR}/${appium_test}
-        )
-        set_tests_properties(appium_${test_name} PROPERTIES TIMEOUT 300)
-    endforeach()
+    add_test(
+        NAME appium_run_all
+        COMMAND selenium-webdriver-at-spi-run ${CMAKE_CURRENT_SOURCE_DIR}/run_all.py
+    )
+    set_tests_properties(appium_run_all PROPERTIES TIMEOUT 300)
 endif()
