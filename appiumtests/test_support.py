@@ -17,7 +17,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 TEST_FILE = Path(__file__).with_name("test.po").resolve()
 
 
-def create_driver(*, open_test_file=False):
+def create_driver(*, open_test_file=False, app_command=None):
     config_dir = tempfile.TemporaryDirectory(prefix="lokalize-appium-")
     config_home = Path(config_dir.name)
     config_home.joinpath("lokalizerc").write_text(
@@ -29,7 +29,7 @@ def create_driver(*, open_test_file=False):
     )
 
     options = AppiumOptions()
-    app = "lokalize"
+    app = app_command or "lokalize"
     if open_test_file:
         app = f"{app} {shlex.quote(str(TEST_FILE))}"
     options.set_capability("app", app)
