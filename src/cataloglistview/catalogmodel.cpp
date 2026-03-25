@@ -271,27 +271,24 @@ void CatalogTreeFilterModel::setEntriesFilteredOut()
 }
 void CatalogTreeFilterModel::setEntriesFilteredOut(bool filteredOut)
 {
-    beginFilterChange();
     m_individualRejectFilter.fill(filteredOut, sourceModel()->rowCount());
     m_individualRejectFilterEnable = filteredOut;
-    endFilterChange(Direction::Rows);
+    invalidateFilter();
 }
 
 void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
 {
-    beginFilterChange();
     m_individualRejectFilter[entry] = filteredOut;
     m_individualRejectFilterEnable = true;
-    endFilterChange(Direction::Rows);
+    invalidateFilter();
 }
 
 void CatalogTreeFilterModel::setFilterOptions(int o)
 {
-    beginFilterChange();
     m_filterOptions = o;
     setFilterCaseSensitivity(o & CaseInsensitive ? Qt::CaseInsensitive : Qt::CaseSensitive);
     static_cast<CatalogTreeModel *>(sourceModel())->setIgnoreAccel(o & IgnoreAccel);
-    endFilterChange(Direction::Rows);
+    invalidateFilter();
 }
 
 // contains the filter logic for what entries are to be displayed

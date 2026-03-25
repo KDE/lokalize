@@ -295,10 +295,9 @@ void TMResultsSortFilterProxyModel::fetchMore(const QModelIndex &parent)
 
 void TMResultsSortFilterProxyModel::setRules(const QVector<Rule> &rules)
 {
-    beginFilterChange();
     m_rules = rules;
     m_matchingRulesForSourceRow.clear();
-    endFilterChange(Direction::Rows);
+    invalidateFilter();
 }
 
 QVariant TMResultsSortFilterProxyModel::data(const QModelIndex &index, int role) const
