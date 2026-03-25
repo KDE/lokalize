@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-23 00:46+0000\n"
-"PO-Revision-Date: 2026-03-09 21:24+0400\n"
+"PO-Revision-Date: 2026-03-23 22:24+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2062,16 +2062,16 @@ msgid ""
 "multiple meanings should have separate glossary entries, each corresponding "
 "to a specific definition."
 msgstr ""
+"تمثل مدخلات المسرد المعاني الفردية للكلمة. وينبغي أن يكون للكلمات ذات "
+"المعاني المتعددة مدخلات منفصلة في المسرد، بحيث يتطابق كل منها مع تعريف محدد."
 
 #: src/glossary/glossarytab.cpp:318
-#, fuzzy, kde-format
-#| msgid "English Term:"
+#, kde-format
 msgid "English term:"
 msgstr "المصطلح الإنجليزي:"
 
 #: src/glossary/glossarytab.cpp:322
-#, fuzzy, kde-format
-#| msgid "Target Term:"
+#, kde-format
 msgid "Target term:"
 msgstr "المصطلح الهدف:"
 
