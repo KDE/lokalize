@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-23 00:46+0000\n"
+"POT-Creation-Date: 2026-03-26 00:47+0000\n"
 "PO-Revision-Date: 2026-03-19 04:39+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -789,7 +789,7 @@ msgstr "პარამეტრები"
 msgid "Reset individual filter"
 msgstr "ერთი ფილტრის ჩამოყრა"
 
-#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Case insensitive"
 msgstr "დიდი და პატარა ასოების იგნორი"
@@ -1932,17 +1932,17 @@ msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "ძებნა && ჩანაცვლება"
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:399
+#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "წყაროს კოპირება ბუფერში"
 
-#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "სამიზნის კოპირება ბუფერში"
 
-#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
 #, kde-format
 msgid "Open file"
 msgstr "ფაილის გახსნა"
@@ -2257,7 +2257,7 @@ msgstr "თარგმანის მეხსიერებას Qt-ის 
 msgid "No SQLite module available"
 msgstr "მოდულ SQLite ხელმისაწვდომი არაა"
 
-#: src/lokalizemainwindow.cpp:653 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:653 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2301,7 +2301,7 @@ msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "თარგმანის მეხსიერება"
 
-#: src/lokalizemainwindow.cpp:702 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:702 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
@@ -2889,7 +2889,7 @@ msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "გარეგნობა"
 
-#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:376
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:375
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
@@ -4330,32 +4330,32 @@ msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "დანიშნულება: %1"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Substring"
 msgstr "ქვესტრიქონი"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Google-like"
 msgstr "Google-ის მსგავსი"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Wildcard"
 msgstr "ვაილდკარდი"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "ჰარე 'და' ოპერატორია. რეგისტრზე დამოკიდებული არაა."
 
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "ვაილდკარდები (* და ?). დამოკიდებულია რეგისტრზე."
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:512
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
@@ -4364,12 +4364,12 @@ msgstr ""
 "ფაილების თავიდან სკანირება, მხოლოდ, მაშინაა შესაძლებელი, როცა პროექტი ღიაა. "
 "გახსენით პროექტი და თავიდან სცადეთ."
 
-#: src/tm/tmtab.cpp:514
+#: src/tm/tmtab.cpp:513
 #, kde-format
 msgid "Rescan not possible"
 msgstr "თავიდან სკანირება შეუძლებელია"
 
-#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:622
+#: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:622
 #, kde-format
 msgctxt "@info"
 msgid ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-23 00:46+0000\n"
+"POT-Creation-Date: 2026-03-26 00:47+0000\n"
 "PO-Revision-Date: 2026-02-25 19:21+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -795,7 +795,7 @@ msgstr "Опции"
 msgid "Reset individual filter"
 msgstr "Нулиране на индивидуалния филтър"
 
-#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Case insensitive"
 msgstr "Чувствителен регистър"
@@ -1942,17 +1942,17 @@ msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "Търсене и заместване"
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:399
+#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Копиране на оригинала в системния буфер"
 
-#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Копиране на превода в системния буфер"
 
-#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
 #, kde-format
 msgid "Open file"
 msgstr "Отваряне на файл"
@@ -2267,7 +2267,7 @@ msgstr "Запаметяването на преводи изисква Qt мо�
 msgid "No SQLite module available"
 msgstr "Няма наличен модул SQLite"
 
-#: src/lokalizemainwindow.cpp:653 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:653 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2311,7 +2311,7 @@ msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Запаметени преводи"
 
-#: src/lokalizemainwindow.cpp:702 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:702 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
@@ -2896,7 +2896,7 @@ msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Изглед"
 
-#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:376
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:375
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
@@ -4346,32 +4346,32 @@ msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "Превод: %1"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Substring"
 msgstr "Подниз"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Google-like"
 msgstr "Подобно на Google"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Wildcard"
 msgstr "Заместващ знак"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "Интервалът е оператор AND. Нечувствителен към големи и малки букви."
 
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Shell globs (* и ?). Чувствителни към размера на буквите."
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:512
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
@@ -4380,12 +4380,12 @@ msgstr ""
 "Повторното сканиране на файловете е възможно само когато проектът е отворен. "
 "Моля, отворете проект и опитайте отново."
 
-#: src/tm/tmtab.cpp:514
+#: src/tm/tmtab.cpp:513
 #, kde-format
 msgid "Rescan not possible"
 msgstr "Повторно претърсване не е възможно"
 
-#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:622
+#: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:622
 #, kde-format
 msgctxt "@info"
 msgid ""

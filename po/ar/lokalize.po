@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-23 00:46+0000\n"
+"POT-Creation-Date: 2026-03-26 00:47+0000\n"
 "PO-Revision-Date: 2026-03-23 22:24+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -776,7 +776,7 @@ msgstr "خيارات"
 msgid "Reset individual filter"
 msgstr "صفّر المرشّح المفرد"
 
-#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Case insensitive"
 msgstr "غير حسّاس للحالة"
@@ -1916,17 +1916,17 @@ msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "ابحث واستبدل"
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:399
+#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "انسخ المصدر إلى الحافظة"
 
-#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "انسخ الهدف إلى الحافظة"
 
-#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
 #, kde-format
 msgid "Open file"
 msgstr "افتح الملفّ"
@@ -2237,7 +2237,7 @@ msgstr "تحتاج خاصيّة ”ذاكرة الترجمة“ وحدة SQLite 
 msgid "No SQLite module available"
 msgstr "وحدة SQLite غير متوفّرة"
 
-#: src/lokalizemainwindow.cpp:653 src/tm/tmtab.cpp:480
+#: src/lokalizemainwindow.cpp:653 src/tm/tmtab.cpp:479
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2281,7 +2281,7 @@ msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "ذاكرة الترجمة"
 
-#: src/lokalizemainwindow.cpp:702 src/tm/tmtab.cpp:483
+#: src/lokalizemainwindow.cpp:702 src/tm/tmtab.cpp:482
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
@@ -2865,7 +2865,7 @@ msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "المظهر"
 
-#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:376
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:375
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
@@ -4287,34 +4287,34 @@ msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "الهدف: %1"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Substring"
 msgstr "سلسلة فرعيّة"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Google-like"
 msgstr "مثل غوغل"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:356
 #, kde-format
 msgid "Wildcard"
 msgstr "حرف بَدَل"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "المسافة هي مُعامِل AND. غير حسّاس للحالة."
 
 # In computer programming, in particular in a Unix-like environment, glob patterns specify sets of filenames with wildcard characters.
 # ترجمَتُها إلى "أنماط" أسهل.
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "أنماط الصّدفة ”‎(*‎“ و ”‎?)‎“. حسّاس للحالة."
 
-#: src/tm/tmtab.cpp:513
+#: src/tm/tmtab.cpp:512
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
@@ -4323,12 +4323,12 @@ msgstr ""
 "لا يُمكن إعادة مسح الملفات إلا أثناء فتح المشروع. يُرجى فتح المشروع والمحاولة "
 "مرة أخرى."
 
-#: src/tm/tmtab.cpp:514
+#: src/tm/tmtab.cpp:513
 #, kde-format
 msgid "Rescan not possible"
 msgstr "إعادة الفحص غير ممكنة"
 
-#: src/tm/tmtab.cpp:613 src/tm/tmview.cpp:622
+#: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:622
 #, kde-format
 msgctxt "@info"
 msgid ""
