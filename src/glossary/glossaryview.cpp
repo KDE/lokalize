@@ -25,6 +25,8 @@
 #include <QSet>
 #include <QStringBuilder>
 #include <QTime>
+#include <qstringview.h>
+#include <qtmetamacros.h>
 
 using namespace GlossaryNS;
 
@@ -150,6 +152,11 @@ void GlossaryView::clear()
         m_hasInfo = false;
         setWindowTitle(m_normTitle);
     }
+}
+
+void GlossaryView::slotSelectGlossaryEntryRequested(const QByteArray &entryId)
+{
+    Q_EMIT signalSelectGlossaryEntryRequested(entryId);
 }
 
 #include "moc_glossaryview.cpp"

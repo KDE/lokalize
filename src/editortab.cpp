@@ -62,6 +62,8 @@
 #include <QStandardPaths>
 #include <QStringBuilder>
 #include <QTime>
+#include <qstringview.h>
+#include <qtmetamacros.h>
 
 EditorTab::EditorTab(QWidget *parent, bool valid)
     : LokalizeTabPageBase(parent)
@@ -342,6 +344,7 @@ void EditorTab::setupActions()
     m_resizeWatcher->addWidget(m_glossaryView);
     connect(this, &EditorTab::signalNewEntryDisplayed, m_glossaryView, qOverload<DocPosition>(&GlossaryNS::GlossaryView::slotNewEntryDisplayed));
     connect(m_glossaryView, &GlossaryNS::GlossaryView::termInsertRequested, m_view, &EditorView::insertTerm);
+    connect(m_glossaryView, &GlossaryNS::GlossaryView::signalSelectGlossaryEntryRequested, this, &EditorTab::slotSelectGlossaryEntryRequested);
 
     gaction = glossary->addAction(QStringLiteral("glossary_define"), this, &EditorTab::defineNewTerm);
     gaction->setText(i18nc("@action:inmenu", "Define New Term"));
@@ -711,6 +714,11 @@ void EditorTab::setupActions()
 void EditorTab::setProperFocus()
 {
     m_view->setProperFocus();
+}
+
+void EditorTab::slotSelectGlossaryEntryRequested(const QByteArray &entryId)
+{
+    Q_EMIT signalSelectGlossaryEntryRequested(entryId);
 }
 
 void EditorTab::setFullPathShown(bool fullPathShown)

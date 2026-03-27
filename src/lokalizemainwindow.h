@@ -39,6 +39,7 @@ class QLabel;
 class QMenu;
 class QUrl;
 class QStackedLayout;
+class QByteArray;
 
 namespace TM
 {
@@ -177,6 +178,7 @@ public Q_SLOTS:
     TM::TMTab *showTM();
     FileSearchTab *showFileSearch(bool activate = true);
     GlossaryNS::GlossaryTab *showGlossary();
+    void selectGlossaryEntry(const QByteArray &);
     void showFileSearchAction();
     void fileSearchNext();
     void addFilesToSearch(const QStringList &);
@@ -198,6 +200,12 @@ public Q_SLOTS:
     void activateTabToLeftOfCurrent();
     void activateTabToRightOfCurrent();
     void activatePreviousTab();
+    /*
+     * Set the status bar, menu bar, tool bar and shortcuts in the main window
+     * to be those provided by the current active tab.
+     * @author Finley Watson
+     */
+    void setActiveGuiClient(KXMLGUIClient *newClient);
     void updateTabDetailsByPageWidget(LokalizeTabPageBase *pageWidget);
     void updateTabIconByPageWidget(LokalizeTabPageBaseNoQMainWindow *pageWidget);
     void widgetTextCapture();
@@ -242,6 +250,7 @@ private:
     ProjectTab *m_projectTab{};
     TM::TMTab *m_translationMemoryTab{};
     FileSearchTab *m_fileSearchTab{};
+    GlossaryNS::GlossaryTab *m_glossaryTab{};
     bool m_translationMemoryTabIsVisible;
     bool m_glossaryTabIsVisible;
     LokalizeStatusBar *m_statusBar{};

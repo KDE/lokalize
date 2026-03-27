@@ -121,9 +121,6 @@ public:
     void setFullPathShown(bool);
     void updateStatusBarContents() override;
 
-public Q_SLOTS:
-    void setProperFocus();
-
 public:
     EditorState state();
     KXMLGUIClient *guiClient() override
@@ -166,6 +163,9 @@ public:
     bool m_layoutRefreshScheduled = false;
 
 public Q_SLOTS:
+    void setProperFocus();
+    void slotSelectGlossaryEntryRequested(const QByteArray &entryId);
+
     // for undo/redo, views
     void gotoEntry(DocPosition pos);
     void gotoEntry(DocPosition pos, int selection);
@@ -405,6 +405,7 @@ private:
     // END dbus
 
 Q_SIGNALS:
+    void signalSelectGlossaryEntryRequested(const QByteArray &entryId);
     void tmLookupRequested(DocPosition::Part, const QString &);
     void tmLookupRequested(const QString &source, const QString &target);
 
