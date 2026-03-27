@@ -57,12 +57,9 @@ void TermLabel::mousePressEvent(QMouseEvent *event)
 
         menu.addAction(i18nc("@action:inmenu Edit term", "Edit"));
 
-        QAction *txt = menu.exec(event->globalPosition().toPoint());
-        if (txt) {
-            GlossaryNS::GlossaryTab *glossaryTab = Project::instance()->glossaryTab();
-            if (glossaryTab)
-                glossaryTab->selectEntry(m_entryId);
-        }
+        const QAction *txt = menu.exec(event->globalPosition().toPoint());
+        if (txt)
+            Q_EMIT signalSelectGlossaryEntryRequested(m_entryId);
     } else
         insert();
 }

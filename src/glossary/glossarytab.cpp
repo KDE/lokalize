@@ -87,6 +87,7 @@ GlossaryTab::GlossaryTab(QWidget *parent)
 {
     m_tabIcon = QIcon::fromTheme(QStringLiteral("view-list-text"));
     m_tabLabel = i18nc("@title", "Glossary");
+    hide();
 
     setAttribute(Qt::WA_DeleteOnClose, false);
     setContentsMargins(0, 0, 0, 0);

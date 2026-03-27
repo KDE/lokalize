@@ -204,17 +204,6 @@ void Project::populateGlossary()
     m_glossary->load(glossaryPath());
 }
 
-GlossaryNS::GlossaryTab *Project::glossaryTab()
-{
-    if (!SettingsController::instance()->ensureProjectIsLoaded())
-        return nullptr;
-
-    if (!m_glossaryTab)
-        m_glossaryTab = new GlossaryNS::GlossaryTab(SettingsController::instance()->mainWindowPtr());
-
-    return m_glossaryTab;
-}
-
 bool Project::isTmSupported() const
 {
     QStringList drivers = QSqlDatabase::drivers();

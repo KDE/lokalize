@@ -28,7 +28,14 @@ FlowLayout::FlowLayout(User user, QWidget *signalingWidget, const QVector<QActio
         for (QAction *action : actions) {
             TermLabel *label = new TermLabel(action);
             connect(action, &QAction::triggered, label, &GlossaryNS::TermLabel::insert);
-            connect(label, &GlossaryNS::TermLabel::insertTerm, (GlossaryNS::GlossaryView *)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
+            connect(label,
+                    &GlossaryNS::TermLabel::insertTerm,
+                    static_cast<GlossaryNS::GlossaryView *>(m_receiver),
+                    &GlossaryNS::GlossaryView::termInsertRequested);
+            connect(label,
+                    &GlossaryNS::TermLabel::signalSelectGlossaryEntryRequested,
+                    static_cast<GlossaryNS::GlossaryView *>(m_receiver),
+                    &GlossaryNS::GlossaryView::slotSelectGlossaryEntryRequested);
             label->hide();
             addWidget(label);
         }

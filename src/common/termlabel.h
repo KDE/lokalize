@@ -39,6 +39,7 @@ public Q_SLOTS:
     void insert();
 Q_SIGNALS:
     void insertTerm(const QString &);
+    void signalSelectGlossaryEntryRequested(const QByteArray &entryId);
 
 private:
     QByteArray m_entryId;

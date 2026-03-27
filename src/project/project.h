@@ -160,7 +160,6 @@ public Q_SLOTS:
     void populateGlossary();
 
     void showTMManager();
-    GlossaryNS::GlossaryTab *glossaryTab();
 
     void projectOdfCreate();
 
@@ -193,7 +192,6 @@ private:
     ProjectLocal *m_localConfig{nullptr};
     ProjectModel *m_model{nullptr};
     GlossaryNS::Glossary *m_glossary{nullptr};
-    GlossaryNS::GlossaryTab *m_glossaryTab{nullptr};
     TM::TMManagerWin *m_tmManagerWindow{nullptr};
 
     QMultiMap<QByteArray, QByteArray> m_sourceFilePaths;

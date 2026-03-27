@@ -24,6 +24,7 @@ class QDropEvent;
 class QEvent;
 class QFrame;
 class QScrollArea;
+class QByteArray;
 
 namespace GlossaryNS
 {
@@ -42,9 +43,11 @@ public Q_SLOTS:
     // plural messages usually contain the same words...
     void slotNewEntryDisplayed();
     void slotNewEntryDisplayed(DocPosition pos); // a little hacky, but... :)
+    void slotSelectGlossaryEntryRequested(const QByteArray &entryId);
 
 Q_SIGNALS:
     void termInsertRequested(const QString &);
+    void signalSelectGlossaryEntryRequested(const QByteArray &entryId);
 
 private:
     void clear();
