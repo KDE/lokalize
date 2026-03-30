@@ -30,6 +30,7 @@ class AltTransView;
 class Catalog;
 class CatalogView;
 class EditorView;
+class QListWidget;
 class MergeView;
 class MsgCtxtView;
 class Project;
@@ -317,6 +318,7 @@ private Q_SLOTS:
 
     void gotoNextBookmark();
     void gotoPrevBookmark();
+    void editBookmarks();
 
     void displayWordCount();
     void clearTranslatedEntries();
@@ -347,6 +349,7 @@ private:
     void cutFocused();
     void copyFocused();
     void pasteFocused();
+    void applyBookmarkEdits(const QListWidget *list);
 
     void findNext(const DocPosition &startingPos);
     void replaceNext(const DocPosition &);

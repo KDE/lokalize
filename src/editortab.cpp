@@ -39,6 +39,7 @@
 
 #include <KActionCategory>
 #include <KActionCollection>
+#include <KColorScheme>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
@@ -52,16 +53,22 @@
 #include <QActionGroup>
 #include <QApplication>
 #include <QDesktopServices>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <QDir>
 #include <QFileDialog>
 #include <QIcon>
 #include <QInputDialog>
+#include <QListWidget>
 #include <QMenuBar>
 #include <QObject>
 #include <QProcess>
+#include <QPushButton>
+#include <QShortcut>
 #include <QStandardPaths>
 #include <QStringBuilder>
 #include <QTime>
+#include <QVBoxLayout>
 #include <qstringview.h>
 #include <qtmetamacros.h>
 
@@ -610,6 +617,8 @@ void EditorTab::setupActions()
     action = nav->addAction(QStringLiteral("bookmark_next"), this, &EditorTab::gotoNextBookmark);
     action->setText(i18nc("@action:inmenu", "Next Bookmark"));
     connect(this, &EditorTab::signalNextBookmarkAvailable, action, &QAction::setEnabled);
+
+    nav->addAction(KStandardActions::EditBookmarks, this, &EditorTab::editBookmarks);
 
     // Tools
     edit->addAction(KStandardActions::Spelling, this, &EditorTab::spellcheck);
@@ -1348,6 +1357,97 @@ void EditorTab::gotoNextBookmark()
         return;
 
     gotoEntry(pos);
+}
+
+void EditorTab::applyBookmarkEdits(const QListWidget *list)
+{
+    for (int i = 0; i < list->count(); ++i) {
+        QListWidgetItem *item = list->item(i);
+        int entryIndex = item->data(Qt::UserRole).toInt();
+        bool checked = item->checkState() == Qt::Checked;
+        if (checked != m_catalog->isBookmarked(entryIndex))
+            m_catalog->setBookmark(entryIndex, checked);
+    }
+}
+
+void EditorTab::editBookmarks()
+{
+    if (m_catalog->lastBookmarkIndex() < 0) {
+        KMessageBox::information(this, i18nc("@info", "There are no bookmarked entries."));
+        return;
+    }
+
+    QDialog dialog(this);
+    dialog.setWindowTitle(i18nc("@title:window", "Edit Bookmarks"));
+
+    auto *layout = new QVBoxLayout(&dialog);
+    auto *list = new QListWidget(&dialog);
+    list->setSelectionMode(QAbstractItemView::NoSelection);
+    const auto inactiveTextBrush = KColorScheme(QPalette::Normal, KColorScheme::View).foreground(KColorScheme::InactiveText);
+    auto updateBookmarkItemPresentation = [inactiveTextBrush](QListWidgetItem *item) {
+        item->setToolTip(i18nc("@info:tooltip", "Uncheck to remove this bookmark."));
+        if (item->checkState() == Qt::Checked) {
+            item->setData(Qt::ForegroundRole, QVariant());
+            return;
+        }
+
+        item->setData(Qt::ForegroundRole, inactiveTextBrush);
+    };
+    connect(list, &QListWidget::itemChanged, this, [updateBookmarkItemPresentation](QListWidgetItem *item) {
+        updateBookmarkItemPresentation(item);
+    });
+    for (int i = 0; i < m_catalog->numberOfEntries(); ++i) {
+        if (!m_catalog->isBookmarked(i))
+            continue;
+
+        QString preview = m_catalog->source(DocPosition(i)).simplified();
+        auto *item = new QListWidgetItem(i18nc("@item:inlistbox", "Entry %1: %2", i + 1, preview), list);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        item->setCheckState(Qt::Checked);
+        item->setData(Qt::UserRole, i);
+        updateBookmarkItemPresentation(item);
+    }
+    connect(list, &QListWidget::itemDoubleClicked, this, [this](QListWidgetItem *item) {
+        gotoEntry(DocPosition(item->data(Qt::UserRole).toInt()));
+    });
+    connect(list, &QListWidget::itemClicked, this, [list](QListWidgetItem *item) {
+        list->setCurrentItem(item);
+    });
+    auto activateCurrentBookmark = [this, list] {
+        if (QListWidgetItem *item = list->currentItem())
+            gotoEntry(DocPosition(item->data(Qt::UserRole).toInt()));
+    };
+    auto *enterShortcut = new QShortcut(QKeySequence(Qt::Key_Return), list);
+    enterShortcut->setContext(Qt::WidgetShortcut);
+    connect(enterShortcut, &QShortcut::activated, this, activateCurrentBookmark);
+    auto *keypadEnterShortcut = new QShortcut(QKeySequence(Qt::Key_Enter), list);
+    keypadEnterShortcut->setContext(Qt::WidgetShortcut);
+    connect(keypadEnterShortcut, &QShortcut::activated, this, activateCurrentBookmark);
+    layout->addWidget(list);
+
+    auto *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(false);
+    okButton->setAutoDefault(false);
+    QPushButton *clearButton = buttonBox->addButton(i18nc("@action:button", "Clear All"), QDialogButtonBox::ActionRole);
+    connect(clearButton, &QPushButton::clicked, this, [list] {
+        for (int i = 0; i < list->count(); ++i) {
+            QListWidgetItem *item = list->item(i);
+            item->setCheckState(Qt::Unchecked);
+        }
+    });
+    connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    layout->addWidget(buttonBox);
+
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    applyBookmarkEdits(list);
+
+    Q_EMIT signalPriorBookmarkAvailable(m_currentPos.entry > m_catalog->firstBookmarkIndex());
+    Q_EMIT signalNextBookmarkAvailable(m_currentPos.entry < m_catalog->lastBookmarkIndex());
+    Q_EMIT signalBookmarkDisplayed(m_catalog->isBookmarked(m_currentPos.entry));
 }
 
 // wrapper for cmdline handling...
