@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:46+0000\n"
+"POT-Creation-Date: 2026-03-31 00:47+0000\n"
 "PO-Revision-Date: 2017-09-28 18:00+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -1004,8 +1004,8 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
 msgstr "ciljni jezik"
 
-#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1092
-#: src/editortab.cpp:1297 src/tm/tmtab.cpp:233
+#: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1101
+#: src/editortab.cpp:1306 src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
@@ -1019,7 +1019,7 @@ msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs Review"
 msgstr "čeka pregled"
 
-#: src/cataloglistview/catalogmodel.cpp:149 src/editortab.cpp:1090
+#: src/cataloglistview/catalogmodel.cpp:149 src/editortab.cpp:1099
 #: src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status"
@@ -1060,52 +1060,52 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Uredi"
 
-#: src/editortab.cpp:181 src/lokalizemainwindow.cpp:669
+#: src/editortab.cpp:188 src/lokalizemainwindow.cpp:669
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
 msgstr "Fajl"
 
-#: src/editortab.cpp:182 src/project/projecttab.cpp:85
+#: src/editortab.cpp:189 src/project/projecttab.cpp:85
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
 msgstr "Navigacija"
 
-#: src/editortab.cpp:183
+#: src/editortab.cpp:190
 #, kde-format
 msgctxt "@title actions category"
 msgid "Editing"
 msgstr "Uređivanje"
 
-#: src/editortab.cpp:184
+#: src/editortab.cpp:191
 #, kde-format
 msgid "Synchronization 1"
 msgstr "Sinhronizacija 1"
 
-#: src/editortab.cpp:185
+#: src/editortab.cpp:192
 #, kde-format
 msgid "Synchronization 2"
 msgstr "Sinhronizacija 2"
 
-#: src/editortab.cpp:186
+#: src/editortab.cpp:193
 #, kde-format
 msgid "Translation Memory"
 msgstr "Prevodilačka memorija"
 
-#: src/editortab.cpp:187 src/lokalizemainwindow.cpp:670
+#: src/editortab.cpp:194 src/lokalizemainwindow.cpp:670
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
 msgstr "Pojmovnik"
 
-#: src/editortab.cpp:200
+#: src/editortab.cpp:207
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
 msgstr "Umetni alternativni prevod #%1"
 
-#: src/editortab.cpp:204
+#: src/editortab.cpp:211
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Alternate Translations"
@@ -1113,7 +1113,7 @@ msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
 msgstr "Alternativni prevodi"
 
-#: src/editortab.cpp:270
+#: src/editortab.cpp:277
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add a note"
@@ -1121,7 +1121,7 @@ msgctxt "@action:inmenu"
 msgid "Add Note"
 msgstr "Dodaj bilješku"
 
-#: src/editortab.cpp:279
+#: src/editortab.cpp:286
 #, fuzzy, kde-format
 #| msgctxt "@item Undo action"
 #| msgid "Use translation memory suggestion"
@@ -1129,7 +1129,7 @@ msgctxt "@action:inmenu"
 msgid "Insert translation memory suggestion #%1"
 msgstr "Upotrebi prijedlog prevodilačke memorije"
 
-#: src/editortab.cpp:284
+#: src/editortab.cpp:291
 #, fuzzy, kde-format
 #| msgctxt "@item Undo action"
 #| msgid "Use translation memory suggestion"
@@ -1137,13 +1137,13 @@ msgctxt "@action:inmenu"
 msgid "Remove translation memory suggestion #%1"
 msgstr "Upotrebi prijedlog prevodilačke memorije"
 
-#: src/editortab.cpp:337
+#: src/editortab.cpp:344
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
 msgstr "Umetni prevod izraza #%1"
 
-#: src/editortab.cpp:350
+#: src/editortab.cpp:357
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Define new term"
@@ -1151,25 +1151,25 @@ msgctxt "@action:inmenu"
 msgid "Define New Term"
 msgstr "Definiši novi izraz"
 
-#: src/editortab.cpp:373
+#: src/editortab.cpp:380
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save All"
 msgstr ""
 
-#: src/editortab.cpp:379
+#: src/editortab.cpp:386
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Revert All"
 msgstr ""
 
-#: src/editortab.cpp:387
+#: src/editortab.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
 msgstr ""
 
-#: src/editortab.cpp:402
+#: src/editortab.cpp:409
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Phases..."
@@ -1177,7 +1177,7 @@ msgctxt "@action:inmenu"
 msgid "Phases…"
 msgstr "Faze..."
 
-#: src/editortab.cpp:405
+#: src/editortab.cpp:412
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "Word Count"
@@ -1185,7 +1185,7 @@ msgctxt "@action:inmenu"
 msgid "Word Count"
 msgstr "Broj riječi"
 
-#: src/editortab.cpp:408
+#: src/editortab.cpp:415
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Manage translation memories"
@@ -1193,19 +1193,19 @@ msgctxt "@action:inmenu"
 msgid "Clear Translated Entries"
 msgstr "Upravljaj prevodilačkim memorijama"
 
-#: src/editortab.cpp:411
+#: src/editortab.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
 msgstr ""
 
-#: src/editortab.cpp:415
+#: src/editortab.cpp:422
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
 msgstr "Stopi prevod u otvoreni dokument"
 
-#: src/editortab.cpp:439
+#: src/editortab.cpp:446
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Change searching direction"
@@ -1213,7 +1213,7 @@ msgctxt "@action:inmenu"
 msgid "Change Searching Direction"
 msgstr "Obrni smjer traženja"
 
-#: src/editortab.cpp:448
+#: src/editortab.cpp:455
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1221,7 +1221,7 @@ msgctxt ""
 msgid "Approved"
 msgstr "Odobrena"
 
-#: src/editortab.cpp:468
+#: src/editortab.cpp:475
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Approve and go to next"
@@ -1229,7 +1229,7 @@ msgctxt "@action:inmenu"
 msgid "Approve and Go Next"
 msgstr "Odobri i pređi na sljedeću"
 
-#: src/editortab.cpp:475
+#: src/editortab.cpp:482
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Equivalent translation"
@@ -1238,7 +1238,7 @@ msgid "Equivalent Translation"
 msgstr "Ekvivalentni prevod"
 
 # под target мисли се на циљни језик, тј. превод
-#: src/editortab.cpp:486
+#: src/editortab.cpp:493
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy source to target"
@@ -1246,7 +1246,7 @@ msgctxt "@action:inmenu"
 msgid "Copy Source to Target"
 msgstr "Kopiraj izvor u prevod"
 
-#: src/editortab.cpp:489
+#: src/editortab.cpp:496
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Unwrap target"
@@ -1254,73 +1254,73 @@ msgctxt "@action:inmenu"
 msgid "Unwrap Target"
 msgstr "Razvij prevod"
 
-#: src/editortab.cpp:496 src/filesearch/filesearchtab.cpp:137
+#: src/editortab.cpp:503 src/filesearch/filesearchtab.cpp:137
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
 msgstr "Očisti"
 
-#: src/editortab.cpp:500
+#: src/editortab.cpp:507
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
 msgstr "Umetni oznaku"
 
-#: src/editortab.cpp:504
+#: src/editortab.cpp:511
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
 msgstr ""
 
-#: src/editortab.cpp:508
+#: src/editortab.cpp:515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
 msgstr "Umetni sljedeću oznaku"
 
-#: src/editortab.cpp:512
+#: src/editortab.cpp:519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
 msgstr ""
 
-#: src/editortab.cpp:516
+#: src/editortab.cpp:523
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "Dovršavanje"
 
-#: src/editortab.cpp:520
+#: src/editortab.cpp:527
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "Zamijeni najboljim prijedlogom pravopisara"
 
-#: src/editortab.cpp:525
+#: src/editortab.cpp:532
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "&Sljedeća"
 
-#: src/editortab.cpp:530
+#: src/editortab.cpp:537
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "&Prethodna"
 
-#: src/editortab.cpp:536
+#: src/editortab.cpp:543
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "P&rva jedinica"
 
-#: src/editortab.cpp:542
+#: src/editortab.cpp:549
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "P&osljednja jedinica"
 
-#: src/editortab.cpp:548
+#: src/editortab.cpp:555
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Entry by number"
@@ -1328,7 +1328,7 @@ msgctxt "@action:inmenu"
 msgid "Entry by Number"
 msgstr "Jedinica po broju"
 
-#: src/editortab.cpp:551 src/project/projecttab.cpp:100
+#: src/editortab.cpp:558 src/project/projecttab.cpp:100
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1336,7 +1336,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Prethodna neprazna ali nespremna"
 
-#: src/editortab.cpp:559 src/project/projecttab.cpp:106
+#: src/editortab.cpp:566 src/project/projecttab.cpp:106
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1344,7 +1344,7 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Naredna neprazna ali nespremna"
 
-#: src/editortab.cpp:566 src/project/projecttab.cpp:112
+#: src/editortab.cpp:573 src/project/projecttab.cpp:112
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Previous untranslated"
@@ -1352,7 +1352,7 @@ msgctxt "@action:inmenu"
 msgid "Previous Untranslated"
 msgstr "Prethodna neprevedena"
 
-#: src/editortab.cpp:571 src/project/projecttab.cpp:118
+#: src/editortab.cpp:578 src/project/projecttab.cpp:118
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Next untranslated"
@@ -1360,7 +1360,7 @@ msgctxt "@action:inmenu"
 msgid "Next Untranslated"
 msgstr "Sljedeća neprevedena"
 
-#: src/editortab.cpp:577 src/project/projecttab.cpp:88
+#: src/editortab.cpp:584 src/project/projecttab.cpp:88
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "@action:inmenu\n"
@@ -1372,7 +1372,7 @@ msgctxt ""
 msgid "Previous Not Ready"
 msgstr "Prethodna nespremna"
 
-#: src/editortab.cpp:589 src/project/projecttab.cpp:94
+#: src/editortab.cpp:596 src/project/projecttab.cpp:94
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "@action:inmenu\n"
@@ -1385,13 +1385,13 @@ msgid "Next Not Ready"
 msgstr "Sljedeća nespremna"
 
 # skip-rule: t-line
-#: src/editortab.cpp:598
+#: src/editortab.cpp:605
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Fokusiraj polje pretrage u prikazu jedinica"
 
-#: src/editortab.cpp:602
+#: src/editortab.cpp:609
 #, fuzzy, kde-format
 #| msgctxt "@option:check"
 #| msgid "Bookmark message"
@@ -1399,7 +1399,7 @@ msgctxt "@option:check"
 msgid "Bookmark Message"
 msgstr "Obilježi jedinicu"
 
-#: src/editortab.cpp:607
+#: src/editortab.cpp:614
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Previous bookmark"
@@ -1407,7 +1407,7 @@ msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
 msgstr "Prethodni obilježivač"
 
-#: src/editortab.cpp:611
+#: src/editortab.cpp:618
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Next bookmark"
@@ -1415,25 +1415,25 @@ msgctxt "@action:inmenu"
 msgid "Next Bookmark"
 msgstr "Sljedeći obilježivač"
 
-#: src/editortab.cpp:619
+#: src/editortab.cpp:628
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "Ispuni sve tačne prijedloge"
 
-#: src/editortab.cpp:624
+#: src/editortab.cpp:633
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Ispuni sve tačne prevode i označi kao mutne"
 
-#: src/editortab.cpp:632
+#: src/editortab.cpp:641
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Otvori fajl za sinhro/stapanje"
 
-#: src/editortab.cpp:633 src/editortab.cpp:692
+#: src/editortab.cpp:642 src/editortab.cpp:701
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1442,7 +1442,7 @@ msgid ""
 msgstr ""
 "Otvori katalog za stapanje u tekući / prenesi izmjene iz osnovnog fajla"
 
-#: src/editortab.cpp:639 src/editortab.cpp:698
+#: src/editortab.cpp:648 src/editortab.cpp:707
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Previous different"
@@ -1450,7 +1450,7 @@ msgctxt "@action:inmenu"
 msgid "Previous Different"
 msgstr "Prethodna različita"
 
-#: src/editortab.cpp:641 src/editortab.cpp:700
+#: src/editortab.cpp:650 src/editortab.cpp:709
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1460,7 +1460,7 @@ msgstr ""
 "Prethodna jedinica prevedena drugačije u fajlu koji se stapa, uključujući i "
 "prazne prevode iz izvora stapanja"
 
-#: src/editortab.cpp:650 src/editortab.cpp:707
+#: src/editortab.cpp:659 src/editortab.cpp:716
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Next different"
@@ -1468,7 +1468,7 @@ msgctxt "@action:inmenu"
 msgid "Next Different"
 msgstr "Sljedeća različita"
 
-#: src/editortab.cpp:652 src/editortab.cpp:709
+#: src/editortab.cpp:661 src/editortab.cpp:718
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1478,7 +1478,7 @@ msgstr ""
 "Sljedeća jedinica prevedena drugačije u fajlu koji se stapa, uključujući i "
 "prazne prevode iz izvora stapanja"
 
-#: src/editortab.cpp:660
+#: src/editortab.cpp:669
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Next different approved"
@@ -1486,43 +1486,43 @@ msgctxt "@action:inmenu"
 msgid "Next Different Approved"
 msgstr "Sljedeća različita odobrena"
 
-#: src/editortab.cpp:666 src/editortab.cpp:716
+#: src/editortab.cpp:675 src/editortab.cpp:725
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Kopiraj iz izvora stapanja"
 
-#: src/editortab.cpp:673 src/editortab.cpp:721
+#: src/editortab.cpp:682 src/editortab.cpp:730
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Kopiraj sve nove prevode"
 
-#: src/editortab.cpp:674
+#: src/editortab.cpp:683
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "Mijenja samo prazne i nespremne jedinice u osnovnom fajlu"
 
-#: src/editortab.cpp:682 src/editortab.cpp:728
+#: src/editortab.cpp:691 src/editortab.cpp:737
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Kopiraj u izvor stapanja"
 
-#: src/editortab.cpp:691
+#: src/editortab.cpp:700
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "Otvori fajl za sekundarni sinhro"
 
-#: src/editortab.cpp:722
+#: src/editortab.cpp:731
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Mijenja samo prazne jedinice"
 
-#: src/editortab.cpp:755
+#: src/editortab.cpp:764
 #, fuzzy, kde-format
 #| msgctxt "editor tab name"
 #| msgid "(recovered)"
@@ -1530,7 +1530,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(povraćen)"
 
-#: src/editortab.cpp:801 src/lokalizemainwindow.cpp:1170
+#: src/editortab.cpp:810 src/lokalizemainwindow.cpp:1170
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1540,37 +1540,37 @@ msgstr ""
 "Dokument sadrži nesačuvane izmjene.\n"
 "Želite li da ih sačuvate ili odbacite?"
 
-#: src/editortab.cpp:803 src/editortab.cpp:1400 src/lokalizemainwindow.cpp:1172
+#: src/editortab.cpp:812 src/editortab.cpp:1500 src/lokalizemainwindow.cpp:1172
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Upozorenje"
 
-#: src/editortab.cpp:823 src/mergemode/mergeview.cpp:166
+#: src/editortab.cpp:832 src/mergemode/mergeview.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Izbor fajla prevoda"
 
-#: src/editortab.cpp:908
+#: src/editortab.cpp:917
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Greška pri otvaranju fajla „%1“, red: %2"
 
-#: src/editortab.cpp:910
+#: src/editortab.cpp:919
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Greška pri otvaranju fajla „%1“."
 
-#: src/editortab.cpp:918
+#: src/editortab.cpp:927
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Upisivanje fajla kao"
 
-#: src/editortab.cpp:947
+#: src/editortab.cpp:956
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1580,13 +1580,13 @@ msgstr ""
 "Greška pri upisu fajla „%1“\n"
 "Želite li da sačuvate u drugi fajl ili odustanete?"
 
-#: src/editortab.cpp:950
+#: src/editortab.cpp:959
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Greška"
 
-#: src/editortab.cpp:960
+#: src/editortab.cpp:969
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1596,97 +1596,130 @@ msgstr ""
 "Ne mogu da izvršim automatsko upisivanje.\n"
 "Ciljni fajl je „%1“."
 
-#: src/editortab.cpp:997
+#: src/editortab.cpp:1006
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Skok na jedinicu"
 
-#: src/editortab.cpp:998
+#: src/editortab.cpp:1007
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Broj jedinice:"
 
-#: src/editortab.cpp:1094 src/editortab.cpp:1292 src/tm/tmtab.cpp:234
+#: src/editortab.cpp:1103 src/editortab.cpp:1301 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "čeka pregled"
 
-#: src/editortab.cpp:1273
+#: src/editortab.cpp:1282
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Prevedena"
 
-#: src/editortab.cpp:1274
+#: src/editortab.cpp:1283
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Potpisana"
 
-#: src/editortab.cpp:1275
+#: src/editortab.cpp:1284
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Odobrena"
 
-#: src/editortab.cpp:1276
+#: src/editortab.cpp:1285
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Prevod je završen (iako može očekivati pregled)."
 
-#: src/editortab.cpp:1277
+#: src/editortab.cpp:1286
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Prevod je dobio pozitivan pregled."
 
-#: src/editortab.cpp:1278
+#: src/editortab.cpp:1287
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Jedinica je sasvim lokalizovana (tj. konačna)."
 
-#: src/editortab.cpp:1376 src/project/projecttab.cpp:292
+#: src/editortab.cpp:1376
+#, kde-format
+msgctxt "@info"
+msgid "There are no bookmarked entries."
+msgstr ""
+
+#: src/editortab.cpp:1381
+#, fuzzy, kde-format
+#| msgid "&Bookmarks"
+msgctxt "@title:window"
+msgid "Edit Bookmarks"
+msgstr "&Obilježivači"
+
+#: src/editortab.cpp:1388
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Uncheck to remove this bookmark."
+msgstr ""
+
+#: src/editortab.cpp:1404
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Entry %1: %2"
+msgstr ""
+
+#: src/editortab.cpp:1432
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Clear"
+msgctxt "@action:button"
+msgid "Clear All"
+msgstr "Očisti"
+
+#: src/editortab.cpp:1476 src/project/projecttab.cpp:292
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
-#: src/editortab.cpp:1376 src/editortab.cpp:1384 src/editortab.cpp:1388
+#: src/editortab.cpp:1476 src/editortab.cpp:1484 src/editortab.cpp:1488
 #: src/project/projecttab.cpp:292 src/project/projecttab.cpp:300
 #: src/project/projecttab.cpp:304
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1384 src/project/projecttab.cpp:300
+#: src/editortab.cpp:1484 src/project/projecttab.cpp:300
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1386 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1486 src/project/projecttab.cpp:302
 #, kde-format
 msgid "Pology success"
 msgstr ""
 
-#: src/editortab.cpp:1386
+#: src/editortab.cpp:1486
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1388 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1488 src/project/projecttab.cpp:304
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1398
+#: src/editortab.cpp:1498
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1694,19 +1727,19 @@ msgid ""
 "Do you really want to clear all translated entries?"
 msgstr ""
 
-#: src/editortab.cpp:1436
+#: src/editortab.cpp:1536
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Riječi u izvoru: %1<br/>Riječi u prevodu: %2"
 
-#: src/editortab.cpp:1437
+#: src/editortab.cpp:1537
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Broj riječi"
 
-#: src/editortab.cpp:1443
+#: src/editortab.cpp:1543
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Alternate Translations"
@@ -1714,14 +1747,14 @@ msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr "Alternativni prevodi"
 
-#: src/editortab.cpp:1541
+#: src/editortab.cpp:1641
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Želite li da potražite izvorni fajl lokalno ili preko lxr.kde.org?"
 
-#: src/editortab.cpp:1542
+#: src/editortab.cpp:1642
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Source file lookup"
@@ -1729,14 +1762,14 @@ msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Potraga za izvornim fajlom"
 
-#: src/editortab.cpp:1543
+#: src/editortab.cpp:1643
 #, fuzzy, kde-format
 #| msgid "Locally"
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Lokalno"
 
-#: src/editortab.cpp:1544 src/editortab.cpp:1588
+#: src/editortab.cpp:1644 src/editortab.cpp:1688
 #, fuzzy, kde-format
 #| msgid "lxr.kde.org"
 msgctxt "@action"
@@ -1744,12 +1777,12 @@ msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org"
 
 # >> @title:window
-#: src/editortab.cpp:1547 src/editortab.cpp:1592
+#: src/editortab.cpp:1647 src/editortab.cpp:1692
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Izbor osnovne fascikla projekta za traženje izvornih fajlova"
 
-#: src/editortab.cpp:1584
+#: src/editortab.cpp:1684
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1759,13 +1792,13 @@ msgstr ""
 "Ne mogu da nađem izvorni fajl u zadatoj fascikli.\n"
 "Želite li da promenite fasciklu?"
 
-#: src/editortab.cpp:1586
+#: src/editortab.cpp:1686
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Potraga za izvornim fajlom"
 
-#: src/editortab.cpp:1587
+#: src/editortab.cpp:1687
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Subject Field"
@@ -1773,7 +1806,7 @@ msgctxt "@action"
 msgid "Select Folder"
 msgstr "oblast"
 
-#: src/editortab.cpp:1629
+#: src/editortab.cpp:1729
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1789,7 +1822,7 @@ msgstr ""
 
 # >> @info
 # literal-segment: translate-toolkit
-#: src/editortab.cpp:1643 src/project/project.cpp:394
+#: src/editortab.cpp:1743 src/project/project.cpp:394
 #: src/project/project.cpp:399
 #, kde-format
 msgid "Install translate-toolkit package and retry"
@@ -1797,29 +1830,29 @@ msgstr "Instalirajte paket translate-toolkit pa pokušajte ponovo."
 
 # >> @info
 # literal-segment: translate-toolkit
-#: src/editortab.cpp:1648
+#: src/editortab.cpp:1748
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Instalirajte paket translate-toolkit pa pokušajte ponovo."
 
 # >> @title:window
-#: src/editortab.cpp:1656
+#: src/editortab.cpp:1756
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Izbor izvornog otvorenog dokumenta od kojeg potiče tekući XLIFF"
 
-#: src/editortab.cpp:1658 src/project/project.cpp:404
+#: src/editortab.cpp:1758 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "otvorenodokumentski fajlovi (*.odt *.ods)"
 
 # literal-segment: python-uno
-#: src/editortab.cpp:1702
+#: src/editortab.cpp:1802
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Instalirajte paket python-uno za dodatnu funkcionalnost."
 
-#: src/editortab.cpp:1825
+#: src/editortab.cpp:1925
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
