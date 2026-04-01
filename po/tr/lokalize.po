@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-31 00:47+0000\n"
-"PO-Revision-Date: 2026-03-19 14:49+0300\n"
+"PO-Revision-Date: 2026-03-31 13:10+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1536,39 +1536,36 @@ msgstr "Girdi tamamen yerelleştirildi (son gibi)"
 #, kde-format
 msgctxt "@info"
 msgid "There are no bookmarked entries."
-msgstr ""
+msgstr "Yer imi koyulmuş hiçbir girdi yok."
 
 #: src/editortab.cpp:1381
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "Y&er İmleri"
+msgstr "Yer İmlerini Düzenle"
 
 #: src/editortab.cpp:1388
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Uncheck to remove this bookmark."
-msgstr ""
+msgstr "Bu yer imini kaldırmak için işareti kaldırın."
 
 #: src/editortab.cpp:1404
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Entry %1: %2"
-msgstr ""
+msgstr "Girdi %1: %2"
 
 #: src/editortab.cpp:1432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close All"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "Tümünü Kapat"
+msgstr "Tümünü Temizle"
 
 #: src/editortab.cpp:1476 src/project/projecttab.cpp:292
 #, kde-format
 msgid "A Pology check is already in progress."
-msgstr "Pology denetimi zaten sürüyor."
+msgstr "Halihazırda süren bir Pology denetimi var."
 
 #: src/editortab.cpp:1476 src/editortab.cpp:1484 src/editortab.cpp:1488
 #: src/project/projecttab.cpp:292 src/project/projecttab.cpp:300

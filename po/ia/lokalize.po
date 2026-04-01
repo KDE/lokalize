@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-31 00:47+0000\n"
-"PO-Revision-Date: 2026-03-19 10:59+0100\n"
+"PO-Revision-Date: 2026-03-31 10:41+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1547,34 +1547,31 @@ msgstr "Entrata es plenemente localisate (i.e. final)"
 #, kde-format
 msgctxt "@info"
 msgid "There are no bookmarked entries."
-msgstr ""
+msgstr "Il non ha alcun entratas in marcatores de libro."
 
 #: src/editortab.cpp:1381
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "&Marcatores de libro"
+msgstr "Edita marcatores de libro"
 
 #: src/editortab.cpp:1388
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Uncheck to remove this bookmark."
-msgstr ""
+msgstr "Deselectiona per remover iste marcator de libro."
 
 #: src/editortab.cpp:1404
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Entry %1: %2"
-msgstr ""
+msgstr "Entrata %1: %2"
 
 #: src/editortab.cpp:1432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close All"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "Claude toto"
+msgstr "Netta omne"
 
 #: src/editortab.cpp:1476 src/project/projecttab.cpp:292
 #, kde-format

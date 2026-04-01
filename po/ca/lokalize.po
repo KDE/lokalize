@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-31 00:47+0000\n"
-"PO-Revision-Date: 2026-03-19 11:27+0100\n"
+"PO-Revision-Date: 2026-03-31 13:07+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -1551,34 +1551,31 @@ msgstr "L'entrada està totalment traduïda (és a dir, final)"
 #, kde-format
 msgctxt "@info"
 msgid "There are no bookmarked entries."
-msgstr ""
+msgstr "No hi ha cap entrada apuntada."
 
 #: src/editortab.cpp:1381
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "&Punts"
+msgstr "Edita els punts"
 
 #: src/editortab.cpp:1388
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Uncheck to remove this bookmark."
-msgstr ""
+msgstr "Desmarqueu per a eliminar aquest punt."
 
 #: src/editortab.cpp:1404
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Entry %1: %2"
-msgstr ""
+msgstr "Entrada %1: %2"
 
 #: src/editortab.cpp:1432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close All"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "Tanca-ho tot"
+msgstr "Neteja-ho tot"
 
 #: src/editortab.cpp:1476 src/project/projecttab.cpp:292
 #, kde-format

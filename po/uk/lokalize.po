@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-31 00:47+0000\n"
-"PO-Revision-Date: 2026-03-19 12:32+0200\n"
+"PO-Revision-Date: 2026-03-31 08:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1543,34 +1543,31 @@ msgstr "Запис повністю локалізовано (остаточно
 #, kde-format
 msgctxt "@info"
 msgid "There are no bookmarked entries."
-msgstr ""
+msgstr "Немає записів закладок."
 
 #: src/editortab.cpp:1381
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "&Закладки"
+msgstr "Редагувати закладки"
 
 #: src/editortab.cpp:1388
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Uncheck to remove this bookmark."
-msgstr ""
+msgstr "Зніміть позначку, що вилучити цю закладку."
 
 #: src/editortab.cpp:1404
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Entry %1: %2"
-msgstr ""
+msgstr "Запис %1: %2"
 
 #: src/editortab.cpp:1432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close All"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "Закрити усе"
+msgstr "Вилучити все"
 
 #: src/editortab.cpp:1476 src/project/projecttab.cpp:292
 #, kde-format

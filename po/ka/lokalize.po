@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-31 00:47+0000\n"
-"PO-Revision-Date: 2026-03-19 04:39+0100\n"
+"PO-Revision-Date: 2026-03-31 05:58+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1536,34 +1536,31 @@ msgstr "ჩანაწერი სრულად ლოკალიზებ�
 #, kde-format
 msgctxt "@info"
 msgid "There are no bookmarked entries."
-msgstr ""
+msgstr "სანიშნეებში ჩანაწერები არ არსებობს."
 
 #: src/editortab.cpp:1381
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "&სანიშნეები"
+msgstr "სანიშნეების ჩასწორება"
 
 #: src/editortab.cpp:1388
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Uncheck to remove this bookmark."
-msgstr ""
+msgstr "მოხსენით სანიშნეს წასაშლელად."
 
 #: src/editortab.cpp:1404
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Entry %1: %2"
-msgstr ""
+msgstr "ჩანაწერი %1: %2"
 
 #: src/editortab.cpp:1432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Close All"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "ყველას დახურვა"
+msgstr "ყველას გასუფთავება"
 
 #: src/editortab.cpp:1476 src/project/projecttab.cpp:292
 #, kde-format

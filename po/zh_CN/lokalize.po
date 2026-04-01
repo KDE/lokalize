@@ -1486,11 +1486,10 @@ msgid "There are no bookmarked entries."
 msgstr ""
 
 #: src/editortab.cpp:1381
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "书签(&B)"
+msgstr ""
 
 #: src/editortab.cpp:1388
 #, kde-format
@@ -1505,12 +1504,10 @@ msgid "Entry %1: %2"
 msgstr ""
 
 #: src/editortab.cpp:1432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "清除"
+msgstr ""
 
 #: src/editortab.cpp:1476 src/project/projecttab.cpp:292
 #, kde-format
