@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-31 00:47+0000\n"
-"PO-Revision-Date: 2026-02-25 19:21+0100\n"
+"PO-Revision-Date: 2026-04-03 01:41+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -1050,11 +1050,10 @@ msgid "Insert alternate translation #%1"
 msgstr "Вмъкване на алтернативен превод #%1"
 
 #: src/editortab.cpp:211
-#, fuzzy, kde-format
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "Алтернативни преводи"
+msgstr "Прикачване на алтернативен файл за превод…"
 
 #: src/editortab.cpp:277
 #, kde-format
@@ -1087,23 +1086,22 @@ msgid "Define New Term"
 msgstr "Дефиниране на нов термин"
 
 #: src/editortab.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Save All"
-msgstr "Запазване"
+msgstr "Запис на всички"
 
 #: src/editortab.cpp:386
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Revert All"
-msgstr ""
+msgstr "Връщане на всички"
 
 #: src/editortab.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
-msgstr ""
+msgstr "Затваряне на всички"
 
 #: src/editortab.cpp:409
 #, kde-format
@@ -1545,34 +1543,31 @@ msgstr "Записът е напълно преведен"
 #, kde-format
 msgctxt "@info"
 msgid "There are no bookmarked entries."
-msgstr ""
+msgstr "Няма отметки."
 
 #: src/editortab.cpp:1381
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "&Отметки"
+msgstr "Редактиране на отметки"
 
 #: src/editortab.cpp:1388
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Uncheck to remove this bookmark."
-msgstr ""
+msgstr "Премахнете избора, за да изтриете тази отметка."
 
 #: src/editortab.cpp:1404
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Entry %1: %2"
-msgstr ""
+msgstr "Запис %1: %2"
 
 #: src/editortab.cpp:1432
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "Изчистване"
+msgstr "Изчистване на всичко"
 
 #: src/editortab.cpp:1476 src/project/projecttab.cpp:292
 #, kde-format
@@ -1637,12 +1632,10 @@ msgid "Word Count"
 msgstr "Брояч на думи"
 
 #: src/editortab.cpp:1543
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "Алтернативни преводи"
+msgstr "Добавяне на алтернативен преводен файл"
 
 #: src/editortab.cpp:1641
 #, kde-format
@@ -2109,12 +2102,10 @@ msgid "Remove selected glossary entry"
 msgstr "Премахване на избрания запис в речника"
 
 #: src/glossary/glossarytab.cpp:308
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define New Term"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Term"
-msgstr "Дефиниране на нов термин"
+msgstr "Добавяне на нов термин"
 
 #: src/glossary/glossarytab.cpp:312
 #, kde-format
@@ -2123,17 +2114,19 @@ msgid ""
 "multiple meanings should have separate glossary entries, each corresponding "
 "to a specific definition."
 msgstr ""
+"Речниковите записи представляват отделни значения на дадена дума. Думите с "
+"множество значения трябва да имат отделни речникови записи, всяка от които "
+"съответства на конкретно определение."
 
 #: src/glossary/glossarytab.cpp:319
 #, kde-format
 msgid "English term:"
-msgstr ""
+msgstr "Английски термин:"
 
 #: src/glossary/glossarytab.cpp:323
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgid "Target term:"
-msgstr "Превод:"
+msgstr "Преводен термин:"
 
 #: src/glossary/glossaryview.cpp:34 src/glossary/glossaryview.cpp:41
 #, kde-format
