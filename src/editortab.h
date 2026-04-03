@@ -22,7 +22,7 @@
 #include "lokalizetabpagebase.h"
 #include "pos.h"
 #include "resizewatcher.h"
-
+#include <QDateTime>
 #include <QMap>
 #include <QProcess>
 
@@ -163,6 +163,15 @@ public:
      * @author Finley Watson
      */
     bool isClean();
+
+    /*
+     * @short Checks if the file has been modified on disk since last load
+     * if modified prompts user to confirm to overwrite or not
+     * @return true if it is safe to proceed with saving,
+     *         false if the user cancels or chooses to save elsewhere
+     * @author Kumud
+     */
+    bool confirmOverwriteIfChangedOnDisk(const QString &filePath);
 
     QIcon m_defaultTabIcon;
     QIcon m_unsavedTabIcon;
@@ -415,6 +424,9 @@ private:
     int m_dbusId{-1};
     static QList<int> ids;
     // END dbus
+
+    // variable to track the last time the file was synced with the disk (when file was opened or saved)
+    QDateTime m_lastKnownModifiedTime;
 
 Q_SIGNALS:
     void signalSelectGlossaryEntryRequested(const QByteArray &entryId);

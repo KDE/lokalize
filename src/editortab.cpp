@@ -57,6 +57,7 @@
 #include <QDialogButtonBox>
 #include <QDir>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QIcon>
 #include <QInputDialog>
 #include <QListWidget>
@@ -909,6 +910,9 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
         // OK!!!
         Q_EMIT xliffFileOpened(m_catalog->type() == Xliff);
         Q_EMIT fileOpened();
+
+        // update the last synced time
+        m_lastKnownModifiedTime = QFileInfo(filePath).lastModified();
         return true;
     }
 
@@ -937,28 +941,35 @@ bool EditorTab::saveFileAs(const QString &defaultPath)
 
 bool EditorTab::saveFile(const QString &filePath)
 {
-    if (isClean() && filePath == m_catalog->url())
-        return true;
-    if (m_catalog->isClean() && filePath.isEmpty()) {
+    const QString effectivePath = filePath.isEmpty() ? m_catalog->url() : filePath;
+
+    if (!confirmOverwriteIfChangedOnDisk(effectivePath)) {
+        return false;
+    }
+
+    if (isClean()) {
         Q_EMIT m_catalog->signalFileSaved();
         return true;
     }
-    if (m_catalog->saveToUrl(filePath)) {
+
+    if (m_catalog->saveToUrl(effectivePath)) {
+        m_lastKnownModifiedTime = QFileInfo(effectivePath).lastModified();
         updateCaptionPath();
         updateTabLabelAndIcon();
-        Q_EMIT fileSaved(filePath);
+        Q_EMIT fileSaved(effectivePath);
         return true;
     }
-    const QString errorFilePath = filePath.isEmpty() ? m_catalog->url() : filePath;
+
     if (KMessageBox::Continue
         == KMessageBox::warningContinueCancel(this,
                                               i18nc("@info",
                                                     "Error saving the file %1\n"
                                                     "Do you want to save to another file or cancel?",
-                                                    errorFilePath),
+                                                    effectivePath),
                                               i18nc("@title", "Error"),
                                               KStandardGuiItem::save()))
-        return saveFileAs(errorFilePath);
+        return saveFileAs(effectivePath);
+
     return false;
 }
 
@@ -969,6 +980,32 @@ void EditorTab::fileAutoSaveFailedWarning(const QString &fileName)
                                    "Could not perform file autosaving.\n"
                                    "The target file was %1.",
                                    fileName));
+}
+
+bool EditorTab::confirmOverwriteIfChangedOnDisk(const QString &filepath)
+{
+    const QFileInfo fi(filepath);
+    if (fi.lastModified() > m_lastKnownModifiedTime) {
+        const int res =
+            KMessageBox::warningTwoActionsCancel(this,
+                                                 xi18nc("@info",
+                                                        "The file <filename>%1</filename> has been modified by another program. If you save now, any "
+                                                        "changes made in the other program will be lost. Are you sure you want to continue?",
+                                                        fi.fileName()),
+                                                 i18n("Save - Warning"),
+                                                 KStandardGuiItem::cont(), // <- KMessageBox::PrimaryAction
+                                                 KGuiItem(i18n("Save a Copy Elsewhere")), // <- KMessageBox::SecondaryAction
+                                                 KStandardGuiItem::cancel()); // <- KMessageBox::Cancel
+
+        if (res == KMessageBox::SecondaryAction) {
+            saveFileAs();
+            return false;
+        }
+        if (res == KMessageBox::Cancel) {
+            return false;
+        }
+    }
+    return true; // primary action or no ondisk changes found
 }
 
 EditorState EditorTab::state()
