@@ -1435,11 +1435,9 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:995
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "警告"
+msgstr ""
 
 #: src/editortab.cpp:997
 #, kde-format

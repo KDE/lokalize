@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-03-31 10:41+0200\n"
+"PO-Revision-Date: 2026-04-04 11:01+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1497,18 +1497,19 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
+"Le file <filename>%1</filename> ha essite modificate per un altere "
+"programma. SiTuu salveguarda nunc, omne modificationes facite in le altere "
+"programma essera perdite. Tu es secur que tu vole continuar?"
 
 #: src/editortab.cpp:995
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "Aviso"
+msgstr "Salveguarda - Aviso"
 
 #: src/editortab.cpp:997
 #, kde-format
 msgid "Save a Copy Elsewhere"
-msgstr ""
+msgstr "Salveguarda un copia alibi"
 
 #: src/editortab.cpp:1043
 #, kde-format

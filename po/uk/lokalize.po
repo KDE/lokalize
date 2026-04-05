@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-03-31 08:48+0300\n"
+"PO-Revision-Date: 2026-04-04 09:47+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1493,18 +1493,19 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
+"До файла <filename>%1</filename> було внесено зміни у сторонній програмі. "
+"Якщо ви збережете його зараз, усі зміни, які було внесено у сторонній "
+"програмі, буде втрачено. Ви справді хочете виконати збереження файла?"
 
 #: src/editortab.cpp:995
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "Попередження"
+msgstr "Збереження — Попередження"
 
 #: src/editortab.cpp:997
 #, kde-format
 msgid "Save a Copy Elsewhere"
-msgstr ""
+msgstr "Зберегти копію деінде"
 
 #: src/editortab.cpp:1043
 #, kde-format
