@@ -1454,18 +1454,19 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
+"Soubor <filename>%1</filename> byl upraven jiným programem. Pokud jej teď "
+"uložíte, veškeré změny, které ten program provedl, budou ztraceny. Jste si "
+"jisti, že si přejete pokračovat?"
 
 #: src/editortab.cpp:995
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "Varování"
+msgstr "Uložit - varování"
 
 #: src/editortab.cpp:997
 #, kde-format
 msgid "Save a Copy Elsewhere"
-msgstr ""
+msgstr "Uložit kopii jinde"
 
 #: src/editortab.cpp:1043
 #, kde-format
