@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-04-01 17:46+0300\n"
+"PO-Revision-Date: 2026-04-05 08:42+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1462,18 +1462,18 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
+"הקובץ <filename>%1</filename> נערך בתוכנית אחרת. בחירה בשמירה כעת תוביל "
+"לאובדן השינויים שנערכו בתוכנית השנייה. להמשיך?"
 
 #: src/editortab.cpp:995
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "אזהרה"
+msgstr "שמירה - אזהרה"
 
 #: src/editortab.cpp:997
 #, kde-format
 msgid "Save a Copy Elsewhere"
-msgstr ""
+msgstr "לשמור עותק במקום אחר"
 
 #: src/editortab.cpp:1043
 #, kde-format
