@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-04-01 17:50+0400\n"
+"PO-Revision-Date: 2026-04-09 11:22+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1472,18 +1472,18 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
+"غُير الملف <filename>%1</filename>  بواسطة برنامج آخر. إذا حفظت الآن ستفقد كل "
+"التغييرات التي جرت في التطبيق الآخر.  هل تريد المتابعة؟"
 
 #: src/editortab.cpp:995
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "تحذير"
+msgstr "تحذير - الحفظ"
 
 #: src/editortab.cpp:997
 #, kde-format
 msgid "Save a Copy Elsewhere"
-msgstr ""
+msgstr "احفظ نسخ في مكان آخر"
 
 #: src/editortab.cpp:1043
 #, kde-format

@@ -1558,7 +1558,7 @@ msgstr "Položka je plne lokalizovaná (konečná)"
 #, kde-format
 msgctxt "@info"
 msgid "There are no bookmarked entries."
-msgstr ""
+msgstr "Neexistujú žiadne záložkové položky."
 
 #: src/editortab.cpp:1418
 #, kde-format
@@ -1570,13 +1570,13 @@ msgstr "&Záložky"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Uncheck to remove this bookmark."
-msgstr ""
+msgstr "Odznačte na odstránenie tejto záložky."
 
 #: src/editortab.cpp:1441
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Entry %1: %2"
-msgstr ""
+msgstr "Položka %1: %2"
 
 #: src/editortab.cpp:1469
 #, kde-format
@@ -2129,11 +2129,13 @@ msgid ""
 "multiple meanings should have separate glossary entries, each corresponding "
 "to a specific definition."
 msgstr ""
+"Položky glosára predstavujú jednotlivé významy slova. Slová s viacerými "
+"významami by mali mať v glosári viacero položiek, jednu pre každý význam."
 
 #: src/glossary/glossarytab.cpp:319
 #, kde-format
 msgid "English term:"
-msgstr ""
+msgstr "Anglický termín:"
 
 #: src/glossary/glossarytab.cpp:323
 #, kde-format
