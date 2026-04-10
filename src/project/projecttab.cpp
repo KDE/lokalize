@@ -244,13 +244,7 @@ void ProjectTab::addComment()
 
 void ProjectTab::findTriggered()
 {
-    // Allows the Edit->Find menu to hide itself before it gets deleted afterwards.
-    QMetaObject::invokeMethod(
-        this,
-        [this]() {
-            searchInFiles(false);
-        },
-        Qt::QueuedConnection);
+    setFocus();
 }
 
 void ProjectTab::searchInFiles(bool templ)

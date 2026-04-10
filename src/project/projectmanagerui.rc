@@ -20,10 +20,6 @@
             <Separator />
             <Action name="toggle_translated_files" />
         </Menu>
-        <Menu name="edit" index="2">
-            <text>&amp;Edit</text>
-            <Action name="edit_find" />
-        </Menu>
         <Menu name="merge" index="5">
             <text>S&amp;ync</text>
         </Menu>
