@@ -250,12 +250,6 @@ void SettingsController::projectConfigure()
     ui_project_advanced.altDir->setUrl(QUrl::fromLocalFile(p.altTransDir()));
     dialog->addPage(w, i18nc("@title:tab", "Advanced"), QStringLiteral("applications-development-translation"));
 
-    // Scripts
-    w = new QWidget(dialog);
-    QVBoxLayout *layout = new QVBoxLayout(w);
-    layout->setSpacing(6);
-    layout->setContentsMargins(11, 11, 11, 11);
-
     w = new QWidget(dialog);
     Ui_prefs_project_local ui_prefs_project_local;
     ui_prefs_project_local.setupUi(w);
