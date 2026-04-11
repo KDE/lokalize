@@ -147,7 +147,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_T));
     connect(action, &QAction::triggered, m_browser, &ProjectWidget::toggleTranslatedFiles);
 
-    action = nav->addAction(KStandardActions::Find, this, &ProjectTab::findTriggered);
+    action = nav->addAction(KStandardActions::Find, this, &ProjectTab::setFocus);
 
     KActionCategory *proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
 
@@ -240,11 +240,6 @@ void ProjectTab::addComment()
     Project::instance()->setCommentsTexts(previousCommentsTexts);
     Project::instance()->setCommentsFiles(previousCommentsFiles);
     Project::instance()->save();
-}
-
-void ProjectTab::findTriggered()
-{
-    setFocus();
 }
 
 void ProjectTab::searchInFiles(bool templ)
