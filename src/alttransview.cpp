@@ -324,7 +324,7 @@ void AltTransView::slotUseSuggestion(int i)
 
     QString old = m_catalog->targetWithTags(m_entry.toDocPosition()).string;
     if (!old.isEmpty()) {
-        // FIXME test!
+        // FIXME: test!
         removeTargetSubstring(m_catalog, m_entry.toDocPosition(), 0, old.size());
     }
     qCWarning(LOKALIZE_LOG) << "1" << target.string;

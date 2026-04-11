@@ -104,7 +104,7 @@ QString convertToHtml(QString str, bool italics)
             return str;
     */
 
-    str = Qt::convertFromPlainText(str); // FIXME use another routine (this has bugs)
+    str = Qt::convertFromPlainText(str); // FIXME: use another routine (this has bugs)
 
     if (italics)
         str = QLatin1String("<p><i>") + QString::fromRawData(str.unicode() + 3, str.length() - 3 - 4) + QLatin1String("</i></p>");

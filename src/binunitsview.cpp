@@ -195,7 +195,7 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
 
 void BinUnitsView::mouseDoubleClicked(const QModelIndex &item)
 {
-    // FIXME child processes don't notify us about changes ;(
+    // FIXME: child processes don't notify us about changes ;(
     if (item.column() < BinUnitsModel::Approved) {
         auto job = new KIO::OpenUrlJob(QUrl::fromLocalFile(Project::instance()->absolutePath(item.data().toString())));
         job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));

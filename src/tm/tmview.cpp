@@ -812,7 +812,7 @@ CatalogString TM::targetAdapted(const TMEntry &entry, const CatalogString &ref)
                 oldMarkup.append(d.diffClean.at(j));
         }
 
-        oldMarkup = rxNonTranslatable.match(oldMarkup).captured(0); // FIXME if it fails?
+        oldMarkup = rxNonTranslatable.match(oldMarkup).captured(0); // FIXME: if it fails?
         if (target.string.startsWith(oldMarkup)) {
             // form 'newMarkup'
             QString newMarkup;
@@ -965,7 +965,7 @@ void TMView::slotUseSuggestion(int i)
     QString old = m_catalog->targetWithTags(m_pos).string;
     if (!old.isEmpty()) {
         m_pos.offset = 0;
-        // FIXME test!
+        // FIXME: test!
         removeTargetSubstring(m_catalog, m_pos, 0, old.size());
     }
     qCWarning(LOKALIZE_LOG) << "1" << target.string;

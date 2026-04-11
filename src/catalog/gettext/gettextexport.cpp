@@ -58,7 +58,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice *device, const GettextStora
             qCWarning(LOKALIZE_LOG) << "Non-empty msgid for the header, assuming empty msgid!" << Qt::endl << headerMsgid << "---";
         }
 
-        // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
+        // FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
         stream << QStringLiteral("msgid \"\"\n");
 
         writeKeyword(stream, QStringLiteral("msgstr"), catalog->m_header.msgstr(), false);
