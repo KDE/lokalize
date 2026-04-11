@@ -27,7 +27,7 @@ class TranslationUnitTextEdit : public KTextEdit
 public:
     explicit TranslationUnitTextEdit(Catalog *catalog, DocPosition::Part part, QWidget *parent = nullptr);
     ~TranslationUnitTextEdit() override;
-    // NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
+    // HACK: remove this when Qt is fixed (for unbreakable spaces bug #162016)
     QString toPlainText();
 
     ///@returns targetWithTags for the sake of not calling XliffStorage/doContent twice
@@ -153,7 +153,7 @@ private:
 
     // for undo/redo tracking
     QString _oldMsgstr;
-    QString _oldMsgstrAscii; // HACK to workaround #218246
+    QString _oldMsgstrAscii; // HACK: to workaround #218246
 
     // For text move with mouse
     int m_cursorSelectionStart{};

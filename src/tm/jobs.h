@@ -61,7 +61,7 @@ struct TMConfig {
     QString targetLangCode;
 };
 
-void cancelAllJobs(); // HACK because threadweaver's dequeue is not workin'
+void cancelAllJobs(); // HACK: because threadweaver's dequeue is not workin'
 
 /**
  * @brief Base class for QRunnable jobs

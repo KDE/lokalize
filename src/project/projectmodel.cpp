@@ -948,7 +948,7 @@ void ProjectModel::deleteSubtree(ProjectNode *node)
 
 void ProjectModel::startNewMetadataJob()
 {
-    if (!m_completeScan) // hack for debugging
+    if (!m_completeScan) // HACK: for debugging
         return;
 
     m_activeJob = nullptr;

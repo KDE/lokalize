@@ -55,7 +55,7 @@ void LedsWidget::contextMenuEvent(QContextMenuEvent *event)
     QMenu menu;
     menu.addAction(i18nc("@action", "Hide"));
     if (!menu.exec(event->globalPos()))
-        return; // NOTE the config doesn't seem to work
+        return; // NOTE: the config doesn't seem to work
     Settings::setLeds(false);
     SettingsController::instance()->dirty = true;
     hide();
@@ -197,7 +197,7 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
         TranslationUnitTextEdit *msgEdit = (pos.part == DocPosition::Source ? m_sourceTextEdit : m_targetTextEdit);
         QTextCursor t = msgEdit->textCursor();
         t.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, pos.offset);
-        // NOTE this was kinda bug due to on-the-fly msgid wordwrap
+        // NOTE: this was kinda bug due to on-the-fly msgid wordwrap
         if (selection)
             t.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, selection);
         msgEdit->setTextCursor(t);

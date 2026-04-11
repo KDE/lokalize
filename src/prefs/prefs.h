@@ -52,7 +52,7 @@ Q_SIGNALS:
     void generalSettingsChanged();
 
 private:
-    KEditListWidget *m_scriptsRelPrefWidget{nullptr}; // HACK to get relative filenames in the project file
+    KEditListWidget *m_scriptsRelPrefWidget{nullptr}; // HACK: to get relative filenames in the project file
     KEditListWidget *m_scriptsPrefWidget{nullptr};
     QWidget *m_mainWindowPtr{nullptr};
 

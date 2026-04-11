@@ -153,7 +153,7 @@ QString GNUPluralForms(const QString &lang)
         return QString::fromLatin1(langsWithPInfo[i].plural);
 
     // BEGIN alternative
-    //  NOTE does this work under M$ OS?
+    // NOTE: does this work under M$ OS?
     qCDebug(LOKALIZE_LOG) << "gonna call msginit";
     QString def = QStringLiteral("nplurals=2; plural=n != 1;");
 

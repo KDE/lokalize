@@ -702,7 +702,7 @@ static bool doInsertEntry(CatalogString source,
 static bool initSqliteDb(QSqlDatabase &db)
 {
     QSqlQuery queryMain(db);
-    // NOTE do this only if no japanese, chinese etc?
+    // NOTE: do this only if no japanese, chinese etc?
     queryMain.exec(QStringLiteral("PRAGMA encoding = \"UTF-8\""));
     queryMain.exec(
         QStringLiteral("CREATE TABLE IF NOT EXISTS source_strings ("

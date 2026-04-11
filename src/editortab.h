@@ -464,7 +464,7 @@ Q_SIGNALS:
     void signalNextFuzzyOrUntrAvailable(bool);
 
     // merge mode signals gone to the view
-    // NOTE move these to catalog tree view?
+    // NOTE: move these to catalog tree view?
     void signalPriorBookmarkAvailable(bool);
     void signalNextBookmarkAvailable(bool);
     void signalBookmarkDisplayed(bool);

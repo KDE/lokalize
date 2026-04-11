@@ -142,7 +142,7 @@ void Project::load(const QString &newProjectPath, const QString &forcedTargetLan
 
     if (!isTmSupported())
         qCWarning(LOKALIZE_LOG) << "no sqlite module available";
-    // NOTE do we need to explicitly call it when project id changes?
+    // NOTE: do we need to explicitly call it when project id changes?
     TM::DBFilesModel::instance()->openDB(projectID(), TM::Undefined, true);
 
     if (QaModel::isInstantiated()) {

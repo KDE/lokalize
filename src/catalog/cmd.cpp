@@ -405,7 +405,7 @@ void insertCatalogString(Catalog *catalog, DocPosition pos, const CatalogString 
                 catalog->push(new InsTagCmd(catalog, pos, tag));
             }
         } else {
-            // HACK to keep positions in sync
+            // HACK: to keep positions in sync
             pos.offset = start + i;
             catalog->push(new InsTextCmd(catalog, pos, QStringLiteral(" ")));
         }

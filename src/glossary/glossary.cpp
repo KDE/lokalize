@@ -461,7 +461,7 @@ void Glossary::setDescrip(const QByteArray &id, QString lang, const QString &typ
         while (!langSetElem.isNull()) {
             QString nLang = langSetElem.attribute(xmlLang, defaultLang);
             nLang.replace(QLatin1Char('-'), QLatin1Char('_'));
-            if (lang == QLatin1String("en")) { // NOTE COMPAT
+            if (lang == QLatin1String("en")) { // NOTE: COMPAT
                 lang = defaultLang;
                 nLang.replace(QLatin1Char('_'), QLatin1Char('-'));
                 langSetElem.setAttribute(xmlLang, defaultLang);

@@ -107,7 +107,7 @@ GlossaryTab::GlossaryTab(QWidget *parent)
     m_browser->setUniformRowHeights(true);
     m_browser->setAutoScroll(true);
     m_browser->setColumnHidden(GlossaryModel::ID, true);
-    m_browser->setColumnWidth(GlossaryModel::English, m_browser->columnWidth(GlossaryModel::English) * 2); // man this is  HACK y
+    m_browser->setColumnWidth(GlossaryModel::English, m_browser->columnWidth(GlossaryModel::English) * 2); // HACK: man this is hacky
     m_browser->setColumnWidth(GlossaryModel::Target, m_browser->columnWidth(GlossaryModel::Target) * 2);
     m_browser->setAlternatingRowColors(true);
     m_browser->setContentsMargins(0, 0, 0, 0);
@@ -274,7 +274,7 @@ void GlossaryTab::applyEntryChange()
     if (m_definition->toPlainText() != glossary->definition(id, m_defLang))
         glossary->setDefinition(id, m_defLang, m_definition->toPlainText());
 
-    // HACK to force finishing of the listview editing
+    // HACK: to force finishing of the listview editing
     QWidget *prevFocusWidget = QApplication::focusWidget();
     m_browser->setFocus();
     if (prevFocusWidget)
@@ -360,7 +360,7 @@ void GlossaryTab::rmTermEntry(int i)
     GlossaryModel *sourceModel = static_cast<GlossaryModel *>(m_proxyModel->sourceModel());
 
     if (i == -1) {
-        // NOTE actually we should remove selected items, not current one
+        // NOTE: actually we should remove selected items, not current one
         const QModelIndex &current = m_browser->currentIndex();
         if (!current.isValid())
             return;

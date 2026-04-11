@@ -157,7 +157,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
         && (accel.endsWith(text.at(start - 1)) || text.at(start - 1) == QChar(0x0000AD) // soft hyphen
         );
 
-    // HACK. Needs Sonnet API redesign (KDE 5)
+    // HACK: Needs Sonnet API redesign (KDE 5)
     if (smthPreceeding) {
         qCWarning(LOKALIZE_LOG) << "ampersand is in the way. word len:" << count;
         const QRegularExpression regExp(QStringLiteral("\\b"));

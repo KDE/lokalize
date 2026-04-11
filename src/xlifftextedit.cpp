@@ -334,7 +334,7 @@ void insertContent(QTextCursor &cursor, const CatalogString &catStr, const Catal
         }
         if (cursor.document()->resource(QTextDocument::ImageResource, QUrl(name)).isNull())
             cursor.document()->addResource(QTextDocument::ImageResource, QUrl(name), generateImage(text, font));
-        cursor.insertImage(name); // NOTE what if twice the same name?
+        cursor.insertImage(name); // NOTE: what if twice the same name?
         cursor.setCharFormat(chF);
 
         prev = ++i;
@@ -347,7 +347,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     Q_ASSERT(!m_catalog->targetLangCode().isEmpty());
     Q_ASSERT(!Project::instance()->targetLangCode().isEmpty());
 
-    // HACK to workaround #218246
+    // HACK: to workaround #218246
     const QString &editTextAscii = document()->toPlainText();
     if (editTextAscii == _oldMsgstrAscii) {
         return;
@@ -1227,7 +1227,7 @@ void TranslationUnitTextEdit::doCompletion(int pos)
     m_completionBox->setItems(s);
     if (s.size() && !s.first().isEmpty()) {
         m_completionBox->setCurrentRow(0);
-        if (!m_completionBox->isVisible()) // NOTE remove the check if kdelibs gets adapted
+        if (!m_completionBox->isVisible()) // NOTE: remove the check if kdelibs gets adapted
             m_completionBox->show();
         m_completionBox->resize(m_completionBox->sizeHint());
         QPoint p = cursorRect().bottomRight();

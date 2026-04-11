@@ -306,7 +306,7 @@ void TMView::slotBatchSelectDone()
         if (suggList.isEmpty())
             continue;
         const TMEntry &entry = suggList.first();
-        if (entry.score < 9900) // hacky
+        if (entry.score < 9900) // HACK:
             continue;
         {
             bool forceFuzzy = (suggList.size() > 1 && suggList.at(1).score >= 10000) || entry.score < 10000;

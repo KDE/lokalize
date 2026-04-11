@@ -192,7 +192,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
 
         Q_EMIT signalNextChangedAvailable(m_pos.entry < m_mergeCatalog->lastChangedIndex());
 
-        // a bit hacky :)
+        // HACK:
         connect(m_mergeCatalog, &MergeCatalog::signalEntryModified, this, &MergeView::slotUpdate);
 
         if (m_pos.entry != -1)

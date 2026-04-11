@@ -59,7 +59,7 @@ QStringList scanRecursive(const QList<QUrl> &urls)
 
     int i = urls.size();
     while (--i >= 0) {
-        if (urls.at(i).isEmpty() || urls.at(i).path().isEmpty()) // NOTE is this a Qt bug?
+        if (urls.at(i).isEmpty() || urls.at(i).path().isEmpty()) // NOTE: is this a Qt bug?
             continue;
         QString path = urls.at(i).toLocalFile();
         if (Catalog::extIsSupported(path))
