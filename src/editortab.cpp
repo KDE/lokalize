@@ -1551,7 +1551,7 @@ void EditorTab::clearTranslatedEntries()
 
 void EditorTab::displayWordCount()
 {
-    // TODO in trans and fuzzy separately
+    // TODO: in trans and fuzzy separately
     int sourceCount = 0;
     int targetCount = 0;
     const QRegularExpression rxClean(Project::instance()->markup() + QLatin1Char('|') + Project::instance()->accel()); // cleaning regexp; NOTE isEmpty()?
@@ -1602,7 +1602,7 @@ bool EditorTab::findEntryBySourceContext(const QString &source, const QString &c
 // see also termlabel.h
 void EditorTab::defineNewTerm()
 {
-    // TODO just a word under cursor?
+    // TODO: just a word under cursor?
     QString source(m_view->selectionInSource().toLower());
     if (source.isEmpty())
         source = m_catalog->msgid(m_currentPos).toLower();
@@ -1801,7 +1801,7 @@ void EditorTab::mergeIntoOpenDocument()
 
     saveFile();
 
-    // TODO check if odt did update (merge with new template is needed)
+    // TODO: check if odt did update (merge with new template is needed)
 
     QFileInfo originalOdfFileInfo(originalOdfFilePath);
     QString targetLangCode = m_catalog->targetLangCode();

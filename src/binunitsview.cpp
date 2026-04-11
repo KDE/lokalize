@@ -95,7 +95,7 @@ QVariant BinUnitsModel::data(const QModelIndex &index, int role) const
             QString path = index.column() == SourceFilePath ? m_catalog->source(pos) : m_catalog->target(pos);
             if (!m_imageCache.contains(path)) {
                 QString absPath = Project::instance()->absolutePath(path);
-                KDirWatch::self()->addFile(absPath); // TODO remember watched files to react only on them in dirty() signal handler
+                KDirWatch::self()->addFile(absPath); // TODO: remember watched files to react only on them in dirty() signal handler
                 m_imageCache.insert(path, QImage(absPath).scaled(128, 128, Qt::KeepAspectRatio));
             }
             return m_imageCache.value(path);

@@ -244,7 +244,7 @@ void SearchJob::run()
                 }
 
                 if (hasSourceMatch && hasTargetMatch) {
-                    // TODO handle multiple results in same column
+                    // TODO: handle multiple results in same column
                     SearchResult r;
                     r.filepath = filePath;
                     r.docPos = DocPos(pos);

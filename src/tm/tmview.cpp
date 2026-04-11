@@ -730,7 +730,7 @@ static int nextPlacableIn(const QString &old, int start, QString &cap)
 CatalogString TM::targetAdapted(const TMEntry &entry, const CatalogString &ref)
 {
     QString diff = entry.diff;
-    // TODO when this is called by AltTransView::slotUseSuggestion()
+    // TODO: when this is called by AltTransView::slotUseSuggestion()
     // there may be empty strings but these don't necessarily represent
     // a deletion of the entire string, because the data may not exist
     // so in those cases I think the data should be assumed to be
@@ -786,7 +786,7 @@ CatalogString TM::targetAdapted(const TMEntry &entry, const CatalogString &ref)
     }
 
     // del, add only markup, punct, num
-    // TODO further improvement: spaces, punct marked as 0
+    // TODO: further improvement: spaces, punct marked as 0
     // BEGIN BEGIN HANDLING
     QRegularExpression rxNonTranslatable;
     rxNonTranslatable.setPatternOptions(QRegularExpression::UseUnicodePropertiesOption);

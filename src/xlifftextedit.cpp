@@ -320,7 +320,7 @@ void insertContent(QTextCursor &cursor, const CatalogString &catStr, const Catal
         if (tag.type == InlineTag::mrk)
             text = QStringLiteral("*");
         else if (!tag.equivText.isEmpty())
-            text = tag.equivText; // TODO add number? when? -- right now this is done for gettext qt's 156 mark
+            text = tag.equivText; // TODO: add number? when? -- right now this is done for gettext qt's 156 mark
         else
             text = QString::number(sourceTagIdToIndex.contains(tag.id) ? sourceTagIdToIndex.value(tag.id) : (tagIndex + refTagIndexOffset));
         if (tag.start != tag.end) {
@@ -374,7 +374,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
     // BEGIN XLIFF markup handling
     // protect from tag removal
-    // TODO use midRef when Qt 4.8 is in distros
+    // TODO: use midRef when Qt 4.8 is in distros
     bool markupRemoved = charsRemoved && QStringView(target).mid(offset, charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
     bool markupAdded = charsAdded && addedText.contains(TAGRANGE_IMAGE_SYMBOL);
     if (markupRemoved || markupAdded) {
@@ -501,7 +501,7 @@ QMimeData *TranslationUnitTextEdit::createMimeDataFromSelection() const
     QMap<int, int> tagPlaces;
     if (fillTagPlaces(tagPlaces, catalogString, start, end - start)) {
         // transform CatalogString
-        // TODO substring method
+        // TODO: substring method
         catalogString.string = catalogString.string.mid(start, end - start);
 
         QList<InlineTag>::iterator it = catalogString.tags.begin();
@@ -669,7 +669,8 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         return KTextEdit::keyPressEvent(keyEvent);
 
     // BEGIN GENERAL
-    //  ALT+123 feature TODO this is general so should be on another level
+    //  ALT+123 feature
+    //  TODO: this is general so should be on another level
     else if ((keyEvent->modifiers() & Qt::AltModifier) && !keyEvent->text().isEmpty() && keyEvent->text().at(0).isDigit()) {
         QString text = keyEvent->text();
         while (!text.isEmpty() && text.at(0).isDigit()) {
@@ -1134,7 +1135,7 @@ void TranslationUnitTextEdit::source2target()
     QString ctxt = m_catalog->context(DocPosition(m_currentPos.entry)).first();
     const QRegularExpression delimiter(QStringLiteral("\\s*,\\s*"));
 
-    // TODO ask for the fillment if the first time.
+    // TODO: ask for the fillment if the first time.
     // BEGIN KDE specific part
     if (ctxt.startsWith(QLatin1String("NAME OF TRANSLATORS")) || text.startsWith(QLatin1String("_: NAME OF TRANSLATORS\\n"))) {
         if (!document()->toPlainText().split(delimiter).contains(Settings::authorLocalizedName())) {

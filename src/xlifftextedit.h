@@ -17,7 +17,7 @@
 #include <KTextEdit>
 
 class QMouseEvent;
-class SyntaxHighlighter; // TODO rename
+class SyntaxHighlighter; // TODO: rename
 class KCompletionBox;
 class MyCompletionBox;
 

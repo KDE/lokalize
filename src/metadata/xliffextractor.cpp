@@ -143,7 +143,7 @@ FileMetaData XliffExtractor::extract(const QString &filePath)
     if (reader.hasError())
         qCDebug(LOKALIZE_LOG) << "Parsing failed.";
 
-    // TODO WordCount
+    // TODO: WordCount
     FileMetaData m;
     m.fuzzy = handler.fuzzy;
     m.translated = handler.total - handler.untranslated - handler.fuzzy;

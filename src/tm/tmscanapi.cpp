@@ -157,7 +157,7 @@ QString shorterFilePath(const QString path)
         return path;
 
     QString pDir = Project::instance()->projectDir();
-    if (path.startsWith(pDir)) // TODO cache projectDir?
+    if (path.startsWith(pDir)) // TODO: cache projectDir?
         return QDir(pDir).relativeFilePath(path);
     return path;
 }

@@ -178,7 +178,7 @@ bool SettingsController::projectCreate()
     if (path.isEmpty())
         return false;
 
-    // TODO ask-n-save
+    // TODO: ask-n-save
     QDir projectFolder = QFileInfo(path).absoluteDir();
     QString projectId = projectFolder.dirName();
     if (projectFolder.cdUp())
@@ -272,7 +272,7 @@ void SettingsController::projectConfigure()
 
 void SettingsController::reflectProjectConfigChange()
 {
-    // TODO check target language change: reflect changes in TM and glossary
+    // TODO: check target language change: reflect changes in TM and glossary
     TM::DBFilesModel::instance()->openDB(Project::instance()->projectID());
 }
 

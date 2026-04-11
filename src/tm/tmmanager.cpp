@@ -230,7 +230,7 @@ void TMManagerWin::importTMX()
 
 void TMManagerWin::exportTMX()
 {
-    // TODO ask whether to save full paths of files, or just their names
+    // TODO: ask whether to save full paths of files, or just their names
     QString path = QFileDialog::getSaveFileName(this,
                                                 i18nc("@title:window", "Select TMX file to export selected database to"),
                                                 QString(),

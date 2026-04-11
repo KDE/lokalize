@@ -107,7 +107,7 @@ FileMetaData POExtractor::extract(const QString &filePath)
     int lines = 0;
     FileMetaData m;
     while (std::getline(fstream, line)) {
-        // TODO add a parsed text of translation units
+        // TODO: add a parsed text of translation units
         handleLine(line.c_str(), line.size());
         lines++;
 
@@ -127,7 +127,7 @@ FileMetaData POExtractor::extract(const QString &filePath)
     handleLine("", 0); // for files with non-empty last line
     messages--; // cause header does not count
 
-    // TODO WordCount
+    // TODO: WordCount
     m.fuzzy = fuzzy;
     m.translated = messages - untranslated - fuzzy;
     m.untranslated = untranslated;

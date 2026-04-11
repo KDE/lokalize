@@ -342,7 +342,8 @@ void Catalog::updateApprovedEmptyIndexCache()
     if (Q_UNLIKELY(!m_storage))
         return;
 
-    // index cache TODO profile?
+    // index cache
+    // TODO: profile?
     d._nonApprovedIndex.clear();
     d._nonApprovedNonEmptyIndex.clear();
     d._emptyIndex.clear();
@@ -839,7 +840,7 @@ InlineTag Catalog::targetDeleteTag(const DocPosition &pos)
 
 void Catalog::setTarget(DocPosition pos, const CatalogString &s)
 {
-    // TODO for case of markup present
+    // TODO: for case of markup present
     m_storage->setTarget(pos, s.string);
 }
 

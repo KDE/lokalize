@@ -153,7 +153,7 @@ void DBFilesModel::calcStats(const QModelIndex &parent, int start, int end)
         QModelIndex index = QSortFilterProxyModel::index(start++, 0, parent);
         QString res = index.data().toString();
         if (Q_UNLIKELY(res == projectID && (!projectDB || data(*projectDB).toString() != projectID)))
-            projectDB = new QPersistentModelIndex(index); // TODO if user switches the project
+            projectDB = new QPersistentModelIndex(index); // TODO: if user switches the project
         openDB(res, DbType(index.data(FileNameRole).toString().endsWith(remoteTmExtension)));
     }
 }

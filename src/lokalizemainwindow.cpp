@@ -440,7 +440,7 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
 
     EditorTab *newEditorTab = new EditorTab(this);
 
-    // TODO this is immediately overwritten with the filename. Is it best to leave this as a fallback?
+    // TODO: this is immediately overwritten with the filename. Is it best to leave this as a fallback?
     newEditorTab->m_tabLabel = filePath;
 
     // Set suggestedDirPath to file path of current tab.
@@ -522,7 +522,7 @@ EditorTab *LokalizeMainWindow::fileOpen(const QString &filePath, const QString &
 {
     EditorTab *w = fileOpen(filePath, 0, setAsActive);
     if (!w)
-        return nullptr; // TODO message
+        return nullptr; // TODO: message
     w->findEntryBySourceContext(source, ctxt);
     return w;
 }
@@ -530,7 +530,7 @@ EditorTab *LokalizeMainWindow::fileOpen(const QString &filePath, DocPosition doc
 {
     EditorTab *w = fileOpen(filePath, 0, setAsActive);
     if (!w)
-        return nullptr; // TODO message
+        return nullptr; // TODO: message
     w->gotoEntry(docPos, selection);
     return w;
 }
@@ -644,7 +644,7 @@ void LokalizeMainWindow::showFileSearchAction()
 
 void LokalizeMainWindow::fileSearchNext()
 {
-    // TODO fill search params based on current selection
+    // TODO: fill search params based on current selection
     if (!m_fileSearchTab)
         showFileSearch(true);
     m_fileSearchTab->fileSearchNext();
@@ -958,7 +958,7 @@ void LokalizeMainWindow::projectLoaded()
 
 void LokalizeMainWindow::projectSettingsChanged()
 {
-    // TODO show langs
+    // TODO: show langs
     setCaption(Project::instance()->projectID());
 }
 
@@ -1236,7 +1236,7 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
 
     if (m_mainTabs->count() == 0) {
         showWelcome();
-        // TODO here the status bar should be hidden because otherwise
+        // TODO: here the status bar should be hidden because otherwise
         // the last used tab page's status bar remains visible.
     }
 }

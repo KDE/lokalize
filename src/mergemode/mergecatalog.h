@@ -48,7 +48,7 @@ struct MatchItem {
  * What this subclass does is creating the map (to provide main-file entry order) and index for fast changed entry lookup
  * So order of entries the same as of main-file
  *
- * TODO index of ch - on-the-fly
+ * TODO: index of ch - on-the-fly
  * @short Merge source container
  * @author Nick Shaforostoff <shafff@ukr.net>
  */

@@ -165,7 +165,7 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     bool refresh = (pos.entry == -1);
     if (refresh)
         pos = m_targetTextEdit->currentPos();
-    // TODO trigger refresh directly via Catalog signal
+    // TODO: trigger refresh directly via Catalog signal
 
     if (Q_UNLIKELY(m_catalog->isPlural(pos.entry))) {
         if (Q_UNLIKELY(m_catalog->numberOfPluralForms() != m_pluralTabBar->count())) {
@@ -260,13 +260,13 @@ void EditorView::insertTerm(const QString &term)
 
 QString EditorView::selectionInTarget() const
 {
-    // TODO remove IMAGES
+    // TODO: remove IMAGES
     return m_targetTextEdit->textCursor().selectedText();
 }
 
 QString EditorView::selectionInSource() const
 {
-    // TODO remove IMAGES
+    // TODO: remove IMAGES
     return m_sourceTextEdit->textCursor().selectedText();
 }
 

@@ -48,7 +48,7 @@ private:
 
 class OpenDBJob;
 
-// TODO remote tms
+// TODO: remote tms
 class DBPropertiesDialog : public QDialog, Ui_DBParams
 {
     Q_OBJECT

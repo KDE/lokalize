@@ -104,7 +104,7 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition &basePos, const DocPosit
     CatalogStorage &mergeStorage = *(m_storage);
 
     MatchItem item(mergePos.entry, basePos.entry, true, mergeStorage.target(DocPosition(mergePos.entry)).isEmpty());
-    // TODO make more robust, perhaps after XLIFF?
+    // TODO: make more robust, perhaps after XLIFF?
     QStringList baseMatchData = baseStorage.matchData(basePos);
     QStringList mergeMatchData = mergeStorage.matchData(mergePos);
 
@@ -112,7 +112,7 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition &basePos, const DocPosit
     item.score +=
         40 * ((baseMatchData.isEmpty() && mergeMatchData.isEmpty()) ? baseStorage.id(basePos) == mergeStorage.id(mergePos) : baseMatchData == mergeMatchData);
 
-    // TODO look also for changed/new <note>s
+    // TODO: look also for changed/new <note>s
 
     // translation isn't changed
     if (baseStorage.targetAllForms(basePos, true) == mergeStorage.targetAllForms(mergePos, true)) {

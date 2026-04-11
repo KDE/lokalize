@@ -151,7 +151,7 @@ EntryReplaceDialog::~EntryReplaceDialog()
 }
 // END EntryReplaceDialog
 
-// TODO &amp;, &nbsp; ...
+// TODO: &amp;, &nbsp; ...
 static void calcOffsetWithAccels(const QString &data, int &offset, int &length)
 {
     int i = 0;

@@ -83,7 +83,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice *device, const GettextStora
             writeKeyword(stream, QStringLiteral("msgstr"), catalogItem.msgstr(), true, catalogItem.prependEmptyForMsgstr());
         else {
             qCDebug(LOKALIZE_LOG) << "Saving gettext plural form";
-            // TODO check len of the actual stringlist??
+            // TODO: check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
             for (int i = 0; i < forms; ++i) {
                 const QString keyword = QStringLiteral("msgstr[") + QString::number(i) + QLatin1Char(']');

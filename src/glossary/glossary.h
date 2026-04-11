@@ -39,7 +39,7 @@ struct TermEntry {
     QString definition;
     int subjectField; // index in global Glossary's subjectFields list
     QString id; // used to identify entry on edit action
-    // TODO <descrip type="context"></descrip>
+    // TODO: <descrip type="context"></descrip>
 
     TermEntry(const QStringList &_source, const QStringList &_target, const QString &_definition, int _subjectField, const QString &_id = QString())
         : source(_source)

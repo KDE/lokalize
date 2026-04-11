@@ -271,7 +271,7 @@ Q_SIGNALS:
  *
  * it is supposed to run on entry switch/file close in Editor
  **/
-// TODO a mechanism to get rid of dead dups (use strigi?).
+// TODO: a mechanism to get rid of dead dups (use strigi?).
 // also, display usage of different translations and suggest user
 // to use only one of them (listview, checkboxes)
 class UpdateJob : public QRunnable, public Job

@@ -380,7 +380,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData *
 
             if (data && data->actionType == ContentEditingData::Get) {
                 QString id = el.attribute(QStringLiteral("id"));
-                if (i == InlineTag::mrk) // TODO attr map
+                if (i == InlineTag::mrk) // TODO: attr map
                     id = el.attribute(QStringLiteral("mtype"));
 
                 data->tags.append(InlineTag(oldStartingPos - 1, startingPos - 1, i, id, el.attribute(QStringLiteral("xid"))));

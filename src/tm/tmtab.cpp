@@ -57,7 +57,7 @@ static void copy(Ui_QueryOptions *ui_queryOptions, int column)
         ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(), column).data().toString());
 }
 
-// TODO do things for case when user explicitly wants to find & accel mark
+// TODO: do things for case when user explicitly wants to find & accel mark
 
 // BEGIN TMDBModel
 TMDBModel::TMDBModel(QObject *parent)
@@ -198,7 +198,7 @@ QVariant TMDBModel::data(const QModelIndex &item, int role) const
     bool doHtml = (role == FastSizeHintItemDelegate::HtmlDisplayRole);
     if (doHtml)
         role = Qt::DisplayRole;
-    else if (role == Qt::FontRole && item.column() == TMDBModel::Target) { // TODO Qt::ForegroundRole -- brush for orphaned entries
+    else if (role == Qt::FontRole && item.column() == TMDBModel::Target) { // TODO: Qt::ForegroundRole -- brush for orphaned entries
         QFont font = QApplication::font();
         font.setItalic(!rowIsApproved(item.row()));
         return font;

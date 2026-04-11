@@ -107,7 +107,7 @@ static qlonglong reusedTMSourceEntryCount = 0;
 /**
  * splits string into words, removing any markup
  *
- * TODO segmentation by sentences...
+ * TODO: segmentation by sentences...
  **/
 static void doSplit(QString &cleanEn, QStringList &words, QRegularExpression &rxClean1, const QString &accel)
 {
@@ -419,7 +419,7 @@ static QString escape(QString str)
 
 static bool doInsertEntry(CatalogString source,
                           CatalogString target,
-                          const QString &ctxt, // TODO QStringList -- after XLIFF
+                          const QString &ctxt, // TODO: QStringList -- after XLIFF
                           bool approved,
                           qlonglong fileId,
                           QSqlDatabase &db,
@@ -575,7 +575,7 @@ static bool doInsertEntry(CatalogString source,
                 removeFromIndex(mainId, sourceId, source.string, rxClean1, accel, db);
         }
 
-        if (matches) { // TODO XLIFF target_markup
+        if (matches) { // TODO: XLIFF target_markup
             return false;
         }
         // no, translation has changed: just update old target if it isn't used elsewhere
@@ -585,7 +585,7 @@ static bool doInsertEntry(CatalogString source,
             qCWarning(LOKALIZE_LOG) << "doInsertEntry: select db target_strings error: " << query1.lastError().text();
 
         if (query1.next() && query1.value(0).toLongLong() == 1) {
-            // TODO tnis may create duplicates, while no strings should be lost
+            // TODO: tnis may create duplicates, while no strings should be lost
             query1.clear();
 
             query1.prepare(QStringLiteral("UPDATE target_strings "
@@ -698,7 +698,7 @@ static bool doInsertEntry(CatalogString source,
     return ok;
 }
 
-// TODO smth with its usage in places except opendbjob
+// TODO: smth with its usage in places except opendbjob
 static bool initSqliteDb(QSqlDatabase &db)
 {
     QSqlQuery queryMain(db);
@@ -1142,7 +1142,7 @@ bool SelectJob::doSelect(QSqlDatabase &db,
     QVector<qlonglong> idsForWord;
 
     QSqlQuery queryWords(db);
-    // TODO ??? not sure. make another loop before to create QList< QList<qlonglong> > then reorder it by size
+    // TODO: ??? not sure. make another loop before to create QList< QList<qlonglong> > then reorder it by size
     static const QString queryC[] = {QStringLiteral("SELECT ids_long FROM words WHERE word='%1'"),
                                      QStringLiteral("SELECT ids_short FROM words WHERE word='%1'")};
     QString queryString = queryC[isShort];
@@ -1654,7 +1654,7 @@ void UpdateJob::run()
     qlonglong priorId = -1;
     doInsertEntry(m_source,
                   m_newTarget,
-                  m_ctxt, // TODO QStringList -- after XLIFF
+                  m_ctxt, // TODO: QStringList -- after XLIFF
                   m_approved,
                   fileId,
                   db,
@@ -1765,7 +1765,7 @@ bool TmxParser::startElement(const QString &qName, const QXmlStreamAttributes &a
 
     } else if (qName == QLatin1String("tuv")) {
         QString attrLang = attr.value(QStringLiteral("xml:lang")).toString().toLower();
-        if (attrLang == QLatin1String("en")) // TODO startsWith?
+        if (attrLang == QLatin1String("en")) // TODO: startsWith?
             m_lang = Source;
         else if (attrLang == m_dbLangCode)
             m_lang = Target;
