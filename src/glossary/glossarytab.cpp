@@ -47,7 +47,7 @@ GlossaryTreeView::GlossaryTreeView(QWidget *parent)
     : QTreeView(parent)
 {
     setSortingEnabled(true);
-    sortByColumn(GlossaryModel::English, Qt::AscendingOrder);
+    sortByColumn(GlossaryModel::Source, Qt::AscendingOrder);
     setItemsExpandable(false);
     setAllColumnsShowFocus(true);
 }
@@ -107,7 +107,7 @@ GlossaryTab::GlossaryTab(QWidget *parent)
     m_browser->setUniformRowHeights(true);
     m_browser->setAutoScroll(true);
     m_browser->setColumnHidden(GlossaryModel::ID, true);
-    m_browser->setColumnWidth(GlossaryModel::English, m_browser->columnWidth(GlossaryModel::English) * 2); // HACK: man this is hacky
+    m_browser->setColumnWidth(GlossaryModel::Source, m_browser->columnWidth(GlossaryModel::Source) * 2); // HACK: man this is hacky
     m_browser->setColumnWidth(GlossaryModel::Target, m_browser->columnWidth(GlossaryModel::Target) * 2);
     m_browser->setAlternatingRowColors(true);
     m_browser->setContentsMargins(0, 0, 0, 0);

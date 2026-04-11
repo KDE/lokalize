@@ -176,7 +176,7 @@ class GlossaryModel : public QAbstractListModel
 public:
     enum Columns {
         ID = 0,
-        English,
+        Source,
         Target,
         SubjectField,
         GlossaryModelColumnCount,

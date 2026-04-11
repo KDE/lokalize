@@ -193,7 +193,7 @@ QVariant GlossaryModel::headerData(int section, Qt::Orientation, int role) const
         return QVariant();
 
     switch (section) {
-    case English:
+    case Source:
         return i18nc("@title:column Original text", "Source");
     case Target:
         return i18nc("@title:column Text in target language", "Target");
@@ -216,7 +216,7 @@ QVariant GlossaryModel::data(const QModelIndex &index, int role) const
     switch (index.column()) {
     case ID:
         return id;
-    case English:
+    case Source:
         return glossary->terms(id, project->sourceLangCode()).join(nl);
     case Target:
         return glossary->terms(id, project->targetLangCode()).join(nl);
