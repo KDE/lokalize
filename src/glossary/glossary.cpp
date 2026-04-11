@@ -195,7 +195,6 @@ QVariant GlossaryModel::headerData(int section, Qt::Orientation, int role) const
     switch (section) {
     case English:
         return i18nc("@title:column Original text", "Source");
-        ;
     case Target:
         return i18nc("@title:column Text in target language", "Target");
     case SubjectField:

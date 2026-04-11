@@ -93,7 +93,6 @@ QVariant QaModel::headerData(int section, Qt::Orientation, int role) const
     switch (section) {
     case Source:
         return i18nc("@title:column Original text", "Source");
-        ;
     case FalseFriend:
         return i18nc("@title:column Translator's false friend", "False Friend");
     }

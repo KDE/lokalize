@@ -183,7 +183,6 @@ bool SettingsController::projectCreate()
     QString projectId = projectFolder.dirName();
     if (projectFolder.cdUp())
         projectId = projectFolder.dirName() + QLatin1Char('-') + projectId;
-    ;
     Project::instance()->load(path, QString(), projectId);
 
     QTimer::singleShot(500, this, &SettingsController::projectConfigure);

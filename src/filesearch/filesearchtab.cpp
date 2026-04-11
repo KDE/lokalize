@@ -370,7 +370,6 @@ void FileSearchModel::clear()
 {
     beginResetModel();
     m_searchResults.clear();
-    ;
     endResetModel();
 }
 
