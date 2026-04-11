@@ -16,7 +16,7 @@
 #include "lokalize_debug.h"
 #include "prefs.h"
 #include "project.h"
-#include "tmscanapi.h" //TODO separate some decls into new header
+#include "tmscanapi.h" // TODO: separate some decls into new header
 #include "ui_filesearchoptions.h"
 #include "ui_massreplaceoptions.h"
 
