@@ -134,7 +134,7 @@ public:
     EditorState state();
     KXMLGUIClient *guiClient() override
     {
-        return qobject_cast<KXMLGUIClient *>(this);
+        return static_cast<KXMLGUIClient *>(this);
     }
 #if HAVE_DBUS
     QString dbusObjectPath();
