@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-04 00:48+0000\n"
+"POT-Creation-Date: 2026-04-12 00:46+0000\n"
 "PO-Revision-Date: 2024-11-01 13:59+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -916,7 +916,7 @@ msgid "Source"
 msgstr "Source"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:200 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:199 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -1714,19 +1714,19 @@ msgstr ""
 "This will delete all the translations from the file.\n"
 "Do you really want to clear all translated entries?"
 
-#: src/editortab.cpp:1573
+#: src/editortab.cpp:1574
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Source text words: %1<br/>Target text words: %2"
 
-#: src/editortab.cpp:1574
+#: src/editortab.cpp:1575
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Word Count"
 
-#: src/editortab.cpp:1580
+#: src/editortab.cpp:1581
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Alternate Translations"
@@ -1734,7 +1734,7 @@ msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr "Alternate Translations"
 
-#: src/editortab.cpp:1678
+#: src/editortab.cpp:1679
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1742,30 +1742,30 @@ msgid ""
 msgstr ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 
-#: src/editortab.cpp:1679
+#: src/editortab.cpp:1680
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Source file lookup"
 
-#: src/editortab.cpp:1680
+#: src/editortab.cpp:1681
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Search Locally"
 
-#: src/editortab.cpp:1681 src/editortab.cpp:1725
+#: src/editortab.cpp:1682 src/editortab.cpp:1726
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "Search on lxr.kde.org"
 
-#: src/editortab.cpp:1684 src/editortab.cpp:1729
+#: src/editortab.cpp:1685 src/editortab.cpp:1730
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Select project's base folder for source file lookup"
 
-#: src/editortab.cpp:1721
+#: src/editortab.cpp:1722
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1775,19 +1775,19 @@ msgstr ""
 "Could not find source file in the folder specified.\n"
 "Do you want to change source files folder?"
 
-#: src/editortab.cpp:1723
+#: src/editortab.cpp:1724
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Source file lookup"
 
-#: src/editortab.cpp:1724
+#: src/editortab.cpp:1725
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Select Folder"
 
-#: src/editortab.cpp:1766
+#: src/editortab.cpp:1767
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1801,33 +1801,33 @@ msgstr ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 
-#: src/editortab.cpp:1780 src/project/project.cpp:394
+#: src/editortab.cpp:1781 src/project/project.cpp:394
 #: src/project/project.cpp:399
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Install translate-toolkit package and retry"
 
-#: src/editortab.cpp:1785
+#: src/editortab.cpp:1786
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Install translate-toolkit package and retry."
 
-#: src/editortab.cpp:1793
+#: src/editortab.cpp:1794
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Select original OpenDocument on which current XLIFF file is based"
 
-#: src/editortab.cpp:1795 src/project/project.cpp:404
+#: src/editortab.cpp:1796 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument files (*.odt *.ods)"
 
-#: src/editortab.cpp:1839
+#: src/editortab.cpp:1840
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Install python-uno package for additional functionality."
 
-#: src/editortab.cpp:1962
+#: src/editortab.cpp:1963
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -2063,7 +2063,7 @@ msgctxt "@title:column"
 msgid "File"
 msgstr "File"
 
-#: src/filesearch/filesearchtab.cpp:449
+#: src/filesearch/filesearchtab.cpp:448
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Search and replace in files"
@@ -2071,22 +2071,22 @@ msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "Search and replace in files"
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:398
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Copy source to clipboard"
 
-#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:404
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Copy target to clipboard"
 
-#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:410
 #, kde-format
 msgid "Open file"
 msgstr "Open file"
 
-#: src/filesearch/filesearchtab.cpp:518
+#: src/filesearch/filesearchtab.cpp:517
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Search and replace in files"
@@ -2094,7 +2094,7 @@ msgctxt "@title actions category"
 msgid "Search && Replace"
 msgstr "Search and replace in files"
 
-#: src/filesearch/filesearchtab.cpp:723
+#: src/filesearch/filesearchtab.cpp:722
 #, fuzzy, kde-format
 #| msgid "Mass Replace"
 msgctxt "@title:window"
@@ -2151,13 +2151,13 @@ msgstr "Ignore accelerator marks"
 msgid "Include notes"
 msgstr "Include notes"
 
-#: src/glossary/glossary.cpp:202
+#: src/glossary/glossary.cpp:201
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Subject Field"
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:666
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2166,24 +2166,24 @@ msgid ""
 "Details: %2"
 msgstr ""
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:666
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
 msgid "Glossary Error"
 msgstr "Glossary"
 
-#: src/glossary/glossary.cpp:675
+#: src/glossary/glossary.cpp:674
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr ""
 
-#: src/glossary/glossary.cpp:678
+#: src/glossary/glossary.cpp:677
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr ""
 
-#: src/glossary/glossary.cpp:681
+#: src/glossary/glossary.cpp:680
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr ""
@@ -3065,7 +3065,7 @@ msgstr ""
 "%1 - Path of the source file\n"
 "%2 - Line number"
 
-#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
+#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:206
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -3143,18 +3143,18 @@ msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "Select folder with Gettext .po files to translate"
 
-#: src/prefs/prefs.cpp:196
+#: src/prefs/prefs.cpp:195
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "Create software or OpenDocument translation project first."
 
-#: src/prefs/prefs.cpp:252
+#: src/prefs/prefs.cpp:251
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Advanced"
 
-#: src/prefs/prefs.cpp:263
+#: src/prefs/prefs.cpp:256
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -4392,7 +4392,7 @@ msgstr "Add Data from TMX"
 msgid "Export to TMX…"
 msgstr "Export to TMX"
 
-#: src/tm/qamodel.cpp:98
+#: src/tm/qamodel.cpp:97
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4826,29 +4826,29 @@ msgstr "Search GUI element text in translation memory"
 msgid "Copy GUI element text to clipboard"
 msgstr "Copy GUI element text to clipboard"
 
-#: src/xlifftextedit.cpp:876
+#: src/xlifftextedit.cpp:877
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Lookup selected text in translation memory"
 
-#: src/xlifftextedit.cpp:956
+#: src/xlifftextedit.cpp:957
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Replace text"
 
-#: src/xlifftextedit.cpp:995
+#: src/xlifftextedit.cpp:996
 #, kde-format
 msgid "no spellcheck available"
 msgstr "no spellcheck available"
 
-#: src/xlifftextedit.cpp:1011
+#: src/xlifftextedit.cpp:1012
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "An error was reported: %1"
 
-#: src/xlifftextedit.cpp:1171
+#: src/xlifftextedit.cpp:1172
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

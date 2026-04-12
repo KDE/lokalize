@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-04 00:48+0000\n"
+"POT-Creation-Date: 2026-04-12 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -851,7 +851,7 @@ msgid "Source"
 msgstr "原文"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:200 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:199 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -1578,55 +1578,55 @@ msgstr ""
 "此操作将从文件中删除所有翻译。\n"
 "您确定要清除所有已翻译的条目吗？"
 
-#: src/editortab.cpp:1573
+#: src/editortab.cpp:1574
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "原文词数：%1<br/>译文词数：%2"
 
-#: src/editortab.cpp:1574
+#: src/editortab.cpp:1575
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "单词计数"
 
-#: src/editortab.cpp:1580
+#: src/editortab.cpp:1581
 #, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr ""
 
-#: src/editortab.cpp:1678
+#: src/editortab.cpp:1679
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "您希望在本地搜索源文件还是通过 lxr.kde.org 搜索？"
 
-#: src/editortab.cpp:1679
+#: src/editortab.cpp:1680
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "查找源文件"
 
-#: src/editortab.cpp:1680
+#: src/editortab.cpp:1681
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "本地搜索"
 
-#: src/editortab.cpp:1681 src/editortab.cpp:1725
+#: src/editortab.cpp:1682 src/editortab.cpp:1726
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "在 lxr.kde.org 上搜索"
 
-#: src/editortab.cpp:1684 src/editortab.cpp:1729
+#: src/editortab.cpp:1685 src/editortab.cpp:1730
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "选择源文件查找的起始目录"
 
-#: src/editortab.cpp:1721
+#: src/editortab.cpp:1722
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1636,19 +1636,19 @@ msgstr ""
 "在指定文件夹中未找到源文件。\n"
 "您要更改源文件文件夹吗？"
 
-#: src/editortab.cpp:1723
+#: src/editortab.cpp:1724
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "查找源文件"
 
-#: src/editortab.cpp:1724
+#: src/editortab.cpp:1725
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "选择文件夹"
 
-#: src/editortab.cpp:1766
+#: src/editortab.cpp:1767
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1661,33 +1661,33 @@ msgstr ""
 "义源代码路径。参考 Lokalize 手册中的脚本示例以及如何将脚本应用于你的项目的说"
 "明。"
 
-#: src/editortab.cpp:1780 src/project/project.cpp:394
+#: src/editortab.cpp:1781 src/project/project.cpp:394
 #: src/project/project.cpp:399
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "安装 translate-toolkit 包并重试"
 
-#: src/editortab.cpp:1785
+#: src/editortab.cpp:1786
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "安装翻译工具包之后再重试。"
 
-#: src/editortab.cpp:1793
+#: src/editortab.cpp:1794
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "选择当前 XLIFF 文件基于的原始 OpenDocument"
 
-#: src/editortab.cpp:1795 src/project/project.cpp:404
+#: src/editortab.cpp:1796 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 文件 (*.odt *.ods)"
 
-#: src/editortab.cpp:1839
+#: src/editortab.cpp:1840
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "安装 python-uno 包来获得额外功能。"
 
-#: src/editortab.cpp:1962
+#: src/editortab.cpp:1963
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -1918,34 +1918,34 @@ msgctxt "@title:column"
 msgid "File"
 msgstr "文件"
 
-#: src/filesearch/filesearchtab.cpp:449
+#: src/filesearch/filesearchtab.cpp:448
 #, kde-format
 msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:398
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "复制源信息到剪贴板"
 
-#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:404
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "复制目标信息到剪贴板"
 
-#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:410
 #, kde-format
 msgid "Open file"
 msgstr "打开文件"
 
-#: src/filesearch/filesearchtab.cpp:518
+#: src/filesearch/filesearchtab.cpp:517
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search && Replace"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:723
+#: src/filesearch/filesearchtab.cpp:722
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
@@ -2001,13 +2001,13 @@ msgstr "忽略快捷键标记"
 msgid "Include notes"
 msgstr "包含备注"
 
-#: src/glossary/glossary.cpp:202
+#: src/glossary/glossary.cpp:201
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "主题字段"
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:666
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2016,22 +2016,22 @@ msgid ""
 "Details: %2"
 msgstr ""
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:666
 #, kde-format
 msgid "Glossary Error"
 msgstr ""
 
-#: src/glossary/glossary.cpp:675
+#: src/glossary/glossary.cpp:674
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr ""
 
-#: src/glossary/glossary.cpp:678
+#: src/glossary/glossary.cpp:677
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr ""
 
-#: src/glossary/glossary.cpp:681
+#: src/glossary/glossary.cpp:680
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr ""
@@ -2835,7 +2835,7 @@ msgstr ""
 "%1 - 源文件的路径\n"
 "%2 - 行号"
 
-#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
+#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:206
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2909,18 +2909,18 @@ msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "选择要翻译的 Gettext .po 文件所在的目录"
 
-#: src/prefs/prefs.cpp:196
+#: src/prefs/prefs.cpp:195
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "请先创建软件或者 OpenDocument 翻译项目。"
 
-#: src/prefs/prefs.cpp:252
+#: src/prefs/prefs.cpp:251
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "高级"
 
-#: src/prefs/prefs.cpp:263
+#: src/prefs/prefs.cpp:256
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -4107,7 +4107,7 @@ msgstr ""
 msgid "Export to TMX…"
 msgstr ""
 
-#: src/tm/qamodel.cpp:98
+#: src/tm/qamodel.cpp:97
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4516,29 +4516,29 @@ msgstr "搜索翻译记忆中的 GUI 元素文本"
 msgid "Copy GUI element text to clipboard"
 msgstr "复制 GUI 元素文本到剪贴板"
 
-#: src/xlifftextedit.cpp:876
+#: src/xlifftextedit.cpp:877
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "在翻译记忆中搜索选中的文本"
 
-#: src/xlifftextedit.cpp:956
+#: src/xlifftextedit.cpp:957
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "替换文本"
 
-#: src/xlifftextedit.cpp:995
+#: src/xlifftextedit.cpp:996
 #, kde-format
 msgid "no spellcheck available"
 msgstr "没有可用的拼写检查"
 
-#: src/xlifftextedit.cpp:1011
+#: src/xlifftextedit.cpp:1012
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "报告错误：%1"
 
-#: src/xlifftextedit.cpp:1171
+#: src/xlifftextedit.cpp:1172
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

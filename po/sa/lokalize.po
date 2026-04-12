@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-04 00:48+0000\n"
+"POT-Creation-Date: 2026-04-12 00:46+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -893,7 +893,7 @@ msgid "Source"
 msgstr "स्रोतः"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:200 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:199 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -1690,19 +1690,19 @@ msgstr ""
 "एतेन सञ्चिकातः सर्वे अनुवादाः अपास्यन्ति ।\n"
 "किं भवान् वास्तवमेव सर्वाणि अनुवादितप्रविष्टयः स्वच्छं कर्तुम् इच्छति?"
 
-#: src/editortab.cpp:1573
+#: src/editortab.cpp:1574
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "स्रोतपाठशब्दाः : %1<br/> लक्ष्यपाठशब्दाः : %2"
 
-#: src/editortab.cpp:1574
+#: src/editortab.cpp:1575
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "शब्दगणना"
 
-#: src/editortab.cpp:1580
+#: src/editortab.cpp:1581
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Alternate Translations"
@@ -1710,37 +1710,37 @@ msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr "वैकल्पिक अनुवाद"
 
-#: src/editortab.cpp:1678
+#: src/editortab.cpp:1679
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "किं भवान् स्रोतसञ्चिकां स्थानीयतया अन्वेष्टुम् इच्छति वा lxr.kde.org मार्गेण वा?"
 
-#: src/editortab.cpp:1679
+#: src/editortab.cpp:1680
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "स्रोतसञ्चिकायाः अन्वेषणम्"
 
-#: src/editortab.cpp:1680
+#: src/editortab.cpp:1681
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "स्थानीयतया अन्वेषणं कुर्वन्तु"
 
-#: src/editortab.cpp:1681 src/editortab.cpp:1725
+#: src/editortab.cpp:1682 src/editortab.cpp:1726
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org इत्यत्र अन्वेषणं कुर्वन्तु"
 
-#: src/editortab.cpp:1684 src/editortab.cpp:1729
+#: src/editortab.cpp:1685 src/editortab.cpp:1730
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "स्रोतसञ्चिका-अनुसन्धानार्थं परियोजनायाः आधारपुटं चिनोतु"
 
-#: src/editortab.cpp:1721
+#: src/editortab.cpp:1722
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1750,19 +1750,19 @@ msgstr ""
 "निर्दिष्टे पुटे स्रोतसञ्चिकां न प्राप्नोत् ।\n"
 "किं भवान् source files पुटं परिवर्तयितुम् इच्छति?"
 
-#: src/editortab.cpp:1723
+#: src/editortab.cpp:1724
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "स्रोतसञ्चिकायाः अन्वेषणम्"
 
-#: src/editortab.cpp:1724
+#: src/editortab.cpp:1725
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Folder इति चिनोतु"
 
-#: src/editortab.cpp:1766
+#: src/editortab.cpp:1767
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1776,33 +1776,33 @@ msgstr ""
 "स्क्रिप्ट् उदाहरणानां कृते Lokalize हस्तपुस्तिकां पश्यन्तु तथा च तान् स्वस्य परियोजनायां कथं "
 "प्लग् कर्तव्यम् इति ।"
 
-#: src/editortab.cpp:1780 src/project/project.cpp:394
+#: src/editortab.cpp:1781 src/project/project.cpp:394
 #: src/project/project.cpp:399
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit संकुलं संस्थाप्य पुनः प्रयासं कुर्वन्तु"
 
-#: src/editortab.cpp:1785
+#: src/editortab.cpp:1786
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "translate-toolkit संकुलं संस्थाप्य पुनः प्रयासं कुर्वन्तु ।"
 
-#: src/editortab.cpp:1793
+#: src/editortab.cpp:1794
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "मूल OpenDocument चिनोतु यस्मिन् वर्तमान XLIFF सञ्चिका आधारिता अस्ति"
 
-#: src/editortab.cpp:1795 src/project/project.cpp:404
+#: src/editortab.cpp:1796 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument सञ्चिकाः (*.odt *.ods)"
 
-#: src/editortab.cpp:1839
+#: src/editortab.cpp:1840
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "अतिरिक्तकार्यक्षमतायाः कृते python-uno संकुलं संस्थापयन्तु ।"
 
-#: src/editortab.cpp:1962
+#: src/editortab.cpp:1963
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -2037,7 +2037,7 @@ msgctxt "@title:column"
 msgid "File"
 msgstr "सञ्चिका"
 
-#: src/filesearch/filesearchtab.cpp:449
+#: src/filesearch/filesearchtab.cpp:448
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Search and replace in files"
@@ -2045,22 +2045,22 @@ msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "सञ्चिकासु अन्वेषणं कृत्वा प्रतिस्थापनं कुर्वन्तु"
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:398
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "स्रोतः क्लिप्बोर्ड् प्रति प्रतिलिख्यताम्"
 
-#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:404
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "लक्ष्यं क्लिप्बोर्ड् प्रति प्रतिलिख्यताम्"
 
-#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:410
 #, kde-format
 msgid "Open file"
 msgstr "सञ्चिकां उद्घाटयन्तु"
 
-#: src/filesearch/filesearchtab.cpp:518
+#: src/filesearch/filesearchtab.cpp:517
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Search and replace in files"
@@ -2068,7 +2068,7 @@ msgctxt "@title actions category"
 msgid "Search && Replace"
 msgstr "सञ्चिकासु अन्वेषणं कृत्वा प्रतिस्थापनं कुर्वन्तु"
 
-#: src/filesearch/filesearchtab.cpp:723
+#: src/filesearch/filesearchtab.cpp:722
 #, fuzzy, kde-format
 #| msgid "Mass Replace"
 msgctxt "@title:window"
@@ -2125,13 +2125,13 @@ msgstr "त्वरकचिह्नानां अवहेलनां क�
 msgid "Include notes"
 msgstr "टिप्पण्यानि समावेशयन्तु"
 
-#: src/glossary/glossary.cpp:202
+#: src/glossary/glossary.cpp:201
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "विषय क्षेत्र"
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:666
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2140,24 +2140,24 @@ msgid ""
 "Details: %2"
 msgstr ""
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:666
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
 msgid "Glossary Error"
 msgstr "शब्दावली"
 
-#: src/glossary/glossary.cpp:675
+#: src/glossary/glossary.cpp:674
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr ""
 
-#: src/glossary/glossary.cpp:678
+#: src/glossary/glossary.cpp:677
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr ""
 
-#: src/glossary/glossary.cpp:681
+#: src/glossary/glossary.cpp:680
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr ""
@@ -3034,7 +3034,7 @@ msgstr ""
 "%1 - स्रोतसञ्चिकायाः मार्गः\n"
 "%2 - रेखासङ्ख्या"
 
-#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
+#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:206
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -3112,18 +3112,18 @@ msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "अनुवादार्थं Gettext .po सञ्चिकाभिः सह समुच्चय चिनोतु"
 
-#: src/prefs/prefs.cpp:196
+#: src/prefs/prefs.cpp:195
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "प्रथमं सॉफ्टवेयर अथवा OpenDocument अनुवाद परियोजना रचयन्तु।"
 
-#: src/prefs/prefs.cpp:252
+#: src/prefs/prefs.cpp:251
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "उन्नतं"
 
-#: src/prefs/prefs.cpp:263
+#: src/prefs/prefs.cpp:256
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -4346,7 +4346,7 @@ msgstr "TMX तः Data योजयन्तु"
 msgid "Export to TMX…"
 msgstr "TMX - मध्ये निर्यातं कुर्वन्तु"
 
-#: src/tm/qamodel.cpp:98
+#: src/tm/qamodel.cpp:97
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4775,29 +4775,29 @@ msgstr "अनुवादस्मृतौ GUI तत्वपाठं अन
 msgid "Copy GUI element text to clipboard"
 msgstr "GUI तत्वपाठं क्लिप्बोर्ड् प्रति प्रतिलिख्यताम्"
 
-#: src/xlifftextedit.cpp:876
+#: src/xlifftextedit.cpp:877
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "अनुवादस्मृतौ चयनितं पाठं पश्यन्तु"
 
-#: src/xlifftextedit.cpp:956
+#: src/xlifftextedit.cpp:957
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "पाठं प्रतिस्थापयतु"
 
-#: src/xlifftextedit.cpp:995
+#: src/xlifftextedit.cpp:996
 #, kde-format
 msgid "no spellcheck available"
 msgstr "वर्तनीपरीक्षा उपलब्धा नास्ति"
 
-#: src/xlifftextedit.cpp:1011
+#: src/xlifftextedit.cpp:1012
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "एकः त्रुटिः निवेदिता: %1"
 
-#: src/xlifftextedit.cpp:1171
+#: src/xlifftextedit.cpp:1172
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-04 00:48+0000\n"
+"POT-Creation-Date: 2026-04-12 00:46+0000\n"
 "PO-Revision-Date: 2026-02-04 00:01+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -859,7 +859,7 @@ msgid "Source"
 msgstr "원본"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:200 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:199 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -1593,19 +1593,19 @@ msgstr ""
 "파일의 모든 번역문을 삭제합니다.\n"
 "모든 번역된 항목을 삭제하시겠습니까?"
 
-#: src/editortab.cpp:1573
+#: src/editortab.cpp:1574
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "원문 텍스트 단어 개수: %1<br/>번역문 텍스트 단어 개수: %2"
 
-#: src/editortab.cpp:1574
+#: src/editortab.cpp:1575
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "단어 개수"
 
-#: src/editortab.cpp:1580
+#: src/editortab.cpp:1581
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Alternate Translations"
@@ -1613,37 +1613,37 @@ msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr "대체 번역"
 
-#: src/editortab.cpp:1678
+#: src/editortab.cpp:1679
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "로컬에서 소스 파일을 검색하거나 lxr.kde.org에서 검색하시겠습니까?"
 
-#: src/editortab.cpp:1679
+#: src/editortab.cpp:1680
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "소스 파일 찾아보기"
 
-#: src/editortab.cpp:1680
+#: src/editortab.cpp:1681
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "로컬에서 검색"
 
-#: src/editortab.cpp:1681 src/editortab.cpp:1725
+#: src/editortab.cpp:1682 src/editortab.cpp:1726
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org에서 검색"
 
-#: src/editortab.cpp:1684 src/editortab.cpp:1729
+#: src/editortab.cpp:1685 src/editortab.cpp:1730
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "소스 파일을 찾아 볼 프로젝트 기반 폴더 선택"
 
-#: src/editortab.cpp:1721
+#: src/editortab.cpp:1722
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1653,19 +1653,19 @@ msgstr ""
 "지정한 폴더에서 소스 파일을 찾을 수 없습니다.\n"
 "소스 파일 폴더를 변경하시겠습니까?"
 
-#: src/editortab.cpp:1723
+#: src/editortab.cpp:1724
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "소스 파일 찾아보기"
 
-#: src/editortab.cpp:1724
+#: src/editortab.cpp:1725
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "폴더 선택"
 
-#: src/editortab.cpp:1766
+#: src/editortab.cpp:1767
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1679,33 +1679,33 @@ msgstr ""
 "오지 않았습니다. Lokalize 설명서를 참조하여 스크립트 예제 및 프로젝트에 적용"
 "하는 방법을 알아 보십시오."
 
-#: src/editortab.cpp:1780 src/project/project.cpp:394
+#: src/editortab.cpp:1781 src/project/project.cpp:394
 #: src/project/project.cpp:399
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit 패키지를 설치하고 다시 시도하십시오"
 
-#: src/editortab.cpp:1785
+#: src/editortab.cpp:1786
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "translate-toolkit 패키지를 설치하고 다시 시도하십시오."
 
-#: src/editortab.cpp:1793
+#: src/editortab.cpp:1794
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "현재 XLIFF 파일의 기반 OpenDocument 파일 선택"
 
-#: src/editortab.cpp:1795 src/project/project.cpp:404
+#: src/editortab.cpp:1796 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 파일 (*.odt *.ods)"
 
-#: src/editortab.cpp:1839
+#: src/editortab.cpp:1840
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "추가 기능을 사용하려면 python-uno 패키지를 설치하십시오."
 
-#: src/editortab.cpp:1962
+#: src/editortab.cpp:1963
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -1936,34 +1936,34 @@ msgctxt "@title:column"
 msgid "File"
 msgstr "파일"
 
-#: src/filesearch/filesearchtab.cpp:449
+#: src/filesearch/filesearchtab.cpp:448
 #, kde-format
 msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "찾아 바꾸기"
 
-#: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:398
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "원본을 클립보드에 복사"
 
-#: src/filesearch/filesearchtab.cpp:485 src/tm/tmtab.cpp:404
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:404
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "대상을 클립보드에 복사"
 
-#: src/filesearch/filesearchtab.cpp:491 src/tm/tmtab.cpp:410
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:410
 #, kde-format
 msgid "Open file"
 msgstr "파일 열기"
 
-#: src/filesearch/filesearchtab.cpp:518
+#: src/filesearch/filesearchtab.cpp:517
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search && Replace"
 msgstr "찾아 바꾸기"
 
-#: src/filesearch/filesearchtab.cpp:723
+#: src/filesearch/filesearchtab.cpp:722
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
@@ -2019,13 +2019,13 @@ msgstr "가속기 키 무시"
 msgid "Include notes"
 msgstr "주석 포함"
 
-#: src/glossary/glossary.cpp:202
+#: src/glossary/glossary.cpp:201
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "제목 필드"
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:666
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2034,24 +2034,24 @@ msgid ""
 "Details: %2"
 msgstr ""
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:666
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
 msgid "Glossary Error"
 msgstr "상용구"
 
-#: src/glossary/glossary.cpp:675
+#: src/glossary/glossary.cpp:674
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr ""
 
-#: src/glossary/glossary.cpp:678
+#: src/glossary/glossary.cpp:677
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr ""
 
-#: src/glossary/glossary.cpp:681
+#: src/glossary/glossary.cpp:680
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr ""
@@ -2885,7 +2885,7 @@ msgstr ""
 "%1 - 소스 파일 경로\n"
 "%2 - 줄 번호"
 
-#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
+#: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:206
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2959,18 +2959,18 @@ msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "번역할 Gettext .po 파일이 있는 폴더 선택"
 
-#: src/prefs/prefs.cpp:196
+#: src/prefs/prefs.cpp:195
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "소프트웨어 및 OpenDocument 번역 프로젝트를 만드십시오."
 
-#: src/prefs/prefs.cpp:252
+#: src/prefs/prefs.cpp:251
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "고급"
 
-#: src/prefs/prefs.cpp:263
+#: src/prefs/prefs.cpp:256
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -4167,7 +4167,7 @@ msgstr "TMX에서 데이터 추가…"
 msgid "Export to TMX…"
 msgstr "TMX로 내보내기…"
 
-#: src/tm/qamodel.cpp:98
+#: src/tm/qamodel.cpp:97
 #, kde-format
 msgctxt "@title:column Translator's false friend"
 msgid "False Friend"
@@ -4583,29 +4583,29 @@ msgstr "번역 메모리에서 GUI 구성 요소 텍스트 찾기"
 msgid "Copy GUI element text to clipboard"
 msgstr "GUI 구성 요소 텍스트를 클립보드에 복사"
 
-#: src/xlifftextedit.cpp:876
+#: src/xlifftextedit.cpp:877
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "번역 메모리에서 선택한 텍스트 찾기"
 
-#: src/xlifftextedit.cpp:956
+#: src/xlifftextedit.cpp:957
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "텍스트 바꾸기"
 
-#: src/xlifftextedit.cpp:995
+#: src/xlifftextedit.cpp:996
 #, kde-format
 msgid "no spellcheck available"
 msgstr "맞춤법 검사 사용 불가"
 
-#: src/xlifftextedit.cpp:1011
+#: src/xlifftextedit.cpp:1012
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "오류 발생: %1"
 
-#: src/xlifftextedit.cpp:1171
+#: src/xlifftextedit.cpp:1172
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
