@@ -1206,7 +1206,6 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
         // Don't delete the glossary instance as it's connected to signals from editor tabs.
         // It operates differently to other tabs.
     } else if (EditorTab *editorTab = static_cast<EditorTab *>(m_mainTabs->widget(index))) {
-        m_activeTabPageKeyboardShortcuts = nullptr; // TODO: Should this be deleted? It's handled below.
         m_fileToEditor.remove(m_fileToEditor.key(editorTab));
         KConfig config;
         KConfigGroup stateGroup(&config, QStringLiteral("State"));
@@ -1217,14 +1216,15 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
         return;
     }
     // This disconnects the keyboard shortcuts relating to the tab being closed.
-    QWidget *currentTab = m_mainTabs->currentWidget();
-    Q_ASSERT(qobject_cast<LokalizeTabPageBase *>(currentTab) || qobject_cast<LokalizeTabPageBaseNoQMainWindow *>(currentTab));
-    if (LokalizeTabPageBase *tabToDelete = qobject_cast<LokalizeTabPageBase *>(currentTab)) {
-        guiFactory()->removeClient(tabToDelete->guiClient());
-    } else if (LokalizeTabPageBaseNoQMainWindow *tabToDelete = qobject_cast<LokalizeTabPageBaseNoQMainWindow *>(currentTab)) {
-        guiFactory()->removeClient(tabToDelete->guiClient());
-    }
     if (m_mainTabs->currentIndex() == index) {
+        QWidget *currentTab = m_mainTabs->currentWidget();
+        Q_ASSERT(qobject_cast<LokalizeTabPageBase *>(currentTab) || qobject_cast<LokalizeTabPageBaseNoQMainWindow *>(currentTab));
+        if (LokalizeTabPageBase *tabToDelete = qobject_cast<LokalizeTabPageBase *>(currentTab)) {
+            guiFactory()->removeClient(tabToDelete->guiClient());
+        } else if (LokalizeTabPageBaseNoQMainWindow *tabToDelete = qobject_cast<LokalizeTabPageBaseNoQMainWindow *>(currentTab)) {
+            guiFactory()->removeClient(tabToDelete->guiClient());
+        }
+
         m_activeTabPageKeyboardShortcuts = nullptr;
     }
 
