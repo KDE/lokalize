@@ -189,9 +189,9 @@ int MergeCatalog::loadFromUrl(const QString &filePath, const QString &saidFilePa
             scores << calcMatchItem(DocPosition(value), DocPosition(mergePosition));
 
         std::sort(scores.begin(), scores.end(), std::greater<MatchItem>());
-        int i = scores.size();
-        while (--i > 0) {
-            m_map[scores.at(i).baseEntry] = -1;
+        int j = scores.size();
+        while (--j > 0) {
+            m_map[scores.at(j).baseEntry] = -1;
         }
     }
 
