@@ -1173,8 +1173,8 @@ bool SelectJob::doSelect(QSqlDatabase &db,
         }
 
         // iterate over ids: this computes hit count for each id
-        for (QVector<qlonglong>::const_iterator i = idsForWord.constBegin(); i != idsForWord.constEnd(); i++)
-            occurencies[*i]++; // 0 is default value
+        for (qlonglong id : idsForWord)
+            occurencies[id]++; // 0 is default value
     }
 
     // accels are removed
