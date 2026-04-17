@@ -30,7 +30,7 @@ public:
     // HACK: remove this when Qt is fixed (for unbreakable spaces bug #162016)
     QString toPlainText();
 
-    ///@returns targetWithTags for the sake of not calling XliffStorage/doContent twice
+    /// @return targetWithTags for the sake of not calling XliffStorage/doContent twice
     CatalogString showPos(DocPosition pos, const CatalogString &refStr = CatalogString(), bool keepCursor = true);
     DocPosition currentPos() const
     {
@@ -86,7 +86,7 @@ protected:
     bool event(QEvent *event) override;
 
 private:
-    ///@a refStr is for proper numbering
+    /// @a refStr is for proper numbering
     void setContent(const CatalogString &catStr, const CatalogString &refStr = CatalogString());
 
     int strForMicePosIfUnderTag(QPoint mice, CatalogString &str, bool tryHarder = false);

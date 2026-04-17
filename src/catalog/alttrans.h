@@ -13,7 +13,7 @@
 #include "catalogstring.h"
 
 struct AltTrans {
-    ///@see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#alttranstype
+    /// @see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#alttranstype
     enum Type {
         Proposal,
         PreviousVersion,

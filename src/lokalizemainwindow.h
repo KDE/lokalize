@@ -147,21 +147,21 @@ public Q_SLOTS:
     Q_SCRIPTABLE void openProject(QString path);
     Q_SCRIPTABLE QString currentProject();
 
-    /// @returns 0 if current tab is not of Editor type
+    /// @return 0 if current tab is not of Editor type
     Q_SCRIPTABLE QObject *activeEditor();
 
-    /// @returns editor with @param path loaded or 0 if there is no such editor.
+    /// @return editor with @param path loaded or 0 if there is no such editor.
     Q_SCRIPTABLE QObject *editorForFile(const QString &path);
     /**
      * # part of editor DBus path: /ThisIsWhatYouWant/Editor/#
-     * @returns -1 if there is no such editor
+     * @return -1 if there is no such editor
      */
     Q_SCRIPTABLE int editorIndexForFile(const QString &path);
 
-    /// @returns Unix process ID
+    /// @return Unix process ID
     Q_SCRIPTABLE int pid();
 
-    /// @returns smth like 'org.kde.lokalize-####' where #### is pid()
+    /// @return smth like 'org.kde.lokalize-####' where #### is pid()
     Q_SCRIPTABLE QString dbusName();
 
     Q_SCRIPTABLE void busyCursor(bool busy);

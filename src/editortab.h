@@ -367,7 +367,7 @@ private:
      * iterates through filtered entries in specified direction and checks if the next/previous filtered entry matches the passed translation state- Fuzzy,
      * Untranslated, or FuzzyOrUntranslated
      *
-     * @returns entry index if matching entry found or -1 if no such entry exists in that direction
+     * @return entry index if matching entry found or -1 if no such entry exists in that direction
      *
      * @author Navya Sai Sadu <navyas.sadu@gmail.com>
      * @author Kumud <kumud1665@gmail.com>

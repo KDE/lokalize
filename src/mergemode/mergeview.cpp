@@ -99,7 +99,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition &pos)
         }
         Q_EMIT signalEntryWithMergeDisplayed(false);
 
-        /// no editing at all!  ////////////
+        // WARN: no editing at all!
         return;
     }
     if (!m_hasInfo) {

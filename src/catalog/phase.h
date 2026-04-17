@@ -53,7 +53,7 @@ ProjectLocal::PersonRole roleForProcess(const QString &phase);
 enum InitOptions {
     ForceAdd = 1,
 };
-///@returns true if phase must be added to catalog
+/// @return true if phase must be added to catalog
 bool initPhaseForCatalog(Catalog *catalog, Phase &phase, int options = 0);
 void generatePhaseForCatalogIfNeeded(Catalog *catalog);
 

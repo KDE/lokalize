@@ -105,7 +105,7 @@ public:
         return m_modified;
     }
 
-    ///@arg pos in baseCatalog's coordinates
+    /// @arg pos in baseCatalog's coordinates
     void copyToBaseCatalog(DocPosition &pos);
     enum CopyToBaseOptions {
         EmptyOnly = 1,

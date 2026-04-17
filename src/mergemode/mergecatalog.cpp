@@ -234,7 +234,7 @@ void MergeCatalog::copyToBaseCatalog(DocPosition &pos)
 
         m_baseCatalog->push(new InsTextCmd(m_baseCatalog, pos, msgstr(pos)));
     }
-    ////////this is NOT done automatically by BaseCatalogEntryChanged slot
+    // WARN: this is NOT done automatically by BaseCatalogEntryChanged slot
     bool remove = true;
     if (isPlural(pos.entry)) {
         DocPosition p = pos;

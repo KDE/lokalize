@@ -88,7 +88,7 @@ public Q_SLOTS: // DBus interface
 
     /**
      * @a pos.form is note number
-     * @returns previous note contents, if any
+     * @return previous note contents, if any
      */
     Note setNote(const DocPosition &pos, const Note &note);
     QVector<Note> notes(const DocPosition &pos) const;
@@ -99,7 +99,7 @@ public Q_SLOTS: // DBus interface
     // the result is guaranteed to have at least 1 string
     QStringList context(const DocPosition &pos) const;
     QString id(const DocPosition &pos) const;
-    ///@returns previous phase-name
+    /// @return previous phase-name
     QString setPhase(const DocPosition &pos, const QString &phase);
     QString phase(const DocPosition &pos) const;
     QString activePhase() const
@@ -115,7 +115,7 @@ public Q_SLOTS: // DBus interface
     QList<Phase> allPhases() const;
     QMap<QString, Tool> allTools() const;
     QVector<Note> phaseNotes(const QString &phase) const;
-    ///@arg pos.entry - number of phase, @arg pos.form - number of note
+    /// @arg pos.entry - number of phase, @arg pos.form - number of note
     QVector<Note> setPhaseNotes(const QString &phase, QVector<Note>);
 
     bool isPlural(uint index) const;
@@ -130,7 +130,7 @@ public Q_SLOTS: // DBus interface
     }
     TargetState state(const DocPosition &pos) const;
     bool isEquivTrans(const DocPosition &) const;
-    ///@returns true if at least one form is untranslated
+    /// @return true if at least one form is untranslated
     bool isEmpty(uint index) const;
     bool isEmpty(const DocPosition &) const;
     bool isModified(DocPos entry) const;
@@ -235,7 +235,7 @@ public Q_SLOTS: // DBus interface
     {
         return d._filePath;
     }
-    ///@returns 0 if success, >0 erroneous line (parsing error)
+    /// @return 0 if success, >0 erroneous line (parsing error)
     int loadFromUrl(const QString &url, const QString &saidUrl = QString(), int *fileSize = nullptr, bool fast = false);
     bool saveToUrl(QString url);
     bool save();
@@ -286,7 +286,7 @@ protected:
     Phase updatePhase(const Phase &phase);
     void setEquivTrans(const DocPosition &, bool equivTrans);
 
-    /// @returns true if entry wasn't modified before
+    /// @return true if entry wasn't modified before
     bool setModified(DocPos entry, bool modif);
 
     void updateApprovedEmptyIndexCache();

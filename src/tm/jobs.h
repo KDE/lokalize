@@ -283,7 +283,6 @@ public:
                        const CatalogString &newTarget,
                        int form,
                        bool approved,
-                       // const DocPosition&,//for back tracking
                        const QString &dbName);
 
     ~UpdateJob()

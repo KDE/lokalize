@@ -241,7 +241,7 @@ private:
  * tagPlaces: pos -> int:
  * >0 if both start and end parts of tag were (to be) deleted
  * 1 means this is start, 2 means this is end
- * @returns false if it can't find second part of any paired tag in the range
+ * @return false if it can't find second part of any paired tag in the range
  */
 bool fillTagPlaces(QMap<int, int> &tagPlaces, const CatalogString &catalogString, int start, int len);
 bool removeTargetSubstring(Catalog *catalog, DocPosition pos, int delStart = 0, int delLen = -1);

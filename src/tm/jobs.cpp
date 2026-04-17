@@ -731,14 +731,7 @@ static bool initSqliteDb(QSqlDatabase &db)
                        "change_date DEFAULT CURRENT_DATE, " // last update date
                        // change_author
                        "bits NUMERIC DEFAULT 0, "
-                       // bits&0x01 means entry obsolete (not present in file)
-                       // bits&0x02 means entry is NOT equiv-trans (see XLIFF spec)
-                       // bits&0x04 TM_NOTAPPROVED entry is NOT approved?
-
-                       // ALTER TABLE main ADD COLUMN prior INTEGER;
                        "prior INTEGER" // helps restoring full context!
-                       //"reusability NUMERIC DEFAULT 0" //e.g. whether the translation is context-free, see XLIFF spec (equiv-trans)
-                       //"hits NUMERIC DEFAULT 0"
                        ")"));
 
     queryMain.exec(
@@ -1620,7 +1613,6 @@ UpdateJob::UpdateJob(const QString &filePath,
                      const QString &ctxt,
                      const CatalogString &source,
                      const CatalogString &newTarget,
-                     // const DocPosition&,//for back tracking
                      int form,
                      bool approved,
                      const QString &dbName)

@@ -63,7 +63,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     Q_SCRIPTABLE void setCurrentItem(const QString &url);
     Q_SCRIPTABLE QString currentItem() const;
-    ///@returns list of selected files recursively
+    /// @return list of selected files recursively
     Q_SCRIPTABLE QStringList selectedItems() const;
     Q_SCRIPTABLE bool currentItemIsTranslationFile() const;
 

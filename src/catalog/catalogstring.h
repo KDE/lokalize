@@ -30,7 +30,7 @@
 struct InlineTag {
     // sub       = can contain <sub>-flow tag
     // recursive = can contain other inline markup tags
-    ///@see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html
+    /// @see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html
     enum InlineElement {
         _unknown,
         bpt, // sub
@@ -92,12 +92,12 @@ struct InlineTag {
      * used to denote tag that doesn't present in target,
      * to have parallel numbering in view
      *
-     * @returns TagRange object prototype to be inserted into target
+     * @return TagRange object prototype to be inserted into target
      * @see isEmpty()
      */
     InlineTag getPlaceholder() const;
 
-    ///@returns 0 if type is unknown
+    /// @return 0 if type is unknown
     static InlineElement getElementType(const QByteArray &);
     static const char *getElementName(InlineElement type);
     const char *getElementName() const

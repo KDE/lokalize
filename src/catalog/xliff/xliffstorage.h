@@ -41,7 +41,7 @@ public:
     CatalogString sourceWithTags(DocPosition pos) const override;
     CatalogString catalogString(const DocPosition &pos) const override;
 
-    /// all plural forms. pos.form doesn't matter TODO
+    /// TODO: all plural forms. pos.form doesn't matter
     QStringList sourceAllForms(const DocPosition &pos, bool stripNewLines = false) const override
     {
         Q_UNUSED(pos)
@@ -70,7 +70,7 @@ public:
     QStringList sourceFiles(const DocPosition &pos) const override;
     QVector<AltTrans> altTrans(const DocPosition &pos) const override;
 
-    ///@a pos.form is note number
+    /// @a pos.form is note number
     Note setNote(DocPosition pos, const Note &note) override;
     QVector<Note> notes(const DocPosition &pos) const override;
     QStringList noteAuthors() const override;

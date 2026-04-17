@@ -402,17 +402,10 @@ static QDomElement firstDescripElemForLang(QDomElement termEntry, const QString 
     QString minusLang = lang;
     minusLang.replace(QLatin1Char('_'), QLatin1Char('-'));
 
-    // disable this for now
-    // bool enUSLangGiven=defaultLang==lang; //treat en_US and en as equal
-    // bool enLangGiven="en"==lang; //treat en_US and en as equal
-
     QDomElement n = termEntry.firstChildElement(langSet);
     while (!n.isNull()) {
         const QString &curLang = n.attribute(xmlLang);
-        if (curLang == lang || curLang == minusLang
-            //|| (enUSLangGiven && curLang=="en")
-            //|| (enLangGiven && curLang==defaultLang)
-        )
+        if (curLang == lang || curLang == minusLang)
             return n.firstChildElement(QStringLiteral("descrip"));
 
         n = n.nextSiblingElement(langSet);
