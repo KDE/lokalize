@@ -54,7 +54,7 @@ public:
 
     KXMLGUIClient *guiClient() override
     {
-        return (KXMLGUIClient *)this;
+        return static_cast<KXMLGUIClient *>(this);
     }
 #if HAVE_DBUS
     QString dbusObjectPath();
@@ -73,11 +73,11 @@ public Q_SLOTS:
     Q_SCRIPTABLE void addFilesToSearch(const QStringList &);
     Q_SCRIPTABLE void setSourceQuery(const QString &);
     Q_SCRIPTABLE void setTargetQuery(const QString &);
-    Q_SCRIPTABLE bool findGuiText(QString text)
+    Q_SCRIPTABLE bool findGuiText(const QString &text)
     {
         return findGuiTextPackage(text, QString());
     }
-    Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
+    Q_SCRIPTABLE bool findGuiTextPackage(const QString &text, const QString &package);
     void fileSearchNext();
     void stopSearch();
     void massReplace(const QRegularExpression &what, const QString &with);
@@ -176,7 +176,7 @@ public:
         return m_searchResults.size();
     }
 
-    SearchResults searchResults() const
+    const SearchResults &searchResults() const
     {
         return m_searchResults;
     }
