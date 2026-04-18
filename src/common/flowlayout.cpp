@@ -13,6 +13,7 @@
 #include "termlabel.h"
 
 #include <QAction>
+#include <qalgorithms.h>
 
 using namespace GlossaryNS;
 
@@ -44,9 +45,8 @@ FlowLayout::FlowLayout(User user, QWidget *signalingWidget, const QVector<QActio
 
 FlowLayout::~FlowLayout()
 {
-    QLayoutItem *item;
-    while ((item = takeAt(0)))
-        delete item;
+    qDeleteAll(itemList);
+    itemList.clear();
 }
 
 QLayoutItem *FlowLayout::takeAt(int index)
@@ -147,7 +147,7 @@ void FlowLayout::addTerm(const QString &term, const QByteArray &entryId, bool ca
     // fill layout with labels
     while (m_index >= count()) {
         TermLabel *label = new TermLabel;
-        connect(label, &TermLabel::insertTerm, (GlossaryNS::GlossaryView *)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
+        connect(label, &TermLabel::insertTerm, static_cast<GlossaryNS::GlossaryView *>(m_receiver), &GlossaryNS::GlossaryView::termInsertRequested);
         addWidget(label);
     }
     TermLabel *label = static_cast<TermLabel *>(itemAt(m_index)->widget());

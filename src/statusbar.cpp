@@ -104,7 +104,7 @@ void LokalizeStatusBar::clearUntranslatedCount()
     m_untranslatedLabel->clear();
 }
 
-void LokalizeStatusBar::setReadyCount(const QString text)
+void LokalizeStatusBar::setReadyCount(const QString &text)
 {
     if (text != m_translationStatusString) {
         m_translationStatusString = text;

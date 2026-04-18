@@ -35,8 +35,8 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override
     {
-        return ColumnCount;
         Q_UNUSED(parent)
+        return ColumnCount;
     }
     QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const override;
     Qt::ItemFlags flags(const QModelIndex &) const override;
