@@ -202,7 +202,8 @@ enum {
     NoEnqueue = 0,
     Enqueue = 1,
 };
-SelectJob *initSelectJob(Catalog *, DocPosition pos, QString db = QString(), int opt = Enqueue);
+
+SelectJob *initSelectJob(Catalog *, DocPosition pos, const QString &db = QString(), int opt = Enqueue);
 
 class RemoveMissingFilesJob : public QObject, public QRunnable, public Job
 {

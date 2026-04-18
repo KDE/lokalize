@@ -1092,7 +1092,7 @@ static QString makeAcceledString(QString source, const QString &accel, const QVa
     return source;
 }
 
-SelectJob *TM::initSelectJob(Catalog *catalog, DocPosition pos, QString db, int opt)
+SelectJob *TM::initSelectJob(Catalog *catalog, DocPosition pos, const QString &db, int opt)
 {
     SelectJob *job = new SelectJob(catalog->sourceWithTags(pos),
                                    catalog->context(DocPosition(pos.entry)).first(),
