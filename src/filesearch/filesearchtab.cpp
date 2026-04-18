@@ -820,7 +820,7 @@ QString FileSearchTab::dbusObjectPath()
 }
 #endif
 
-bool FileSearchTab::findGuiTextPackage(QString text, [[maybe_unused]] QString package)
+bool FileSearchTab::findGuiTextPackage(const QString &text, [[maybe_unused]] const QString &package)
 {
     setSourceQuery(text);
     performSearch();
