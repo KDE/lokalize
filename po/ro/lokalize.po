@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-12 00:46+0000\n"
+"POT-Creation-Date: 2026-04-18 00:48+0000\n"
 "PO-Revision-Date: 2026-04-13 13:47+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -2098,7 +2098,7 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Câmpul subiectului"
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2110,22 +2110,22 @@ msgstr ""
 "%1\n"
 "Detalii: %2"
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, kde-format
 msgid "Glossary Error"
 msgstr "Eroare de glosar"
 
-#: src/glossary/glossary.cpp:674
+#: src/glossary/glossary.cpp:667
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr "Dosarul glosarului nu există."
 
-#: src/glossary/glossary.cpp:677
+#: src/glossary/glossary.cpp:670
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr "Calea indică spre un dosar, nu un fișier."
 
-#: src/glossary/glossary.cpp:680
+#: src/glossary/glossary.cpp:673
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr "Nu se poate scrie în fișier. Verificați permisiunile."

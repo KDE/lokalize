@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-12 00:46+0000\n"
+"POT-Creation-Date: 2026-04-18 00:48+0000\n"
 "PO-Revision-Date: 2026-04-09 11:22+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2050,7 +2050,7 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "حقل الموضوع"
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2062,22 +2062,22 @@ msgstr ""
 "%1\n"
 "التفاصيل: %2"
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, kde-format
 msgid "Glossary Error"
 msgstr "خطأ المُسرَد"
 
-#: src/glossary/glossary.cpp:674
+#: src/glossary/glossary.cpp:667
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr "مجلد المسرد غير موجود."
 
-#: src/glossary/glossary.cpp:677
+#: src/glossary/glossary.cpp:670
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr "يشير المسار إلى مجلد، وليس إلى ملف."
 
-#: src/glossary/glossary.cpp:680
+#: src/glossary/glossary.cpp:673
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr "لا يمكن الكتابة إلى الملف. تحقق من الأذونات."

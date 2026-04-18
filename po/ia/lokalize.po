@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-12 00:46+0000\n"
+"POT-Creation-Date: 2026-04-18 00:48+0000\n"
 "PO-Revision-Date: 2026-04-04 11:01+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -2078,7 +2078,7 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Campo Subjecto"
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2090,22 +2090,22 @@ msgstr ""
 "%1\n"
 "Detalios: %2"
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, kde-format
 msgid "Glossary Error"
 msgstr "Error de Glossario"
 
-#: src/glossary/glossary.cpp:674
+#: src/glossary/glossary.cpp:667
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr "Le dossier per le glossario non existe."
 
-#: src/glossary/glossary.cpp:677
+#: src/glossary/glossary.cpp:670
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr "Le percursopuncta a un dossier, non un file."
 
-#: src/glossary/glossary.cpp:680
+#: src/glossary/glossary.cpp:673
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr "Non pote scriber in file. Verifica permissiones."

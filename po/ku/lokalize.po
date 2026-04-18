@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-12 00:46+0000\n"
+"POT-Creation-Date: 2026-04-18 00:48+0000\n"
 "PO-Revision-Date: 2008-09-24 02:55+0300\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@nospam.gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -2093,7 +2093,7 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr ""
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2102,24 +2102,24 @@ msgid ""
 "Details: %2"
 msgstr ""
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Glossary"
 msgid "Glossary Error"
 msgstr "Ferhengok"
 
-#: src/glossary/glossary.cpp:674
+#: src/glossary/glossary.cpp:667
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr ""
 
-#: src/glossary/glossary.cpp:677
+#: src/glossary/glossary.cpp:670
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr ""
 
-#: src/glossary/glossary.cpp:680
+#: src/glossary/glossary.cpp:673
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-12 00:46+0000\n"
+"POT-Creation-Date: 2026-04-18 00:48+0000\n"
 "PO-Revision-Date: 2023-12-06 19:07+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -2066,7 +2066,7 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Pole predmetu"
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2078,22 +2078,22 @@ msgstr ""
 "%1\n"
 "Details: %2"
 
-#: src/glossary/glossary.cpp:666
+#: src/glossary/glossary.cpp:659
 #, kde-format
 msgid "Glossary Error"
 msgstr "Slovník"
 
-#: src/glossary/glossary.cpp:674
+#: src/glossary/glossary.cpp:667
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr "The folder for the glossary does not exist."
 
-#: src/glossary/glossary.cpp:677
+#: src/glossary/glossary.cpp:670
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr "The path points to a folder, not a file."
 
-#: src/glossary/glossary.cpp:680
+#: src/glossary/glossary.cpp:673
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr "Cannot write to file. Check permissions."
