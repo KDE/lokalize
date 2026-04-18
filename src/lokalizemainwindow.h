@@ -170,7 +170,7 @@ public Q_SLOTS:
     /*
      * @short Runs when a file is clicked from Project Overview, calls fileOpen()
      */
-    EditorTab *fileOpen_(QString url, const bool setAsActive);
+    EditorTab *fileOpen_(const QString &filePath, const bool setAsActive);
     EditorTab *fileOpen(QString url = QString(), int entry = 0, bool setAsActive = true, const QString &mergeFile = QString(), bool silent = false);
     EditorTab *fileOpen(const QString &url, const QString &source, const QString &ctxt, const bool setAsActive);
     EditorTab *fileOpen(const QString &url, DocPosition docPos, int selection, const bool setAsActive);

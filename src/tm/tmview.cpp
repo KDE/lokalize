@@ -113,7 +113,7 @@ static DiffInfo getDiffInfo(const QString &diff)
     return d;
 }
 
-DoubleClickToInsertTextQLabel::DoubleClickToInsertTextQLabel(QString text)
+DoubleClickToInsertTextQLabel::DoubleClickToInsertTextQLabel(const QString &text)
     : QLabel(text)
 {
     setContextMenuPolicy(Qt::CustomContextMenu);

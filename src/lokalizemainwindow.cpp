@@ -423,7 +423,7 @@ void LokalizeMainWindow::saveCurrentEditorState()
     }
 }
 
-EditorTab *LokalizeMainWindow::fileOpen_(QString filePath, const bool setAsActive)
+EditorTab *LokalizeMainWindow::fileOpen_(const QString &filePath, const bool setAsActive)
 {
     return fileOpen(filePath, 0, setAsActive);
 }
