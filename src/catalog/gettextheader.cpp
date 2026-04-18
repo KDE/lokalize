@@ -336,9 +336,8 @@ void updateHeader(QString &header,
     }
 
     Project::LangSource projLangSource = Project::instance()->languageSource();
-    QString projLT = Project::instance()->projLangTeam();
     if (projLangSource == Project::LangSource::Project) {
-        temp = QStringLiteral("Language-Team: ") + projLT + QStringLiteral("\\n");
+        temp = QStringLiteral("Language-Team: ") + Project::instance()->projLangTeam() + QStringLiteral("\\n");
     } else if ((projLangSource == Project::LangSource::Application) && (Settings::overrideLangTeam())) {
         temp = QStringLiteral("Language-Team: ") + Settings::userLangTeam() + QStringLiteral("\\n");
     } else {
