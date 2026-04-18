@@ -60,7 +60,7 @@ bool QaView::loadRules(QString filename)
     return ok;
 }
 
-bool QaView::saveRules(QString filename)
+bool QaView::saveRules(const QString &filename)
 {
     return m_qaModel->saveRules(filename.isEmpty() ? m_filename : filename);
 }

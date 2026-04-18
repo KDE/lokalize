@@ -26,7 +26,7 @@ public:
     ~QaView();
 
     bool loadRules(QString filename = QString());
-    bool saveRules(QString filename = QString());
+    bool saveRules(const QString &filename = QString());
     QVector<Rule> rules() const;
 
 public Q_SLOTS:

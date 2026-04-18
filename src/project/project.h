@@ -62,12 +62,11 @@ public:
 
     ProjectModel *model();
 
-    // void setPath(const QString& p){m_path=p;}
-    QString path() const
+    const QString &path() const
     {
         return m_path;
     }
-    QString projectDir() const
+    const QString &projectDir() const
     {
         return m_projectDir;
     }
@@ -143,7 +142,7 @@ public Q_SLOTS:
     {
         m_desirablePath = path;
     }
-    Q_SCRIPTABLE QString desirablePath() const
+    Q_SCRIPTABLE const QString &desirablePath() const
     {
         return m_desirablePath;
     }

@@ -41,7 +41,7 @@ public:
 
     KXMLGUIClient *guiClient() override
     {
-        return (KXMLGUIClient *)this;
+        return static_cast<KXMLGUIClient *>(this);
     }
     QString currentFilePath() override;
 

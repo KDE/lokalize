@@ -135,13 +135,13 @@ class CloseDBJob : public QObject, public QRunnable, public Job
     Q_OBJECT
 public:
     explicit CloseDBJob(const QString &dbName);
-    ~CloseDBJob();
+    ~CloseDBJob() override;
 
     int priority() const override
     {
         return CLOSEDB;
     }
-    QString dbName()
+    const QString &dbName()
     {
         return m_dbName;
     }
@@ -165,7 +165,7 @@ public:
               const QString &file,
               const DocPosition &, // for back tracking
               const QString &dbName);
-    ~SelectJob() = default;
+    ~SelectJob() override = default;
 
     int priority() const override
     {
@@ -210,7 +210,7 @@ class RemoveMissingFilesJob : public QObject, public QRunnable, public Job
     Q_OBJECT
 public:
     explicit RemoveMissingFilesJob(const QString &dbName);
-    ~RemoveMissingFilesJob();
+    ~RemoveMissingFilesJob() override;
     int priority() const override
     {
         return REMOVEMISSINGFILES;
@@ -230,7 +230,7 @@ class RemoveFileJob : public QObject, public QRunnable, public Job
     Q_OBJECT
 public:
     explicit RemoveFileJob(const QString &filePath, const QString &dbName, QObject *parent = nullptr);
-    ~RemoveFileJob();
+    ~RemoveFileJob() override;
     int priority() const override
     {
         return REMOVEFILE;
@@ -252,7 +252,7 @@ class RemoveJob : public QObject, public QRunnable, public Job
     Q_OBJECT
 public:
     explicit RemoveJob(const TMEntry &entry);
-    ~RemoveJob();
+    ~RemoveJob() override;
     int priority() const override
     {
         return REMOVE;
@@ -287,7 +287,7 @@ public:
                        // const DocPosition&,//for back tracking
                        const QString &dbName);
 
-    ~UpdateJob()
+    ~UpdateJob() override
     {
     }
 
@@ -394,7 +394,7 @@ class ImportTmxJob : public QRunnable, public Job
 {
 public:
     explicit ImportTmxJob(const QString &url, const QString &dbName);
-    ~ImportTmxJob();
+    ~ImportTmxJob() override;
 
     int priority() const override
     {
@@ -417,7 +417,7 @@ class ExportTmxJob : public QRunnable, public Job
 {
 public:
     explicit ExportTmxJob(const QString &url, const QString &dbName);
-    ~ExportTmxJob();
+    ~ExportTmxJob() override;
 
     int priority() const override
     {
@@ -441,7 +441,7 @@ class ExecQueryJob : public QObject, public QRunnable, public Job
     Q_OBJECT
 public:
     explicit ExecQueryJob(const QString &queryString, const QString &dbName, QMutex *dbOperation);
-    ~ExecQueryJob();
+    ~ExecQueryJob() override;
 
     int priority() const override
     {

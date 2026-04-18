@@ -46,7 +46,7 @@ public:
 
     KXMLGUIClient *guiClient() override
     {
-        return (KXMLGUIClient *)this;
+        return static_cast<KXMLGUIClient *>(this);
     }
 #if HAVE_DBUS
     QString dbusObjectPath();
@@ -57,7 +57,7 @@ public:
     }
 
 public Q_SLOTS:
-    Q_SCRIPTABLE bool findGuiText(QString text)
+    Q_SCRIPTABLE bool findGuiText(const QString &text)
     {
         return findGuiTextPackage(text, QString());
     }
@@ -133,7 +133,7 @@ public:
     {
         return m_totalResultCount;
     }
-    QString dbName() const
+    const QString &dbName() const
     {
         return m_dbName;
     }

@@ -82,7 +82,7 @@ public:
     {
     }
 
-    QString path() const
+    const QString &path() const
     {
         return m_path;
     }

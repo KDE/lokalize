@@ -17,7 +17,7 @@
 #include <QVector>
 
 bool dragIsAcceptable(const QList<QUrl> &urls);
-QString shorterFilePath(const QString path);
+QString shorterFilePath(const QString &path);
 
 namespace TM
 {

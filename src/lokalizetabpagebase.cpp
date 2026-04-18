@@ -30,7 +30,7 @@ void LokalizeTabPageBaseNoQMainWindow::reloadUpdatedXML()
 
 KXMLGUIClient *LokalizeTabPageBaseNoQMainWindow::guiClient()
 {
-    return (KXMLGUIClient *)this;
+    return static_cast<KXMLGUIClient *>(this);
 }
 
 void LokalizeTabPageBase::setUpdatedXMLFile()
@@ -55,5 +55,5 @@ void LokalizeTabPageBase::reloadUpdatedXML()
 
 KXMLGUIClient *LokalizeTabPageBase::guiClient()
 {
-    return (KXMLGUIClient *)this;
+    return static_cast<KXMLGUIClient *>(this);
 }

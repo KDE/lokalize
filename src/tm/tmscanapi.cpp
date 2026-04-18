@@ -151,7 +151,7 @@ bool dragIsAcceptable(const QList<QUrl> &urls)
     return false;
 }
 
-QString shorterFilePath(const QString path)
+QString shorterFilePath(const QString &path)
 {
     if (!Project::instance()->isLoaded())
         return path;
