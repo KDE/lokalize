@@ -27,7 +27,7 @@ class LokalizeStatusBar : public QStatusBar
 {
     Q_OBJECT
 public:
-    LokalizeStatusBar(QWidget *parent);
+    explicit LokalizeStatusBar(QWidget *parent);
     ~LokalizeStatusBar() override;
 
     // Set and clear sections in the status bar. These are slots.
@@ -39,7 +39,7 @@ public:
     void clearFuzzyNotReadyCount();
     void setUntranslatedCount(const int untranslatedCount, const int totalCount);
     void clearUntranslatedCount();
-    void setReadyCount(const QString text);
+    void setReadyCount(const QString &text);
     void clearTranslationStatus();
     void clear();
     // Connect a tab page to the status bar and
