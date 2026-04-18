@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="ProjectOverview" version="6">
+<gui name="ProjectOverview" version="7">
     <MenuBar>
         <Menu name="go" index="3">
             <text>&amp;Go</text>
