@@ -138,9 +138,6 @@ static qlonglong getFileId(const QString &path, QSqlDatabase &db)
     QString escapedPath = path;
     escapedPath.replace(QLatin1Char('\''), QLatin1String("''"));
 
-    QString pathExpr = QStringLiteral("path='") + escapedPath + QLatin1Char('\'');
-    if (path.isEmpty())
-        pathExpr = QStringLiteral("path ISNULL");
     if (Q_UNLIKELY(!query1.exec(QStringLiteral("SELECT id FROM files WHERE path='") + escapedPath + QLatin1Char('\''))))
         qCWarning(LOKALIZE_LOG) << "select db error: " << query1.lastError().text();
 
