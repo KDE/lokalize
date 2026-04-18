@@ -81,10 +81,6 @@ private Q_SLOTS:
     void scanFilesToTM();
     void pologyOnFiles();
     void addComment();
-    /**
-     * A sole purpose of this slot is to workaround the bug #460634.
-     */
-    void findTriggered();
     void searchInFiles(bool templ = false);
     void searchInFilesInclTempl();
     void openFile();
