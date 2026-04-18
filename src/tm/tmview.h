@@ -112,7 +112,7 @@ class DoubleClickToInsertTextQLabel : public QLabel
 {
     Q_OBJECT
 public:
-    explicit DoubleClickToInsertTextQLabel(QString text);
+    explicit DoubleClickToInsertTextQLabel(const QString &text);
 
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 Q_SIGNALS:
