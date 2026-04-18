@@ -458,13 +458,11 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     filePath = newEditorTab->currentFilePath();
     m_openRecentFileAction->addUrl(QUrl::fromLocalFile(filePath));
 
-    if (newEditorTab) {
-        m_mainTabs->addTab(newEditorTab, newEditorTab->m_tabIcon, newEditorTab->m_tabLabel);
-        m_mainTabs->setTabToolTip(m_mainTabs->indexOf(newEditorTab), newEditorTab->m_tabToolTip);
-        connect(newEditorTab->m_resizeWatcher, &SaveLayoutAfterResizeWatcher::signalEditorTabNeedsLayoutSaving, this, [this] {
-            saveCurrentEditorState();
-        });
-    }
+    m_mainTabs->addTab(newEditorTab, newEditorTab->m_tabIcon, newEditorTab->m_tabLabel);
+    m_mainTabs->setTabToolTip(m_mainTabs->indexOf(newEditorTab), newEditorTab->m_tabToolTip);
+    connect(newEditorTab->m_resizeWatcher, &SaveLayoutAfterResizeWatcher::signalEditorTabNeedsLayoutSaving, this, [this] {
+        saveCurrentEditorState();
+    });
 
     // Tab has been added, editor tab page now needs
     // to have a sensible layout / state applied.
