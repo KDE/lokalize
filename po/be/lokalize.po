@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:48+0000\n"
+"POT-Creation-Date: 2026-04-19 00:47+0000\n"
 "PO-Revision-Date: 2008-09-26 14:57+0300\n"
 "Last-Translator: kom <me@komzpa.net>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -1633,26 +1633,26 @@ msgctxt "@action:button"
 msgid "Clear All"
 msgstr "Ачысціць"
 
-#: src/editortab.cpp:1513 src/project/projecttab.cpp:292
+#: src/editortab.cpp:1513 src/project/projecttab.cpp:281
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
 #: src/editortab.cpp:1513 src/editortab.cpp:1521 src/editortab.cpp:1525
-#: src/project/projecttab.cpp:292 src/project/projecttab.cpp:300
-#: src/project/projecttab.cpp:304
+#: src/project/projecttab.cpp:281 src/project/projecttab.cpp:289
+#: src/project/projecttab.cpp:293
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1521 src/project/projecttab.cpp:300
+#: src/editortab.cpp:1521 src/project/projecttab.cpp:289
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1523 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1523 src/project/projecttab.cpp:291
 #, kde-format
 msgid "Pology success"
 msgstr ""
@@ -1662,7 +1662,7 @@ msgstr ""
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1525 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1525 src/project/projecttab.cpp:293
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1830,8 +1830,7 @@ msgstr "Файла"
 
 #. i18n: ectx: Menu (edit)
 #: src/editorui.rc:39 src/filesearch/filesearchtabui.rc:11
-#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:24
-#: src/tm/translationmemoryrui.rc:11
+#: src/lokalizemainwindowui.rc:55 src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "&Edit"
 msgstr "&Змяніць"
@@ -1876,7 +1875,7 @@ msgstr "Закладкі"
 
 #. i18n: ectx: Menu (merge)
 #: src/editorui.rc:191 src/filesearch/filesearchtabui.rc:17
-#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:28
+#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:24
 #: src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "S&ync"
@@ -1897,7 +1896,7 @@ msgstr "Н&ачынне"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:238 src/filesearch/filesearchtabui.rc:21
-#: src/project/projectmanagerui.rc:32 src/tm/translationmemoryrui.rc:21
+#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:21
 #, kde-format
 msgid "Main Toolbar"
 msgstr ""
@@ -4143,12 +4142,12 @@ msgstr ""
 msgid "Input a comment for this project file:"
 msgstr ""
 
-#: src/project/projecttab.cpp:302
+#: src/project/projecttab.cpp:291
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:321
+#: src/project/projecttab.cpp:310
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
@@ -4156,19 +4155,19 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/project/projecttab.cpp:322
+#: src/project/projecttab.cpp:311
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:323
+#: src/project/projecttab.cpp:312
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:324
+#: src/project/projecttab.cpp:313
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Replace in files"

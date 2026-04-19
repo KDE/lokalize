@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:48+0000\n"
+"POT-Creation-Date: 2026-04-19 00:47+0000\n"
 "PO-Revision-Date: 2022-05-12 12:04+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1674,19 +1674,19 @@ msgctxt "@action:button"
 msgid "Clear All"
 msgstr "Làm trống"
 
-#: src/editortab.cpp:1513 src/project/projecttab.cpp:292
+#: src/editortab.cpp:1513 src/project/projecttab.cpp:281
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Một lần kiểm tra bằng Pology đang trong quá trình thực hiện rồi."
 
 #: src/editortab.cpp:1513 src/editortab.cpp:1521 src/editortab.cpp:1525
-#: src/project/projecttab.cpp:292 src/project/projecttab.cpp:300
-#: src/project/projecttab.cpp:304
+#: src/project/projecttab.cpp:281 src/project/projecttab.cpp:289
+#: src/project/projecttab.cpp:293
 #, kde-format
 msgid "Pology error"
 msgstr "Lỗi Pology"
 
-#: src/editortab.cpp:1521 src/project/projecttab.cpp:300
+#: src/editortab.cpp:1521 src/project/projecttab.cpp:289
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1695,7 +1695,7 @@ msgstr ""
 "Việc kiểm tra bằng Pology đã bất ngờ gặp sự cố:\n"
 "%1"
 
-#: src/editortab.cpp:1523 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1523 src/project/projecttab.cpp:291
 #, kde-format
 msgid "Pology success"
 msgstr "Hoàn thành Pology"
@@ -1705,7 +1705,7 @@ msgstr "Hoàn thành Pology"
 msgid "The Pology check has succeeded."
 msgstr "Việc kiểm tra bằng Pology đã thành công."
 
-#: src/editortab.cpp:1525 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1525 src/project/projecttab.cpp:293
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1879,8 +1879,7 @@ msgstr "&Tệp"
 
 #. i18n: ectx: Menu (edit)
 #: src/editorui.rc:39 src/filesearch/filesearchtabui.rc:11
-#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:24
-#: src/tm/translationmemoryrui.rc:11
+#: src/lokalizemainwindowui.rc:55 src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "&Edit"
 msgstr "&Sửa"
@@ -1921,7 +1920,7 @@ msgstr "&Dấu nhớ"
 
 #. i18n: ectx: Menu (merge)
 #: src/editorui.rc:191 src/filesearch/filesearchtabui.rc:17
-#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:28
+#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:24
 #: src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "S&ync"
@@ -1941,7 +1940,7 @@ msgstr "&Khung xem công cụ"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:238 src/filesearch/filesearchtabui.rc:21
-#: src/project/projectmanagerui.rc:32 src/tm/translationmemoryrui.rc:21
+#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:21
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Thanh công cụ chính"
@@ -4240,18 +4239,18 @@ msgstr "Chú thích của tệp dự án"
 msgid "Input a comment for this project file:"
 msgstr "Nhập một chú thích cho tệp dự án này:"
 
-#: src/project/projecttab.cpp:302
+#: src/project/projecttab.cpp:291
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Việc kiểm tra bằng Pology đã thành công"
 
-#: src/project/projecttab.cpp:321
+#: src/project/projecttab.cpp:310
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "Bạn sắp mở %1 tệp"
 
-#: src/project/projecttab.cpp:322
+#: src/project/projecttab.cpp:311
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4260,12 +4259,12 @@ msgstr ""
 "Mở một số lượng lớn các tệp cùng lúc có thể làm Lokalize mất khả năng hồi "
 "đáp."
 
-#: src/project/projecttab.cpp:323
+#: src/project/projecttab.cpp:312
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "Bạn có chắc chắn muốn mở nhiều tệp như vậy không?"
 
-#: src/project/projecttab.cpp:324
+#: src/project/projecttab.cpp:313
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"

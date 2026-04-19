@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:48+0000\n"
+"POT-Creation-Date: 2026-04-19 00:47+0000\n"
 "PO-Revision-Date: 2023-06-18 00:02+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -1708,19 +1708,19 @@ msgctxt "@action:button"
 msgid "Clear All"
 msgstr "Limpar"
 
-#: src/editortab.cpp:1513 src/project/projecttab.cpp:292
+#: src/editortab.cpp:1513 src/project/projecttab.cpp:281
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Já está uma verificação do Pology em curso."
 
 #: src/editortab.cpp:1513 src/editortab.cpp:1521 src/editortab.cpp:1525
-#: src/project/projecttab.cpp:292 src/project/projecttab.cpp:300
-#: src/project/projecttab.cpp:304
+#: src/project/projecttab.cpp:281 src/project/projecttab.cpp:289
+#: src/project/projecttab.cpp:293
 #, kde-format
 msgid "Pology error"
 msgstr "Erro do Pology"
 
-#: src/editortab.cpp:1521 src/project/projecttab.cpp:300
+#: src/editortab.cpp:1521 src/project/projecttab.cpp:289
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1729,7 +1729,7 @@ msgstr ""
 "A verificação do Pology estoirou de forma inesperada:\n"
 "%1"
 
-#: src/editortab.cpp:1523 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1523 src/project/projecttab.cpp:291
 #, kde-format
 msgid "Pology success"
 msgstr "Sucesso do Pology"
@@ -1739,7 +1739,7 @@ msgstr "Sucesso do Pology"
 msgid "The Pology check has succeeded."
 msgstr "A verificação do Pology terminou com sucesso."
 
-#: src/editortab.cpp:1525 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1525 src/project/projecttab.cpp:293
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1915,8 +1915,7 @@ msgstr "&Ficheiro"
 
 #. i18n: ectx: Menu (edit)
 #: src/editorui.rc:39 src/filesearch/filesearchtabui.rc:11
-#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:24
-#: src/tm/translationmemoryrui.rc:11
+#: src/lokalizemainwindowui.rc:55 src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "&Edit"
 msgstr "&Editar"
@@ -1957,7 +1956,7 @@ msgstr "Fa&voritos"
 
 #. i18n: ectx: Menu (merge)
 #: src/editorui.rc:191 src/filesearch/filesearchtabui.rc:17
-#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:28
+#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:24
 #: src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "S&ync"
@@ -1977,7 +1976,7 @@ msgstr "Áreas de &ferramentas"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:238 src/filesearch/filesearchtabui.rc:21
-#: src/project/projectmanagerui.rc:32 src/tm/translationmemoryrui.rc:21
+#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:21
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Barra Principal"
@@ -4304,19 +4303,19 @@ msgstr "Comentário do ficheiro do projecto"
 msgid "Input a comment for this project file:"
 msgstr "Indique um comentário para este ficheiro de projecto:"
 
-#: src/project/projecttab.cpp:302
+#: src/project/projecttab.cpp:291
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "A verificação do Pology terminou com sucesso"
 
-#: src/project/projecttab.cpp:321
+#: src/project/projecttab.cpp:310
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "Está prestes a abrir %1 ficheiro"
 msgstr[1] "Está prestes a abrir %1 ficheiros"
 
-#: src/project/projecttab.cpp:322
+#: src/project/projecttab.cpp:311
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4325,12 +4324,12 @@ msgstr ""
 "A abertura de um grande número de ficheiros ao mesmo tempo poderá fazer com "
 "que o Lokalize deixe de responder."
 
-#: src/project/projecttab.cpp:323
+#: src/project/projecttab.cpp:312
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "Tem a certeza que deseja abrir tantos ficheiros?"
 
-#: src/project/projecttab.cpp:324
+#: src/project/projecttab.cpp:313
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"

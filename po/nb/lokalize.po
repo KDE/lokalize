@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:48+0000\n"
+"POT-Creation-Date: 2026-04-19 00:47+0000\n"
 "PO-Revision-Date: 2026-03-09 23:58+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -1591,19 +1591,19 @@ msgctxt "@action:button"
 msgid "Clear All"
 msgstr "Lukk alle"
 
-#: src/editortab.cpp:1513 src/project/projecttab.cpp:292
+#: src/editortab.cpp:1513 src/project/projecttab.cpp:281
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "En Pology-sjekk er i gang fra før."
 
 #: src/editortab.cpp:1513 src/editortab.cpp:1521 src/editortab.cpp:1525
-#: src/project/projecttab.cpp:292 src/project/projecttab.cpp:300
-#: src/project/projecttab.cpp:304
+#: src/project/projecttab.cpp:281 src/project/projecttab.cpp:289
+#: src/project/projecttab.cpp:293
 #, kde-format
 msgid "Pology error"
 msgstr "Pology-feil"
 
-#: src/editortab.cpp:1521 src/project/projecttab.cpp:300
+#: src/editortab.cpp:1521 src/project/projecttab.cpp:289
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1612,7 +1612,7 @@ msgstr ""
 "Pology-sjekken har krasjet:\n"
 "%1"
 
-#: src/editortab.cpp:1523 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1523 src/project/projecttab.cpp:291
 #, kde-format
 msgid "Pology success"
 msgstr "Pology-suksess"
@@ -1622,7 +1622,7 @@ msgstr "Pology-suksess"
 msgid "The Pology check has succeeded."
 msgstr "Pology-sjekken er fullført."
 
-#: src/editortab.cpp:1525 src/project/projecttab.cpp:304
+#: src/editortab.cpp:1525 src/project/projecttab.cpp:293
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1791,8 +1791,7 @@ msgstr "&Fil"
 
 #. i18n: ectx: Menu (edit)
 #: src/editorui.rc:39 src/filesearch/filesearchtabui.rc:11
-#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:24
-#: src/tm/translationmemoryrui.rc:11
+#: src/lokalizemainwindowui.rc:55 src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "&Edit"
 msgstr "&Rediger"
@@ -1831,7 +1830,7 @@ msgstr "&Bokmerker"
 
 #. i18n: ectx: Menu (merge)
 #: src/editorui.rc:191 src/filesearch/filesearchtabui.rc:17
-#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:28
+#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:24
 #: src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "S&ync"
@@ -1851,7 +1850,7 @@ msgstr "&Verktøyvisninger"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:238 src/filesearch/filesearchtabui.rc:21
-#: src/project/projectmanagerui.rc:32 src/tm/translationmemoryrui.rc:21
+#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:21
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Hovedverktøylinja"
@@ -4048,19 +4047,19 @@ msgstr "Kommentar til prosjektfil"
 msgid "Input a comment for this project file:"
 msgstr "Skriv inn en kommentar til denne prosjektfila:"
 
-#: src/project/projecttab.cpp:302
+#: src/project/projecttab.cpp:291
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Pology-sjekken er fullført"
 
-#: src/project/projecttab.cpp:321
+#: src/project/projecttab.cpp:310
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "Du er i ferd med å åpne fila %1"
 msgstr[1] "Du er i ferd med å endre %1 på disse filene."
 
-#: src/project/projecttab.cpp:322
+#: src/project/projecttab.cpp:311
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4068,12 +4067,12 @@ msgid ""
 msgstr ""
 "Ved å åpne et stort antall filer samtidig kan Lokalize bli midlertidig treg."
 
-#: src/project/projecttab.cpp:323
+#: src/project/projecttab.cpp:312
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "Er du sikker på at du vil åpne så mange filer?"
 
-#: src/project/projecttab.cpp:324
+#: src/project/projecttab.cpp:313
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
