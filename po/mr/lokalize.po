@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-19 00:47+0000\n"
+"POT-Creation-Date: 2026-04-20 00:50+0000\n"
 "PO-Revision-Date: 2013-03-06 17:46+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -1692,7 +1692,8 @@ msgstr "फाईल (&F)"
 
 #. i18n: ectx: Menu (edit)
 #: src/editorui.rc:39 src/filesearch/filesearchtabui.rc:11
-#: src/lokalizemainwindowui.rc:55 src/tm/translationmemoryrui.rc:11
+#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:24
+#: src/tm/translationmemoryrui.rc:11
 #, fuzzy, kde-format
 msgid "&Edit"
 msgstr "संपादन (&E)"
@@ -1731,7 +1732,7 @@ msgstr "ओळखचिन्ह (&B)"
 
 #. i18n: ectx: Menu (merge)
 #: src/editorui.rc:191 src/filesearch/filesearchtabui.rc:17
-#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:24
+#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:27
 #: src/tm/translationmemoryrui.rc:17
 #, fuzzy, kde-format
 msgid "S&ync"
@@ -1751,7 +1752,7 @@ msgstr ""
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:238 src/filesearch/filesearchtabui.rc:21
-#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:21
+#: src/project/projectmanagerui.rc:31 src/tm/translationmemoryrui.rc:21
 #, fuzzy, kde-format
 msgid "Main Toolbar"
 msgstr "मुख्य साधनपट्टी"

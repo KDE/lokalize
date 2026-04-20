@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-19 00:47+0000\n"
+"POT-Creation-Date: 2026-04-20 00:50+0000\n"
 "PO-Revision-Date: 2026-04-08 23:39+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1744,7 +1744,8 @@ msgstr "檔案(&F)"
 
 #. i18n: ectx: Menu (edit)
 #: src/editorui.rc:39 src/filesearch/filesearchtabui.rc:11
-#: src/lokalizemainwindowui.rc:55 src/tm/translationmemoryrui.rc:11
+#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:24
+#: src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "&Edit"
 msgstr "編輯(&E)"
@@ -1783,7 +1784,7 @@ msgstr "書籤(&B)"
 
 #. i18n: ectx: Menu (merge)
 #: src/editorui.rc:191 src/filesearch/filesearchtabui.rc:17
-#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:24
+#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:27
 #: src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "S&ync"
@@ -1803,7 +1804,7 @@ msgstr "工具檢視(&V)"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:238 src/filesearch/filesearchtabui.rc:21
-#: src/project/projectmanagerui.rc:28 src/tm/translationmemoryrui.rc:21
+#: src/project/projectmanagerui.rc:31 src/tm/translationmemoryrui.rc:21
 #, kde-format
 msgid "Main Toolbar"
 msgstr "主工具列"
