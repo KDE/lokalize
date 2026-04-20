@@ -35,7 +35,7 @@ public:
 };
 
 /**
- * C++ casting workaround
+ * HACK: C++ casting workaround
  */
 class LokalizeTabPageBase : public LokalizeSubwindowBase, public KXMLGUIClient
 {

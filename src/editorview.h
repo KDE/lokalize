@@ -64,7 +64,7 @@ public Q_SLOTS:
     void setEquivTrans(bool);
     void settingsChanged();
     void insertTerm(const QString &);
-    // workaround for qt ctrl+z bug
+    // HACK: workaround for qt ctrl+z bug
     // Edit menu
     void unwrap();
     void unwrap(TranslationUnitTextEdit *editor);

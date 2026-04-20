@@ -112,7 +112,7 @@ void PoItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         painter->fillRect(option.rect, QBrush(Qt::gray));
 }
 
-// Temporary workaround for Qt bug https://bugreports.qt.io/browse/QTBUG-78094
+// HACK: Temporary workaround for Qt bug https://bugreports.qt.io/browse/QTBUG-78094
 // to ensure that large numbers are formatted using a thousands separator
 QString PoItemDelegate::displayText(const QVariant &value, [[maybe_unused]] const QLocale &locale) const
 {

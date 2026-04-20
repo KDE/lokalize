@@ -741,7 +741,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         if (!t.hasSelection()) {
             int pos = t.position();
             QString str = toPlainText();
-            // workaround for Qt/X11 bug: if Del on NumPad is pressed, then pos is beyond end
+            // HACK: workaround for Qt/X11 bug: if Del on NumPad is pressed, then pos is beyond end
             if (pos == str.size())
                 --pos;
             if (!str.isEmpty() && str.at(pos) == QLatin1Char('\\') && !isMasked(str, pos) && pos < str.length() - 1 && spclChars.contains(str.at(pos + 1))) {
@@ -1231,7 +1231,7 @@ void TranslationUnitTextEdit::doCompletion(int pos)
             m_completionBox->show();
         m_completionBox->resize(m_completionBox->sizeHint());
         QPoint p = cursorRect().bottomRight();
-        if (p.x() < 10) // workaround Qt bug
+        if (p.x() < 10) // HACK: workaround Qt bug
             p.rx() += textCursor().verticalMovementX() + QFontMetrics(currentFont()).horizontalAdvance(QLatin1Char('W'));
         m_completionBox->move(viewport()->mapToGlobal(p));
     } else
