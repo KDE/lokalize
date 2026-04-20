@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-28 02:39+0000\n"
-"PO-Revision-Date: 2026-04-06 00:30+0200\n"
+"PO-Revision-Date: 2026-04-20 00:06+0200\n"
 "Last-Translator: Libor Filípek <filipek.libor@protonmail.com>\n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -18,17 +18,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Lukáš Tinkl, Klára Cihlářová, Vít Pelčák, Tomáš Chvátal"
+msgstr "Lukáš Tinkl,Klára Cihlářová,Vít Pelčák,Tomáš Chvátal,Libor Filípek"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "lukas@kde.org,koty@seznam.cz,vit@pelcak.org, tomas.chvatal@gmail.com"
+msgstr ""
+"lukas@kde.org,koty@seznam.cz,vit@pelcak.org,tomas.chvatal@gmail.com,libor."
+"filipek@gmail.com"
 
 #, kde-format
 msgid "default"
@@ -43,19 +45,19 @@ msgstr "Alternativní překlady"
 #: src/alttransview.cpp:163
 #, kde-format
 msgid "From alternate translations folder"
-msgstr ""
+msgstr "Ze složky s alternativními překlady"
 
 #: src/alttransview.cpp:186
 #, kde-format
 msgctxt "Title for an alternate translation entry context diff."
 msgid "Comparison with previous context:"
-msgstr ""
+msgstr "Srovnání s předchozím kontextem:"
 
 #: src/alttransview.cpp:201
 #, kde-format
 msgctxt "Title for alternate translation source diff."
 msgid "Comparison with previous source:"
-msgstr ""
+msgstr "Srovnání s předchozím zdrojem:"
 
 #: src/alttransview.cpp:259
 #, kde-format
@@ -108,6 +110,16 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
+"V některých případech, pokud dojde ke změně zdrojového textu, stává se jeho "
+"překlad zastaralým a je buď označen jako vyžadující kontrolu (tj. ztratí "
+"status schválení), nebo (pouze v případě souboru XLIFF) přesunut do sekce "
+"alternativních překladů, která je součástí dané jednotky. Tento nástrojový "
+"panel také zobrazuje rozdíly mezi aktuálním a předchozím zdrojovým řetězcem, "
+"takže můžete snadno zjistit, jaké změny je třeba v existujícím překladu "
+"provést, aby odpovídal aktuálnímu zdrojovému textu. Dvojitým kliknutím na "
+"jakékoli slovo v tomto nástrojovém zobrazení jej vložíte do překladu. "
+"Přetáhněte překladový soubor do tohoto nástrojového zobrazení, abyste jej "
+"mohli použít jako zdroj pro další alternativní překlady."
 
 #: src/alttransview.cpp:323
 #, kde-format
@@ -239,7 +251,7 @@ msgstr "Konečné"
 #: src/catalog/catalog.cpp:66
 #, kde-format
 msgid "Signed-off"
-msgstr ""
+msgstr "Odepsáno"
 
 #: src/catalog/catalogstring.cpp:56
 #, kde-format
@@ -257,7 +269,7 @@ msgstr "Konec párové značky"
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
-msgstr ""
+msgstr "Samostatná značka"
 
 #: src/catalog/catalogstring.cpp:59
 #, kde-format
@@ -275,31 +287,31 @@ msgstr "Značka"
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic group placeholder"
-msgstr ""
+msgstr "Zástupný symbol pro obecnou skupinu"
 
 #: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
-msgstr ""
+msgstr "Sub-flow"
 
 #: src/catalog/catalogstring.cpp:65
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Generic placeholder"
-msgstr ""
+msgstr "Obecný zástupný symbol"
 
 #: src/catalog/catalogstring.cpp:66
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired placeholder"
-msgstr ""
+msgstr "Začátek párového zástupného symbolu"
 
 #: src/catalog/catalogstring.cpp:67
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired placeholder"
-msgstr ""
+msgstr "Konec párového zástupného symbolu"
 
 #: src/catalog/catalogstring.cpp:111
 #, kde-format
@@ -314,6 +326,8 @@ msgid ""
 "abbreviated form: a term resulting from the omission of any part of the full "
 "term while designating the same concept"
 msgstr ""
+"zkratka: výraz vzniklý vynecháním jakékoli části plného výrazu, který však "
+"označuje stejný pojem"
 
 #: src/catalog/catalogstring.cpp:114
 #, kde-format
@@ -322,6 +336,8 @@ msgid ""
 "abbreviation: an abbreviated form of a simple term resulting from the "
 "omission of some of its letters (e.g. 'adj.' for 'adjective')"
 msgstr ""
+"zkratka: zkrácená podoba jednoduchého výrazu vzniklá vynecháním některých "
+"písmen (např. 'adj.' místo 'adjektivum')"
 
 #: src/catalog/catalogstring.cpp:116
 #, kde-format
@@ -331,6 +347,9 @@ msgid ""
 "of a multiword term strung together into a sequence pronounced only "
 "syllabically (e.g. 'radar' for 'radio detecting and ranging')"
 msgstr ""
+"akronym: zkrácená podoba výrazu, která se skládá z písmen plného znění "
+"víceslovného výrazu, poskládaných do řady, která se vyslovuje pouze po "
+"slabikách (např. 'radar' jako zkratka pro 'radio detecting and ranging')"
 
 #: src/catalog/catalogstring.cpp:118
 #, kde-format
@@ -338,7 +357,7 @@ msgctxt "XLIFF mark type"
 msgid ""
 "appellation: a proper-name term, such as the name of an agency or other "
 "proper entity"
-msgstr ""
+msgstr "označení: vlastní jméno, například název úřadu nebo jiného subjektu"
 
 #: src/catalog/catalogstring.cpp:120
 #, kde-format
@@ -349,6 +368,9 @@ msgid ""
 "series of utterances, even though they do not necessarily have to maintain "
 "immediate proximity to one another"
 msgstr ""
+"kolokace: opakující se slovní spojení, které se vyznačuje spojitostí v tom "
+"smyslu, že jeho složky se musí vyskytovat společně v rámci jedné věty nebo "
+"řady vět, i když nemusí být nutně v bezprostřední blízkosti jedna druhé"
 
 #: src/catalog/catalogstring.cpp:122
 #, kde-format
@@ -357,6 +379,8 @@ msgid ""
 "common name: a synonym for an international scientific term that is used in "
 "general discourse in a given language"
 msgstr ""
+"běžný název: synonymum mezinárodního vědeckého termínu, které se v běžné "
+"řeči v daném jazyce používá"
 
 #: src/catalog/catalogstring.cpp:123
 #, kde-format
@@ -372,6 +396,9 @@ msgid ""
 "that two mathematical expressions are, for instance, equal as identified by "
 "the equal sign (=), or assigned to one another by a similar sign"
 msgstr ""
+"rovnice: výraz používaný k vyjádření určitého pojmu, který vychází z "
+"tvrzení, že dva matematické výrazy jsou například rovny, což je vyjádřeno "
+"rovnítkem (=), nebo že jsou navzájem přiřazeny pomocí podobného znaku"
 
 #: src/catalog/catalogstring.cpp:127
 #, kde-format
@@ -379,7 +406,7 @@ msgctxt "XLIFF mark type"
 msgid ""
 "expanded form: The complete representation of a term for which there is an "
 "abbreviated form"
-msgstr ""
+msgstr "rozvinutý tvar: úplný zápis výrazu, pro který existuje zkrácený tvar"
 
 #: src/catalog/catalogstring.cpp:128
 #, kde-format
@@ -388,6 +415,8 @@ msgid ""
 "formula: figures, symbols or the like used to express a concept briefly, "
 "such as a mathematical or chemical formula"
 msgstr ""
+"vzorec: čísla, symboly či podobné znaky používané k stručnému vyjádření "
+"určitého pojmu, například matematický nebo chemický vzorec"
 
 #: src/catalog/catalogstring.cpp:129
 #, kde-format
@@ -396,6 +425,8 @@ msgid ""
 "head term: the concept designation that has been chosen to head a "
 "terminological record"
 msgstr ""
+"hlavní termín: označení pojmu, které bylo vybráno jako název "
+"terminologického záznamu"
 
 #: src/catalog/catalogstring.cpp:131
 #, kde-format
@@ -406,6 +437,10 @@ msgid ""
 "up a compound term when these letters are pronounced individually (e.g. "
 "'BSE' for 'bovine spongiform encephalopathy')"
 msgstr ""
+"inicialismus: zkrácená podoba výrazu, která se skládá z počátečních písmen "
+"slov tvořících víceslovný výraz nebo z prvků tvořících složený výraz, "
+"přičemž se tato písmena vyslovují samostatně (např. 'BSE' pro 'bovinní "
+"spongiformní encefalopatie')"
 
 #: src/catalog/catalogstring.cpp:135
 #, kde-format
@@ -414,6 +449,8 @@ msgid ""
 "international scientific term: a term that is part of an international "
 "scientific nomenclature as adopted by an appropriate scientific body"
 msgstr ""
+"mezinárodní vědecký termín: termín, který je součástí mezinárodní vědecké "
+"nomenklatury přijaté příslušným vědeckým orgánem"
 
 #: src/catalog/catalogstring.cpp:136
 #, kde-format
@@ -422,6 +459,8 @@ msgid ""
 "internationalism: a term that has the same or nearly identical orthographic "
 "or phonemic form in many languages"
 msgstr ""
+"internacionalismus: termín, který má v mnoha jazycích stejnou nebo téměř "
+"identickou pravopisnou či fonetickou podobu"
 
 #: src/catalog/catalogstring.cpp:138
 #, kde-format
@@ -431,12 +470,15 @@ msgid ""
 "mathematical or logical relations, such as statements of inequality, set "
 "relationships, Boolean operations, and the like"
 msgstr ""
+"logický výraz: výraz používaný k vyjádření pojmu založeného na matematických "
+"nebo logických vztazích, jako jsou nerovnosti, vztahy mezi množinami, "
+"booleovské operace a podobně"
 
 #: src/catalog/catalogstring.cpp:140
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
-msgstr ""
+msgstr "oddělení správy materiálu: oddělení zabývající se sledováním objektů"
 
 #: src/catalog/catalogstring.cpp:141
 #, kde-format
@@ -452,6 +494,9 @@ msgid ""
 "another term in the same language, but for which interchangeability is "
 "limited to some contexts and inapplicable in others"
 msgstr ""
+"blízké synonymum: termín, který vyjadřuje stejný nebo velmi podobný pojem "
+"jako jiný termín v tomtéž jazyce, avšak jejich vzájemná zaměnitelnost je "
+"omezena na určité kontexty a v jiných kontextech není možná"
 
 #: src/catalog/catalogstring.cpp:145
 #, kde-format
@@ -460,6 +505,8 @@ msgid ""
 "part number: a unique alphanumeric designation assigned to an object in a "
 "manufacturing system"
 msgstr ""
+"číslo dílu: jedinečné alfanumerické označení přiřazené objektu ve výrobním "
+"systému"
 
 #: src/catalog/catalogstring.cpp:146
 #, kde-format
@@ -475,12 +522,15 @@ msgid ""
 "of which frequently cannot be deduced based on the combined sense of the "
 "words making up the phrase"
 msgstr ""
+"frazeologie: skupina dvou nebo více slov, která tvoří celek, jehož význam "
+"nelze často odvodit pouze na základě souhrnného významu slov, z nichž se "
+"fráze skládá"
 
 #: src/catalog/catalogstring.cpp:150
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "protected: the marked text should not be translated"
-msgstr ""
+msgstr "chráněno: označený text by neměl být přeložen"
 
 #: src/catalog/catalogstring.cpp:152
 #, kde-format
@@ -489,18 +539,20 @@ msgid ""
 "romanized form: a form of a term resulting from an operation whereby non-"
 "Latin writing systems are converted to the Latin alphabet"
 msgstr ""
+"transkripce: podoba výrazu vzniklá převedením nelatinských písemných systémů "
+"do latinky"
 
 #: src/catalog/catalogstring.cpp:153
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "segment: the marked text represents a segment"
-msgstr ""
+msgstr "segment: označený text představuje segment"
 
 #: src/catalog/catalogstring.cpp:154
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "set phrase: a fixed, lexicalized phrase"
-msgstr ""
+msgstr "ustálená fráze: pevně daná, lexikalizovaná fráze"
 
 #: src/catalog/catalogstring.cpp:156
 #, kde-format
@@ -510,6 +562,9 @@ msgid ""
 "full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
+"zkrácená forma: varianta víceslovného výrazu, která obsahuje méně slov než "
+"jeho plná forma (např. 'Skupina dvaceti čtyř' místo 'Mezivládní skupina "
+"dvaceti čtyř pro mezinárodní měnové záležitosti')"
 
 #: src/catalog/catalogstring.cpp:159
 #, kde-format
@@ -518,12 +573,14 @@ msgid ""
 "stock keeping unit: an inventory item identified by a unique alphanumeric "
 "designation assigned to an object in an inventory control system"
 msgstr ""
+"skladová jednotka: skladová položka identifikovaná jedinečným alfanumerickým "
+"označením přiřazeným k objektu v systému řízení zásob"
 
 #: src/catalog/catalogstring.cpp:160
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "standard text: a fixed chunk of recurring text"
-msgstr ""
+msgstr "standardní text: pevně daný úsek opakujícího se textu"
 
 #: src/catalog/catalogstring.cpp:161
 #, kde-format
@@ -532,6 +589,8 @@ msgid ""
 "symbol: a designation of a concept by letters, numerals, pictograms or any "
 "combination thereof"
 msgstr ""
+"symbol: označení pojmu pomocí písmen, číslic, piktogramů nebo jejich "
+"libovolné kombinace"
 
 #: src/catalog/catalogstring.cpp:162
 #, kde-format
@@ -540,6 +599,8 @@ msgid ""
 "synonym: a term that represents the same or a very similar concept as the "
 "main entry term in a term entry"
 msgstr ""
+"synonymum: termín, který vyjadřuje stejný nebo velmi podobný pojem jako "
+"hlavní termín v termínovém záznamu"
 
 #: src/catalog/catalogstring.cpp:164
 #, kde-format
@@ -548,6 +609,8 @@ msgid ""
 "synonymous phrase: phraseological unit in a language that expresses the same "
 "semantic content as another phrase in that same language"
 msgstr ""
+"synonymní fráze: frazeologická jednotka v jazyce, která vyjadřuje stejný "
+"sémantický obsah jako jiná fráze v tomtéž jazyce"
 
 #: src/catalog/catalogstring.cpp:165
 #, kde-format
@@ -564,6 +627,9 @@ msgid ""
 "writing system, taking into account the pronunciation of the characters "
 "converted"
 msgstr ""
+"přenesená podoba: podoba výrazu vzniklá operací, při níž jsou znaky jednoho "
+"písemného systému vyjádřeny znaky jiného písemného systému s ohledem na "
+"výslovnost převedených znaků"
 
 #: src/catalog/catalogstring.cpp:170
 #, kde-format
@@ -573,6 +639,8 @@ msgid ""
 "the characters of an alphabetic writing system are represented by characters "
 "from another alphabetic writing system"
 msgstr ""
+"transliterovaná podoba: podoba výrazu vzniklá operací, při níž jsou znaky "
+"jednoho abecedního písma nahrazeny znaky jiného abecedního písma"
 
 #: src/catalog/catalogstring.cpp:173
 #, kde-format
@@ -581,12 +649,14 @@ msgid ""
 "truncated term: an abbreviated form of a term resulting from the omission of "
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
+"zkrácený výraz: zkrácená podoba výrazu vzniklá vynecháním jednoho nebo více "
+"slovních členů či slabik (např. 'flu' místo 'influenza')"
 
 #: src/catalog/catalogstring.cpp:175
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "variant: one of the alternate forms of a term"
-msgstr ""
+msgstr "varianta: jedna z alternativních podob pojmu"
 
 #: src/catalog/cmd.cpp:75
 #, kde-format
@@ -628,30 +698,30 @@ msgstr "Nastavení poznámek"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Update/add workflow phase"
-msgstr ""
+msgstr "Aktualizovat/přidat fázi pracovního postupu"
 
 #: src/catalog/cmd.cpp:279
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
-msgstr ""
+msgstr "Nastavení ekvivalence překladu"
 
 #: src/catalog/cmd.cpp:336
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Remove text with markup"
-msgstr ""
+msgstr "Odstranit text se značkami"
 
 #: src/catalog/cmd.cpp:384 src/xlifftextedit.cpp:574
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
-msgstr ""
+msgstr "Vložit text se značkami"
 
 #: src/catalog/gettext/gettextstorage.cpp:100
 #, kde-format
 msgid "separator for different-length string alternatives"
-msgstr ""
+msgstr "oddělovač pro varianty řetězců různé délky"
 
 #: src/catalog/gettext/gettextstorage.cpp:286
 #, kde-format
@@ -666,7 +736,7 @@ msgstr ""
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
-msgstr ""
+msgstr "Chybí jméno autora"
 
 #: src/catalog/gettextheader.cpp:458
 #, kde-format
@@ -677,18 +747,17 @@ msgstr "Vaše jméno:"
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
-msgstr ""
+msgstr "Chybí e-mail autora"
 
 #: src/catalog/gettextheader.cpp:470
-#, fuzzy, kde-format
-#| msgid "Your email:"
+#, kde-format
 msgid "Your email:"
-msgstr "lukas@kde.org,koty@seznam.cz,vit@pelcak.org, tomas.chvatal@gmail.com"
+msgstr "Váš e-mail:"
 
 #: src/catalog/ts/tsstorage.cpp:439
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
-msgstr ""
+msgstr "Předchozí hodnota zdroje, uložená nástrojem lupdate"
 
 #: src/cataloglistview/cataloglistview.cpp:56
 #, kde-format
@@ -798,18 +867,16 @@ msgid "States"
 msgstr "Stavy"
 
 #: src/cataloglistview/cataloglistview.cpp:236
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Search Locally"
+#, kde-format
 msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
-msgstr "Hledat místně"
+msgstr "Prohledávat sloupce"
 
 #: src/cataloglistview/cataloglistview.cpp:240
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Re-sort and refilter on content change"
-msgstr ""
+msgstr "Přetřídit a přefiltrovat při změně obsahu"
 
 #: src/cataloglistview/cataloglistview.cpp:260
 #, kde-format
@@ -869,20 +936,16 @@ msgid "Modified"
 msgstr "Změněno"
 
 #: src/cataloglistview/catalogmodel.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source language"
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source Length"
-msgstr "Původní jazyk"
+msgstr "Délka zdroje"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target language"
+#, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
-msgstr "Cílový jazyk"
+msgstr "Délka cíle"
 
 #: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1058
 #: src/editortab.cpp:1259 src/tm/tmtab.cpp:233
@@ -892,9 +955,7 @@ msgid "Ready"
 msgstr "Připraven"
 
 #: src/cataloglistview/catalogmodel.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@info:status 'fuzzy' in gettext terminology"
-#| msgid "Needs review"
+#, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs Review"
 msgstr "Potřebuje zkontrolovat"
@@ -910,13 +971,13 @@ msgstr "Nepřeloženo"
 #, kde-format
 msgctxt "@info:status"
 msgid "Yes"
-msgstr ""
+msgstr "Ano"
 
 #: src/cataloglistview/catalogmodel.cpp:208
 #, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format
@@ -982,35 +1043,28 @@ msgid "Insert alternate translation #%1"
 msgstr "Vložit #%1 překlad termínu"
 
 #: src/editortab.cpp:204
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "Alternativní překlady"
+msgstr "Připojit soubor s alternativním překladem…"
 
 #: src/editortab.cpp:270
-#, fuzzy, kde-format
-#| msgid "Add Data"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Note"
-msgstr "Přidat data"
+msgstr "Přidat poznámku"
 
 #: src/editortab.cpp:279
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert translation memory suggestion #%1"
-msgstr "Použít nápovědu paměti překladu"
+msgstr "Vložit návrh z překladové paměti #%1"
 
 #: src/editortab.cpp:284
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action"
-#| msgid "Use translation memory suggestion"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove translation memory suggestion #%1"
-msgstr "Použít nápovědu paměti překladu"
+msgstr "Odstranit návrh z překladové paměti #%1"
 
 #: src/editortab.cpp:337
 #, kde-format
@@ -1022,29 +1076,25 @@ msgstr "Vložit #%1 překlad termínu"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Define New Term"
-msgstr ""
+msgstr "Zadat nový termín"
 
 #: src/editortab.cpp:384
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases…"
-msgstr ""
+msgstr "Fáze…"
 
 #: src/editortab.cpp:387
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Word Count"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Word Count"
 msgstr "Počet slov"
 
 #: src/editortab.cpp:390
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear Translated Entries"
-msgstr "Alternativní překlady"
+msgstr "Vymazat přeložené položky"
 
 #: src/editortab.cpp:393
 #, kde-format
@@ -1062,7 +1112,7 @@ msgstr "Sloučit překlad do OpenDocument"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Change Searching Direction"
-msgstr ""
+msgstr "Změnit směr hledání"
 
 #: src/editortab.cpp:430
 #, kde-format
@@ -1076,31 +1126,25 @@ msgstr "Schváleno"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and Go Next"
-msgstr ""
+msgstr "Schválit a jít na následující"
 
 #: src/editortab.cpp:457
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Last Translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent Translation"
-msgstr "Poslední překlad"
+msgstr "Ekvivalentní překlad"
 
 #: src/editortab.cpp:468
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action item"
-#| msgid "Copy source to target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source to Target"
 msgstr "Zkopírovat zdroj do cíle"
 
 #: src/editortab.cpp:471
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap Target"
-msgstr "Cíl"
+msgstr "Rozbalit cíl"
 
 #: src/editortab.cpp:478 src/filesearch/filesearchtab.cpp:137
 #, kde-format
@@ -1130,7 +1174,7 @@ msgstr "Vložit následující značku"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip to next non-tag text"
-msgstr ""
+msgstr "Přejít na další text bez značek"
 
 #: src/editortab.cpp:498
 #, kde-format
@@ -1169,12 +1213,10 @@ msgid "&Last Entry"
 msgstr "P&oslední záznam"
 
 #: src/editortab.cpp:530
-#, fuzzy, kde-format
-#| msgctxt "@label:spinbox"
-#| msgid "Enter entry number:"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by Number"
-msgstr "Zadejte číslo záznamu:"
+msgstr "Položka podle čísla"
 
 #: src/editortab.cpp:533 src/project/projecttab.cpp:100
 #, kde-format
@@ -1182,7 +1224,7 @@ msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous non-empty but not ready"
-msgstr "Předchozí přeložené ale nechválené"
+msgstr "Předchozí přeložené ale neschválené"
 
 #: src/editortab.cpp:541 src/project/projecttab.cpp:106
 #, kde-format
@@ -1193,66 +1235,56 @@ msgid "Next non-empty but not ready"
 msgstr "Následující přeložené ale neschválené"
 
 #: src/editortab.cpp:548 src/project/projecttab.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Untranslated"
-msgstr "Nepřeloženo"
+msgstr "Předchozí nepřeložené"
 
 #: src/editortab.cpp:553 src/project/projecttab.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Untranslated"
-msgstr "Nepřeloženo"
+msgstr "Následující nepřeložené"
 
 #: src/editortab.cpp:559 src/project/projecttab.cpp:88
-#, fuzzy, kde-format
-#| msgid "Previous Tab"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous Not Ready"
-msgstr "Předchozí karta"
+msgstr "Předchozí neschválené"
 
 #: src/editortab.cpp:571 src/project/projecttab.cpp:94
-#, fuzzy, kde-format
-#| msgctxt "@label whether entry is fuzzy"
-#| msgid "Not ready:"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Next Not Ready"
-msgstr "Neschváleno:"
+msgstr "Následující neschválené"
 
 #: src/editortab.cpp:580
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
-msgstr ""
+msgstr "Zaměřit vyhledávací řádek v zobrazení překladových jednotek"
 
 #: src/editortab.cpp:584
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@option:check"
 msgid "Bookmark Message"
-msgstr "&Záložky"
+msgstr "Založit si správu"
 
 #: src/editortab.cpp:589
-#, fuzzy, kde-format
-#| msgid "Previous Tab"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
-msgstr "Předchozí karta"
+msgstr "Předchozí záložka"
 
 #: src/editortab.cpp:593
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Bookmark"
-msgstr "&Záložky"
+msgstr "Následující záložka"
 
 #: src/editortab.cpp:601
 #, no-c-format, kde-format
@@ -1264,7 +1296,7 @@ msgstr "Doplnit všechny přesné návrhy"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
-msgstr "Doplnit všechny přesné návrhy a označit za fuzzy"
+msgstr "Doplnit všechny přesné návrhy a označit za neschválené"
 
 #: src/editortab.cpp:614
 #, kde-format
@@ -1283,11 +1315,10 @@ msgstr ""
 "souboru"
 
 #: src/editortab.cpp:621 src/editortab.cpp:680
-#, fuzzy, kde-format
-#| msgid "Previous Tab"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Different"
-msgstr "Předchozí karta"
+msgstr "Předchozí rozdílné"
 
 #: src/editortab.cpp:623 src/editortab.cpp:682
 #, kde-format
@@ -1303,7 +1334,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different"
-msgstr ""
+msgstr "Následující rozdílné"
 
 #: src/editortab.cpp:634 src/editortab.cpp:691
 #, kde-format
@@ -1319,7 +1350,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Different Approved"
-msgstr ""
+msgstr "Následující rozdílné schválené"
 
 #: src/editortab.cpp:648 src/editortab.cpp:698
 #, kde-format
@@ -1337,7 +1368,7 @@ msgstr "Zkopírovat všechny nové překlady"
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
-msgstr ""
+msgstr "Tímto se změní pouze prázdné a neschválené záznamy v základním souboru"
 
 #: src/editortab.cpp:664 src/editortab.cpp:710
 #, kde-format
@@ -1361,7 +1392,7 @@ msgstr "Tím dojde ke změnám pouze prázdných záznamů"
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(obnovené)"
+msgstr " (obnovené)"
 
 #: src/editortab.cpp:767 src/lokalizemainwindow.cpp:1115
 #, kde-format
@@ -1457,7 +1488,7 @@ msgstr "Přeloženo"
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
-msgstr ""
+msgstr "Odepsáno"
 
 #: src/editortab.cpp:1237
 #, kde-format
@@ -1530,6 +1561,8 @@ msgid ""
 "This will delete all the translations from the file.\n"
 "Do you really want to clear all translated entries?"
 msgstr ""
+"Tím se odstraní všechny překlady ze souboru.\n"
+"Opravdu chcete vymazat všechny přeložené položky?"
 
 #: src/editortab.cpp:1400
 #, kde-format
@@ -1544,19 +1577,17 @@ msgid "Word Count"
 msgstr "Počet slov"
 
 #: src/editortab.cpp:1407
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "Alternativní překlady"
+msgstr "Připojit soubor s alternativním překladem"
 
 #: src/editortab.cpp:1505
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
-msgstr ""
+msgstr "Chcete vyhledat zdrojový soubor lokálně nebo přes lxr.kde.org?"
 
 #: src/editortab.cpp:1506
 #, kde-format
@@ -1588,6 +1619,8 @@ msgid ""
 "Could not find source file in the folder specified.\n"
 "Do you want to change source files folder?"
 msgstr ""
+"V zadané složce nebyl nalezen zdrojový soubor.\n"
+"Chcete změnit složku se zdrojovými soubory?"
 
 #: src/editortab.cpp:1550
 #, kde-format
@@ -1610,6 +1643,11 @@ msgid ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 msgstr ""
+"Nelze otevřít cílový zdrojový soubor: Cílový zdrojový soubor není relativní "
+"vůči aktuálnímu překladovému souboru a v současné době nejsou načteny žádné "
+"skripty, které by umožňovaly otevírání zdrojových souborů v uživatelsky "
+"definovaných cestách. Příklady skriptů a informace o tom, jak je začlenit do "
+"svého projektu, najdete v příručce Lokalize."
 
 #: src/editortab.cpp:1607 src/project/project.cpp:394
 #: src/project/project.cpp:399
@@ -1626,22 +1664,24 @@ msgstr "Nainstalujte balíček translate-toolkit a zkuste to znovu."
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
+"Vyberte původní soubor OpenDocument, na kterém je založen aktuální soubor "
+"XLIFF"
 
 #: src/editortab.cpp:1622 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
-msgstr ""
+msgstr "Soubory OpenDocument (*.odt, *.ods)"
 
 #: src/editortab.cpp:1666
 #, kde-format
 msgid "Install python-uno package for additional functionality."
-msgstr ""
+msgstr "Nainstalujte balíček python-uno, abyste získali další funkce."
 
 #: src/editortab.cpp:1789
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
-msgstr ""
+msgstr "Nastavit text jednotky"
 
 #: src/editortab_findreplace.cpp:432
 #, kde-format
@@ -1696,7 +1736,7 @@ msgstr "Pa&měť překladu"
 #: src/editorui.rc:133
 #, kde-format
 msgid "Alternate Translations"
-msgstr ""
+msgstr "Alternativní překlady"
 
 #. i18n: ectx: Menu (go)
 #: src/editorui.rc:152 src/filesearch/filesearchtabui.rc:14
@@ -1770,6 +1810,9 @@ msgid ""
 "<p>This part of the window shows the original message\n"
 "of the currently displayed entry.</p></qt>"
 msgstr ""
+"<qt><p><b>Původní řetězec</b></p>\n"
+"<p>V této části okna se zobrazuje původní zpráva\n"
+"aktuálně zobrazeného záznamu.</p></qt>"
 
 #: src/editorview.cpp:169
 #, kde-format
@@ -1856,11 +1899,9 @@ msgid "File List"
 msgstr "Seznam souborů"
 
 #: src/filesearch/filesearchtab.cpp:122
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Select translation file"
+#, kde-format
 msgid "Drop translation files here…"
-msgstr "Vyberte soubor překladu"
+msgstr "Zde vložte soubory s překlady…"
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
@@ -1869,12 +1910,10 @@ msgid "File"
 msgstr "Soubor"
 
 #: src/filesearch/filesearchtab.cpp:449
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search && Replace"
-msgstr "Hledat v souborech"
+msgstr "Najít a nahradit"
 
 #: src/filesearch/filesearchtab.cpp:479 src/tm/tmtab.cpp:398
 #, kde-format
@@ -1892,16 +1931,13 @@ msgid "Open file"
 msgstr "Otevřít soubor"
 
 #: src/filesearch/filesearchtab.cpp:518
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search in files"
+#, kde-format
 msgctxt "@title actions category"
 msgid "Search && Replace"
-msgstr "Hledat v souborech"
+msgstr "Najít a nahradit"
 
 #: src/filesearch/filesearchtab.cpp:723
-#, fuzzy, kde-format
-#| msgid "Mass Replace"
+#, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
 msgstr "Hromadně nahradit"
@@ -1970,33 +2006,32 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"Uložení glosáře se nezdařilo\n"
+"%1\n"
+"Podrobnosti: %2"
 
 #: src/glossary/glossary.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "Glosář"
+msgstr "Chyba glosáře"
 
 #: src/glossary/glossary.cpp:675
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "Složka pro glosář neexistuje."
 
 #: src/glossary/glossary.cpp:678
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "Cesta odkazuje na složku, nikoli na soubor."
 
 #: src/glossary/glossary.cpp:681
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "Nelze zapisovat do souboru. Zkontrolujte oprávnění."
 
 #: src/glossary/glossarytab.cpp:88
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
 msgstr "Glosář"
@@ -2005,32 +2040,29 @@ msgstr "Glosář"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
-msgstr ""
+msgstr "Přidat nový záznam glosáře"
 
 #: src/glossary/glossarytab.cpp:139
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this entry"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
-msgstr "Odstranit tuto položku"
+msgstr "Odstranit vybraný záznam z glosáře"
 
 #: src/glossary/glossarytab.cpp:307
 #, kde-format
 msgctxt "@title:window"
 msgid "Add New Term"
-msgstr ""
+msgstr "Přidat nový termín"
 
 #: src/glossary/glossarytab.cpp:316
 #, kde-format
 msgid "English Term:"
-msgstr ""
+msgstr "Anglický termín:"
 
 #: src/glossary/glossarytab.cpp:317
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgid "Target Term:"
-msgstr "Cíl:"
+msgstr "Cílový termín:"
 
 #: src/glossary/glossaryview.cpp:34 src/glossary/glossaryview.cpp:41
 #, kde-format
@@ -2049,6 +2081,12 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
+"<p>Zde se zobrazí položky glosáře. </p><p>Stisknutím klávesové zkratky "
+"zobrazené vedle termínu vložíte jeho překlad.</p><p>Pomocí kontextového menu "
+"můžete do slovníku přidat nový záznam (tip:&nbsp;před voláním "
+"<interface>Definovat&nbsp;nový&nbsp;termín</interface> vyberte termíny v "
+"polích zdrojového a cílového textu v překladové jednotce). Umístění souboru "
+"slovníku můžete určit v nastavení projektu.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:25
@@ -2067,7 +2105,7 @@ msgstr "Přidat"
 #: src/glossary/termedit.ui:35
 #, kde-format
 msgid "Add new source synonym"
-msgstr ""
+msgstr "Přidat nové synonymum zdroje"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #. i18n: ectx: property (text), widget (QPushButton, remEngTerm)
@@ -2082,7 +2120,7 @@ msgstr "Odstranit"
 #: src/glossary/termedit.ui:48
 #, kde-format
 msgid "Remove selected source synonym"
-msgstr ""
+msgstr "Odstranit vybrané synonymum zdroje"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/glossary/termedit.ui:71
@@ -2094,13 +2132,13 @@ msgstr "Odpovídající synonyma cílového jazyka:"
 #: src/glossary/termedit.ui:81
 #, kde-format
 msgid "Add new target synonym"
-msgstr ""
+msgstr "Přidat nové synonymum cíle"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, remTargetTerm)
 #: src/glossary/termedit.ui:94
 #, kde-format
 msgid "Remove selected target synonym"
-msgstr ""
+msgstr "Odstranit vybrané synonymum cíle"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:109
@@ -2116,6 +2154,8 @@ msgid ""
 "When adding a new item, press enter after you have typed its name for "
 "changes to take effect"
 msgstr ""
+"Při přidávání nové položky stiskněte klávesu Enter po zadání jejího názvu, "
+"aby se změny projevily"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/glossary/termedit.ui:131
@@ -2133,6 +2173,11 @@ msgid ""
 "That is, there may be several entries with the same word/word sequence "
 "expressing different meanings."
 msgstr ""
+"Poznámka: jeden záznam v glosáři odpovídá přesně jednomu pojmu, nikoli slovu "
+"nebo slovním spojení.\n"
+"\n"
+"To znamená, že může existovat několik záznamů se stejným slovem nebo slovním "
+"spojením, které vyjadřují různé významy."
 
 #: src/languagetool/languagetoolgrammarerror.cpp:26
 #, kde-format
@@ -2145,15 +2190,7 @@ msgid "No errors"
 msgstr "Žádná chyba"
 
 #: src/lokalizemainwindow.cpp:101
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the language teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2161,56 +2198,47 @@ msgid ""
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
 "which you can participate.</html>"
 msgstr ""
-"<html>K tomu, abyste se stali členem KDE týmu, není zapotřebí být vývojářem "
-"softwaru. Můžete se připojit k překladatelským týmům, které překládají "
-"programy. Můžete vytvářet grafiku, motivy, zvuky a lepší dokumentaci. Vy se "
-"rozhodněte.<br /><br />Navštivte <a href=\"%1\">%1</a>, kde naleznete "
-"informace o některých projektech, kterých se můžete zúčastnit.<br /><br /"
-">Potřebujete-li více informací nebo dokumentace, pak návštěva na <a href="
-"\"%2\">%2</a> vám poskytne, co potřebujete.</html>"
+"<html>Abyste se stali členem týmu KDE, nemusíte být nutně softwarovým "
+"vývojářem. Můžete se připojit k jazykovým týmům, které překládají "
+"uživatelská rozhraní programů. Můžete přispívat grafikou, vzhledy, zvuky a "
+"vylepšenou dokumentací. Rozhodnutí je na vás!<br /><br />Na stránce <a href="
+"\"%1\">%1</a> najdete informace o některých projektech, do kterých se můžete "
+"zapojit.</html>"
 
 #: src/lokalizemainwindow.cpp:118
-#, fuzzy, kde-format
-#| msgid "&Configure Lokalize"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "&Nastavit Lokalize"
+msgstr "&Nastavit Lokalize…"
 
 #: src/lokalizemainwindow.cpp:119 src/lokalizemainwindow.cpp:717
 #: src/project/projecttab.cpp:155
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
-msgstr "Otevřít projekt"
+msgstr "Otevřít projekt…"
 
 #: src/lokalizemainwindow.cpp:120
-#, fuzzy, kde-format
-#| msgid "Translator"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "Překladatel"
+msgstr "Přeložit software…"
 
 #: src/lokalizemainwindow.cpp:121
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Translate OpenDocument"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "Přeložit OpenDocument"
+msgstr "Přeložit OpenDocument…"
 
 #: src/lokalizemainwindow.cpp:181
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
-msgstr ""
+msgstr "Nebyly nalezeny žádné moduly Qt Sql. Překladová paměť nebude fungovat."
 
 #: src/lokalizemainwindow.cpp:552 src/project/project.cpp:217
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Translation Memory Missing File Removal"
+#, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
-msgstr "Odstranění chybějícího souboru z paměti překladu"
+msgstr "Funkce překladové paměti vyžaduje modul SQLite pro Qt."
 
 #: src/lokalizemainwindow.cpp:552 src/project/project.cpp:217
 #, kde-format
@@ -2240,10 +2268,9 @@ msgid "Previous Tab"
 msgstr "Předchozí karta"
 
 #: src/lokalizemainwindow.cpp:681
-#, fuzzy, kde-format
-#| msgid "Previous Tab"
+#, kde-format
 msgid "Previously Active Tab"
-msgstr "Předchozí karta"
+msgstr "Předchozí aktivní karta"
 
 #: src/lokalizemainwindow.cpp:684
 #, kde-format
@@ -2257,84 +2284,67 @@ msgid "Glossary"
 msgstr "Glosář"
 
 #: src/lokalizemainwindow.cpp:696
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Paměť překladu"
 
 #: src/lokalizemainwindow.cpp:700 src/tm/tmtab.cpp:482
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Translation Memories"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
-msgstr "Paměť překladu"
+msgstr "Spravovat paměti překladu"
 
 #: src/lokalizemainwindow.cpp:704
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "Přehled projektu"
 
 #: src/lokalizemainwindow.cpp:708
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
-msgstr "Vytvořit projekt"
+msgstr "Nastavit projekt…"
 
 #: src/lokalizemainwindow.cpp:711
-#, fuzzy, kde-format
-#| msgid "Create software or OpenDocument translation project first."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
-msgstr "Nejdříve vytvořte projekt překladu softwaru nebo OpenDocument."
+msgstr "Vytvořit projekt překladu softwaru…"
 
 #: src/lokalizemainwindow.cpp:714
-#, fuzzy, kde-format
-#| msgid "Create software or OpenDocument translation project first."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr "Nejdříve vytvořte projekt překladu softwaru nebo OpenDocument."
+msgstr "Vytvořit projekt překladu OpenDocument…"
 
 #: src/lokalizemainwindow.cpp:721
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
-msgstr "Vytvořit projekt"
+msgstr "Zavřít projekt"
 
 #: src/lokalizemainwindow.cpp:724
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
-msgstr "Otevřít projekt"
+msgstr "Otevřít nedávný projekt"
 
 #: src/lokalizemainwindow.cpp:734
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search in files"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
-msgstr "Hledat v souborech"
+msgstr "Najít a nahradit"
 
 #: src/lokalizemainwindow.cpp:737
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
-msgstr ""
+msgstr "Přejít na další položku Najít a nahradit"
 
 #: src/lokalizemainwindow.cpp:741
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Widget Text Capture"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "Zachycování textu ve widgetu"
@@ -2410,7 +2420,7 @@ msgstr "NLNet Foundation"
 #: src/main.cpp:84
 #, kde-format
 msgid "sponsored XLIFF-related work"
-msgstr ""
+msgstr "sponzorované aktivity související s formátem XLIFF"
 
 #: src/main.cpp:85
 #, kde-format
@@ -2420,7 +2430,7 @@ msgstr "Translate-toolkit"
 #: src/main.cpp:86
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
-msgstr ""
+msgstr "poskytuje vynikající skripty pro konverzi mezi různými formáty"
 
 #: src/main.cpp:89
 #, kde-format
@@ -2440,7 +2450,7 @@ msgstr "Viesturs Zarins"
 #: src/main.cpp:90
 #, kde-format
 msgid "project tree merging translation+templates"
-msgstr ""
+msgstr "sloučení překladů a šablon v projektovém stromu"
 
 #: src/main.cpp:91
 #, kde-format
@@ -2510,7 +2520,7 @@ msgstr "Karl Ove Hufthammer"
 #: src/main.cpp:99
 #, kde-format
 msgid "Finley Watson"
-msgstr ""
+msgstr "Finley Watson"
 
 #: src/main.cpp:103
 #, kde-format
@@ -2644,7 +2654,7 @@ msgstr "Od:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Save empty note to remove it"
-msgstr ""
+msgstr "Uložte prázdnou poznámku, abyste ji odstranili"
 
 #: src/noteeditor.cpp:46
 #, kde-format
@@ -2672,21 +2682,19 @@ msgstr "<b>Poznámky:</b>"
 #, kde-format
 msgctxt "link to edit note"
 msgid "edit…"
-msgstr ""
+msgstr "upravit…"
 
 #: src/noteeditor.cpp:130
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add…"
-msgstr ""
+msgstr "Přidat…"
 
 #: src/noteeditor.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add a comment"
+#, kde-format
 msgctxt "link to add a note"
 msgid "Add a note…"
-msgstr "Přidat komentář"
+msgstr "Přidat poznámku…"
 
 #: src/phaseswindow.cpp:144
 #, kde-format
@@ -2737,7 +2745,7 @@ msgstr "Schválení"
 #, kde-format
 msgctxt "noun"
 msgid "Process (this will also change your role):"
-msgstr ""
+msgstr "Proces (tím se zároveň změní vaše role):"
 
 #: src/phaseswindow.cpp:255
 #, kde-format
@@ -2779,7 +2787,7 @@ msgstr "Přepsat překladatelský tým"
 #: src/prefs/lokalize.kcfg:28
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
-msgstr ""
+msgstr "Použít název jazykového týmu zadaný uživatelem namísto jeho generování"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:34
@@ -2823,6 +2831,8 @@ msgid ""
 "\n"
 "            "
 msgstr ""
+"\n"
+"            "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73
@@ -2843,6 +2853,9 @@ msgid ""
 "%1 - Path of the source file\n"
 "%2 - Line number"
 msgstr ""
+"K dispozici jsou následující parametry\n"
+"%1 – Cesta ke zdrojovému souboru\n"
+"%2 – Číslo řádku"
 
 #: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
 #, kde-format
@@ -2896,20 +2909,16 @@ msgid "Project Required"
 msgstr "Je potřeba projekt"
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Create Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "Vytvořit projekt"
+msgstr "Vytvořit projekt…"
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
-msgstr "Otevřít projekt"
+msgstr "Otevřít projekt…"
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
@@ -2920,7 +2929,7 @@ msgstr "Projekt překladů Lokalize (*.lokalize)"
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
-msgstr ""
+msgstr "Vyberte složku se soubory Gettext .po, které chcete přeložit"
 
 #: src/prefs/prefs.cpp:196
 #, kde-format
@@ -2971,6 +2980,9 @@ msgid ""
 "If checked, LEDS will be shown to display the message status: Fuzzy, "
 "Untranslated or Error. If unchecked, no LEDs will be displayed."
 msgstr ""
+"Pokud je tato možnost zaškrtnuta, rozsvítí se LED diody, které signalizují "
+"stav zprávy: Neschválené, Nepřeložené nebo Chyba. Pokud není zaškrtnuta, "
+"žádné LED diody se nerozsvítí."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:60
@@ -2988,6 +3000,8 @@ msgid ""
 "displaying it in the user interface, or when it gets concatenated with "
 "others)."
 msgstr ""
+"Zkontrolujte, zda řetězec končí mezerou (což je často důležité při jeho "
+"zobrazení v uživatelském rozhraní nebo při jeho spojování s jinými řetězci)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:85
@@ -3017,6 +3031,15 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
+"<html>Je-li tato volba zapnutá, slouží kolečko myši k přechodu na předchozí "
+"nebo následující překládanou jednotku (bez modifikačních kláves). Toto "
+"chování lze změnit pomocí modifikačních kláves. Použití:<ul><li><b>Shift</b> "
+"pro posun v textu aktuální jednotky,</li><li><b>Ctrl+Shift</b> pro přechod "
+"na předchozí nebo následující neschválenou jednotku,</li><li><b>Ctrl</b> pro "
+"přechod na předchozí nebo následující neschválenou jednotku, která není "
+"prázdná,</li><li><b>Alt</b> pro přechod na předchozí nebo následující "
+"nepřeloženou jednotku.</li></ul>Je-li tato volba vypnutá, kolečko myši "
+"posouvá text v rámci aktuální překládané jednotky.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -3073,6 +3096,7 @@ msgstr "Znovu otevřít naposledy otevřené soubory při spuštění Lokalize"
 #, kde-format
 msgid "Defines the behavior of the next/previous tab shortcuts"
 msgstr ""
+"Určuje chování klávesových zkratek pro přechod na další/předchozí kartu"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:57
@@ -3105,6 +3129,8 @@ msgid ""
 "Fill in your identity and information about your translation team. This "
 "information is used when updating the header of a file."
 msgstr ""
+"Zadejte své údaje a informace o svém překladatelském týmu. Tyto údaje se "
+"používají při aktualizaci záhlaví souboru."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/prefs/prefs_identity.ui:35
@@ -3137,7 +3163,7 @@ msgstr "Vaše jméno, v angličtině"
 #: src/prefs/prefs_identity.ui:77
 #, kde-format
 msgid "Please enter here your name and surname written in English"
-msgstr ""
+msgstr "Zadejte prosím své jméno a příjmení v angličtině"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_identity.ui:84
@@ -3156,7 +3182,7 @@ msgstr "E-mail vaší týmové mailové konference"
 #: src/prefs/prefs_identity.ui:97
 #, kde-format
 msgid "Write the email of your translating team mailing list"
-msgstr ""
+msgstr "Zadejte e-mailovou adresu konference vašeho překladatelského týmu"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, DefaultLangCode)
 #: src/prefs/prefs_identity.ui:104
@@ -3182,6 +3208,8 @@ msgstr "Napište svůj e-mail"
 msgid ""
 "Write your email here so it will appear in the po file header with your name"
 msgstr ""
+"Zadejte sem svou e-mailovou adresu, aby se spolu s vaším jménem zobrazila v "
+"záhlaví souboru po"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorLocalizedName)
 #: src/prefs/prefs_identity.ui:144
@@ -3195,6 +3223,7 @@ msgstr "Vaše jméno ve vašem rodném jazyce"
 msgid ""
 "Write your name and surname in your language with your language alphabet."
 msgstr ""
+"Napište své jméno a příjmení ve svém jazyce pomocí abecedy svého jazyka."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/prefs/prefs_identity.ui:154
@@ -3226,13 +3255,14 @@ msgstr "Cesta k serveru:"
 #: src/prefs/prefs_languagetool.ui:44
 #, kde-format
 msgid "The path of your custom Language Tool server"
-msgstr ""
+msgstr "Cesta k vašemu vlastnímu serveru Language Tool"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:47
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
 msgstr ""
+"Zadejte prosím cestu k vašemu vlastnímu serveru Language Tool, pokud jej máte"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_languagetool.ui:58
@@ -3249,7 +3279,7 @@ msgstr ""
 #: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
 #, kde-format
 msgid "Set to 0 to disable auto checking"
-msgstr ""
+msgstr "Nastavte hodnotu na 0, chcete-li automatickou kontrolu deaktivovat"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
 #: src/prefs/prefs_pology.ui:21
@@ -3325,6 +3355,8 @@ msgid ""
 "If this is checked, the program will fetch translation memories as soon as "
 "you open a file."
 msgstr ""
+"Pokud je tato možnost zaškrtnuta, program načte překladové paměti ihned po "
+"otevření souboru."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PrefetchTM)
 #: src/prefs/prefs_tm.ui:51
@@ -3411,7 +3443,7 @@ msgstr "Akcelerátor:"
 #: src/project/prefs_project_advanced.ui:33
 #, kde-format
 msgid "Usually '&', but may also be '_' for GTK apps."
-msgstr "Obvykle '&', ale pro aplikace GTK může být '_'"
+msgstr "Obvykle '&', ale pro aplikace GTK může být '_'."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_project_advanced.ui:40
@@ -3433,6 +3465,14 @@ msgid ""
 "It is only used for gettext PO files, as XLIFF format has its own way of "
 "specifying where markup is."
 msgstr ""
+"Regulární výraz pro značky. Používá se pro porovnávání v překladové paměti a "
+"pro funkci 'Vložit značku'.\n"
+"\n"
+"Výchozí hodnota (vhodná pro texty založené na XML) je:\n"
+"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"\n"
+"Používá se pouze pro soubory PO v formátu gettext, protože formát XLIFF má "
+"vlastní způsob určení, kde se značky nacházejí."
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/project/prefs_project_advanced.ui:65
@@ -3449,6 +3489,9 @@ msgid ""
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
+"Šířka používaná pro automatické zalomení řádků podobné nástroji msgfmt. "
+"Hodnotou '0' zalomení řádků deaktivujete. Při překladu pro KDE PO Summit "
+"použijte hodnotu -1. Hodnoty 1 až 3 nemají žádný vliv."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/project/prefs_project_advanced.ui:91
@@ -3474,6 +3517,12 @@ msgid ""
 "(i.e. files without translation into any language)\n"
 "shared among all subprojects."
 msgstr ""
+"Váš překladatelský projekt bude obvykle podprojektem projektu\n"
+"určeného k překladu stejných textů do více jazyků.\n"
+"\n"
+"Zadejte zde cestu ke složce obsahující prázdné překladové soubory\n"
+"(tj. soubory bez překladu do jakéhokoli jazyka)\n"
+"sdílené mezi všemi podprojekty."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:131
@@ -3502,13 +3551,27 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
+"Toto nastavení se týká režimu synchronizace.\n"
+"\n"
+"Režim synchronizace lze použít k provádění změn v překladu\n"
+"pro dvě větve současně.\n"
+"\n"
+"Nastavte tuto položku na cestu, která odpovídá kořenové složce projektu "
+"větve,\n"
+"a zobrazení Sekundární synchronizace automaticky otevře soubory z této "
+"větve.\n"
+"Poté, pokaždé, když provedete změny v souborech hlavní větve,\n"
+"budou automaticky replikovány do této větve\n"
+"(samozřejmě, pokud obsahuje stejný anglický řetězec).\n"
+"\n"
+"Více podrobností naleznete v dokumentaci."
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_project_advanced.ui:168
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
-msgstr ""
+msgstr "Složka se šablonami větví:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
 #: src/project/prefs_project_advanced.ui:193
@@ -3526,6 +3589,14 @@ msgid ""
 "templates folder,\n"
 "and Secondary Sync view will automatically create files from branch."
 msgstr ""
+"Toto nastavení se týká režimu synchronizace.\n"
+"\n"
+"Režim synchronizace lze použít k provádění změn v překladu\n"
+"pro dvě větve současně.\n"
+"\n"
+"Zadejte zde cestu ke kořenové složce složky šablon projektu dané větve,\n"
+"a v zobrazení Sekundární synchronizace se automaticky vytvoří soubory z této "
+"větve."
 
 #. i18n: ectx: property (text), widget (QLabel, l6)
 #: src/project/prefs_project_advanced.ui:200
@@ -3554,6 +3625,18 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
+"Zadejte cestu ke složce, jejíž struktura odpovídá kořenové složce.\n"
+"\n"
+"Při otevření každého překladového souboru se vyhledá odpovídající soubor v "
+"adresáři Alternativní překlady a,\n"
+"pokud bude nalezen, použije se pro zobrazení Alternativní překlady.\n"
+"\n"
+"Pravděpodobně budete chtít použít překlady do jiného cílového jazyka (tj. "
+"jiného podprojektu), který je vašemu blízký.\n"
+"Překlady z jiného podprojektu můžete použít buď okamžitě, nebo je nechat "
+"strojově přeložit do vašeho jazyka.\n"
+"\n"
+"Více podrobností najdete v dokumentaci."
 
 #. i18n: ectx: property (text), widget (QLabel, l0)
 #: src/project/prefs_project_local.ui:21
@@ -3603,12 +3686,17 @@ msgid ""
 "For example, if you have several projects for translating KDE applications\n"
 "(e.g. they are in different repositories), use same ID for all of them."
 msgstr ""
+"ID projektu slouží k rozlišení překladových pamětí zcela odlišných projektů "
+"a jazyků.\n"
+"\n"
+"Pokud například máte několik projektů zaměřených na překlad aplikací KDE\n"
+"(např. jsou v různých repozitářích), použijte pro všechny stejné ID."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:59
 #, kde-format
 msgid "Target language of the project."
-msgstr "Cílový jazyk projektu"
+msgstr "Cílový jazyk projektu."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_projectmain.ui:82
@@ -3631,6 +3719,9 @@ msgid ""
 "This is main setting. Set this to path of a folder with translation files\n"
 "for your project (or a subproject for your target language)."
 msgstr ""
+"Toto je hlavní nastavení. Zadejte zde cestu ke složce s překladovými "
+"soubory\n"
+"pro váš projekt (nebo podprojekt pro váš cílový jazyk)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:141
@@ -3666,7 +3757,7 @@ msgstr "Překladatelský tým:"
 #: src/project/project.cpp:371
 #, kde-format
 msgid "Scanning folders with source files"
-msgstr ""
+msgstr "Prohledávání složek se zdrojovými soubory"
 
 #: src/project/project.cpp:371
 #, kde-format
@@ -3689,13 +3780,13 @@ msgstr "Jazyk"
 #: src/project/projectbase.kcfg:31
 #, kde-format
 msgid "User Language Team in Lokalize settings"
-msgstr ""
+msgstr "Tým jazyku uživatele v nastavení Lokalize"
 
 #. i18n: ectx: label, entry (OverrideLangTeam), group (General)
 #: src/project/projectbase.kcfg:37
 #, kde-format
 msgid "Override Lokalize Language Team"
-msgstr ""
+msgstr "Přepsat jazykový tým Lokalize"
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
 #: src/project/projectbase.kcfg:43
@@ -3748,12 +3839,10 @@ msgid "Translated"
 msgstr "Přeloženo"
 
 #: src/project/projectmodel.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@label whether entry is fuzzy"
-#| msgid "Not ready:"
+#, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
-msgstr "Neschváleno:"
+msgstr "Neschváleno"
 
 #: src/project/projectmodel.cpp:477
 #, kde-format
@@ -3798,39 +3887,34 @@ msgid "Project Overview"
 msgstr "Přehled projektu"
 
 #: src/project/projecttab.cpp:124
-#, fuzzy, kde-format
-#| msgid "Previous Tab"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Template Only"
-msgstr "Předchozí karta"
+msgstr "Pouze předchozí šablonu"
 
 #: src/project/projecttab.cpp:130
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Template Only"
-msgstr ""
+msgstr "Pouze následující šablonu"
 
 #: src/project/projecttab.cpp:135
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "New Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Translation Only"
-msgstr "Nová paměť překladu"
+msgstr "Pouze předchozí překlad"
 
 #: src/project/projecttab.cpp:138
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "New Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Translation Only"
-msgstr "Nová paměť překladu"
+msgstr "Pouze následující překlad"
 
 #: src/project/projecttab.cpp:142
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Completed Items"
-msgstr ""
+msgstr "Skrýt dokončené položky"
 
 #: src/project/projecttab.cpp:143
 #, kde-format
@@ -3883,12 +3967,12 @@ msgstr "Hledat v souborech (včetně šablon)"
 #: src/project/projecttab.cpp:231
 #, kde-format
 msgid "Project file comment"
-msgstr ""
+msgstr "Komentář k souboru projektu"
 
 #: src/project/projecttab.cpp:231
 #, kde-format
 msgid "Input a comment for this project file:"
-msgstr ""
+msgstr "Zadejte komentář k tomuto souboru projektu:"
 
 #: src/project/projecttab.cpp:307
 #, kde-format
@@ -3899,9 +3983,9 @@ msgstr "Kontrola Pology byla úspěšná"
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Chystáte se otevřít %1 soubor"
+msgstr[1] "Chystáte se otevřít %1 soubory"
+msgstr[2] "Chystáte se otevřít %1 souborů"
 
 #: src/project/projecttab.cpp:327
 #, kde-format
@@ -3909,11 +3993,13 @@ msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
+"Otevření velkého počtu souborů najednou může způsobit, že aplikace Lokalize "
+"přestane reagovat."
 
 #: src/project/projecttab.cpp:328
 #, kde-format
 msgid "Are you sure you want to open this many files?"
-msgstr ""
+msgstr "Opravdu chcete otevřít tolik souborů?"
 
 #: src/project/projecttab.cpp:329
 #, kde-format
@@ -4055,7 +4141,7 @@ msgstr "Původní jazyk:"
 #: src/tm/dbparams.ui:162
 #, kde-format
 msgid "Markup regex:"
-msgstr ""
+msgstr "Regulární výraz pro označení:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/tm/dbparams.ui:175
@@ -4077,17 +4163,15 @@ msgstr "Přidat data"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
-#, fuzzy, kde-format
-#| msgid "Add Data from TMX"
+#, kde-format
 msgid "Add Data from TMX…"
-msgstr "Přidat data z TMX"
+msgstr "Přidat data z TMX…"
 
 #. i18n: ectx: property (text), widget (QPushButton, exportTMX)
 #: src/tm/managedatabases.ui:40
-#, fuzzy, kde-format
-#| msgid "Export to TMX"
+#, kde-format
 msgid "Export to TMX…"
-msgstr "Exportovat do TMX"
+msgstr "Exportovat do TMX…"
 
 #: src/tm/qamodel.cpp:98
 #, kde-format
@@ -4115,10 +4199,9 @@ msgstr "Odstranit"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/queryoptions.ui:32
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgid "Translation Memory:"
-msgstr "Paměť překladu"
+msgstr "Paměť překladu:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
@@ -4128,6 +4211,9 @@ msgid ""
 "Press Enter to start the search.\n"
 "Press Ctrl+L to go to this control."
 msgstr ""
+"Zadejte výraz pro vyhledávání v části zdrojového jazyka.\n"
+"Stisknutím klávesy Enter spustíte vyhledávání.\n"
+"Stisknutím kláves Ctrl+L přejdete na tento ovládací prvek."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4138,24 +4224,22 @@ msgstr "Zobrazit výsledky, které neodpovídají hledanému výrazu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Files"
+#, kde-format
 msgid "File Mask:"
-msgstr "Soubory"
+msgstr "Maska souboru:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
 #: src/tm/queryoptions.ui:155
 #, kde-format
 msgid "Show only results from files with path matching specified mask"
 msgstr ""
+"Zobrazit pouze výsledky ze souborů, jejichž cesta odpovídá zadané masce"
 
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
-#, fuzzy, kde-format
-#| msgid "Syntax"
+#, kde-format
 msgid "Query Syntax:"
-msgstr "Syntaxe"
+msgstr "Syntaxe dotazu:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:197
@@ -4169,11 +4253,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Project"
+#, kde-format
 msgid "&Rescan Project"
-msgstr "Otevřít projekt"
+msgstr "Znovu p&rojít soubory projektu"
 
 #: src/tm/tmmanager.cpp:34
 #, kde-format
@@ -4257,11 +4339,14 @@ msgstr "Zástupný znak"
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr ""
+"Mezery fungují jako operátor AND. Rozlišování velkých a malých písmen se "
+"neprovádí."
 
 #: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr ""
+"Globální znaky v příkazovém řádku (* a ?). Rozlišují se velká a malá písmena."
 
 #: src/tm/tmtab.cpp:512
 #, kde-format
@@ -4269,11 +4354,13 @@ msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
 "project and try again."
 msgstr ""
+"Opětovné naskenování souborů je možné pouze v případě, že je projekt "
+"otevřený. Otevřete prosím projekt a zkuste to znovu."
 
 #: src/tm/tmtab.cpp:513
 #, kde-format
 msgid "Rescan not possible"
-msgstr ""
+msgstr "Opětovné skenování není možné"
 
 #: src/tm/tmtab.cpp:612 src/tm/tmview.cpp:622
 #, kde-format
@@ -4324,7 +4411,7 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr ""
+msgstr "100% (perfektní shoda)"
 
 #: src/tm/tmview.cpp:501
 #, kde-format
@@ -4332,7 +4419,7 @@ msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/tm/tmview.cpp:507
 #, kde-format
@@ -4341,9 +4428,9 @@ msgctxt ""
 "the number."
 msgid "Occurred %1 time"
 msgid_plural "Occurred %1 times"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Vyskytuje se %1-krát"
+msgstr[1] "Vyskytuje se %1-krát"
+msgstr[2] "Vyskytuje se %1-krát"
 
 #: src/tm/tmview.cpp:517
 #, kde-format
@@ -4351,7 +4438,7 @@ msgctxt ""
 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
 "(%3). Bullet point is a separator between the data and can be translated."
 msgid "%1 • %2 • %3"
-msgstr ""
+msgstr "%1 • %2 • %3"
 
 #: src/tm/tmview.cpp:525
 #, kde-format
@@ -4359,7 +4446,7 @@ msgctxt ""
 "Percentage match (%1) and number of occurrences (%2). Bullet point is a "
 "separator between the data and can be translated."
 msgid "%1 • %2"
-msgstr ""
+msgstr "%1 • %2"
 
 #: src/tm/tmview.cpp:577
 #, kde-format
@@ -4377,26 +4464,25 @@ msgstr "Soubor: %1<br />Datum přidání: %2"
 #, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change date: %1"
-msgstr ""
+msgstr "<br />Datum poslední změny: %1"
 
 #: src/tm/tmview.cpp:583
 #, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Last change author: %1"
-msgstr ""
+msgstr "<br />Autor poslední změny: %1"
 
 #: src/tm/tmview.cpp:584
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Translation memory: %1"
-msgstr "Paměť překladu"
+msgstr "<br />Paměť překladu: %1"
 
 #: src/tm/tmview.cpp:586
 #, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Is not present in the file anymore"
-msgstr ""
+msgstr "<br />V souboru již neexistuje"
 
 #: src/tm/tmview.cpp:601
 #, kde-format
@@ -4411,7 +4497,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
-msgstr "Odstranění položky překladu "
+msgstr "Odstranění položky překladu"
 
 #: src/tm/tmview.cpp:649
 #, kde-format
@@ -4426,11 +4512,10 @@ msgid "Open file containing this entry"
 msgstr "Otevřít soubor obsahující tento záznam"
 
 #: src/tm/tmview.cpp:662
-#, fuzzy, kde-format
-#| msgid "Adding files to Lokalize translation memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from the translation memory"
-msgstr "Přidávám soubory do paměti překladu Lokalize"
+msgstr "Odstranit tento chybějící soubor z paměti překladu"
 
 #: src/tm/tmview.cpp:676
 #, kde-format
@@ -4476,6 +4561,18 @@ msgid ""
 "translation memory with all translation files indexed for this feature to "
 "work.</p></html>"
 msgstr ""
+"<html>\n"
+"<p align=\"justify\">Pro usnadnění překladu KDE dokáže Lokalize zachytit "
+"text z uživatelského rozhraní aplikací a vyhledat překladové soubory, které "
+"tento text obsahují.</p>\n"
+"<p align=\"justify\">Je-li tato funkce zapnutá, lze zachycení spustit "
+"kliknutím prostředním tlačítkem myši na jakýkoli neupravitelný prvek "
+"grafického rozhraní (widget). Poté přepněte do okna Lokalize a vyberte "
+"položku s tímto textem. I když několik souborů obsahuje stejný řetězec, ve "
+"většině případů bude vybrán ten správný.</p>\n"
+"<p align=\"justify\">Nezapomeňte, že aby tato funkce fungovala, musíte mít "
+"aktuální překladovou paměť se všemi indexovanými překladovými soubory.</p></"
+"html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:42
@@ -4521,7 +4618,7 @@ msgstr "kontrola pravopisu není dostupna"
 #: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
-msgstr ""
+msgstr "Byla hlášena chyba: %1"
 
 #: src/xlifftextedit.cpp:1171
 #, kde-format
