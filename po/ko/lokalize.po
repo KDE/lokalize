@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-20 00:50+0000\n"
-"PO-Revision-Date: 2026-02-04 00:01+0100\n"
+"PO-Revision-Date: 2026-04-26 22:43+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -1004,11 +1004,10 @@ msgid "Insert alternate translation #%1"
 msgstr "대체 번역 #%1 삽입"
 
 #: src/editortab.cpp:212
-#, fuzzy, kde-format
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "대체 번역"
+msgstr "대체 번역 파일 첨부…"
 
 #: src/editortab.cpp:278
 #, kde-format
@@ -1041,23 +1040,22 @@ msgid "Define New Term"
 msgstr "새 단어 정의"
 
 #: src/editortab.cpp:381
-#, fuzzy, kde-format
-#| msgid "Save"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Save All"
-msgstr "저장"
+msgstr "모두 저장"
 
 #: src/editortab.cpp:387
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Revert All"
-msgstr ""
+msgstr "모두 되돌리기"
 
 #: src/editortab.cpp:395
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
-msgstr ""
+msgstr "모두 닫기"
 
 #: src/editortab.cpp:410
 #, kde-format
@@ -1443,18 +1441,18 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
+"다른 프로그램에서 <filename>%1</filename> 파일을 수정했습니다. 지금 저장하면 "
+"다른 프로그램에서의 변경 사항이 손실됩니다. 계속 진행하시겠습니까?"
 
 #: src/editortab.cpp:995
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "경고"
+msgstr "저장 - 경고"
 
 #: src/editortab.cpp:997
 #, kde-format
 msgid "Save a Copy Elsewhere"
-msgstr ""
+msgstr "다른 곳에 복사본 저장"
 
 #: src/editortab.cpp:1043
 #, kde-format
@@ -1514,34 +1512,31 @@ msgstr "항목이 완전히 번역됨(최종본)"
 #, kde-format
 msgctxt "@info"
 msgid "There are no bookmarked entries."
-msgstr ""
+msgstr "책갈피에 등록된 항목이 없습니다."
 
 #: src/editortab.cpp:1418
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "책갈피(&B)"
+msgstr "책갈피 편집"
 
 #: src/editortab.cpp:1425
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Uncheck to remove this bookmark."
-msgstr ""
+msgstr "이 책갈피를 삭제하려면 선택을 해제하십시오."
 
 #: src/editortab.cpp:1441
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Entry %1: %2"
-msgstr ""
+msgstr "항목 %1: %2"
 
 #: src/editortab.cpp:1469
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "비우기"
+msgstr "모두 지우기"
 
 #: src/editortab.cpp:1513 src/project/projecttab.cpp:281
 #, kde-format
@@ -1606,12 +1601,10 @@ msgid "Word Count"
 msgstr "단어 개수"
 
 #: src/editortab.cpp:1581
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "대체 번역"
+msgstr "대체 번역 파일 첨부"
 
 #: src/editortab.cpp:1679
 #, kde-format
@@ -2033,28 +2026,29 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"용어집을 저장할 수 없음\n"
+"%1\n"
+"자세한 정보: %2"
 
 #: src/glossary/glossary.cpp:659
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "상용구"
+msgstr "용어집 오류"
 
 #: src/glossary/glossary.cpp:667
 #, kde-format
 msgid "The folder for the glossary does not exist."
-msgstr ""
+msgstr "용어집 폴더가 없습니다."
 
 #: src/glossary/glossary.cpp:670
 #, kde-format
 msgid "The path points to a folder, not a file."
-msgstr ""
+msgstr "해당 경로는 파일이 아닌 폴더를 가리킵니다."
 
 #: src/glossary/glossary.cpp:673
 #, kde-format
 msgid "Cannot write to file. Check permissions."
-msgstr ""
+msgstr "파일에 쓸 수 없습니다. 권한을 확인하십시오."
 
 #: src/glossary/glossarytab.cpp:89
 #, kde-format
@@ -2066,23 +2060,19 @@ msgstr "용어집"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add new glossary entry"
-msgstr ""
+msgstr "새 용어집 항목 추가"
 
 #: src/glossary/glossarytab.cpp:140
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove this entry"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove selected glossary entry"
-msgstr "이 항목 삭제"
+msgstr "선택한 용어집 항목 삭제"
 
 #: src/glossary/glossarytab.cpp:308
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define New Term"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Term"
-msgstr "새 단어 정의"
+msgstr "새 용어 추가"
 
 #: src/glossary/glossarytab.cpp:312
 #, kde-format
@@ -2091,17 +2081,18 @@ msgid ""
 "multiple meanings should have separate glossary entries, each corresponding "
 "to a specific definition."
 msgstr ""
+"용어집 항목은 단어의 개별적인 의미를 나타냅니다. 여러 의미가 있는 단어는 각"
+"각 의미별로 별도의 용어집 항목을 생성해야 합니다."
 
 #: src/glossary/glossarytab.cpp:319
 #, kde-format
 msgid "English term:"
-msgstr ""
+msgstr "영어 용어:"
 
 #: src/glossary/glossarytab.cpp:323
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgid "Target term:"
-msgstr "대상:"
+msgstr "대상 용어:"
 
 #: src/glossary/glossaryview.cpp:34 src/glossary/glossaryview.cpp:41
 #, kde-format
@@ -2110,14 +2101,7 @@ msgid "Glossary"
 msgstr "용어집"
 
 #: src/glossary/glossaryview.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;new&nbsp;term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
@@ -2127,10 +2111,11 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
-"<p>공통되는 항목에 대한 번역이 나타납니다.</p><p>표시되는 단축키를 누르면 항"
-"목에 대한 번역을 삽입합니다.</p><p>새 항목을 추가하려면 상황에 맞는 메뉴를 사"
-"용하십시오. (팁:&nbsp;<interface>새&nbsp;단어&nbsp;정의하기</interface> 항목"
-"을 부르기 전에 원문과 번역문 필드에서 단어를 선택하십시오.)</p>"
+"<p>용어집 항목이 여기에 나타납니다.</p><p>각각 용어별로 표시되는 단축키를 누"
+"르면 해당 번역을 삽입합니다.</p><p>문맥 메뉴를 사용하여 용어집에 새 항목을 추"
+"가할 수 있습니다(팁:&nbsp;<interface>새&nbsp;용어&nbsp;정의</interface>를 호"
+"출하기 전에 번역 단위의 원본과 대상 필드에서 용어를 미리 선택해 두십시오). 프"
+"로젝트 설정에서 용어집 파일 위치를 지정할 수 있습니다.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:25
@@ -2141,9 +2126,7 @@ msgstr "영어 동의어(두 번 클릭하면 편집):"
 #. i18n: ectx: property (text), widget (QPushButton, addEngTerm)
 #. i18n: ectx: property (text), widget (QPushButton, addTargetTerm)
 #: src/glossary/termedit.ui:32 src/glossary/termedit.ui:78
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add"
+#, kde-format
 msgid "Add"
 msgstr "추가"
 
@@ -2151,7 +2134,7 @@ msgstr "추가"
 #: src/glossary/termedit.ui:35
 #, kde-format
 msgid "Add new source synonym"
-msgstr ""
+msgstr "새 원본 동의어 추가"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #. i18n: ectx: property (text), widget (QPushButton, remEngTerm)
@@ -2166,7 +2149,7 @@ msgstr "삭제"
 #: src/glossary/termedit.ui:48
 #, kde-format
 msgid "Remove selected source synonym"
-msgstr ""
+msgstr "선택한 원본 동의어 삭제"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/glossary/termedit.ui:71
@@ -2178,13 +2161,13 @@ msgstr "해당하는 대상 언어 동의어:"
 #: src/glossary/termedit.ui:81
 #, kde-format
 msgid "Add new target synonym"
-msgstr ""
+msgstr "새 대상 동의어 추가"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, remTargetTerm)
 #: src/glossary/termedit.ui:94
 #, kde-format
 msgid "Remove selected target synonym"
-msgstr ""
+msgstr "선택한 대상 동의어 삭제"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:109
