@@ -157,7 +157,8 @@ void EditorView::gotoEntry()
 {
     return gotoEntry(DocPosition(), 0);
 }
-// main function in this file :)
+
+// main function in this file
 void EditorView::gotoEntry(DocPosition pos, int selection)
 {
     setUpdatesEnabled(false);

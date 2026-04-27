@@ -205,15 +205,14 @@ QStringList calcLCS(const QStringList &s1Words, const QStringList &s2Words, cons
     uint mX = s1Words.count();
     uint nY = s2Words.count();
 
-    // create lowered lists for matching,
-    // and use original ones for printing (but only for non-batch)
+    // create lowered lists for matching, and use original ones for printing
+    // (but only for non-batch)
     QStringList s1(s1Words);
     QStringList s2(s2Words);
 
     if (!s1Space.isEmpty()) {
-        // accels are only removed by batch jobs
-        // and this is not the one
-        // also, lower things a bit :)
+        // accelerators are only removed by batch jobs and this is not the one
+        // also, lowercase things a bit
 
         for (i = 0; i < mX; ++i)
             s1[i] = s1.at(i).toLower();

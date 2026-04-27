@@ -62,7 +62,6 @@ public:
 
     ProjectModel *model();
 
-    // void setPath(const QString& p){m_path=p;}
     QString path() const
     {
         return m_path;

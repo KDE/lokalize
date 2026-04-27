@@ -525,7 +525,7 @@ void TMTab::performQuery()
     if (ui_queryOptions->dbName->currentText().isEmpty()) {
         int pos = ui_queryOptions->dbName->findData(Project::instance()->projectID(), DBFilesModel::NameRole);
         if (pos >= 0)
-            ui_queryOptions->dbName->setCurrentIndex(pos); // m_model->setDB(Project::instance()->projectID());
+            ui_queryOptions->dbName->setCurrentIndex(pos);
     }
     m_model->m_dbOperationMutex.lock();
     m_model->setFilter(ui_queryOptions->querySource->text(),

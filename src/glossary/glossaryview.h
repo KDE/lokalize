@@ -40,9 +40,9 @@ public:
     ~GlossaryView();
 
 public Q_SLOTS:
-    // plural messages usually contain the same words...
+    // plural messages usually contain the same words
     void slotNewEntryDisplayed();
-    void slotNewEntryDisplayed(DocPosition pos); // HACK: a little hacky, but... :)
+    void slotNewEntryDisplayed(DocPosition pos); // HACK: a little hacky, but...
     void slotSelectGlossaryEntryRequested(const QByteArray &entryId);
 
 Q_SIGNALS:

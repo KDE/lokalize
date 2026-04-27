@@ -190,9 +190,7 @@ QString GNUPluralForms(const QString &lang)
         "\"Language: LL\\n\"\n"
         "\"MIME-Version: 1.0\\n\"\n"
         "\"Content-Type: text/plain; charset=UTF-8\\n\"\n"
-        "\"Content-Transfer-Encoding: ENCODING\\n\"\n"
-        //                   "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n\"\n"
-    );
+        "\"Content-Transfer-Encoding: ENCODING\\n\"\n");
     msginit.closeWriteChannel();
 
     if (Q_UNLIKELY(!msginit.waitForFinished(5000))) {
@@ -388,7 +386,7 @@ void updateHeader(QString &header,
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
 
-    //  update plural form header
+    // update plural form header
     const QRegularExpression pfRe(QStringLiteral("^ *Plural-Forms:"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it)
         found = it->contains(pfRe);

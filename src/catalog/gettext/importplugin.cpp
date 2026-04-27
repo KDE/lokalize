@@ -100,7 +100,7 @@ void CatalogImportPlugin::commitTransaction()
 
     // fill in the entries
     QVector<CatalogItem> &entries = catalog->m_entries;
-    entries.reserve(d->_entries.size()); // d->_catalog->setEntries( e );
+    entries.reserve(d->_entries.size());
     for (std::list<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it)
         entries.append(*it);
 

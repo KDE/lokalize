@@ -177,7 +177,6 @@ Q_SIGNALS:
 
 protected:
     void run() override;
-    // void aboutToBeDequeued(ThreadWeaver::WeaverInterface*); KDE5PORT
 
 private:
     // returns true if seen translation with >85%

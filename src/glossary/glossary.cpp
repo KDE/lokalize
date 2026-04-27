@@ -84,9 +84,9 @@ bool Glossary::load(const QString &newPath)
 
     if (!success) {
         qCWarning(LOKALIZE_LOG) << errorMsg;
-        return false; // errorLine+1;
+        return false;
     }
-    clear(); // does setClean(true);
+    clear();
     m_path = newPath;
     m_doc = newDoc;
 
@@ -125,7 +125,7 @@ bool Glossary::save()
 void Glossary::setClean(bool clean)
 {
     m_clean = clean;
-    Q_EMIT changed(); // may be emitted multiple times in a row. so what? :)
+    Q_EMIT changed(); // TODO: may be emitted multiple times in a row.
 }
 
 // END DISK
@@ -169,7 +169,7 @@ void GlossaryModel::forceReset()
 
 bool GlossaryModel::canFetchMore(const QModelIndex &) const
 {
-    return false; //! parent.isValid() && m_glossary->size()!=m_visibleCount;
+    return false;
 }
 
 void GlossaryModel::fetchMore(const QModelIndex &parent)
@@ -184,7 +184,7 @@ int GlossaryModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
-    return m_glossary->size(); // m_visibleCount;
+    return m_glossary->size();
 }
 
 QVariant GlossaryModel::headerData(int section, Qt::Orientation, int role) const
@@ -498,10 +498,6 @@ void Glossary::setDefinition(const QByteArray &id, const QString &lang, const QS
     setDescrip(id, lang, QStringLiteral("definition"), value);
 }
 
-// add words to the hash
-//  static void addToHash(const QMultiHash<QString,int>& wordHash,
-//                        const QString& what,
-//                        int index)
 void Glossary::hashTermEntry(const QDomElement &termEntry)
 {
     QByteArray entryId = termEntry.attribute(::id).toLatin1();

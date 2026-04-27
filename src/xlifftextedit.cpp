@@ -147,7 +147,7 @@ void TranslationUnitTextEdit::fileLoaded()
     QLocale langLocale(langCode);
     // First try to use a locale name derived from the language code
     m_highlighter->setCurrentLanguage(langLocale.name());
-    //  If that fails, try to use the language code directly
+    // If that fails, try to use the language code directly
     if (m_highlighter->currentLanguage() != langLocale.name() || m_highlighter->currentLanguage().isEmpty()) {
         m_highlighter->setCurrentLanguage(langCode);
         if (m_highlighter->currentLanguage() != langCode && langCode.length() > 2) {
@@ -248,7 +248,7 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
     QTextCursor t = textCursor();
     t.movePosition(QTextCursor::Start);
     if (pos || anchor) {
-        //  I don't know why the following (more correct) code does not work
+        // I don't know why the following (more correct) code does not work
         t.setPosition(anchor, QTextCursor::MoveAnchor);
         int length = pos - anchor;
         if (length)
@@ -669,8 +669,8 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         return KTextEdit::keyPressEvent(keyEvent);
 
     // BEGIN GENERAL
-    //  ALT+123 feature
-    //  TODO: this is general so should be on another level
+    // ALT+123 feature
+    // TODO: this is general so should be on another level
     else if ((keyEvent->modifiers() & Qt::AltModifier) && !keyEvent->text().isEmpty() && keyEvent->text().at(0).isDigit()) {
         QString text = keyEvent->text();
         while (!text.isEmpty() && text.at(0).isDigit()) {
@@ -683,8 +683,8 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
 
     else if (!keyEvent->modifiers() && (keyEvent->key() == Qt::Key_Backspace || keyEvent->key() == Qt::Key_Delete)) {
         // only for cases when:
-        //-BkSpace was hit and cursor was atStart
-        //-Del was hit and cursor was atEnd
+        // - BkSpace was hit and cursor was atStart
+        // - Del was hit and cursor was atEnd
         if (Q_UNLIKELY(!m_catalog->isApproved(m_currentPos.entry) && !textCursor().hasSelection())
             && ((textCursor().atStart() && keyEvent->key() == Qt::Key_Backspace) || (textCursor().atEnd() && keyEvent->key() == Qt::Key_Delete)))
             requestToggleApprovement();

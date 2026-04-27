@@ -225,7 +225,6 @@ public:
 
     void setTarget(DocPosition pos, const CatalogString &s); // for batch use only!
 
-    // void setErrorIndex(const QList<int>& errors){d._errorIndex=errors;}
     void setUrl(const QString &u)
     {
         d._filePath = u; // used for template load

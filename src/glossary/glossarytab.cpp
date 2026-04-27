@@ -263,7 +263,7 @@ void GlossaryTab::applyEntryChange()
     if (!m_reactOnSignals || !m_browser->currentIndex().isValid())
         return;
 
-    QByteArray id = m_id; // modelIndexToId(m_browser->currentIndex());
+    QByteArray id = m_id;
 
     Project *project = Project::instance();
     Glossary *glossary = project->glossary();

@@ -301,8 +301,9 @@ void ProjectModel::pot_rowsInserted(const QModelIndex &pot_parent, int start, in
         endInsertRows();
     }
     enqueueNodeForMetadataUpdate(node);
-    // FIXME: if templates folder doesn't contain an equivalent of po folder then it's stats will be broken:
-    //  one way to fix this is to explicitly force scan of the files of the child folders of the 'node'
+    // FIXME: if templates folder doesn't contain an equivalent of po folder
+    // then it's stats will be broken: one way to fix this is to explicitly
+    // force scan of the files of the child folders of the 'node'
 }
 
 void ProjectModel::po_rowsRemoved(const QModelIndex &po_parent, int start, int end)

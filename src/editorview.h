@@ -26,14 +26,14 @@ class QLabel;
 class QTabBar;
 
 /**
- * This is the main view class for Lokalize Editor.
- * Most of the non-menu, non-toolbar, non-statusbar,
- * and non-dockview editing GUI code should go here.
+ * This is the main view class for Lokalize Editor. Most of the non-menu,
+ * non-toolbar, non-statusbar, and non-dockview editing GUI code should go
+ * here.
  *
  * There are several ways (for views) to modify current msg:
- * -modify KTextEdit and changes will be applied to catalog automatically (plus you need to care of fuzzy indication etc)
- * -modify catalog directly, then call EditorWindow::gotoEntry slot
- * I used both :)
+ * - modify KTextEdit and changes will be applied to catalog automatically
+ *   (plus you need to care of fuzzy indication etc)
+ * - modify catalog directly, then call EditorWindow::gotoEntry slot
  *
  * @short Main editor view: source and target textedits
  * @author Nick Shaforostoff <shafff@ukr.net>

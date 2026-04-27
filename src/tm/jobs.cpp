@@ -862,7 +862,6 @@ static void initPgDb(QSqlDatabase &db)
                        "END"
                        "$$ LANGUAGE plpgsql;"));
 
-    // DROP TRIGGER set_user_id_trigger ON main;
     queryMain.exec(QStringLiteral("CREATE TRIGGER set_user_id_trigger BEFORE INSERT OR UPDATE ON main FOR EACH ROW EXECUTE PROCEDURE set_user_id();"));
 }
 
@@ -911,7 +910,7 @@ static TMConfig getConfig(QSqlDatabase &db, bool useCache = true) // int& emptyT
     c.targetLangCode = query.next() ? query.value(1).toString() : p.targetLangCode();
     query.clear();
 
-    if (Q_UNLIKELY(!f)) // tmConfigCache[db.databaseName()]=c;
+    if (Q_UNLIKELY(!f))
         setConfig(db, c);
 
     if (!ok)
@@ -1309,7 +1308,6 @@ bool SelectJob::doSelect(QSqlDatabase &db,
                 QString change_author_str;
                 QString authors_table_str;
                 if (qpsql) {
-                    // change_author_str=", main.change_author ";
                     change_author_str = QStringLiteral(", pg_user.usename ");
                     authors_table_str = QStringLiteral(" JOIN pg_user ON (pg_user.usesysid=main.change_author) ");
                 }

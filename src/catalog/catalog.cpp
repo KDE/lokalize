@@ -634,7 +634,7 @@ bool Catalog::saveToUrl(QString localFilePath)
         if (!QDir::root().mkpath(localPath))
             return false;
     QFile file(localFilePath);
-    if (Q_UNLIKELY(!file.open(QIODevice::WriteOnly))) // i18n("Wasn't able to open file %1",filename.ascii());
+    if (Q_UNLIKELY(!file.open(QIODevice::WriteOnly)))
         return false;
 
     bool belongsToProject = localFilePath.contains(Project::instance()->poDir());
@@ -689,8 +689,7 @@ QByteArray Catalog::contents()
 // END OPEN/SAVE
 
 /**
- * helper method to keep db in a good shape :)
- * called on
+ * helper method to keep db in a good shape called on:
  * 1) entry switch
  * 2) automatic editing code like replace or undo/redo operation
  **/

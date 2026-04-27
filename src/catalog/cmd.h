@@ -56,7 +56,6 @@ protected:
     Catalog *_catalog{nullptr};
     DocPosition _pos;
     bool _firstModificationForThisEntry{false};
-    //    QString _prevPhase; currently xliffstorage doesn't support non-target phase setting
 };
 
 class LokalizeTargetCmd : public LokalizeUnitCmd

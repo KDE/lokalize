@@ -320,7 +320,7 @@ void EditorTab::replace()
         return;
 
     if (m_replace)
-        m_replace->deleteLater(); // _replace=0;
+        m_replace->deleteLater();
 
     // This creates a find-next-prompt dialog if needed.
     {
