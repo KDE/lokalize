@@ -29,7 +29,7 @@ QRegularExpression copyrightRegExp()
         "(?<years>([0-9]+(-[0-9]+| - [0-9]+| to [0-9]+|,[ ]?[0-9]+)*|YEAR))?"
         "[, ]*"
         "([bB]y[ ]+)?"
-        "(?<name>([\u00C0-\u017Fa-zA-Z\\-\\.]+( [\u00C0-\u017Fa-zA-Z\\-\\.]+)*))"
+        "(?<name>([\u00C0-\u024Fa-zA-Z\\-\\.]+( [\u00C0-\u024Fa-zA-Z\\-\\.]+)*))"
         "[, ]*"
         "(?<contact>[^\\s,]*)"
         "[, ]*"

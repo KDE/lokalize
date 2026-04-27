@@ -172,6 +172,15 @@ void TestGetTextHeaderParser::bugTestForYears()
     QCOMPARE(output, expected);
 }
 
+void TestGetTextHeaderParser::updateAuthorsWithLatinExtendedBCharacters()
+{
+    // romanian characters like ț (U+021B) in Latin Extended-B are handled correctly
+    const QString input = QStringLiteral("# SPDX-FileCopyrightText: 2026 Ionică Brânțuși <ionica.brantusi@gmail.com>");
+    const QString expected = QStringLiteral("# SPDX-FileCopyrightText: ") + sCurrentYear + QStringLiteral(" Ionică Brânțuși <ionica.brantusi@gmail.com>");
+    const QString output = GetTextHeaderParser::updateAuthorCopyrightLine(input);
+    QCOMPARE(output, expected);
+}
+
 QTEST_MAIN(TestGetTextHeaderParser)
 
 #include "moc_test_gettextheaderparser.cpp"

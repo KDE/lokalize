@@ -30,6 +30,7 @@ private Q_SLOTS:
     void updateAuthorsTestModifyExistingCopyrightOwner();
     void updateAuthorsCopyrightText();
     void bugTestForYears();
+    void updateAuthorsWithLatinExtendedBCharacters();
 
 private:
     static const QString sCurrentYear;
