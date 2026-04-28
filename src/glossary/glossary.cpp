@@ -76,14 +76,12 @@ bool Glossary::load(const QString &newPath)
     reader.setNamespaceProcessing(false);
 
     QDomDocument newDoc;
-    QString errorMsg;
-    int errorLine{}; //+errorColumn;
-    bool success = newDoc.setContent(&reader, false, &errorMsg, &errorLine);
+    const auto result = newDoc.setContent(&reader);
 
     delete device;
 
-    if (!success) {
-        qCWarning(LOKALIZE_LOG) << errorMsg;
+    if (!result) {
+        qCWarning(LOKALIZE_LOG) << result.errorMessage;
         return false;
     }
     clear();

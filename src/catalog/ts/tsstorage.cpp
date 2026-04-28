@@ -87,13 +87,11 @@ int TsStorage::load(QIODevice *device)
     QXmlStreamReader reader(device);
     reader.setNamespaceProcessing(false);
 
-    QString errorMsg;
-    int errorLine{}; //+errorColumn;
-    bool success = m_doc.setContent(&reader, false, &errorMsg, &errorLine);
+    const auto result = m_doc.setContent(&reader);
 
-    if (!success) {
-        qCWarning(LOKALIZE_LOG) << "parse error" << errorMsg << errorLine;
-        return errorLine + 1;
+    if (!result) {
+        qCWarning(LOKALIZE_LOG) << "parse error" << result.errorMessage << result.errorLine;
+        return result.errorLine + 1;
     }
 
     QDomElement file = m_doc.elementsByTagName(QStringLiteral("TS")).at(0).toElement();

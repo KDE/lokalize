@@ -271,24 +271,45 @@ void CatalogTreeFilterModel::setEntriesFilteredOut()
 }
 void CatalogTreeFilterModel::setEntriesFilteredOut(bool filteredOut)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+    beginFilterChange();
+#endif
     m_individualRejectFilter.fill(filteredOut, sourceModel()->rowCount());
     m_individualRejectFilterEnable = filteredOut;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+    endFilterChange();
+#else
     invalidateFilter();
+#endif
 }
 
 void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+    beginFilterChange();
+#endif
     m_individualRejectFilter[entry] = filteredOut;
     m_individualRejectFilterEnable = true;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+    endFilterChange();
+#else
     invalidateFilter();
+#endif
 }
 
 void CatalogTreeFilterModel::setFilterOptions(int o)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+    beginFilterChange();
+#endif
     m_filterOptions = o;
     setFilterCaseSensitivity(o & CaseInsensitive ? Qt::CaseInsensitive : Qt::CaseSensitive);
     static_cast<CatalogTreeModel *>(sourceModel())->setIgnoreAccel(o & IgnoreAccel);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+    endFilterChange();
+#else
     invalidateFilter();
+#endif
 }
 
 // contains the filter logic for what entries are to be displayed

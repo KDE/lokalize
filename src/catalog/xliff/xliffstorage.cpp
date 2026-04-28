@@ -39,14 +39,12 @@ int XliffStorage::load(QIODevice *device)
     QXmlStreamReader reader(device);
     reader.setNamespaceProcessing(false);
 
-    QString errorMsg;
-    int errorLine{}; //+errorColumn;
-    bool success = m_doc.setContent(&reader, false, &errorMsg, &errorLine);
+    const auto result = m_doc.setContent(&reader);
 
     QString FILE = QStringLiteral("file");
-    if (!success || m_doc.elementsByTagName(FILE).isEmpty()) {
-        qCWarning(LOKALIZE_LOG) << errorMsg;
-        return errorLine + 1;
+    if (!result || m_doc.elementsByTagName(FILE).isEmpty()) {
+        qCWarning(LOKALIZE_LOG) << result.errorMessage;
+        return result.errorLine + 1;
     }
 
     QDomElement file = m_doc.elementsByTagName(FILE).at(0).toElement();
