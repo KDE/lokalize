@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kaider\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-20 00:50+0000\n"
+"POT-Creation-Date: 2026-04-28 00:48+0000\n"
 "PO-Revision-Date: 2008-09-26 14:57+0300\n"
 "Last-Translator: kom <me@komzpa.net>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -689,25 +689,25 @@ msgid ""
 "template"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:457
+#: src/catalog/gettextheader.cpp:455
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:458
+#: src/catalog/gettextheader.cpp:456
 #, fuzzy, kde-format
 #| msgid "Your name, in English"
 msgid "Your name:"
 msgstr "Вашае імя па-англійску"
 
-#: src/catalog/gettextheader.cpp:469
+#: src/catalog/gettextheader.cpp:467
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:470
+#: src/catalog/gettextheader.cpp:468
 #, fuzzy, kde-format
 #| msgid "Write your email"
 msgid "Your email:"
@@ -1938,13 +1938,13 @@ msgid ""
 "of the currently displayed entry.</p></qt>"
 msgstr ""
 
-#: src/editorview.cpp:175
+#: src/editorview.cpp:176
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr ""
 
-#: src/editorview.cpp:239
+#: src/editorview.cpp:240
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -2140,7 +2140,7 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "Поле тэмы"
 
-#: src/glossary/glossary.cpp:659
+#: src/glossary/glossary.cpp:655
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2149,24 +2149,24 @@ msgid ""
 "Details: %2"
 msgstr ""
 
-#: src/glossary/glossary.cpp:659
+#: src/glossary/glossary.cpp:655
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
 msgid "Glossary Error"
 msgstr "Гласарый"
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:663
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr ""
 
-#: src/glossary/glossary.cpp:670
+#: src/glossary/glossary.cpp:666
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr ""
 
-#: src/glossary/glossary.cpp:673
+#: src/glossary/glossary.cpp:669
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr ""
@@ -3951,14 +3951,14 @@ msgstr ""
 msgid "Project's glossary"
 msgstr "Гласарый праекту"
 
-#: src/project/projectmodel.cpp:467
+#: src/project/projectmodel.cpp:468
 #, fuzzy, kde-format
 #| msgid "Name:"
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Назва:"
 
-#: src/project/projectmodel.cpp:469
+#: src/project/projectmodel.cpp:470
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Graph"
@@ -3968,7 +3968,7 @@ msgctxt ""
 msgid "Graph"
 msgstr "Графік"
 
-#: src/project/projectmodel.cpp:471
+#: src/project/projectmodel.cpp:472
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Total"
@@ -3976,7 +3976,7 @@ msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "Усяго"
 
-#: src/project/projectmodel.cpp:473
+#: src/project/projectmodel.cpp:474
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Translated"
@@ -3984,7 +3984,7 @@ msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Перакладзеныя"
 
-#: src/project/projectmodel.cpp:475
+#: src/project/projectmodel.cpp:476
 #, fuzzy, kde-format
 #| msgctxt "@info:status message entries"
 #| msgid "Total: %1"
@@ -3992,7 +3992,7 @@ msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr "Усяго: %1"
 
-#: src/project/projectmodel.cpp:477
+#: src/project/projectmodel.cpp:478
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "Untranslated"
@@ -4000,7 +4000,7 @@ msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Неперакладзеныя"
 
-#: src/project/projectmodel.cpp:479
+#: src/project/projectmodel.cpp:480
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "Scanning complete"
@@ -4008,25 +4008,25 @@ msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "Сканаванне скончана"
 
-#: src/project/projectmodel.cpp:481
+#: src/project/projectmodel.cpp:482
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Апошні пераклад"
 
-#: src/project/projectmodel.cpp:483
+#: src/project/projectmodel.cpp:484
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr ""
 
-#: src/project/projectmodel.cpp:485
+#: src/project/projectmodel.cpp:486
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Рэвізія шаблону"
 
-#: src/project/projectmodel.cpp:487
+#: src/project/projectmodel.cpp:488
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"

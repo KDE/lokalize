@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-20 00:50+0000\n"
+"POT-Creation-Date: 2026-04-28 00:48+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -701,26 +701,26 @@ msgid ""
 "template"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:457
+#: src/catalog/gettextheader.cpp:455
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:458
+#: src/catalog/gettextheader.cpp:456
 #, fuzzy, kde-format
 #| msgctxt "NAME OF TRANSLATORS"
 #| msgid "Your names"
 msgid "Your name:"
 msgstr "ខឹម សុខែម, ម៉ន ម៉េត, សេង សុត្ថា"
 
-#: src/catalog/gettextheader.cpp:469
+#: src/catalog/gettextheader.cpp:467
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:470
+#: src/catalog/gettextheader.cpp:468
 #, fuzzy, kde-format
 #| msgctxt "EMAIL OF TRANSLATORS"
 #| msgid "Your emails"
@@ -1898,13 +1898,13 @@ msgstr ""
 "<p>ចំណែក​នៃបង្អួចនេះ​បង្ហាញ​សារដើម​\n"
 "​នៃ​ធាតុ​ដែល​បាន​បង្ហាញ​បច្ចុប្បន្ន​ ។​</p></qt>"
 
-#: src/editorview.cpp:175
+#: src/editorview.cpp:176
 #, kde-format
 msgctxt "@title:tab"
 msgid "Plural Form %1"
 msgstr "សំណុំបែបបទ​ច្រើន​​ %1"
 
-#: src/editorview.cpp:239
+#: src/editorview.cpp:240
 #, fuzzy, kde-format
 msgctxt "@item Undo action item"
 msgid "Unwrap"
@@ -2092,7 +2092,7 @@ msgctxt "@title:column"
 msgid "Subject Field"
 msgstr "វាលប្រធានបទ​​"
 
-#: src/glossary/glossary.cpp:659
+#: src/glossary/glossary.cpp:655
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2101,24 +2101,24 @@ msgid ""
 "Details: %2"
 msgstr ""
 
-#: src/glossary/glossary.cpp:659
+#: src/glossary/glossary.cpp:655
 #, fuzzy, kde-format
 #| msgctxt "@title actions category"
 #| msgid "Glossary"
 msgid "Glossary Error"
 msgstr "សទ្ទានុក្រម​"
 
-#: src/glossary/glossary.cpp:667
+#: src/glossary/glossary.cpp:663
 #, kde-format
 msgid "The folder for the glossary does not exist."
 msgstr ""
 
-#: src/glossary/glossary.cpp:670
+#: src/glossary/glossary.cpp:666
 #, kde-format
 msgid "The path points to a folder, not a file."
 msgstr ""
 
-#: src/glossary/glossary.cpp:673
+#: src/glossary/glossary.cpp:669
 #, kde-format
 msgid "Cannot write to file. Check permissions."
 msgstr ""
@@ -3904,13 +3904,13 @@ msgstr "ថត​គោលសម្រាប់​ឯកសារ POT ​(ពុ
 msgid "Project's glossary"
 msgstr "សន្ទានុក្រមរបស់​គម្រោង​​"
 
-#: src/project/projectmodel.cpp:467
+#: src/project/projectmodel.cpp:468
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "ឈ្មោះ"
 
-#: src/project/projectmodel.cpp:469
+#: src/project/projectmodel.cpp:470
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3918,19 +3918,19 @@ msgctxt ""
 msgid "Graph"
 msgstr "ក្រាប "
 
-#: src/project/projectmodel.cpp:471
+#: src/project/projectmodel.cpp:472
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "សរុប​"
 
-#: src/project/projectmodel.cpp:473
+#: src/project/projectmodel.cpp:474
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "បាន​​បក​ប្រែ"
 
-#: src/project/projectmodel.cpp:475
+#: src/project/projectmodel.cpp:476
 #, fuzzy, kde-format
 #| msgctxt "@title:column Number of entries"
 #| msgid "Not ready"
@@ -3938,37 +3938,37 @@ msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr "មិនទាន់រួចឡើយ​"
 
-#: src/project/projectmodel.cpp:477
+#: src/project/projectmodel.cpp:478
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "មិន​បាន​ការ​បក​ប្រែ"
 
-#: src/project/projectmodel.cpp:479
+#: src/project/projectmodel.cpp:480
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr ""
 
-#: src/project/projectmodel.cpp:481
+#: src/project/projectmodel.cpp:482
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "ការបកប្រែចុងក្រោយ​"
 
-#: src/project/projectmodel.cpp:483
+#: src/project/projectmodel.cpp:484
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr ""
 
-#: src/project/projectmodel.cpp:485
+#: src/project/projectmodel.cpp:486
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "ការពិនិត្យឡើងវិញ​"
 
-#: src/project/projectmodel.cpp:487
+#: src/project/projectmodel.cpp:488
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
