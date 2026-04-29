@@ -2195,11 +2195,11 @@ msgid ""
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
 "which you can participate.</html>"
 msgstr ""
-"<html>You do not have to be a software developer to be a member of the KDE "
-"team. Môžete join the language teams that translate program interfaces. "
-"Môžete provide graphics, themes, sounds, and improved documentation. You "
-"decide!<br /><br />Visit <a href=\"%1\">%1</a> for information on some "
-"projects in which môžete participate.</html>"
+"<html>Nemusíte byť vývojár softvéru, aby ste boli členom tímu KDE. Môžete sa "
+"pripojiť k jazykovým tímom, ktoré prekladajú rozhrania programov. Môžete "
+"poskytovať grafiku, témy, zvuky a vylepšenú dokumentáciu. Rozhodujete vy!"
+"<br /><br />Navštívte <a href=\"%1\">%1</a> a získajte informácie o "
+"niektorých projektoch, na ktorých sa môžete zúčastniť.</html>"
 
 #: src/lokalizemainwindow.cpp:118
 #, kde-format
