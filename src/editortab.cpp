@@ -40,6 +40,8 @@
 #include <KActionCategory>
 #include <KActionCollection>
 #include <KColorScheme>
+#include <KConfig>
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
@@ -69,6 +71,7 @@
 #include <QStandardPaths>
 #include <QStringBuilder>
 #include <QTime>
+#include <QUrl>
 #include <QVBoxLayout>
 #include <qstringview.h>
 #include <qtmetamacros.h>
@@ -105,6 +108,7 @@ EditorTab::EditorTab(QWidget *parent, bool valid)
     connect(m_view, &EditorView::tmLookupRequested, this, &EditorTab::lookupSelectionInTranslationMemory);
 
     connect(this, &EditorTab::fileOpened, this, &EditorTab::indexWordsForCompletion, Qt::QueuedConnection);
+    connect(this, &EditorTab::fileAboutToBeClosed, this, &EditorTab::saveBookmarksForCurrentFile);
 
     connect(m_catalog, &Catalog::signalFileAutoSaveFailed, this, &EditorTab::fileAutoSaveFailedWarning);
 }
@@ -865,6 +869,8 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
     QApplication::restoreOverrideCursor();
 
     if (errorLine == 0) {
+        restoreBookmarksForCurrentFile();
+
         Q_EMIT signalStatusBarTotal(m_catalog->numberOfEntries());
         Q_EMIT signalStatusBarUntranslated(m_catalog->numberOfUntranslated(), m_catalog->numberOfEntries());
         numberOfFuzziesChanged();
@@ -1010,12 +1016,59 @@ bool EditorTab::confirmOverwriteIfChangedOnDisk(const QString &filepath)
 
 EditorState EditorTab::state()
 {
+    saveBookmarksForCurrentFile();
+
     EditorState state;
     state.qMainWindowState = saveState();
     state.filePath = m_catalog->url();
     state.mergeFilePath = m_syncView->filePath();
     state.entry = m_currentPos.entry;
     return state;
+}
+
+void EditorTab::saveBookmarksForCurrentFile()
+{
+    const QString filePath = m_catalog->url();
+    if (filePath.isEmpty())
+        return;
+
+    QList<int> bookmarks;
+    const int entriesCount = m_catalog->numberOfEntries();
+    for (int i = 0; i < entriesCount; ++i) {
+        if (m_catalog->isBookmarked(i))
+            bookmarks.append(i);
+    }
+
+    KConfig config;
+    KConfigGroup bookmarksGroup(&config, QStringLiteral("Bookmarks"));
+    const QString key = bookmarkStorageKey(filePath);
+    if (bookmarks.isEmpty())
+        bookmarksGroup.deleteEntry(key);
+    else
+        bookmarksGroup.writeEntry(key, bookmarks);
+}
+
+void EditorTab::restoreBookmarksForCurrentFile()
+{
+    const QString filePath = m_catalog->url();
+    if (filePath.isEmpty())
+        return;
+
+    KConfig config;
+    KConfigGroup bookmarksGroup(&config, QStringLiteral("Bookmarks"));
+    const QList<int> bookmarks = bookmarksGroup.readEntry(bookmarkStorageKey(filePath), QList<int>());
+    const int entriesCount = m_catalog->numberOfEntries();
+    for (int bookmarkIndex : bookmarks) {
+        if (bookmarkIndex >= 0 && bookmarkIndex < entriesCount)
+            m_catalog->setBookmark(bookmarkIndex, true);
+    }
+}
+
+QString EditorTab::bookmarkStorageKey(const QString &filePath)
+{
+    const QFileInfo fileInfo(filePath);
+    const QString normalizedPath = fileInfo.exists() ? fileInfo.canonicalFilePath() : fileInfo.absoluteFilePath();
+    return normalizedPath;
 }
 
 bool EditorTab::isClean()

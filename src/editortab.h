@@ -358,6 +358,9 @@ private:
     void cutFocused();
     void copyFocused();
     void pasteFocused();
+    void saveBookmarksForCurrentFile();
+    void restoreBookmarksForCurrentFile();
+    static QString bookmarkStorageKey(const QString &filePath);
     void applyBookmarkEdits(const QListWidget *list);
 
     void findNext(const DocPosition &startingPos);
