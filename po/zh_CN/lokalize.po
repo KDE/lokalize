@@ -1996,12 +1996,12 @@ msgstr ""
 #: src/glossary/glossarytab.cpp:316
 #, kde-format
 msgid "English Term:"
-msgstr ""
+msgstr "英语术语："
 
 #: src/glossary/glossarytab.cpp:317
 #, kde-format
 msgid "Target Term:"
-msgstr ""
+msgstr "目标术语："
 
 #: src/glossary/glossaryview.cpp:34 src/glossary/glossaryview.cpp:41
 #, kde-format
