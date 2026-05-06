@@ -336,10 +336,7 @@ bool removeTargetSubstring(Catalog *catalog, DocPosition pos, int delStart, int 
     catalog->beginMacro(i18nc("@item Undo action item", "Remove text with markup"));
 
     // all indexes are ok (or target is just plain text)
-    QMapIterator<int, int> it(tagPlaces);
-    it.toBack();
-    while (it.hasPrevious()) {
-        it.previous();
+    for (auto it = tagPlaces.cend(); it != tagPlaces.cbegin(); --it) {
         if (it.value() != 1)
             continue;
         pos.offset = it.key();

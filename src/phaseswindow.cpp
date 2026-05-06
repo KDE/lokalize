@@ -261,11 +261,8 @@ void PhasesWindow::handleResult()
     Project::instance()->local()->setRole(roleForProcess(last.process));
     m_catalog->setActivePhase(last.name, roleForProcess(last.process));
 
-    QMapIterator<QString, QVector<Note>> i(m_phaseNotes);
-    while (i.hasNext()) {
-        i.next();
-        m_catalog->setPhaseNotes(i.key(), i.value());
-    }
+    for (auto it = m_phaseNotes.cbegin(); it != m_phaseNotes.cend(); it++)
+        m_catalog->setPhaseNotes(it.key(), it.value());
 
     m_catalog->endMacro();
 }

@@ -239,23 +239,21 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition &pos) const
     static const QString msgctxtBeginningOfLine = QStringLiteral("#| msgctxt \"");
     static const QString msgidBeginningOfLine = QStringLiteral("#| msgid \"");
     static const QString msgidpluralBeginningOfLine = QStringLiteral("#| msgid_plural \"");
-    QStringListIterator commentIterator(previousStringComment);
-    while (commentIterator.hasNext()) {
-        QString line = commentIterator.next();
+    for (auto line = previousStringComment.cbegin(); line != previousStringComment.cend(); line++) {
         // Try to isolate the bit in quotes.
-        int start = line.indexOf(QLatin1Char('\"'));
-        const int end = line.lastIndexOf(QLatin1Char('\"'));
+        int start = line->indexOf(QLatin1Char('\"'));
+        const int end = line->lastIndexOf(QLatin1Char('\"'));
         // Don't include the quote mark.
         start += 1;
-        if (line.startsWith(msgctxtBeginningOfLine)) {
+        if (line->startsWith(msgctxtBeginningOfLine)) {
             msgctxtProcessing = true;
             msgidProcessing = false;
             msgidpluralProcessing = false;
-        } else if (line.startsWith(msgidBeginningOfLine)) {
+        } else if (line->startsWith(msgidBeginningOfLine)) {
             msgctxtProcessing = false;
             msgidProcessing = true;
             msgidpluralProcessing = false;
-        } else if (line.startsWith(msgidpluralBeginningOfLine)) {
+        } else if (line->startsWith(msgidpluralBeginningOfLine)) {
             msgctxtProcessing = false;
             msgidProcessing = false;
             msgidpluralProcessing = true;
@@ -267,7 +265,7 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition &pos) const
         if (start < 1 || end < 1 || start >= end)
             continue;
         else {
-            QString betweenQuotes = QString(line).sliced(start, end - start);
+            QString betweenQuotes = line->sliced(start, end - start);
             betweenQuotes.replace(QStringLiteral("\\\""), QStringLiteral("\""));
             if (msgctxtProcessing)
                 msgctxtOld += msgctxtOld.isEmpty() ? betweenQuotes : QLatin1String("\n") + betweenQuotes;

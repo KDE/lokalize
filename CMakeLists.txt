@@ -60,6 +60,9 @@ set_package_properties(
     TYPE        REQUIRED
     PURPOSE     "Required to build Lokalize.")
 
+
+add_definitions(-DQT_ENABLE_STRICT_MODE_UP_TO=0x060000)
+
 add_subdirectory(src)
 add_subdirectory(icons)
 add_subdirectory(autotests)
