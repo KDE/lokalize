@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-29 00:49+0000\n"
+"POT-Creation-Date: 2026-05-07 00:47+0000\n"
 "PO-Revision-Date: 2026-04-26 22:43+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -675,7 +675,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "마크업이 있는 텍스트 삭제"
 
-#: src/catalog/cmd.cpp:384 src/xlifftextedit.cpp:574
+#: src/catalog/cmd.cpp:381 src/xlifftextedit.cpp:574
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -686,7 +686,7 @@ msgstr "마크업이 있는 텍스트 삽입"
 msgid "separator for different-length string alternatives"
 msgstr "다른 길이 대체 문자열 구분자"
 
-#: src/catalog/gettext/gettextstorage.cpp:286
+#: src/catalog/gettext/gettextstorage.cpp:284
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
