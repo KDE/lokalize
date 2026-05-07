@@ -203,6 +203,8 @@ set(liblokalize_SRCS
 
 if(WIN32)
     list (APPEND liblokalize_SRCS common/winhelpers.cpp)
+elseif(APPLE)
+    list (APPEND liblokalize_SRCS common/machelpers.mm)
 else()
     list (APPEND liblokalize_SRCS common/unixhelpers.cpp)
 endif()
