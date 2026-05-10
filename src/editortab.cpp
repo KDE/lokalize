@@ -54,6 +54,7 @@
 
 #include <QActionGroup>
 #include <QApplication>
+#include <QClipboard>
 #include <QDesktopServices>
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -497,6 +498,26 @@ void EditorTab::setupActions()
 #endif
     ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr", i18nc("@action:inmenu", "Copy Source to Target"), copyShortcut, "msgid2msgstr")
     connect(action, &QAction::triggered, m_view->viewPort(), &TranslationUnitTextEdit::source2target);
+
+    action = actionCategory->addAction(QStringLiteral("edit_copy_source_unit"));
+    action->setText(i18nc("@action:inmenu", "Copy Source"));
+    action->setToolTip(i18nc("@info:tooltip", "Copy source message to clipboard"));
+    connect(action, &QAction::triggered, this, [this] {
+        if (Q_UNLIKELY(m_currentPos.entry < 0))
+            return;
+
+        QApplication::clipboard()->setText(m_catalog->source(m_currentPos));
+    });
+
+    action = actionCategory->addAction(QStringLiteral("edit_copy_target_unit"));
+    action->setText(i18nc("@action:inmenu", "Copy Target"));
+    action->setToolTip(i18nc("@info:tooltip", "Copy target message to clipboard"));
+    connect(action, &QAction::triggered, this, [this] {
+        if (Q_UNLIKELY(m_currentPos.entry < 0))
+            return;
+
+        QApplication::clipboard()->setText(m_catalog->target(m_currentPos));
+    });
 
     ADD_ACTION_SHORTCUT("edit_unwrap-target", i18nc("@action:inmenu", "Unwrap Target"), Qt::ControlModifier | Qt::Key_I)
     connect(action, &QAction::triggered, m_view, qOverload<>(&EditorView::unwrap));

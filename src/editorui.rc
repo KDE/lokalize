@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="Editor" version="16">
+<gui name="Editor" version="17">
     <MenuBar>
         <Menu name="file">
             <text>&amp;File</text>
@@ -62,6 +62,8 @@
             <Action name="edit_approve_go_fuzzyUntr" />
             <Action name="edit_nonequiv" />
             <Action name="edit_msgid2msgstr" />
+            <Action name="edit_copy_source_unit" />
+            <Action name="edit_copy_target_unit" />
             <Action name="edit_unwrap-target" />
             <Action name="edit_clear-target" />
             <Action name="edit_completion" />
@@ -247,6 +249,8 @@
         <Action name="edit_cut" />
         <Action name="edit_copy" />
         <Action name="edit_paste" />
+        <Action name="edit_copy_source_unit" />
+        <Action name="edit_copy_target_unit" />
         <Separator />
         <Action name="edit_find" />
         <Action name="view_zoom" />
