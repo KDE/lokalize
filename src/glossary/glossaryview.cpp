@@ -18,6 +18,8 @@
 
 #include <KLocalizedString>
 
+#include <algorithm>
+
 #include <QDragEnterEvent>
 #include <QElapsedTimer>
 #include <QPushButton>
@@ -93,51 +95,79 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     QString msgStemmed;
 
     QString sourceLangCode = Project::instance()->sourceLangCode();
-    QList<QByteArray> termIds;
+
+    QSet<QByteArray> termIdSet;
     const auto ws = msg.split(m_rxSplit, Qt::SkipEmptyParts);
     for (const QString &w : ws) {
         QString word = stem(sourceLangCode, w);
         QList<QByteArray> indexes = glossary.idsForLangWord(sourceLangCode, word);
-        termIds += indexes;
+        termIdSet += QSet<QByteArray>(indexes.begin(), indexes.end());
         msgStemmed += word + QLatin1Char(' ');
     }
-    if (termIds.isEmpty())
+    if (termIdSet.isEmpty())
         return clear();
 
-    // we found entries that contain words from msgid
-    setUpdatesEnabled(false);
+    // we found entries that contain words from msgid — collect matches before sorting
+    struct MatchEntry {
+        QString term;
+        QByteArray termId;
+        bool uppercase;
+        int wordCount;
+        bool exactMatch;
+    };
 
-    if (m_hasInfo)
-        m_flowLayout->clearTerms();
-
-    bool found = false;
-    const QSet<QByteArray> termIdSet(termIds.begin(), termIds.end());
-    for (const QByteArray &termId : termIdSet) {
+    QList<MatchEntry> matches;
+    for (const QByteArray &termId : std::as_const(termIdSet)) {
         // now check which of them are really hits...
         const auto enTerms = glossary.terms(termId, sourceLangCode);
         for (const QString &enTerm : enTerms) {
             // ...and if so, which part of termEn list we must thank for match ...
-            bool ok = msg.contains(enTerm); //,//Qt::CaseInsensitive  //we lowered terms on load
+            const QStringList termWords = enTerm.split(m_rxSplit, Qt::SkipEmptyParts);
+            const int wordCount = termWords.size();
+
+            bool exactMatch = false;
+            bool ok = false;
+            if (msg.contains(enTerm, Qt::CaseSensitive)) {
+                const QRegularExpression wholeWord(QStringLiteral("(?<![\\w])") + QRegularExpression::escape(enTerm) + QStringLiteral("(?![\\w])"),
+                                                   QRegularExpression::UseUnicodePropertiesOption);
+                exactMatch = wholeWord.match(msg).hasMatch();
+                ok = exactMatch;
+            }
             if (!ok) {
                 QString enTermStemmed;
-                const auto words = enTerm.split(m_rxSplit, Qt::SkipEmptyParts);
-                for (const QString &word : words)
+                for (const QString &word : termWords)
                     enTermStemmed += stem(sourceLangCode, word) + QLatin1Char(' ');
                 ok = msgStemmed.contains(enTermStemmed);
             }
             if (ok) {
                 // insert it into label
-                found = true;
-                int pos = sourceLowered.indexOf(enTerm);
-                m_flowLayout->addTerm(enTerm, termId, /*uppercase*/ pos != -1 && source.at(pos).isUpper());
+                const int termPos = sourceLowered.indexOf(enTerm);
+                matches.append({enTerm, termId, termPos != -1 && source.at(termPos).isUpper(), wordCount, exactMatch});
                 break;
             }
         }
     }
 
-    if (!found)
-        clear();
-    else if (!m_hasInfo) {
+    if (matches.isEmpty())
+        return clear();
+
+    std::stable_sort(matches.begin(), matches.end(), [](const MatchEntry &a, const MatchEntry &b) {
+        if (a.exactMatch != b.exactMatch)
+            return a.exactMatch > b.exactMatch;
+        if (a.wordCount != b.wordCount)
+            return a.wordCount > b.wordCount;
+        return a.term.compare(b.term, Qt::CaseInsensitive) < 0;
+    });
+
+    setUpdatesEnabled(false);
+
+    if (m_hasInfo)
+        m_flowLayout->clearTerms();
+
+    for (const MatchEntry &match : std::as_const(matches))
+        m_flowLayout->addTerm(match.term, match.termId, match.uppercase);
+
+    if (!m_hasInfo) {
         m_hasInfo = true;
         setWindowTitle(m_hasInfoTitle);
     }
