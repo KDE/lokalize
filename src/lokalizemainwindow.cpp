@@ -226,7 +226,11 @@ bool LokalizeMainWindow::eventFilter(QObject *object, QEvent *event)
             }
         }
     }
+#if QT_VERSION < QT_VERSION_CHECK(6, 11, 0)
     // Handle middle button click events on the tab bar
+    // This now is built in to the QTabBar:
+    // https://doc.qt.io/qt-6/qtabbar.html#tabsClosable-prop
+    // TODO: Delete once we build against version >= 6.11
     else if (object == m_mainTabs->tabBar() && event->type() == QEvent::MouseButtonRelease) {
         QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
         if (mouseEvent->button() == Qt::MiddleButton) {
@@ -237,6 +241,7 @@ bool LokalizeMainWindow::eventFilter(QObject *object, QEvent *event)
             }
         }
     }
+#endif
     return KXmlGuiWindow::eventFilter(object, event);
 }
 
