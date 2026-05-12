@@ -4,7 +4,7 @@
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2023      Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
-  SPDX-FileCopyrightText: 2024-2025 Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2024-2026 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -146,6 +146,15 @@ ProjectTab::ProjectTab(QWidget *parent)
     action->setChecked(Settings::hideCompletedItems());
     ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_T));
     connect(action, &QAction::triggered, m_browser, &ProjectWidget::toggleTranslatedFiles);
+
+    action = nav->addAction(QStringLiteral("expand_untranslated_folders"));
+    action->setText(i18nc("@action:inmenu", "Expand Untranslated Folders"));
+    action->setToolTip(i18nc("@action:inmenu", "Open the directory tree to untranslated files"));
+    action->setIcon(QIcon::fromTheme(QStringLiteral("view-list-tree")));
+    action->setCheckable(true);
+    action->setChecked(Settings::expandUntranslatedFolders());
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_U));
+    connect(action, &QAction::triggered, m_browser, &ProjectWidget::toggleExpandUntranslatedFolders);
 
     action = nav->addAction(KStandardActions::Find, this, &ProjectTab::setFocus);
 

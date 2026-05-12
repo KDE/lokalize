@@ -4,7 +4,7 @@
   SPDX-FileCopyrightText: 2007-2015 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2019      Karl Ove Hufthammer <karl@huftis.org>
-  SPDX-FileCopyrightText: 2024-2025 Finley Watson <fin-w@tutanota.com>
+  SPDX-FileCopyrightText: 2024-2026 Finley Watson <fin-w@tutanota.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -121,9 +121,9 @@ QString PoItemDelegate::displayText(const QVariant &value, [[maybe_unused]] cons
 
 ProjectOverviewSortFilterProxyModel::ProjectOverviewSortFilterProxyModel(QObject *parent)
     : KDirSortFilterProxyModel(parent)
+    , m_hideTranslatedFiles(Settings::hideCompletedItems())
 {
     connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectOverviewSortFilterProxyModel::invalidate);
-    m_hideTranslatedFiles = Settings::hideCompletedItems();
 }
 
 ProjectOverviewSortFilterProxyModel::~ProjectOverviewSortFilterProxyModel()
@@ -269,6 +269,7 @@ bool ProjectOverviewSortFilterProxyModel::lessThan(const QModelIndex &left, cons
 ProjectWidget::ProjectWidget(QWidget *parent)
     : QTreeView(parent)
     , m_proxyModel(new ProjectOverviewSortFilterProxyModel(this))
+    , m_expandUntranslatedFolders(Settings::expandUntranslatedFolders())
 {
     PoItemDelegate *delegate = new PoItemDelegate(this);
     setItemDelegate(delegate);
@@ -312,6 +313,7 @@ ProjectWidget::~ProjectWidget()
     KConfig config;
     KConfigGroup stateGroup(&config, QStringLiteral("ProjectWindow"));
     stateGroup.writeEntry("ListHeaderState", header()->saveState().toBase64());
+    Settings::setExpandUntranslatedFolders(m_expandUntranslatedFolders);
 }
 
 void ProjectWidget::modelAboutToReload()
@@ -327,6 +329,10 @@ void ProjectWidget::modelReloaded()
         if (setCurrentItem(m_currentItemPathBeforeReload))
             break;
     }
+
+    if (m_expandUntranslatedFolders)
+        expandUntranslatedItems();
+
     if (proxyModel()->filterRegularExpression().pattern().size() > 2)
         expandItems();
 }
@@ -409,6 +415,26 @@ void ProjectWidget::expandItems(const QModelIndex &parent)
     int i = m->rowCount(parent);
     while (--i >= 0)
         expandItems(m->index(i, 0, parent));
+}
+
+void ProjectWidget::expandUntranslatedItems(const QModelIndex &parent)
+{
+    const QAbstractItemModel *m = model();
+
+    if (parent.isValid()) {
+        const bool containsUntranslated = parent.data(ProjectModel::FuzzyUntrCountAllRole).toInt() > 0;
+
+        if (!containsUntranslated)
+            return;
+
+        const bool isDir = parent.data(ProjectModel::DirectoryRole).toInt() == 1;
+        if (isDir)
+            expand(parent);
+    }
+
+    int i = m->rowCount(parent);
+    while (--i >= 0)
+        expandUntranslatedItems(m->index(i, 0, parent));
 }
 
 bool ProjectWidget::gotoIndexCheck(const QModelIndex &currentIndex, ProjectModel::AdditionalRoles role)
@@ -523,6 +549,16 @@ void ProjectWidget::gotoNextTransOnly()
 void ProjectWidget::toggleTranslatedFiles()
 {
     m_proxyModel->toggleTranslatedFiles();
+}
+
+void ProjectWidget::toggleExpandUntranslatedFolders()
+{
+    m_expandUntranslatedFolders = !m_expandUntranslatedFolders;
+
+    if (m_expandUntranslatedFolders)
+        expandUntranslatedItems();
+    else
+        collapseAll();
 }
 
 QSortFilterProxyModel *ProjectWidget::proxyModel()
