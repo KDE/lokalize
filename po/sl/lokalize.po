@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-11 00:47+0000\n"
-"PO-Revision-Date: 2026-04-04 07:17+0200\n"
+"POT-Creation-Date: 2026-05-12 00:47+0000\n"
+"PO-Revision-Date: 2026-05-11 06:55+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -996,7 +996,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Uredi"
 
-#: src/editortab.cpp:194 src/lokalizemainwindow.cpp:669
+#: src/editortab.cpp:194 src/lokalizemainwindow.cpp:674
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1029,7 +1029,7 @@ msgstr "Usklajevanje 2"
 msgid "Translation Memory"
 msgstr "Pomnilnik prevodov"
 
-#: src/editortab.cpp:200 src/lokalizemainwindow.cpp:670
+#: src/editortab.cpp:200 src/lokalizemainwindow.cpp:675
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1158,34 +1158,28 @@ msgid "Copy Source to Target"
 msgstr "Kopiraj vir v cilj"
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "Vir"
+msgstr "Kopiraj vir"
 
 #: src/editortab.cpp:504
-#, fuzzy, kde-format
-#| msgid "Copy source to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
-msgstr "Kopiraj vir na odložišče"
+msgstr "Kopiraj izvorno sporočilo na odložišče"
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "Cilj"
+msgstr "Kopiraj cilj"
 
 #: src/editortab.cpp:514
-#, fuzzy, kde-format
-#| msgid "Copy target to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
-msgstr "Kopiraj cilj na odložišče"
+msgstr "Kopiraj ciljno sporočilo na odložišče"
 
 #: src/editortab.cpp:522
 #, kde-format
@@ -1441,7 +1435,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (obnovljeno)"
 
-#: src/editortab.cpp:836 src/lokalizemainwindow.cpp:1170
+#: src/editortab.cpp:836 src/lokalizemainwindow.cpp:1175
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1451,7 +1445,7 @@ msgstr ""
 "Dokument vsebuje neshranjene spremembe.\n"
 "Ali želite shraniti spremembe ali jih zavreči?"
 
-#: src/editortab.cpp:838 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1172
+#: src/editortab.cpp:838 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1177
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2303,7 +2297,7 @@ msgstr ""
 msgid "&Configure Lokalize…"
 msgstr "Konfiguriraj Lokalize…"
 
-#: src/lokalizemainwindow.cpp:120 src/lokalizemainwindow.cpp:737
+#: src/lokalizemainwindow.cpp:120 src/lokalizemainwindow.cpp:742
 #: src/project/projecttab.cpp:155
 #, kde-format
 msgctxt "@action:inmenu"
@@ -2329,126 +2323,126 @@ msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 "Ni bilo najdenih modulov Qt SQL, zato pomnilnik prevodov ne bo deloval."
 
-#: src/lokalizemainwindow.cpp:572 src/project/project.cpp:217
+#: src/lokalizemainwindow.cpp:577 src/project/project.cpp:217
 #, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "Za delovanje pomnilnika prevodov je potreben modul SQLite Qt."
 
-#: src/lokalizemainwindow.cpp:572 src/project/project.cpp:217
+#: src/lokalizemainwindow.cpp:577 src/project/project.cpp:217
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Na voljo ni modula SQLite"
 
-#: src/lokalizemainwindow.cpp:671 src/tm/tmtab.cpp:486
+#: src/lokalizemainwindow.cpp:676 src/tm/tmtab.cpp:486
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Pomnilnik prevodov"
 
-#: src/lokalizemainwindow.cpp:672 src/project/projecttab.cpp:152
+#: src/lokalizemainwindow.cpp:677 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Projekt"
 
-#: src/lokalizemainwindow.cpp:695
+#: src/lokalizemainwindow.cpp:700
 #, kde-format
 msgid "Next Tab"
 msgstr "Naslednji zavihek"
 
-#: src/lokalizemainwindow.cpp:698
+#: src/lokalizemainwindow.cpp:703
 #, kde-format
 msgid "Previous Tab"
 msgstr "Predhodni zavihek"
 
-#: src/lokalizemainwindow.cpp:701
+#: src/lokalizemainwindow.cpp:706
 #, kde-format
 msgid "Previously Active Tab"
 msgstr "Predhodni aktivni zavihek"
 
-#: src/lokalizemainwindow.cpp:704
+#: src/lokalizemainwindow.cpp:709
 #, kde-format
 msgid "Close Current Tab"
 msgstr "Zapri trenutni zavihek"
 
-#: src/lokalizemainwindow.cpp:710
+#: src/lokalizemainwindow.cpp:715
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Besednjak"
 
-#: src/lokalizemainwindow.cpp:716
+#: src/lokalizemainwindow.cpp:721
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Pomnilnik prevodov"
 
-#: src/lokalizemainwindow.cpp:720 src/tm/tmtab.cpp:489
+#: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:489
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "Upravljanje pomnilnikov prevodov"
 
-#: src/lokalizemainwindow.cpp:724
+#: src/lokalizemainwindow.cpp:729
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "Pregled projekta"
 
-#: src/lokalizemainwindow.cpp:728
+#: src/lokalizemainwindow.cpp:733
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "Konfiguriraj projekt…"
 
-#: src/lokalizemainwindow.cpp:731
+#: src/lokalizemainwindow.cpp:736
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "Ustvari projekt prevajanja programske opreme…"
 
-#: src/lokalizemainwindow.cpp:734
+#: src/lokalizemainwindow.cpp:739
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "Ustvari projekt prevajanja dokumentov OpenDocument…"
 
-#: src/lokalizemainwindow.cpp:741
+#: src/lokalizemainwindow.cpp:746
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "Zapri projekt"
 
-#: src/lokalizemainwindow.cpp:744
+#: src/lokalizemainwindow.cpp:749
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "Odpri nedavni projekt"
 
-#: src/lokalizemainwindow.cpp:754
+#: src/lokalizemainwindow.cpp:759
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "Išči in zamenjaj"
 
-#: src/lokalizemainwindow.cpp:757
+#: src/lokalizemainwindow.cpp:762
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr "Pojdi na naslednji vnos iskanja in zamenjave"
 
-#: src/lokalizemainwindow.cpp:761
+#: src/lokalizemainwindow.cpp:766
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "Zajetje besedila iz gradnika"
 
-#: src/lokalizemainwindow.cpp:774
+#: src/lokalizemainwindow.cpp:779
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "Barvna shema okna"
 
-#: src/lokalizemainwindow.cpp:948
+#: src/lokalizemainwindow.cpp:953
 #, kde-format
 msgctxt "@info"
 msgid ""

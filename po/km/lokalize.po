@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-11 00:47+0000\n"
+"POT-Creation-Date: 2026-05-12 00:47+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -984,7 +984,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "កែ​សម្រួល​"
 
-#: src/editortab.cpp:194 src/lokalizemainwindow.cpp:669
+#: src/editortab.cpp:194 src/lokalizemainwindow.cpp:674
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1017,7 +1017,7 @@ msgstr "ការធ្វើ​សមកាលកម្ម​ ២​​​"
 msgid "Translation Memory"
 msgstr "សតិបកប្រែ​"
 
-#: src/editortab.cpp:200 src/lokalizemainwindow.cpp:670
+#: src/editortab.cpp:200 src/lokalizemainwindow.cpp:675
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1456,7 +1456,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(បានយក​បាន​វិញ​​)"
 
-#: src/editortab.cpp:836 src/lokalizemainwindow.cpp:1170
+#: src/editortab.cpp:836 src/lokalizemainwindow.cpp:1175
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -1466,7 +1466,7 @@ msgstr ""
 "មាន​ឯកសារ​ផ្លាស់ប្តូរ​ដែលមិនបាន​រក្សាទុក​ ។​\n"
 "​តើអ្នកចង់​រក្សាទុក​ការផ្លាស់ប្តូរ​របស់​អ្នក​ ឬបោះ​វាចោល​ ?"
 
-#: src/editortab.cpp:838 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1172
+#: src/editortab.cpp:838 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1177
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2325,7 +2325,7 @@ msgstr ""
 msgid "&Configure Lokalize…"
 msgstr "កំណត់​រចនាសម្ព័ន្ធ​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:120 src/lokalizemainwindow.cpp:737
+#: src/lokalizemainwindow.cpp:120 src/lokalizemainwindow.cpp:742
 #: src/project/projecttab.cpp:155
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
@@ -2353,65 +2353,65 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:572 src/project/project.cpp:217
+#: src/lokalizemainwindow.cpp:577 src/project/project.cpp:217
 #, fuzzy, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "ការយកធាតុសតិ​បកប្រែចេញ​"
 
-#: src/lokalizemainwindow.cpp:572 src/project/project.cpp:217
+#: src/lokalizemainwindow.cpp:577 src/project/project.cpp:217
 #, kde-format
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:671 src/tm/tmtab.cpp:486
+#: src/lokalizemainwindow.cpp:676 src/tm/tmtab.cpp:486
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "សតិបកប្រែ​"
 
-#: src/lokalizemainwindow.cpp:672 src/project/projecttab.cpp:152
+#: src/lokalizemainwindow.cpp:677 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:695
+#: src/lokalizemainwindow.cpp:700
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Tab"
 msgstr "ផ្ទាំង​បន្ទាប់"
 
-#: src/lokalizemainwindow.cpp:698
+#: src/lokalizemainwindow.cpp:703
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Tab"
 msgstr "ផ្ទាំង​មុន"
 
-#: src/lokalizemainwindow.cpp:701
+#: src/lokalizemainwindow.cpp:706
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previously Active Tab"
 msgstr "ផ្ទាំង​មុន"
 
-#: src/lokalizemainwindow.cpp:704
+#: src/lokalizemainwindow.cpp:709
 #, kde-format
 msgid "Close Current Tab"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:710
+#: src/lokalizemainwindow.cpp:715
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "សទ្ទានុក្រម​"
 
-#: src/lokalizemainwindow.cpp:716
+#: src/lokalizemainwindow.cpp:721
 #, fuzzy, kde-format
 #| msgid "Translation Memory"
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "សតិបកប្រែ​"
 
-#: src/lokalizemainwindow.cpp:720 src/tm/tmtab.cpp:489
+#: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:489
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Manage translation memories"
@@ -2419,7 +2419,7 @@ msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "គ្រប់គ្រងសតិបកប្រែ​"
 
-#: src/lokalizemainwindow.cpp:724
+#: src/lokalizemainwindow.cpp:729
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Project Overview"
@@ -2427,7 +2427,7 @@ msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "ទិដ្ឋភាព​ទូទៅ​​គម្រោង"
 
-#: src/lokalizemainwindow.cpp:728
+#: src/lokalizemainwindow.cpp:733
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Configure project"
@@ -2435,19 +2435,19 @@ msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "កំណត់​រចនាសម្ព័ន្ធ​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:731
+#: src/lokalizemainwindow.cpp:736
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "ជ្រើស​ទីតាំង​​នៃ​គម្រោង​បកប្រែ​ផ្នែកទន់​របស់​អ្នក​"
 
-#: src/lokalizemainwindow.cpp:734
+#: src/lokalizemainwindow.cpp:739
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "ជ្រើស​ទីតាំង​​នៃ​គម្រោង​បកប្រែ​ផ្នែកទន់​របស់​អ្នក​"
 
-#: src/lokalizemainwindow.cpp:741
+#: src/lokalizemainwindow.cpp:746
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open project"
@@ -2455,7 +2455,7 @@ msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "បើក​គម្រោង​"
 
-#: src/lokalizemainwindow.cpp:744
+#: src/lokalizemainwindow.cpp:749
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open recent project"
@@ -2463,7 +2463,7 @@ msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "បើក​គម្រោង​ថ្មី"
 
-#: src/lokalizemainwindow.cpp:754
+#: src/lokalizemainwindow.cpp:759
 #, fuzzy, kde-format
 #| msgctxt "@item Undo action item"
 #| msgid "Replace"
@@ -2471,24 +2471,24 @@ msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "ជំនួស​"
 
-#: src/lokalizemainwindow.cpp:757
+#: src/lokalizemainwindow.cpp:762
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:761
+#: src/lokalizemainwindow.cpp:766
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "ការចាប់​យក​អត្ថបទ​ធាតុ​ក្រា​ហ្វិក​"
 
-#: src/lokalizemainwindow.cpp:774
+#: src/lokalizemainwindow.cpp:779
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:948
+#: src/lokalizemainwindow.cpp:953
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
