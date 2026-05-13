@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-12 00:47+0000\n"
+"POT-Creation-Date: 2026-05-13 00:48+0000\n"
 "PO-Revision-Date: 2026-05-11 12:22+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -1629,19 +1629,19 @@ msgctxt "@action:button"
 msgid "Clear All"
 msgstr "Alles wissen"
 
-#: src/editortab.cpp:1587 src/project/projecttab.cpp:281
+#: src/editortab.cpp:1587 src/project/projecttab.cpp:290
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Een Pology-controle is al bezig."
 
 #: src/editortab.cpp:1587 src/editortab.cpp:1595 src/editortab.cpp:1599
-#: src/project/projecttab.cpp:281 src/project/projecttab.cpp:289
-#: src/project/projecttab.cpp:293
+#: src/project/projecttab.cpp:290 src/project/projecttab.cpp:298
+#: src/project/projecttab.cpp:302
 #, kde-format
 msgid "Pology error"
 msgstr "Pology-fout"
 
-#: src/editortab.cpp:1595 src/project/projecttab.cpp:289
+#: src/editortab.cpp:1595 src/project/projecttab.cpp:298
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1650,7 +1650,7 @@ msgstr ""
 "De Pology-controle is onverwacht gecrasht:\n"
 "%1"
 
-#: src/editortab.cpp:1597 src/project/projecttab.cpp:291
+#: src/editortab.cpp:1597 src/project/projecttab.cpp:300
 #, kde-format
 msgid "Pology success"
 msgstr "Pology gelukt"
@@ -1660,7 +1660,7 @@ msgstr "Pology gelukt"
 msgid "The Pology check has succeeded."
 msgstr "De Pology-controle is gelukt."
 
-#: src/editortab.cpp:1599 src/project/projecttab.cpp:293
+#: src/editortab.cpp:1599 src/project/projecttab.cpp:302
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1829,7 +1829,7 @@ msgstr "&Bestand"
 
 #. i18n: ectx: Menu (edit)
 #: src/editorui.rc:39 src/filesearch/filesearchtabui.rc:11
-#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:24
+#: src/lokalizemainwindowui.rc:55 src/project/projectmanagerui.rc:25
 #: src/tm/translationmemoryrui.rc:11
 #, kde-format
 msgid "&Edit"
@@ -1869,7 +1869,7 @@ msgstr "Bladwij&zers"
 
 #. i18n: ectx: Menu (merge)
 #: src/editorui.rc:193 src/filesearch/filesearchtabui.rc:17
-#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:27
+#: src/lokalizemainwindowui.rc:63 src/project/projectmanagerui.rc:28
 #: src/tm/translationmemoryrui.rc:17
 #, kde-format
 msgid "S&ync"
@@ -1889,7 +1889,7 @@ msgstr "Hulpmiddelenweerga&ve"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:240 src/filesearch/filesearchtabui.rc:21
-#: src/project/projectmanagerui.rc:31 src/tm/translationmemoryrui.rc:21
+#: src/project/projectmanagerui.rc:32 src/tm/translationmemoryrui.rc:21
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
@@ -2322,7 +2322,7 @@ msgid "&Configure Lokalize…"
 msgstr "Lokalize &configureren…"
 
 #: src/lokalizemainwindow.cpp:120 src/lokalizemainwindow.cpp:742
-#: src/project/projecttab.cpp:155
+#: src/project/projecttab.cpp:164
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
@@ -2362,7 +2362,7 @@ msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Vertaalgeheugen"
 
-#: src/lokalizemainwindow.cpp:677 src/project/projecttab.cpp:152
+#: src/lokalizemainwindow.cpp:677 src/project/projecttab.cpp:161
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
@@ -4047,71 +4047,86 @@ msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "Volledig vertaalde bestanden en mappen verbergen"
 
-#: src/project/projecttab.cpp:185
+#: src/project/projecttab.cpp:151
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Next Untranslated"
+msgctxt "@action:inmenu"
+msgid "Expand Untranslated Folders"
+msgstr "Volgende onvertaalde"
+
+#: src/project/projecttab.cpp:152
+#, fuzzy, kde-format
+#| msgid "Prefetch for the next untranslated"
+msgctxt "@action:inmenu"
+msgid "Open the directory tree to untranslated files"
+msgstr "Ophalen voor de volgende onvertaalde tekst"
+
+#: src/project/projecttab.cpp:194
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Geselecteerde bestanden openen"
 
-#: src/project/projecttab.cpp:188
+#: src/project/projecttab.cpp:197
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
 msgstr "Openen"
 
-#: src/project/projecttab.cpp:191
+#: src/project/projecttab.cpp:200
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Aan vertaalgeheugen toevoegen"
 
-#: src/project/projecttab.cpp:193
+#: src/project/projecttab.cpp:202
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "In bestanden zoeken"
 
-#: src/project/projecttab.cpp:194
+#: src/project/projecttab.cpp:203
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Een toelichting toevoegen"
 
-#: src/project/projecttab.cpp:196
+#: src/project/projecttab.cpp:205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr "Pology op bestanden starten"
 
-#: src/project/projecttab.cpp:199
+#: src/project/projecttab.cpp:208
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "In bestanden zoeken (inclusief templates)"
 
-#: src/project/projecttab.cpp:226
+#: src/project/projecttab.cpp:235
 #, kde-format
 msgid "Project file comment"
 msgstr "Toelichting op projectbestand"
 
-#: src/project/projecttab.cpp:226
+#: src/project/projecttab.cpp:235
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr "Een toelichting voor dit projectbestand invoeren:"
 
-#: src/project/projecttab.cpp:291
+#: src/project/projecttab.cpp:300
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "De Pology-controle is gelukt"
 
-#: src/project/projecttab.cpp:310
+#: src/project/projecttab.cpp:319
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "U staat op het punt %1 bestand te openen"
 msgstr[1] "U staat op het punt %1 bestanden te openen"
 
-#: src/project/projecttab.cpp:311
+#: src/project/projecttab.cpp:320
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4120,12 +4135,12 @@ msgstr ""
 "Een groot aantal bestanden op hetzelfde moment openen kan Lokalize niet snel "
 "laten reageren."
 
-#: src/project/projecttab.cpp:312
+#: src/project/projecttab.cpp:321
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "Wilt u dit aantal bestanden openen?"
 
-#: src/project/projecttab.cpp:313
+#: src/project/projecttab.cpp:322
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
@@ -4992,9 +5007,6 @@ msgstr "Bron naar doel kopiëren"
 
 #~ msgid "Autoquery"
 #~ msgstr "Automatisch opzoeken"
-
-#~ msgid "Prefetch for the next untranslated"
-#~ msgstr "Ophalen voor de volgende onvertaalde tekst"
 
 #~ msgid "Prefetch"
 #~ msgstr "Ophalen"
