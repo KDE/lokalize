@@ -3887,12 +3887,10 @@ msgid "Hide fully translated files and folders"
 msgstr "隐藏已翻译完的文件和文件夹"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "未翻译"
+msgstr ""
 
 #: src/project/projecttab.cpp:152
 #, kde-format

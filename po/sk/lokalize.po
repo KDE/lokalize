@@ -1160,34 +1160,28 @@ msgid "Copy Source to Target"
 msgstr "Kopírovať zdroj do cieľa"
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "Zdroj"
+msgstr "Kopírovať zdroj"
 
 #: src/editortab.cpp:504
-#, fuzzy, kde-format
-#| msgid "Copy source to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
-msgstr "Kopírovať zdroj do schránky"
+msgstr "Kopírovať zdrojovú správu do schránky"
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "Cieľ"
+msgstr "Kopírovať cieľ"
 
 #: src/editortab.cpp:514
-#, fuzzy, kde-format
-#| msgid "Copy target to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
-msgstr "Kopírovať cieľ do schránky"
+msgstr "Kopírovať cieľovú správu do schránky"
 
 #: src/editortab.cpp:522
 #, kde-format
@@ -4010,19 +4004,16 @@ msgid "Hide fully translated files and folders"
 msgstr "Skryť všetky úplne preložené súbory a priečinky"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Ďalšie nepreložené"
+msgstr "Rozbaliť nepreložené priečinky"
 
 #: src/project/projecttab.cpp:152
-#, fuzzy, kde-format
-#| msgid "Prefetch for the next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr "Prednačítať pre nasledovný nepreložený"
+msgstr "Otvoriť strom adresárov k nepreloženým súborom"
 
 #: src/project/projecttab.cpp:194
 #, kde-format

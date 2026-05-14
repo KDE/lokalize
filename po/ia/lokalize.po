@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-11 11:24+0200\n"
+"PO-Revision-Date: 2026-05-13 12:16+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -4038,19 +4038,16 @@ msgid "Hide fully translated files and folders"
 msgstr "Cela file e dossieres completemente traducite"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Proxime non traducite"
+msgstr "Expande Dossieres non traducite"
 
 #: src/project/projecttab.cpp:152
-#, fuzzy, kde-format
-#| msgid "Prefetch for the next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr "Precarga per le proxime message non traducite"
+msgstr "Aperi le arbore de directorio a files non traducite"
 
 #: src/project/projecttab.cpp:194
 #, kde-format

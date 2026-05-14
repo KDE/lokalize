@@ -5,13 +5,13 @@
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # obsoleteman <tulliana@gmail.com>, 2008-2010,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014, 2015, 2017, 2020.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022-2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-02 19:56+0300\n"
+"PO-Revision-Date: 2026-05-13 12:58+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1159,34 +1159,28 @@ msgid "Copy Source to Target"
 msgstr "Kaynağı Hedefe Kopyala"
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "Kaynak"
+msgstr "Kaynağı Kopyala"
 
 #: src/editortab.cpp:504
-#, fuzzy, kde-format
-#| msgid "Copy source to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
-msgstr "Kaynağı Panoya Kopyala"
+msgstr "Kaynak iletiyi panoya kopyala"
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "Hedef"
+msgstr "Hedefi Kopyala"
 
 #: src/editortab.cpp:514
-#, fuzzy, kde-format
-#| msgid "Copy target to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
-msgstr "Hedefi Panoya Kopyala"
+msgstr "Hedef iletiyi panoya kopyala"
 
 #: src/editortab.cpp:522
 #, kde-format
@@ -4021,18 +4015,16 @@ msgid "Hide fully translated files and folders"
 msgstr "Tümüyle çevrili dosyaları ve klasörleri gizle"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Sonraki Çevrilmemiş"
+msgstr "Çevrilmemiş Klasörleri Genişlet"
 
 #: src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr ""
+msgstr "Çevrilmemiş Dosyaların Dizin Ağacını Aç"
 
 #: src/project/projecttab.cpp:194
 #, kde-format

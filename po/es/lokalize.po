@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-11 16:54+0100\n"
+"PO-Revision-Date: 2026-05-13 20:35+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.04.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -4062,18 +4062,16 @@ msgid "Hide fully translated files and folders"
 msgstr "Ocultar los archivos y carpetas completamente traducidos"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Siguiente no traducida"
+msgstr "Expandir las carpetas no traducidas"
 
 #: src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr ""
+msgstr "Abrir el árbol de directorios para acceder a los archivos sin traducir"
 
 #: src/project/projecttab.cpp:194
 #, kde-format

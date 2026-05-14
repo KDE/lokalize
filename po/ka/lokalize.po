@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-11 05:51+0200\n"
+"PO-Revision-Date: 2026-05-13 08:29+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -4011,18 +4011,16 @@ msgid "Hide fully translated files and folders"
 msgstr "სრულად ნათარგმნი ფაილებისა და საქაღალდეების დამალვა"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "შემდეგი უთარგმნელი"
+msgstr "უთარგმნელი საქაღალდეების აკეცვა"
 
 #: src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr ""
+msgstr "უთარგმნელი ფაილების საქაღალდის ხის გახსნა"
 
 #: src/project/projecttab.cpp:194
 #, kde-format

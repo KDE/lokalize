@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-12 11:36+0200\n"
+"PO-Revision-Date: 2026-05-13 19:18+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -4011,18 +4011,16 @@ msgid "Hide fully translated files and folders"
 msgstr "Skrýt plně přeložené soubory a složky"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Následující nepřeložené"
+msgstr "Rozbalit nepřeložené složky"
 
 #: src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr ""
+msgstr "Otevřete adresářovou strukturu s nepřeloženými soubory"
 
 #: src/project/projecttab.cpp:194
 #, kde-format

@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-11 12:22+0200\n"
+"PO-Revision-Date: 2026-05-13 18:17+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.04.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -4048,19 +4048,16 @@ msgid "Hide fully translated files and folders"
 msgstr "Volledig vertaalde bestanden en mappen verbergen"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Volgende onvertaalde"
+msgstr "Vouw onvertaalde mappen uit"
 
 #: src/project/projecttab.cpp:152
-#, fuzzy, kde-format
-#| msgid "Prefetch for the next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr "Ophalen voor de volgende onvertaalde tekst"
+msgstr "Open de boomstructuurmap naar de onvertaalde bestanden"
 
 #: src/project/projecttab.cpp:194
 #, kde-format

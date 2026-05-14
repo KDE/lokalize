@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-11 06:55+0200\n"
+"PO-Revision-Date: 2026-05-13 07:03+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -4015,19 +4015,16 @@ msgid "Hide fully translated files and folders"
 msgstr "Skrij popolno prevedene datoteke in mape"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Naslednje neprevedeno"
+msgstr "Razširi neprevedene mape"
 
 #: src/project/projecttab.cpp:152
-#, fuzzy, kde-format
-#| msgid "Prefetch for the next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr "Vnaprej pridobi za naslednje neprevedeno"
+msgstr "Odpri drevo imenikov za neprevedene datoteke"
 
 #: src/project/projecttab.cpp:194
 #, kde-format
