@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-12 08:25+0300\n"
+"PO-Revision-Date: 2026-05-13 21:19+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3948,18 +3948,16 @@ msgid "Hide fully translated files and folders"
 msgstr "הסתרת קבצים ותיקיות שהושלמו לגמרי"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "הבאה שלא תורגמה"
+msgstr "הרחבת תיקיות ללא תרגום"
 
 #: src/project/projecttab.cpp:152
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr "הבאה הלא מתורגמת"
+msgstr "פתיחת עץ התיקיות לקבצים לא מתורגמים"
 
 #: src/project/projecttab.cpp:194
 #, kde-format
