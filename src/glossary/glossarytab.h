@@ -13,6 +13,7 @@
 #define GLOSSARYTAB_H
 
 #include "lokalizetabpagebase.h"
+#include "project.h"
 
 #include <KMainWindow>
 #include <KTextEdit>
@@ -122,17 +123,24 @@ Q_SIGNALS:
     void currentChanged(const QByteArray &prev, const QByteArray &current);
 };
 
+/* Whether the model is for the source or target language */
+enum TermsListLangType {
+    Source,
+    Target
+};
+
 class TermsListModel : public QStringListModel
 {
     Q_OBJECT
 public:
-    TermsListModel(Glossary *glossary, const QString &lang, QObject *parent = nullptr)
+    TermsListModel(TermsListLangType langType, QObject *parent = nullptr)
         : QStringListModel(parent)
-        , m_glossary(glossary)
-        , m_lang(lang)
+        , m_langType(langType)
     {
     }
 
+    /* Return the language code according to the langType */
+    QString getLang(TermsListLangType langType);
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
@@ -140,8 +148,7 @@ public Q_SLOTS:
     void setEntry(const QByteArray &id);
 
 private:
-    Glossary *m_glossary;
-    QString m_lang;
+    TermsListLangType m_langType;
     QByteArray m_id;
 };
 }

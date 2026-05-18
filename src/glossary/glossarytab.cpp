@@ -162,9 +162,8 @@ GlossaryTab::GlossaryTab(QWidget *parent)
     m_editor->setContentsMargins(0, 0, 0, 0);
     splitter->addWidget(m_editor);
 
-    Project *project = Project::instance();
-    m_sourceTermsModel = new TermsListModel(project->glossary(), project->sourceLangCode(), this);
-    m_targetTermsModel = new TermsListModel(project->glossary(), project->targetLangCode(), this);
+    m_sourceTermsModel = new TermsListModel(TermsListLangType::Source, this);
+    m_targetTermsModel = new TermsListModel(TermsListLangType::Target, this);
 
     ui_termEdit.sourceTermsView->setModel(m_sourceTermsModel);
     ui_termEdit.targetTermsView->setModel(m_targetTermsModel);
@@ -372,10 +371,22 @@ void GlossaryTab::rmTermEntry(int i)
 
 // END GlossaryTab
 
+QString TermsListModel::getLang(TermsListLangType langType)
+{
+    Project *project = Project::instance();
+    switch (langType) {
+    case Source:
+        return project->sourceLangCode();
+    case Target:
+    default:
+        return project->targetLangCode();
+    }
+}
+
 void TermsListModel::setEntry(const QByteArray &id)
 {
     m_id = id;
-    QStringList terms = m_glossary->terms(m_id, m_lang);
+    QStringList terms = Project::instance()->glossary()->terms(m_id, getLang(m_langType));
     terms.append(QString()); // allow adding new terms
     setStringList(terms);
 }
@@ -383,7 +394,7 @@ void TermsListModel::setEntry(const QByteArray &id)
 bool TermsListModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     Q_UNUSED(role);
-    m_glossary->setTerm(m_id, m_lang, index.row(), value.toString());
+    Project::instance()->glossary()->setTerm(m_id, getLang(m_langType), index.row(), value.toString());
     setEntry(m_id); // allow adding new terms
     return true;
 }
@@ -394,7 +405,7 @@ bool TermsListModel::removeRows(int row, int count, const QModelIndex &parent)
     if (row == rowCount() - 1)
         return false; // cannot delete non-existing item
 
-    m_glossary->rmTerm(m_id, m_lang, row);
+    Project::instance()->glossary()->rmTerm(m_id, getLang(m_langType), row);
     return QStringListModel::removeRows(row, 1, parent);
 }
 
