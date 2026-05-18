@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-28 02:39+0000\n"
-"PO-Revision-Date: 2026-03-16 16:18+0000\n"
+"PO-Revision-Date: 2026-05-16 20:51+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -98,19 +98,7 @@ msgid "Origin: %1"
 msgstr "Origine: %1"
 
 #: src/alttransview.cpp:291
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Sometimes, if original text is changed, its translation becomes "
-#| "deprecated and is either marked as <emphasis>needing&nbsp;review</"
-#| "emphasis> (i.e. looses approval status), or (only in case of XLIFF file) "
-#| "moved to the <emphasis>alternate&nbsp;translations</emphasis> section "
-#| "accompanying the unit.</p><p>This toolview also shows the difference "
-#| "between new original string and the old one, so that you can easily see "
-#| "which changes should be applied to existing translation.</p><p>Double-"
-#| "click any word in this toolview to insert it into translation.</p><p>Drop "
-#| "translation file onto this toolview to use it as a source for alternate "
-#| "translations.</p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Sometimes, if source text is changed, its translation becomes deprecated and "
@@ -123,17 +111,16 @@ msgid ""
 "into translation. Drop translation file onto this toolview to use it as a "
 "source for additional alternate translations."
 msgstr ""
-"<p>Uneori, dacă textul original este modificat, traducerea acestuia devine "
-"învechită și este marcată fie ca <emphasis>necesitând&nbsp;revizie</"
-"emphasis> (adică își pierde starea de aprobare), fie (numai în cazul "
-"fișierelor XLIFF) este mutat în secțiunea <emphasis>traduceri&nbsp;"
-"alternative</emphasis> ce însoțește unitatea.</p><p>Această vizualizare de "
-"unelte vă arată de asemenea și diferența între șirul original nou și cel "
-"vechi, astfel încât să puteți vedea cu ușurință ce modificări trebuiesc "
-"aplicate asupra traducerii existente.</p><p>Faceți dublu-clic pe orice "
-"cuvânt în această vizualizare de unelte pentru a-l introduce în traducere.</"
-"p><p>Aruncați un fișier cu traduceri în această vizualizare pentru a-l "
-"utiliza ca sursă de traduceri alternative.</p>"
+"Uneori, dacă textul-sursă este modificat, traducerea acestuia devine "
+"învechită și este marcată fie ca necesitând revizie (adică își pierde starea "
+"de aprobare), fie (numai în cazul fișierelor XLIFF) este mutat în secțiunea "
+"cu traduceri alternative ce însoțește unitatea. Această vizualizare de "
+"unelte vă arată, de asemenea, și diferența între șirul-sursă actual și cel "
+"anterior, astfel încât să puteți vedea cu ușurință ce modificări trebuiesc "
+"aplicate asupra traducerii existente. Dublu-clic pe orice cuvânt în această "
+"vizualizare de unelte îl introduce în traducere. Lăsați un fișier cu "
+"traduceri în această vizualizare pentru a-l utiliza ca sursă de traduceri "
+"alternative."
 
 #: src/alttransview.cpp:323
 #, kde-format
@@ -1664,12 +1651,7 @@ msgid "Select Folder"
 msgstr "Alege dosarul"
 
 #: src/editortab.cpp:1593
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Cannot open source files: no scripts to do so are currently loaded. Refer "
-#| "to the Lokalize handbook for script examples and how to plug them into "
-#| "your project."
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Cannot open the target source file: The target source file is not relative "
@@ -1677,10 +1659,11 @@ msgid ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 msgstr ""
-"Nu s-au putut deschide fișierele sursă: niciun script pentru a efectua "
-"această operație nu este încărcat. Consultați manualul Lokalize pentru "
-"exemple de scripturi și pentru modul de integrare a lor în proiectul "
-"dumneavoastră."
+"Nu s-a putut deschide fișierul-sursă specificat: acesta nu e relativ față de "
+"fișierul cu traduceri actual și acum nu e încărcat niciun script care să "
+"susțină deschiderea de fișiere-sursă din căi personalizate. Consultați "
+"manualul Lokalize pentru exemple de scripturi și pentru modul de integrare a "
+"lor în proiectul dumneavoastră."
 
 #: src/editortab.cpp:1607 src/project/project.cpp:394
 #: src/project/project.cpp:399
@@ -1860,10 +1843,7 @@ msgstr "Desfășoară"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Ctrl+L to go to this control.\n"
@@ -1871,7 +1851,9 @@ msgid ""
 "Press Esc to stop the search."
 msgstr ""
 "Expresie de căutare pentru componenta limbii-sursă.\n"
-"Apăsați „Enter” pentru a începe căutarea."
+"Apăsați Ctrl+L pentru a merge la acest control.\n"
+"Apăsați Enter pentru a începe căutarea.\n"
+"Apăsați Esc pentru a opri căutarea."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -2104,14 +2086,7 @@ msgid "Glossary"
 msgstr "Glosar"
 
 #: src/glossary/glossaryview.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid ""
-#| "<p>Translations for common terms appear here.</p><p>Press shortcut "
-#| "displayed near the term to insert its translation.</p><p>Use context menu "
-#| "to add new entry (tip:&nbsp;select words in original and translation "
-#| "fields before calling <interface>Define&nbsp;new&nbsp;term</interface>).</"
-#| "p>"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "<p>Glossary entries will be shown here.</p><p>Press the shortcut displayed "
@@ -2121,11 +2096,13 @@ msgid ""
 "New&nbsp;Term</interface>). You can specify the location of the glossary "
 "file in the project settings.</p>"
 msgstr ""
-"<p>Aici apar traducerile pentru termeni ordinari.</p><p>Apăsați "
-"acceleratorul afișat lângă termen pentru a-i introduce traducerea.</"
-"p><p>Utilizați meniul contextual pentru a adăuga o înregistrare nouă "
-"(indiciu:&nbsp;alegeți cuvintele în câmpurile original și traducere înainte "
-"de a apela <interface>Definește&nbsp;termen&nbsp;nou</interface>).</p>"
+"<p>Aici apar înregistrările din glosar.</p><p>Apăsați acceleratorul afișat "
+"lângă un termen pentru a-i introduce traducerea.</p><p>Utilizați meniul "
+"contextual pentru a adăuga o înregistrare nouă la glosar (indiciu:&nbsp;"
+"alegeți termeni în câmpurile cu sursă și destinație în unitatea de traducere "
+"înainte de a apela <interface>Definește&nbsp;termen&nbsp;nou</interface>). "
+"Puteți specifica amplasarea fișierului cu glosar în configurările "
+"proiectului.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/glossary/termedit.ui:25
