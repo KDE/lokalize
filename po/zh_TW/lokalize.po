@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-12 02:59+0900\n"
+"PO-Revision-Date: 2026-05-21 00:26+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -3914,19 +3914,16 @@ msgid "Hide fully translated files and folders"
 msgstr "隱藏完全翻譯好的檔案與資料夾"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "下一個未翻譯條目"
+msgstr "展開未翻譯資料夾"
 
 #: src/project/projecttab.cpp:152
-#, fuzzy, kde-format
-#| msgid "Prefetch for the next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr "預先取得下個未翻譯條目"
+msgstr "將目錄樹開啟顯示未翻譯檔案"
 
 #: src/project/projecttab.cpp:194
 #, kde-format
