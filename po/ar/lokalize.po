@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-04-09 11:22+0400\n"
+"PO-Revision-Date: 2026-05-21 11:52+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1147,34 +1147,28 @@ msgid "Copy Source to Target"
 msgstr "انسخ المصدر إلى الهدف"
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "المصدر"
+msgstr "انسخ المصدر"
 
 #: src/editortab.cpp:504
-#, fuzzy, kde-format
-#| msgid "Copy source to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
-msgstr "انسخ المصدر إلى الحافظة"
+msgstr "انسخ رسالة المصدر إلى الحافظة"
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "الهدف"
+msgstr "انسخ الهدف"
 
 #: src/editortab.cpp:514
-#, fuzzy, kde-format
-#| msgid "Copy target to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
-msgstr "انسخ الهدف إلى الحافظة"
+msgstr "انسخ رسالة الهدف إلى الحافظة"
 
 #: src/editortab.cpp:522
 #, kde-format
@@ -3967,19 +3961,16 @@ msgid "Hide fully translated files and folders"
 msgstr "أخفِ الملفات والمجلدات المترجمة بالكامل"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "غير المترجمة التّالية"
+msgstr "وسّع المجلدات غير المترجمة"
 
 #: src/project/projecttab.cpp:152
-#, fuzzy, kde-format
-#| msgid "Prefetch for the next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr "اجلب مسبقًا لغير المترجمة التّالية"
+msgstr "افتح شجرة الدليل إلى الملفات غير المترجمة"
 
 #: src/project/projecttab.cpp:194
 #, kde-format
