@@ -33,26 +33,24 @@ namespace GettextCatalog
 class CatalogItemPrivate
 {
 public:
-    bool _plural;
-    bool _valid;
-    bool _fuzzyCached;
-    bool _prependMsgIdEmptyLine;
-    bool _prependMsgStrEmptyLine;
-    bool _keepEmptyMsgCtxt;
-
-    QString _comment;
-    QString _msgctxt;
-
-    QVector<QString> _msgidPlural;
-    QVector<QString> _msgstrPlural;
+    bool m_plural;
+    bool m_valid;
+    bool m_fuzzyCached;
+    bool m_prependMsgIdEmptyLine;
+    bool m_prependMsgStrEmptyLine;
+    bool m_keepEmptyMsgCtxt;
+    QString m_comment;
+    QString m_msgCtxt;
+    QVector<QString> m_msgIdPlural;
+    QVector<QString> m_msgStrPlural;
 
     CatalogItemPrivate()
-        : _plural(false)
-        , _valid(true)
-        , _fuzzyCached(false)
-        , _prependMsgIdEmptyLine(false)
-        , _prependMsgStrEmptyLine(false)
-        , _keepEmptyMsgCtxt(false)
+        : m_plural(false)
+        , m_valid(true)
+        , m_fuzzyCached(false)
+        , m_prependMsgIdEmptyLine(false)
+        , m_prependMsgStrEmptyLine(false)
+        , m_keepEmptyMsgCtxt(false)
     {
     }
 
@@ -65,38 +63,38 @@ public:
 
 inline void CatalogItemPrivate::clear()
 {
-    _plural = false;
-    _valid = true;
-    _comment.clear();
-    _msgctxt.clear();
-    _msgidPlural.clear();
-    _msgstrPlural.clear();
+    m_plural = false;
+    m_valid = true;
+    m_comment.clear();
+    m_msgCtxt.clear();
+    m_msgIdPlural.clear();
+    m_msgStrPlural.clear();
 }
 
 inline void CatalogItemPrivate::assign(const CatalogItemPrivate &other)
 {
-    _comment = other._comment;
-    _msgctxt = other._msgctxt;
-    _msgidPlural = other._msgidPlural;
-    _msgstrPlural = other._msgstrPlural;
-    _valid = other._valid;
-    _plural = other._plural;
-    _fuzzyCached = other._fuzzyCached;
+    m_comment = other.m_comment;
+    m_msgCtxt = other.m_msgCtxt;
+    m_msgIdPlural = other.m_msgIdPlural;
+    m_msgStrPlural = other.m_msgStrPlural;
+    m_valid = other.m_valid;
+    m_plural = other.m_plural;
+    m_fuzzyCached = other.m_fuzzyCached;
 }
 
 inline bool CatalogItemPrivate::isUntranslated() const
 {
-    int i = _msgstrPlural.size();
+    int i = m_msgStrPlural.size();
     while (--i >= 0)
-        if (_msgstrPlural.at(i).isEmpty())
+        if (m_msgStrPlural.at(i).isEmpty())
             return true;
     return false;
 }
 
 inline bool CatalogItemPrivate::isUntranslated(uint form) const
 {
-    if ((int)form < _msgstrPlural.size())
-        return _msgstrPlural.at(form).isEmpty();
+    if ((int)form < m_msgStrPlural.size())
+        return m_msgStrPlural.at(form).isEmpty();
     else
         return true;
 }
@@ -104,7 +102,7 @@ inline bool CatalogItemPrivate::isUntranslated(uint form) const
 inline const QString &CatalogItemPrivate::msgid(const int form) const
 {
     // if original lang is english, we have only 2 formz
-    return (form < _msgidPlural.size()) ? _msgidPlural.at(form) : _msgidPlural.last();
+    return (form < m_msgIdPlural.size()) ? m_msgIdPlural.at(form) : m_msgIdPlural.last();
 }
 
 }

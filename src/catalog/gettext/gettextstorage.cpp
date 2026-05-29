@@ -193,15 +193,15 @@ QString GettextStorage::targetWithPlurals(const DocPosition &pos, bool truncateF
 
 void GettextStorage::targetDelete(const DocPosition &pos, int count)
 {
-    m_entries[pos.entry].d._msgstrPlural[pos.form].remove(pos.offset, count);
+    m_entries[pos.entry].d.m_msgStrPlural[pos.form].remove(pos.offset, count);
 }
 void GettextStorage::targetInsert(const DocPosition &pos, const QString &arg)
 {
-    m_entries[pos.entry].d._msgstrPlural[pos.form].insert(pos.offset, arg);
+    m_entries[pos.entry].d.m_msgStrPlural[pos.form].insert(pos.offset, arg);
 }
 void GettextStorage::setTarget(const DocPosition &pos, const QString &arg)
 {
-    m_entries[pos.entry].d._msgstrPlural[pos.form] = arg;
+    m_entries[pos.entry].d.m_msgStrPlural[pos.form] = arg;
 }
 
 void GettextStorage::targetInsertTag(const DocPosition &pos, const InlineTag &tag)

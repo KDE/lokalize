@@ -46,7 +46,7 @@ public:
 
     bool isFuzzy() const
     {
-        return d._fuzzyCached; //", fuzzy" in comment
+        return d.m_fuzzyCached; //", fuzzy" in comment
     }
     bool isCformat() const; //", c-format" or possible-c-format in comment (from the debug parameter of xgettext)
     bool isNoCformat() const; //", no-c-format" in comment
@@ -57,11 +57,11 @@ public:
 
     inline bool isPlural() const
     {
-        return d._plural;
+        return d.m_plural;
     }
     inline void setPlural(bool plural = true)
     {
-        d._plural = plural;
+        d.m_plural = plural;
     }
 
     void setSyntaxError(bool);
@@ -77,7 +77,7 @@ public:
 
     const QString &comment() const
     {
-        return d._comment;
+        return d.m_comment;
     }
     QString msgctxt(const bool noNewlines = false) const;
     const QString &msgid(const int form = 0) const
@@ -96,7 +96,7 @@ public:
     bool prependEmptyForMsgstr(const int form = 0) const;
     bool keepEmptyMsgCtxt() const
     {
-        return d._keepEmptyMsgCtxt;
+        return d.m_keepEmptyMsgCtxt;
     }
 
     QStringList msgstrAsList() const;
@@ -111,11 +111,11 @@ public:
 
     void setValid(bool v)
     {
-        d._valid = v;
+        d.m_valid = v;
     }
     bool isValid() const
     {
-        return d._valid;
+        return d.m_valid;
     }
 
     inline void operator=(const CatalogItem &rhs)
