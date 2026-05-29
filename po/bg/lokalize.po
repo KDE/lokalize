@@ -3,20 +3,20 @@
 #
 # Zlatko Popov <zlatkopopov@fsa-bg.org>, 2009.
 # Yasen Pramatarov <yasen@lindeas.com>, 2010, 2011.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Mincho Kondarev <mkondarev@yahoo.de>
+# SPDX-FileCopyrightText: 2022-2026 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:48+0000\n"
-"PO-Revision-Date: 2026-04-03 01:41+0200\n"
+"PO-Revision-Date: 2026-05-28 22:41+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.03.70\n"
+"X-Generator: Lokalize 26.04.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -1166,31 +1166,25 @@ msgid "Copy Source to Target"
 msgstr "Копиране на оригинала в превода"
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "Оригинал"
+msgstr "Копиране на оригинала"
 
 #: src/editortab.cpp:504
-#, fuzzy, kde-format
-#| msgid "Copy source to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
 msgstr "Копиране на оригинала в системния буфер"
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "Превод"
+msgstr "Копиране на превода"
 
 #: src/editortab.cpp:514
-#, fuzzy, kde-format
-#| msgid "Copy target to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
 msgstr "Копиране на превода в системния буфер"
@@ -1523,18 +1517,19 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
+"Файлът <filename>%1</filename> е бил модифициран от друга програма. Ако го "
+"запишете сега, всички промени, направени в другата програма, ще бъдат "
+"загубени. Сигурни ли сте, че искате да продължите?"
 
 #: src/editortab.cpp:1022
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "Предупреждение"
+msgstr "Запазване - предупреждение"
 
 #: src/editortab.cpp:1024
 #, kde-format
 msgid "Save a Copy Elsewhere"
-msgstr ""
+msgstr "Запазване на колие на друго място"
 
 #: src/editortab.cpp:1117
 #, kde-format
@@ -4028,18 +4023,17 @@ msgid "Hide fully translated files and folders"
 msgstr "Скриване на напълно преведени файлове и папки"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Следващ непреведен"
+msgstr "Разгръщане на непреведените папки"
 
 #: src/project/projecttab.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
 msgstr ""
+"Отваряне на дървовидната структура на директориите с непреведените файлове"
 
 #: src/project/projecttab.cpp:194
 #, kde-format
