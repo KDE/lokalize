@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from test_support import create_driver
 
-PROJECT_FILE = Path(__file__).with_name("index.lokalize").resolve()
+PROJECT_FILE = Path(__file__).with_name("data/simple-project/index.lokalize").resolve()
 
 class CloseProjectDisablesActions(unittest.TestCase):
     @classmethod
