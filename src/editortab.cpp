@@ -1901,6 +1901,7 @@ void EditorTab::mergeIntoOpenDocument()
         return;
     }
     QProcess::startDetached(lowriter, QStringList(args.at(1)));
+    // FIXME:this Python script has been deleted!!
     QString reloaderScript = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("scripts/odf/xliff2odf-standalone.py"));
     if (reloaderScript.length()) {
         QString python = QStandardPaths::findExecutable(QStringLiteral("python"));
