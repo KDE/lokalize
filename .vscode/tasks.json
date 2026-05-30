@@ -34,7 +34,19 @@
             ]
         },
         {
-            "label": "Run Selenium tests",
+            "label": "Run non-Appium tests",
+            "type": "shell",
+            "command": "kde-builder",
+            "args": [
+                "--debug",
+                "--run-tests",
+                "lokalize",
+                "--no-include-dependencies",
+                "--no-src"
+            ]
+        },
+        {
+            "label": "Run all tests, including Appium ones",
             "type": "shell",
             "command": "kde-builder",
             "args": [
