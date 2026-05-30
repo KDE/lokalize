@@ -121,6 +121,7 @@ CatalogString GettextStorage::sourceWithTags(DocPosition pos) const
 {
     return makeCatalogString(source(pos));
 }
+
 CatalogString GettextStorage::targetWithTags(DocPosition pos) const
 {
     return makeCatalogString(target(pos));
@@ -130,10 +131,12 @@ QString GettextStorage::source(const DocPosition &pos) const
 {
     return m_entries.at(pos.entry).msgid(pos.form);
 }
+
 QString GettextStorage::target(const DocPosition &pos) const
 {
     return m_entries.at(pos.entry).msgstr(pos.form);
 }
+
 QString GettextStorage::sourceWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     if (m_entries.at(pos.entry).isPlural()) {
