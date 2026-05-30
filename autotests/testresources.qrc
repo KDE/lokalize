@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>fakeexample.po</file>
-        <file>faketemplate.pot</file>
-        <file>fakeexample_spdxcopyright.po</file>
+        <file>data/fakeexample.po</file>
+        <file>data/faketemplate.pot</file>
+        <file>data/fakeexample_spdxcopyright.po</file>
     </qresource>
 </RCC>

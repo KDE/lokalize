@@ -40,7 +40,7 @@ void TestGetTextHeaderParser::updateLastTranslatorReplaceTranslator()
 
 void TestGetTextHeaderParser::updateGenericCopyrightYear()
 {
-    QFile example(QStringLiteral(":/faketemplate.pot"));
+    QFile example(QStringLiteral(":/data/faketemplate.pot"));
     QVERIFY(example.open(QIODevice::ReadOnly | QIODevice::Text));
     QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
     GetTextHeaderParser::updateGeneralCopyrightYear(header);
@@ -98,7 +98,7 @@ void TestGetTextHeaderParser::updateAuthorsWithCopyrightYearYearNameEmail()
 void TestGetTextHeaderParser::updateAuthorsInitialAddition()
 {
     // test initial copyright information addition for template file
-    QFile example(QStringLiteral(":/faketemplate.pot"));
+    QFile example(QStringLiteral(":/data/faketemplate.pot"));
     QVERIFY(example.open(QIODevice::ReadOnly));
     QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
     header = header.mid(0, 5); // hard split header ot of example instead of recreating the complex logic here
@@ -114,7 +114,7 @@ void TestGetTextHeaderParser::updateAuthorsInitialAddition()
 void TestGetTextHeaderParser::updateAuthorsAddNewCopyrightOwner()
 {
     // test addition of new copyright owner
-    QFile example(QStringLiteral(":/fakeexample.po"));
+    QFile example(QStringLiteral(":/data/fakeexample.po"));
     QVERIFY(example.open(QIODevice::ReadOnly));
     QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
     header = header.mid(0, 5); // hard split header ot of example instead of recreating the complex logic here
@@ -134,7 +134,7 @@ void TestGetTextHeaderParser::updateAuthorsAddNewCopyrightOwner()
 void TestGetTextHeaderParser::updateAuthorsTestModifyExistingCopyrightOwner()
 {
     // test modification of existing copyright owner
-    QFile example(QStringLiteral(":/fakeexample.po"));
+    QFile example(QStringLiteral(":/data/fakeexample.po"));
     QVERIFY(example.open(QIODevice::ReadOnly));
     QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
     header = header.mid(0, 5); // hard split header ot of example instead of recreating the complex logic here
@@ -150,7 +150,7 @@ void TestGetTextHeaderParser::updateAuthorsTestModifyExistingCopyrightOwner()
 void TestGetTextHeaderParser::updateAuthorsCopyrightText()
 {
     // check update of SPDX copyright text
-    QFile example(QStringLiteral(":/fakeexample_spdxcopyright.po"));
+    QFile example(QStringLiteral(":/data/fakeexample_spdxcopyright.po"));
     QVERIFY(example.open(QIODevice::ReadOnly));
     QStringList header(QString::fromLatin1(example.readAll()).split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts));
     header = header.mid(0, 5); // hard split header ot of example instead of recreating the complex logic here
