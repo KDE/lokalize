@@ -33,17 +33,6 @@ namespace GettextCatalog
 class CatalogItemPrivate
 {
 public:
-    bool m_plural;
-    bool m_valid;
-    bool m_fuzzyCached;
-    bool m_prependMsgIdEmptyLine;
-    bool m_prependMsgStrEmptyLine;
-    bool m_keepEmptyMsgCtxt;
-    QString m_comment;
-    QString m_msgCtxt;
-    QVector<QString> m_msgIdPlural;
-    QVector<QString> m_msgStrPlural;
-
     CatalogItemPrivate()
         : m_plural(false)
         , m_valid(true)
@@ -59,6 +48,17 @@ public:
     bool isUntranslated() const;
     bool isUntranslated(uint form) const;
     const QString &msgid(const int form) const;
+
+    bool m_plural;
+    bool m_valid;
+    bool m_fuzzyCached;
+    bool m_prependMsgIdEmptyLine;
+    bool m_prependMsgStrEmptyLine;
+    bool m_keepEmptyMsgCtxt;
+    QString m_comment;
+    QString m_msgCtxt;
+    QVector<QString> m_msgIdPlural;
+    QVector<QString> m_msgStrPlural;
 };
 
 inline void CatalogItemPrivate::clear()
@@ -73,13 +73,13 @@ inline void CatalogItemPrivate::clear()
 
 inline void CatalogItemPrivate::assign(const CatalogItemPrivate &other)
 {
+    m_plural = other.m_plural;
+    m_valid = other.m_valid;
+    m_fuzzyCached = other.m_fuzzyCached;
     m_comment = other.m_comment;
     m_msgCtxt = other.m_msgCtxt;
     m_msgIdPlural = other.m_msgIdPlural;
     m_msgStrPlural = other.m_msgStrPlural;
-    m_valid = other.m_valid;
-    m_plural = other.m_plural;
-    m_fuzzyCached = other.m_fuzzyCached;
 }
 
 inline bool CatalogItemPrivate::isUntranslated() const
