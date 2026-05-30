@@ -15,7 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from test_support import TEST_FILE, create_driver
 
-PROJECT_FILE = Path(__file__).with_name("index.lokalize").resolve()
+PROJECT_FILE = Path(__file__).resolve().parent / "data" / "simple-project" / "index.lokalize"
 
 class LokalizeEditorWorkflow(unittest.TestCase):
     @classmethod

@@ -13,8 +13,7 @@ from appium.options.common.base import AppiumOptions
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
 
-
-TEST_FILE = Path(__file__).with_name("data/simple-project/test.po").resolve()
+TEST_FILE = Path(__file__).resolve().parent / "data" / "simple-project" / "test.po"
 
 
 def create_driver(*, open_test_file=False, app_command=None):
