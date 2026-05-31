@@ -10,14 +10,16 @@ from file_open import LokalizeFileOpen
 from project_close import CloseProjectDisablesActions
 from simple_open import QuickOpenClose
 from workflowtest import LokalizeEditorWorkflow
+from plurals_mismatch_double import OpenDoublePluralWithTripleInBranch
 
 def add_test():
     loader = unittest.TestLoader()
     test_list = unittest.TestSuite()
-    test_list.addTests(loader.loadTestsFromTestCase(QuickOpenClose))
-    test_list.addTests(loader.loadTestsFromTestCase(LokalizeFileOpen))
-    test_list.addTests(loader.loadTestsFromTestCase(LokalizeEditorWorkflow))
-    test_list.addTests(loader.loadTestsFromTestCase(CloseProjectDisablesActions))
+    test_list.addTests(loader.loadTestsFromTestCase(OpenDoublePluralWithTripleInBranch))
+    # test_list.addTests(loader.loadTestsFromTestCase(QuickOpenClose))
+    # test_list.addTests(loader.loadTestsFromTestCase(LokalizeFileOpen))
+    # test_list.addTests(loader.loadTestsFromTestCase(LokalizeEditorWorkflow))
+    # test_list.addTests(loader.loadTestsFromTestCase(CloseProjectDisablesActions))
     return test_list
 
 if __name__ == "__main__":

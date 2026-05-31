@@ -32,6 +32,7 @@
 #include <QStyledItemDelegate>
 #include <QTimer>
 #include <QtAssert>
+#include <qlatin1stringview.h>
 
 class PoItemDelegate : public QStyledItemDelegate
 {
@@ -281,6 +282,7 @@ ProjectWidget::ProjectWidget(QWidget *parent)
     connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectWidget::modelAboutToReload);
     connect(Project::instance()->model(), &ProjectModel::loadingFinished, this, &ProjectWidget::modelReloaded, Qt::QueuedConnection);
 
+    setObjectName(QLatin1String("ProjectWidget"));
     setUniformRowHeights(true);
     setAllColumnsShowFocus(true);
     setSortingEnabled(true);

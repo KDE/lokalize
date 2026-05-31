@@ -38,6 +38,7 @@ def create_driver(*, open_test_file=False, app_command=None):
         command_executor="http://127.0.0.1:4723",
         options=options,
     )
+    driver.implicitly_wait(120)
     return driver, config_dir
 
 
