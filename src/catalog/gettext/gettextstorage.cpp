@@ -22,6 +22,7 @@
 #include <QMutexLocker>
 #include <QRegularExpression>
 #include <QString>
+#include <cassert>
 
 QMutex regExMutex;
 
@@ -129,16 +130,25 @@ CatalogString GettextStorage::targetWithTags(DocPosition pos) const
 
 QString GettextStorage::source(const DocPosition &pos) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     return m_entries.at(pos.entry).msgid(pos.form);
 }
 
 QString GettextStorage::target(const DocPosition &pos) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     return m_entries.at(pos.entry).msgstr(pos.form);
 }
 
 QString GettextStorage::sourceWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     if (m_entries.at(pos.entry).isPlural()) {
         const QVector<QString> plurals = m_entries.at(pos.entry).msgidPlural();
         QString pluralString;
@@ -165,8 +175,12 @@ QString GettextStorage::sourceWithPlurals(const DocPosition &pos, bool truncateF
         return str;
     }
 }
+
 QString GettextStorage::targetWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     if (m_entries.at(pos.entry).isPlural()) {
         const QVector<QString> plurals = m_entries.at(pos.entry).msgstrPlural();
         QString pluralString;
@@ -196,14 +210,25 @@ QString GettextStorage::targetWithPlurals(const DocPosition &pos, bool truncateF
 
 void GettextStorage::targetDelete(const DocPosition &pos, int count)
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     m_entries[pos.entry].d.m_msgStrPlural[pos.form].remove(pos.offset, count);
 }
+
 void GettextStorage::targetInsert(const DocPosition &pos, const QString &arg)
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     m_entries[pos.entry].d.m_msgStrPlural[pos.form].insert(pos.offset, arg);
 }
+
 void GettextStorage::setTarget(const DocPosition &pos, const QString &arg)
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     m_entries[pos.entry].d.m_msgStrPlural[pos.form] = arg;
 }
 
@@ -221,16 +246,25 @@ InlineTag GettextStorage::targetDeleteTag(const DocPosition &pos)
 
 QStringList GettextStorage::sourceAllForms(const DocPosition &pos, bool stripNewLines) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     return m_entries.at(pos.entry).allPluralForms(CatalogItem::Source, stripNewLines);
 }
 
 QStringList GettextStorage::targetAllForms(const DocPosition &pos, bool stripNewLines) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     return m_entries.at(pos.entry).allPluralForms(CatalogItem::Target, stripNewLines);
 }
 
 QVector<AltTrans> GettextStorage::altTrans(const DocPosition &pos) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     QString msgctxtOld;
     QString msgidOld;
     QString msgidpluralOld;
@@ -291,6 +325,9 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition &pos) const
 
 Note GettextStorage::setNote(DocPosition pos, const Note &note)
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     Note oldNote;
     QVector<Note> l = notes(pos);
     if (l.size())
@@ -311,12 +348,15 @@ Note GettextStorage::setNote(DocPosition pos, const Note &note)
     return oldNote;
 }
 
-QVector<Note> GettextStorage::notes(const DocPosition &docPosition, const QRegularExpression &re, int preLen) const
+QVector<Note> GettextStorage::notes(const DocPosition &pos, const QRegularExpression &re, int preLen) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     QVector<Note> result;
     QString content;
 
-    const QStringList note = m_entries.at(docPosition.entry).comment().split(QLatin1Char('\n')).filter(re);
+    const QStringList note = m_entries.at(pos.entry).comment().split(QLatin1Char('\n')).filter(re);
 
     for (const QString &s : note) {
         if (s.size() >= preLen) {
@@ -346,6 +386,9 @@ QVector<Note> GettextStorage::developerNotes(const DocPosition &docPosition) con
 
 QStringList GettextStorage::sourceFiles(const DocPosition &pos) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     QStringList result;
     QStringList commentLines = m_entries.at(pos.entry).comment().split(QLatin1Char('\n'));
 
@@ -380,12 +423,18 @@ QStringList GettextStorage::context(const DocPosition &pos) const
 
 QStringList GettextStorage::matchData(const DocPosition &pos) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     QString ctxt = m_entries.at(pos.entry).msgctxt();
     return QStringList(ctxt);
 }
 
 QString GettextStorage::id(const DocPosition &pos) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     // entries in gettext format may be non-unique
     // only if their msgctxts are different
 
@@ -397,15 +446,24 @@ QString GettextStorage::id(const DocPosition &pos) const
 
 bool GettextStorage::isPlural(const DocPosition &pos) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     return m_entries.at(pos.entry).isPlural();
 }
 
 bool GettextStorage::isApproved(const DocPosition &pos) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     return !m_entries.at(pos.entry).isFuzzy();
 }
 void GettextStorage::setApproved(const DocPosition &pos, bool approved)
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     if (approved)
         m_entries[pos.entry].unsetFuzzy();
     else
@@ -414,6 +472,9 @@ void GettextStorage::setApproved(const DocPosition &pos, bool approved)
 
 bool GettextStorage::isEmpty(const DocPosition &pos) const
 {
+    assert(pos.entry >= 0);
+    assert(pos.entry < m_entries.length());
+
     return m_entries.at(pos.entry).isUntranslated();
 }
 
