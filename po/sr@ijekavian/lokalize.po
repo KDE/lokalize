@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-13 00:48+0000\n"
+"POT-Creation-Date: 2026-05-31 00:47+0000\n"
 "PO-Revision-Date: 2017-09-28 18:00+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -750,7 +750,7 @@ msgid "separator for different-length string alternatives"
 msgstr "раздвајач алтернативних ниски различите бројности"
 
 # rewrite-msgid: /Gettext/xgettext tool/
-#: src/catalog/gettext/gettextstorage.cpp:284
+#: src/catalog/gettext/gettextstorage.cpp:287
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -1899,12 +1899,12 @@ msgid "OpenDocument files (*.odt *.ods)"
 msgstr "отворенодокументски фајлови (*.odt *.ods)"
 
 # literal-segment: python-uno
-#: src/editortab.cpp:1914
+#: src/editortab.cpp:1915
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Инсталирајте пакет python-uno за додатну функционалност."
 
-#: src/editortab.cpp:2037
+#: src/editortab.cpp:2038
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"

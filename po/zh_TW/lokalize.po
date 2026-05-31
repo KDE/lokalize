@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-13 00:48+0000\n"
+"POT-Creation-Date: 2026-05-31 00:47+0000\n"
 "PO-Revision-Date: 2026-05-21 00:26+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -696,7 +696,7 @@ msgstr "插入有標記的文字"
 msgid "separator for different-length string alternatives"
 msgstr "不同長度字串替代的分隔符"
 
-#: src/catalog/gettext/gettextstorage.cpp:284
+#: src/catalog/gettext/gettextstorage.cpp:287
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -1726,12 +1726,12 @@ msgstr "選擇目前 XLIFF 檔所在的原始 OpenDocument"
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 檔 (*.odt *.ods)"
 
-#: src/editortab.cpp:1914
+#: src/editortab.cpp:1915
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "請安裝 python-uno 軟體包以取得額外功能。"
 
-#: src/editortab.cpp:2037
+#: src/editortab.cpp:2038
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
