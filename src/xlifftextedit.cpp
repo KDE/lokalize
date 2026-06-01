@@ -106,6 +106,7 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog *catalog, DocPosition::
     setReadOnly(part == DocPosition::Source);
     setUndoRedoEnabled(false);
     setAcceptRichText(false);
+    setTabChangesFocus(true);
 
     m_highlighter->setActive(m_enabled);
     setHighlighter(m_highlighter);
@@ -766,9 +767,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             }
         }
         KTextEdit::keyPressEvent(keyEvent);
-    } else if (keyEvent->key() == Qt::Key_Tab)
-        insertPlainTextWithCursorCheck(QStringLiteral("\\t"));
-    else
+    } else
         KTextEdit::keyPressEvent(keyEvent);
     // END clever editing
 }
