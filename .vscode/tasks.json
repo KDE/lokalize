@@ -17,7 +17,6 @@
             "type": "shell",
             "command": "kde-builder",
             "args": [
-                "--debug",
                 "lokalize"
             ]
         },
@@ -27,7 +26,6 @@
             "command": "kde-builder",
             "args": [
                 "--refresh-build",
-                "--debug",
                 "lokalize"
             ]
         },
