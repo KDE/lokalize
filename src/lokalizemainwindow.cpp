@@ -497,7 +497,10 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     connect(newEditorTab, &EditorTab::signalCloseAllRequested, this, &LokalizeMainWindow::queryAndCloseAllEditorTabs);
     connect(newEditorTab, &EditorTab::signalActivateThisTabRequested, this, &LokalizeMainWindow::activateTabByPageWidget);
     connect(newEditorTab, &LokalizeTabPageBase::signalUpdatedTabLabelAndIconAvailable, this, &LokalizeMainWindow::updateTabDetailsByPageWidget);
-    connect(newEditorTab, &EditorTab::signalDefineNewGlossaryTerm, m_glossaryTab, qOverload<QString, QString>(&GlossaryNS::GlossaryTab::newTermEntry));
+    connect(newEditorTab,
+            &EditorTab::signalDefineNewGlossaryTerm,
+            m_glossaryTab,
+            qOverload<const QString &, const QString &>(&GlossaryNS::GlossaryTab::newTermEntry));
     connect(newEditorTab, &EditorTab::signalSelectGlossaryEntryRequested, this, &LokalizeMainWindow::selectGlossaryEntry);
 
     auto fnSlashed = QStringView(filePath).mid(filePath.lastIndexOf(QLatin1Char('/')));
