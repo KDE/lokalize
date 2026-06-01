@@ -13,6 +13,25 @@
             ]
         },
         {
+            "label": "Rebuild",
+            "type": "shell",
+            "command": "kde-builder",
+            "args": [
+                "--debug",
+                "lokalize"
+            ]
+        },
+        {
+            "label": "Clean and rebuild",
+            "type": "shell",
+            "command": "kde-builder",
+            "args": [
+                "--refresh-build",
+                "--debug",
+                "lokalize"
+            ]
+        },
+        {
             "label": "Run",
             "type": "shell",
             "command": "kde-builder",
