@@ -54,8 +54,6 @@ TMManagerWin::TMManagerWin(QWidget *parent)
 
 void TMManagerWin::initLater()
 {
-    connect(m_tmListWidget, &QTreeView::activated, this, &TMManagerWin::slotItemActivated);
-
     QPersistentModelIndex *projectDBIndex = DBFilesModel::instance()->projectDBIndex();
     if (projectDBIndex)
         m_tmListWidget->setCurrentIndex(*projectDBIndex);
@@ -245,10 +243,6 @@ void TMManagerWin::exportTMX()
         ExportTmxJob *j = new ExportTmxJob(path, dbName);
         threadPool()->start(j, EXPORT);
     }
-}
-
-void TMManagerWin::slotItemActivated(const QModelIndex &)
-{
 }
 
 #include "moc_tmmanager.cpp"

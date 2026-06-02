@@ -40,7 +40,6 @@ private Q_SLOTS:
     void removeDB();
 
     void initLater();
-    void slotItemActivated(const QModelIndex &);
 
 private:
     QTreeView *m_tmListWidget{};
