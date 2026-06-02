@@ -564,7 +564,7 @@ int Catalog::loadFromUrl(const QString &filePath, const QString &saidUrl, int *f
 
     file.close();
 
-    if (Q_UNLIKELY(line != 0 || (!storage->size() && (line == -1)))) {
+    if (Q_UNLIKELY(line != 0 || (!storage->size()))) {
         delete storage;
         return line;
     }
