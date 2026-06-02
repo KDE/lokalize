@@ -269,7 +269,6 @@ void ProjectTab::pologyOnFiles()
 {
     if (!m_pologyProcessInProgress) {
         QStringList files = m_browser->selectedItems();
-        QString templatesRoot = Project::instance()->templatesRoot();
         QString filesAsString;
         int i = files.size();
         while (--i >= 0) {

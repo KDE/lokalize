@@ -90,7 +90,7 @@ void LanguageToolResultJob::addRequestAttribute(QNetworkRequest &request) const
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
 }
 
-QString LanguageToolResultJob::language() const
+const QString LanguageToolResultJob::language() const
 {
     return mLanguage;
 }
@@ -100,7 +100,7 @@ void LanguageToolResultJob::setLanguage(const QString &language)
     mLanguage = language;
 }
 
-QString LanguageToolResultJob::url() const
+const QString LanguageToolResultJob::url() const
 {
     return mUrl;
 }
@@ -110,7 +110,7 @@ void LanguageToolResultJob::setUrl(const QString &url)
     mUrl = url;
 }
 
-QStringList LanguageToolResultJob::arguments() const
+const QStringList LanguageToolResultJob::arguments() const
 {
     return mArguments;
 }
@@ -130,7 +130,7 @@ void LanguageToolResultJob::setNetworkAccessManager(QNetworkAccessManager *netwo
     mNetworkAccessManager = networkAccessManager;
 }
 
-QString LanguageToolResultJob::text() const
+const QString LanguageToolResultJob::text() const
 {
     return mText;
 }

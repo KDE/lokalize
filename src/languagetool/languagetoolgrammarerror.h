@@ -19,7 +19,7 @@ public:
     LanguageToolGrammarError() = default;
     ~LanguageToolGrammarError() = default;
 
-    QString parse(const QJsonObject &obj, const QString &text);
+    static QString parse(const QJsonObject &obj, const QString &text);
     void setTesting(bool b);
 
 private:

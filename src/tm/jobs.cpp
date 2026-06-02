@@ -1190,206 +1190,204 @@ bool SelectJob::doSelect(QSqlDatabase &db,
     bool seen85 = false;
     int limit = 200;
     auto clit = concordanceLevelToIds.constEnd();
-    if (concordanceLevelToIds.size())
-        --clit;
-    if (concordanceLevelToIds.size())
-        while (--limit >= 0) {
-            if (Q_UNLIKELY(m_dequeued))
+    --clit;
+    while (--limit >= 0) {
+        if (Q_UNLIKELY(m_dequeued))
+            break;
+
+        // for every concordance level
+        qlonglong level = clit.key();
+        QString joined;
+        while (level == clit.key()) {
+            joined += QString::number(clit.value()) + QLatin1Char(',');
+            if (clit == concordanceLevelToIds.constBegin() || --limit < 0)
                 break;
-
-            // for every concordance level
-            qlonglong level = clit.key();
-            QString joined;
-            while (level == clit.key()) {
-                joined += QString::number(clit.value()) + QLatin1Char(',');
-                if (clit == concordanceLevelToIds.constBegin() || --limit < 0)
-                    break;
-                --clit;
-            }
-            joined.chop(1);
-
-            // get records containing current word
-            QSqlQuery queryFetch(QStringLiteral("SELECT id, source, source_accel, source_markup FROM source_strings WHERE "
-                                                "source_strings.id IN (")
-                                     + joined + QLatin1Char(')'),
-                                 db);
-            TMEntry e;
-            while (queryFetch.next()) {
-                e.id = queryFetch.value(0).toLongLong();
-                if (queryFetch.value(3).toByteArray().size())
-                    qCDebug(LOKALIZE_LOG) << "BA" << queryFetch.value(3).toByteArray();
-                e.source = CatalogString(makeAcceledString(queryFetch.value(1).toString(), c.accel, queryFetch.value(2)), queryFetch.value(3).toByteArray());
-                if (e.source.string.contains(TAGRANGE_IMAGE_SYMBOL)) {
-                    if (!e.source.tags.size())
-                        qCWarning(LOKALIZE_LOG) << "problem:" << queryFetch.value(3).toByteArray().size() << queryFetch.value(3).toByteArray();
-                }
-                e.markupExpr = c.markup;
-                e.accelExpr = c.accel;
-                e.dbName = getDbNameFromConnectionName(db.connectionName());
-
-                // BEGIN calc score
-                QString str = e.source.string;
-                str.remove(c.accel);
-
-                QStringList sourceSuggList(str.toLower().split(rxSplit, Qt::SkipEmptyParts));
-                if (sourceSuggList.size() > 10 * sourceList.size())
-                    continue;
-                // sugg is 'old' --translator has to adapt its translation to 'new'--current
-                QString result = wordDiff(sourceSuggList, sourceList);
-
-                int pos = 0;
-                int delSubStrCount = 0;
-                int delLen = 0;
-                while (true) {
-                    const auto match = delPart.match(result, pos);
-                    if (!match.hasMatch()) {
-                        break;
-                    }
-                    pos = match.capturedStart();
-                    delLen += match.capturedLength() - 23;
-                    ++delSubStrCount;
-                    pos += match.capturedLength();
-                }
-                pos = 0;
-                int addSubStrCount = 0;
-                int addLen = 0;
-                while (true) {
-                    const auto match = addPart.match(result, pos);
-                    if (!match.hasMatch()) {
-                        break;
-                    }
-                    pos = match.capturedStart();
-                    addLen += match.capturedLength() - 23;
-                    ++addSubStrCount;
-                    pos += match.capturedLength();
-                }
-
-                // allLen - length of suggestion
-                int allLen = result.size() - 23 * addSubStrCount - 23 * delSubStrCount;
-                int commonLen = allLen - delLen - addLen;
-                // now, allLen is the length of the string being translated
-                allLen = m_source.string.size();
-                bool possibleExactMatch = !(delLen + addLen);
-                if (!possibleExactMatch) {
-                    // del is better than add
-                    if (addLen) {
-                        float score = 9500 * (pow(float(commonLen) / float(allLen), 0.12f)) // this was < 1 so we have increased it
-                                                                                            // this was > 1 so we have decreased it, and increased result:
-                            / exp(0.014 * float(addLen) * log10(3.0f + addSubStrCount));
-
-                        if (delLen) {
-                            float a = exp(0.008 * float(delLen) * log10(3.0f + delSubStrCount));
-
-                            if (a != 0.0)
-                                score /= a;
-                        }
-                        e.score = (int)score;
-
-                    } else { //==to adapt, only deletion is needed
-                        float score = 9900 * (pow(float(commonLen) / float(allLen), 0.15f)) / exp(0.008 * float(delLen) * log10(3.0f + delSubStrCount));
-                        e.score = (int)score;
-                    }
-                } else
-                    e.score = 10000;
-
-                // END calc score
-                if (e.score < 3500)
-                    continue;
-                seen85 = seen85 || e.score > 8500;
-                if (seen85 && e.score < 6000)
-                    continue;
-
-                if (e.score < Settings::suggScore() * 100)
-                    continue;
-                // BEGIN fetch rest of the data
-                QString change_author_str;
-                QString authors_table_str;
-                if (qpsql) {
-                    change_author_str = QStringLiteral(", pg_user.usename ");
-                    authors_table_str = QStringLiteral(" JOIN pg_user ON (pg_user.usesysid=main.change_author) ");
-                }
-
-                QSqlQuery queryRest(QStringLiteral("SELECT main.id, main.date, main.ctxt, main.bits, "
-                                                   "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
-                                                   "files.path, main.change_date ")
-                                        + change_author_str
-                                        + QStringLiteral("FROM main JOIN target_strings ON (target_strings.id=main.target) JOIN files ON (files.id=main.file) ")
-                                        + authors_table_str
-                                        + QStringLiteral("WHERE "
-                                                         "main.source=")
-                                        + QString::number(e.id)
-                                        + QStringLiteral(" AND "
-                                                         "(main.bits&4)!=4 AND "
-                                                         "target_strings.target NOTNULL"),
-                                    db); // ORDER BY tm_main.id ?
-                queryRest.exec();
-                QMultiMap<TMEntry, bool> sortedEntryList; // to eliminate same targets from different files
-                while (queryRest.next()) {
-                    e.id = queryRest.value(0).toLongLong();
-                    e.date = queryRest.value(1).toDate();
-                    e.ctxt = queryRest.value(2).toString();
-                    e.target = CatalogString(makeAcceledString(queryRest.value(4).toString(), c.accel, queryRest.value(5)), queryRest.value(6).toByteArray());
-
-                    QStringList matchData = queryRest.value(2).toString().split(QLatin1Char(TM_DELIMITER), Qt::KeepEmptyParts); // context|plural
-                    e.file = queryRest.value(7).toString();
-                    if (e.target.isEmpty())
-                        continue;
-
-                    e.obsolete = queryRest.value(3).toInt() & 1;
-
-                    e.changeDate = queryRest.value(8).toDate();
-                    if (qpsql)
-                        e.changeAuthor = queryRest.value(9).toString();
-
-                    // BEGIN exact match score++
-                    if (possibleExactMatch) { //"exact" match (case insensitive+w/o non-word characters!)
-                        if (m_source.string == e.source.string)
-                            e.score = 10000;
-                        else
-                            e.score = 9900;
-                    }
-                    if (!m_ctxt.isEmpty() && matchData.size() > 0) { // check not needed?
-                        if (matchData.at(0) == m_ctxt)
-                            e.score += 33;
-                    }
-                    if (matchData.size() > 1) {
-                        int form = matchData.at(1).toInt();
-
-                        if (form && form == (int)m_pos.form) {
-                            e.score += 33;
-                        }
-                    }
-                    if (e.file == m_file)
-                        e.score += 33;
-                    // END exact match score++
-                    sortedEntryList.insert(e, false);
-                }
-                queryRest.clear();
-                // eliminate same targets from different files
-                QHash<QString, int> hash;
-                int oldCount = m_entries.size();
-                auto it = sortedEntryList.constEnd();
-                if (sortedEntryList.size())
-                    while (true) {
-                        --it;
-                        const TMEntry &e = it.key();
-                        int &hits = hash[e.target.string];
-                        if (!hits) // 0 was default value
-                            m_entries.append(e);
-                        hits++;
-                        if (it == sortedEntryList.constBegin())
-                            break;
-                    }
-                for (int i = oldCount; i < m_entries.size(); ++i)
-                    m_entries[i].hits = hash.value(m_entries.at(i).target.string);
-                // END fetch rest of the data
-            }
-            queryFetch.clear();
-            if (clit == concordanceLevelToIds.constBegin())
-                break;
-            if (seen85)
-                limit = qMin(limit, 100); // be more restrictive for the next concordance levels
+            --clit;
         }
+        joined.chop(1);
+
+        // get records containing current word
+        QSqlQuery queryFetch(QStringLiteral("SELECT id, source, source_accel, source_markup FROM source_strings WHERE "
+                                            "source_strings.id IN (")
+                                 + joined + QLatin1Char(')'),
+                             db);
+        TMEntry e;
+        while (queryFetch.next()) {
+            e.id = queryFetch.value(0).toLongLong();
+            if (queryFetch.value(3).toByteArray().size())
+                qCDebug(LOKALIZE_LOG) << "BA" << queryFetch.value(3).toByteArray();
+            e.source = CatalogString(makeAcceledString(queryFetch.value(1).toString(), c.accel, queryFetch.value(2)), queryFetch.value(3).toByteArray());
+            if (e.source.string.contains(TAGRANGE_IMAGE_SYMBOL)) {
+                if (!e.source.tags.size())
+                    qCWarning(LOKALIZE_LOG) << "problem:" << queryFetch.value(3).toByteArray().size() << queryFetch.value(3).toByteArray();
+            }
+            e.markupExpr = c.markup;
+            e.accelExpr = c.accel;
+            e.dbName = getDbNameFromConnectionName(db.connectionName());
+
+            // BEGIN calc score
+            QString str = e.source.string;
+            str.remove(c.accel);
+
+            QStringList sourceSuggList(str.toLower().split(rxSplit, Qt::SkipEmptyParts));
+            if (sourceSuggList.size() > 10 * sourceList.size())
+                continue;
+            // sugg is 'old' --translator has to adapt its translation to 'new'--current
+            QString result = wordDiff(sourceSuggList, sourceList);
+
+            int pos = 0;
+            int delSubStrCount = 0;
+            int delLen = 0;
+            while (true) {
+                const auto match = delPart.match(result, pos);
+                if (!match.hasMatch()) {
+                    break;
+                }
+                pos = match.capturedStart();
+                delLen += match.capturedLength() - 23;
+                ++delSubStrCount;
+                pos += match.capturedLength();
+            }
+            pos = 0;
+            int addSubStrCount = 0;
+            int addLen = 0;
+            while (true) {
+                const auto match = addPart.match(result, pos);
+                if (!match.hasMatch()) {
+                    break;
+                }
+                pos = match.capturedStart();
+                addLen += match.capturedLength() - 23;
+                ++addSubStrCount;
+                pos += match.capturedLength();
+            }
+
+            // allLen - length of suggestion
+            int allLen = result.size() - 23 * addSubStrCount - 23 * delSubStrCount;
+            int commonLen = allLen - delLen - addLen;
+            // now, allLen is the length of the string being translated
+            allLen = m_source.string.size();
+            bool possibleExactMatch = !(delLen + addLen);
+            if (!possibleExactMatch) {
+                // del is better than add
+                if (addLen) {
+                    float score = 9500 * (pow(float(commonLen) / float(allLen), 0.12f)) // this was < 1 so we have increased it
+                                                                                        // this was > 1 so we have decreased it, and increased result:
+                        / exp(0.014 * float(addLen) * log10(3.0f + addSubStrCount));
+
+                    if (delLen) {
+                        float a = exp(0.008 * float(delLen) * log10(3.0f + delSubStrCount));
+
+                        if (a != 0.0)
+                            score /= a;
+                    }
+                    e.score = (int)score;
+
+                } else { //==to adapt, only deletion is needed
+                    float score = 9900 * (pow(float(commonLen) / float(allLen), 0.15f)) / exp(0.008 * float(delLen) * log10(3.0f + delSubStrCount));
+                    e.score = (int)score;
+                }
+            } else
+                e.score = 10000;
+
+            // END calc score
+            if (e.score < 3500)
+                continue;
+            seen85 = seen85 || e.score > 8500;
+            if (seen85 && e.score < 6000)
+                continue;
+
+            if (e.score < Settings::suggScore() * 100)
+                continue;
+            // BEGIN fetch rest of the data
+            QString change_author_str;
+            QString authors_table_str;
+            if (qpsql) {
+                change_author_str = QStringLiteral(", pg_user.usename ");
+                authors_table_str = QStringLiteral(" JOIN pg_user ON (pg_user.usesysid=main.change_author) ");
+            }
+
+            QSqlQuery queryRest(QStringLiteral("SELECT main.id, main.date, main.ctxt, main.bits, "
+                                               "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
+                                               "files.path, main.change_date ")
+                                    + change_author_str
+                                    + QStringLiteral("FROM main JOIN target_strings ON (target_strings.id=main.target) JOIN files ON (files.id=main.file) ")
+                                    + authors_table_str
+                                    + QStringLiteral("WHERE "
+                                                     "main.source=")
+                                    + QString::number(e.id)
+                                    + QStringLiteral(" AND "
+                                                     "(main.bits&4)!=4 AND "
+                                                     "target_strings.target NOTNULL"),
+                                db); // ORDER BY tm_main.id ?
+            queryRest.exec();
+            QMultiMap<TMEntry, bool> sortedEntryList; // to eliminate same targets from different files
+            while (queryRest.next()) {
+                e.id = queryRest.value(0).toLongLong();
+                e.date = queryRest.value(1).toDate();
+                e.ctxt = queryRest.value(2).toString();
+                e.target = CatalogString(makeAcceledString(queryRest.value(4).toString(), c.accel, queryRest.value(5)), queryRest.value(6).toByteArray());
+
+                QStringList matchData = queryRest.value(2).toString().split(QLatin1Char(TM_DELIMITER), Qt::KeepEmptyParts); // context|plural
+                e.file = queryRest.value(7).toString();
+                if (e.target.isEmpty())
+                    continue;
+
+                e.obsolete = queryRest.value(3).toInt() & 1;
+
+                e.changeDate = queryRest.value(8).toDate();
+                if (qpsql)
+                    e.changeAuthor = queryRest.value(9).toString();
+
+                // BEGIN exact match score++
+                if (possibleExactMatch) { //"exact" match (case insensitive+w/o non-word characters!)
+                    if (m_source.string == e.source.string)
+                        e.score = 10000;
+                    else
+                        e.score = 9900;
+                }
+                if (!m_ctxt.isEmpty() && matchData.size() > 0) { // check not needed?
+                    if (matchData.at(0) == m_ctxt)
+                        e.score += 33;
+                }
+                if (matchData.size() > 1) {
+                    int form = matchData.at(1).toInt();
+
+                    if (form && form == (int)m_pos.form) {
+                        e.score += 33;
+                    }
+                }
+                if (e.file == m_file)
+                    e.score += 33;
+                // END exact match score++
+                sortedEntryList.insert(e, false);
+            }
+            queryRest.clear();
+            // eliminate same targets from different files
+            QHash<QString, int> hash;
+            int oldCount = m_entries.size();
+            auto it = sortedEntryList.constEnd();
+            if (sortedEntryList.size())
+                while (true) {
+                    --it;
+                    const TMEntry &e = it.key();
+                    int &hits = hash[e.target.string];
+                    if (!hits) // 0 was default value
+                        m_entries.append(e);
+                    hits++;
+                    if (it == sortedEntryList.constBegin())
+                        break;
+                }
+            for (int i = oldCount; i < m_entries.size(); ++i)
+                m_entries[i].hits = hash.value(m_entries.at(i).target.string);
+            // END fetch rest of the data
+        }
+        queryFetch.clear();
+        if (clit == concordanceLevelToIds.constBegin())
+            break;
+        if (seen85)
+            limit = qMin(limit, 100); // be more restrictive for the next concordance levels
+    }
     return seen85;
 }
 
