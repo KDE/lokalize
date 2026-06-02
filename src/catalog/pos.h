@@ -63,8 +63,8 @@ struct DocPosition {
 };
 Q_DECLARE_METATYPE(DocPosition)
 
-bool switchPrev(Catalog *&, DocPosition &pos, int parts = DocPosition::Target);
-bool switchNext(Catalog *&, DocPosition &pos, int parts = DocPosition::Target);
+bool switchPrev(const Catalog *const &, DocPosition &pos, int parts = DocPosition::Target);
+bool switchNext(const Catalog *const &, DocPosition &pos, int parts = DocPosition::Target);
 
 /**
  * simpler version of DocPosition for use in QMap
