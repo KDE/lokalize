@@ -161,7 +161,6 @@ void AltTransView::process()
     int i = 0;
     int limit = entries.size();
     QString translationDetails = i18n("From alternate translations folder");
-    QString keyboardShortcut;
     QString metadata;
     QString sourceString;
     QString targetString;
@@ -213,7 +212,7 @@ void AltTransView::process()
         if (!entry.target.isEmpty()) {
             m_actions.at(i)->setStatusTip(entry.target.string);
             if (Q_LIKELY(i < m_actions.size())) {
-                keyboardShortcut = m_actions.at(i)->shortcut().toString(QKeySequence::NativeText);
+                QString keyboardShortcut = m_actions.at(i)->shortcut().toString(QKeySequence::NativeText);
                 metadata = QStringLiteral("%1 • %2").arg(translationDetails, keyboardShortcut);
             } else {
                 metadata = translationDetails;
