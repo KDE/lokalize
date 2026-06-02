@@ -479,11 +479,8 @@ void TMView::slotSuggestionsCame(SelectJob *j)
     m_entriesList->viewport()->setUpdatesEnabled(false);
     m_entriesList->clear();
     int i = 0;
-    QString keyboardShortcut;
-    QString occurrences;
     QString percentageMatch;
     QString metadata;
-    QString source;
     QString target;
     while (true) {
         const TMEntry &entry = job.m_entries.at(i);
@@ -501,7 +498,7 @@ void TMView::slotSuggestionsCame(SelectJob *j)
                 "%1%",
                 int(entry.score / 100));
         }
-        occurrences = i18ncp(
+        QString occurrences = i18ncp(
             "The number of times a Translation Memory entry exists in the "
             "database, %1 is the number.",
             "Occurred %1 time",
@@ -510,7 +507,7 @@ void TMView::slotSuggestionsCame(SelectJob *j)
         if (Q_LIKELY(i < m_actions_insert.size())) {
             // For keyboard shortcuts.
             m_actions_insert.at(i)->setStatusTip(entry.target.string);
-            keyboardShortcut = m_actions_insert.at(i)->shortcut().toString(QKeySequence::NativeText);
+            QString keyboardShortcut = m_actions_insert.at(i)->shortcut().toString(QKeySequence::NativeText);
             metadata = i18nc(
                 "Percentage match (%1), number of occurrences (%2), and keyboard shortcut "
                 "(%3). Bullet point is a separator between the data and can be translated.",
@@ -539,8 +536,8 @@ void TMView::slotSuggestionsCame(SelectJob *j)
             // Work around HTML collapsing together multiple spaces
             target.replace(QLatin1String("  "), QLatin1String("&nbsp;&nbsp;"));
         }
-        source = entry.score >= 10000 ? QLatin1String("<strong>%1</strong>").arg(diffToHtmlDiff(entry.diff.toHtmlEscaped()))
-                                      : diffToHtmlDiff(entry.diff.toHtmlEscaped());
+        QString source = entry.score >= 10000 ? QLatin1String("<strong>%1</strong>").arg(diffToHtmlDiff(entry.diff.toHtmlEscaped()))
+                                              : diffToHtmlDiff(entry.diff.toHtmlEscaped());
         // Add a QLabel containing the TM entry HTML to a new list item.
         QListWidgetItem *translationMemoryEntryItem = new QListWidgetItem();
         DoubleClickToInsertTextQLabel *label = new DoubleClickToInsertTextQLabel(QStringLiteral("%1"
