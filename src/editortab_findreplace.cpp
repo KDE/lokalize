@@ -166,7 +166,8 @@ static void calcOffsetWithAccels(const QString &data, int &offset, int &length)
             limit = qMin(data.size(), offset + length); // just safety
         }
 }
-static bool determineStartingPos(Catalog *m_catalog, KFind *find, DocPosition &pos) // search or replace
+
+static bool determineStartingPos(const Catalog *m_catalog, KFind *find, DocPosition &pos) // search or replace
 // called from find() and findNext()
 {
     if (find->options() & KFind::FindBackwards) {
@@ -210,8 +211,8 @@ void EditorTab::find()
     DocPosition pos;
     if (m_find->options() & KFind::FromCursor)
         pos = m_currentPos;
-    else if (!determineStartingPos(m_catalog, m_find, pos))
-        return;
+
+    determineStartingPos(m_catalog, m_find, pos);
 
     findNext(pos);
 }
@@ -339,8 +340,7 @@ void EditorTab::replace()
         replaceNext(m_currentPos);
     else {
         DocPosition pos;
-        if (!determineStartingPos(m_catalog, m_replace, pos))
-            return;
+        determineStartingPos(m_catalog, m_replace, pos);
         replaceNext(pos);
     }
 }
