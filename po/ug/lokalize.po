@@ -7,29 +7,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-31 00:47+0000\n"
-"PO-Revision-Date: 2013-09-08 07:05+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"POT-Creation-Date: 2026-06-02 00:46+0000\n"
+"PO-Revision-Date: 2026-05-31 20:22-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #, kde-format
 msgid "default"
-msgstr ""
+msgstr "كۆڭۈلدىكى"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -38,10 +39,9 @@ msgid "Alternate Translations"
 msgstr ""
 
 #: src/alttransview.cpp:163
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgid "From alternate translations folder"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #: src/alttransview.cpp:186
 #, kde-format
@@ -68,11 +68,10 @@ msgid ""
 msgstr ""
 
 #: src/alttransview.cpp:264
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #: src/alttransview.cpp:265
 #, kde-format
@@ -634,7 +633,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr ""
 
-#: src/catalog/cmd.cpp:381 src/xlifftextedit.cpp:574
+#: src/catalog/cmd.cpp:381 src/xlifftextedit.cpp:575
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -659,11 +658,9 @@ msgid "Author Name Missing"
 msgstr ""
 
 #: src/catalog/gettextheader.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "NAME OF TRANSLATORS"
-#| msgid "Your names"
+#, kde-format
 msgid "Your name:"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئاتىڭىز:"
 
 #: src/catalog/gettextheader.cpp:467
 #, kde-format
@@ -672,11 +669,9 @@ msgid "Author Email Missing"
 msgstr ""
 
 #: src/catalog/gettextheader.cpp:468
-#, fuzzy, kde-format
-#| msgctxt "EMAIL OF TRANSLATORS"
-#| msgid "Your emails"
+#, kde-format
 msgid "Your email:"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr ""
 
 #: src/catalog/ts/tsstorage.cpp:437
 #, kde-format
@@ -691,10 +686,9 @@ msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:82 src/glossary/glossarytab.cpp:124
 #: src/project/projecttab.cpp:59
-#, fuzzy, kde-format
-#| msgid "&Search"
+#, kde-format
 msgid "Search"
-msgstr "ئىزدە(&S)"
+msgstr "ئىزدە"
 
 #: src/cataloglistview/cataloglistview.cpp:83 src/glossary/glossarytab.cpp:126
 #: src/project/projecttab.cpp:60
@@ -704,8 +698,7 @@ msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:90
-#, fuzzy, kde-format
-#| msgid "options"
+#, kde-format
 msgid "Options"
 msgstr "تاللانما"
 
@@ -773,7 +766,7 @@ msgstr ""
 #: src/cataloglistview/cataloglistview.cpp:227
 #, kde-format
 msgid "Plural"
-msgstr ""
+msgstr "كۆپلۈك"
 
 #: src/cataloglistview/cataloglistview.cpp:228
 #, kde-format
@@ -793,11 +786,10 @@ msgid "States"
 msgstr "ھالەت"
 
 #: src/cataloglistview/cataloglistview.cpp:236
-#, fuzzy, kde-format
-#| msgid "Local"
+#, kde-format
 msgctxt "@title:inmenu user selects a column to search within from a menu"
 msgid "Search Column"
-msgstr "يەرلىك"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:240
 #, kde-format
@@ -844,8 +836,7 @@ msgid "Context"
 msgstr "مەزمۇن"
 
 #: src/cataloglistview/catalogmodel.cpp:101
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Files"
 msgstr "ھۆججەت"
@@ -861,22 +852,19 @@ msgstr ""
 #, kde-format
 msgctxt "@title:column"
 msgid "Modified"
-msgstr ""
+msgstr "ئۆزگەرتىلگەن ۋاقتى"
 
 #: src/cataloglistview/catalogmodel.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source Length"
-msgstr "مەنبە"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#, fuzzy, kde-format
-#| msgid "Target language:"
+#, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target Length"
-msgstr "نىشان تىل:"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1212
 #: src/editortab.cpp:1417 src/tm/tmtab.cpp:233
@@ -886,11 +874,10 @@ msgid "Ready"
 msgstr "تەييار"
 
 #: src/cataloglistview/catalogmodel.cpp:147
-#, fuzzy, kde-format
-#| msgid "Review"
+#, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs Review"
-msgstr "تەكشۈر"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:149 src/editortab.cpp:1210
 #: src/tm/tmtab.cpp:235
@@ -900,24 +887,22 @@ msgid "Untranslated"
 msgstr "تەرجىمە قىلىنمىغان"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "yes"
+#, kde-format
 msgctxt "@info:status"
 msgid "Yes"
 msgstr "ھەئە"
 
 #: src/cataloglistview/catalogmodel.cpp:208
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info:status"
 msgid "No"
-msgstr "يوق"
+msgstr "ياق"
 
 #: src/common/languagelistmodel.cpp:74
 #, kde-format
 msgctxt "%1 is a language name, e.g. Irish, %2 is language code, e.g. ga"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/common/languagelistmodel.cpp:114 src/tm/dbparams.ui:146
@@ -929,7 +914,7 @@ msgstr "نىشان تىل:"
 #, kde-format
 msgctxt "@action:inmenu Edit term"
 msgid "Edit"
-msgstr "تەھرىرلەش"
+msgstr "تەھرىر"
 
 #: src/editortab.cpp:194 src/lokalizemainwindow.cpp:674
 #, kde-format
@@ -971,32 +956,28 @@ msgid "Glossary"
 msgstr "ئاتالغۇلار"
 
 #: src/editortab.cpp:213
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #: src/editortab.cpp:217
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #: src/editortab.cpp:283
-#, fuzzy, kde-format
-#| msgid "Add Data"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Note"
-msgstr "سانلىق-مەلۇمات قوش"
+msgstr ""
 
 #: src/editortab.cpp:292
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert translation memory suggestion #%1"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #: src/editortab.cpp:297
 #, kde-format
@@ -1020,19 +1001,19 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save All"
-msgstr ""
+msgstr "ھەممىنى ساقلا"
 
 #: src/editortab.cpp:392
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Revert All"
-msgstr ""
+msgstr "ھەممىنى ئەسلىگە ياندۇر"
 
 #: src/editortab.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
-msgstr ""
+msgstr "ھەممىنى ياپ"
 
 #: src/editortab.cpp:415
 #, kde-format
@@ -1041,19 +1022,16 @@ msgid "Phases…"
 msgstr ""
 
 #: src/editortab.cpp:418
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Word Count"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Word Count"
 msgstr "سۆز سانى"
 
 #: src/editortab.cpp:421
-#, fuzzy, kde-format
-#| msgid "Translator"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear Translated Entries"
-msgstr "تەرجىمان"
+msgstr ""
 
 #: src/editortab.cpp:424
 #, kde-format
@@ -1062,11 +1040,10 @@ msgid "Launch the Pology command on this file"
 msgstr ""
 
 #: src/editortab.cpp:428
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
-msgstr "تەرجىمىسى"
+msgstr ""
 
 #: src/editortab.cpp:452
 #, kde-format
@@ -1089,43 +1066,34 @@ msgid "Approve and Go Next"
 msgstr ""
 
 #: src/editortab.cpp:488
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent Translation"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #: src/editortab.cpp:499
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy source to target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source to Target"
-msgstr "مەنبەنى نىشانغا كۆچۈر"
+msgstr ""
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "مەنبە"
+msgstr ""
 
 #: src/editortab.cpp:504
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action item"
-#| msgid "Copy source to target"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
-msgstr "مەنبەنى نىشانغا كۆچۈر"
+msgstr ""
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "نىشان"
+msgstr ""
 
 #: src/editortab.cpp:514
 #, kde-format
@@ -1134,12 +1102,10 @@ msgid "Copy target message to clipboard"
 msgstr ""
 
 #: src/editortab.cpp:522
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap Target"
-msgstr "نىشان"
+msgstr ""
 
 #: src/editortab.cpp:529 src/filesearch/filesearchtab.cpp:137
 #, kde-format
@@ -1230,40 +1196,32 @@ msgid "Next non-empty but not ready"
 msgstr ""
 
 #: src/editortab.cpp:599 src/project/projecttab.cpp:112
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Untranslated"
-msgstr "تەرجىمە قىلىنمىغان"
+msgstr ""
 
 #: src/editortab.cpp:604 src/project/projecttab.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Untranslated"
-msgstr "تەرجىمە قىلىنمىغان"
+msgstr ""
 
 #: src/editortab.cpp:610 src/project/projecttab.cpp:88
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous bookmark"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous Not Ready"
-msgstr "ئالدىنقى خەتكۈش"
+msgstr ""
 
 #: src/editortab.cpp:622 src/project/projecttab.cpp:94
-#, fuzzy, kde-format
-#| msgctxt "@title:column Number of entries"
-#| msgid "Not ready"
+#, kde-format
 msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Next Not Ready"
-msgstr "تەييار ئەمەس"
+msgstr ""
 
 #: src/editortab.cpp:631
 #, kde-format
@@ -1272,24 +1230,19 @@ msgid "Focus the search line of Translation Units view"
 msgstr ""
 
 #: src/editortab.cpp:635
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@option:check"
 msgid "Bookmark Message"
-msgstr "خەتكۈچلەر(&B)"
+msgstr ""
 
 #: src/editortab.cpp:640
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Previous bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Bookmark"
 msgstr "ئالدىنقى خەتكۈش"
 
 #: src/editortab.cpp:644
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next bookmark"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Bookmark"
 msgstr "كېيىنكى خەتكۈش"
@@ -1411,11 +1364,10 @@ msgid "Warning"
 msgstr "ئاگاھلاندۇرۇش"
 
 #: src/editortab.cpp:858 src/mergemode/mergeview.cpp:166
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #: src/editortab.cpp:948
 #, kde-format
@@ -1465,18 +1417,19 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
+"بۇ <filename>%1</filename> ھۆججەتنى باشقا پىروگرامما ئۆزگەرتكەن. ئەگەر ھازىر "
+"ساقلىسىڭىز، باشقا پىروگراممىدا ئۆزگەرتىلگىنى يوقاپ كېتىدۇ. راستتىنلا "
+"داۋاملاشتۇرامسىز؟"
 
 #: src/editortab.cpp:1022
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "ئاگاھلاندۇرۇش"
+msgstr "ساقلاش - ئاگاھلاندۇرۇش"
 
 #: src/editortab.cpp:1024
 #, kde-format
 msgid "Save a Copy Elsewhere"
-msgstr ""
+msgstr "باشقا جايغا بىر نۇسخا ساقلا"
 
 #: src/editortab.cpp:1117
 #, kde-format
@@ -1539,11 +1492,10 @@ msgid "There are no bookmarked entries."
 msgstr ""
 
 #: src/editortab.cpp:1492
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "خەتكۈچلەر(&B)"
+msgstr "خەتكۈش تەھرىر"
 
 #: src/editortab.cpp:1499
 #, kde-format
@@ -1558,12 +1510,10 @@ msgid "Entry %1: %2"
 msgstr ""
 
 #: src/editortab.cpp:1543
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "تازىلا"
+msgstr "ھەممىنى تازىلا"
 
 #: src/editortab.cpp:1587 src/project/projecttab.cpp:290
 #, kde-format
@@ -1622,11 +1572,10 @@ msgid "Word Count"
 msgstr "سۆز سانى"
 
 #: src/editortab.cpp:1655
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #: src/editortab.cpp:1753
 #, kde-format
@@ -1642,19 +1591,16 @@ msgid "Source file lookup"
 msgstr ""
 
 #: src/editortab.cpp:1755
-#, fuzzy, kde-format
-#| msgid "Local"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "يەرلىك"
+msgstr ""
 
 #: src/editortab.cpp:1756 src/editortab.cpp:1800
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search in files"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "ھۆججەتتىن ئىزدە"
+msgstr ""
 
 #: src/editortab.cpp:1759 src/editortab.cpp:1804
 #, kde-format
@@ -1676,11 +1622,10 @@ msgid "Source file lookup"
 msgstr ""
 
 #: src/editortab.cpp:1799
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "قىسقۇچ تاللاش:"
+msgstr "قىسقۇچ تاللا"
 
 #: src/editortab.cpp:1841
 #, kde-format
@@ -1775,10 +1720,9 @@ msgstr ""
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:135
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgid "Alternate Translations"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #. i18n: ectx: Menu (go)
 #: src/editorui.rc:154 src/filesearch/filesearchtabui.rc:14
@@ -1792,7 +1736,7 @@ msgstr "يۆتكەل(&G)"
 #: src/editorui.rc:185
 #, kde-format
 msgid "&Bookmarks"
-msgstr "خەتكۈچلەر(&B)"
+msgstr "خەتكۈچ(&B)"
 
 #. i18n: ectx: Menu (merge)
 #: src/editorui.rc:193 src/filesearch/filesearchtabui.rc:17
@@ -1843,7 +1787,7 @@ msgstr "يوشۇر"
 #, kde-format
 msgctxt "@info:label cursor position"
 msgid "Column: %1"
-msgstr "ئىستون: %1"
+msgstr "رەت: %1"
 
 #: src/editorview.cpp:84
 #, kde-format
@@ -1917,7 +1861,7 @@ msgstr "نىشان:"
 #: src/filesearch/massreplaceoptions.ui:85
 #, kde-format
 msgid "Match case"
-msgstr ""
+msgstr "چوڭ كىچىك ھەرپنى پەرقلەندۈر"
 
 #. i18n: ectx: property (text), widget (QPushButton, doFind)
 #: src/filesearch/filesearchoptions.ui:96 src/tm/queryoptions.ui:190
@@ -1932,10 +1876,9 @@ msgid "File List"
 msgstr "ھۆججەت تىزىمى"
 
 #: src/filesearch/filesearchtab.cpp:122
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgid "Drop translation files here…"
-msgstr "قىسقۇچ تاللاش:"
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
 #, kde-format
@@ -1944,12 +1887,10 @@ msgid "File"
 msgstr "ھۆججەت"
 
 #: src/filesearch/filesearchtab.cpp:448
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Search && Replace"
-msgstr "ھۆججەتلەردىن ئىزدەش ۋە ئالماشتۇرۇش"
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:405
 #, kde-format
@@ -1967,20 +1908,16 @@ msgid "Open file"
 msgstr "ھۆججەت ئاچ"
 
 #: src/filesearch/filesearchtab.cpp:517
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@title actions category"
 msgid "Search && Replace"
-msgstr "ھۆججەتلەردىن ئىزدەش ۋە ئالماشتۇرۇش"
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:722
-#, fuzzy, kde-format
-#| msgctxt "@item Undo action item"
-#| msgid "Replace"
+#, kde-format
 msgctxt "@title:window"
 msgid "Mass Replace"
-msgstr "ئالماشتۇر"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/filesearch/massreplaceoptions.ui:17
@@ -2048,11 +1985,9 @@ msgid ""
 msgstr ""
 
 #: src/glossary/glossary.cpp:653
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgid "Glossary Error"
-msgstr "ئاتالغۇلار"
+msgstr ""
 
 #: src/glossary/glossary.cpp:661
 #, kde-format
@@ -2070,9 +2005,7 @@ msgid "Cannot write to file. Check permissions."
 msgstr ""
 
 #: src/glossary/glossarytab.cpp:89
-#, fuzzy, kde-format
-#| msgctxt "@title actions category"
-#| msgid "Glossary"
+#, kde-format
 msgctxt "@title"
 msgid "Glossary"
 msgstr "ئاتالغۇلار"
@@ -2109,10 +2042,9 @@ msgid "English term:"
 msgstr ""
 
 #: src/glossary/glossarytab.cpp:323
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgid "Target term:"
-msgstr "نىشان:"
+msgstr ""
 
 #: src/glossary/glossaryview.cpp:36 src/glossary/glossaryview.cpp:43
 #, kde-format
@@ -2141,9 +2073,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, addEngTerm)
 #. i18n: ectx: property (text), widget (QPushButton, addTargetTerm)
 #: src/glossary/termedit.ui:32 src/glossary/termedit.ui:78
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add"
+#, kde-format
 msgid "Add"
 msgstr "قوش"
 
@@ -2218,15 +2148,7 @@ msgid "No errors"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:102
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>You do not have to be a software developer to be a member of the "
-#| "KDE team. You can join the national teams that translate program "
-#| "interfaces. You can provide graphics, themes, sounds, and improved "
-#| "documentation. You decide!<br /><br />Visit <a href=\"%1\">%1</a> for "
-#| "information on some projects in which you can participate.<br /><br />If "
-#| "you need more information or documentation, then a visit to <a href="
-#| "\"%2\">%2</a> will provide you with what you need.</html>"
+#, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
 "team. You can join the language teams that translate program interfaces. You "
@@ -2234,44 +2156,30 @@ msgid ""
 "<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
 "which you can participate.</html>"
 msgstr ""
-"<html>KDE ئەترىتىنىڭ ئەزايى بولۇش ئۈچۈن، سىزنىڭ يۇمشاق دېتال ئىنژېنېرى "
-"بۆلىشىڭىز تەلەپ قىلىنمايدۇ. سىز كۆرۈنمە يۈز ئۇچۇرلىرىنى تەرجىمە قىلىدىغان "
-"ئەترەتكە قوشۇلسىڭىزمۇ بولىدۇ. سىز گرافىك، ئۇسلۇب، ئۈن، ۋە پۈتۈكلەرنى "
-"ياخشىلاش ئىشلىرىنى قىلسىڭىزمۇ بولىدۇ. بۇلارنى ئۆزىڭىز بەلگىلەيسىز!<br /><br /"
-"><a href=\"%1\">%1</a> نى زىيارەت قىلىپ كۆرۈڭ، سىز قاتنىشالايدىغان "
-"قۇرۇلۇشلار بار. <br /><br />ئەگەر تېخىمۇ كۆپ ئۇچۇر ۋە پۈتۈكلەرگە ئېرىشمەكچى "
-"بولسىڭىز، <a href=\"%2\">%2</a> نى زىيارەت قىلىڭ. سىزگە ئېھتىياجلىق بولغان "
-"نەرسە چوقۇم چىقىدۇ.</html>"
 
 #: src/lokalizemainwindow.cpp:119
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Configure project"
+#, kde-format
 msgid "&Configure Lokalize…"
-msgstr "قۇرۇلۇش تەڭشەيدۇ"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:120 src/lokalizemainwindow.cpp:742
 #: src/project/projecttab.cpp:164
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
-msgstr "يېقىنقى قۇرۇلۇشنى ئاچ"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:121
-#, fuzzy, kde-format
-#| msgid "Translator"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate Software…"
-msgstr "تەرجىمان"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:122
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument…"
-msgstr "تەرجىمىسى"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:183
 #, kde-format
@@ -2280,10 +2188,9 @@ msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:577 src/project/project.cpp:217
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
-msgstr "تەرجىمە خاتىرىسى"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:577 src/project/project.cpp:217
 #, kde-format
@@ -2303,18 +2210,14 @@ msgid "Project"
 msgstr "قۇرۇلۇش"
 
 #: src/lokalizemainwindow.cpp:700
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu entry"
-#| msgid "&Next"
+#, kde-format
 msgid "Next Tab"
-msgstr "كېيىنكى(&N)"
+msgstr "كېيىنكى بەتكۈچ"
 
 #: src/lokalizemainwindow.cpp:703
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu entry"
-#| msgid "&Previous"
+#, kde-format
 msgid "Previous Tab"
-msgstr "ئالدىنقى(&P)"
+msgstr "ئالدىنقى بەتكۈچ"
 
 #: src/lokalizemainwindow.cpp:706
 #, kde-format
@@ -2324,7 +2227,7 @@ msgstr ""
 #: src/lokalizemainwindow.cpp:709
 #, kde-format
 msgid "Close Current Tab"
-msgstr ""
+msgstr "نۆۋەتتىكى بەتكۈچنى ياپ"
 
 #: src/lokalizemainwindow.cpp:715
 #, kde-format
@@ -2333,34 +2236,28 @@ msgid "Glossary"
 msgstr "ئاتالغۇلار"
 
 #: src/lokalizemainwindow.cpp:721
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "تەرجىمە خاتىرىسى"
 
 #: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:489
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
-msgstr "تەرجىمە خاتىرىسى"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:729
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
-msgstr "قۇرۇلۇشنىڭ قىسقىچە مەزمۇنى"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:733
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Configure project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
-msgstr "قۇرۇلۇش تەڭشەيدۇ"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:736
 #, kde-format
@@ -2375,28 +2272,22 @@ msgid "Create OpenDocument Translation Project…"
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:746
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Configure project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
-msgstr "قۇرۇلۇش تەڭشەيدۇ"
+msgstr "قۇرۇلۇشنى ياپ"
 
 #: src/lokalizemainwindow.cpp:749
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
-msgstr "يېقىنقى قۇرۇلۇشنى ئاچ"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:759
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Search and replace in files"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
-msgstr "ھۆججەتلەردىن ئىزدەش ۋە ئالماشتۇرۇش"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:762
 #, kde-format
@@ -2413,7 +2304,7 @@ msgstr ""
 #: src/lokalizemainwindow.cpp:779
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "كۆزنەك رەڭ لايىھەسى(&W)"
 
 #: src/lokalizemainwindow.cpp:953
 #, kde-format
@@ -2487,10 +2378,9 @@ msgid "provided excellent cross-format converting scripts"
 msgstr ""
 
 #: src/main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "LanguageTool"
-msgstr "تىل"
+msgstr ""
 
 #: src/main.cpp:89
 #, kde-format
@@ -2520,12 +2410,12 @@ msgstr ""
 #: src/main.cpp:92
 #, kde-format
 msgid "Chusslove Illich"
-msgstr "Chusslove Illich"
+msgstr ""
 
 #: src/main.cpp:93
 #, kde-format
 msgid "Jure Repinc"
-msgstr "Jure Repinc"
+msgstr ""
 
 #: src/main.cpp:93
 #, kde-format
@@ -2688,17 +2578,16 @@ msgid "<br><b>Context:</b><br>"
 msgstr ""
 
 #: src/msgctxtview.cpp:223
-#, fuzzy, kde-format
-#| msgid "Empty"
+#, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
-msgstr "بوش"
+msgstr "(بوش)"
 
 #: src/noteeditor.cpp:41
 #, kde-format
 msgctxt "@info:label"
 msgid "From:"
-msgstr "ئەۋەتكۈچى:"
+msgstr "كىمدىن:"
 
 #: src/noteeditor.cpp:45
 #, kde-format
@@ -2738,7 +2627,7 @@ msgstr ""
 #, kde-format
 msgctxt "link to add a note"
 msgid "Add…"
-msgstr ""
+msgstr "قوش…"
 
 #: src/noteeditor.cpp:132
 #, kde-format
@@ -2779,7 +2668,7 @@ msgstr "قورال"
 #: src/phaseswindow.cpp:177
 #, kde-format
 msgid "Translation"
-msgstr "تەرجىمىسى"
+msgstr "تەرجىمە"
 
 #: src/phaseswindow.cpp:177
 #, kde-format
@@ -2841,17 +2730,15 @@ msgstr ""
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:34
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "Language Team"
-msgstr "تىل"
+msgstr ""
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:35
-#, fuzzy, kde-format
-#| msgid "Translator"
+#, kde-format
 msgid "Translator team's name"
-msgstr "تەرجىمان"
+msgstr ""
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:41
@@ -2878,16 +2765,13 @@ msgstr ""
 #. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
 #: src/prefs/lokalize.kcfg:67 src/prefs/lokalize.kcfg:83
 #: src/prefs/lokalize.kcfg:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "\n"
-#| "        "
+#, kde-format
 msgid ""
 "\n"
 "            "
 msgstr ""
 "\n"
-"        "
+"            "
 
 #. i18n: ectx: label, entry (MsgFont), group (Appearance)
 #: src/prefs/lokalize.kcfg:73
@@ -2925,7 +2809,7 @@ msgstr "تەھرىرلەۋاتىدۇ"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
-msgstr "كۆرۈنۈشى"
+msgstr "قىياپەت"
 
 #: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:382
 #, kde-format
@@ -2940,11 +2824,10 @@ msgid "Pology"
 msgstr ""
 
 #: src/prefs/prefs.cpp:131
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
-msgstr "تىل"
+msgstr ""
 
 #: src/prefs/prefs.cpp:145
 #, kde-format
@@ -2954,27 +2837,22 @@ msgid ""
 msgstr ""
 
 #: src/prefs/prefs.cpp:146
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "قۇرۇلۇشنىڭ قىسقىچە مەزمۇنى"
+msgstr ""
 
 #: src/prefs/prefs.cpp:147
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project…"
-msgstr "يېڭى قۇرۇلۇش قۇر"
+msgstr ""
 
 #: src/prefs/prefs.cpp:148
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project…"
-msgstr "يېقىنقى قۇرۇلۇشنى ئاچ"
+msgstr ""
 
 #: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
@@ -3176,21 +3054,17 @@ msgstr "كۆڭۈلدىكى تىل:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/prefs/prefs_identity.ui:48
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Email:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Email:"
-msgstr "ئېلخەت:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/prefs/prefs_identity.ui:61
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Name:"
-msgstr "ئاتى:"
+msgstr "ئاتى(&N):"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorName)
 #: src/prefs/prefs_identity.ui:74
@@ -3206,12 +3080,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_identity.ui:84
-#, fuzzy, kde-format
-#| msgctxt "@label:chooser"
-#| msgid "Default language:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Default mailing list:"
-msgstr "كۆڭۈلدىكى تىل:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
 #: src/prefs/prefs_identity.ui:94
@@ -3272,11 +3144,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_overrideLangTeam)
 #: src/prefs/prefs_identity.ui:164
-#, fuzzy, kde-format
-#| msgctxt "@label:chooser"
-#| msgid "Default language:"
+#, kde-format
 msgid "Default Language-Team:"
-msgstr "كۆڭۈلدىكى تىل:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
 #: src/prefs/prefs_languagetool.ui:21
@@ -3453,7 +3323,7 @@ msgstr ""
 #: src/project/prefs_project_advanced.ui:17
 #, kde-format
 msgid "Syntax"
-msgstr "گرامماتىكا"
+msgstr "گىرامماتىكا"
 
 #. i18n: ectx: property (text), widget (QLabel, l0)
 #: src/project/prefs_project_advanced.ui:23
@@ -3677,7 +3547,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "ID:"
-msgstr "ID:"
+msgstr "كىملىك:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:118
@@ -3698,14 +3568,13 @@ msgstr ""
 #: src/project/prefs_projectmain.ui:155
 #, kde-format
 msgid "Automatic"
-msgstr ""
+msgstr "ئاپتوماتىك"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:160
-#, fuzzy, kde-format
-#| msgid "Location:"
+#, kde-format
 msgid "Application"
-msgstr "ئورنى:"
+msgstr "پىروگرامما"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:165
@@ -3715,10 +3584,9 @@ msgstr "قۇرۇلۇش"
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_projectmain.ui:180
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "Language-Team:"
-msgstr "تىل"
+msgstr ""
 
 #: src/project/project.cpp:371
 #, kde-format
@@ -3726,18 +3594,15 @@ msgid "Scanning folders with source files"
 msgstr ""
 
 #: src/project/project.cpp:371
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Edit term"
-#| msgid "Edit"
+#, kde-format
 msgid "Editor"
-msgstr "تەھرىرلەش"
+msgstr "تەھرىرلىگۈچ"
 
 #: src/project/project.cpp:411
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
-msgstr "تەرجىمىسى"
+msgstr ""
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:17
@@ -3793,7 +3658,7 @@ msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
 "counts"
 msgid "Graph"
-msgstr "گرافىك"
+msgstr "گىرافىك"
 
 #: src/project/projectmodel.cpp:472
 #, kde-format
@@ -3808,9 +3673,7 @@ msgid "Translated"
 msgstr "تەرجىمە قىلىنغان"
 
 #: src/project/projectmodel.cpp:476
-#, fuzzy, kde-format
-#| msgctxt "@title:column Number of entries"
-#| msgid "Not ready"
+#, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not Ready"
 msgstr "تەييار ئەمەس"
@@ -3825,7 +3688,7 @@ msgstr "تەرجىمە قىلىنمىغان"
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
-msgstr ""
+msgstr "كەمتۈك"
 
 #: src/project/projectmodel.cpp:482
 #, kde-format
@@ -3837,7 +3700,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
-msgstr ""
+msgstr "ئىزاھات"
 
 #: src/project/projectmodel.cpp:486
 #, kde-format
@@ -3852,12 +3715,10 @@ msgid "Last Translator"
 msgstr "ئەڭ ئاخىرقى تەرجىمان"
 
 #: src/project/projecttab.cpp:54
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Project Overview"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Project Overview"
-msgstr "قۇرۇلۇشنىڭ قىسقىچە مەزمۇنى"
+msgstr ""
 
 #: src/project/projecttab.cpp:124
 #, kde-format
@@ -3872,18 +3733,16 @@ msgid "Next Template Only"
 msgstr ""
 
 #: src/project/projecttab.cpp:135
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous Translation Only"
-msgstr "تەرجىمىسى"
+msgstr ""
 
 #: src/project/projecttab.cpp:138
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Next Translation Only"
-msgstr "تەرجىمىسى"
+msgstr ""
 
 #: src/project/projecttab.cpp:142
 #, kde-format
@@ -3898,12 +3757,10 @@ msgid "Hide fully translated files and folders"
 msgstr ""
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "تەرجىمە قىلىنمىغان"
+msgstr ""
 
 #: src/project/projecttab.cpp:152
 #, kde-format
@@ -3912,11 +3769,10 @@ msgid "Open the directory tree to untranslated files"
 msgstr ""
 
 #: src/project/projecttab.cpp:194
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
-msgstr "ھۆججەت ئاچ"
+msgstr ""
 
 #: src/project/projecttab.cpp:197
 #, kde-format
@@ -3988,11 +3844,10 @@ msgid "Are you sure you want to open this many files?"
 msgstr ""
 
 #: src/project/projecttab.cpp:322
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
-msgstr[0] "ھۆججەت ئاچ"
+msgstr[0] ""
 
 #: src/statusbar.cpp:53
 #, kde-format
@@ -4018,7 +3873,7 @@ msgstr ""
 #, kde-format
 msgctxt "percentages in statusbar"
 msgid " (%1%)"
-msgstr " (%1%)"
+msgstr ""
 
 #: src/statusbar.cpp:94
 #, kde-format
@@ -4078,7 +3933,7 @@ msgstr "ساندان ئاتى:"
 #: src/tm/dbparams.ui:45
 #, kde-format
 msgid "Host:"
-msgstr "كومپيۇتېر:"
+msgstr "مۇلازىمېتىر:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: src/tm/dbparams.ui:62
@@ -4144,7 +3999,7 @@ msgstr "ياسا"
 #: src/tm/managedatabases.ui:26
 #, kde-format
 msgid "Add Data"
-msgstr "سانلىق-مەلۇمات قوش"
+msgstr "سانلىق مەلۇمات قوش"
 
 #. i18n: ectx: property (text), widget (QPushButton, importTMX)
 #: src/tm/managedatabases.ui:33
@@ -4184,10 +4039,9 @@ msgstr "چىقىرىۋەت"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/queryoptions.ui:32
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgid "Translation Memory:"
-msgstr "تەرجىمە خاتىرىسى"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
@@ -4207,10 +4061,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgid "File Mask:"
-msgstr "ھۆججەت"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
 #: src/tm/queryoptions.ui:155
@@ -4220,10 +4073,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_s)
 #: src/tm/queryoptions.ui:162
-#, fuzzy, kde-format
-#| msgid "Syntax"
+#, kde-format
 msgid "Query Syntax:"
-msgstr "گرامماتىكا"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:197
@@ -4235,11 +4087,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open recent project"
+#, kde-format
 msgid "&Rescan Project"
-msgstr "يېقىنقى قۇرۇلۇشنى ئاچ"
+msgstr ""
 
 #: src/tm/tmmanager.cpp:34
 #, kde-format
@@ -4293,18 +4143,16 @@ msgid "TM"
 msgstr ""
 
 #: src/tm/tmtab.cpp:79
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "مەنبە:"
+msgstr "مەنبە: %1"
 
 #: src/tm/tmtab.cpp:84
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "نىشان:"
+msgstr ""
 
 #: src/tm/tmtab.cpp:363
 #, kde-format
@@ -4395,14 +4243,12 @@ msgid "100% (perfect match)"
 msgstr ""
 
 #: src/tm/tmview.cpp:501
-#, fuzzy, kde-format
-#| msgctxt "percentages in statusbar"
-#| msgid " (%1%)"
+#, kde-format
 msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
 msgid "%1%"
-msgstr " (%1%)"
+msgstr "%1%"
 
 #: src/tm/tmview.cpp:507
 #, kde-format
@@ -4454,11 +4300,10 @@ msgid "<br />Last change author: %1"
 msgstr ""
 
 #: src/tm/tmview.cpp:584
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@info:tooltip on translation memory entry continues"
 msgid "<br />Translation memory: %1"
-msgstr "تەرجىمە خاتىرىسى"
+msgstr ""
 
 #: src/tm/tmview.cpp:586
 #, kde-format
@@ -4505,11 +4350,10 @@ msgid ""
 msgstr ""
 
 #: src/tm/tmview.cpp:680
-#, fuzzy, kde-format
-#| msgid "Translation Memory"
+#, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
-msgstr "تەرجىمە خاتىرىسى"
+msgstr ""
 
 #: src/tm/tmview.cpp:963
 #, kde-format
@@ -4540,18 +4384,6 @@ msgid ""
 "translation memory with all translation files indexed for this feature to "
 "work.</p></html>"
 msgstr ""
-"<html>\n"
-"<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-"text from applications' user interfaces and search for translation files "
-"containing the text.</p>\n"
-"<p align=\"justify\">When enabled, the capture can be initiated by middle "
-"mouse clicking on any non-editable GUI element (widget). After that, switch "
-"to the Lokalize window and choose the entry with this text. Even if several "
-"files contain the same string, the right one will be chosen in most cases.</"
-"p>\n"
-"<p align=\"justify\">Remember that you need to have an up-to-date actual "
-"translation memory with all translation files indexed for this feature to "
-"work.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:42
@@ -4577,29 +4409,29 @@ msgstr ""
 msgid "Copy GUI element text to clipboard"
 msgstr ""
 
-#: src/xlifftextedit.cpp:877
+#: src/xlifftextedit.cpp:876
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr ""
 
-#: src/xlifftextedit.cpp:957
+#: src/xlifftextedit.cpp:956
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
-msgstr ""
+msgstr "تېكىست ئالماشتۇر"
 
-#: src/xlifftextedit.cpp:996
+#: src/xlifftextedit.cpp:995
 #, kde-format
 msgid "no spellcheck available"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1012
+#: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
 msgstr ""
 
-#: src/xlifftextedit.cpp:1172
+#: src/xlifftextedit.cpp:1171
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
@@ -4614,21 +4446,18 @@ msgstr "مەنبەنى نىشانغا كۆچۈر"
 #~ msgid "-"
 #~ msgstr "-"
 
-#, fuzzy
 #~| msgctxt "@action:inmenu"
 #~| msgid "Open recent project"
 #~ msgctxt "@action:inmenu"
 #~ msgid "Open Project"
 #~ msgstr "يېقىنقى قۇرۇلۇشنى ئاچ"
 
-#, fuzzy
 #~| msgctxt "@action:inmenu"
 #~| msgid "Open recent project"
 #~ msgctxt "@action"
 #~ msgid "Open Project"
 #~ msgstr "يېقىنقى قۇرۇلۇشنى ئاچ"
 
-#, fuzzy
 #~| msgctxt "@action:inmenu"
 #~| msgid "Open recent project"
 #~ msgctxt "@action:inmenu"
@@ -4643,7 +4472,6 @@ msgstr "مەنبەنى نىشانغا كۆچۈر"
 #~ msgid "Current: %1"
 #~ msgstr "نۆۋەتتىكى: %1"
 
-#, fuzzy
 #~| msgctxt "percentages in statusbar"
 #~| msgid " (%1%)"
 #~ msgctxt ""
@@ -4655,7 +4483,6 @@ msgstr "مەنبەنى نىشانغا كۆچۈر"
 #~ msgid "Tools"
 #~ msgstr "قوراللار"
 
-#, fuzzy
 #~| msgctxt "@action:inmenu"
 #~| msgid "Completion"
 #~ msgid "Compile .po"
@@ -4671,7 +4498,6 @@ msgstr "مەنبەنى نىشانغا كۆچۈر"
 #~ msgid "String Matching"
 #~ msgstr "تېكىست ماسلاشتۇرۇش"
 
-#, fuzzy
 #~| msgid "Local"
 #~ msgid "Locally"
 #~ msgstr "يەرلىك"
@@ -4687,7 +4513,6 @@ msgstr "مەنبەنى نىشانغا كۆچۈر"
 #~ msgid "Query"
 #~ msgstr "سۈرۈشتۈر"
 
-#, fuzzy
 #~| msgid "Remove"
 #~ msgctxt "Button label"
 #~ msgid "Remove"
@@ -4697,7 +4522,6 @@ msgstr "مەنبەنى نىشانغا كۆچۈر"
 #~ msgid "Scripts"
 #~ msgstr "قوليازما"
 
-#, fuzzy
 #~| msgctxt "@title:inmenu"
 #~| msgid "States"
 #~ msgctxt ""
@@ -4706,19 +4530,16 @@ msgstr "مەنبەنى نىشانغا كۆچۈر"
 #~ msgid "State"
 #~ msgstr "ھالەت"
 
-#, fuzzy
 #~| msgctxt "@label:chooser"
 #~| msgid "Default language:"
 #~ msgid "Default source language:"
 #~ msgstr "كۆڭۈلدىكى تىل:"
 
-#, fuzzy
 #~| msgctxt "@label:chooser"
 #~| msgid "Default language:"
 #~ msgid "Default target language:"
 #~ msgstr "كۆڭۈلدىكى تىل:"
 
-#, fuzzy
 #~| msgctxt "@title actions category"
 #~| msgid "Glossary"
 #~ msgid "Glossary file:"

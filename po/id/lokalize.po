@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-31 00:47+0000\n"
+"POT-Creation-Date: 2026-06-02 00:46+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -739,7 +739,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Hapus teks dengan tanda baca"
 
-#: src/catalog/cmd.cpp:381 src/xlifftextedit.cpp:574
+#: src/catalog/cmd.cpp:381 src/xlifftextedit.cpp:575
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4961,29 +4961,29 @@ msgstr "Cari teks unsur GUI dalam memori terjemahan"
 msgid "Copy GUI element text to clipboard"
 msgstr "Salin teks unsur GUI ke papan-klip"
 
-#: src/xlifftextedit.cpp:877
+#: src/xlifftextedit.cpp:876
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Perlihatkan teks yang dipilih dalam memori terjemahan"
 
-#: src/xlifftextedit.cpp:957
+#: src/xlifftextedit.cpp:956
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Ganti teks"
 
-#: src/xlifftextedit.cpp:996
+#: src/xlifftextedit.cpp:995
 #, kde-format
 msgid "no spellcheck available"
 msgstr "tidak ada periksa-ejaan yang tersedia"
 
-#: src/xlifftextedit.cpp:1012
+#: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Melaporkan sebuah kesalahan: %1"
 
-#: src/xlifftextedit.cpp:1172
+#: src/xlifftextedit.cpp:1171
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

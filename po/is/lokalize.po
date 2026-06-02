@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-31 00:47+0000\n"
-"PO-Revision-Date: 2026-04-13 18:19+0000\n"
+"POT-Creation-Date: 2026-06-02 00:46+0000\n"
+"PO-Revision-Date: 2026-06-01 16:44+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -709,7 +709,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Fjarlægja texta með merkjum"
 
-#: src/catalog/cmd.cpp:381 src/xlifftextedit.cpp:574
+#: src/catalog/cmd.cpp:381 src/xlifftextedit.cpp:575
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -1155,31 +1155,25 @@ msgid "Copy Source to Target"
 msgstr "Afrita úr frummáli í markmál"
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "Frummál"
+msgstr "Afrita frummál"
 
 #: src/editortab.cpp:504
-#, fuzzy, kde-format
-#| msgid "Copy source to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
 msgstr "Afrita frummálstexta á klippispjaldið"
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "Markmál"
+msgstr "Afrita markmál"
 
 #: src/editortab.cpp:514
-#, fuzzy, kde-format
-#| msgid "Copy target to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
 msgstr "Afrita markmálstexta á klippispjaldið"
@@ -4011,19 +4005,16 @@ msgid "Hide fully translated files and folders"
 msgstr "Fela fullþýddar skrár og möppur"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Næsta óþýtt"
+msgstr "Fletta út óþýddum möppum"
 
 #: src/project/projecttab.cpp:152
-#, fuzzy, kde-format
-#| msgid "Prefetch for the next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr "Sækja fyrirfram vegna næsta óþýdda"
+msgstr "Opna möppugreinar að óþýddum skrám"
 
 #: src/project/projecttab.cpp:194
 #, kde-format
@@ -4694,29 +4685,29 @@ msgstr "Leita að texta viðmótshluta í þýðingaminni"
 msgid "Copy GUI element text to clipboard"
 msgstr "Afrita texta viðmótshluta á klippispjald"
 
-#: src/xlifftextedit.cpp:877
+#: src/xlifftextedit.cpp:876
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Leita að völdum texta í þýðingaminni"
 
-#: src/xlifftextedit.cpp:957
+#: src/xlifftextedit.cpp:956
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Skipta út texta"
 
-#: src/xlifftextedit.cpp:996
+#: src/xlifftextedit.cpp:995
 #, kde-format
 msgid "no spellcheck available"
 msgstr "engin stafsetningaryfirferð tiltæk"
 
-#: src/xlifftextedit.cpp:1012
+#: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Villa kom upp: %1"
 
-#: src/xlifftextedit.cpp:1172
+#: src/xlifftextedit.cpp:1171
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

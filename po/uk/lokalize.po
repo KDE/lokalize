@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-31 00:47+0000\n"
+"POT-Creation-Date: 2026-06-02 00:46+0000\n"
 "PO-Revision-Date: 2026-05-13 08:47+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -719,7 +719,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Вилучення тексту з розміткою"
 
-#: src/catalog/cmd.cpp:381 src/xlifftextedit.cpp:574
+#: src/catalog/cmd.cpp:381 src/xlifftextedit.cpp:575
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4730,29 +4730,29 @@ msgstr "Шукати текст елемента інтерфейсу у пам�
 msgid "Copy GUI element text to clipboard"
 msgstr "Копіювати текст елемента інтерфейсу до буфера"
 
-#: src/xlifftextedit.cpp:877
+#: src/xlifftextedit.cpp:876
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Шукати позначений фрагмент тексту у пам’яті перекладів"
 
-#: src/xlifftextedit.cpp:957
+#: src/xlifftextedit.cpp:956
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Замінити текст"
 
-#: src/xlifftextedit.cpp:996
+#: src/xlifftextedit.cpp:995
 #, kde-format
 msgid "no spellcheck available"
 msgstr "перевірка правопису недоступна"
 
-#: src/xlifftextedit.cpp:1012
+#: src/xlifftextedit.cpp:1011
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Повідомлено про помилку: %1"
 
-#: src/xlifftextedit.cpp:1172
+#: src/xlifftextedit.cpp:1171
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
