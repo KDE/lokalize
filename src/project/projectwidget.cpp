@@ -175,7 +175,7 @@ bool ProjectOverviewSortFilterProxyModel::filterAcceptsRow(int source_row, const
 bool ProjectOverviewSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
     static QCollator collator;
-    ProjectModel *projectModel = static_cast<ProjectModel *>(sourceModel());
+    const ProjectModel *projectModel = static_cast<ProjectModel *>(sourceModel());
     const KFileItem leftFileItem = projectModel->itemForIndex(left);
     const KFileItem rightFileItem = projectModel->itemForIndex(right);
 
@@ -379,7 +379,7 @@ void ProjectWidget::recursiveAdd(QStringList &list, const QModelIndex &idx) cons
     if (!m_proxyModel->filterAcceptsRow(idx.row(), idx.parent())) {
         return;
     }
-    ProjectModel &model = *(Project::instance()->model());
+    const ProjectModel &model = *(Project::instance()->model());
     const KFileItem &item(model.itemForIndex(idx));
     if (item.isDir()) {
         int j = model.rowCount(idx);
@@ -441,7 +441,7 @@ bool ProjectWidget::gotoIndexCheck(const QModelIndex &currentIndex, ProjectModel
 {
     // Check if role is found for this index
     if (currentIndex.isValid()) {
-        ProjectModel *srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel *>(m_proxyModel)->sourceModel());
+        const ProjectModel *srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel *>(m_proxyModel)->sourceModel());
         QModelIndex srcIndex = static_cast<QSortFilterProxyModel *>(m_proxyModel)->mapToSource(currentIndex);
         QVariant result = srcModel->data(srcIndex, role);
         return result.isValid() && result.toInt() > 0;

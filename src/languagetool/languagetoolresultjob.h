@@ -24,19 +24,19 @@ public:
 
     bool canStart() const;
     void start();
-    Q_REQUIRED_RESULT QStringList arguments() const;
+    Q_REQUIRED_RESULT const QStringList arguments() const;
     void setArguments(const QStringList &arguments);
 
     QNetworkAccessManager *networkAccessManager() const;
     void setNetworkAccessManager(QNetworkAccessManager *networkAccessManager);
 
-    Q_REQUIRED_RESULT QString text() const;
+    Q_REQUIRED_RESULT const QString text() const;
     void setText(const QString &text);
 
-    Q_REQUIRED_RESULT QString url() const;
+    Q_REQUIRED_RESULT const QString url() const;
     void setUrl(const QString &url);
 
-    Q_REQUIRED_RESULT QString language() const;
+    Q_REQUIRED_RESULT const QString language() const;
     void setLanguage(const QString &language);
 
 Q_SIGNALS:

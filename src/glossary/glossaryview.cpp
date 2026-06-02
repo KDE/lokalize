@@ -86,7 +86,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     if (pos.entry == -1 || m_catalog->numberOfEntries() <= pos.entry)
         return; // because of Qt::QueuedConnection
 
-    Glossary &glossary = *m_glossary;
+    const Glossary &glossary = *m_glossary;
 
     QString source = m_catalog->source(pos);
     QString sourceLowered = source.toLower();

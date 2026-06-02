@@ -470,6 +470,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     richTextColumns[FileSearchModel::Source] = true;
     richTextColumns[FileSearchModel::Target] = true;
     view->setItemDelegate(new FastSizeHintItemDelegate(this, singleLineColumns, richTextColumns));
+    // TODO: view is a QTreeView and it's cast to a FSHID (QItemDelegate)?
     connect(m_model, &FileSearchModel::modelReset, (FastSizeHintItemDelegate *)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
     connect(m_model, &FileSearchModel::dataChanged, (FastSizeHintItemDelegate *)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
 

@@ -197,7 +197,7 @@ LokalizeMainWindow::~LokalizeMainWindow()
 
     // Disconnect the signals pointing to this MainWindow object
     for (int i = 0; i < m_fileToEditor.values().count(); i++) {
-        EditorTab *editorTabToDelete = m_fileToEditor.values().at(i);
+        const EditorTab *editorTabToDelete = m_fileToEditor.values().at(i);
         disconnect(editorTabToDelete,
                    qOverload<const QString &, const QString &, const QString &, const bool>(&EditorTab::fileOpenRequested),
                    this,
@@ -328,7 +328,7 @@ void LokalizeMainWindow::updateMenuAvailability()
         return;
     // Refresh top-level menu state based on currently available actions.
     for (QAction *action : bar->actions()) {
-        QMenu *menu = action->menu();
+        const QMenu *menu = action->menu();
         if (!menu)
             continue;
         // Disable top-level menu when it has no visible actions.
@@ -341,7 +341,7 @@ bool LokalizeMainWindow::menuHasVisibleAction(const QMenu *menu) const
     for (QAction *action : menu->actions()) {
         if (action->isSeparator() || !action->isVisible())
             continue;
-        if (QMenu *subMenu = action->menu()) {
+        if (const QMenu *subMenu = action->menu()) {
             // Check submenu actions too.
             if (menuHasVisibleAction(subMenu))
                 return true;

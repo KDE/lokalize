@@ -191,9 +191,7 @@ void MsgCtxtView::pology()
 void MsgCtxtView::pologyReceivedStandardOutput()
 {
     if (m_pologyProcessInProgress == m_entry.entry + 1) {
-        if (!m_pologyStartedReceivingOutput) {
-            m_pologyStartedReceivingOutput = true;
-        }
+        m_pologyStartedReceivingOutput = true;
         const QString grossPologyOutput = QString::fromLocal8Bit(m_pologyProcess->readAllStandardOutput());
         const QStringList pologyTmpLines = grossPologyOutput.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
         for (const QString &pologyTmp : pologyTmpLines) {
@@ -206,9 +204,7 @@ void MsgCtxtView::pologyReceivedStandardOutput()
 void MsgCtxtView::pologyReceivedStandardError()
 {
     if (m_pologyProcessInProgress == m_entry.entry + 1) {
-        if (!m_pologyStartedReceivingOutput) {
-            m_pologyStartedReceivingOutput = true;
-        }
+        m_pologyStartedReceivingOutput = true;
         m_pologyData += QLatin1String(m_pologyProcess->readAllStandardError().replace('\n', MsgCtxtView::BR.toLatin1()));
     }
 }
