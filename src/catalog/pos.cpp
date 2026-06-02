@@ -11,7 +11,7 @@
 #include "catalog.h"
 #include "config-lokalize.h"
 
-bool switchPrev(const Catalog *&catalog, DocPosition &pos, int parts)
+bool switchPrev(const Catalog *const &catalog, DocPosition &pos, int parts)
 {
     bool switchEntry = false;
     bool switchCommentIndex = false;
@@ -54,7 +54,7 @@ bool switchPrev(const Catalog *&catalog, DocPosition &pos, int parts)
     return true;
 }
 
-bool switchNext(const Catalog *&catalog, DocPosition &pos, int parts)
+bool switchNext(const Catalog *const &catalog, DocPosition &pos, int parts)
 {
     bool switchEntry = false;
     bool switchCommentIndex = false;
