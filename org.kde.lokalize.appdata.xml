@@ -53,6 +53,7 @@
   <name xml:lang="sr-ijekavianlatin">Lokalizuj</name>
   <name xml:lang="sv">Lokalize</name>
   <name xml:lang="tr">Lokalize</name>
+  <name xml:lang="ug">Lokalize</name>
   <name xml:lang="uk">Lokalize</name>
   <name xml:lang="vi">Lokalize</name>
   <name xml:lang="zh-CN">Lokalize</name>
@@ -105,6 +106,7 @@
   <summary xml:lang="sr-ijekavianlatin">Sistem za prevođenje pomoću računara</summary>
   <summary xml:lang="sv">Datorstött översättningssystem</summary>
   <summary xml:lang="tr">Bilgisayar destekli çeviri sistemi</summary>
+  <summary xml:lang="ug">كومپيۇتېر ياردەمچى تەرجىمە سىستېمىسى</summary>
   <summary xml:lang="uk">Комп’ютерна система допомоги у перекладі</summary>
   <summary xml:lang="vi">Hệ thống dịch được máy tính hỗ trợ</summary>
   <summary xml:lang="zh-CN">计算机辅助翻译系统</summary>
