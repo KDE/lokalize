@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-02 00:46+0000\n"
+"POT-Creation-Date: 2026-06-03 01:11+0000\n"
 "PO-Revision-Date: 2026-05-13 05:23-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -4397,36 +4397,36 @@ msgctxt "@title:window"
 msgid "Translation Memories"
 msgstr "Memórias de tradução"
 
-#: src/tm/tmmanager.cpp:70
+#: src/tm/tmmanager.cpp:68
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Directory to be scanned"
 msgstr "Escolha a pasta a ser varrida"
 
-#: src/tm/tmmanager.cpp:79
+#: src/tm/tmmanager.cpp:77
 #, kde-format
 msgctxt "@title:window"
 msgid "New Translation Memory"
 msgstr "Nova memória de tradução"
 
-#: src/tm/tmmanager.cpp:79
+#: src/tm/tmmanager.cpp:77
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
 msgstr "Propriedades da memória de tradução"
 
-#: src/tm/tmmanager.cpp:214
+#: src/tm/tmmanager.cpp:212
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr "Selecionar o arquivo TMX a importar no banco de dados selecionado"
 
-#: src/tm/tmmanager.cpp:216 src/tm/tmmanager.cpp:237
+#: src/tm/tmmanager.cpp:214 src/tm/tmmanager.cpp:235
 #, kde-format
 msgid "TMX files (*.tmx *.xml)"
 msgstr "Arquivos TMX (*.tmx *.xml)"
 
-#: src/tm/tmmanager.cpp:235
+#: src/tm/tmmanager.cpp:233
 #, kde-format
 msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
