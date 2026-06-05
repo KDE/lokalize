@@ -60,17 +60,17 @@ QString getMailingList()
     if (lang.startsWith(QLatin1String("lt")))
         return QLatin1String("kde-i18n-lt@kde.org");
     if (lang.startsWith(QLatin1String("nb")))
-        return QLatin1String("l10n-no@lister.huftis.org");
+        return QLatin1String("l10n-no@nuug.no");
     if (lang.startsWith(QLatin1String("nl")))
         return QLatin1String("kde-i18n-nl@kde.org");
     if (lang.startsWith(QLatin1String("nn")))
-        return QLatin1String("l10n-no@lister.huftis.org");
+        return QLatin1String("l10n-no@nuug.no");
     if (lang.startsWith(QLatin1String("pt_BR")))
         return QLatin1String("kde-i18n-pt_BR@kde.org");
     if (lang.startsWith(QLatin1String("ru")))
         return QLatin1String("kde-russian@lists.kde.ru");
     if (lang.startsWith(QLatin1String("se")))
-        return QLatin1String("l10n-no@lister.huftis.org");
+        return QLatin1String("l10n-no@nuug.no");
     if (lang.startsWith(QLatin1String("sl")))
         return QLatin1String("lugos-slo@lugos.si");
 
