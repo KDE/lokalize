@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-03 01:11+0000\n"
-"PO-Revision-Date: 2026-04-26 22:43+0200\n"
+"PO-Revision-Date: 2026-05-26 23:18+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1120,34 +1120,28 @@ msgid "Copy Source to Target"
 msgstr "원본을 대상으로 복사"
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "원본"
+msgstr "원본 복사"
 
 #: src/editortab.cpp:504
-#, fuzzy, kde-format
-#| msgid "Copy source to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
-msgstr "원본을 클립보드에 복사"
+msgstr "원본 메시지를 클립보드에 복사"
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "대상"
+msgstr "대상 복사"
 
 #: src/editortab.cpp:514
-#, fuzzy, kde-format
-#| msgid "Copy target to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
-msgstr "대상을 클립보드에 복사"
+msgstr "대상 메시지를 클립보드에 복사"
 
 #: src/editortab.cpp:522
 #, kde-format
@@ -3936,19 +3930,16 @@ msgid "Hide fully translated files and folders"
 msgstr "완전히 번역된 파일과 폴더 숨기기"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "다음 번역되지 않은 문자열"
+msgstr "번역되지 않은 폴더 확장"
 
 #: src/project/projecttab.cpp:152
-#, fuzzy, kde-format
-#| msgid "Prefetch for the next untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open the directory tree to untranslated files"
-msgstr "다음 번역되지 않은 항목 가져오기"
+msgstr "번역되지 않은 파일이 있는 디렉터리 트리 열기"
 
 #: src/project/projecttab.cpp:194
 #, kde-format
