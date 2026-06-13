@@ -14,6 +14,7 @@
 #include "fastsizehintitemdelegate.h"
 #include "jobs.h"
 #include "lokalize_debug.h"
+#include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "qaview.h"
@@ -496,16 +497,12 @@ TMTab::TMTab(QWidget *parent)
     connect(m_qaView, &QaView::rulesChanged, this, qOverload<>(&TMTab::setQAMode));
     connect(m_qaView->toggleViewAction(), &QAction::toggled, this, qOverload<bool>(&TMTab::setQAMode));
 
-    KConfig config;
-    KConfigGroup cg(&config, QStringLiteral("MainWindow"));
-    view->header()->restoreState(QByteArray::fromBase64(cg.readEntry("TMSearchResultsHeaderState", QByteArray())));
+    view->header()->restoreState(readUiState("TMSearchResultsHeaderState"));
 }
 
 TMTab::~TMTab()
 {
-    KConfig config;
-    KConfigGroup cg(&config, QStringLiteral("MainWindow"));
-    cg.writeEntry("TMSearchResultsHeaderState", ui_queryOptions->treeView->header()->saveState().toBase64());
+    writeUiState("TMSearchResultsHeaderState", ui_queryOptions->treeView->header()->saveState().toBase64());
 
     ids.removeAll(m_dbusId);
 
