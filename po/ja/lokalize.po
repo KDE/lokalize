@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-03 01:11+0000\n"
+"POT-Creation-Date: 2026-06-14 00:46+0000\n"
 "PO-Revision-Date: 2026-02-14 08:46+0900\n"
 "Last-Translator: bbch <suzihi248@ruru.be>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -744,7 +744,7 @@ msgstr "オプション"
 msgid "Reset individual filter"
 msgstr "ここのフィルタをリセット"
 
-#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:369
+#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:370
 #, kde-format
 msgid "Case insensitive"
 msgstr "大文字と小文字を区別します"
@@ -847,14 +847,14 @@ msgid "Entry"
 msgstr "エントリ"
 
 #: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:351
-#: src/glossary/glossary.cpp:195 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
+#: src/glossary/glossary.cpp:195 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "原文"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:197 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:197 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -866,7 +866,7 @@ msgctxt "@title:column"
 msgid "Notes"
 msgstr "注釈"
 
-#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:68
+#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
@@ -879,7 +879,7 @@ msgid "Files"
 msgstr "ファイル"
 
 #: src/cataloglistview/catalogmodel.cpp:103
-#: src/filesearch/filesearchtab.cpp:357 src/tm/tmtab.cpp:70
+#: src/filesearch/filesearchtab.cpp:357 src/tm/tmtab.cpp:71
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -904,7 +904,7 @@ msgid "Target Length"
 msgstr "翻訳の長さ"
 
 #: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1212
-#: src/editortab.cpp:1417 src/tm/tmtab.cpp:233
+#: src/editortab.cpp:1417 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
@@ -917,7 +917,7 @@ msgid "Needs Review"
 msgstr "要確認"
 
 #: src/cataloglistview/catalogmodel.cpp:149 src/editortab.cpp:1210
-#: src/tm/tmtab.cpp:235
+#: src/tm/tmtab.cpp:236
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -1498,7 +1498,7 @@ msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "エントリ番号を入力:"
 
-#: src/editortab.cpp:1214 src/editortab.cpp:1412 src/tm/tmtab.cpp:234
+#: src/editortab.cpp:1214 src/editortab.cpp:1412 src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
@@ -1961,7 +1961,7 @@ msgstr "ファイル一覧"
 msgid "Drop translation files here…"
 msgstr "翻訳ファイルをここにドロップ..."
 
-#: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
+#: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:70
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
@@ -1973,17 +1973,17 @@ msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "検索 && 置換"
 
-#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:406
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "原文をクリップボードにコピー"
 
-#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:412
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "翻訳をクリップボードにコピー"
 
-#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:417
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:418
 #, kde-format
 msgid "Open file"
 msgstr "ファイルを開く"
@@ -2301,7 +2301,7 @@ msgstr "翻訳メモリ機能には SQLite Qt モジュールが必要です。"
 msgid "No SQLite module available"
 msgstr "使用可能な SQLite モジュールがありません"
 
-#: src/lokalizemainwindow.cpp:676 src/tm/tmtab.cpp:486
+#: src/lokalizemainwindow.cpp:676 src/tm/tmtab.cpp:487
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2345,7 +2345,7 @@ msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "翻訳メモリ"
 
-#: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:489
+#: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
@@ -2930,7 +2930,7 @@ msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "外観"
 
-#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:382
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:383
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
@@ -4361,44 +4361,44 @@ msgstr "開いたファイルを Lokalize の翻訳メモリに取り込む"
 msgid "TM"
 msgstr "翻訳メモリ"
 
-#: src/tm/tmtab.cpp:79
+#: src/tm/tmtab.cpp:80
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr "原文: %1"
 
-#: src/tm/tmtab.cpp:84
+#: src/tm/tmtab.cpp:85
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "翻訳: %1"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Substring"
 msgstr "部分文字列"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Google-like"
 msgstr "Google 風"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Wildcard"
 msgstr "ワイルドカード"
 
-#: src/tm/tmtab.cpp:370
+#: src/tm/tmtab.cpp:371
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "スペースは AND 演算子になります。大文字と小文字を区別します。"
 
-#: src/tm/tmtab.cpp:371
+#: src/tm/tmtab.cpp:372
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "シェル glob (* と ?)。大文字と小文字を区別する。"
 
-#: src/tm/tmtab.cpp:519
+#: src/tm/tmtab.cpp:516
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
@@ -4407,12 +4407,12 @@ msgstr ""
 "ファイルの再スキャンは、プロジェクトが開いているときにのみ可能です。プロジェ"
 "クトを開いてから、もう一度実行してください。"
 
-#: src/tm/tmtab.cpp:520
+#: src/tm/tmtab.cpp:517
 #, kde-format
 msgid "Rescan not possible"
 msgstr "再スキャン不可能"
 
-#: src/tm/tmtab.cpp:619 src/tm/tmview.cpp:622
+#: src/tm/tmtab.cpp:616 src/tm/tmview.cpp:622
 #, kde-format
 msgctxt "@info"
 msgid ""

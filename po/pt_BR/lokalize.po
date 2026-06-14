@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-03 01:11+0000\n"
+"POT-Creation-Date: 2026-06-14 00:46+0000\n"
 "PO-Revision-Date: 2026-05-13 05:23-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -805,7 +805,7 @@ msgstr "Opções"
 msgid "Reset individual filter"
 msgstr "Limpar o filtro individual"
 
-#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:369
+#: src/cataloglistview/cataloglistview.cpp:216 src/tm/tmtab.cpp:370
 #, kde-format
 msgid "Case insensitive"
 msgstr "Não diferenciar maiúsculas de minúsculas"
@@ -908,14 +908,14 @@ msgid "Entry"
 msgstr "Entrada"
 
 #: src/cataloglistview/catalogmodel.cpp:93 src/filesearch/filesearchtab.cpp:351
-#: src/glossary/glossary.cpp:195 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:66
+#: src/glossary/glossary.cpp:195 src/tm/qamodel.cpp:95 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "Origem"
 
 #: src/cataloglistview/catalogmodel.cpp:95 src/filesearch/filesearchtab.cpp:353
-#: src/glossary/glossary.cpp:197 src/tm/tmtab.cpp:67
+#: src/glossary/glossary.cpp:197 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -927,7 +927,7 @@ msgctxt "@title:column"
 msgid "Notes"
 msgstr "Notas"
 
-#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:68
+#: src/cataloglistview/catalogmodel.cpp:99 src/tm/tmtab.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
@@ -940,7 +940,7 @@ msgid "Files"
 msgstr "Arquivos"
 
 #: src/cataloglistview/catalogmodel.cpp:103
-#: src/filesearch/filesearchtab.cpp:357 src/tm/tmtab.cpp:70
+#: src/filesearch/filesearchtab.cpp:357 src/tm/tmtab.cpp:71
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -965,7 +965,7 @@ msgid "Target Length"
 msgstr "Tamanho do destino"
 
 #: src/cataloglistview/catalogmodel.cpp:145 src/editortab.cpp:1212
-#: src/editortab.cpp:1417 src/tm/tmtab.cpp:233
+#: src/editortab.cpp:1417 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
@@ -978,7 +978,7 @@ msgid "Needs Review"
 msgstr "Necessita revisão"
 
 #: src/cataloglistview/catalogmodel.cpp:149 src/editortab.cpp:1210
-#: src/tm/tmtab.cpp:235
+#: src/tm/tmtab.cpp:236
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -1553,7 +1553,7 @@ msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Informe o número da entrada:"
 
-#: src/editortab.cpp:1214 src/editortab.cpp:1412 src/tm/tmtab.cpp:234
+#: src/editortab.cpp:1214 src/editortab.cpp:1412 src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
@@ -2015,7 +2015,7 @@ msgstr "Lista de arquivos"
 msgid "Drop translation files here…"
 msgstr "Solte os arquivos de tradução aqui…"
 
-#: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:69
+#: src/filesearch/filesearchtab.cpp:355 src/tm/tmtab.cpp:70
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
@@ -2027,17 +2027,17 @@ msgctxt "@title:tab"
 msgid "Search && Replace"
 msgstr "Pesquisar e substituir"
 
-#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:478 src/tm/tmtab.cpp:406
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Copiar origem para a área de transferência"
 
-#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:484 src/tm/tmtab.cpp:412
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Copiar destino para a área de transferência"
 
-#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:417
+#: src/filesearch/filesearchtab.cpp:490 src/tm/tmtab.cpp:418
 #, kde-format
 msgid "Open file"
 msgstr "Abrir arquivo"
@@ -2354,7 +2354,7 @@ msgstr ""
 msgid "No SQLite module available"
 msgstr "Nenhum módulo SQLite disponível"
 
-#: src/lokalizemainwindow.cpp:676 src/tm/tmtab.cpp:486
+#: src/lokalizemainwindow.cpp:676 src/tm/tmtab.cpp:487
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
@@ -2398,7 +2398,7 @@ msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Memória de tradução"
 
-#: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:489
+#: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
@@ -2985,7 +2985,7 @@ msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Aparência"
 
-#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:382
+#: src/prefs/prefs.cpp:119 src/tm/tmtab.cpp:383
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
@@ -4443,45 +4443,45 @@ msgstr "Adicionando arquivos à memória de tradução do Lokalize"
 msgid "TM"
 msgstr "MT"
 
-#: src/tm/tmtab.cpp:79
+#: src/tm/tmtab.cpp:80
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
 msgstr "Origem: %1"
 
-#: src/tm/tmtab.cpp:84
+#: src/tm/tmtab.cpp:85
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
 msgstr "Destino: %1"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Substring"
 msgstr "Subtexto"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Google-like"
 msgstr "Semelhante ao Google"
 
-#: src/tm/tmtab.cpp:363
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Wildcard"
 msgstr "Caracteres especiais"
 
-#: src/tm/tmtab.cpp:370
+#: src/tm/tmtab.cpp:371
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr ""
 "O espaço é um operador E. Não faz distinção entre maiúsculas e minúsculas."
 
-#: src/tm/tmtab.cpp:371
+#: src/tm/tmtab.cpp:372
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Expansões da linha de comando (* e ?). Faz distinção de maiúsculas."
 
-#: src/tm/tmtab.cpp:519
+#: src/tm/tmtab.cpp:516
 #, kde-format
 msgid ""
 "Rescanning files is only possible while a project is open. Please open a "
@@ -4490,12 +4490,12 @@ msgstr ""
 "Uma nova pesquisa de arquivos só é possível enquanto o projeto estiver "
 "aberto. Abra o projeto e tente novamente."
 
-#: src/tm/tmtab.cpp:520
+#: src/tm/tmtab.cpp:517
 #, kde-format
 msgid "Rescan not possible"
 msgstr "Não é possível pesquisar novamente os arquivos"
 
-#: src/tm/tmtab.cpp:619 src/tm/tmview.cpp:622
+#: src/tm/tmtab.cpp:616 src/tm/tmview.cpp:622
 #, kde-format
 msgctxt "@info"
 msgid ""
