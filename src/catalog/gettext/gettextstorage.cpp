@@ -137,6 +137,7 @@ QString GettextStorage::target(const DocPosition &pos) const
     return m_entries.at(pos.entry).msgstr(pos.form);
 }
 
+// WARN: almost duplicate of GettextStorage::targetWithPlurals(). Is the duplication necessary?
 QString GettextStorage::sourceWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     if (m_entries.at(pos.entry).isPlural()) {
@@ -165,6 +166,8 @@ QString GettextStorage::sourceWithPlurals(const DocPosition &pos, bool truncateF
         return str;
     }
 }
+
+// WARN: almost duplicate of GettextStorage::sourceWithPlurals(). Is the duplication necessary?
 QString GettextStorage::targetWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     if (m_entries.at(pos.entry).isPlural()) {

@@ -435,6 +435,8 @@ QString XliffStorage::target(const DocPosition &pos) const
 {
     return genericContent(targetForPos(pos.entry), pos.entry < size());
 }
+
+// WARN: almost duplicate of XliffStorage::targetWithPlurals(). Is the duplication necessary?
 QString XliffStorage::sourceWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     QString str = source(pos);
@@ -445,6 +447,8 @@ QString XliffStorage::sourceWithPlurals(const DocPosition &pos, bool truncateFir
     }
     return str;
 }
+
+// WARN: almost duplicate of XliffStorage::sourceWithPlurals(). Is the duplication necessary?
 QString XliffStorage::targetWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     QString str = target(pos);

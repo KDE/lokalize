@@ -1588,6 +1588,7 @@ void EditorTab::launchPology()
     }
 }
 
+// WARN: almost duplicate of ProjectTab:pologyHasFinished(). Is the duplication necessary?
 void EditorTab::pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     const QString pologyError = QString::fromLatin1(m_pologyProcess->readAllStandardError());
@@ -1930,6 +1931,7 @@ QList<int> EditorTab::ids;
 #if HAVE_DBUS
 #include "editoradaptor.h"
 
+// WARN: almost duplicate of TMTab::dbusObjectPath() and FileSearchTab::dbusObjectPath(). Is the duplication necessary?
 QString EditorTab::dbusObjectPath()
 {
     const QString EDITOR_PATH = QStringLiteral("/ThisIsWhatYouWant/Editor/");

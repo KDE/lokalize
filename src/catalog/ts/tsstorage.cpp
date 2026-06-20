@@ -371,6 +371,7 @@ QString TsStorage::target(const DocPosition &pos) const
     return content(targetForPos(pos));
 }
 
+// WARN: almost duplicate of TsStorage::targetWithPlurals(). Is the duplication necessary?
 QString TsStorage::sourceWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     QString str = source(pos);
@@ -381,6 +382,8 @@ QString TsStorage::sourceWithPlurals(const DocPosition &pos, bool truncateFirstL
     }
     return str;
 }
+
+// WARN: almost duplicate of TsStorage::sourceWithPlurals(). Is the duplication necessary?
 QString TsStorage::targetWithPlurals(const DocPosition &pos, bool truncateFirstLine) const
 {
     QString str = target(pos);

@@ -666,6 +666,7 @@ QList<int> TMTab::ids;
 #include "translationmemoryadaptor.h"
 // BEGIN DBus interface
 
+// WARN: almost duplicate of EditorTab::dbusObjectPath() and FileSearchTab::dbusObjectPath(). Is the duplication necessary?
 QString TMTab::dbusObjectPath()
 {
     const QString TM_PATH = QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/");

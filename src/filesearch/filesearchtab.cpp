@@ -802,6 +802,7 @@ void MassReplaceView::deactivatePreview()
 #include "filesearchadaptor.h"
 #include <QDBusConnection>
 
+// WARN: almost duplicate of EditorTab::dbusObjectPath() and TMTab::dbusObjectPath. Is the duplication necessary?
 QString FileSearchTab::dbusObjectPath()
 {
     QString FILESEARCH_PATH = QStringLiteral("/ThisIsWhatYouWant/FileSearch/");

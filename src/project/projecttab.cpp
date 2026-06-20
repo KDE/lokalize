@@ -291,6 +291,7 @@ void ProjectTab::pologyOnFiles()
     }
 }
 
+// WARN: almost duplicate of EditorTab:pologyHasFinished(). Is the duplication necessary?
 void ProjectTab::pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     const QString pologyError = QString::fromLatin1(m_pologyProcess->readAllStandardError());
