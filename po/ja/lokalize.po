@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-14 00:46+0000\n"
+"POT-Creation-Date: 2026-06-21 00:47+0000\n"
 "PO-Revision-Date: 2026-02-14 08:46+0900\n"
 "Last-Translator: bbch <suzihi248@ruru.be>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -679,7 +679,7 @@ msgstr "マークアップとともにテキストを挿入"
 msgid "separator for different-length string alternatives"
 msgstr "長さの異なる文字列のセパレータ"
 
-#: src/catalog/gettext/gettextstorage.cpp:287
+#: src/catalog/gettext/gettextstorage.cpp:290
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -710,7 +710,7 @@ msgstr "作成者のメールアドレスがありません"
 msgid "Your email:"
 msgstr "あなたのメールアドレス:"
 
-#: src/catalog/ts/tsstorage.cpp:437
+#: src/catalog/ts/tsstorage.cpp:440
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "lupdate ツールによって保存された前回のソース内容"
@@ -1409,7 +1409,7 @@ msgstr ""
 "文書には未保存の変更があります。\n"
 "変更を保存しますか？それとも廃棄しますか？"
 
-#: src/editortab.cpp:838 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1177
+#: src/editortab.cpp:838 src/editortab.cpp:1612 src/lokalizemainwindow.cpp:1177
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1578,14 +1578,14 @@ msgstr "クリア"
 msgid "A Pology check is already in progress."
 msgstr "Pology のチェックは既に実行中です。"
 
-#: src/editortab.cpp:1587 src/editortab.cpp:1595 src/editortab.cpp:1599
-#: src/project/projecttab.cpp:290 src/project/projecttab.cpp:298
-#: src/project/projecttab.cpp:302
+#: src/editortab.cpp:1587 src/editortab.cpp:1596 src/editortab.cpp:1600
+#: src/project/projecttab.cpp:290 src/project/projecttab.cpp:299
+#: src/project/projecttab.cpp:303
 #, kde-format
 msgid "Pology error"
 msgstr "Pology エラー"
 
-#: src/editortab.cpp:1595 src/project/projecttab.cpp:298
+#: src/editortab.cpp:1596 src/project/projecttab.cpp:299
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1594,17 +1594,17 @@ msgstr ""
 "Pology チェックが予期せずクラッシュしました:\n"
 "%1"
 
-#: src/editortab.cpp:1597 src/project/projecttab.cpp:300
+#: src/editortab.cpp:1598 src/project/projecttab.cpp:301
 #, kde-format
 msgid "Pology success"
 msgstr "Pology 成功"
 
-#: src/editortab.cpp:1597
+#: src/editortab.cpp:1598
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pology チェックが成功しました。"
 
-#: src/editortab.cpp:1599 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1600 src/project/projecttab.cpp:303
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1613,7 +1613,7 @@ msgstr ""
 "Pology チェックがエラーになりました:\n"
 "%1"
 
-#: src/editortab.cpp:1609
+#: src/editortab.cpp:1610
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1623,19 +1623,19 @@ msgstr ""
 "ファイルからすべての翻訳が削除されます。\n"
 "すべての翻訳済みエントリをクリアしてよろしいですか？"
 
-#: src/editortab.cpp:1648
+#: src/editortab.cpp:1649
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "原文の単語数: %1<br/>翻訳の単語数: %2"
 
-#: src/editortab.cpp:1649
+#: src/editortab.cpp:1650
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "単語数"
 
-#: src/editortab.cpp:1655
+#: src/editortab.cpp:1656
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Alternate Translations"
@@ -1643,37 +1643,37 @@ msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr "代替翻訳"
 
-#: src/editortab.cpp:1753
+#: src/editortab.cpp:1754
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "ソースファイルをローカルで検索しますか？ lxr.kde.org で検索しますか？"
 
-#: src/editortab.cpp:1754
+#: src/editortab.cpp:1755
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "ソースファイルの検索"
 
-#: src/editortab.cpp:1755
+#: src/editortab.cpp:1756
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "ローカル検索"
 
-#: src/editortab.cpp:1756 src/editortab.cpp:1800
+#: src/editortab.cpp:1757 src/editortab.cpp:1801
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org で検索"
 
-#: src/editortab.cpp:1759 src/editortab.cpp:1804
+#: src/editortab.cpp:1760 src/editortab.cpp:1805
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "ソースファイルを検索するプロジェクトのフォルダを選択"
 
-#: src/editortab.cpp:1796
+#: src/editortab.cpp:1797
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1683,19 +1683,19 @@ msgstr ""
 "指定されたフォルダにソースファイルが見つかりませんでした。\n"
 "ソースファイルフォルダを変更しますか？"
 
-#: src/editortab.cpp:1798
+#: src/editortab.cpp:1799
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "ソースファイルの検索"
 
-#: src/editortab.cpp:1799
+#: src/editortab.cpp:1800
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "フォルダを選択"
 
-#: src/editortab.cpp:1841
+#: src/editortab.cpp:1842
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1709,33 +1709,33 @@ msgstr ""
 "スタムパスから現在ロードされていません。スクリプトの例とプロジェクトへの適用"
 "方法については、Lokalize ハンドブックを参照してください。"
 
-#: src/editortab.cpp:1855 src/project/project.cpp:394
+#: src/editortab.cpp:1856 src/project/project.cpp:394
 #: src/project/project.cpp:399
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit パッケージをインストールして再試行してください"
 
-#: src/editortab.cpp:1860
+#: src/editortab.cpp:1861
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "translate-toolkit をインストールし、再試行する。"
 
-#: src/editortab.cpp:1868
+#: src/editortab.cpp:1869
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "現在の XLIFF ファイルのベースになっている OpenDocument を選択"
 
-#: src/editortab.cpp:1870 src/project/project.cpp:404
+#: src/editortab.cpp:1871 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument ファイル (*.odt *.ods)"
 
-#: src/editortab.cpp:1915
+#: src/editortab.cpp:1916
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Python-uno パッケージをインストールして機能を追加します。"
 
-#: src/editortab.cpp:2038
+#: src/editortab.cpp:2040
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -4033,18 +4033,18 @@ msgstr "プロジェクトファイのルコメント"
 msgid "Input a comment for this project file:"
 msgstr "プロジェクトファイルのコメントを入力:"
 
-#: src/project/projecttab.cpp:300
+#: src/project/projecttab.cpp:301
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Pology チェックが成功しました"
 
-#: src/project/projecttab.cpp:319
+#: src/project/projecttab.cpp:320
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "%1 複数のファイルを開こうとしています"
 
-#: src/project/projecttab.cpp:320
+#: src/project/projecttab.cpp:321
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4052,12 +4052,12 @@ msgid ""
 msgstr ""
 "同時に多数のファイルを開くと、Lokalize が応答しなくなることがあります。"
 
-#: src/project/projecttab.cpp:321
+#: src/project/projecttab.cpp:322
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "本当に多数のファイルを開いて良いですか？"
 
-#: src/project/projecttab.cpp:322
+#: src/project/projecttab.cpp:323
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"

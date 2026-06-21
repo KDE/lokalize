@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-14 00:46+0000\n"
+"POT-Creation-Date: 2026-06-21 00:47+0000\n"
 "PO-Revision-Date: 2026-05-13 08:29+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -724,7 +724,7 @@ msgstr "დაფორმატების მქონე ტექსტი�
 msgid "separator for different-length string alternatives"
 msgstr "გამყოფი სხვადასხვა სიგრძის მქონე სტრიქონი ალტერნატივებისთვის"
 
-#: src/catalog/gettext/gettextstorage.cpp:287
+#: src/catalog/gettext/gettextstorage.cpp:290
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -755,7 +755,7 @@ msgstr "ავტორის ელფოსტა მითითებულ�
 msgid "Your email:"
 msgstr "თქვენი ელფოსტა:"
 
-#: src/catalog/ts/tsstorage.cpp:437
+#: src/catalog/ts/tsstorage.cpp:440
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "წინა წყაროს მნიშვნელობა. შენახულია lupdate-ის მიერ"
@@ -1446,7 +1446,7 @@ msgstr ""
 "დოკუმენტი შეუნახავ ცვლილებებს შეიცავს.\n"
 "გნებავთ ცვლილებების შენახვა, თუ მოვაცილო ისინი?"
 
-#: src/editortab.cpp:838 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1177
+#: src/editortab.cpp:838 src/editortab.cpp:1612 src/lokalizemainwindow.cpp:1177
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1613,14 +1613,14 @@ msgstr "ყველას გასუფთავება"
 msgid "A Pology check is already in progress."
 msgstr "შემოწმება Pology უკვე მიმდინარეობს."
 
-#: src/editortab.cpp:1587 src/editortab.cpp:1595 src/editortab.cpp:1599
-#: src/project/projecttab.cpp:290 src/project/projecttab.cpp:298
-#: src/project/projecttab.cpp:302
+#: src/editortab.cpp:1587 src/editortab.cpp:1596 src/editortab.cpp:1600
+#: src/project/projecttab.cpp:290 src/project/projecttab.cpp:299
+#: src/project/projecttab.cpp:303
 #, kde-format
 msgid "Pology error"
 msgstr "ტოპოლოგიის შეცდომა"
 
-#: src/editortab.cpp:1595 src/project/projecttab.cpp:298
+#: src/editortab.cpp:1596 src/project/projecttab.cpp:299
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1629,17 +1629,17 @@ msgstr ""
 "შემოწმება Pology ავარიულად დასრულდა:\n"
 "%1"
 
-#: src/editortab.cpp:1597 src/project/projecttab.cpp:300
+#: src/editortab.cpp:1598 src/project/projecttab.cpp:301
 #, kde-format
 msgid "Pology success"
 msgstr "ტოპოლოგია წარმატებულია"
 
-#: src/editortab.cpp:1597
+#: src/editortab.cpp:1598
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "შემოწმება Pology წარმატებით დასრულდა."
 
-#: src/editortab.cpp:1599 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1600 src/project/projecttab.cpp:303
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1648,7 +1648,7 @@ msgstr ""
 "შემოწმებამ Pology დააბრუნა შეცდომა:\n"
 "%1"
 
-#: src/editortab.cpp:1609
+#: src/editortab.cpp:1610
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1658,55 +1658,55 @@ msgstr ""
 "ეს ფაილიდან ყველა თარგმანს წაშლის.\n"
 "გნებავთ გაასუფთავოთ ყველა ნათარგმნი ჩანაწერი?"
 
-#: src/editortab.cpp:1648
+#: src/editortab.cpp:1649
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "წყარო ტექსტის სიტყვები: %1<br/>სამიზნე ტექსტის სიტყვები: %2"
 
-#: src/editortab.cpp:1649
+#: src/editortab.cpp:1650
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "სიტყვების რაოდენობა"
 
-#: src/editortab.cpp:1655
+#: src/editortab.cpp:1656
 #, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr "ალტერნატიული თარგმანების ფაილის მიმაგრება"
 
-#: src/editortab.cpp:1753
+#: src/editortab.cpp:1754
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "გნებავთ, წყაროს ფაილი ლოკალურად მოვძებნო. თუ lxr.kde.org-ზე?"
 
-#: src/editortab.cpp:1754
+#: src/editortab.cpp:1755
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "წყაროს ფაილის მოძებნა"
 
-#: src/editortab.cpp:1755
+#: src/editortab.cpp:1756
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "ლოკალურად ძებნა"
 
-#: src/editortab.cpp:1756 src/editortab.cpp:1800
+#: src/editortab.cpp:1757 src/editortab.cpp:1801
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "ძებნა lxr.kde.org-ზე"
 
-#: src/editortab.cpp:1759 src/editortab.cpp:1804
+#: src/editortab.cpp:1760 src/editortab.cpp:1805
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "აირჩიეთ პროექტი საბაზისო საქაღალდე წყაროს ფაილის მოსაძებნად"
 
-#: src/editortab.cpp:1796
+#: src/editortab.cpp:1797
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1716,19 +1716,19 @@ msgstr ""
 "მითითებულ საქაღალდეში კოდის ფაილი ვერ ვიპოვე.\n"
 "გნებავთ შეცვალოთ კოდის ფაილების საქაღალდე?"
 
-#: src/editortab.cpp:1798
+#: src/editortab.cpp:1799
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "წყაროს ფაილის მოძებნა"
 
-#: src/editortab.cpp:1799
+#: src/editortab.cpp:1800
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "აირჩიეთ საქაღალდე"
 
-#: src/editortab.cpp:1841
+#: src/editortab.cpp:1842
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1743,34 +1743,34 @@ msgstr ""
 "სახელმძღვანელო სკრიპტის მაგალითებისთვის და როგორ შეტენოთ ისინი თქვენს "
 "პროექტში."
 
-#: src/editortab.cpp:1855 src/project/project.cpp:394
+#: src/editortab.cpp:1856 src/project/project.cpp:394
 #: src/project/project.cpp:399
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "დააყენეთ პაკეტი translate-toolkit და თავიდან სცადეთ"
 
-#: src/editortab.cpp:1860
+#: src/editortab.cpp:1861
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "დააყენეთ პაკეტი translate-toolkit და თავიდან სცადეთ."
 
-#: src/editortab.cpp:1868
+#: src/editortab.cpp:1869
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "აირჩიეთ საწყისი OpenDocument, რომელზეც დაფუძნებულია მიმდინარე XLIFF ფაილი"
 
-#: src/editortab.cpp:1870 src/project/project.cpp:404
+#: src/editortab.cpp:1871 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument ფაილები (*.odt *.ods)"
 
-#: src/editortab.cpp:1915
+#: src/editortab.cpp:1916
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "დამატებითი ფუნქციონალისთვის დააყენეთ პაკეტი python-uno."
 
-#: src/editortab.cpp:2038
+#: src/editortab.cpp:2040
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -4074,19 +4074,19 @@ msgstr "პროექტის ფაილის კომენტარი"
 msgid "Input a comment for this project file:"
 msgstr "შეიყვანეთ კომენტარი ამ პროექტის ფაილისთვის:"
 
-#: src/project/projecttab.cpp:300
+#: src/project/projecttab.cpp:301
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Pology-ით შემოწმება წარმატებით დასრულდა"
 
-#: src/project/projecttab.cpp:319
+#: src/project/projecttab.cpp:320
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "აპირებთ გახსნათ %1 ფაილი"
 msgstr[1] "აპირებთ გახსნათ %1 ფაილი"
 
-#: src/project/projecttab.cpp:320
+#: src/project/projecttab.cpp:321
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4094,12 +4094,12 @@ msgid ""
 msgstr ""
 "დიდი რაოდენობის ფაილების ერთდროულმა გახსნამ, შეიძლება, Lokalize გააშეშოს."
 
-#: src/project/projecttab.cpp:321
+#: src/project/projecttab.cpp:322
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "მართლა გნებავთ ამდენი ფაილის გახსნა?"
 
-#: src/project/projecttab.cpp:322
+#: src/project/projecttab.cpp:323
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-14 00:46+0000\n"
+"POT-Creation-Date: 2026-06-21 00:47+0000\n"
 "PO-Revision-Date: 2024-12-15 15:57+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -643,7 +643,7 @@ msgstr ""
 msgid "separator for different-length string alternatives"
 msgstr ""
 
-#: src/catalog/gettext/gettextstorage.cpp:287
+#: src/catalog/gettext/gettextstorage.cpp:290
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -672,7 +672,7 @@ msgstr ""
 msgid "Your email:"
 msgstr ""
 
-#: src/catalog/ts/tsstorage.cpp:437
+#: src/catalog/ts/tsstorage.cpp:440
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr ""
@@ -1356,7 +1356,7 @@ msgid ""
 "Do you want to save your changes or discard them?"
 msgstr ""
 
-#: src/editortab.cpp:838 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1177
+#: src/editortab.cpp:838 src/editortab.cpp:1612 src/lokalizemainwindow.cpp:1177
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1516,38 +1516,38 @@ msgstr ""
 msgid "A Pology check is already in progress."
 msgstr ""
 
-#: src/editortab.cpp:1587 src/editortab.cpp:1595 src/editortab.cpp:1599
-#: src/project/projecttab.cpp:290 src/project/projecttab.cpp:298
-#: src/project/projecttab.cpp:302
+#: src/editortab.cpp:1587 src/editortab.cpp:1596 src/editortab.cpp:1600
+#: src/project/projecttab.cpp:290 src/project/projecttab.cpp:299
+#: src/project/projecttab.cpp:303
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1595 src/project/projecttab.cpp:298
+#: src/editortab.cpp:1596 src/project/projecttab.cpp:299
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1597 src/project/projecttab.cpp:300
+#: src/editortab.cpp:1598 src/project/projecttab.cpp:301
 #, kde-format
 msgid "Pology success"
 msgstr ""
 
-#: src/editortab.cpp:1597
+#: src/editortab.cpp:1598
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1599 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1600 src/project/projecttab.cpp:303
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1609
+#: src/editortab.cpp:1610
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1555,55 +1555,55 @@ msgid ""
 "Do you really want to clear all translated entries?"
 msgstr ""
 
-#: src/editortab.cpp:1648
+#: src/editortab.cpp:1649
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr ""
 
-#: src/editortab.cpp:1649
+#: src/editortab.cpp:1650
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr ""
 
-#: src/editortab.cpp:1655
+#: src/editortab.cpp:1656
 #, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr ""
 
-#: src/editortab.cpp:1753
+#: src/editortab.cpp:1754
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr ""
 
-#: src/editortab.cpp:1754
+#: src/editortab.cpp:1755
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr ""
 
-#: src/editortab.cpp:1755
+#: src/editortab.cpp:1756
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr ""
 
-#: src/editortab.cpp:1756 src/editortab.cpp:1800
+#: src/editortab.cpp:1757 src/editortab.cpp:1801
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr ""
 
-#: src/editortab.cpp:1759 src/editortab.cpp:1804
+#: src/editortab.cpp:1760 src/editortab.cpp:1805
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr ""
 
-#: src/editortab.cpp:1796
+#: src/editortab.cpp:1797
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1611,19 +1611,19 @@ msgid ""
 "Do you want to change source files folder?"
 msgstr ""
 
-#: src/editortab.cpp:1798
+#: src/editortab.cpp:1799
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr ""
 
-#: src/editortab.cpp:1799
+#: src/editortab.cpp:1800
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr ""
 
-#: src/editortab.cpp:1841
+#: src/editortab.cpp:1842
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1633,33 +1633,33 @@ msgid ""
 "handbook for script examples and how to plug them into your project."
 msgstr ""
 
-#: src/editortab.cpp:1855 src/project/project.cpp:394
+#: src/editortab.cpp:1856 src/project/project.cpp:394
 #: src/project/project.cpp:399
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr ""
 
-#: src/editortab.cpp:1860
+#: src/editortab.cpp:1861
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr ""
 
-#: src/editortab.cpp:1868
+#: src/editortab.cpp:1869
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1870 src/project/project.cpp:404
+#: src/editortab.cpp:1871 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr ""
 
-#: src/editortab.cpp:1915
+#: src/editortab.cpp:1916
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr ""
 
-#: src/editortab.cpp:2038
+#: src/editortab.cpp:2040
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -3814,31 +3814,31 @@ msgstr ""
 msgid "Input a comment for this project file:"
 msgstr ""
 
-#: src/project/projecttab.cpp:300
+#: src/project/projecttab.cpp:301
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:319
+#: src/project/projecttab.cpp:320
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/project/projecttab.cpp:320
+#: src/project/projecttab.cpp:321
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:321
+#: src/project/projecttab.cpp:322
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:322
+#: src/project/projecttab.cpp:323
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"

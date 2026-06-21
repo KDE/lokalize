@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-14 00:46+0000\n"
+"POT-Creation-Date: 2026-06-21 00:47+0000\n"
 "PO-Revision-Date: 2025-08-20 08:40+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -727,7 +727,7 @@ msgstr "Infoga text med markeringstaggar"
 msgid "separator for different-length string alternatives"
 msgstr "Skiljetecken för olika långa strängalternativ"
 
-#: src/catalog/gettext/gettextstorage.cpp:287
+#: src/catalog/gettext/gettextstorage.cpp:290
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -761,7 +761,7 @@ msgstr "Upphovsmannens e-postadress saknas"
 msgid "Your email:"
 msgstr "Din e-postadress:"
 
-#: src/catalog/ts/tsstorage.cpp:437
+#: src/catalog/ts/tsstorage.cpp:440
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Föregående källvärde, sparat av verktyget lupdate"
@@ -1521,7 +1521,7 @@ msgstr ""
 "Dokumentet innehåller osparade ändringar.\n"
 "Vill du spara ändringarna eller kasta dem?"
 
-#: src/editortab.cpp:838 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1177
+#: src/editortab.cpp:838 src/editortab.cpp:1612 src/lokalizemainwindow.cpp:1177
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1690,14 +1690,14 @@ msgstr "Rensa"
 msgid "A Pology check is already in progress."
 msgstr "En kontroll med Pology pågår redan."
 
-#: src/editortab.cpp:1587 src/editortab.cpp:1595 src/editortab.cpp:1599
-#: src/project/projecttab.cpp:290 src/project/projecttab.cpp:298
-#: src/project/projecttab.cpp:302
+#: src/editortab.cpp:1587 src/editortab.cpp:1596 src/editortab.cpp:1600
+#: src/project/projecttab.cpp:290 src/project/projecttab.cpp:299
+#: src/project/projecttab.cpp:303
 #, kde-format
 msgid "Pology error"
 msgstr "Fel i Pology"
 
-#: src/editortab.cpp:1595 src/project/projecttab.cpp:298
+#: src/editortab.cpp:1596 src/project/projecttab.cpp:299
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1706,17 +1706,17 @@ msgstr ""
 "Kontrollen med Pology har kraschat oväntat:\n"
 "%1"
 
-#: src/editortab.cpp:1597 src/project/projecttab.cpp:300
+#: src/editortab.cpp:1598 src/project/projecttab.cpp:301
 #, kde-format
 msgid "Pology success"
 msgstr "Pology lyckades"
 
-#: src/editortab.cpp:1597
+#: src/editortab.cpp:1598
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Kontrollen med Pology har lyckats."
 
-#: src/editortab.cpp:1599 src/project/projecttab.cpp:302
+#: src/editortab.cpp:1600 src/project/projecttab.cpp:303
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1725,7 +1725,7 @@ msgstr ""
 "Kontrollen med Pology har returnerat ett fel:\n"
 "%1"
 
-#: src/editortab.cpp:1609
+#: src/editortab.cpp:1610
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1735,19 +1735,19 @@ msgstr ""
 "Det här tar bort alla översättningar från filen.\n"
 "Vill du verkligen rensa alla översatta poster?"
 
-#: src/editortab.cpp:1648
+#: src/editortab.cpp:1649
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Ord i källtexten: %1<br/>Ord i måltexten: %2"
 
-#: src/editortab.cpp:1649
+#: src/editortab.cpp:1650
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Ordantal"
 
-#: src/editortab.cpp:1655
+#: src/editortab.cpp:1656
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Alternate Translations"
@@ -1755,37 +1755,37 @@ msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
 msgstr "Alternativa översättningar"
 
-#: src/editortab.cpp:1753
+#: src/editortab.cpp:1754
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Vill du söka efter källfiler lokalt eller via lxr.kde.org?"
 
-#: src/editortab.cpp:1754
+#: src/editortab.cpp:1755
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Uppslagning av källfil"
 
-#: src/editortab.cpp:1755
+#: src/editortab.cpp:1756
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Sök lokalt"
 
-#: src/editortab.cpp:1756 src/editortab.cpp:1800
+#: src/editortab.cpp:1757 src/editortab.cpp:1801
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "Sök på lxr.kde.org"
 
-#: src/editortab.cpp:1759 src/editortab.cpp:1804
+#: src/editortab.cpp:1760 src/editortab.cpp:1805
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Välj projektets baskatalog för uppslagning av källfiler"
 
-#: src/editortab.cpp:1796
+#: src/editortab.cpp:1797
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1795,19 +1795,19 @@ msgstr ""
 "Kunde inte hitta källfiler i angiven katalog.\n"
 "Vill du ändra källfilkatalog?"
 
-#: src/editortab.cpp:1798
+#: src/editortab.cpp:1799
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Uppslagning av källfil"
 
-#: src/editortab.cpp:1799
+#: src/editortab.cpp:1800
 #, kde-format
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Välj katalog"
 
-#: src/editortab.cpp:1841
+#: src/editortab.cpp:1842
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1821,33 +1821,33 @@ msgstr ""
 "skript laddade för att kunna öppna källfiler med egna sökvägar. Se Lokalizes "
 "handbok för exempel på skript och hur de kopplas in i projektet."
 
-#: src/editortab.cpp:1855 src/project/project.cpp:394
+#: src/editortab.cpp:1856 src/project/project.cpp:394
 #: src/project/project.cpp:399
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Installera paketet translate-toolkit och försök igen"
 
-#: src/editortab.cpp:1860
+#: src/editortab.cpp:1861
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Installera paketet translate-toolkit och försök igen."
 
-#: src/editortab.cpp:1868
+#: src/editortab.cpp:1869
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Välj ursprungligt OpenDocument som nuvarande XLIFF-fil är baserad på"
 
-#: src/editortab.cpp:1870 src/project/project.cpp:404
+#: src/editortab.cpp:1871 src/project/project.cpp:404
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument-filer (*.odt *.ods)"
 
-#: src/editortab.cpp:1915
+#: src/editortab.cpp:1916
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Installera paketet python-uno för ytterligare funktionalitet."
 
-#: src/editortab.cpp:2038
+#: src/editortab.cpp:2040
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -4229,19 +4229,19 @@ msgstr "Projektfilskommentar"
 msgid "Input a comment for this project file:"
 msgstr "Ange en kommentar för projektfilen:"
 
-#: src/project/projecttab.cpp:300
+#: src/project/projecttab.cpp:301
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr "Kontrollen med Pology har lyckats"
 
-#: src/project/projecttab.cpp:319
+#: src/project/projecttab.cpp:320
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] "Du är på väg att öppna %1 fil"
 msgstr[1] "Du är på väg att öppna %1 filer"
 
-#: src/project/projecttab.cpp:320
+#: src/project/projecttab.cpp:321
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
@@ -4249,12 +4249,12 @@ msgid ""
 msgstr ""
 "Att öppna ett stort antal filer samtidigt kan göra Lokalize oemottagligt."
 
-#: src/project/projecttab.cpp:321
+#: src/project/projecttab.cpp:322
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr "Är du säker på att du vill öppna så här många filer?"
 
-#: src/project/projecttab.cpp:322
+#: src/project/projecttab.cpp:323
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
