@@ -1620,7 +1620,7 @@ msgstr "Busca localment"
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "Busca a lxr.kde.org"
+msgstr "Busca en lxr.kde.org"
 
 #: src/editortab.cpp:1511 src/editortab.cpp:1556
 #, kde-format
@@ -2879,8 +2879,8 @@ msgid ""
 "%2 - Line number"
 msgstr ""
 "Estan disponibles els paràmetres següents\n"
-"%1 - Camí cap al fitxer de codi font\n"
-"%2 - Número de línia"
+"%1 – Camí cap al fitxer de codi font\n"
+"%2 – Número de línia"
 
 #: src/prefs/prefs.cpp:101 src/prefs/prefs.cpp:207
 #, kde-format
