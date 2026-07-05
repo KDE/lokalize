@@ -81,6 +81,8 @@ static const langPInfo langsWithPInfo[] = {
     {"mk", "nplurals=3; plural=n%10==1 ? 0 : n%10==2 ? 1 : 2;"},
     {"mr", "nplurals=2; plural=(n!=1);"},
     {"ms", "nplurals=2; plural=1;"},
+    {"nan_TW", "nplurals=1; plural=0;"},
+    {"nan_TW@latin", "nplurals=1; plural=0;"},
     {"nb", "nplurals=2; plural=(n != 1);"},
     {"nl", "nplurals=2; plural=(n != 1);"},
     {"nn", "nplurals=2; plural=(n != 1);"},
