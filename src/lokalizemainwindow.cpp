@@ -28,13 +28,8 @@
 #include "tmtab.h"
 #include "tools/widgettextcaptureconfig.h"
 
-#include <kconfigwidgets_version.h>
 #include <knotification.h>
 #include <qstringview.h>
-
-#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-#include <KStyleManager>
-#endif
 
 #include <KActionCategory>
 #include <KActionCollection>
@@ -49,6 +44,7 @@
 #include <KStandardAction>
 #include <KStandardShortcut>
 #include <KStringHandler>
+#include <KStyleManager>
 #include <KXMLGUIFactory>
 #include <KXmlGuiWindow>
 
@@ -764,9 +760,7 @@ void LokalizeMainWindow::setupActions()
     action = ac->addAction(QStringLiteral("tools_widgettextcapture"), this, &LokalizeMainWindow::widgetTextCapture);
     action->setText(i18nc("@action:inmenu", "Widget Text Capture"));
 
-#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(6, 3, 0)
     ac->addAction(QStringLiteral("settings_style"), KStyleManager::createConfigureAction(this));
-#endif
 
     // Load themes
 #if KCOLORSCHEME_VERSION < QT_VERSION_CHECK(6, 6, 0)
