@@ -23,7 +23,6 @@
 #include <KReplaceDialog>
 #include <Sonnet/BackgroundChecker>
 #include <Sonnet/Dialog>
-#include <kcoreaddons_version.h>
 
 #include <QElapsedTimer>
 #include <QPointer>

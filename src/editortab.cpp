@@ -50,7 +50,6 @@
 #include <KStandardShortcut>
 #include <KToolBarPopupAction>
 #include <KXMLGUIFactory>
-#include <kcoreaddons_version.h>
 
 #include <QActionGroup>
 #include <QApplication>

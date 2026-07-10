@@ -29,8 +29,6 @@
 #include <KEditListWidget>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kcoreaddons_version.h>
-#include <kio_version.h>
 
 #include <QBoxLayout>
 #include <QDragEnterEvent>

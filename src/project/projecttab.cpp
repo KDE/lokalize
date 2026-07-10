@@ -26,7 +26,6 @@
 #include <KStandardAction>
 #include <KStandardGuiItem>
 #include <KXMLGUIFactory>
-#include <kcoreaddons_version.h>
 
 #include <QContextMenuEvent>
 #include <QDir>

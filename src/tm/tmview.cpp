@@ -24,7 +24,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNotification>
-#include <kcoreaddons_version.h>
 
 #include <QApplication>
 #include <QDir>

@@ -21,7 +21,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KStandardGuiItem>
-#include <kcoreaddons_version.h>
 
 #include <QAbstractItemModel>
 #include <QApplication>

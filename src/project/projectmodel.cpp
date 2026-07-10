@@ -17,7 +17,6 @@
 
 #include <KDirLister>
 #include <KLocalizedString>
-#include <kcoreaddons_version.h>
 
 #include <QDir>
 #include <QFile>
