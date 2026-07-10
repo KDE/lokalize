@@ -28,7 +28,6 @@
 #include "tmtab.h"
 #include "tools/widgettextcaptureconfig.h"
 
-#include <kcolorscheme_version.h>
 #include <kconfigwidgets_version.h>
 #include <knotification.h>
 #include <qstringview.h>

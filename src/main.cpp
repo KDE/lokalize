@@ -21,8 +21,6 @@
 #include "stemming.h"
 #include "version.h"
 
-#include <kiconthemes_version.h>
-
 #if HAVE_DBUS
 #include <KDBusService>
 #endif
