@@ -726,6 +726,9 @@ MassReplaceView::MassReplaceView(QWidget *parent)
     setWidget(base);
     ui->setupUi(base);
 
+    QShortcut *sh = new QShortcut(Qt::ControlModifier | Qt::Key_R, this);
+    connect(sh, &QShortcut::activated, ui->searchText, qOverload<>(&QLineEdit::setFocus));
+
     connect(ui->doPreview, &QPushButton::toggled, this, &MassReplaceView::requestPreview);
     connect(ui->doReplace, &QPushButton::clicked, this, &MassReplaceView::requestReplace);
 }

@@ -103,6 +103,14 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>searchText</tabstop>
+  <tabstop>replaceText</tabstop>
+  <tabstop>doPreview</tabstop>
+  <tabstop>doReplace</tabstop>
+  <tabstop>useRegExps</tabstop>
+  <tabstop>matchCase</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
