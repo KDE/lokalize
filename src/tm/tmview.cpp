@@ -623,7 +623,7 @@ void TMView::deleteFile(const TMEntry &e, const bool showPopUp)
 void TMView::runJobs()
 {
     for (const auto job : m_jobs) {
-        if (auto j = dynamic_cast<TM::Job *const>(job)) {
+        if (const auto j = dynamic_cast<TM::Job *const>(job)) {
             TM::threadPool()->start(job, j->priority());
         }
     }

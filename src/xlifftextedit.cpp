@@ -860,7 +860,7 @@ void TranslationUnitTextEdit::contextMenuEvent(QContextMenuEvent *event)
             QMenu menu;
             int entry = m_catalog->unitById(xid);
 
-            QAction *result = menu.exec(event->globalPos());
+            const QAction *result = menu.exec(event->globalPos());
             if (result) {
                 if (entry >= m_catalog->numberOfEntries())
                     Q_EMIT binaryUnitSelectRequested(xid);
