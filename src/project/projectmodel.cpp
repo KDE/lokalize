@@ -720,7 +720,7 @@ QModelIndex ProjectModel::indexForNode(const ProjectNode *node)
         return QModelIndex();
 
     int row = node->rowNumber;
-    QModelIndex index = createIndex(row, 0, (void *)node);
+    QModelIndex index = createIndex(row, 0, node);
     return index;
 }
 
