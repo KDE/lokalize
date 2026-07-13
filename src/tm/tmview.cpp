@@ -309,13 +309,12 @@ void TMView::slotBatchSelectDone()
             continue;
         {
             bool forceFuzzy = (suggList.size() > 1 && suggList.at(1).score >= 10000) || entry.score < 10000;
-            bool ctxtMatches = entry.score == 1001;
             if (!m_catalog->isApproved(pos.entry)) {
                 removeTargetSubstring(m_catalog, pos, 0, m_catalog->targetWithTags(pos).string.size());
                 insertCatalogString(m_catalog, pos, entry.target, 0);
-                if (ctxtMatches || !(m_markAsFuzzy || forceFuzzy))
+                if (!(m_markAsFuzzy || forceFuzzy))
                     SetStateCmd::push(m_catalog, pos, true);
-            } else if ((m_markAsFuzzy && !ctxtMatches) || forceFuzzy) {
+            } else if (m_markAsFuzzy || forceFuzzy) {
                 insertCatalogString(m_catalog, pos, entry.target, 0);
                 SetStateCmd::push(m_catalog, pos, false);
             } else {
