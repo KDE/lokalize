@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-12 00:47+0000\n"
-"PO-Revision-Date: 2026-05-21 11:52+0400\n"
+"PO-Revision-Date: 2026-07-17 18:23+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2450,7 +2450,7 @@ msgid ""
 "Do not translate what had already been translated."
 msgstr ""
 "نظام ترجمة بمساعدة الحاسوب.\n"
-"لا تُترجم ما تمّت ترجمته."
+"لا تُترجم ما تُرجم."
 
 #: src/main.cpp:76
 #, kde-format
@@ -2522,7 +2522,7 @@ msgstr "شجرة المشروع التي تدمج الترجمة مع القوا
 #: src/main.cpp:89
 #, kde-format
 msgid "Stephan Johach"
-msgstr "ستفان جوناه Stephan Johach"
+msgstr "ستفان جوناه"
 
 #: src/main.cpp:89 src/main.cpp:90 src/main.cpp:93
 #, kde-format
@@ -2532,12 +2532,12 @@ msgstr "رُقع لإصلاح العلل"
 #: src/main.cpp:90
 #, kde-format
 msgid "Chusslove Illich"
-msgstr "جوسلوف إليج Chusslove Illich"
+msgstr "جوسلوف إليج"
 
 #: src/main.cpp:91
 #, kde-format
 msgid "Jure Repinc"
-msgstr "جور ربنك Jure Repinc"
+msgstr "جور ربنك"
 
 #: src/main.cpp:91
 #, kde-format
