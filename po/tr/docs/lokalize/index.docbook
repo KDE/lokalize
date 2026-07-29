@@ -544,14 +544,14 @@
 >Toplu Çeviri:</term>
     <listitem>
       <para
->Çeviri belleği veri tabanından tam uyuşan önerileri kendiliğinden doldurmak için <menuchoice
+>Çeviri belleği, veri tabanından tam uyuşan önerileri kendiliğinden doldurmak için <menuchoice
 ><guimenu
 >Araçlar</guimenu
 ><guimenuitem
->Tüm Tam Uyuşan Önerileri Doldur</guimenuitem
+>Tam Uyuşan Önerileri Doldur</guimenuitem
 ></menuchoice
 > veya <guimenuitem
->Tüm Tam Uyuşan Önerileri Doldur ve Belirsiz Olarak İmle</guimenuitem
+>Tam Uyuşan Önerileri Doldur ve Belirsiz Olarak İmle</guimenuitem
 > seçeneklerini kullanın. </para>
     </listitem>
   </varlistentry>
