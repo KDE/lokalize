@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-21 00:47+0000\n"
-"PO-Revision-Date: 2026-05-30 19:18+0300\n"
+"PO-Revision-Date: 2026-07-28 21:32+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -74,7 +74,7 @@ msgstr ""
 "Alternatif Çeviriler görünümünde kullanılabilir veri mevcut.\n"
 "\n"
 "Gettext PO dosyaları için bu geçerli kaynak metin POT şablonu tabanlı PO "
-"güncellenirken msgmerge tarafından bulunan belirsiz çevirilerdeki metnin "
+"güncellenirken msgmerge tarafından bulunan bulanık çevirilerdeki metnin "
 "farkını gösterir.\n"
 "\n"
 "Verilerle birlikte görüntülemek istiyor musunuz?"
@@ -1332,13 +1332,13 @@ msgstr "Sonraki Yer İmi"
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
-msgstr "Tüm Tam Uyuşan Önerileri Doldur"
+msgstr "Tam Uyuşan Önerileri Doldur"
 
 #: src/editortab.cpp:659
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
-msgstr "Tüm Tam Uyuşan Önerileri Doldur ve Belirsiz Olarak İmle"
+msgstr "Tam Uyuşan Önerileri Doldur ve Bulanık Olarak İmle"
 
 #: src/editortab.cpp:667
 #, kde-format
@@ -3068,7 +3068,7 @@ msgid ""
 "If checked, LEDS will be shown to display the message status: Fuzzy, "
 "Untranslated or Error. If unchecked, no LEDs will be displayed."
 msgstr ""
-"Eğer seçilirse ışıklı göstergeler ileti durumlarını gösterir: Belirsiz, "
+"Eğer seçilirse ışıklı göstergeler ileti durumlarını gösterir: Bulanık, "
 "Çevrilmemiş ya da Hatalı gibi. Eğer seçilmezse ışıklı göstergeler "
 "gösterilmeyecek."
 
@@ -3079,8 +3079,7 @@ msgid ""
 "LEDs to indicate Fuzzy and Untranslated status as well as cursor column "
 "number"
 msgstr ""
-"Hatalı, Belirsiz ve Çevrilmemiş Ögeleri ile fare işaretçisinin sütun "
-"numarasını göstermek için Işıklı Düğmeler"
+"Bulanık ve çevrilmemiş durumu ile sütun numarası için trafik ışıkları kullan"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:82
@@ -3339,7 +3338,7 @@ msgstr "Özel LanguageTool sunucusu kullan"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Server Path:"
-msgstr "Sunucu Yolu:"
+msgstr "Sunucu yolu:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
 #: src/prefs/prefs_languagetool.ui:44
@@ -3543,7 +3542,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Markup:"
-msgstr "İmle:"
+msgstr "İmleme:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:58
