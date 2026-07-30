@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-21 00:47+0000\n"
-"PO-Revision-Date: 2026-07-28 20:26+0200\n"
+"PO-Revision-Date: 2026-07-29 16:02+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -330,8 +330,8 @@ msgid ""
 "abbreviated form: a term resulting from the omission of any part of the full "
 "term while designating the same concept"
 msgstr ""
-"era laburtua: termino osoaren edozein zati ez aipatzean sortzen den "
-"terminoa, kontzeptu bera izendatzen duena"
+"forma laburtua: termino osoaren edozein zati kenduta sortzen den terminoa, "
+"kontzeptu bera izendatzen duena"
 
 #: src/catalog/catalogstring.cpp:114
 #, kde-format
@@ -340,8 +340,8 @@ msgid ""
 "abbreviation: an abbreviated form of a simple term resulting from the "
 "omission of some of its letters (e.g. 'adj.' for 'adjective')"
 msgstr ""
-"laburdura: termino soil baten era laburtua, bere letra batzuk ez aipatzean "
-"sortzen dena (adib. 'adj.', 'adjektibo' adierazteko)"
+"laburdura: termino soil baten forma laburtua, haren letra batzuk kenduta "
+"sortzen dena (adib. «adj.», «adjektibo» adierazteko)"
 
 #: src/catalog/catalogstring.cpp:116
 #, kde-format
@@ -351,9 +351,9 @@ msgid ""
 "of a multiword term strung together into a sequence pronounced only "
 "syllabically (e.g. 'radar' for 'radio detecting and ranging')"
 msgstr ""
-"akronimo: esapide baten hitzetako lehen letra edo silabez osaturiko hitza, "
-"silabaka bakarrik ahoskatzen dena (adib. «radar», «radio detecting and "
-"ranging» adierazteko)"
+"akronimoa: hitz anitzeko termino baten forma osoko letrez osatutako forma "
+"laburtua, letrak segida batean elkartuta eta silabaka ahoskatzen dena (adib. "
+"«radar», «radio detecting and ranging» adierazteko)"
 
 #: src/catalog/catalogstring.cpp:118
 #, kde-format
@@ -374,9 +374,10 @@ msgid ""
 "series of utterances, even though they do not necessarily have to maintain "
 "immediate proximity to one another"
 msgstr ""
-"kolokazioa: Bata bestearen ondoren agertu ohi diren bi hitz edo gehiagoren "
-"segida, unitate semantiko edo sintaktiko baten ezaugarriak dituena. Esanahi "
-"propioa izaten du, osagaien esanahietatik ondoriozta ezin daitekeena."
+"kolokazioa: maiz errepikatzen den hitz-konbinazioa, osagaien arteko "
+"kohesioak ezaugarritzen duena; osagai horiek enuntziatu berean edo "
+"enuntziatu-segida batean batera agertu behar dute, nahiz eta ez duten "
+"nahitaez elkarren ondoan egon behar"
 
 #: src/catalog/catalogstring.cpp:122
 #, kde-format
@@ -385,8 +386,8 @@ msgid ""
 "common name: a synonym for an international scientific term that is used in "
 "general discourse in a given language"
 msgstr ""
-"izen arrunta: nazioarteko zientzia termino baten sinonimo bat hizkuntza "
-"jakin batean diskurtso orokorrean erabiltzen dena"
+"izen arrunta: hizkuntza jakin bateko diskurtso orokorrean erabiltzen den "
+"nazioarteko zientzia-termino baten sinonimoa"
 
 #: src/catalog/catalogstring.cpp:123
 #, kde-format
@@ -447,7 +448,7 @@ msgstr ""
 "sigla: hitz anitzeko termino bat osatzen duten hitzen hasierako letra "
 "batzuetatik edo termino elkartu bat osatzen duten elementuen hasierako letra "
 "batzuetatik eratutako forma laburtua, letra horiek banan-banan ahoskatzen "
-"direnean (adib. 'BEZ' 'Balio Erantsiaren gaineko Zerga' terminoaren sigla)"
+"direnean (adib. «BEZ» «Balio Erantsiaren gaineko Zerga» adierazteko)"
 
 #: src/catalog/catalogstring.cpp:135
 #, kde-format
@@ -486,7 +487,8 @@ msgstr ""
 #, kde-format
 msgctxt "XLIFF mark type"
 msgid "materials management unit: a unit to track object"
-msgstr "Materialak kudeatzeko unitatea: objektuen jarraipena egiteko unitatea"
+msgstr ""
+"materialen kudeaketa-unitatea: objektu baten jarraipena egiteko unitatea"
 
 #: src/catalog/catalogstring.cpp:141
 #, kde-format
@@ -513,10 +515,8 @@ msgid ""
 "part number: a unique alphanumeric designation assigned to an object in a "
 "manufacturing system"
 msgstr ""
-"atal zenbakia: fabrikazio sistema batean objektu bati emaniko izendapen "
-"alfazenbakizko bakuna. «Atal zenbakia» diseinu atal baten identifikatzailea "
-"da (bere instantzien independentea), «serie zenbaki» bat diseinu atal horren "
-"instantzia zehatz baten identifikatzailea da."
+"atal zenbakia: fabrikazio-sistema batean objektu bati esleitutako izendapen "
+"alfanumeriko bakarra"
 
 #: src/catalog/catalogstring.cpp:146
 #, kde-format
@@ -549,8 +549,8 @@ msgid ""
 "romanized form: a form of a term resulting from an operation whereby non-"
 "Latin writing systems are converted to the Latin alphabet"
 msgstr ""
-"forma erromanizatua: latinekoak ez diren idazketa sistemak latineko "
-"alfabetora bihurtzen direnean lortzen den termino baten forma bat."
+"forma erromanizatua: termino baten forma bat, latindarrak ez diren idazketa-"
+"sistemak alfabeto latinera bihurtzean sortzen dena"
 
 #: src/catalog/catalogstring.cpp:153
 #, kde-format
@@ -575,9 +575,9 @@ msgid ""
 "full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
-"forma laburra: hitz anitzeko termino baten ordezko bat, termino osoak baino "
-"hitz kopuru txikiagoa duena (adib. «Hogeita lauko Taldea» «Nazioarteko Diru-"
-"Kontuetan Gobernuarteko Hogeita lauko Taldea»)"
+"forma laburra: hitz anitzeko termino baten aldaera, terminoaren forma osoak "
+"baino hitz gutxiago dituena (adib. «Hogeita lauko Taldea» «Nazioarteko Diru "
+"Kontuetarako Gobernuarteko Hogeita lauko Taldea» terminoaren ordez)"
 
 #: src/catalog/catalogstring.cpp:159
 #, kde-format
@@ -641,8 +641,8 @@ msgid ""
 "writing system, taking into account the pronunciation of the characters "
 "converted"
 msgstr ""
-"forma transkribatua: termino baten forma bat, idazketa sistema bateko "
-"karaktereak, bihurtutako karaktereen ahoskera kontuan hartuz, beste idazketa "
+"forma transkribatua: termino baten forma bat, idazketa-sistema bateko "
+"karaktereak, bihurtutako karaktereen ahoskera kontuan hartuz, beste idazketa-"
 "sistema bateko karaktereekin adieraztean sortzen dena"
 
 #: src/catalog/catalogstring.cpp:170
@@ -653,9 +653,9 @@ msgid ""
 "the characters of an alphabetic writing system are represented by characters "
 "from another alphabetic writing system"
 msgstr ""
-"letraldatutako forma: alfabeto idazkera sistema bateko karaktereak beste "
-"alfabeto idazkera sistema bateko karaktereen bidez adierazteko eragiketa "
-"baten bidez lortutako terminoaren forma bat da"
+"forma letraldatua: termino baten forma bat, idazketa-sistema alfabetiko "
+"bateko karaktereak beste idazketa-sistema alfabetiko bateko karaktereen "
+"bidez adieraztean sortzen dena"
 
 #: src/catalog/catalogstring.cpp:173
 #, kde-format
@@ -664,9 +664,8 @@ msgid ""
 "truncated term: an abbreviated form of a term resulting from the omission of "
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
-"termino moztua: termino baten forma laburtu bat, terminoaren elementu edo "
-"silaba bat edo gehiago ez agertzearen ondorioa (adib. «info» "
-"«informazio»rako)"
+"termino moztua: termino-elementu edo silaba bat edo gehiago kenduta sortzen "
+"den termino baten forma laburtua (adib. «info», «informazio» adierazteko)"
 
 #: src/catalog/catalogstring.cpp:175
 #, kde-format
@@ -838,12 +837,12 @@ msgstr "Hutsik"
 #: src/cataloglistview/cataloglistview.cpp:222
 #, kde-format
 msgid "Changed since file open"
-msgstr "Aldatua fitxategia ireki denetik"
+msgstr "Fitxategia ireki denetik aldatu da"
 
 #: src/cataloglistview/cataloglistview.cpp:223
 #, kde-format
 msgid "Unchanged since file open"
-msgstr "Aldatzeke fitxategia ireki denetik"
+msgstr "Fitxategia ireki denetik ez da aldatu"
 
 #: src/cataloglistview/cataloglistview.cpp:224
 #, kde-format
@@ -1044,7 +1043,7 @@ msgstr "Sinkronizatzea 2"
 #: src/editortab.cpp:199
 #, kde-format
 msgid "Translation Memory"
-msgstr "Itzulpen memoria"
+msgstr "Itzulpen-memoria"
 
 #: src/editortab.cpp:200 src/lokalizemainwindow.cpp:675
 #, kde-format
@@ -1140,7 +1139,7 @@ msgstr "Abiarazi fitxategi honetako Pology komandoa"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
-msgstr "Bateratu itzulpena OpenDokument-ean"
+msgstr "Bateratu itzulpena OpenDocument-ean"
 
 #: src/editortab.cpp:452
 #, kde-format
@@ -1360,7 +1359,7 @@ msgstr "Bete sarrera guztiak iradokizun zehatzekin eta markatu berrikusteko"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
-msgstr "Ireki fitxategia sinkronizatzeko/bateratzeko"
+msgstr "Fitxategia sinkronizatzeko/bateratzeko ireki"
 
 #: src/editortab.cpp:668 src/editortab.cpp:727
 #, kde-format
@@ -1440,7 +1439,7 @@ msgstr "Bateratze-sorburura kopiatu"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
-msgstr "Ireki fitxategia bigarren sinkronizatzerako"
+msgstr "Bigarren sinkronizatzerako fitxategia ireki"
 
 #: src/editortab.cpp:757
 #, kde-format
@@ -1755,11 +1754,12 @@ msgid ""
 "to handle opening source files in custom paths. Refer to the Lokalize "
 "handbook for script examples and how to plug them into your project."
 msgstr ""
-"Ezin da jomugako sorburu-fitxategia ireki: Jomugako sorburu-fitxategiaren "
+"Ezin da jomugako sorburu-fitxategia ireki: jomugako sorburu-fitxategiaren "
 "bide-izena ez da uneko itzulpen-fitxategiarekiko erlatiboa, eta une honetan "
-"ez dago bide-izen pertsonalizatuetako sorburu-fitxategiak irekitzeaz "
-"arduratzeko gidoirik zamatuta. Kontsultatu Lokalizeren eskuliburua gidoien "
-"adibideak ikusteko eta zure proiektuan nola txertatu jakiteko."
+"ez dago bide-izen norberak zehaztutako bide-izenetan dauden sorburu-"
+"fitxategiak irekitzeaz arduratzeko gidoirik zamatuta. Kontsultatu "
+"Lokalizeren eskuliburua gidoien adibideak ikusteko eta haiek zure proiektuan "
+"nola txertatu jakiteko."
 
 #: src/editortab.cpp:1856 src/project/project.cpp:394
 #: src/project/project.cpp:399
@@ -1843,7 +1843,7 @@ msgstr "&Glosategia"
 #: src/editorui.rc:103
 #, kde-format
 msgid "Translation &Memory"
-msgstr "Itzulpen &memoria"
+msgstr "Itzulpen-&memoria"
 
 #. i18n: ectx: Menu (alttrans)
 #: src/editorui.rc:135
@@ -2077,7 +2077,7 @@ msgstr "Aurreikusi"
 #: src/filesearch/massreplaceoptions.ui:56
 #, kde-format
 msgid "Mass Replace"
-msgstr "Ordezkapen pila"
+msgstr "Ordezkapen masiboa"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
 #: src/findextension.ui:30
@@ -2324,7 +2324,7 @@ msgstr "Lokalize &konfiguratu…"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Project…"
-msgstr "Ireki proiektua…"
+msgstr "Proiektua ireki…"
 
 #: src/lokalizemainwindow.cpp:121
 #, kde-format
@@ -2342,12 +2342,12 @@ msgstr "OpenDocument itzuli…"
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
-msgstr "Ez da Qt Sql modulurik aurkitu. Itzulpen memoria ez da ibiliko."
+msgstr "Ez da Qt Sql modulurik aurkitu. Itzulpen-memoria ez da ibiliko."
 
 #: src/lokalizemainwindow.cpp:577 src/project/project.cpp:217
 #, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
-msgstr "Itzulpen memoria zerbitzuak SQLite Qt modulua behar du."
+msgstr "Itzulpen-memoria zerbitzuak SQLite Qt modulua behar du."
 
 #: src/lokalizemainwindow.cpp:577 src/project/project.cpp:217
 #, kde-format
@@ -2396,7 +2396,7 @@ msgstr "Glosategia"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
-msgstr "Itzulpen memoria"
+msgstr "Itzulpen-memoria"
 
 #: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:490
 #, kde-format
@@ -2426,7 +2426,7 @@ msgstr "Sortu softwarea itzultzeko proiektua…"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
-msgstr "Sortu OpenDocument itzultzeko proiektua…"
+msgstr "OpenDocument itzultzeko proiektua sortu…"
 
 #: src/lokalizemainwindow.cpp:746
 #, kde-format
@@ -2438,7 +2438,7 @@ msgstr "Itxi proiektua"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
-msgstr "Ireki azkenaldiko proiektua"
+msgstr "Azkenaldiko proiektua ireki"
 
 #: src/lokalizemainwindow.cpp:759
 #, kde-format
@@ -2890,7 +2890,7 @@ msgstr "Itzultzailearen izena jomuga-hizkuntzan"
 #: src/prefs/lokalize.kcfg:27
 #, kde-format
 msgid "Override Language Team"
-msgstr "Indargabetu hizkuntza taldea"
+msgstr "Beste hizkuntza-taldea bat erabili"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:28
@@ -2947,7 +2947,7 @@ msgstr ""
 #: src/prefs/lokalize.kcfg:73
 #, kde-format
 msgid "Font for Messages"
-msgstr "Mezuentzako letra-tipoa"
+msgstr "Mezuen letra-tipoa"
 
 #: src/prefs/prefs.cpp:90
 #, kde-format
@@ -3043,7 +3043,7 @@ msgstr "Hautatu itzultzeko Gettext .po fitxategiak dituen karpeta"
 #: src/prefs/prefs.cpp:195
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
-msgstr "Sortu software edo OpenDocument itzulpen proiektua lehenbizi."
+msgstr "Aurrena software edo OpenDocument itzulpen proiektua sortu."
 
 #: src/prefs/prefs.cpp:251
 #, kde-format
@@ -3061,20 +3061,19 @@ msgstr "Pertsonala"
 #: src/prefs/prefs_appearance.ui:34
 #, kde-format
 msgid "Editor font:"
-msgstr "Editorearen tipografia:"
+msgstr "Editorearen letra-tipoa:"
 
 #. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_MsgFont)
 #: src/prefs/prefs_appearance.ui:44
 #, kde-format
 msgid "Change the font for the editor"
-msgstr "Aldatu editorearen tipografia"
+msgstr "Editorearen letra-tipoa aldatu"
 
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_MsgFont)
 #: src/prefs/prefs_appearance.ui:47
 #, kde-format
 msgid "Choose a new font for the area where you write the translated message."
-msgstr ""
-"Hautatu itzulitako mezuak idazten dituzun aldearentzako tipografia berria."
+msgstr "Hautatu itzulitako mezua idazten duzun aldearen letra-tipo berria."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:54
@@ -3356,7 +3355,7 @@ msgstr "Hizkuntza-talde lehenetsia:"
 #: src/prefs/prefs_languagetool.ui:21
 #, kde-format
 msgid "Use custom LanguageTool server"
-msgstr "Erabili norberak finkatutako LanguageTool zerbitzaria"
+msgstr "Norberak zehaztutako LanguageTool zerbitzaria erabili"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/prefs/prefs_languagetool.ui:31
@@ -3377,7 +3376,7 @@ msgstr "Norberak zehaztutako LanguageTool zerbitzariaren bide-izena"
 msgid "Please enter the path of your custom Language Tool server, if any"
 msgstr ""
 "Mesedez, sartu zuk zehaztutako LanguageTool zerbitzariaren bide-izena, "
-"halakorik balego"
+"halakorik badago"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_languagetool.ui:58
@@ -3583,7 +3582,7 @@ msgid ""
 "specifying where markup is."
 msgstr ""
 "Markaketaren adierazpen erregularra. Itzulpen-memoriako bat-etortzeetarako "
-"eta 'Txertatu etiketa' eginbiderako erabiltzen da.\n"
+"eta «Etiketa txertatu» eginbiderako erabiltzen da.\n"
 "\n"
 "Balio lehenetsia, XMLn oinarritutako testuetarako egokia, hau da:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
@@ -3901,7 +3900,7 @@ msgstr "Erabiltzailearen hizkuntza taldea Lokalizeren ezarpenetan"
 #: src/project/projectbase.kcfg:37
 #, kde-format
 msgid "Override Lokalize Language Team"
-msgstr "Indargabetu Lokalizeren hizkuntza taldea"
+msgstr "Lokalizeren hizkuntza-taldearen ordez beste bat erabili"
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
 #: src/project/projectbase.kcfg:43
@@ -4053,7 +4052,7 @@ msgstr "Ireki direktorio-zuhaitza itzuli gabeko fitxategietaraino"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
-msgstr "Ireki hautatutako fitxategiak"
+msgstr "Hautatutako fitxategiak ireki"
 
 #: src/project/projecttab.cpp:197
 #, kde-format
@@ -4374,8 +4373,8 @@ msgid ""
 "Reads all project files into translation memory, updating old entries. The "
 "scanning will work in background."
 msgstr ""
-"Proiektuko fitxategi guztiak itzulpen memorian irakurtzen ditu, "
-"sarrerazaharrak eguneratuz. Azterketa atzeko planoan egingo da."
+"Proiektuko fitxategi guztiak itzulpen-memorian irakurtzen ditu, sarrera "
+"zaharrak eguneratuz. Azterketa atzeko planoan egingo da."
 
 #. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
 #: src/tm/queryoptions.ui:200
@@ -4713,7 +4712,7 @@ msgstr "Bat ere ez"
 #: src/tools/widgettextcaptureconfig.ui:58
 #, kde-format
 msgid "Search GUI element text in translation memory"
-msgstr "Bilatu GUI elementuaren testua itzulpen memorian"
+msgstr "Bilatu GUI elementuaren testua itzulpen-memorian"
 
 #. i18n: ectx: property (text), widget (QRadioButton, clipboard)
 #: src/tools/widgettextcaptureconfig.ui:65
@@ -4725,7 +4724,7 @@ msgstr "GUI elementuaren testua arbelera kopiatu"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
-msgstr "Bilatu hautatutako testua itzulpen memorian"
+msgstr "Bilatu hautatutako testua itzulpen-memorian"
 
 #: src/xlifftextedit.cpp:956
 #, kde-format
