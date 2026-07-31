@@ -114,7 +114,7 @@ msgid ""
 "source for additional alternate translations."
 msgstr ""
 "Manchmal veraltet die Übersetzung beim Verändern des Originaltextes und "
-"erhält den Status „Benötigt Prüfung“ (d. h., sie verliert die Freigabe) oder "
+"erhält den Status „Benötigt Prüfung“ (d. h., sie verliert die Freigabe) oder "
 "wird zu den „Alternativen Übersetzungen“ verschoben (nur bei „XLIFF“-"
 "Dateien). Dieses Ansichtswerkzeug zeigt die Unterschiede zwischen dem "
 "aktuellen und dem vorherigen Originaltext. So können die Anpassungen für die "
@@ -340,7 +340,7 @@ msgid ""
 "omission of some of its letters (e.g. 'adj.' for 'adjective')"
 msgstr ""
 "Abkürzung: Die abgekürzte Form eines einfachen Wortes durch Weglassen von "
-"einigen Buchstaben (z. B. „Mo.“ für „Montag“)"
+"einigen Buchstaben (z. B. „Mo.“ für „Montag“)"
 
 #: src/catalog/catalogstring.cpp:116
 #, kde-format
@@ -351,7 +351,7 @@ msgid ""
 "syllabically (e.g. 'radar' for 'radio detecting and ranging')"
 msgstr ""
 "Kurzwort: Die abgekürzte Form für mehrere Wörter. Es werden meist nur die "
-"Anfangsbuchstaben der einzelnen Worte aneinander gereiht (z. B. „BGB“ für "
+"Anfangsbuchstaben der einzelnen Worte aneinander gereiht (z. B. „BGB“ für "
 "„Bürgerliches Gesetzbuch“)"
 
 #: src/catalog/catalogstring.cpp:118
@@ -424,7 +424,7 @@ msgid ""
 "such as a mathematical or chemical formula"
 msgstr ""
 "Formeln: Zahlen, Zeichen oder dergleichen, die zur kurzen Darstellung dienen "
-"(z. B. math. oder chem. Formeln) "
+"(z. B. math. oder chem. Formeln) "
 
 #: src/catalog/catalogstring.cpp:129
 #, kde-format
@@ -448,7 +448,7 @@ msgstr ""
 "Initialwort: Eine abgekürzte Form eines Begriffs, die aus Zusammenfügen der "
 "ersten Buchstaben der Wörter des mehrwortigen Begriffs oder Begriffsteilen "
 "des zusammengesetzten Begriffs besteht und die Buchstaben einzeln gesprochen "
-"werden (z. B. „MKS“ für „Maul- und Klauenseuche“)"
+"werden (z. B. „MKS“ für „Maul- und Klauenseuche“)"
 
 #: src/catalog/catalogstring.cpp:135
 #, kde-format
@@ -479,7 +479,7 @@ msgid ""
 "relationships, Boolean operations, and the like"
 msgstr ""
 "Logischer Ausdruck: Ein Ausdruck für die Darstellung eines Konzepts auf der "
-"Grundlage von math. oder logischen Beziehungen (z. B. Ungleichheiten, "
+"Grundlage von math. oder logischen Beziehungen (z. B. Ungleichheiten, "
 "Zusammenhänge, boolesche Operatoren und dergleichen)."
 
 #: src/catalog/catalogstring.cpp:140
@@ -572,7 +572,7 @@ msgid ""
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
 "Kurzform: Eine Variante eines mehrwortigen Begriffes mit weniger Worten als "
-"der ausgeschriebene Begriff (z. B. „Gruppe der 24“ für „Intergovernmental "
+"der ausgeschriebene Begriff (z. B. „Gruppe der 24“ für „Intergovernmental "
 "Group of Twenty-four on International Monetary Affair“)"
 
 #: src/catalog/catalogstring.cpp:159
@@ -663,7 +663,7 @@ msgid ""
 "one or more term elements or syllables (e.g. 'flu' for 'influenza')"
 msgstr ""
 "Abgekürzter Begriff: Eine abgekürzte Form eines Begriffs, die durch "
-"Weglassen von Teilen oder Silben des Begriffs zustande kommt (z. B. „Bund“ "
+"Weglassen von Teilen oder Silben des Begriffs zustande kommt (z. B. „Bund“ "
 "für „Bundeswehr“)"
 
 #: src/catalog/catalogstring.cpp:175
@@ -3655,7 +3655,7 @@ msgstr ""
 "das die Texte in verschiedene Sprachen übersetzt.\n"
 "\n"
 "Geben Sie hier den Pfad zu den Übersetzungsvorlagen an\n"
-"(d. h. den Dateien, die noch keine Übersetzungen enthalten)."
+"(d. h. den Dateien, die noch keine Übersetzungen enthalten)."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:131
@@ -3766,8 +3766,8 @@ msgstr ""
 "Ordner der alternativen Übersetzungen gesucht und in der Ansicht der "
 "alternativen Übersetzungen verwendet (falls die Datei vorhanden ist).\n"
 "\n"
-"Möglicherweise möchten Sie die Übersetzungen einer anderen Zielsprache (z. "
-"B. eines Unterprojekts) verwenden, das Ihrer Sprache ähnlich ist (z. B. "
+"Möglicherweise möchten Sie die Übersetzungen einer anderen Zielsprache "
+"(z. B. eines Unterprojekts) verwenden, das Ihrer Sprache ähnlich ist (z. B. "
 "[DE_at]).\n"
 "Die Übersetzungen des Unterprojekts können auch sofort oder durch den "
 "Rechner vor übersetzt verwendet werden.\n"
@@ -3824,8 +3824,9 @@ msgid ""
 msgstr ""
 "Die Projekt-ID wird verwendet, um Übersetzungsdatenbanken von verschiedenen "
 "Projekten bzw. Sprachen zu unterscheiden.\n"
-"Wenn Sie z. B. verschiedene Projekte zur Übersetzung von KDE-Anwendungen (z. "
-"B. aus verschiedenen Archiven) haben, verwenden Sie die gleiche ID für alle."
+"Wenn Sie z. B. verschiedene Projekte zur Übersetzung von KDE-Anwendungen "
+"(z. B. aus verschiedenen Archiven) haben, verwenden Sie die gleiche ID für "
+"alle."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:59
