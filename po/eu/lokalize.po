@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-12 00:47+0000\n"
+"POT-Creation-Date: 2026-08-02 00:48+0000\n"
 "PO-Revision-Date: 2026-07-29 16:02+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -747,24 +747,24 @@ msgstr ""
 "Aurreko sorburu-balioa, Gettextek POT txantiloi berriago batera iragatean "
 "gordea"
 
-#: src/catalog/gettextheader.cpp:455
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr "Egilearen izena falta da"
 
-#: src/catalog/gettextheader.cpp:456
+#: src/catalog/gettextheader.cpp:458
 #, kde-format
 msgid "Your name:"
 msgstr "Zure izena:"
 
-#: src/catalog/gettextheader.cpp:467
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
 msgstr "Egilearen e-posta falta da"
 
-#: src/catalog/gettextheader.cpp:468
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgid "Your email:"
 msgstr "Zure e-posta:"

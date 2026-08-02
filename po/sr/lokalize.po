@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-12 00:47+0000\n"
+"POT-Creation-Date: 2026-08-02 00:48+0000\n"
 "PO-Revision-Date: 2017-09-28 18:00+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -758,7 +758,7 @@ msgstr ""
 "Претходна вредност извора, коју је сачувала алатка xgettext при преласку на "
 "новији ПОТ шаблон."
 
-#: src/catalog/gettextheader.cpp:455
+#: src/catalog/gettextheader.cpp:457
 #, fuzzy, kde-format
 #| msgctxt "@window:title"
 #| msgid "Author name missing"
@@ -766,13 +766,13 @@ msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr "Недостаје име аутора"
 
-#: src/catalog/gettextheader.cpp:456
+#: src/catalog/gettextheader.cpp:458
 #, kde-format
 msgid "Your name:"
 msgstr "Ваше име:"
 
 # rewrite-msgid: /email/email address/
-#: src/catalog/gettextheader.cpp:467
+#: src/catalog/gettextheader.cpp:469
 #, fuzzy, kde-format
 #| msgctxt "@window:title"
 #| msgid "Author email missing"
@@ -781,7 +781,7 @@ msgid "Author Email Missing"
 msgstr "Недостаје адреса е‑поште аутора"
 
 # rewrite-msgid: /email/email address/
-#: src/catalog/gettextheader.cpp:468
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgid "Your email:"
 msgstr "Ваша адреса е‑поште:"

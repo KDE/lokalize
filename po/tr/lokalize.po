@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-12 00:47+0000\n"
+"POT-Creation-Date: 2026-08-02 00:48+0000\n"
 "PO-Revision-Date: 2026-07-28 21:32+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -732,24 +732,24 @@ msgstr ""
 "Daha yeni bir POT şablonuna geçişte Gettext tarafından kaydedilen önceki "
 "kaynak değeri"
 
-#: src/catalog/gettextheader.cpp:455
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr "Yazar Adı Eksik"
 
-#: src/catalog/gettextheader.cpp:456
+#: src/catalog/gettextheader.cpp:458
 #, kde-format
 msgid "Your name:"
 msgstr "Adınız:"
 
-#: src/catalog/gettextheader.cpp:467
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
 msgstr "Yazar E-postası Eksik"
 
-#: src/catalog/gettextheader.cpp:468
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgid "Your email:"
 msgstr "E-postanız:"

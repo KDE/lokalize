@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-12 00:47+0000\n"
+"POT-Creation-Date: 2026-08-02 00:48+0000\n"
 "PO-Revision-Date: 2026-02-14 08:46+0900\n"
 "Last-Translator: bbch <suzihi248@ruru.be>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -688,24 +688,24 @@ msgstr ""
 "新しい POT テンプレートへの移行中に Gettext によって保存された以前のソースの"
 "内容"
 
-#: src/catalog/gettextheader.cpp:455
+#: src/catalog/gettextheader.cpp:457
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr "作成者名がありません"
 
-#: src/catalog/gettextheader.cpp:456
+#: src/catalog/gettextheader.cpp:458
 #, kde-format
 msgid "Your name:"
 msgstr "あなたの名前:"
 
-#: src/catalog/gettextheader.cpp:467
+#: src/catalog/gettextheader.cpp:469
 #, kde-format
 msgctxt "@window:title"
 msgid "Author Email Missing"
 msgstr "作成者のメールアドレスがありません"
 
-#: src/catalog/gettextheader.cpp:468
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgid "Your email:"
 msgstr "あなたのメールアドレス:"

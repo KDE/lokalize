@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-12 00:47+0000\n"
+"POT-Creation-Date: 2026-08-02 00:48+0000\n"
 "PO-Revision-Date: 2024-12-08 16:20+0100\n"
 "Last-Translator: ButterflyOfFire <butterflyoffire@protonmail.com>\n"
 "Language-Team: Kabyle\n"
@@ -657,7 +657,7 @@ msgid ""
 "template"
 msgstr ""
 
-#: src/catalog/gettextheader.cpp:455
+#: src/catalog/gettextheader.cpp:457
 #, fuzzy, kde-format
 #| msgctxt "@window:title"
 #| msgid "Author name missing"
@@ -665,12 +665,12 @@ msgctxt "@window:title"
 msgid "Author Name Missing"
 msgstr "Isem n umeskar ulac-it"
 
-#: src/catalog/gettextheader.cpp:456
+#: src/catalog/gettextheader.cpp:458
 #, kde-format
 msgid "Your name:"
 msgstr "Isem-ik·im:"
 
-#: src/catalog/gettextheader.cpp:467
+#: src/catalog/gettextheader.cpp:469
 #, fuzzy, kde-format
 #| msgctxt "@window:title"
 #| msgid "Author name missing"
@@ -678,7 +678,7 @@ msgctxt "@window:title"
 msgid "Author Email Missing"
 msgstr "Isem n umeskar ulac-it"
 
-#: src/catalog/gettextheader.cpp:468
+#: src/catalog/gettextheader.cpp:470
 #, kde-format
 msgid "Your email:"
 msgstr "Imayl-ik·im:"
