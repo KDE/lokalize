@@ -4717,11 +4717,10 @@ msgid "Copy GUI element text to clipboard"
 msgstr "Kopiraj tekst GUI elementa u međuspremnikn"
 
 #: src/xlifftextedit.cpp:876
-#, fuzzy, kde-format
-#| msgid "Search GUI element text in translation memory"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
-msgstr "Traži tekst GUI elementa u translacijskoj memoriji"
+msgstr "Potraži odabrani tekst u prijevodnoj memoriji"
 
 #: src/xlifftextedit.cpp:956
 #, kde-format
