@@ -1596,7 +1596,7 @@ msgstr "امحُ الكلّ"
 #: src/editortab.cpp:1587 src/project/projecttab.cpp:290
 #, kde-format
 msgid "A Pology check is already in progress."
-msgstr "فحص Pology يعمل حالياً."
+msgstr "فحص Pology يعمل حاليًا."
 
 #: src/editortab.cpp:1587 src/editortab.cpp:1596 src/editortab.cpp:1600
 #: src/project/projecttab.cpp:290 src/project/projecttab.cpp:299
@@ -2852,7 +2852,7 @@ msgstr "تجاوز فريق اللغة"
 #: src/prefs/lokalize.kcfg:28
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
-msgstr "استخدم فريق لغة يوفره المستخدم بدلاً عن توليده"
+msgstr "استخدم فريق لغة يوفره المستخدم بدلًا عن توليده"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:34
@@ -3179,7 +3179,7 @@ msgstr "وفقًا لترتيب تنشيط اللسان"
 #: src/prefs/prefs_general.ui:83
 #, kde-format
 msgid "Use a custom editor to open source files"
-msgstr "استخدم محرراً مخصصًا لفتح الملفات المصدر"
+msgstr "استخدم محررًا مخصصًا لفتح الملفات المصدر"
 
 #. i18n: ectx: property (whatsThis), widget (QWidget, prefs_identity)
 #: src/prefs/prefs_identity.ui:14
@@ -3535,7 +3535,7 @@ msgid ""
 "disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 "
 "doesn't change anything."
 msgstr ""
-"العَرض المستخدم للفّ الكلمات آليّاً الشبيه بـ msgfmt. استخدم القيمة ’0‘ لتعطيل "
+"العَرض المستخدم للفّ الكلمات آليًّا الشبيه بـ msgfmt. استخدم القيمة ’0‘ لتعطيل "
 "لفّ الكلمات. استخدم -1 عند الترجمة لـ KDE PO Summit. من 1 إلى 3 لا يغير شيئا"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
@@ -4060,7 +4060,7 @@ msgstr[0] "ا&فتح ملف"
 msgstr[1] "ا&فتح ملف"
 msgstr[2] "ا&فتح ملفين"
 msgstr[3] "ا&فتح %1 ملفات"
-msgstr[4] "ا&فتح %1 ملفاً"
+msgstr[4] "ا&فتح %1 ملفًا"
 msgstr[5] "ا&فتح %1 ملف"
 
 #: src/statusbar.cpp:53
