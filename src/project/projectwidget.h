@@ -52,6 +52,7 @@ public:
     void gotoNextTransOnly();
     void toggleTranslatedFiles();
     void toggleExpandUntranslatedFolders();
+    void checkExpandUntranslatedFolders();
 
 Q_SIGNALS:
     void fileOpenRequested(const QString &, const bool setAsActive);
@@ -91,7 +92,7 @@ public:
     /**
      * @short Filter the list of files and dirs by their relative path from the project root.
      *
-     * The regex provided by ProjectTab::filterRegExp() is used to match the relative paths
+     * The regex provided by ProjectTab::setFilterRegExp() is used to match the relative paths
      * for each file and directory in the project root, so that a user search shows matches
      * on both the path to a file and the file itself.
      *

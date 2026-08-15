@@ -549,12 +549,21 @@ void ProjectWidget::gotoNextTransOnly()
 void ProjectWidget::toggleTranslatedFiles()
 {
     m_proxyModel->toggleTranslatedFiles();
+
+    if (m_expandUntranslatedFolders)
+        expandUntranslatedItems();
+    else
+        collapseAll();
 }
 
 void ProjectWidget::toggleExpandUntranslatedFolders()
 {
     m_expandUntranslatedFolders = !m_expandUntranslatedFolders;
+    checkExpandUntranslatedFolders();
+}
 
+void ProjectWidget::checkExpandUntranslatedFolders()
+{
     if (m_expandUntranslatedFolders)
         expandUntranslatedItems();
     else

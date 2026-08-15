@@ -181,7 +181,7 @@ void ProjectTab::setFilterRegExp()
     if (m_filterEdit->text().size() > 2)
         m_browser->expandItems();
     else
-        m_browser->collapseAll();
+        m_browser->checkExpandUntranslatedFolders();
 }
 
 void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
