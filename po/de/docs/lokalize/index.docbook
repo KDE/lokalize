@@ -81,9 +81,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2020-03-09</date>
+>2025-08-19</date>
 <releaseinfo
->Anwendungen 20.04</releaseinfo>
+>Anwendungen 25.10</releaseinfo>
 
 <abstract>
 <para
@@ -113,8 +113,6 @@
 >gettext</keyword>
 <keyword
 >OpenDocument</keyword>
-<keyword
->KBabel</keyword>
 </keywordset>
 
 </bookinfo>
@@ -211,7 +209,7 @@
 ><guimenu
 >Einstellungen</guimenu
 ><guimenuitem
->&lokalize; einrichten ...</guimenuitem
+>&lokalize; einrichten …</guimenuitem
 ></menuchoice
 > aus dem Hauptmenü. </para>
 <para
@@ -221,7 +219,7 @@
 ><guimenuitem
 >Alle Übersetzungen von Einträgen entfernen</guimenuitem
 ></menuchoice
-> oder benutzen Sie den Kurzbefehl  <keycombo
+> oder verwenden Sie den Kurzbefehl  <keycombo
 >&Ctrl;&Alt;<keycap
 >D</keycap
 ></keycombo
@@ -252,7 +250,7 @@
 ><guimenu
 >Einstellungen</guimenu
 ><guimenuitem
->Werkzeugleisten einrichten ...</guimenuitem
+>Werkzeugleisten einrichten …</guimenuitem
 ></menuchoice
 > aus dem Menü wählen. </para>
 <screenshot>
@@ -278,11 +276,11 @@
 <title
 >Kurzbefehle</title>
 <para
->Die Benutzung von Kurzbefehlen bei der Übersetzung ermöglicht ein sehr effektives Arbeiten. Um diese Kurzbefehle einzustellen, verwenden Sie  <menuchoice
+>Die Verwendung von Kurzbefehlen bei der Übersetzung ermöglicht ein sehr effektives Arbeiten. Um diese Kurzbefehle einzustellen, verwenden Sie  <menuchoice
 ><guimenu
 >Einstellungen</guimenu
 ><guimenuitem
->Kurzbefehle einrichten ...</guimenuitem
+>Kurzbefehle einrichten …</guimenuitem
 ></menuchoice
 >aus dem Hauptmenü. </para>
 <screenshot>
@@ -330,7 +328,9 @@
 >Übersetzungsliste</guilabel
 > gesprungen. Mit <keycap
 >Bild ab</keycap
-> ist dann das Bewegen in der gefilterten Liste möglich. </para>
+> ist dann das Bewegen in der gefilterten Liste möglich. Durch Drücken der <keycap
+>Esc</keycap
+>-Taste wird der Fokus zurück zum Textfeld mit der Übersetzung verschoben, ohne Auswahl einer anderen Übersetzungseinheit. </para>
 </tip>
 <para
 >Falls mit Übersetzungsdateien im „XLIFF“-Format (definitiv bei OpenDocument) gearbeitet wird, sind weitere Status verfügbar (<emphasis
@@ -359,7 +359,7 @@
 ><guimenu
 >Projekt</guimenu
 ><guimenuitem
->Projekt einrichten ...</guimenuitem
+>Projekt einrichten …</guimenuitem
 ></menuchoice
 >). Jede Einheit enthält in der Regel Informationen über die letztmalige Änderung und den jeweils in der Datei festgelegten <emphasis
 >Eigentümer</emphasis
@@ -394,7 +394,7 @@
 ><guimenu
 >Projekt</guimenu
 ><guimenuitem
->Projekt einrichten ...</guimenuitem
+>Projekt einrichten …</guimenuitem
 ></menuchoice
 >aus dem Hauptmenü und gehen Sie zur Seite <guilabel
 >Erweitert</guilabel
@@ -461,14 +461,14 @@
 >&Ctrl;<keycap
 >T</keycap
 ></keycombo
-> benutzen. </para>
+> verwenden. </para>
 </note>
 <para
 >Beim Start wird in &lokalize; als Voreinstellung die zuletzt geöffneten Dateien wieder öffnen. Im Einrichtungsdialog von &lokalize; können Sie dieses Verhalten auf der Seite <guilabel
 >Allgemein</guilabel
 > mit dem Eintrag <guilabel
 >Zuletzt geöffnete Dateien beim Start von Lokalize wieder öffnen</guilabel
-> abschalten. Auf dieser Seite können Sie auch das Verhalten des Kurzbefehls zum Wechseln zum vorherigen bzw nächsten Unterfenster festlegen. Es kann entweder entsprechend der Position oder der Aktivierung der Unterfenster gewechselt werden. </para>
+> deaktivieren. Auf dieser Seite können Sie auch das Verhalten des Kurzbefehls zum Wechseln zum vorherigen bzw nächsten Unterfenster festlegen. Es kann entweder entsprechend der Position oder der Aktivierung der Unterfenster gewechselt werden. </para>
 </sect1>
 
 </chapter>
@@ -518,7 +518,7 @@
 ></keycombo
 >, usw. verwendet (je nach Anzahl der Vorschläge). </para>
 <para
->Benutzen Sie <menuchoice
+>Verwenden Sie <menuchoice
 ><guimenu
 >Extras</guimenu
 ><guimenuitem
@@ -552,7 +552,7 @@
 ><guimenu
 >Einstellungen</guimenu
 ><guimenuitem
->&lokalize; einrichten ...</guimenuitem
+>&lokalize; einrichten …</guimenuitem
 ></menuchoice
 > aus dem Hauptmenü. </para>
 </note>
@@ -577,7 +577,7 @@
 >Grob-Übersetzung:</term>
     <listitem>
       <para
->Um genau passende Übersetzungen automatisch aus der Übersetzungsdatenbank einzufügen, wählen Sie <menuchoice
+>Um exakt passende Übersetzungen automatisch aus der Übersetzungsdatenbank einzufügen, wählen Sie <menuchoice
 ><guimenu
 >Extras</guimenu
 ><guimenuitem
@@ -585,9 +585,7 @@
 ></menuchoice
 > oder <guimenuitem
 >Alle exakten Übersetzungen einfügen und als fraglich markieren</guimenuitem
-> aus dem Menü. Diese Funktionen entsprechen den Grobübersetzungen in <application
->KBabel</application
->. </para>
+> aus dem Menü. </para>
     </listitem>
   </varlistentry>
 </variablelist>
@@ -604,7 +602,7 @@
 > erspart viel Arbeit, wenn zwei oder mehr Übersetzer gleichzeitig an derselben Datei arbeiten, oder wenn ein Übersetzer verschiedene Zweige einer Software betreut. </para>
 
 <para
->&lokalize; ermöglicht eine schnelle Navigation durch die Einheiten mit unterschiedlichen Übersetzungen und zeigt die Unterschiede Wort für Wort an. Des Weiteren besitzt &lokalize; zwei Abgleichansichten - den <guilabel
+>&lokalize; ermöglicht eine schnelle Navigation durch die Einheiten mit unterschiedlichen Übersetzungen und zeigt die Unterschiede Wort für Wort an. Des Weiteren besitzt &lokalize; zwei Abgleichansichten – den <guilabel
 >Primären Abgleich</guilabel
 > und den <guilabel
 >Sekundären Abgleich</guilabel
@@ -633,7 +631,7 @@
 >&Alt; <keycap
 >Pfeil hoch</keycap
 ></keycombo
-> durch die Einträge mit abweichenden Übersetzungen geblättert.     </para>
+> durch die Einträge mit abweichenden Übersetzungen geblättert. </para>
 <screenshot>
 <screeninfo
 >&lokalize; beim Zusammenführen von Änderungen in Übersetzungen</screeninfo>
@@ -710,85 +708,14 @@
 
 </chapter>
 
-<chapter id="scripting">
+<chapter id="externaltools">
 <title
->Skripte in &lokalize;</title>
-
-<para
->&lokalize; ist durch die Verwendung von Skripten in verschiedenen Programmiersprachen (einschl. Python und &javascript;) erweiterbar. Die Skripte werden üblicherweise als Menüeinträge (ggf. mit Tastenkürzel) in die grafische Benutzeroberfläche von &lokalize; eingebunden. Der Ort und Name des Menüeintrags für das Skript wird in seiner <filename
->.rc</filename
->-Datei festgelegt. Beim Öffnen jedes Projekts durchsucht &lokalize; den Ordner <filename
->Projektordner/lokalize-scripts</filename
-> nach <filename
->.rc</filename
->-Dateien und fügt diese zur <emphasis
->Zwischenspeicher</emphasis
->-Datei namens <filename
->Projektordner/lokalize-scripts/scripts.rc</filename
-> hinzu (daher sollte vom Hinzufügen seines Projektverwaltungssystems abgesehen werden). Die <filename
->.rc</filename
->-Dateien enthalten auch die Skript-Pfade, welche möglicherweise relativ zum Ordner der <filename
->.rc</filename
->-Datei oder eines System-Skripts sind - sie unterstützen beides (die <filename
->.rc</filename
->-Dateien <emphasis
->sollten</emphasis
-> für die gemeinsame Nutzung im Projekt <filename
->relativ</filename
-> sein). Damit kann beispielsweise in <filename
->../../scripts/lokalize/opensrc.py</filename
-> festgelegt werden, dass Skripte vom <ulink url="http://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->allgemeinen Skript-Ordner</ulink
-> geladen werden (und nicht vom sprachenspezifischen Ordner). </para>
-<para
->Beispiele für <filename
->.rc</filename
->-Dateien sind möglicherweise im Installationsordner von &lokalize; (<filename
->/usr/share/lokalize/scripts/</filename
-> und <ulink url="http://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
->&kde;-Quelltextarchiv</ulink
-> zu finden. <ulink url="http://websvn.kde.org/trunk/l10n-kf5/ru/lokalize-scripts/"
->Hier</ulink
-> sind weitere Skript-Beispiele wie beispielsweise das &javascript;-basierte <filename
->check-gui.js</filename
->, das bei jedem Speichern einer Datei läuft (dies wird durch eine spezielle Einstellung in der <filename
->.rc</filename
->-Datei bewerkstelligt). Bei Kenntnissen in Python oder &javascript; sollte der Quelltext selbsterklärend sein. </para>
-<para
->Nachstehend werden Verknüpfungen zu den Programmierschnittstellen (API-Referenzen) aufgeführt. Alles mit <emphasis
->Q_SCRIPTABLE</emphasis
-> kann in Skripten Verwendung finden. </para>
-
-<itemizedlist>
-<listitem>
-<para
-><ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
->Editor</ulink
->-Programmierschnittstelle </para>
-</listitem>
-<listitem>
-<para
-><ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
->&lokalize;</ulink
->-Programmierschnittstelle </para>
-</listitem>
-<listitem>
-<para
-><ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
->
->Projekt</ulink
->-Programmierschnittstelle </para>
-</listitem>
-</itemizedlist>
+>Externe Werkzeuge</title>
 
 <sect1 id="pology">
 <title
 >Pology</title>
 
-<para
->Eine der besten Programme für Skripte ist die Verwendung von <application
->Pology</application
-> in &lokalize;. </para>
 <para
 >Dies aktivieren Sie auf der Seite <guilabel
 >Pology</guilabel
@@ -796,7 +723,7 @@
 ><guimenu
 >Einstellungen</guimenu
 ><guimenuitem
->&lokalize; einrichten ...</guimenuitem
+>&lokalize; einrichten …</guimenuitem
 ></menuchoice
 > aus dem Hauptmenü. </para>
 <para
@@ -822,7 +749,7 @@
 ><guimenu
 >Einstellungen</guimenu
 ><guimenuitem
->&lokalize; einrichten ...</guimenuitem
+>&lokalize; einrichten …</guimenuitem
 ></menuchoice
 > aus dem Hauptmenü. </para>
 <para
@@ -854,17 +781,15 @@
 >&lokalize; </para>
 
 <para
->Programm Copyright &copy; 2007-2015, Nick Shaforostoff <email
+>Programm-Copyright &copy; 2007–2015, Nick Shaforostoff <email
 >shaforostoff@kde.ru</email
 > </para>
 
 <para
->Einiger Quelltext wurde vom &lokalize;-Vorläufer <application
->KBabel</application
-> übernommen. </para>
+>Quelltext vom &lokalize;-Vorläufer KBabel wurde teilweise wiederverwendet. </para>
 
 <para
->Dokumentation Copyright &copy; 2007-2009 Nick Shaforostoff <email
+>Dokumentation-Copyright &copy; 2007–2009 Nick Shaforostoff <email
 >shaforostoff@kde.ru</email
 > </para>
 
