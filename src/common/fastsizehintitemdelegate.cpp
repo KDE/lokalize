@@ -99,15 +99,10 @@ void FastSizeHintItemDelegate::paint(QPainter *painter, const QStyleOptionViewIt
 
 QString convertToHtml(QString str, bool italics)
 {
-    /*
-        if (str.isEmpty())
-            return str;
-    */
-
-    str = Qt::convertFromPlainText(str); // FIXME: use another routine (this has bugs)
+    str = Qt::convertFromPlainText(str);
 
     if (italics)
-        str = QLatin1String("<p><i>") + QString::fromRawData(str.unicode() + 3, str.length() - 3 - 4) + QLatin1String("</i></p>");
+        str = QStringLiteral("<i>%1</i>").arg(str);
 
     return str;
 }

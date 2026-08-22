@@ -201,7 +201,7 @@ QVariant TMDBModel::data(const QModelIndex &item, int role) const
         role = Qt::DisplayRole;
     else if (role == Qt::FontRole && item.column() == TMDBModel::Target) { // TODO: Qt::ForegroundRole -- brush for orphaned entries
         QFont font = QApplication::font();
-        font.setItalic(!rowIsApproved(item.row()));
+        font.setItalic(translationStatus(item) == 1);
         return font;
     } else if (role == FullPathRole && item.column() == TMDBModel::Filepath)
         return QSqlQueryModel::data(item, Qt::DisplayRole);
@@ -237,7 +237,7 @@ QVariant TMDBModel::data(const QModelIndex &item, int role) const
         return statuses[translationStatus(item)];
     }
     if (doHtml && item.column() < TMDBModel::Context)
-        return convertToHtml(result.toString(), item.column() == TMDBModel::Target && !rowIsApproved(item.row()));
+        return convertToHtml(result.toString(), item.column() == TMDBModel::Target && translationStatus(item) == 1);
     else
         return result;
 }
