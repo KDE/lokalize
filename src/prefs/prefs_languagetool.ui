@@ -44,8 +44,7 @@
                                         <string>The path of your custom Language Tool server</string>
                                     </property>
                                     <property name="whatsThis">
-                                        <string>Please enter the path of your custom Language Tool
-                                            server, if any</string>
+                                        <string>Please enter the path of your custom Language Tool server, if any</string>
                                     </property>
                                 </widget>
                             </item>
@@ -56,8 +55,7 @@
                             <item>
                                 <widget class="QLabel" name="l1">
                                     <property name="text">
-                                        <string>Delay before automatic checking after you stop
-                                            typing (in seconds, 0 to disable)</string>
+                                        <string>Delay before automatic checking after you stop typing (in seconds, 0 to disable)</string>
                                     </property>
                                     <property name="buddy">
                                         <cstring>kcfg_LanguageToolDelay</cstring>

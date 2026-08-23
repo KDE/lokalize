@@ -50,14 +50,11 @@
                         <item row="1" column="1">
                             <widget class="QLineEdit" name="kcfg_Markup">
                                 <property name="toolTip">
-                                    <string>Regular expression of markup. It is used for translation
-                                        memory matching and for 'Insert tag' feature.
+                                    <string>Regular expression of markup. It is used for translation memory matching and for 'Insert tag' feature.
 
-                                        A default value (suitable for XML-based texts) is:
-                                        (&lt;[^&gt;]+&gt;)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+
+A default value (suitable for XML-based texts) is: (&lt;[^&gt;]+&gt;)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+
 
-                                        It is only used for gettext PO files, as XLIFF format has
-                                        its own way of specifying where markup is.</string>
+It is only used for gettext PO files, as XLIFF format has its own way of specifying where markup is.</string>
                                 </property>
                             </widget>
                         </item>
@@ -74,10 +71,7 @@
                         <item row="2" column="1">
                             <widget class="QSpinBox" name="kcfg_WordWrap">
                                 <property name="toolTip">
-                                    <string>Width used for the automatic msgfmt-like word wrap. Use
-                                        the value '0' to disable the word wrap. Use -1 when
-                                        translating for KDE PO Summit. 1 to 3 doesn't change
-                                        anything.</string>
+                                    <string>Width used for the automatic msgfmt-like word wrap. Use the value '0' to disable the word wrap. Use -1 when translating for KDE PO Summit. 1 to 3 doesn't change anything.</string>
                                 </property>
                                 <property name="minimum">
                                     <number>-1</number>
@@ -121,14 +115,9 @@
                                     </sizepolicy>
                                 </property>
                                 <property name="toolTip">
-                                    <string>Usually your translation project will be a subproject of
-                                        a project
-                                        for translating same texts into multiple languages.
+                                    <string>Usually your translation project will be a subproject of a project for translating same texts into multiple languages.
 
-                                        Set this to path of a folder containing empty translation
-                                        files
-                                        (i.e. files without translation into any language)
-                                        shared among all subprojects.</string>
+Set this to path of a folder containing empty translation files (i.e. files without translation into any language) shared among all subprojects.</string>
                                 </property>
                             </widget>
                         </item>
@@ -155,22 +144,13 @@
                                 </property>
                                 <property name="toolTip">
                                     <string
-                                        comment="this message contains text from documentation, so use its translation when you're translating docs">This
-                                        setting is for Sync Mode.
+                                        comment="this message contains text from documentation, so use its translation when you're translating docs">This setting is for Sync Mode.
 
-                                        Sync Mode may be used to make changes to translation
-                                        for two branches simultaneously.
+Sync Mode may be used to make changes to translation for two branches simultaneously.
 
-                                        Set this to path that corresponds to root folder of the
-                                        branch project,
-                                        and Secondary Sync view will automatically open files from
-                                        branch.
-                                        Then, each time you make changes in files of your main
-                                        branch,
-                                        they will automatically be replicated to the branch
-                                        (of course, if it contains the same English string).
+Set this to path that corresponds to root folder of the branch project, and Secondary Sync view will automatically open files from branch. Then, each time you make changes in files of your main branch, they will automatically be replicated to the branch (of course, if it contains the same English string).
 
-                                        See documentation for more details.</string>
+See documentation for more details.</string>
                                 </property>
                             </widget>
                         </item>
@@ -197,16 +177,11 @@
                                 </property>
                                 <property name="toolTip">
                                     <string
-                                        comment="this message contains text from documentation, so use its translation when you're translating docs">This
-                                        setting is for Sync Mode.
+                                        comment="this message contains text from documentation, so use its translation when you're translating docs">This setting is for Sync Mode.
 
-                                        Sync Mode may be used to make changes to translation
-                                        for two branches simultaneously.
+Sync Mode may be used to make changes to translation for two branches simultaneously.
 
-                                        Set this to path that corresponds to root folder of the
-                                        branch project templates folder,
-                                        and Secondary Sync view will automatically create files from
-                                        branch.</string>
+Set this to path that corresponds to root folder of the branch project templates folder, and Secondary Sync view will automatically create files from branch.</string>
                                 </property>
                             </widget>
                         </item>
@@ -233,22 +208,13 @@
                                 </property>
                                 <property name="toolTip">
                                     <string
-                                        comment="this message contains text from documentation, so use its translation when you're translating docs">Set
-                                        this to path of a folder with structure similar to Root
-                                        Folder.
+                                        comment="this message contains text from documentation, so use its translation when you're translating docs">Set this to path of a folder with structure similar to Root Folder.
 
-                                        On each translation file open, a corresponding file in
-                                        Alternate translations directory will be looked up and,
-                                        if it is found, it will be used for Alternate Translations
-                                        view.
+On each translation file open, a corresponding file in Alternate translations directory will be looked up and, if it is found, it will be used for Alternate Translations view.
 
-                                        You will likely want to use translations of another target
-                                        language (i.e. another subproject), which is close to yours.
-                                        Also, you can use other subproject's translations either
-                                        immediately, or have them pretranslated to your language by
-                                        machine.
+You will likely want to use translations of another target language (i.e. another subproject), which is close to yours. Also, you can use other subproject's translations either immediately, or have them pretranslated to your language by machine.
 
-                                        See documentation for more details.</string>
+See documentation for more details.</string>
                                 </property>
                             </widget>
                         </item>

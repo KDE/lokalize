@@ -25,10 +25,7 @@
                     <item row="1" column="0" colspan="2">
                         <widget class="QLabel" name="textLabel3_0">
                             <property name="text">
-                                <string comment="@label:textbox">The Pology command to run in order
-                                    to check a single entry. Use the following placeholders in order
-                                    to set-up the commands: %u is the entry number, %f is the file
-                                    name. For instance: posieve -u %u check-rules %f</string>
+                                <string comment="@label:textbox">The Pology command to run in order to check a single entry. Use the following placeholders in order to set-up the commands: %u is the entry number, %f is the file name. For instance: posieve -u %u check-rules %f</string>
                             </property>
                             <property name="wordWrap">
                                 <bool>true</bool>
@@ -47,18 +44,14 @@
                                 <string>The Pology command to run in order to check a single entry.</string>
                             </property>
                             <property name="whatsThis">
-                                <string>Please enter here the Pology command to be run in order to
-                                    check a single entry</string>
+                                <string>Please enter here the Pology command to be run in order to check a single entry</string>
                             </property>
                         </widget>
                     </item>
                     <item row="3" column="0" colspan="2">
                         <widget class="QLabel" name="textLabel4_0">
                             <property name="text">
-                                <string comment="@label:textbox">The Pology command to run in order
-                                    to check a whole file. This command should include "-s
-                                    lokalize", placeholder %f is the file name. For instance:
-                                    posieve -s lokalize check-rules %f</string>
+                                <string comment="@label:textbox">The Pology command to run in order to check a whole file. This command should include "-s lokalize", placeholder %f is the file name. For instance: posieve -s lokalize check-rules %f</string>
                             </property>
                             <property name="wordWrap">
                                 <bool>true</bool>
@@ -77,8 +70,7 @@
                                 <string>The Pology command to run in order to check a whole file.</string>
                             </property>
                             <property name="whatsThis">
-                                <string>Please enter here the Pology command to be run in order to
-                                    check a whole file</string>
+                                <string>Please enter here the Pology command to be run in order to check a whole file</string>
                             </property>
                         </widget>
                     </item>

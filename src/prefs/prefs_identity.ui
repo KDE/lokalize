@@ -11,8 +11,7 @@
             </rect>
         </property>
         <property name="whatsThis">
-            <string>Fill in your identity and information about your translation team. This
-                information is used when updating the header of a file.</string>
+            <string>Fill in your identity and information about your translation team. This information is used when updating the header of a file.</string>
         </property>
         <layout class="QGridLayout">
             <property name="leftMargin">
@@ -128,8 +127,7 @@
                         <string>Write your email</string>
                     </property>
                     <property name="whatsThis">
-                        <string>Write your email here so it will appear in the po file header with
-                            your name</string>
+                        <string>Write your email here so it will appear in the po file header with your name</string>
                     </property>
                 </widget>
             </item>
@@ -146,8 +144,7 @@
                         <string>Your name in your own language</string>
                     </property>
                     <property name="whatsThis">
-                        <string>Write your name and surname in your language with your language
-                            alphabet.</string>
+                        <string>Write your name and surname in your language with your language alphabet.</string>
                     </property>
                 </widget>
             </item>

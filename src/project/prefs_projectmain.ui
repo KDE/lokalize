@@ -40,12 +40,7 @@
             <item row="0" column="1" colspan="2">
                 <widget class="QLineEdit" name="kcfg_ProjectID">
                     <property name="toolTip">
-                        <string>Project ID is used to differentiate translation memories of
-                            absolutely different projects and languages.
-
-                            For example, if you have several projects for translating KDE
-                            applications
-                            (e.g. they are in different repositories), use same ID for all of them.</string>
+                        <string>Project ID is used to differentiate translation memories of absolutely different projects and languages. For example, if you have several projects for translating KDE applications (e.g. they are in different repositories), use same ID for all of them.</string>
                     </property>
                 </widget>
             </item>
@@ -116,9 +111,7 @@
                         </size>
                     </property>
                     <property name="toolTip">
-                        <string>This is main setting. Set this to path of a folder with translation
-                            files
-                            for your project (or a subproject for your target language).</string>
+                        <string>This is main setting. Set this to path of a folder with translation files for your project (or a subproject for your target language).</string>
                     </property>
                 </widget>
             </item>

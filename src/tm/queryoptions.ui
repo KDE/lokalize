@@ -152,8 +152,7 @@
                                         </sizepolicy>
                                     </property>
                                     <property name="toolTip">
-                                        <string>Show only results from files with path matching
-                                            specified mask</string>
+                                        <string>Show only results from files with path matching specified mask</string>
                                     </property>
                                 </widget>
                             </item>
@@ -195,9 +194,7 @@
                             <item>
                                 <widget class="QPushButton" name="doUpdateTM">
                                     <property name="toolTip">
-                                        <string>Reads all project files into translation memory,
-                                            updating old entries. The scanning will work in
-                                            background.</string>
+                                        <string>Reads all project files into translation memory, updating old entries. The scanning will work in background.</string>
                                     </property>
                                     <property name="text">
                                         <string>&amp;Rescan Project</string>
