@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-02 00:48+0000\n"
+"POT-Creation-Date: 2026-08-24 00:48+0000\n"
 "PO-Revision-Date: 2026-05-26 23:18+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1872,12 +1872,19 @@ msgstr "줄 바꿈 해제"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Search expression for source language part.\n"
+#| "Press Ctrl+L to go to this control.\n"
+#| "Press Enter to start the search.\n"
+#| "Press Esc to stop the search."
 msgid ""
 "Search expression for source language part.\n"
-"Press Ctrl+L to go to this control.\n"
-"Press Enter to start the search.\n"
-"Press Esc to stop the search."
+"                                            Press Ctrl+L to go to this "
+"control.\n"
+"                                            Press Enter to start the "
+"search.\n"
+"                                            Press Esc to stop the search."
 msgstr ""
 "원본 언어에서 검색할 표현식을 입력하십시오.\n"
 "Ctrl+L 키를 누르면 포커스를 맞춥니다.\n"
@@ -1901,10 +1908,13 @@ msgstr "원본:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Search expression for target language part.\n"
+#| "Press Enter to start the search."
 msgid ""
 "Search expression for target language part.\n"
-"Press Enter to start the search."
+"                                            Press Enter to start the search."
 msgstr ""
 "대상 언어에서 검색할 표현식을 입력하십시오.\n"
 " Enter 키를 누르면 검색을 시작합니다."
@@ -3041,26 +3051,48 @@ msgid "Highlight spaces at the end"
 msgstr "끝에 있는 공백 강조"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:32
-#, kde-format
+#: src/prefs/prefs_editor.ui:33
+#, fuzzy, kde-format
+#| msgid ""
+#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
+#| "text"
 msgid ""
-"If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
+"If set, mouse wheel goes to previous or next unit, otherwise it\n"
+"                            scrolls text"
 msgstr ""
 "설정하면 마우스 휠을 굴렸을 때 번역 단위를 전환합니다. 설정하지 않으면 텍스트"
 "를 스크롤합니다"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:35
-#, kde-format
+#: src/prefs/prefs_editor.ui:48
+#, fuzzy, kde-format
+#| msgid ""
+#| "<html>When this option is enabled, the mouse wheel is used to go to the "
+#| "previous or next translation unit (without modifier keys). Modifier keys "
+#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
+#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
+#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
+#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
+#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
+#| "wheel scrolls within the text of the current translation unit.</html>"
 msgid ""
-"<html>When this option is enabled, the mouse wheel is used to go to the "
-"previous or next translation unit (without modifier keys). Modifier keys can "
-"be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll within "
-"the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to previous or "
-"next non-ready unit,</li><li><b>Ctrl</b> to go to previous or next non-ready "
-"not empty unit,</li><li><b>Alt</b> to go to previous or next untranslated "
-"unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
-"the text of the current translation unit.</html>"
+"<html>When this option is enabled, the mouse wheel is used to\n"
+"                            go to the previous or next translation unit "
+"(without modifier keys).\n"
+"                            Modifier keys can be used to change this "
+"behavior.\n"
+"                            Use:<ul><li><b>Shift</b> to scroll within the\n"
+"                            text of the current\n"
+"                            unit,</li><li><b>Ctrl+Shift</b> to go to\n"
+"                            previous or next non-ready\n"
+"                            unit,</li><li><b>Ctrl</b> to go to previous or\n"
+"                            next non-ready not empty\n"
+"                            unit,</li><li><b>Alt</b> to go to previous or\n"
+"                            next untranslated unit.</li></ul>When the option "
+"is\n"
+"                            disabled, the mouse wheel scrolls within the "
+"text of the current\n"
+"                            translation unit.</html>"
 msgstr ""
 "<html>이 옵션을 사용하면 마우스 휠을 사용하여 수정자 키 없이 번역 단위를 전환"
 "할 수 있습니다. 수정자 키를 사용하면 다른 행동으로 전환할 수 있습니다. "
@@ -3071,44 +3103,44 @@ msgstr ""
 "으면 현재 번역 단위 내에서 텍스트를 스크롤합니다.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:38
+#: src/prefs/prefs_editor.ui:51
 #, kde-format
 msgid "Mouse wheel goes to previous or next translation unit"
 msgstr "마우스 휠로 번역 단위 전환"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
-#: src/prefs/prefs_editor.ui:45
+#: src/prefs/prefs_editor.ui:58
 #, kde-format
 msgid "Set 'approved' status automatically when editing started"
 msgstr "편집을 시작할 때 자동으로 '승인됨' 상태 적용"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
-#: src/prefs/prefs_editor.ui:65
+#: src/prefs/prefs_editor.ui:78
 #, kde-format
 msgid "Visualize separators such as spaces, tabs and new lines in the editor"
 msgstr "편집기에서 공백, 탭, 새로운 줄 등 구분자 시각화"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
-#: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
+#: src/prefs/prefs_editor.ui:87 src/prefs/prefs_editor.ui:100
 #, kde-format
 msgid "Set to 2 to disable word completion"
 msgstr "2로 설정하면 자동 완성을 끕니다"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
-#: src/prefs/prefs_editor.ui:77
+#: src/prefs/prefs_editor.ui:90
 #, kde-format
 msgid "Minimum word length for word completion"
 msgstr "자동으로 완성할 최소 단어 길이"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_WordCompletionLength)
-#: src/prefs/prefs_editor.ui:90
+#: src/prefs/prefs_editor.ui:103
 #, kde-format
 msgid "Disable word completion"
 msgstr "자동 완성 끄기"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConvertXMLChars)
-#: src/prefs/prefs_editor.ui:105
+#: src/prefs/prefs_editor.ui:118
 #, kde-format
 msgid "Automatically convert XML special characters in TS files"
 msgstr "TS 파일의 XML 특수 문자를 자동으로 변환"
@@ -3468,14 +3500,23 @@ msgid "Markup:"
 msgstr "마크업:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
-#: src/project/prefs_project_advanced.ui:58
-#, kde-format
+#: src/project/prefs_project_advanced.ui:57
+#, fuzzy, kde-format
+#| msgid ""
+#| "Regular expression of markup. It is used for translation memory matching "
+#| "and for 'Insert tag' feature.\n"
+#| "\n"
+#| "A default value (suitable for XML-based texts) is:\n"
+#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+#| "\n"
+#| "It is only used for gettext PO files, as XLIFF format has its own way of "
+#| "specifying where markup is."
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
 "\n"
-"A default value (suitable for XML-based texts) is:\n"
-"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"A default value (suitable for XML-based texts) is: (<[^>]+>)+|(&[A-Za-z_:][A-"
+"Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "It is only used for gettext PO files, as XLIFF format has its own way of "
 "specifying where markup is."
@@ -3491,14 +3532,14 @@ msgstr ""
 "에만 사용됩니다."
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
-#: src/project/prefs_project_advanced.ui:65
+#: src/project/prefs_project_advanced.ui:64
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Word wrap:"
 msgstr "자동 줄 바꿈:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
-#: src/project/prefs_project_advanced.ui:75
+#: src/project/prefs_project_advanced.ui:74
 #, kde-format
 msgid ""
 "Width used for the automatic msgfmt-like word wrap. Use the value '0' to "
@@ -3510,28 +3551,34 @@ msgstr ""
 "무것도 변경하지 않습니다."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: src/project/prefs_project_advanced.ui:91
+#: src/project/prefs_project_advanced.ui:90
 #, kde-format
 msgid "Paths"
 msgstr "경로"
 
 #. i18n: ectx: property (text), widget (QLabel, l3)
-#: src/project/prefs_project_advanced.ui:100
+#: src/project/prefs_project_advanced.ui:99
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Template files folder:"
 msgstr "템플릿 파일 폴더:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
-#: src/project/prefs_project_advanced.ui:124
-#, kde-format
+#: src/project/prefs_project_advanced.ui:120
+#, fuzzy, kde-format
+#| msgid ""
+#| "Usually your translation project will be a subproject of a project\n"
+#| "for translating same texts into multiple languages.\n"
+#| "\n"
+#| "Set this to path of a folder containing empty translation files\n"
+#| "(i.e. files without translation into any language)\n"
+#| "shared among all subprojects."
 msgid ""
-"Usually your translation project will be a subproject of a project\n"
-"for translating same texts into multiple languages.\n"
+"Usually your translation project will be a subproject of a project for "
+"translating same texts into multiple languages.\n"
 "\n"
-"Set this to path of a folder containing empty translation files\n"
-"(i.e. files without translation into any language)\n"
-"shared among all subprojects."
+"Set this to path of a folder containing empty translation files (i.e. files "
+"without translation into any language) shared among all subprojects."
 msgstr ""
 "현재 번역 프로젝트는 같은 텍스트를 여러 언어로 번역하는 프로젝트의\n"
 "부 프로젝트일 수도 있습니다.\n"
@@ -3540,111 +3587,25 @@ msgstr ""
 "설정하십시오."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
-#: src/project/prefs_project_advanced.ui:131
+#: src/project/prefs_project_advanced.ui:127
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Branch folder:"
 msgstr "브랜치 폴더:"
 
-#. i18n: ectx: property (toolTip), widget (KUrlRequester, branchDir)
-#: src/project/prefs_project_advanced.ui:161
-#, kde-format
-msgctxt ""
-"this message contains text from documentation, so use its translation when "
-"you're translating docs"
-msgid ""
-"This setting is for Sync Mode.\n"
-"\n"
-"Sync Mode may be used to make changes to translation\n"
-"for two branches simultaneously.\n"
-"\n"
-"Set this to path that corresponds to root folder of the branch project,\n"
-"and Secondary Sync view will automatically open files from branch.\n"
-"Then, each time you make changes in files of your main branch,\n"
-"they will automatically be replicated to the branch\n"
-"(of course, if it contains the same English string).\n"
-"\n"
-"See documentation for more details."
-msgstr ""
-"이 설정은 동기화 모드에 사용됩니다.\n"
-"\n"
-"동기화 모드를 사용하면 번역 작업을 두 다른 브랜치에\n"
-"동시에 적용시킬 수 있습니다.\n"
-"\n"
-"이 경로를 브랜치의 기본 경로(두 번째 브랜치의 번역 폴더)로\n"
-"설정하면 두 번째 동기화 보기가 자동으로 열립니다.\n"
-"주 브랜치를 편집하면 부 브랜치에도 자동으로 변경 사항이 적용됩니다.\n"
-"(물론 원문이 같은 경우에 한하여) \n"
-"자세한 사항은 도움말을 참고하십시오."
-
 #. i18n: ectx: property (text), widget (QLabel, l5)
-#: src/project/prefs_project_advanced.ui:168
+#: src/project/prefs_project_advanced.ui:160
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Branch template files folder:"
 msgstr "브랜치 템플릿 파일 폴더:"
 
-#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
-#: src/project/prefs_project_advanced.ui:193
-#, kde-format
-msgctxt ""
-"this message contains text from documentation, so use its translation when "
-"you're translating docs"
-msgid ""
-"This setting is for Sync Mode.\n"
-"\n"
-"Sync Mode may be used to make changes to translation\n"
-"for two branches simultaneously.\n"
-"\n"
-"Set this to path that corresponds to root folder of the branch project "
-"templates folder,\n"
-"and Secondary Sync view will automatically create files from branch."
-msgstr ""
-"이 설정은 동기화 모드에 사용됩니다.\n"
-"\n"
-"동기화 모드를 사용하면 번역 작업을 두 다른 브랜치에\n"
-"동시에 적용시킬 수 있습니다.\n"
-"\n"
-"이 경로를 브랜치의 프로젝트 템플릿 폴더의 루트 폴더로\n"
-"설정하면 두 번째 동기화 보기가 브랜치에서 파일을 자동으로 생성합니다."
-
 #. i18n: ectx: property (text), widget (QLabel, l6)
-#: src/project/prefs_project_advanced.ui:200
+#: src/project/prefs_project_advanced.ui:191
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr "대체 번역 폴더:"
-
-#. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:227
-#, kde-format
-msgctxt ""
-"this message contains text from documentation, so use its translation when "
-"you're translating docs"
-msgid ""
-"Set this to path of a folder with structure similar to Root Folder.\n"
-"\n"
-"On each translation file open, a corresponding file in Alternate "
-"translations directory will be looked up and,\n"
-"if it is found, it will be used for Alternate Translations view.\n"
-"\n"
-"You will likely want to use translations of another target language (i.e. "
-"another subproject), which is close to yours.\n"
-"Also, you can use other subproject's translations either immediately, or "
-"have them pretranslated to your language by machine.\n"
-"\n"
-"See documentation for more details."
-msgstr ""
-"루트 폴더와 비슷한 구조를 가진 폴더를 선택하십시오.\n"
-"\n"
-"각각 번역 파일을 열면 대체 번역 디렉터리에 있는 파일을 검사한 다음,\n"
-"찾았을 경우 대체 번역 보기에 표시합니다.\n"
-"\n"
-"비슷한 다른 언어 번역을 참고해야 할 때 사용할 수 있습니다.\n"
-"또한 다른 프로젝트의 번역을 즉시 사용하거나 기계 번역으로 대상 언어로 미리 번"
-"역할 수도 있습니다.\n"
-"\n"
-"자세한 사항은 문서를 참고하십시오."
 
 #. i18n: ectx: property (text), widget (QLabel, l0)
 #: src/project/prefs_project_local.ui:21
@@ -3685,14 +3646,20 @@ msgid "Target language:"
 msgstr "대상 언어:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
-#: src/project/prefs_projectmain.ui:46
-#, kde-format
+#: src/project/prefs_projectmain.ui:43
+#, fuzzy, kde-format
+#| msgid ""
+#| "Project ID is used to differentiate translation memories of absolutely "
+#| "different projects and languages.\n"
+#| "\n"
+#| "For example, if you have several projects for translating KDE "
+#| "applications\n"
+#| "(e.g. they are in different repositories), use same ID for all of them."
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
-"different projects and languages.\n"
-"\n"
-"For example, if you have several projects for translating KDE applications\n"
-"(e.g. they are in different repositories), use same ID for all of them."
+"different projects and languages. For example, if you have several projects "
+"for translating KDE applications (e.g. they are in different repositories), "
+"use same ID for all of them."
 msgstr ""
 "서로 다른 프로젝트와 언어의 번역 메모리를 구분하는 데 사용되는 프로젝트 ID입"
 "니다.\n"
@@ -3701,62 +3668,66 @@ msgstr ""
 "(서로 다른 저장소에 나뉘어 있는 경우) 모든 프로젝트에 같은 ID를 사용하십시오."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
-#: src/project/prefs_projectmain.ui:59
+#: src/project/prefs_projectmain.ui:56
 #, kde-format
 msgid "Target language of the project."
 msgstr "프로젝트의 대상 언어입니다."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
-#: src/project/prefs_projectmain.ui:82
+#: src/project/prefs_projectmain.ui:79
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Mailing list:"
 msgstr "메일링 리스트:"
 
 #. i18n: ectx: property (text), widget (QLabel, l3)
-#: src/project/prefs_projectmain.ui:92
+#: src/project/prefs_projectmain.ui:89
 #, kde-format
 msgctxt "@label:textbox"
 msgid "ID:"
 msgstr "ID:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
-#: src/project/prefs_projectmain.ui:118
-#, kde-format
+#: src/project/prefs_projectmain.ui:114
+#, fuzzy, kde-format
+#| msgid ""
+#| "This is main setting. Set this to path of a folder with translation "
+#| "files\n"
+#| "for your project (or a subproject for your target language)."
 msgid ""
-"This is main setting. Set this to path of a folder with translation files\n"
+"This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
 "주 설정입니다. 번역 파일이 들어 있거나, 대상 언어용\n"
 "부 프로젝트의 경로로 설정하십시오."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
-#: src/project/prefs_projectmain.ui:141
+#: src/project/prefs_projectmain.ui:137
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Root folder:"
 msgstr "루트 폴더:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
-#: src/project/prefs_projectmain.ui:155
+#: src/project/prefs_projectmain.ui:151
 #, kde-format
 msgid "Automatic"
 msgstr "자동"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
-#: src/project/prefs_projectmain.ui:160
+#: src/project/prefs_projectmain.ui:156
 #, kde-format
 msgid "Application"
 msgstr "앱"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
-#: src/project/prefs_projectmain.ui:165
+#: src/project/prefs_projectmain.ui:161
 #, kde-format
 msgid "Project"
 msgstr "프로젝트"
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
-#: src/project/prefs_projectmain.ui:180
+#: src/project/prefs_projectmain.ui:176
 #, kde-format
 msgid "Language-Team:"
 msgstr "언어 팀:"
@@ -4218,11 +4189,17 @@ msgstr "번역 메모리:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Search expression for source language part.\n"
+#| "Press Enter to start the search.\n"
+#| "Press Ctrl+L to go to this control."
 msgid ""
 "Search expression for source language part.\n"
-"Press Enter to start the search.\n"
-"Press Ctrl+L to go to this control."
+"                                            Press Enter to start the "
+"search.\n"
+"                                            Press Ctrl+L to go to this "
+"control."
 msgstr ""
 "원본 언어에서 검색할 표현식을 입력하십시오.\n"
 "Enter 키를 누르면 검색을 시작합니다.\n"
@@ -4551,21 +4528,42 @@ msgid "Widget Text Capture"
 msgstr "위젯 텍스트 캡처"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: src/tools/widgettextcaptureconfig.ui:26
-#, kde-format
+#: src/tools/widgettextcaptureconfig.ui:34
+#, fuzzy, kde-format
+#| msgid ""
+#| "<html>\n"
+#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
+#| "text from applications' user interfaces and search for translation files "
+#| "containing the text.</p>\n"
+#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
+#| "mouse clicking on any non-editable GUI element (widget). After that, "
+#| "switch to the Lokalize window and choose the entry with this text. Even "
+#| "if several files contain the same string, the right one will be chosen in "
+#| "most cases.</p>\n"
+#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
+#| "translation memory with all translation files indexed for this feature to "
+#| "work.</p></html>"
 msgid ""
 "<html>\n"
-"<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-"text from applications' user interfaces and search for translation files "
-"containing the text.</p>\n"
-"<p align=\"justify\">When enabled, the capture can be initiated by middle "
-"mouse clicking on any non-editable GUI element (widget). After that, switch "
-"to the Lokalize window and choose the entry with this text. Even if several "
-"files contain the same string, the right one will be chosen in most cases.</"
-"p>\n"
-"<p align=\"justify\">Remember that you need to have an up-to-date actual "
-"translation memory with all translation files indexed for this feature to "
-"work.</p></html>"
+"                            <p align=\"justify\">To facilitate KDE "
+"translation,\n"
+"                            Lokalize can capture text from applications' "
+"user interfaces and search\n"
+"                            for translation files containing the text.</p>\n"
+"                            <p align=\"justify\">When enabled, the capture "
+"can be\n"
+"                            initiated by middle mouse clicking on any non-"
+"editable GUI element\n"
+"                            (widget). After that, switch to the Lokalize "
+"window and choose the entry\n"
+"                            with this text. Even if several files contain "
+"the same string, the right\n"
+"                            one will be chosen in most cases.</p>\n"
+"                            <p align=\"justify\">Remember that you need to "
+"have an\n"
+"                            up-to-date actual translation memory with all "
+"translation files indexed\n"
+"                            for this feature to work.</p></html>"
 msgstr ""
 "<html>\n"
 "<p align=\"justify\">KDE 번역을 도우려고 Lokalize에서는 사용자 인터페이스에"
@@ -4579,25 +4577,25 @@ msgstr ""
 "가 필요합니다.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/tools/widgettextcaptureconfig.ui:42
+#: src/tools/widgettextcaptureconfig.ui:50
 #, kde-format
 msgid "Middle Mouse Button Click Reaction"
 msgstr "마우스 가운데 단추를 클릭했을 때 행동"
 
 #. i18n: ectx: property (text), widget (QRadioButton, none)
-#: src/tools/widgettextcaptureconfig.ui:48
+#: src/tools/widgettextcaptureconfig.ui:56
 #, kde-format
 msgid "None"
 msgstr "없음"
 
 #. i18n: ectx: property (text), widget (QRadioButton, search)
-#: src/tools/widgettextcaptureconfig.ui:58
+#: src/tools/widgettextcaptureconfig.ui:66
 #, kde-format
 msgid "Search GUI element text in translation memory"
 msgstr "번역 메모리에서 GUI 구성 요소 텍스트 찾기"
 
 #. i18n: ectx: property (text), widget (QRadioButton, clipboard)
-#: src/tools/widgettextcaptureconfig.ui:65
+#: src/tools/widgettextcaptureconfig.ui:73
 #, kde-format
 msgid "Copy GUI element text to clipboard"
 msgstr "GUI 구성 요소 텍스트를 클립보드에 복사"
@@ -4629,6 +4627,83 @@ msgstr "오류 발생: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "원본을 대상으로 복사"
+
+#~ msgctxt ""
+#~ "this message contains text from documentation, so use its translation "
+#~ "when you're translating docs"
+#~ msgid ""
+#~ "This setting is for Sync Mode.\n"
+#~ "\n"
+#~ "Sync Mode may be used to make changes to translation\n"
+#~ "for two branches simultaneously.\n"
+#~ "\n"
+#~ "Set this to path that corresponds to root folder of the branch project,\n"
+#~ "and Secondary Sync view will automatically open files from branch.\n"
+#~ "Then, each time you make changes in files of your main branch,\n"
+#~ "they will automatically be replicated to the branch\n"
+#~ "(of course, if it contains the same English string).\n"
+#~ "\n"
+#~ "See documentation for more details."
+#~ msgstr ""
+#~ "이 설정은 동기화 모드에 사용됩니다.\n"
+#~ "\n"
+#~ "동기화 모드를 사용하면 번역 작업을 두 다른 브랜치에\n"
+#~ "동시에 적용시킬 수 있습니다.\n"
+#~ "\n"
+#~ "이 경로를 브랜치의 기본 경로(두 번째 브랜치의 번역 폴더)로\n"
+#~ "설정하면 두 번째 동기화 보기가 자동으로 열립니다.\n"
+#~ "주 브랜치를 편집하면 부 브랜치에도 자동으로 변경 사항이 적용됩니다.\n"
+#~ "(물론 원문이 같은 경우에 한하여) \n"
+#~ "자세한 사항은 도움말을 참고하십시오."
+
+#~ msgctxt ""
+#~ "this message contains text from documentation, so use its translation "
+#~ "when you're translating docs"
+#~ msgid ""
+#~ "This setting is for Sync Mode.\n"
+#~ "\n"
+#~ "Sync Mode may be used to make changes to translation\n"
+#~ "for two branches simultaneously.\n"
+#~ "\n"
+#~ "Set this to path that corresponds to root folder of the branch project "
+#~ "templates folder,\n"
+#~ "and Secondary Sync view will automatically create files from branch."
+#~ msgstr ""
+#~ "이 설정은 동기화 모드에 사용됩니다.\n"
+#~ "\n"
+#~ "동기화 모드를 사용하면 번역 작업을 두 다른 브랜치에\n"
+#~ "동시에 적용시킬 수 있습니다.\n"
+#~ "\n"
+#~ "이 경로를 브랜치의 프로젝트 템플릿 폴더의 루트 폴더로\n"
+#~ "설정하면 두 번째 동기화 보기가 브랜치에서 파일을 자동으로 생성합니다."
+
+#~ msgctxt ""
+#~ "this message contains text from documentation, so use its translation "
+#~ "when you're translating docs"
+#~ msgid ""
+#~ "Set this to path of a folder with structure similar to Root Folder.\n"
+#~ "\n"
+#~ "On each translation file open, a corresponding file in Alternate "
+#~ "translations directory will be looked up and,\n"
+#~ "if it is found, it will be used for Alternate Translations view.\n"
+#~ "\n"
+#~ "You will likely want to use translations of another target language (i.e. "
+#~ "another subproject), which is close to yours.\n"
+#~ "Also, you can use other subproject's translations either immediately, or "
+#~ "have them pretranslated to your language by machine.\n"
+#~ "\n"
+#~ "See documentation for more details."
+#~ msgstr ""
+#~ "루트 폴더와 비슷한 구조를 가진 폴더를 선택하십시오.\n"
+#~ "\n"
+#~ "각각 번역 파일을 열면 대체 번역 디렉터리에 있는 파일을 검사한 다음,\n"
+#~ "찾았을 경우 대체 번역 보기에 표시합니다.\n"
+#~ "\n"
+#~ "비슷한 다른 언어 번역을 참고해야 할 때 사용할 수 있습니다.\n"
+#~ "또한 다른 프로젝트의 번역을 즉시 사용하거나 기계 번역으로 대상 언어로 미"
+#~ "리 번역할 수도 있습니다.\n"
+#~ "\n"
+#~ "자세한 사항은 문서를 참고하십시오."
 
 #~ msgid ""
 #~ "Note: one glossary entry corresponds exactly to one term, not word/word "

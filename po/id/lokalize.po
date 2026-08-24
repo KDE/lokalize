@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-02 00:48+0000\n"
+"POT-Creation-Date: 2026-08-24 00:48+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -2044,12 +2044,19 @@ msgstr "Unwrap"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Search expression for source language part.\n"
+#| "Press Ctrl+L to go to this control.\n"
+#| "Press Enter to start the search.\n"
+#| "Press Esc to stop the search."
 msgid ""
 "Search expression for source language part.\n"
-"Press Ctrl+L to go to this control.\n"
-"Press Enter to start the search.\n"
-"Press Esc to stop the search."
+"                                            Press Ctrl+L to go to this "
+"control.\n"
+"                                            Press Enter to start the "
+"search.\n"
+"                                            Press Esc to stop the search."
 msgstr ""
 "Ekspresi pencarian untuk bagian bahasa sumber.\n"
 "Tekan Ctrl+L untuk menuju ke kendali ini.\n"
@@ -2073,10 +2080,13 @@ msgstr "Sumber:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Search expression for target language part.\n"
+#| "Press Enter to start the search."
 msgid ""
 "Search expression for target language part.\n"
-"Press Enter to start the search."
+"                                            Press Enter to start the search."
 msgstr ""
 "Ekspresi pencarian untuk bagian sasaran bahasa.\n"
 "Tekan Enter untuk memulai pencarian."
@@ -3297,26 +3307,48 @@ msgid "Highlight spaces at the end"
 msgstr "Sorot spasi pada ujung"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:32
-#, kde-format
+#: src/prefs/prefs_editor.ui:33
+#, fuzzy, kde-format
+#| msgid ""
+#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
+#| "text"
 msgid ""
-"If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
+"If set, mouse wheel goes to previous or next unit, otherwise it\n"
+"                            scrolls text"
 msgstr ""
 "Jika disetel, roda mouse menuju ke unit sebelumnya atau selanjutnya, jika "
 "tidak menggulir teks"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:35
-#, kde-format
+#: src/prefs/prefs_editor.ui:48
+#, fuzzy, kde-format
+#| msgid ""
+#| "<html>When this option is enabled, the mouse wheel is used to go to the "
+#| "previous or next translation unit (without modifier keys). Modifier keys "
+#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
+#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
+#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
+#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
+#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
+#| "wheel scrolls within the text of the current translation unit.</html>"
 msgid ""
-"<html>When this option is enabled, the mouse wheel is used to go to the "
-"previous or next translation unit (without modifier keys). Modifier keys can "
-"be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll within "
-"the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to previous or "
-"next non-ready unit,</li><li><b>Ctrl</b> to go to previous or next non-ready "
-"not empty unit,</li><li><b>Alt</b> to go to previous or next untranslated "
-"unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
-"the text of the current translation unit.</html>"
+"<html>When this option is enabled, the mouse wheel is used to\n"
+"                            go to the previous or next translation unit "
+"(without modifier keys).\n"
+"                            Modifier keys can be used to change this "
+"behavior.\n"
+"                            Use:<ul><li><b>Shift</b> to scroll within the\n"
+"                            text of the current\n"
+"                            unit,</li><li><b>Ctrl+Shift</b> to go to\n"
+"                            previous or next non-ready\n"
+"                            unit,</li><li><b>Ctrl</b> to go to previous or\n"
+"                            next non-ready not empty\n"
+"                            unit,</li><li><b>Alt</b> to go to previous or\n"
+"                            next untranslated unit.</li></ul>When the option "
+"is\n"
+"                            disabled, the mouse wheel scrolls within the "
+"text of the current\n"
+"                            translation unit.</html>"
 msgstr ""
 "<html>Bila pilihan ini difungsikan, roda mouse digunakan untuk menuju ke "
 "unit terjemahan sebelumnya atau selanjutnya (tanpa tuts pengubah). Tuts "
@@ -3330,19 +3362,19 @@ msgstr ""
 "saat ini.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:38
+#: src/prefs/prefs_editor.ui:51
 #, kde-format
 msgid "Mouse wheel goes to previous or next translation unit"
 msgstr "Roda mouse menuju ke unit terjemahan sebelumnya atau selanjutnya"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
-#: src/prefs/prefs_editor.ui:45
+#: src/prefs/prefs_editor.ui:58
 #, kde-format
 msgid "Set 'approved' status automatically when editing started"
 msgstr "Set status 'disetujui' secara otomatis ketika pengeditan dimulai"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
-#: src/prefs/prefs_editor.ui:65
+#: src/prefs/prefs_editor.ui:78
 #, kde-format
 msgid "Visualize separators such as spaces, tabs and new lines in the editor"
 msgstr ""
@@ -3350,25 +3382,25 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
-#: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
+#: src/prefs/prefs_editor.ui:87 src/prefs/prefs_editor.ui:100
 #, kde-format
 msgid "Set to 2 to disable word completion"
 msgstr "Atur ke 2 untuk menonaktifkan kata yang sudah selesai"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
-#: src/prefs/prefs_editor.ui:77
+#: src/prefs/prefs_editor.ui:90
 #, kde-format
 msgid "Minimum word length for word completion"
 msgstr "Minimum panjang kata untuk penyelesaian kata"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_WordCompletionLength)
-#: src/prefs/prefs_editor.ui:90
+#: src/prefs/prefs_editor.ui:103
 #, kde-format
 msgid "Disable word completion"
 msgstr "Nonfungsikan penyelesaian kata"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConvertXMLChars)
-#: src/prefs/prefs_editor.ui:105
+#: src/prefs/prefs_editor.ui:118
 #, kde-format
 msgid "Automatically convert XML special characters in TS files"
 msgstr "Secara otomatis mengkonversi karakter khusus XML ke dalam file TS"
@@ -3743,14 +3775,23 @@ msgid "Markup:"
 msgstr "Tanda baca:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
-#: src/project/prefs_project_advanced.ui:58
-#, kde-format
+#: src/project/prefs_project_advanced.ui:57
+#, fuzzy, kde-format
+#| msgid ""
+#| "Regular expression of markup. It is used for translation memory matching "
+#| "and for 'Insert tag' feature.\n"
+#| "\n"
+#| "A default value (suitable for XML-based texts) is:\n"
+#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+#| "\n"
+#| "It is only used for gettext PO files, as XLIFF format has its own way of "
+#| "specifying where markup is."
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
 "\n"
-"A default value (suitable for XML-based texts) is:\n"
-"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"A default value (suitable for XML-based texts) is: (<[^>]+>)+|(&[A-Za-z_:][A-"
+"Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "It is only used for gettext PO files, as XLIFF format has its own way of "
 "specifying where markup is."
@@ -3765,14 +3806,14 @@ msgstr ""
 "memiliki cara sendiri menentukan di mana tanda baca tersebut."
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
-#: src/project/prefs_project_advanced.ui:65
+#: src/project/prefs_project_advanced.ui:64
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Word wrap:"
 msgstr "Kemas kata:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
-#: src/project/prefs_project_advanced.ui:75
+#: src/project/prefs_project_advanced.ui:74
 #, fuzzy, kde-format
 #| msgid ""
 #| "Width used for the automatic msgfmt-like word wrap. Use the negative "
@@ -3786,28 +3827,34 @@ msgstr ""
 "negatif '-1' untuk menonfungsikan kemas kata."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: src/project/prefs_project_advanced.ui:91
+#: src/project/prefs_project_advanced.ui:90
 #, kde-format
 msgid "Paths"
 msgstr "Alur"
 
 #. i18n: ectx: property (text), widget (QLabel, l3)
-#: src/project/prefs_project_advanced.ui:100
+#: src/project/prefs_project_advanced.ui:99
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Template files folder:"
 msgstr "Folder file template:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
-#: src/project/prefs_project_advanced.ui:124
-#, kde-format
+#: src/project/prefs_project_advanced.ui:120
+#, fuzzy, kde-format
+#| msgid ""
+#| "Usually your translation project will be a subproject of a project\n"
+#| "for translating same texts into multiple languages.\n"
+#| "\n"
+#| "Set this to path of a folder containing empty translation files\n"
+#| "(i.e. files without translation into any language)\n"
+#| "shared among all subprojects."
 msgid ""
-"Usually your translation project will be a subproject of a project\n"
-"for translating same texts into multiple languages.\n"
+"Usually your translation project will be a subproject of a project for "
+"translating same texts into multiple languages.\n"
 "\n"
-"Set this to path of a folder containing empty translation files\n"
-"(i.e. files without translation into any language)\n"
-"shared among all subprojects."
+"Set this to path of a folder containing empty translation files (i.e. files "
+"without translation into any language) shared among all subprojects."
 msgstr ""
 "Proyek tejemahan Anda berguna ketika subprojek dari proyek untuk "
 "menerjemahkan teks-teks yang sama ke dalam berbagai bahasa.\n"
@@ -3817,50 +3864,14 @@ msgstr ""
 "yang dibagi-pakaikan diantara  semua subprojek."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
-#: src/project/prefs_project_advanced.ui:131
+#: src/project/prefs_project_advanced.ui:127
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Branch folder:"
 msgstr "Folder cabang:"
 
-#. i18n: ectx: property (toolTip), widget (KUrlRequester, branchDir)
-#: src/project/prefs_project_advanced.ui:161
-#, kde-format
-msgctxt ""
-"this message contains text from documentation, so use its translation when "
-"you're translating docs"
-msgid ""
-"This setting is for Sync Mode.\n"
-"\n"
-"Sync Mode may be used to make changes to translation\n"
-"for two branches simultaneously.\n"
-"\n"
-"Set this to path that corresponds to root folder of the branch project,\n"
-"and Secondary Sync view will automatically open files from branch.\n"
-"Then, each time you make changes in files of your main branch,\n"
-"they will automatically be replicated to the branch\n"
-"(of course, if it contains the same English string).\n"
-"\n"
-"See documentation for more details."
-msgstr ""
-"Setelan ini untuk Modus Sinkron.\n"
-"\n"
-"Modus sinkron mungkin digunakan untuk membuat perubahan-perubahan untuk "
-"menerjemahkan\n"
-"dua cabang secara terus-menerus.\n"
-"\n"
-"Set ini ke alur yang berhubungan dengan folder akar dari proyek cabang,\n"
-"dan tampilan Sinkron Sekunder akan secara otomatis membuka file dari "
-"cabang.\n"
-"Kemudian, setiap kali Anda membuat perubahan di  file pada cabang utama "
-"Anda,\n"
-"mereka secara otomatis direplikasikan ke cabang\n"
-"(tentu saja, jika terdapat string bahasa Inggris yang sama).\n"
-"\n"
-"Lihat dokumentasi untuk lebih jelasnya."
-
 #. i18n: ectx: property (text), widget (QLabel, l5)
-#: src/project/prefs_project_advanced.ui:168
+#: src/project/prefs_project_advanced.ui:160
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox"
 #| msgid "Template files folder:"
@@ -3868,94 +3879,12 @@ msgctxt "@label:textbox"
 msgid "Branch template files folder:"
 msgstr "Folder file template:"
 
-#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBranchDir)
-#: src/project/prefs_project_advanced.ui:193
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "this message contains text from documentation, so use its translation "
-#| "when you're translating docs"
-#| msgid ""
-#| "This setting is for Sync Mode.\n"
-#| "\n"
-#| "Sync Mode may be used to make changes to translation\n"
-#| "for two branches simultaneously.\n"
-#| "\n"
-#| "Set this to path that corresponds to root folder of the branch project,\n"
-#| "and Secondary Sync view will automatically open files from branch.\n"
-#| "Then, each time you make changes in files of your main branch,\n"
-#| "they will automatically be replicated to the branch\n"
-#| "(of course, if it contains the same English string).\n"
-#| "\n"
-#| "See documentation for more details."
-msgctxt ""
-"this message contains text from documentation, so use its translation when "
-"you're translating docs"
-msgid ""
-"This setting is for Sync Mode.\n"
-"\n"
-"Sync Mode may be used to make changes to translation\n"
-"for two branches simultaneously.\n"
-"\n"
-"Set this to path that corresponds to root folder of the branch project "
-"templates folder,\n"
-"and Secondary Sync view will automatically create files from branch."
-msgstr ""
-"Setelan ini untuk Modus Sinkron.\n"
-"\n"
-"Modus sinkron mungkin digunakan untuk membuat perubahan-perubahan untuk "
-"menerjemahkan\n"
-"dua cabang secara terus-menerus.\n"
-"\n"
-"Set ini ke alur yang berhubungan dengan folder akar dari proyek cabang,\n"
-"dan tampilan Sinkron Sekunder akan secara otomatis membuka file dari "
-"cabang.\n"
-"Kemudian, setiap kali Anda membuat perubahan di  file pada cabang utama "
-"Anda,\n"
-"mereka secara otomatis direplikasikan ke cabang\n"
-"(tentu saja, jika terdapat string bahasa Inggris yang sama).\n"
-"\n"
-"Lihat dokumentasi untuk lebih jelasnya."
-
 #. i18n: ectx: property (text), widget (QLabel, l6)
-#: src/project/prefs_project_advanced.ui:200
+#: src/project/prefs_project_advanced.ui:191
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
 msgstr "Folder terjemahan alternatif:"
-
-#. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
-#: src/project/prefs_project_advanced.ui:227
-#, kde-format
-msgctxt ""
-"this message contains text from documentation, so use its translation when "
-"you're translating docs"
-msgid ""
-"Set this to path of a folder with structure similar to Root Folder.\n"
-"\n"
-"On each translation file open, a corresponding file in Alternate "
-"translations directory will be looked up and,\n"
-"if it is found, it will be used for Alternate Translations view.\n"
-"\n"
-"You will likely want to use translations of another target language (i.e. "
-"another subproject), which is close to yours.\n"
-"Also, you can use other subproject's translations either immediately, or "
-"have them pretranslated to your language by machine.\n"
-"\n"
-"See documentation for more details."
-msgstr ""
-"Set ini ke alur folder dengan struktur yang mirip ke Folder Root.\n"
-"\n"
-"Pada setiap file terjemahan dibuka, file yang berhubungan di direktori "
-"terjemahan Alternatif akan ditampakkan serta,\n"
-"jika telah ditemukan, itu akan digunakan untuk tampilan Terjemahan "
-"Alternatif .\n"
-"\n"
-"Anda mungkin akan ingin menggunakan terjemahan dari bahasa sasaran lain "
-"(yaitu proyek lain), yang dekat dengan Anda.\n"
-"Juga, Anda dapat menggunakan terjemahan subproyek lain baik langsung, atau "
-"mereka yang memiliki terjemahkan sebelumnya ke bahasa Anda oleh mesin.\n"
-"\n"
-"Lihat dokumentasi untuk perincian selebihnya."
 
 #. i18n: ectx: property (text), widget (QLabel, l0)
 #: src/project/prefs_project_local.ui:21
@@ -3996,14 +3925,20 @@ msgid "Target language:"
 msgstr "Bahasa sasaran:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
-#: src/project/prefs_projectmain.ui:46
-#, kde-format
+#: src/project/prefs_projectmain.ui:43
+#, fuzzy, kde-format
+#| msgid ""
+#| "Project ID is used to differentiate translation memories of absolutely "
+#| "different projects and languages.\n"
+#| "\n"
+#| "For example, if you have several projects for translating KDE "
+#| "applications\n"
+#| "(e.g. they are in different repositories), use same ID for all of them."
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
-"different projects and languages.\n"
-"\n"
-"For example, if you have several projects for translating KDE applications\n"
-"(e.g. they are in different repositories), use same ID for all of them."
+"different projects and languages. For example, if you have several projects "
+"for translating KDE applications (e.g. they are in different repositories), "
+"use same ID for all of them."
 msgstr ""
 "ID proyek adalah digunakan untuk memori terjemahan yang berbeda dari bahasa "
 "dan proyek yang berbeda secara mutlak.\n"
@@ -4014,30 +3949,34 @@ msgstr ""
 "mereka semua."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
-#: src/project/prefs_projectmain.ui:59
+#: src/project/prefs_projectmain.ui:56
 #, kde-format
 msgid "Target language of the project."
 msgstr "Bahasa sasaran si proyek."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
-#: src/project/prefs_projectmain.ui:82
+#: src/project/prefs_projectmain.ui:79
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Mailing list:"
 msgstr "Milis:"
 
 #. i18n: ectx: property (text), widget (QLabel, l3)
-#: src/project/prefs_projectmain.ui:92
+#: src/project/prefs_projectmain.ui:89
 #, kde-format
 msgctxt "@label:textbox"
 msgid "ID:"
 msgstr "ID:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
-#: src/project/prefs_projectmain.ui:118
-#, kde-format
+#: src/project/prefs_projectmain.ui:114
+#, fuzzy, kde-format
+#| msgid ""
+#| "This is main setting. Set this to path of a folder with translation "
+#| "files\n"
+#| "for your project (or a subproject for your target language)."
 msgid ""
-"This is main setting. Set this to path of a folder with translation files\n"
+"This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
 "Ini adalah pengaturan utama. Set ini untuk alur pada sebuah folder dengan "
@@ -4045,32 +3984,32 @@ msgstr ""
 "untuk projek Anda(atau sebuah subprojek untuk sasaran bahasamu)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
-#: src/project/prefs_projectmain.ui:141
+#: src/project/prefs_projectmain.ui:137
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Root folder:"
 msgstr "Folder akar:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
-#: src/project/prefs_projectmain.ui:155
+#: src/project/prefs_projectmain.ui:151
 #, kde-format
 msgid "Automatic"
 msgstr "Otomatis"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
-#: src/project/prefs_projectmain.ui:160
+#: src/project/prefs_projectmain.ui:156
 #, kde-format
 msgid "Application"
 msgstr "Aplikasi"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
-#: src/project/prefs_projectmain.ui:165
+#: src/project/prefs_projectmain.ui:161
 #, kde-format
 msgid "Project"
 msgstr "proyek"
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
-#: src/project/prefs_projectmain.ui:180
+#: src/project/prefs_projectmain.ui:176
 #, kde-format
 msgid "Language-Team:"
 msgstr "Tim-Bahasa:"
@@ -4556,11 +4495,17 @@ msgstr "Memori Terjemahan"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Search expression for source language part.\n"
+#| "Press Enter to start the search.\n"
+#| "Press Ctrl+L to go to this control."
 msgid ""
 "Search expression for source language part.\n"
-"Press Enter to start the search.\n"
-"Press Ctrl+L to go to this control."
+"                                            Press Enter to start the "
+"search.\n"
+"                                            Press Ctrl+L to go to this "
+"control."
 msgstr ""
 "Ekspresi pencarian untuk bagian bahasa sumber.\n"
 "Tekan Enter untuk memulai pencarian.\n"
@@ -4908,21 +4853,42 @@ msgid "Widget Text Capture"
 msgstr "Widget Tangkapan Teks"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: src/tools/widgettextcaptureconfig.ui:26
-#, kde-format
+#: src/tools/widgettextcaptureconfig.ui:34
+#, fuzzy, kde-format
+#| msgid ""
+#| "<html>\n"
+#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
+#| "text from applications' user interfaces and search for translation files "
+#| "containing the text.</p>\n"
+#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
+#| "mouse clicking on any non-editable GUI element (widget). After that, "
+#| "switch to the Lokalize window and choose the entry with this text. Even "
+#| "if several files contain the same string, the right one will be chosen in "
+#| "most cases.</p>\n"
+#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
+#| "translation memory with all translation files indexed for this feature to "
+#| "work.</p></html>"
 msgid ""
 "<html>\n"
-"<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-"text from applications' user interfaces and search for translation files "
-"containing the text.</p>\n"
-"<p align=\"justify\">When enabled, the capture can be initiated by middle "
-"mouse clicking on any non-editable GUI element (widget). After that, switch "
-"to the Lokalize window and choose the entry with this text. Even if several "
-"files contain the same string, the right one will be chosen in most cases.</"
-"p>\n"
-"<p align=\"justify\">Remember that you need to have an up-to-date actual "
-"translation memory with all translation files indexed for this feature to "
-"work.</p></html>"
+"                            <p align=\"justify\">To facilitate KDE "
+"translation,\n"
+"                            Lokalize can capture text from applications' "
+"user interfaces and search\n"
+"                            for translation files containing the text.</p>\n"
+"                            <p align=\"justify\">When enabled, the capture "
+"can be\n"
+"                            initiated by middle mouse clicking on any non-"
+"editable GUI element\n"
+"                            (widget). After that, switch to the Lokalize "
+"window and choose the entry\n"
+"                            with this text. Even if several files contain "
+"the same string, the right\n"
+"                            one will be chosen in most cases.</p>\n"
+"                            <p align=\"justify\">Remember that you need to "
+"have an\n"
+"                            up-to-date actual translation memory with all "
+"translation files indexed\n"
+"                            for this feature to work.</p></html>"
 msgstr ""
 "<html>\n"
 "<p align=\"justify\">Untuk fasilitas terjemahan KDE, Lokalize dapat "
@@ -4938,25 +4904,25 @@ msgstr ""
 "fitur ini untuk dapat bekerja.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/tools/widgettextcaptureconfig.ui:42
+#: src/tools/widgettextcaptureconfig.ui:50
 #, kde-format
 msgid "Middle Mouse Button Click Reaction"
 msgstr "Reaksi Klik Tombol Mouse Tengah"
 
 #. i18n: ectx: property (text), widget (QRadioButton, none)
-#: src/tools/widgettextcaptureconfig.ui:48
+#: src/tools/widgettextcaptureconfig.ui:56
 #, kde-format
 msgid "None"
 msgstr "Nihil"
 
 #. i18n: ectx: property (text), widget (QRadioButton, search)
-#: src/tools/widgettextcaptureconfig.ui:58
+#: src/tools/widgettextcaptureconfig.ui:66
 #, kde-format
 msgid "Search GUI element text in translation memory"
 msgstr "Cari teks unsur GUI dalam memori terjemahan"
 
 #. i18n: ectx: property (text), widget (QRadioButton, clipboard)
-#: src/tools/widgettextcaptureconfig.ui:65
+#: src/tools/widgettextcaptureconfig.ui:73
 #, kde-format
 msgid "Copy GUI element text to clipboard"
 msgstr "Salin teks unsur GUI ke papan-klip"
@@ -4988,6 +4954,117 @@ msgstr "Melaporkan sebuah kesalahan: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Salin sumber ke sasaran"
+
+#~ msgctxt ""
+#~ "this message contains text from documentation, so use its translation "
+#~ "when you're translating docs"
+#~ msgid ""
+#~ "This setting is for Sync Mode.\n"
+#~ "\n"
+#~ "Sync Mode may be used to make changes to translation\n"
+#~ "for two branches simultaneously.\n"
+#~ "\n"
+#~ "Set this to path that corresponds to root folder of the branch project,\n"
+#~ "and Secondary Sync view will automatically open files from branch.\n"
+#~ "Then, each time you make changes in files of your main branch,\n"
+#~ "they will automatically be replicated to the branch\n"
+#~ "(of course, if it contains the same English string).\n"
+#~ "\n"
+#~ "See documentation for more details."
+#~ msgstr ""
+#~ "Setelan ini untuk Modus Sinkron.\n"
+#~ "\n"
+#~ "Modus sinkron mungkin digunakan untuk membuat perubahan-perubahan untuk "
+#~ "menerjemahkan\n"
+#~ "dua cabang secara terus-menerus.\n"
+#~ "\n"
+#~ "Set ini ke alur yang berhubungan dengan folder akar dari proyek cabang,\n"
+#~ "dan tampilan Sinkron Sekunder akan secara otomatis membuka file dari "
+#~ "cabang.\n"
+#~ "Kemudian, setiap kali Anda membuat perubahan di  file pada cabang utama "
+#~ "Anda,\n"
+#~ "mereka secara otomatis direplikasikan ke cabang\n"
+#~ "(tentu saja, jika terdapat string bahasa Inggris yang sama).\n"
+#~ "\n"
+#~ "Lihat dokumentasi untuk lebih jelasnya."
+
+#, fuzzy
+#~| msgctxt ""
+#~| "this message contains text from documentation, so use its translation "
+#~| "when you're translating docs"
+#~| msgid ""
+#~| "This setting is for Sync Mode.\n"
+#~| "\n"
+#~| "Sync Mode may be used to make changes to translation\n"
+#~| "for two branches simultaneously.\n"
+#~| "\n"
+#~| "Set this to path that corresponds to root folder of the branch project,\n"
+#~| "and Secondary Sync view will automatically open files from branch.\n"
+#~| "Then, each time you make changes in files of your main branch,\n"
+#~| "they will automatically be replicated to the branch\n"
+#~| "(of course, if it contains the same English string).\n"
+#~| "\n"
+#~| "See documentation for more details."
+#~ msgctxt ""
+#~ "this message contains text from documentation, so use its translation "
+#~ "when you're translating docs"
+#~ msgid ""
+#~ "This setting is for Sync Mode.\n"
+#~ "\n"
+#~ "Sync Mode may be used to make changes to translation\n"
+#~ "for two branches simultaneously.\n"
+#~ "\n"
+#~ "Set this to path that corresponds to root folder of the branch project "
+#~ "templates folder,\n"
+#~ "and Secondary Sync view will automatically create files from branch."
+#~ msgstr ""
+#~ "Setelan ini untuk Modus Sinkron.\n"
+#~ "\n"
+#~ "Modus sinkron mungkin digunakan untuk membuat perubahan-perubahan untuk "
+#~ "menerjemahkan\n"
+#~ "dua cabang secara terus-menerus.\n"
+#~ "\n"
+#~ "Set ini ke alur yang berhubungan dengan folder akar dari proyek cabang,\n"
+#~ "dan tampilan Sinkron Sekunder akan secara otomatis membuka file dari "
+#~ "cabang.\n"
+#~ "Kemudian, setiap kali Anda membuat perubahan di  file pada cabang utama "
+#~ "Anda,\n"
+#~ "mereka secara otomatis direplikasikan ke cabang\n"
+#~ "(tentu saja, jika terdapat string bahasa Inggris yang sama).\n"
+#~ "\n"
+#~ "Lihat dokumentasi untuk lebih jelasnya."
+
+#~ msgctxt ""
+#~ "this message contains text from documentation, so use its translation "
+#~ "when you're translating docs"
+#~ msgid ""
+#~ "Set this to path of a folder with structure similar to Root Folder.\n"
+#~ "\n"
+#~ "On each translation file open, a corresponding file in Alternate "
+#~ "translations directory will be looked up and,\n"
+#~ "if it is found, it will be used for Alternate Translations view.\n"
+#~ "\n"
+#~ "You will likely want to use translations of another target language (i.e. "
+#~ "another subproject), which is close to yours.\n"
+#~ "Also, you can use other subproject's translations either immediately, or "
+#~ "have them pretranslated to your language by machine.\n"
+#~ "\n"
+#~ "See documentation for more details."
+#~ msgstr ""
+#~ "Set ini ke alur folder dengan struktur yang mirip ke Folder Root.\n"
+#~ "\n"
+#~ "Pada setiap file terjemahan dibuka, file yang berhubungan di direktori "
+#~ "terjemahan Alternatif akan ditampakkan serta,\n"
+#~ "jika telah ditemukan, itu akan digunakan untuk tampilan Terjemahan "
+#~ "Alternatif .\n"
+#~ "\n"
+#~ "Anda mungkin akan ingin menggunakan terjemahan dari bahasa sasaran lain "
+#~ "(yaitu proyek lain), yang dekat dengan Anda.\n"
+#~ "Juga, Anda dapat menggunakan terjemahan subproyek lain baik langsung, "
+#~ "atau mereka yang memiliki terjemahkan sebelumnya ke bahasa Anda oleh "
+#~ "mesin.\n"
+#~ "\n"
+#~ "Lihat dokumentasi untuk perincian selebihnya."
 
 #~ msgid ""
 #~ "Note: one glossary entry corresponds exactly to one term, not word/word "
