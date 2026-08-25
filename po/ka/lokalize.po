@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:48+0000\n"
-"PO-Revision-Date: 2026-05-13 08:29+0200\n"
+"PO-Revision-Date: 2026-08-24 06:30+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1921,12 +1921,7 @@ msgstr "გადატანების გაუქმება"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Ctrl+L to go to this "
@@ -1936,9 +1931,9 @@ msgid ""
 "                                            Press Esc to stop the search."
 msgstr ""
 "ძებნის გამოსახულება წყარო ენის ნაწილისთვის.\n"
-"Ctrl+L ამ კონტროლის ელემენტზე გადასასვლელად.\n"
-"Enter ძებნის დასაწყებად.\n"
-"Esc ძებნის შესაწყვეტად."
+"                           Ctrl+L ამ კონტროლის ელემენტზე გადასასვლელად.\n"
+"                           Enter ძებნის დასაწყებად.\n"
+"                           Esc ძებნის შესაწყვეტად."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1957,16 +1952,13 @@ msgstr "წყარო:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "                                            Press Enter to start the search."
 msgstr ""
 "ძებნის გამოსახულება სამიზნე ენის ნაწილისთვის.\n"
-"ძებნის დასაწყებად დააჭირეთ ღილაკს Enter."
+"                ძებნის დასაწყებად დააჭირეთ ღილაკს Enter."
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -3113,29 +3105,17 @@ msgstr "ბოლოში არსებული ჰარეების გ
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:33
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it\n"
 "                            scrolls text"
 msgstr ""
-"თუ დაყენებულია, თაგუნას ბორბალი წინა ან შემდეგ ერთეულზე გადავა. წინააღმდეგ "
-"შემთხვევაში ის ტექსტს გადაახვევს"
+"თუ დაყენებულია, თაგუნას ბორბალი წინა ან შემდეგ ერთეულზე გადავა.\n"
+"                       წინააღმდეგ შემთხვევაში ის ტექსტს გადაახვევს"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to go to the "
-#| "previous or next translation unit (without modifier keys). Modifier keys "
-#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
-#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
-#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
-#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
-#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
-#| "wheel scrolls within the text of the current translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to\n"
 "                            go to the previous or next translation unit "
@@ -3155,15 +3135,19 @@ msgid ""
 "text of the current\n"
 "                            translation unit.</html>"
 msgstr ""
-"<html>როცა ეს პარამეტრი ჩართულია, თაგუნა ბორბალი გამოიყენება წინა ან "
-"თარგმანზე გადასვლისთვის (მოდიფიკატორი ღილაკების გარეშე). მოდიფიკატორი "
-"ღილაკები შეგიძლიათ, ამ ქცევის შესაცვლელად გამოიყენოთ. გამოიყენეთ: "
-"<ul><li><b>Shift</b> მიმდინარე ერთეულის შიგნით გადასახვევად</li><li><b>Ctrl"
-"+Shift</b> წინა ან შემდეგ არა-მზა ერთეულზე გადასასვლელად, </li><li><b>Ctrl</"
-"b> წინა ან შემდეგ არა-მზა არა-ცარიელ ერთეულზე გადასასვლელად, </"
-"li><li><b>Alt</b> წინა ან შემდეგ უთარგმნელ ერთეულზე გადასასვლელად.</"
-"li><ul>როცა ეს პარამეტრი გათიშულია, თაგუნას ბორბალი მიმდინარე სათარგმნ "
-"ერთეულს გადაახვევს.</html>"
+"<html>როცა ეს პარამეტრი ჩართულია, თაგუნა ბორბალი გამოიყენება\n"
+"                       წინა ან თარგმანზე გადასვლისთვის (მოდიფიკატორი\n"
+"                       ღილაკების გარეშე). მოდიფიკატორი ღილაკები შეგიძლიათ,\n"
+"                       ამ ქცევის შესაცვლელად გამოიყენოთ.\n"
+"                       გამოიყენეთ: <ul><li><b>Shift</b> მიმდინარე ერთეულის\n"
+"                       შიგნით გადასახვევად</li><li><b>Ctrl+Shift</b> წინა\n"
+"                       ან შემდეგ არა-მზაერთეულზე გადასასვლელად,\n"
+"                       </li><li><b>Ctrl</b> წინა ან შემდეგ არა-მზა\n"
+"                       არა-ცარიელ ერთეულზე გადასასვლელად,\n"
+"                       </li><li><b>Alt</b> წინა ან შემდეგ უთარგმნელ\n"
+"                       ერთეულზე გადასასვლელად.</li><ul>როცა\n"
+"                       ეს პარამეტრი გათიშულია, თაგუნას ბორბალი მიმდინარე\n"
+"                       სათარგმნ ერთეულს გადაახვევს.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:51
@@ -3578,16 +3562,7 @@ msgstr "მარკირება:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3598,11 +3573,11 @@ msgid ""
 "It is only used for gettext PO files, as XLIFF format has its own way of "
 "specifying where markup is."
 msgstr ""
-"რეგულარული გამოსახულება მარკირებისთვის. გამოიყენება თარგმანის მეხიერების "
+"რეგულარული გამოსახულება მარკირებისთვის. გამოიყენება თარგმანის მეხსიერების "
 "დამთხვევისთვის და 'ჭდის ჩასმის' ფუნქციისთვის\n"
 "\n"
-"ნაგულისხმევი მნიშვნელობაა (შეეფერება XML-ზე დაფუძნებულ ტექსტებს):\n"
-"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"ნაგულისხმევი მნიშვნელობაა (შეეფერება XML-ზე დაფუძნებულ ტექსტებს): (<[^>]+>)+|"
+"(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "გამოიყენება, მხოლოდ, gettext-ის PO ფაილებისთვის, რადგან XLIFF ფორმატს თავისი "
 "გზა აქვს მისათითებლად, სადაა მარკირება."
@@ -3641,14 +3616,7 @@ msgstr "ნიმუშს ფაილების საქაღალდე:
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3656,12 +3624,11 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"ჩვეულებრივ, თქვენი სათარგმნი პროექტი პროექტის ქვეპროექტი იქნება\n"
-"იგივე ტექსტების სხვადასხვა ენაზე სათარგმნელად.\n"
+"ჩვეულებრივ, თქვენი სათარგმნი პროექტი პროექტის ქვეპროექტი იქნება იგივე "
+"ტექსტების სხვადასხვა ენაზე სათარგმნელად.\n"
 "\n"
-"დააყენეთ ეს ბილიკი საქაღალდეზე, რომელიც ცარიელ თარგმანის ფაილებს შეიცავს\n"
-"(ანუ, ფაილები, რომლებიც ნათარგმნი არაა)\n"
-"ყველა ქვეპროექტისთვის."
+"დააყენეთ ეს ბილიკი საქაღალდეზე, რომელიც ცარიელ თარგმანის ფაილებს შეიცავს "
+"(ანუ, ფაილები, რომლებიც ნათარგმნი არაა) ყველა ქვეპროექტისთვის."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3724,14 +3691,7 @@ msgstr "სამიზნე ენა:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
@@ -3739,11 +3699,9 @@ msgid ""
 "use same ID for all of them."
 msgstr ""
 "პროექტის ID აბსოლუტურად სხვადასხვა პროექტებისა და ენების თარგმანის "
-"მეხსიერების გამოსაყოფად გამოიყენება.\n"
-"\n"
-"მაგალითად, თუ გაქვთ რამდენიმე პროექტი KDE-ის აპლიკაციების სათარგმნელად\n"
-"(მაგ: თუ ისინი სხვადასხვა რეპოზიტორიებშია), გამოიყენეთ იგივე ID ყველა "
-"მათგანისთვის."
+"მეხსიერების გამოსაყოფად გამოიყენება. მაგალითად, თუ გაქვთ რამდენიმე პროექტი "
+"KDE-ის აპლიკაციების სათარგმნელად (მაგ: თუ ისინი სხვადასხვა რეპოზიტორიებშია), "
+"გამოიყენეთ იგივე ID ყველა მათგანისთვის."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3767,18 +3725,13 @@ msgstr "ID:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
 "ეს მთავარი პარამეტრია. დააყენეთ ის საქაღალდეზე, რომელიც სათარგმნ ფაილებს "
-"შეიცავს\n"
-"თქვენი პროექტისთვის (ან ქვეპროექტი თქვენი სასურველი ენისთვის)."
+"შეიცავს თქვენი პროექტისთვის (ან ქვეპროექტი თქვენი სასურველი ენისთვის)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:137
@@ -4271,11 +4224,7 @@ msgstr "თარგმანის მეხსიერება:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Enter to start the "
@@ -4284,8 +4233,8 @@ msgid ""
 "control."
 msgstr ""
 "ძებნის გამოსახულება საწყისი ენის ნაწილისთვის.\n"
-"დააჭირეთ Enter-ს ძებნის დასაწყებად.\n"
-"Ctrl+L ამ კონტროლის ელემენტზე გადასასვლელად."
+"                       დააჭირეთ Enter-ს ძებნის დასაწყებად.\n"
+"                       Ctrl+L ამ კონტროლის ელემენტზე გადასასვლელად."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4615,20 +4564,7 @@ msgstr "ვიჯეტის ტექსტის ჩაჭერა"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:34
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-#| "text from applications' user interfaces and search for translation files "
-#| "containing the text.</p>\n"
-#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
-#| "mouse clicking on any non-editable GUI element (widget). After that, "
-#| "switch to the Lokalize window and choose the entry with this text. Even "
-#| "if several files contain the same string, the right one will be chosen in "
-#| "most cases.</p>\n"
-#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
-#| "translation memory with all translation files indexed for this feature to "
-#| "work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "                            <p align=\"justify\">To facilitate KDE "
@@ -4652,17 +4588,27 @@ msgid ""
 "                            for this feature to work.</p></html>"
 msgstr ""
 "<html>\n"
-"<p align=\"justify\">KDE-ის თარგმანისთვის Lokalize-ს შეუძლია, ტექსტი "
-"აპლიკაციის მომხმარებლის ინტერფეისიდან აიღოს და მოძებნოს სათარგმნი ფაილები, "
-"რომლებიც ამ ტექსტს შეიცავს.</p>\n"
-"<p align=\"justify\">როცა ჩართულია, ჩაჭერა შეგიძლიათ, თაგუნას შუა ღილაკის "
-"ნებისმიერ არაჩასწორებად ინტერფეისის ელემენტზე (ვიჯეტზე) დაწკაპუნებით "
-"დაიწყოთ. ამს შემდეგ, გადაერთეთ Lokalize-ის ფანჯარაზე და აირჩიეთ ჩანაწერი ამ "
-"ტექსტით. მაშინაც კი, თუ ამ სტრიქონს რამდენიმე ფაილი შეიცავს, უმეტეს "
-"შემთხვევაში სწორ ვარიანტს ავირჩევთ.</p>\n"
-"<p align=\"justify\">დაიმახსოვრეთ, რომ იმისათვის, რომ ამ ფუნქციამ იმუშაოს, "
-"გჭირდებათ გქონდეთ განახლებული თარგმანის მეხსიერება ყველა თარგმანის ფაილი "
-"ინდექსით.</p></html>"
+"                       <p align=\"justify\">KDE-ის თარგმანისთვის Lokalize-ს "
+"შეუძლია,\n"
+"                       ტექსტი აპლიკაციის მომხმარებლის ინტერფეისიდან აიღოს "
+"და\n"
+"                       მოძებნოს სათარგმნი ფაილები, რომლებიც ამ ტექსტს "
+"შეიცავს.</p>\n"
+"                       <p align=\"justify\">როცა ჩართულია, ჩაჭერა შეგიძლიათ, "
+"თაგუნას შუა\n"
+"                       ღილაკის ნებისმიერ არაჩასწორებად ინტერფეისის ელემენტზე "
+"(ვიჯეტზე)\n"
+"                       დაწკაპუნებით დაიწყოთ. ამს შემდეგ, გადაერთეთ Lokalize-"
+"ის ფანჯარაზე და\n"
+"                       აირჩიეთ ჩანაწერი ამ ტექსტით. მაშინაც კი, თუ ამ "
+"სტრიქონს რამდენიმე ფაილი\n"
+"                       შეიცავს, უმეტეს შემთხვევაში სწორ ვარიანტს ავირჩევთ.</"
+"p>\n"
+"                       <p align=\"justify\">დაიმახსოვრეთ, რომ იმისათვის, რომ "
+"ამ ფუნქციამ იმუშაოს,\n"
+"                       გჭირდებათ გქონდეთ განახლებული თარგმანის მეხსიერება "
+"ყველა\n"
+"                       თარგმანის ფაილი ინდექსით.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:50

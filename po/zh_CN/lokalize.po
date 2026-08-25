@@ -1861,12 +1861,7 @@ msgstr "打开"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Ctrl+L to go to this "
@@ -1875,10 +1870,6 @@ msgid ""
 "search.\n"
 "                                            Press Esc to stop the search."
 msgstr ""
-"在源语言中搜索的表达式。\n"
-"按下回车键开始搜索。\n"
-"按下 Ctrl+L 进入此控件。\n"
-"按下 Esc 停止搜索。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1897,16 +1888,11 @@ msgstr "原文："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "                                            Press Enter to start the search."
 msgstr ""
-"在目标语言中搜索的表达式。\n"
-"按下回车键开始搜索。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -3021,29 +3007,15 @@ msgstr "高亮显示字符串末尾的空格"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:33
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it\n"
 "                            scrolls text"
 msgstr ""
-"如果勾选此项，鼠标滚轮将用于跳转到上一条或者下一条字符串；如果不勾选，鼠标滚"
-"轮将滚动文本本身"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to go to the "
-#| "previous or next translation unit (without modifier keys). Modifier keys "
-#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
-#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
-#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
-#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
-#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
-#| "wheel scrolls within the text of the current translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to\n"
 "                            go to the previous or next translation unit "
@@ -3063,11 +3035,6 @@ msgid ""
 "text of the current\n"
 "                            translation unit.</html>"
 msgstr ""
-"<html>启用此选项时，鼠标滚轮用于转到上一个或下一个翻译单元（无需修饰键）。修"
-"饰键可用于改变此行为。使用：<ul><li><b>Shift</b>在当前单元的文本内滚动，</"
-"li><li><b>Ctrl+Shift</b>转到上一个或下一个未就绪单元，</li><li><b>Ctrl</b>转"
-"到上一个或下一个未就绪非空单元，</li><li><b>Alt</b>转到上一个或下一个未翻译单"
-"元。</li></ul>禁用该选项时，鼠标滚轮在当前翻译单元的文本内滚动。</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:51
@@ -3463,16 +3430,7 @@ msgstr "标记："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3483,12 +3441,6 @@ msgid ""
 "It is only used for gettext PO files, as XLIFF format has its own way of "
 "specifying where markup is."
 msgstr ""
-"标记的正则表达式。它用于匹配翻译记忆和“插入标签”特性。\n"
-"\n"
-"默认值(适用于基于 XML 的文本)为：\n"
-"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-"\n"
-"它只能用于 gettext PO 文件，而 XLIFF 格式有其自有的指定标记位置的方法。"
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/project/prefs_project_advanced.ui:64
@@ -3523,14 +3475,7 @@ msgstr "模板文件文件夹："
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3538,11 +3483,6 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"一个翻译项目会将相同文本翻译为多种语言，\n"
-"您的翻译项目通常是它们的一个子项目。\n"
-"\n"
-"将其设定为包含共享于全部子项目的空翻译文件\n"
-"(即不带有任何翻译的文件)的目录路径。"
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3605,24 +3545,13 @@ msgstr "目标语言："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
 "for translating KDE applications (e.g. they are in different repositories), "
 "use same ID for all of them."
 msgstr ""
-"项目 ID 用于区别绝对不同的项目和语言的翻译记忆。\n"
-"\n"
-"例如，如果您有多个项目来翻译 KDE 应用程序\n"
-"(比如，它们在不同的仓库)，请全部使用相同的 ID。"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3646,17 +3575,11 @@ msgstr "ID："
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
-"这是主要设置。将其设定为您的\n"
-"项目 (或您的目标语言的子项目) 翻译文件的目录路径。"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:137
@@ -4146,11 +4069,7 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Enter to start the "
@@ -4158,9 +4077,6 @@ msgid ""
 "                                            Press Ctrl+L to go to this "
 "control."
 msgstr ""
-"在源语言中搜索的表达式。\n"
-"按下回车键开始搜索。\n"
-"按下 Ctrl+L 进入此控件。"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4481,20 +4397,7 @@ msgstr "部件文本捕获"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:34
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-#| "text from applications' user interfaces and search for translation files "
-#| "containing the text.</p>\n"
-#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
-#| "mouse clicking on any non-editable GUI element (widget). After that, "
-#| "switch to the Lokalize window and choose the entry with this text. Even "
-#| "if several files contain the same string, the right one will be chosen in "
-#| "most cases.</p>\n"
-#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
-#| "translation memory with all translation files indexed for this feature to "
-#| "work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "                            <p align=\"justify\">To facilitate KDE "
@@ -4517,14 +4420,6 @@ msgid ""
 "translation files indexed\n"
 "                            for this feature to work.</p></html>"
 msgstr ""
-"<html>\n"
-"<p align=\"justify\">为了方便 KDE 的翻译，Lokalize 能够从应用程序界面中提取文"
-"本并搜索包含文本的翻译文件。</p>\n"
-"<p align=\"justify\">启用时，可以通过在不可编辑的 GUI 元素(部件)上点击鼠标中"
-"键进行提取。提取后将切换到 Lokalize 窗口并选择带有此文本的条目。即使有多个文"
-"件包含相同字符串，大多数情况下插件都能作出正确的选择。</p>\n"
-"<p align=\"justify\">请记住，要启用此功能，您需要拥有最新的翻译记忆并经索全部"
-"翻译文件。</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:50
@@ -4577,81 +4472,3 @@ msgstr "报告错误：%1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
-
-#~ msgctxt ""
-#~ "this message contains text from documentation, so use its translation "
-#~ "when you're translating docs"
-#~ msgid ""
-#~ "This setting is for Sync Mode.\n"
-#~ "\n"
-#~ "Sync Mode may be used to make changes to translation\n"
-#~ "for two branches simultaneously.\n"
-#~ "\n"
-#~ "Set this to path that corresponds to root folder of the branch project,\n"
-#~ "and Secondary Sync view will automatically open files from branch.\n"
-#~ "Then, each time you make changes in files of your main branch,\n"
-#~ "they will automatically be replicated to the branch\n"
-#~ "(of course, if it contains the same English string).\n"
-#~ "\n"
-#~ "See documentation for more details."
-#~ msgstr ""
-#~ "此设置用于同步模式。\n"
-#~ "\n"
-#~ "同步模式可用来同时修改两个分支的翻译。\n"
-#~ "\n"
-#~ "将其设定为分支项目的基准目录相符的路径\n"
-#~ "(例如，项目的“翻译目录”作为二级分支)，\n"
-#~ "而二级同步视图将自动从分支中打开文件。\n"
-#~ "这样，每次您在您的主分支作出修改时，\n"
-#~ "它们会自动复制到各个分支中\n"
-#~ "(当然，要在它包含相同英文字符串的时候)。\n"
-#~ "\n"
-#~ "参见文档获取更多详情。"
-
-#~ msgctxt ""
-#~ "this message contains text from documentation, so use its translation "
-#~ "when you're translating docs"
-#~ msgid ""
-#~ "This setting is for Sync Mode.\n"
-#~ "\n"
-#~ "Sync Mode may be used to make changes to translation\n"
-#~ "for two branches simultaneously.\n"
-#~ "\n"
-#~ "Set this to path that corresponds to root folder of the branch project "
-#~ "templates folder,\n"
-#~ "and Secondary Sync view will automatically create files from branch."
-#~ msgstr ""
-#~ "此设置用于同步模式。\n"
-#~ "\n"
-#~ "同步模式可用于同时对两个分支的翻译进行修改。\n"
-#~ "\n"
-#~ "将此路径设置为对应分支项目模板文件夹的根目录路径，\n"
-#~ "次级同步视图将自动从分支创建文件。"
-
-#~ msgctxt ""
-#~ "this message contains text from documentation, so use its translation "
-#~ "when you're translating docs"
-#~ msgid ""
-#~ "Set this to path of a folder with structure similar to Root Folder.\n"
-#~ "\n"
-#~ "On each translation file open, a corresponding file in Alternate "
-#~ "translations directory will be looked up and,\n"
-#~ "if it is found, it will be used for Alternate Translations view.\n"
-#~ "\n"
-#~ "You will likely want to use translations of another target language (i.e. "
-#~ "another subproject), which is close to yours.\n"
-#~ "Also, you can use other subproject's translations either immediately, or "
-#~ "have them pretranslated to your language by machine.\n"
-#~ "\n"
-#~ "See documentation for more details."
-#~ msgstr ""
-#~ "请将此设置为与根文件夹结构相似的文件夹路径。\n"
-#~ "\n"
-#~ "每次打开翻译文件时，系统将在备选翻译目录中查找对应的文件，\n"
-#~ "如果找到该文件，则会将其用于备选翻译视图。\n"
-#~ "\n"
-#~ "您可能需要使用与您的语言相近的另一目标语言（即另一子项目）的翻译。\n"
-#~ "此外，您可以直接使用其他子项目的翻译，或通过机器翻译将其预翻译为您的语"
-#~ "言。\n"
-#~ "\n"
-#~ "更多详细信息，请参阅文档。"

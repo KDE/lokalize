@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:48+0000\n"
-"PO-Revision-Date: 2026-07-07 16:47+0200\n"
+"PO-Revision-Date: 2026-08-24 22:31+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Lokalize 26.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -1922,12 +1922,7 @@ msgstr "Packa upp"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Ctrl+L to go to this "
@@ -1937,9 +1932,12 @@ msgid ""
 "                                            Press Esc to stop the search."
 msgstr ""
 "Sökuttryck för källspråkets del.\n"
-"Tryck på Ctrl+L för att gå till den här komponenten.\n"
-"Tryck på returtangenten för att starta sökningen.\n"
-"Tryck på Esc för att stoppa sökningen."
+"                                            Tryck på Ctrl+L för att gå till "
+"den här komponenten.\n"
+"                                            Tryck på returtangenten för att "
+"starta sökningen.\n"
+"                                            Tryck på Esc för att stoppa "
+"sökningen."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1958,16 +1956,14 @@ msgstr "Källa:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "                                            Press Enter to start the search."
 msgstr ""
 "Sökuttryck för resultatspråkets del.\n"
-"Tryck på returtangenten för att starta sökningen."
+"                                            Tryck på returtangenten för att "
+"starta sökningen."
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -3113,29 +3109,17 @@ msgstr "Markera mellanslag i slutet"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:33
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it\n"
 "                            scrolls text"
 msgstr ""
-"Om aktiverad, går mushjulet till föregående eller nästa enhet, annars rullar "
-"det texten"
+"Om aktiverad, går mushjulet till föregående eller nästa enhet, annars\n"
+"                            rullar det texten"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to go to the "
-#| "previous or next translation unit (without modifier keys). Modifier keys "
-#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
-#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
-#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
-#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
-#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
-#| "wheel scrolls within the text of the current translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to\n"
 "                            go to the previous or next translation unit "
@@ -3156,14 +3140,25 @@ msgid ""
 "                            translation unit.</html>"
 msgstr ""
 "<html>När det här alternativet är aktiverat, används mushjulet för att gå "
-"till föregående eller nästa översättningsenhet (utan väljartangenter). "
-"Väljartangenter kan användas för att ändra beteendet. Använd:"
-"<ul><li><b>Skift</b> för att rulla texten inom den nuvarande enheten,</"
-"li><li><b>Ctrl+Skift</b> för att gå till föregående eller nästa inte klara "
-"enhet,</li><li><b>Ctrl</b> för att gå till föregående eller nästa inte klara "
-"och inte tomma enhet,</li><li><b>Alt</b> för att gå till föregående eller "
-"nästa oöversatta enhet.</li></ul>När alternativet är inaktiverat, rullar "
-"mushjulet inom den nuvarande översättningsenhetens text.</html>"
+"till föregående eller nästa översättningsenhet (utan väljartangenter).\n"
+"                            Väljartangenter kan användas för att ändra "
+"beteendet.\n"
+"                            Använd:<ul><li><b>Skift</b> för att rulla "
+"texten\n"
+"                            inom den nuvarande\n"
+"                            enheten,</li><li><b>Ctrl+Skift</b> för att gå "
+"till\n"
+"                            föregående eller nästa inte klara\n"
+"                            enhet,</li><li><b>Ctrl</b> för att gå till "
+"föregående eller\n"
+"                            nästa inte klara och inte tomma\n"
+"                           enhet,</li><li><b>Alt</b> för att gå till "
+"föregående eller\n"
+"                           nästa oöversatta enhet.</li></ul>När alternativet "
+"är\n"
+"                           inaktiverat, rullar mushjulet inom den nuvarande\n"
+"                                                                                  översättningsenhetens "
+"text.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:51
@@ -3574,16 +3569,7 @@ msgstr "Markeringstaggar:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3597,8 +3583,8 @@ msgstr ""
 "Reguljärt uttryck för markeringstaggar. Det används för matchning i "
 "översättningsminnet och för funktionen 'Infoga tagg'.\n"
 "\n"
-"Ett standardvärde (lämpligt för XML-baserad text) är:\n"
-"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"Ett standardvärde (lämpligt för XML-baserad text) är: (<[^>]+>)+|(&[A-Za-z_:]"
+"[A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "Det används bara för gettext PO-filer, eftersom XLIFF-formatet har sitt eget "
 "sätt att ange var taggar finns."
@@ -3637,14 +3623,7 @@ msgstr "Mallfilkatalog:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3652,12 +3631,12 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"Oftast är översättningsprojektet ett delprojekt av ett projekt som\n"
+"Oftast är översättningsprojektet ett delprojekt av ett projekt som "
 "översätter samma texter till flera språk.\n"
 "\n"
-"Ställ in det här till sökvägen för en katalog som innehåller tomma\n"
-"översättningsfiler (dvs. filer utan översättning till något språk)\n"
-"som delas mellan alla delprojekt."
+"Ställ in det här till sökvägen för en katalog som innehåller tomma "
+"översättningsfiler (dvs. filer utan översättning till något språk) som delas "
+"mellan alla delprojekt."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3720,14 +3699,7 @@ msgstr "Resultatspråk:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
@@ -3735,10 +3707,9 @@ msgid ""
 "use same ID for all of them."
 msgstr ""
 "Projektidentifikation används för att skilja på översättningsminnen för helt "
-"olika projekt och språk.\n"
-"\n"
-"Om du till exempel har flera projekt för att översätta KDE-program\n"
-"(t.ex. om de är i olika arkiv), använd samma identifikation för alla."
+"olika projekt och språk. Om du till exempel har flera projekt för att "
+"översätta KDE-program (t.ex. om de är i olika arkiv), använd samma "
+"identifikation för alla."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3762,16 +3733,12 @@ msgstr "Identifikation:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
-"Det här är huvudinställningen. Ställ in den till en katalogsökväg med\n"
+"Det här är huvudinställningen. Ställ in den till en katalogsökväg med "
 "översättningsfiler för projektet (eller ett delprojekt för resultatspråket)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
@@ -4265,11 +4232,7 @@ msgstr "Översättningsminne:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Enter to start the "
@@ -4278,8 +4241,10 @@ msgid ""
 "control."
 msgstr ""
 "Sökuttryck för källspråkets del.\n"
-"Tryck på returtangenten för att starta sökningen.\n"
-"Tryck på Ctrl+L för att gå till den här komponenten."
+"                                            Tryck på returtangenten för att "
+"starta sökningen.\n"
+"                                            Tryck på Ctrl+L för att gå till "
+"den här komponenten."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4607,20 +4572,7 @@ msgstr "Hämta text från grafiska komponenter"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:34
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-#| "text from applications' user interfaces and search for translation files "
-#| "containing the text.</p>\n"
-#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
-#| "mouse clicking on any non-editable GUI element (widget). After that, "
-#| "switch to the Lokalize window and choose the entry with this text. Even "
-#| "if several files contain the same string, the right one will be chosen in "
-#| "most cases.</p>\n"
-#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
-#| "translation memory with all translation files indexed for this feature to "
-#| "work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "                            <p align=\"justify\">To facilitate KDE "
@@ -4644,17 +4596,25 @@ msgid ""
 "                            for this feature to work.</p></html>"
 msgstr ""
 "<html>\n"
-"<p align=\"justify\">För att förenkla översättning av KDE kan Lokalize hämta "
-"text från programmens användargränssnitt och söka efter översättningsfiler "
-"som innehåller texten.</p>\n"
-"<p align=\"justify\">När den är aktiverad, kan hämtningen inledas genom att "
-"klicka på ett icke-redigerbart element i det grafiska gränssnittet (grafisk "
-"komponent) med musens mittknapp. Byt därefter till Lokalizes fönster och "
-"välj posten med texten. Även om flera filer innehåller samma sträng, väljes "
-"den rätta i de flesta fall.</p>\n"
-"<p align=\"justify\">Kom ihåg att du måste ha ett uppdaterat "
-"översättningsminne med alla översättningsfiler indexerade för att funktionen "
-"ska fungera.</p></html>"
+"                            <p align=\"justify\">För att förenkla "
+"översättning av KDE\n"
+"                            kan Lokalize hämta text från programmens "
+"användargränssnitt och söka\n"
+"                            efter översättningsfiler som innehåller texten.</"
+"p>\n"
+"                            <p align=\"justify\">När den är aktiverad, kan "
+"hämtningen inledas\n"
+"                            genom att klicka på ett icke-redigerbart element "
+"i det grafiska gränssnittet\n"
+"                            (grafisk komponent) med musens mittknapp. Byt "
+"därefter till Lokalizes fönster och markera posten\n"
+"                            med texten. Även om flera filer innehåller samma "
+"sträng, väljs\n"
+"                            den rätta i de flesta fall.</p>\n"
+"                            <p align=\"justify\">Kom ihåg att du måste ha "
+"ett\n"
+"uppdaterat översättningsminne med alla översättningsfiler indexerade\n"
+"                            för att funktionen ska fungera.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:50

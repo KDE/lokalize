@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:48+0000\n"
-"PO-Revision-Date: 2026-05-13 19:18+0200\n"
+"PO-Revision-Date: 2026-08-24 19:55+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 26.04.1\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1922,12 +1922,7 @@ msgstr "Rozbalit"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Ctrl+L to go to this "
@@ -1936,10 +1931,13 @@ msgid ""
 "search.\n"
 "                                            Press Esc to stop the search."
 msgstr ""
-"Hledat výraz ve zdrojovém jazyce.\n"
-"Stiskněte Ctrl+L pro přejití to této položky.\n"
-"Stiskněte Enter pro zahájení hledání.\n"
-"Stiskněte Esc pro přerušení hledání."
+"Hledaný výraz pro část ve zdrojovém jazyce.\n"
+"                                            Stisknutím kláves Ctrl+L "
+"přejděte na tento ovládací prvek.\n"
+"                                            Stisknutím klávesy Enter spusťte "
+"vyhledávání.\n"
+"                                            Stisknutím klávesy Esc "
+"vyhledávání zastavte."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1958,10 +1956,7 @@ msgstr "Zdroj:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "                                            Press Enter to start the search."
@@ -3109,29 +3104,18 @@ msgstr "Zvýraznit mezery na konci"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:33
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it\n"
 "                            scrolls text"
 msgstr ""
-"Pokud nastaveno, otočení kolečkem myši přepne na předchozí nebo následující "
-"položku, jinak posunuje text"
+"Je-li tato volba nastavena, kolečko myši přechází na předchozí nebo "
+"následující jednotku, jinak\n"
+"                            posouvá text"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to go to the "
-#| "previous or next translation unit (without modifier keys). Modifier keys "
-#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
-#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
-#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
-#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
-#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
-#| "wheel scrolls within the text of the current translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to\n"
 "                            go to the previous or next translation unit "
@@ -3151,15 +3135,25 @@ msgid ""
 "text of the current\n"
 "                            translation unit.</html>"
 msgstr ""
-"<html>Je-li tato volba zapnutá, slouží kolečko myši k přechodu na předchozí "
-"nebo následující překládanou jednotku (bez modifikačních kláves). Toto "
-"chování lze změnit pomocí modifikačních kláves. Použití:<ul><li><b>Shift</b> "
-"pro posun v textu aktuální jednotky,</li><li><b>Ctrl+Shift</b> pro přechod "
-"na předchozí nebo následující neschválenou jednotku,</li><li><b>Ctrl</b> pro "
-"přechod na předchozí nebo následující neschválenou jednotku, která není "
-"prázdná,</li><li><b>Alt</b> pro přechod na předchozí nebo následující "
-"nepřeloženou jednotku.</li></ul>Je-li tato volba vypnutá, kolečko myši "
-"posouvá text v rámci aktuální překládané jednotky.</html>"
+"<html>Je-li tato volba zapnutá, slouží kolečko myši k\n"
+"                            přesunu na předchozí nebo následující "
+"překladovou jednotku (bez modifikačních kláves).\n"
+"                            Toto chování lze změnit pomocí modifikačních "
+"kláves.\n"
+"                            Použití:<ul><li><b>Shift</b> pro posun v rámci\n"
+"                            textu aktuální\n"
+"                            jednotky,</li><li><b>Ctrl+Shift</b> pro přechod "
+"na\n"
+"                            předchozí nebo následující nepřipravenou\n"
+"                            jednotku,</li><li><b>Ctrl</b> pro přechod na "
+"předchozí nebo\n"
+"                            následující nepřipravenou a neprázdnou\n"
+"                            jednotku,</li><li><b>Alt</b> pro přechod na "
+"předchozí nebo\n"
+"                            následující nepřeloženou jednotku.</li></ul>Je-"
+"li tato volba\n"
+"                            vypnuta, kolečko myši posouvá text aktuální\n"
+"                            překladové jednotky.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:51
@@ -3574,16 +3568,7 @@ msgstr "Značky:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3597,10 +3582,10 @@ msgstr ""
 "Regulární výraz pro značky. Používá se pro porovnávání v překladové paměti a "
 "pro funkci 'Vložit značku'.\n"
 "\n"
-"Výchozí hodnota (vhodná pro texty založené na XML) je:\n"
-"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"Výchozí hodnota (vhodná pro texty založené na XML) je: (<[^>]+>)+|(&[A-Za-"
+"z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
-"Používá se pouze pro soubory PO v formátu gettext, protože formát XLIFF má "
+"Používá se pouze pro soubory PO formátu gettext, protože formát XLIFF má "
 "vlastní způsob určení, kde se značky nacházejí."
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
@@ -3637,14 +3622,7 @@ msgstr "Složka se soubory šablon:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3652,12 +3630,12 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"Váš překladatelský projekt bude obvykle podprojektem projektu\n"
-"určeného k překladu stejných textů do více jazyků.\n"
+"Váš překladatelský projekt bude obvykle podprojektem projektu zaměřeného na "
+"překlad stejných textů do více jazyků.\n"
 "\n"
-"Zadejte zde cestu ke složce obsahující prázdné překladové soubory\n"
-"(tj. soubory bez překladu do jakéhokoli jazyka)\n"
-"sdílené mezi všemi podprojekty."
+"Zadejte zde cestu ke složce obsahující prázdné překladové soubory (tj. "
+"soubory bez překladu do jakéhokoli jazyka), které jsou společné pro všechny "
+"podprojekty."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3720,14 +3698,7 @@ msgstr "Cílový jazyk:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
@@ -3735,10 +3706,9 @@ msgid ""
 "use same ID for all of them."
 msgstr ""
 "ID projektu slouží k rozlišení překladových pamětí zcela odlišných projektů "
-"a jazyků.\n"
-"\n"
-"Pokud například máte několik projektů zaměřených na překlad aplikací KDE\n"
-"(např. jsou v různých repozitářích), použijte pro všechny stejné ID."
+"a jazyků. Pokud například máte několik projektů zaměřených na překlad "
+"aplikací KDE (např. pokud se nacházejí v různých repozitářích), použijte pro "
+"všechny stejné ID."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3762,17 +3732,12 @@ msgstr "ID:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
-"Toto je hlavní nastavení. Zadejte zde cestu ke složce s překladovými "
-"soubory\n"
+"Toto je hlavní nastavení. Zadejte zde cestu ke složce s překladovými soubory "
 "pro váš projekt (nebo podprojekt pro váš cílový jazyk)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
@@ -4269,11 +4234,7 @@ msgstr "Paměť překladu:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Enter to start the "
@@ -4281,9 +4242,11 @@ msgid ""
 "                                            Press Ctrl+L to go to this "
 "control."
 msgstr ""
-"Zadejte výraz pro vyhledávání v části zdrojového jazyka.\n"
-"Stisknutím klávesy Enter spustíte vyhledávání.\n"
-"Stisknutím kláves Ctrl+L přejdete na tento ovládací prvek."
+"Hledaný výraz pro část ve zdrojovém jazyce.\n"
+"                                            Stisknutím klávesy Enter "
+"spustíte vyhledávání.\n"
+"                                            Stisknutím kláves Ctrl+L "
+"přejdete k tomuto ovládacímu prvku."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4616,20 +4579,7 @@ msgstr "Zachycování textu ve widgetu"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:34
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-#| "text from applications' user interfaces and search for translation files "
-#| "containing the text.</p>\n"
-#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
-#| "mouse clicking on any non-editable GUI element (widget). After that, "
-#| "switch to the Lokalize window and choose the entry with this text. Even "
-#| "if several files contain the same string, the right one will be chosen in "
-#| "most cases.</p>\n"
-#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
-#| "translation memory with all translation files indexed for this feature to "
-#| "work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "                            <p align=\"justify\">To facilitate KDE "
@@ -4653,17 +4603,22 @@ msgid ""
 "                            for this feature to work.</p></html>"
 msgstr ""
 "<html>\n"
-"<p align=\"justify\">Pro usnadnění překladu KDE dokáže Lokalize zachytit "
-"text z uživatelského rozhraní aplikací a vyhledat překladové soubory, které "
-"tento text obsahují.</p>\n"
-"<p align=\"justify\">Je-li tato funkce zapnutá, lze zachycení spustit "
-"kliknutím prostředním tlačítkem myši na jakýkoli neupravitelný prvek "
-"grafického rozhraní (widget). Poté přepněte do okna Lokalize a vyberte "
-"položku s tímto textem. I když několik souborů obsahuje stejný řetězec, ve "
-"většině případů bude vybrán ten správný.</p>\n"
-"<p align=\"justify\">Nezapomeňte, že aby tato funkce fungovala, musíte mít "
-"aktuální překladovou paměť se všemi indexovanými překladovými soubory.</p></"
-"html>"
+"<p align=\"justify\">Pro usnadnění překladu KDE\n"
+"                            může Lokalize zachytit text z uživatelských "
+"rozhraní aplikací a vyhledat\n"
+"                            překladové soubory obsahující tento text.</p>\n"
+"<p align=\"justify\">Je-li tato funkce zapnutá, lze zachycení\n"
+"                            spustit kliknutím prostředním tlačítkem myši na "
+"jakýkoli neupravitelný prvek grafického rozhraní\n"
+"                            (widget). Poté přepněte do okna Lokalize a "
+"vyberte položku\n"
+"                            s tímto textem. I když několik souborů obsahuje "
+"stejný řetězec, ve většině případů\n"
+"                            bude vybrán ten správný.</p>\n"
+"<p align=\"justify\">Nezapomeňte, že pro fungování této funkce musíte mít\n"
+"                            aktuální překladovou paměť, ve které jsou "
+"všechny překladové soubory indexovány\n"
+"                            .</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:50

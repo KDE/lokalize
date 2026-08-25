@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:48+0000\n"
-"PO-Revision-Date: 2026-08-09 18:44+0300\n"
+"PO-Revision-Date: 2026-08-24 20:27+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1921,12 +1921,7 @@ msgstr "Aç"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Ctrl+L to go to this "
@@ -1936,9 +1931,12 @@ msgid ""
 "                                            Press Esc to stop the search."
 msgstr ""
 "Kaynak dil bölümü için arama ifadesi.\n"
-"Bu denetime gitmek için Kontrol+L düğmelerine basın.\n"
-"Aramayı başlatmak için Giriş düğmesine basın.\n"
-"Aramayı durdurmak için Vazgeç düğmesine basın."
+"                                            Bu denetime gitmek için Kontrol"
+"+L düğmelerine basın.\n"
+"                                            Aramayı başlatmak için Giriş "
+"düğmesine basın.\n"
+"                                            Aramayı durdurmak için Vazgeç "
+"düğmesine basın."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1957,16 +1955,14 @@ msgstr "Kaynak:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "                                            Press Enter to start the search."
 msgstr ""
 "Hedef dil bölümü için arama ifadesi.\n"
-"Aramayı başlatmak için Giriş düğmesine basın."
+"                                            Aramayı başlatmak için Giriş "
+"düğmesine basın."
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -3111,29 +3107,17 @@ msgstr "Sondaki boşlukları vurgula"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:33
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it\n"
 "                            scrolls text"
 msgstr ""
-"Seçilirse fare tekerleği önceki veya sonraki çeviri birimine gider, "
-"seçilmezse metni sarar"
+"Seçilirse fare tekerleği önceki veya sonraki çeviri birimine gider,\n"
+"                                            seçilmezse metni sarar."
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to go to the "
-#| "previous or next translation unit (without modifier keys). Modifier keys "
-#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
-#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
-#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
-#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
-#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
-#| "wheel scrolls within the text of the current translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to\n"
 "                            go to the previous or next translation unit "
@@ -3153,15 +3137,18 @@ msgid ""
 "text of the current\n"
 "                            translation unit.</html>"
 msgstr ""
-"<html>Bu seçenek etkin iken sonraki ve önceki çeviri birimlerine gidilmek "
-"için fare tekerleği kullanılır (düzenleyici düğmeler kullanılmadan). Bu "
-"davranışı değiştirmek için niteleyici düğmeler kullanılabilir. "
-"<ul><li>Geçerli birimin metninde sarmak için <b>Üst Karakter</b>,</"
-"li><li>Önceki hazır olmayan birime gitmek için <b>Kontrol+Üst Karakter</b>,</"
-"li><li>Önceki veya hazır olmayan boş olmayan bir birime gitmek için "
-"<b>Kontrol</b>,</li><li>Önceki veya sonraki çevrilmemiş birime gitmek için "
-"<b>Seçenek</b> kullanın.</li></ul>Bu seçenek kapalıyken, fare tekerleği "
-"geçerli çeviri birimindeki metinde sarar.</html>"
+"<html>Bu seçenek etkin iken sonraki ve önceki çeviri birimlerine gidilmek\n"
+"için fare tekerleği kullanılır (düzenleyici düğmeler kullanılmadan). Bu\n"
+"davranışı değiştirmek için niteleyici düğmeler kullanılabilir.\n"
+"<ul> <li>Geçerli birimin metninde sarmak için <b>Üst Karakter</b>,</li>\n"
+"<li>Önceki hazır olmayan birime gitmek için <b>Kontrol+Üst Karakter</b>,</"
+"li>\n"
+"<li>Önceki veya hazır olmayan boş olmayan bir birime gitmek için <b>Kontrol</"
+"b>,</li>\n"
+"<li>Önceki veya sonraki çevrilmemiş birime gitmek için <b>Seçenek</b> "
+"kullanın.</li>\n"
+"</ul> Bu seçenek kapalıyken, fare tekerleği geçerli çeviri birimindeki "
+"metinde sarar.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:51
@@ -3578,16 +3565,7 @@ msgstr "İmleme:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3601,8 +3579,8 @@ msgstr ""
 "İmleme için düzenli ifade. Bu, çeviri belleğinde yapılacak arama eşleşmeleri "
 "ve “Künye Ekle” özelliği için kullanılır.\n"
 "\n"
-"Öntanımlı değer (XML-tabanlı metinler için) şöyledir:\n"
-"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"Öntanımlı değer (XML-tabanlı metinler için) şöyledir: (<[^>]+>)+|(&[A-Za-z_:]"
+"[A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "Bu, yalnızca gettext PO dosyaları için kullanılır, XLIFF biçimi imlemeler "
 "için kendine has bir yol kullanır."
@@ -3641,14 +3619,7 @@ msgstr "Şablon dosyaları klasörü:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3656,12 +3627,11 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"Çeviri projeniz aynı metni başka dillere çevirebilmek için\n"
-"genellikle başka bir projenin alt projesidir.\n"
+"Çeviri projeniz aynı metni başka dillere çevirebilmek için genellikle başka "
+"bir projenin alt projesidir.\n"
 "\n"
-"Bu yolu, tüm alt projelerin paylaştığı, boş çeviri dosyalarını\n"
-"(hiçbir dile çevrilmemiş doayaların olduğu yer)\n"
-"içeren klasöre ayarlayın."
+"Bu yolu, tüm alt projelerin paylaştığı, boş çeviri dosyalarını (hiçbir dile "
+"çevrilmemiş dosyaların olduğu yer) içeren klasöre ayarlayın."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3724,14 +3694,7 @@ msgstr "Hedef dil:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
@@ -3739,10 +3702,9 @@ msgid ""
 "use same ID for all of them."
 msgstr ""
 "Proje Kimliği farklı projeler ve diller için çeviri belleğini ayırmak için "
-"kullanılır.\n"
-"\n"
-"Örneğin, eğer KDE uygulamalarını çevirmek için birkaç projeniz varsa\n"
-"(ve bu projeler farklı depolarda ise) bu projeler için aynı kimliği kullanın."
+"kullanılır. Örneğin, eğer KDE uygulamalarını çevirmek için birkaç projeniz "
+"varsa (ve bu projeler farklı depolarda ise) bu projeler için aynı kimliği "
+"kullanın."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3766,18 +3728,13 @@ msgstr "Kimlik:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
 "Burası genel ayarların yapıldığı yerdir. Bu yolu projenizin (ya da hedef "
-"diliniz için alt proje için)\n"
-"çeviri dosyalarının bulunduğu klasöre ayarlayın."
+"diliniz için alt proje için) çeviri dosyalarının bulunduğu klasöre ayarlayın."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:137
@@ -4270,11 +4227,7 @@ msgstr "Çeviri belleği:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Enter to start the "
@@ -4283,8 +4236,10 @@ msgid ""
 "control."
 msgstr ""
 "Kaynak dil bölümü için arama ifadesi.\n"
-"Aramayı başlatmak için Giriş düğmesine basın.\n"
-"Bu denetime gitmek için Kontrol+L düğmelerine basın."
+"                                            Aramayı başlatmak için Giriş "
+"düğmesine basın.\n"
+"                                            Bu denetime gitmek için Kontrol"
+"+L düğmelerine basın."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4614,20 +4569,7 @@ msgstr "Araç Takımından Metin Yakala"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:34
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-#| "text from applications' user interfaces and search for translation files "
-#| "containing the text.</p>\n"
-#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
-#| "mouse clicking on any non-editable GUI element (widget). After that, "
-#| "switch to the Lokalize window and choose the entry with this text. Even "
-#| "if several files contain the same string, the right one will be chosen in "
-#| "most cases.</p>\n"
-#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
-#| "translation memory with all translation files indexed for this feature to "
-#| "work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "                            <p align=\"justify\">To facilitate KDE "
@@ -4651,16 +4593,29 @@ msgid ""
 "                            for this feature to work.</p></html>"
 msgstr ""
 "<html>\n"
-"<p align=\"justify\">KDE çevirilerini kolaylaştırmak üzere Lokalize, "
-"uygulamaların kullanıcı arayüzünden metni alabilir ve bu metni içeren çeviri "
+"                                            <p align=\"justify\">KDE "
+"çevirilerini kolaylaştırmak üzere\n"
+"                                            Lokalize, uygulamaların "
+"kullanıcı arayüzünden metni alabilir\n"
+"                                            ve bu metni içeren çeviri "
 "dosyalarında arayabilir.</p>\n"
-"<p align=\"justify\">Etkinleştirildiğinde, herhangi bir düzenlenemez "
-"kullanıcı arayüzü ögesi üzerinde (araç takımı) farenin orta düğmesi ile "
-"tıklanıldığında yakalama işlemi başlatılır. Ardından, Lokalize penceresine "
-"geçiş yapın ve bu metni içeren girişi seçin. Eğer birden fazla dosya aynı "
-"metni içeriyorsa çoğu durumda doğru olan seçilecektir.</p>\n"
-"<p align=\"justify\">Unutmayın: Bu özellik için tüm çeviri dosyaları "
-"dizinlenmiş güncel bir çeviri belleğine sahip olmanız gerekir.</p></html>"
+"                                            <p align=\"justify"
+"\">Etkinleştirildiğinde, herhangi bir\n"
+"                                            düzenlenemez kullanıcı arayüzü "
+"ögesi üzerinde (araç takımı)\n"
+"                                            farenin orta düğmesi ile "
+"tıklanıldığında yakalama işlemi\n"
+"                                            başlatılır. Ardından, Lokalize "
+"penceresine geçiş yapın ve bu\n"
+"                                            metni içeren girişi seçin. Eğer "
+"birden fazla dosya aynı metni\n"
+"                                            içeriyorsa çoğu durumda doğru "
+"olan seçilecektir.</p>\n"
+"                                            <p align=\"justify\">Unutmayın: "
+"Bu özellik için tüm çeviri\n"
+"                                            dosyaları dizinlenmiş güncel bir "
+"çeviri belleğine sahip\n"
+"                                            olmanız gerekir.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:50

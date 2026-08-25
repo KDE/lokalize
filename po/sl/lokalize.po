@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:48+0000\n"
-"PO-Revision-Date: 2026-05-13 07:03+0200\n"
+"PO-Revision-Date: 2026-08-24 09:55+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1922,12 +1922,7 @@ msgstr "Odstrani prelome"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Ctrl+L to go to this "
@@ -1937,9 +1932,12 @@ msgid ""
 "                                            Press Esc to stop the search."
 msgstr ""
 "Iskanje izraza za del izvornega jezika.\n"
-"Pritisnite Ctrl+L, da obiščete ta nadzor.\n"
-"Pritisnite Enter, da začnete z iskanjem.\n"
-"Pritisnite Esc, da zaustavite iskanje."
+"                                            Pritisnite Ctrl+L, da obiščete "
+"ta nadzor.\n"
+"                                            Pritisnite Enter, da začnete z "
+"iskanjem.\n"
+"                                            Pritisnite Esc, da zaustavite "
+"iskanje."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1958,16 +1956,14 @@ msgstr "Vir:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "                                            Press Enter to start the search."
 msgstr ""
 "Iskanje izraza za del ciljnega jezika.\n"
-"Pritisnite Enter za začetek iskanja."
+"                                            Pritisnite Enter za začetek "
+"iskanja."
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -3113,29 +3109,18 @@ msgstr "Poudari presledke na koncu"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:33
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it\n"
 "                            scrolls text"
 msgstr ""
 "Če je nastavljeno, gre vrtenje koleščka miške na predhodno ali naslednjo "
-"enoto. V nasprotnem primeru drsi skozi besedilo"
+"enoto, sicer\n"
+"                           drsi skozi besedilo"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to go to the "
-#| "previous or next translation unit (without modifier keys). Modifier keys "
-#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
-#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
-#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
-#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
-#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
-#| "wheel scrolls within the text of the current translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to\n"
 "                            go to the previous or next translation unit "
@@ -3155,24 +3140,26 @@ msgid ""
 "text of the current\n"
 "                            translation unit.</html>"
 msgstr ""
-"<html>Ko je ta možnost omogočena, se miškin kolešček uporabi za prehod od "
-"predhodne do naslednje enote prevoda (brez spremenilnih tipk). Da spremenite "
-"to obnašanje uporabite spremenilne tipke. Uporabite:<ul><li><b>Shift</b> za "
-"drsenje skozi besedilo trenutne enote,</li><li><b>Ctrl+Shift</b>, da se "
-"pomaknete na predhodno ali naslednjo nepripravljeno enoto,</li><li><b>Ctrl</"
-"b>, da se pomaknete na predhodno ali naslednjo nepripravljeno in ne-prazno "
-"enoto,</li><li><b>Alt</b>, da se pomaknete na predhodno ali naslednjo "
-"neprevedeno enoto.</li></ul>Ko je ta možnost onemogočena, miškin kolešček "
-"drsi skozi besedilo trenutne enote prevoda.</html><html>Ko je ta možnost "
-"omogočene, se miškin kolešček uporabi za prehod od predhodne do naslednje "
-"enote prevoda (brez pomožnih tipk). Da spremenite to obnašanje uporabite "
-"pomožne tipke. Uporabite:<ul><li><b>Shift</b> za drsenje skozi besedilo "
-"trenutne enote,</li><li><b>Ctrl+Shift</b> da se pomaknete na predhodnjo ali "
-"naslednjo nepripravljeno enoto,</li><li><b>Ctrl</b> da se pomaknete na "
-"predhodnjo ali naslednjo nepripravljeno in ne-prazno enoto,</li><li><b>Alt</"
-"b> da se pomaknete na predhodnjo ali naslednjo neprevedeno enoto.</li></"
-"ul>Ko je ta možnost onemogočena, miškin kolešček drsi skozi besedilo "
-"trenutne enote prevoda.</html>"
+"<html>Ko je ta možnost omogočena, se miškin kolešček uporabi za prehod od\n"
+"                            predhodne do naslednje enote prevoda (brez "
+"spremenilnih tipk).\n"
+"                            Da spremenite to obnašanje uporabite spremenilne "
+"tipke.\n"
+"                            Uporabite:<ul><li><b>Shift</b> za drsenje skozi "
+"besedilo\n"
+"                            trenutne enote,</li><li><b>Ctrl+Shift</b>, da se "
+"pomaknete\n"
+"                            na predhodno ali naslednjo nepripravljeno enoto,"
+"</li><li>\n"
+"                            <b>Ctrl</b>, da se pomaknete na predhodno ali "
+"naslednjo\n"
+"                            nepripravljeno in ne-prazno enoto,</"
+"li><li><b>Alt</b>, da se\n"
+"                            pomaknete na predhodno ali naslednjo neprevedeno "
+"enoto.</li>\n"
+"                            </ul>Ko je ta možnost onemogočena, miškin "
+"kolešček drsi skozi\n"
+"                            besedilo trenutne enote prevoda.</html><html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:51
@@ -3581,16 +3568,7 @@ msgstr "Označevanje:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3602,10 +3580,10 @@ msgid ""
 "specifying where markup is."
 msgstr ""
 "Regularni izraz označevanja. Uporablja se za ujemanje s pomnilnikom prevodov "
-"in za zmožnost »Vstavi oznako«.\n"
+"in za zmožnost 'Vstavi oznako'.\n"
 "\n"
-"Privzeta vrednost (primerna za besedila temelječa na XML) je:\n"
-"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"Privzeta vrednost (primerna za besedila temelječa na XML) je: (<[^>]+>)+|"
+"(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "Uporablja se samo za datoteke gettext PO, saj ima zapis XLIFF svoj lasten "
 "način za določevanje oznak."
@@ -3644,14 +3622,7 @@ msgstr "Mapa s predlogami:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3659,12 +3630,11 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"Običajno bo vaš prevajalski projekt podprojekt projekta\n"
-"prevajanja istih besedil v več jezikov.\n"
+"Običajno bo vaš prevajalski projekt podprojekt projekta prevajanja istih "
+"besedil v več jezikov.\n"
 "\n"
-"Nastavite to na pot do mape, ki vsebuje prazne prevajalske datoteke\n"
-"(datoteke brez prevoda v katerikoli jezik)\n"
-"deljene med vsemi podprojekti."
+"Nastavite to na pot do mape, ki vsebuje prazne prevajalske datoteke "
+"(datoteke brez prevoda v katerikoli jezik) deljene med vsemi podprojekti."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3727,14 +3697,7 @@ msgstr "Ciljni jezik:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
@@ -3742,10 +3705,8 @@ msgid ""
 "use same ID for all of them."
 msgstr ""
 "ID projekta se uporabi za razlikovanje med pomnilniki prevodov za popolnoma "
-"različne projekte in jezike.\n"
-"\n"
-"Če imate na primer več projektov za prevajanje programov KDE\n"
-"(so v različnih skladiščih), uporabite enak ID za vse."
+"različne projekte in jezike. Če imate na primer več projektov za prevajanje "
+"programov KDE (so v različnih skladiščih), uporabite enak ID za vse."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3769,18 +3730,13 @@ msgstr "ID:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
 "To je glavna nastavitev. Nastavite jo na pot do mape, ki vsebuje datoteke s "
-"prevodi\n"
-"za vaš projekt (ali podprojekt za vaš ciljni jezik)."
+"prevodi za vaš projekt (ali podprojekt za vaš ciljni jezik)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:137
@@ -4278,11 +4234,7 @@ msgstr "Pomnilnik prevodov:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Enter to start the "
@@ -4291,8 +4243,10 @@ msgid ""
 "control."
 msgstr ""
 "Iskanje izraza za del izvornega jezika.\n"
-"Pritisnite Enter za začetek iskanja.\n"
-"Pritisnite Ctrl+L, da obiščete ta nadzor."
+"                                            Pritisnite Enter za začetek "
+"iskanja.\n"
+"                                            Pritisnite Ctrl+L, da obiščete "
+"ta nadzor."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4623,20 +4577,7 @@ msgstr "Zajetje besedila iz gradnikov"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:34
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-#| "text from applications' user interfaces and search for translation files "
-#| "containing the text.</p>\n"
-#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
-#| "mouse clicking on any non-editable GUI element (widget). After that, "
-#| "switch to the Lokalize window and choose the entry with this text. Even "
-#| "if several files contain the same string, the right one will be chosen in "
-#| "most cases.</p>\n"
-#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
-#| "translation memory with all translation files indexed for this feature to "
-#| "work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "                            <p align=\"justify\">To facilitate KDE "
@@ -4660,17 +4601,27 @@ msgid ""
 "                            for this feature to work.</p></html>"
 msgstr ""
 "<html>\n"
-"<p align=\"justify\">Da olajša prevod KDE, lahko Lokalize zajame besedilo iz "
-"uporabniških vmesnikov programov in poišče datoteke s prevodi, ki vsebujejo "
-"besedilo.</p>\n"
-"<p align=\"justify\">Ko je to omogočeno, se lahko zajemanje začne, tako da "
-"kliknete s srednjo miškino tipko na katerikoli element grafičnega vmesnika "
-"(gradnik), ki ga ni mogoče urejati. Zatem preklopite v okno Lokalize in "
-"izberite vnos s tem besedilom. Četudi več datotek vsebuje enak niz, bo v "
-"večini primerov uporabljen pravi.</p>\n"
-"<p align=\"justify\">Vedite, da morate imeti posodobljen pomnilnik prevodov "
-"in hkrati indeksirane vse datoteke s prevodi, da bo ta zmožnost delovala.</"
-"p></html>"
+"                            <p align=\"justify\">Da olajša prevod KDE, "
+"lahko\n"
+"                            Lokalize zajame besedilo iz uporabniških "
+"vmesnikov programov in\n"
+"                            poišče datoteke s prevodi, ki vsebujejo besedilo."
+"</p>\n"
+"                            <p align=\"justify\">Ko je to omogočeno, se "
+"lahko zajemanje začne,\n"
+"                            tako da kliknete s srednjo miškino tipko na "
+"katerikoli element grafičnega\n"
+"                            vmesnika (gradnik), ki ga ni mogoče urejati. "
+"Zatem preklopite v okno\n"
+"                            Lokalize in izberite vnos s tem besedilom. "
+"Četudi več datotek vsebuje\n"
+"                            enak niz, bo v večini primerov uporabljen pravi."
+"</p>\n"
+"                            <p align=\"justify\">Vedite, da morate imeti "
+"posodobljen pomnilnik\n"
+"                            prevodov in hkrati indeksirane vse datoteke s "
+"prevodi, da bo ta\n"
+"                            zmožnost delovala.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:50

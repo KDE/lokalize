@@ -5,20 +5,20 @@
 # SPDX-FileCopyrightText: 2009 Orestes Mas <orestes@tsc.upc.edu>
 # SPDX-FileCopyrightText: 2011, 2012 Manuel Tortosa <manutortosa@chakra-project.org>
 # SPDX-FileCopyrightText: 2012, 2015, 2016, 2017, 2018, 2019, 2020 Antoni Bella Pérez <antonibella5@yahoo.com>
-# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2010-2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:48+0000\n"
-"PO-Revision-Date: 2026-05-13 07:53+0200\n"
+"PO-Revision-Date: 2026-08-24 10:36+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 26.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -1941,12 +1941,7 @@ msgstr "Ajusta les línies"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Ctrl+L to go to this "
@@ -1956,9 +1951,12 @@ msgid ""
 "                                            Press Esc to stop the search."
 msgstr ""
 "Expressió de cerca per a una «part» de l'idioma d'origen.\n"
-"Premeu «Ctrl+L» per a anar a aquest control\n"
-"Premeu «Retorn» per a iniciar la cerca.\n"
-"Premeu «Esc» per a aturar la cerca."
+"                                            Premeu «Ctrl+L» per a anar a "
+"aquest control.\n"
+"                                            Premeu «Retorn» per a iniciar la "
+"cerca.\n"
+"                                            Premeu «Esc» per a aturar la "
+"cerca."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1977,16 +1975,14 @@ msgstr "Origen:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "                                            Press Enter to start the search."
 msgstr ""
 "Expressió de cerca per a una «part» de l'idioma de destinació.\n"
-"Premeu «Retorn» per a començar a cercar."
+"                                            Premeu «Retorn» per a començar "
+"la cerca."
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -3138,29 +3134,18 @@ msgstr "Ressalta els espais al final"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:33
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it\n"
 "                            scrolls text"
 msgstr ""
-"Si està activada, la roda del ratolí portarà a la unitat de traducció "
-"anterior o següent, en cas contrari desplaçarà el text"
+"Si està activada, la roda del ratolí portarà a la unitat de traducció\n"
+"                            anterior o següent, en cas contrari desplaçarà "
+"el text"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to go to the "
-#| "previous or next translation unit (without modifier keys). Modifier keys "
-#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
-#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
-#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
-#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
-#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
-#| "wheel scrolls within the text of the current translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to\n"
 "                            go to the previous or next translation unit "
@@ -3180,15 +3165,22 @@ msgid ""
 "text of the current\n"
 "                            translation unit.</html>"
 msgstr ""
-"<html>Quan s'activa aquesta opció, s'usa la roda del ratolí per a anar a la "
-"unitat de traducció anterior o següent (sense tecles modificadores). Les "
-"tecles modificadores es poden usar per a canviar aquest comportament. Ús: "
-"<ul><li><b>Maj</b> per a desplaçar-se dins del text de la unitat actual,</"
-"li><li><b>Ctrl+Maj</b> per a anar a la unitat anterior o a la següent no "
-"enllestida.</li><li><b>Ctrl</b> per a anar a la unitat anterior o a la "
-"següent que no estigui buida,</li><li><b>Alt</b> per a anar a la unitat "
-"sense traduir anterior o següent.</li></ul>Quan està desactivada, la roda "
-"del ratolí desplaça el text de la unitat de traducció actual.</html>"
+"<html>Quan s'activa aquesta opció, s'usa la roda del ratolí per a\n"
+"                            anar a la unitat de traducció anterior o següent "
+"(sense tecles modificadores).\n"
+"                            Les tecles modificadores es poden usar per a "
+"canviar aquest comportament.\n"
+"                            Ús: <ul><li><b>Maj</b> per a desplaçar-se\n"
+"                            dins del text de la unitat\n"
+"                            actual,</li><li><b>Ctrl+Maj</b> per a anar\n"
+"                            a la unitat anterior o a la següent\n"
+"                            no enllestida.</li><li><b>Ctrl</b> per a anar\n"
+"                            a la unitat anterior o a la següent\n"
+"                            que no estigui buida,</li><li><b>Alt</b> per "
+"a                             anar a la unitat sense traduir anterior o \n"
+"                            següent.</li></ul>Quan està desactivada,\n"
+"                            la roda del ratolí desplaça el text de la "
+"unitat                             de traducció actual.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:51
@@ -3615,16 +3607,7 @@ msgstr "Marcatge:"
 # skip-rule: t-2p_sp,t-pc_sp
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3678,14 +3661,7 @@ msgstr "Carpeta dels fitxers de plantilla:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3693,11 +3669,12 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"Habitualment el vostre projecte de traducció serà un subprojecte\n"
-"per a traduir el mateix text a múltiples idiomes.\n"
-"Establiu aquest camí a la carpeta que conté els fitxers buits de\n"
-"traducció (fitxers sense traducció a cap idioma)\n"
-"compartits entre tots els subprojectes."
+"Habitualment el vostre projecte de traducció serà un subprojecte per a "
+"traduir el mateix text a múltiples idiomes.\n"
+"\n"
+"Establiu aquest camí a la carpeta que conté els fitxers buits de traducció "
+"(és a dir, fitxers sense traducció a cap idioma) compartits entre tots els "
+"subprojectes."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3760,26 +3737,17 @@ msgstr "Idioma de destinació:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
 "for translating KDE applications (e.g. they are in different repositories), "
 "use same ID for all of them."
 msgstr ""
-"L'ID del projecte s'usa per a diferenciar les memòries de traducció\n"
-"de projectes i idiomes completament diferents.\n"
-"\n"
-"Per exemple, si teniu diversos projectes per a traduir aplicacions del KDE\n"
-"(p. ex. que siguin a repositoris diferents), feu servir el mateix ID per a\n"
-"tots ells."
+"L'ID del projecte s'usa per a diferenciar les memòries de traducció de "
+"projectes i idiomes completament diferents. Per exemple, si teniu diversos "
+"projectes per a traduir aplicacions de KDE (p. ex. que siguin a repositoris "
+"diferents), feu servir el mateix ID a tots ells."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3803,17 +3771,13 @@ msgstr "ID:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
-"Aquest és un arranjament principal. Indiqueu el camí de la carpeta que\n"
-"conté els fitxers de traducció del projecte (o un subprojecte de l'idioma de "
+"Aquest és un arranjament principal. Indiqueu el camí de la carpeta que conté "
+"els fitxers de traducció del projecte (o un subprojecte de l'idioma de "
 "destinació)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
@@ -4308,11 +4272,7 @@ msgstr "Memòria de traducció:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Enter to start the "
@@ -4321,8 +4281,8 @@ msgid ""
 "control."
 msgstr ""
 "Expressió de cerca per a una «part» de l'idioma d'origen.\n"
-"Premeu «Retorn» per a començar a cercar.\n"
-"Premeu «Ctrl+L» per a anar a aquest control."
+"                            Premeu «Retorn» per a començar a cercar.\n"
+"                            Premeu «Ctrl+L» per a anar a aquest control."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4655,20 +4615,7 @@ msgstr "Captura el text d'un giny"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:34
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-#| "text from applications' user interfaces and search for translation files "
-#| "containing the text.</p>\n"
-#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
-#| "mouse clicking on any non-editable GUI element (widget). After that, "
-#| "switch to the Lokalize window and choose the entry with this text. Even "
-#| "if several files contain the same string, the right one will be chosen in "
-#| "most cases.</p>\n"
-#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
-#| "translation memory with all translation files indexed for this feature to "
-#| "work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "                            <p align=\"justify\">To facilitate KDE "
@@ -4692,17 +4639,24 @@ msgid ""
 "                            for this feature to work.</p></html>"
 msgstr ""
 "<html>\n"
-"<p align=\"justify\">Per a facilitar la traducció del KDE, el Lokalize pot "
-"capturar text des de les aplicacions de la interfície d'usuari i cercar els "
-"fitxers de traducció que continguin el text.</p>\n"
-"<p align=\"justify\">Quan està activada, la captura s'iniciarà en fer clic "
-"sobre un element no editable de l'IGU (giny). Després d'això canvieu a la "
-"finestra del Lokalize i trieu una entrada amb aquest text. Fins i tot donat "
-"el cas que diversos fitxers continguin la mateixa cadena, es triarà la "
-"correcta en la majoria dels casos.</p>\n"
-"<p align=\"justify\">Recordeu que necessiteu tenir la memòria de traducció "
-"real amb tots els fitxers de traducció indexats perquè funcioni aquesta "
-"característica.</p></html>"
+"                            <p align=\"justify\">Per a facilitar la "
+"traducció de KDE,\n"
+"                            el Lokalize pot capturar text des de les "
+"aplicacions de la interfície d'usuari\n"
+"                            i cercar els fitxers de traducció que continguin "
+"el text.</p>\n"
+"                            <p align=\"justify\">Quan està activada, la\n"
+"captura s'iniciarà\n"
+"                            en fer clic sobre un element no editable\n"
+"de l'IGU (giny). Després d'això canvieu a la finestra del\n"
+"                            Lokalize i trieu l'entrada\n"
+"amb aquest text. Fins i tot si es dona el cas que diversos\n"
+"                            fitxers continguin la mateixa cadena, es triarà\n"
+"la correcta en la majoria dels casos.</p>\n"
+"                            <p align=\"justify\">Recordeu que necessiteu "
+"tenir la memòria de traducció real\n"
+"                            amb tots els fitxers de traducció indexats "
+"perquè funcioni aquesta característica.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:50
