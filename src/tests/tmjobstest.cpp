@@ -46,10 +46,11 @@ void TmJobsTest::testImportJob()
         {QStringLiteral("target_strings"), QStringLiteral("target"), QStringLiteral("Couleurs avancées")},
     };
     for (const QStringList &d : data) {
+        QEventLoop loop;
         QMutex m;
         QString queryString = QStringLiteral("SELECT * FROM %1").arg(d[0]);
         queryJob = new TM::ExecQueryJob(queryString, dbName, &m);
-        connect(queryJob, &TM::ExecQueryJob::done, [&d, queryJob] {
+        connect(queryJob, &TM::ExecQueryJob::done, [&d, queryJob, &loop] {
             QSqlQuery *query = queryJob->query;
             if (query->next()) {
                 int fieldId = query->record().indexOf(d[1]);
@@ -57,9 +58,10 @@ void TmJobsTest::testImportJob()
             } else {
                 QFAIL("Query should have one element");
             }
+            loop.quit();
         });
         pool.start(queryJob);
-        QThread::sleep(1);
+        loop.exec();
     }
     // reset
     qputenv("XDG_DATA_HOME", QByteArray());
