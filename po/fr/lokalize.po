@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:48+0000\n"
-"PO-Revision-Date: 2026-05-14 21:31+0200\n"
+"PO-Revision-Date: 2026-08-25 15:50+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 26.04.1\n"
+"X-Generator: Lokalize 26.08.0\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -1965,12 +1965,7 @@ msgstr "Débrouillage"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Ctrl+L to go to this "
@@ -1979,7 +1974,7 @@ msgid ""
 "search.\n"
 "                                            Press Esc to stop the search."
 msgstr ""
-"Cherchez une expression pour la partie langue source.\n"
+"Cherchez une expression dans la partie de langue source.\n"
 "Appuyez sur « Ctrl+L » pour aller jusqu'à cette commande.\n"
 "Appuyez sur « Entrée » pour lancer la recherche.\n"
 "Appuyez sur « Échap » pour arrêter la recherche."
@@ -2001,16 +1996,13 @@ msgstr "Source :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "                                            Press Enter to start the search."
 msgstr ""
-"Cherchez l'expression pour la partie langue cible.\n"
-"Appuyez sur Entrée pour démarrer la recherche."
+"Recherchez l'expression dans la partie de la langue cible.\n"
+"\t Veuillez appuyer sur la touche « Entrée » pour démarrer la recherche."
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -3170,16 +3162,14 @@ msgstr "Mettre les espaces en surbrillance à la fin"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:33
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it\n"
 "                            scrolls text"
 msgstr ""
-"Si cette option est cochée, la molette de la souris va vers l'élément "
-"précédent ou suivant, sinon elle fait défiler le texte"
+"Si cette option est cochée, la molette de la souris permettra de se déplacer "
+"vers l'élément\n"
+" précédent ou suivant, sinon elle fait défiler le texte"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:48
@@ -3658,16 +3648,7 @@ msgstr "Marquage :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3678,16 +3659,15 @@ msgid ""
 "It is only used for gettext PO files, as XLIFF format has its own way of "
 "specifying where markup is."
 msgstr ""
-"Expression rationnelle de marquage. Elle est utilisée pour effectuer la mise "
-"en correspondance de la mémoire de traduction et pour la fonctionnalité "
+"Expression rationnelle de marquage. Elle est utilisée pour la mise en "
+"correspondance de la mémoire de traduction et pour la fonctionnalité "
 "« Insérer une balise ».\n"
 "\n"
-"Une valeur par défaut (appropriée pour les textes de type « XML ») est :\n"
+"Une valeur par défaut (Appropriée pour les textes de type « XML ») est : "
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "Elle n'est employée que pour les fichiers « PO gettext », car le format "
-"« XLIFF » est doté de sa propre manière de spécifier où se trouve le "
-"marquage."
+"« XLIFF » possède sa propre manière de spécifier où se trouve le marquage."
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/project/prefs_project_advanced.ui:64
@@ -3724,14 +3704,7 @@ msgstr "Dossier des fichiers de modèles :"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3739,14 +3712,12 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"Le plus souvent, votre projet de traduction sera un sous-projet d'un "
-"projet,\n"
-"ce qui permet de traduire les mêmes textes en plusieurs langues.\n"
+"Le plus souvent, votre projet de traduction sera un sous-projet d'un projet, "
+"afin de traduire les mêmes textes en plusieurs langues.\n"
 "\n"
-"Associez ce paramètre à l'emplacement d'un dossier contenant des fichiers\n"
-"de traduction vides (c'est-à-dire des fichiers qui ne sont traduits dans "
-"aucune langue)\n"
-"partagés parmi tous les sous-projets."
+"Veuillez associer ce paramètre à l'emplacement d'un dossier contenant des "
+"fichiers de traduction vides (C'est-à-dire des fichiers non traduits dans "
+"aucune langue) partagés parmi tous les sous-projets."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3809,27 +3780,18 @@ msgstr "Langue cible :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
 "for translating KDE applications (e.g. they are in different repositories), "
 "use same ID for all of them."
 msgstr ""
-"L'identifiant (ID) de projet sert à différencier les mémoires de traduction "
-"des projets et des langues complètement différents.\n"
-"\n"
-"Par exemple, si vous avez plusieurs projets de traduction d'applications "
-"KDE\n"
-"(Par ex. ils sont dans des dépôts différents), utilisez le même identifiant "
-"pour l'ensemble de ces projets."
+"L'identifiant de projet sert à différencier les mémoires de traduction de "
+"projets et de langues complètement différents. Par exemple, si vous avez "
+"plusieurs projets de traduction d'applications de KDE (Par exemple, car ils "
+"sont dans des dépôts différents), veuillez utiliser le même identifiant pour "
+"l'ensemble de ces projets."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3853,18 +3815,14 @@ msgstr "Identifiant :"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
-"Il s'agit du principal paramètre. Associez-le à l'emplacement d'un dossier "
-"contenant les fichiers\n"
-"de traduction de votre projet (ou un sous-projet pour votre langue cible)."
+"Il s'agit du paramètre principal. Veuillez l'associer à l'emplacement d'un "
+"dossier contenant les fichiers de traduction de votre projet (Ou un sous-"
+"projet pour votre langue cible)."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:137
@@ -4358,11 +4316,7 @@ msgstr "Mémoire de traduction :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "                                            Press Enter to start the "
@@ -4370,9 +4324,9 @@ msgid ""
 "                                            Press Ctrl+L to go to this "
 "control."
 msgstr ""
-"Cherchez l'expression pour la partie langue source.\n"
-"Appuyez sur Entrée pour démarrer la recherche.\n"
-"Appuyez sur Ctrl+L pour aller jusqu'à cette commande."
+"Recherchez l'expression dans la partie de la langue source.\n"
+"\t Appuyez sur la touche « Entrée » pour démarrer la recherche.\n"
+"\t Appuyez sur les touches « Ctrl » + « L » pour accéder à cette commande."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
