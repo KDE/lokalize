@@ -139,7 +139,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     action = nav->addAction(QStringLiteral("toggle_translated_files"));
     action->setText(i18nc("@action:inmenu", "Hide Completed Items"));
-    action->setToolTip(i18nc("@action:inmenu", "Hide fully translated files and folders"));
+    action->setToolTip(i18nc("@info:tooltip", "Hide fully translated files and folders"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("hide_table_row")));
     action->setCheckable(true);
     action->setChecked(Settings::hideCompletedItems());
@@ -148,7 +148,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     action = nav->addAction(QStringLiteral("expand_untranslated_folders"));
     action->setText(i18nc("@action:inmenu", "Expand Untranslated Folders"));
-    action->setToolTip(i18nc("@action:inmenu", "Open the directory tree to untranslated files"));
+    action->setToolTip(i18nc("@info:tooltip", "Open the directory tree to untranslated files"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("view-list-tree")));
     action->setCheckable(true);
     action->setChecked(Settings::expandUntranslatedFolders());
