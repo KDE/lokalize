@@ -65,17 +65,14 @@
                             <item row="1" column="1">
                                 <widget class="QLineEdit" name="querySource">
                                     <property name="toolTip">
-                                        <string>Search expression for source language part.
-Press Enter to start the search.
-Press Ctrl+L to go to this control.</string>
+                                        <string>Search expression for source language part.&lt;br /&gt;Press Enter to start the search.&lt;br /&gt;Press Ctrl+L to go to this control.</string>
                                     </property>
                                 </widget>
                             </item>
                             <item row="2" column="1">
                                 <widget class="QLineEdit" name="queryTarget">
                                     <property name="toolTip">
-                                        <string>Search expression for target language part.
-Press Enter to start the search.</string>
+                                        <string>Search expression for target language part.&lt;br /&gt;Press Enter to start the search.</string>
                                     </property>
                                 </widget>
                             </item>
