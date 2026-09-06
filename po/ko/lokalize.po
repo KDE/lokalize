@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2026-05-26 23:18+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -3895,8 +3895,10 @@ msgid "Hide Completed Items"
 msgstr "완료된 항목 숨기기"
 
 #: src/project/projecttab.cpp:142
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Hide fully translated files and folders"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "완전히 번역된 파일과 폴더 숨기기"
 
@@ -3907,8 +3909,10 @@ msgid "Expand Untranslated Folders"
 msgstr "번역되지 않은 폴더 확장"
 
 #: src/project/projecttab.cpp:151
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open the directory tree to untranslated files"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "번역되지 않은 파일이 있는 디렉터리 트리 열기"
 

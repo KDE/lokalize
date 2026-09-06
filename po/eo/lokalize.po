@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2025-03-22 22:36+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -4119,8 +4119,10 @@ msgid "Hide Completed Items"
 msgstr "Kaŝi kompletigitajn erojn"
 
 #: src/project/projecttab.cpp:142
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Hide fully translated files and folders"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "Kaŝi plene tradukitajn dosierojn kaj dosierujojn"
 
@@ -4134,7 +4136,7 @@ msgstr "Sekva netradukita"
 
 #: src/project/projecttab.cpp:151
 #, kde-format
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr ""
 

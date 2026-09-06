@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -4191,8 +4191,10 @@ msgid "Hide Completed Items"
 msgstr "Sembunyikan butir yang diselesaikan"
 
 #: src/project/projecttab.cpp:142
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Hide fully translated files and folders"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "Sembunyikan secara penuh folder dan file yang diterjemahkan"
 
@@ -4207,7 +4209,7 @@ msgstr "Belum diterjemahkan selanjutnya"
 #: src/project/projecttab.cpp:151
 #, fuzzy, kde-format
 #| msgid "Prefetch for the next untranslated"
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "Prefetch untuk yang belum diterjemahkan selanjutnya"
 

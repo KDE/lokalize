@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2026-02-14 08:46+0900\n"
 "Last-Translator: bbch <suzihi248@ruru.be>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -3928,8 +3928,10 @@ msgid "Hide Completed Items"
 msgstr "完了したアイテムを隠す"
 
 #: src/project/projecttab.cpp:142
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Hide fully translated files and folders"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "すべて翻訳されているファイルとフォルダを隠す"
 
@@ -3943,7 +3945,7 @@ msgstr "次の未翻訳"
 
 #: src/project/projecttab.cpp:151
 #, kde-format
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr ""
 

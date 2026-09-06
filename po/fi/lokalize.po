@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2026-02-25 16:26+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -3994,8 +3994,10 @@ msgid "Hide Completed Items"
 msgstr "Piilota valmiit yksiköt"
 
 #: src/project/projecttab.cpp:142
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Hide fully translated files and folders"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "Piilota täysin käännetyt tiedostot ja kansiot"
 
@@ -4010,7 +4012,7 @@ msgstr "Seuraava kääntämätön"
 #: src/project/projecttab.cpp:151
 #, fuzzy, kde-format
 #| msgid "Prefetch for the next untranslated"
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "Seuraavan kääntämättömän esihaku"
 

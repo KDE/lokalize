@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2026-08-24 22:31+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -3935,8 +3935,10 @@ msgid "Hide Completed Items"
 msgstr "Dölj färdiga poster"
 
 #: src/project/projecttab.cpp:142
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Hide fully translated files and folders"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "Dölj fullständigt översätta filer och kataloger"
 
@@ -3947,8 +3949,10 @@ msgid "Expand Untranslated Folders"
 msgstr "Expandera oöversatta kataloger"
 
 #: src/project/projecttab.cpp:151
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open the directory tree to untranslated files"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "Expandera katalogträdet för oöversatta filer"
 

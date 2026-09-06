@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2026-08-30 18:56-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -3970,8 +3970,10 @@ msgid "Hide Completed Items"
 msgstr "Ocultar itens concluídos"
 
 #: src/project/projecttab.cpp:142
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Hide fully translated files and folders"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "Ocultar arquivos e pastas traduzidos completamente"
 
@@ -3982,8 +3984,10 @@ msgid "Expand Untranslated Folders"
 msgstr "Expandir pastas não traduzidas"
 
 #: src/project/projecttab.cpp:151
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open the directory tree to untranslated files"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "Abrir a árvore de diretórios para arquivos não traduzidos"
 

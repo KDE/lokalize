@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -3989,7 +3989,7 @@ msgstr ""
 
 #: src/project/projecttab.cpp:142
 #, kde-format
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr ""
 
@@ -4005,7 +4005,7 @@ msgstr "Pas revirat"
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "Untranslated"
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "Pas revirat"
 

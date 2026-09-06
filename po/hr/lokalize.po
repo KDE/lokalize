@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -3951,7 +3951,7 @@ msgstr ""
 
 #: src/project/projecttab.cpp:142
 #, kde-format
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr ""
 
@@ -3965,7 +3965,7 @@ msgstr "Sljedeće neprevedeno"
 
 #: src/project/projecttab.cpp:151
 #, kde-format
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr ""
 

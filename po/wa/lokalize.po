@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2011-01-17 22:00+0100\n"
 "Last-Translator: Jean Cayron <jean.cayron@gmail.com>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -4144,7 +4144,7 @@ msgstr ""
 
 #: src/project/projecttab.cpp:142
 #, kde-format
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr ""
 
@@ -4159,7 +4159,7 @@ msgstr "Nén ratourné shuvant"
 #: src/project/projecttab.cpp:151
 #, fuzzy, kde-format
 #| msgid "Prefetch for the next untranslated"
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "Pré-cweri pol nén ratourné shuvant"
 

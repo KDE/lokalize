@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2026-05-21 00:26+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -3881,8 +3881,10 @@ msgid "Hide Completed Items"
 msgstr "隱藏完成的項目"
 
 #: src/project/projecttab.cpp:142
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Hide fully translated files and folders"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "隱藏完全翻譯好的檔案與資料夾"
 
@@ -3893,8 +3895,10 @@ msgid "Expand Untranslated Folders"
 msgstr "展開未翻譯資料夾"
 
 #: src/project/projecttab.cpp:151
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open the directory tree to untranslated files"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "將目錄樹開啟顯示未翻譯檔案"
 

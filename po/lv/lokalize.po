@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:48+0000\n"
+"POT-Creation-Date: 2026-09-06 00:48+0000\n"
 "PO-Revision-Date: 2026-02-06 15:18+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -3983,8 +3983,10 @@ msgid "Hide Completed Items"
 msgstr "Slēpt pabeigtos vienumus"
 
 #: src/project/projecttab.cpp:142
-#, kde-format
-msgctxt "@action:inmenu"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Hide fully translated files and folders"
+msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "Slēpt pilnībā iztulkotas datnes un mapes"
 
@@ -3999,7 +4001,7 @@ msgstr "Nākamais netulkotais"
 #: src/project/projecttab.cpp:151
 #, fuzzy, kde-format
 #| msgid "Prefetch for the next untranslated"
-msgctxt "@action:inmenu"
+msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "Iepriekš ielādēt nākamo netulkoto"
 
