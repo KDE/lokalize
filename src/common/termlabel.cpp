@@ -45,7 +45,7 @@ void TermLabel::insert()
         termTrans = termTarget.first();
 
     if (m_capFirst && !termTrans.isEmpty())
-        termTrans[0] = termTrans.at(0).toUpper();
+        termTrans[0] = termTrans.at(0);
 
     Q_EMIT insertTerm(termTrans);
 }
