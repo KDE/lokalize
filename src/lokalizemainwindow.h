@@ -81,6 +81,12 @@ protected:
     void registerDBusAdaptor();
 #endif
     void setupActions();
+    /*
+     * @short Keep the menu bar intact after toolbar reconfiguration.
+     * The base class rebuilds the GUI which drops the active tab-page
+     * client, so it needs to be removed beforehand and re-added after.
+     */
+    void saveNewToolbarConfig() override;
 
 private Q_SLOTS:
     void initLater();

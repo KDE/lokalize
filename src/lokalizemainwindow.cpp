@@ -775,6 +775,23 @@ void LokalizeMainWindow::setupActions()
     setupGUI(Default, QStringLiteral("lokalizemainwindowui.rc"));
 }
 
+void LokalizeMainWindow::saveNewToolbarConfig()
+{
+    // The base class rebuilds the whole GUI here, which breaks the
+    // menu bar because the active tab-page client gets merged out of order.
+    // Pull it out first and put it back after.
+    KXMLGUIClient *activeClient = m_activeTabPageKeyboardShortcuts;
+    if (activeClient)
+        guiFactory()->removeClient(activeClient);
+
+    KXmlGuiWindow::saveNewToolbarConfig();
+
+    if (activeClient)
+        guiFactory()->addClient(activeClient);
+
+    updateMenuAvailability();
+}
+
 bool LokalizeMainWindow::queryAndCloseProject()
 {
     // First check each tab page / part of Lokalize,
