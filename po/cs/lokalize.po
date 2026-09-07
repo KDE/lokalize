@@ -4,14 +4,15 @@
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
 # Vit Pelcak <vit@pelcak.org>, 2021, 2023.
 # SPDX-FileCopyrightText: 2026 Libor Filípek <filipek.libor@protonmail.com>
+# SPDX-FileCopyrightText: 2026 Libor Filipek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-06 00:48+0000\n"
-"PO-Revision-Date: 2026-08-24 19:55+0200\n"
-"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
+"PO-Revision-Date: 2026-09-07 00:36+0200\n"
+"Last-Translator: Libor Filipek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -3934,9 +3935,7 @@ msgid "Hide Completed Items"
 msgstr "Skrýt dokončené položky"
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide fully translated files and folders"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "Skrýt plně přeložené soubory a složky"
@@ -3948,12 +3947,10 @@ msgid "Expand Untranslated Folders"
 msgstr "Rozbalit nepřeložené složky"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open the directory tree to untranslated files"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
-msgstr "Otevřete adresářovou strukturu s nepřeloženými soubory"
+msgstr "Otevřít adresářovou strukturu s nepřeloženými soubory"
 
 #: src/project/projecttab.cpp:193
 #, kde-format
