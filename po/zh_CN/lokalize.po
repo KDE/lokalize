@@ -3884,7 +3884,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
-msgstr "隐藏已翻译完的文件和文件夹"
+msgstr ""
 
 #: src/project/projecttab.cpp:151
 #, kde-format
