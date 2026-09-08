@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-06 00:48+0000\n"
+"POT-Creation-Date: 2026-09-08 00:48+0000\n"
 "PO-Revision-Date: 2026-05-26 23:18+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1391,7 +1391,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(복구됨)"
 
-#: src/editortab.cpp:835 src/lokalizemainwindow.cpp:1168
+#: src/editortab.cpp:835 src/lokalizemainwindow.cpp:1185
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1401,7 +1401,7 @@ msgstr ""
 "이 문서에는 저장하지 않은 변경 사항이 있습니다.\n"
 "변경 사항을 저장하거나 무시하시겠습니까?"
 
-#: src/editortab.cpp:837 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1170
+#: src/editortab.cpp:837 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1187
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1880,11 +1880,9 @@ msgstr "줄 바꿈 해제"
 #| "Press Esc to stop the search."
 msgid ""
 "Search expression for source language part.\n"
-"                                            Press Ctrl+L to go to this "
-"control.\n"
-"                                            Press Enter to start the "
-"search.\n"
-"                                            Press Esc to stop the search."
+"Press Ctrl+L to go to this control.\n"
+"Press Enter to start the search.\n"
+"Press Esc to stop the search."
 msgstr ""
 "원본 언어에서 검색할 표현식을 입력하십시오.\n"
 "Ctrl+L 키를 누르면 포커스를 맞춥니다.\n"
@@ -1914,7 +1912,7 @@ msgstr "원본:"
 #| "Press Enter to start the search."
 msgid ""
 "Search expression for target language part.\n"
-"                                            Press Enter to start the search."
+"Press Enter to start the search."
 msgstr ""
 "대상 언어에서 검색할 표현식을 입력하십시오.\n"
 " Enter 키를 누르면 검색을 시작합니다."
@@ -2399,7 +2397,7 @@ msgstr "위젯 텍스트 캡처"
 msgid "&Window Color Scheme"
 msgstr "창 색 구성표(&W)"
 
-#: src/lokalizemainwindow.cpp:946
+#: src/lokalizemainwindow.cpp:963
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -3051,20 +3049,19 @@ msgid "Highlight spaces at the end"
 msgstr "끝에 있는 공백 강조"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:33
+#: src/prefs/prefs_editor.ui:32
 #, fuzzy, kde-format
 #| msgid ""
 #| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
 #| "text"
 msgid ""
-"If set, mouse wheel goes to previous or next unit, otherwise it\n"
-"                            scrolls text"
+"If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
 "설정하면 마우스 휠을 굴렸을 때 번역 단위를 전환합니다. 설정하지 않으면 텍스트"
 "를 스크롤합니다"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:48
+#: src/prefs/prefs_editor.ui:35
 #, fuzzy, kde-format
 #| msgid ""
 #| "<html>When this option is enabled, the mouse wheel is used to go to the "
@@ -3076,23 +3073,14 @@ msgstr ""
 #| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
 #| "wheel scrolls within the text of the current translation unit.</html>"
 msgid ""
-"<html>When this option is enabled, the mouse wheel is used to\n"
-"                            go to the previous or next translation unit "
-"(without modifier keys).\n"
-"                            Modifier keys can be used to change this "
-"behavior.\n"
-"                            Use:<ul><li><b>Shift</b> to scroll within the\n"
-"                            text of the current\n"
-"                            unit,</li><li><b>Ctrl+Shift</b> to go to\n"
-"                            previous or next non-ready\n"
-"                            unit,</li><li><b>Ctrl</b> to go to previous or\n"
-"                            next non-ready not empty\n"
-"                            unit,</li><li><b>Alt</b> to go to previous or\n"
-"                            next untranslated unit.</li></ul>When the option "
-"is\n"
-"                            disabled, the mouse wheel scrolls within the "
-"text of the current\n"
-"                            translation unit.</html>"
+"<html>When this option is enabled, the mouse wheel is used to go to the "
+"previous or next translation unit (without modifier keys). Modifier keys can "
+"be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll within "
+"the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to previous or "
+"next non-ready unit,</li><li><b>Ctrl</b> to go to previous or next non-ready "
+"not empty unit,</li><li><b>Alt</b> to go to previous or next untranslated "
+"unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
+"the text of the current translation unit.</html>"
 msgstr ""
 "<html>이 옵션을 사용하면 마우스 휠을 사용하여 수정자 키 없이 번역 단위를 전환"
 "할 수 있습니다. 수정자 키를 사용하면 다른 행동으로 전환할 수 있습니다. "
@@ -3103,44 +3091,44 @@ msgstr ""
 "으면 현재 번역 단위 내에서 텍스트를 스크롤합니다.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:51
+#: src/prefs/prefs_editor.ui:38
 #, kde-format
 msgid "Mouse wheel goes to previous or next translation unit"
 msgstr "마우스 휠로 번역 단위 전환"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
-#: src/prefs/prefs_editor.ui:58
+#: src/prefs/prefs_editor.ui:45
 #, kde-format
 msgid "Set 'approved' status automatically when editing started"
 msgstr "편집을 시작할 때 자동으로 '승인됨' 상태 적용"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
-#: src/prefs/prefs_editor.ui:78
+#: src/prefs/prefs_editor.ui:65
 #, kde-format
 msgid "Visualize separators such as spaces, tabs and new lines in the editor"
 msgstr "편집기에서 공백, 탭, 새로운 줄 등 구분자 시각화"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
-#: src/prefs/prefs_editor.ui:87 src/prefs/prefs_editor.ui:100
+#: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
 #, kde-format
 msgid "Set to 2 to disable word completion"
 msgstr "2로 설정하면 자동 완성을 끕니다"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
-#: src/prefs/prefs_editor.ui:90
+#: src/prefs/prefs_editor.ui:77
 #, kde-format
 msgid "Minimum word length for word completion"
 msgstr "자동으로 완성할 최소 단어 길이"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_WordCompletionLength)
-#: src/prefs/prefs_editor.ui:103
+#: src/prefs/prefs_editor.ui:90
 #, kde-format
 msgid "Disable word completion"
 msgstr "자동 완성 끄기"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConvertXMLChars)
-#: src/prefs/prefs_editor.ui:118
+#: src/prefs/prefs_editor.ui:105
 #, kde-format
 msgid "Automatically convert XML special characters in TS files"
 msgstr "TS 파일의 XML 특수 문자를 자동으로 변환"
@@ -4200,10 +4188,8 @@ msgstr "번역 메모리:"
 #| "Press Ctrl+L to go to this control."
 msgid ""
 "Search expression for source language part.\n"
-"                                            Press Enter to start the "
-"search.\n"
-"                                            Press Ctrl+L to go to this "
-"control."
+"Press Enter to start the search.\n"
+"Press Ctrl+L to go to this control."
 msgstr ""
 "원본 언어에서 검색할 표현식을 입력하십시오.\n"
 "Enter 키를 누르면 검색을 시작합니다.\n"
@@ -4532,7 +4518,7 @@ msgid "Widget Text Capture"
 msgstr "위젯 텍스트 캡처"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: src/tools/widgettextcaptureconfig.ui:34
+#: src/tools/widgettextcaptureconfig.ui:26
 #, fuzzy, kde-format
 #| msgid ""
 #| "<html>\n"
@@ -4549,25 +4535,17 @@ msgstr "위젯 텍스트 캡처"
 #| "work.</p></html>"
 msgid ""
 "<html>\n"
-"                            <p align=\"justify\">To facilitate KDE "
-"translation,\n"
-"                            Lokalize can capture text from applications' "
-"user interfaces and search\n"
-"                            for translation files containing the text.</p>\n"
-"                            <p align=\"justify\">When enabled, the capture "
-"can be\n"
-"                            initiated by middle mouse clicking on any non-"
-"editable GUI element\n"
-"                            (widget). After that, switch to the Lokalize "
-"window and choose the entry\n"
-"                            with this text. Even if several files contain "
-"the same string, the right\n"
-"                            one will be chosen in most cases.</p>\n"
-"                            <p align=\"justify\">Remember that you need to "
-"have an\n"
-"                            up-to-date actual translation memory with all "
-"translation files indexed\n"
-"                            for this feature to work.</p></html>"
+"<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
+"text from applications' user interfaces and search for translation files "
+"containing the text.</p>\n"
+"<p align=\"justify\">When enabled, the capture can be initiated by middle "
+"mouse clicking on any non-editable GUI element (widget). After that, switch "
+"to the Lokalize window and choose the entry with this text. Even if several "
+"files contain the same string, the right one will be chosen in most cases.</"
+"p>\n"
+"<p align=\"justify\">Remember that you need to have an up-to-date actual "
+"translation memory with all translation files indexed for this feature to "
+"work.</p></html>"
 msgstr ""
 "<html>\n"
 "<p align=\"justify\">KDE 번역을 도우려고 Lokalize에서는 사용자 인터페이스에"
@@ -4581,25 +4559,25 @@ msgstr ""
 "가 필요합니다.</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/tools/widgettextcaptureconfig.ui:50
+#: src/tools/widgettextcaptureconfig.ui:42
 #, kde-format
 msgid "Middle Mouse Button Click Reaction"
 msgstr "마우스 가운데 단추를 클릭했을 때 행동"
 
 #. i18n: ectx: property (text), widget (QRadioButton, none)
-#: src/tools/widgettextcaptureconfig.ui:56
+#: src/tools/widgettextcaptureconfig.ui:48
 #, kde-format
 msgid "None"
 msgstr "없음"
 
 #. i18n: ectx: property (text), widget (QRadioButton, search)
-#: src/tools/widgettextcaptureconfig.ui:66
+#: src/tools/widgettextcaptureconfig.ui:58
 #, kde-format
 msgid "Search GUI element text in translation memory"
 msgstr "번역 메모리에서 GUI 구성 요소 텍스트 찾기"
 
 #. i18n: ectx: property (text), widget (QRadioButton, clipboard)
-#: src/tools/widgettextcaptureconfig.ui:73
+#: src/tools/widgettextcaptureconfig.ui:65
 #, kde-format
 msgid "Copy GUI element text to clipboard"
 msgstr "GUI 구성 요소 텍스트를 클립보드에 복사"

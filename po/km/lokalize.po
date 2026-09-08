@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-06 00:48+0000\n"
+"POT-Creation-Date: 2026-09-08 00:48+0000\n"
 "PO-Revision-Date: 2012-07-09 11:02+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1456,7 +1456,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(បានយក​បាន​វិញ​​)"
 
-#: src/editortab.cpp:835 src/lokalizemainwindow.cpp:1168
+#: src/editortab.cpp:835 src/lokalizemainwindow.cpp:1185
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -1466,7 +1466,7 @@ msgstr ""
 "មាន​ឯកសារ​ផ្លាស់ប្តូរ​ដែលមិនបាន​រក្សាទុក​ ។​\n"
 "​តើអ្នកចង់​រក្សាទុក​ការផ្លាស់ប្តូរ​របស់​អ្នក​ ឬបោះ​វាចោល​ ?"
 
-#: src/editortab.cpp:837 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1170
+#: src/editortab.cpp:837 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1187
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1943,11 +1943,9 @@ msgstr "មិនរុំ​"
 #, fuzzy, kde-format
 msgid ""
 "Search expression for source language part.\n"
-"                                            Press Ctrl+L to go to this "
-"control.\n"
-"                                            Press Enter to start the "
-"search.\n"
-"                                            Press Esc to stop the search."
+"Press Ctrl+L to go to this control.\n"
+"Press Enter to start the search.\n"
+"Press Esc to stop the search."
 msgstr ""
 "ស្វែងរក​កន្សោម​សម្រាប់ចំណែកភាសាប្រភព ។\n"
 "ចុច​បញ្ចូល​ដើម្បីចាប់ផ្តើម​ស្វែងរក​ ។​"
@@ -1972,7 +1970,7 @@ msgstr "ប្រភព​ ៖"
 #, fuzzy, kde-format
 msgid ""
 "Search expression for target language part.\n"
-"                                            Press Enter to start the search."
+"Press Enter to start the search."
 msgstr ""
 "ស្វែងរក​កន្សោម​សម្រាប់​ចំណែកភាសាគោលដៅ​ ។​\n"
 "ចុច​បញ្ចូល​ដើម្បីចាប់ផ្តើម​ស្វែងរក​ ។​"
@@ -2490,7 +2488,7 @@ msgstr "ការចាប់​យក​អត្ថបទ​ធាតុ​ក
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:946
+#: src/lokalizemainwindow.cpp:963
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid ""
@@ -3152,34 +3150,24 @@ msgid "Highlight spaces at the end"
 msgstr "ទំហំផ្នែកសំខាន់​នៅខាងចុង​"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:33
+#: src/prefs/prefs_editor.ui:32
 #, fuzzy, kde-format
 msgid ""
-"If set, mouse wheel goes to previous or next unit, otherwise it\n"
-"                            scrolls text"
+"If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr "ប្រសិនបើកំណត់​ កង់កណ្តុលទៅមាត្រាមុន​ ឬ ​បន្ទាប់​ មិនដូច្នោះ​​វាជាអត្ថបទរមូរ​​"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:48
+#: src/prefs/prefs_editor.ui:35
 #, fuzzy, kde-format
 msgid ""
-"<html>When this option is enabled, the mouse wheel is used to\n"
-"                            go to the previous or next translation unit "
-"(without modifier keys).\n"
-"                            Modifier keys can be used to change this "
-"behavior.\n"
-"                            Use:<ul><li><b>Shift</b> to scroll within the\n"
-"                            text of the current\n"
-"                            unit,</li><li><b>Ctrl+Shift</b> to go to\n"
-"                            previous or next non-ready\n"
-"                            unit,</li><li><b>Ctrl</b> to go to previous or\n"
-"                            next non-ready not empty\n"
-"                            unit,</li><li><b>Alt</b> to go to previous or\n"
-"                            next untranslated unit.</li></ul>When the option "
-"is\n"
-"                            disabled, the mouse wheel scrolls within the "
-"text of the current\n"
-"                            translation unit.</html>"
+"<html>When this option is enabled, the mouse wheel is used to go to the "
+"previous or next translation unit (without modifier keys). Modifier keys can "
+"be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll within "
+"the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to previous or "
+"next non-ready unit,</li><li><b>Ctrl</b> to go to previous or next non-ready "
+"not empty unit,</li><li><b>Alt</b> to go to previous or next untranslated "
+"unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
+"the text of the current translation unit.</html>"
 msgstr ""
 "<html>នៅពេលដែល​ជម្រើសនេះ​ត្រូវបាន​បើក​ កង់កណ្តុរត្រូវបាន​ប្រើ​ទៅ​ មុន​ ឬធាតុបកប្រែបន្ទាប់​​ (ដោយ​"
 "មិនចាំបាច់សោកែប្រែ​​) ។ ​សោ​កែប្រែ​​អាចត្រូវបានប្រើ​ដើម្បីផ្លាស់ប្តូរ​ឥរិយាបថវា​ ។ ប្រើគ្រាប់ចុច​​ ៖​"
@@ -3189,44 +3177,44 @@ msgstr ""
 "ul>នៅពេលដែលជម្រើសត្រូវបាន​បិទ  រមូរកង់កណ្តុល​នៅក្នុងអត្ថបទ​របស់​ធាតុ​បកប្រែបច្ចុប្បន្ន​ ។​</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
-#: src/prefs/prefs_editor.ui:51
+#: src/prefs/prefs_editor.ui:38
 #, fuzzy, kde-format
 msgid "Mouse wheel goes to previous or next translation unit"
 msgstr "កង់កណ្តុរ​ទៅមុន​​ ឬធាតុ​បកប្រែ​បន្ទាប់​"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
-#: src/prefs/prefs_editor.ui:58
+#: src/prefs/prefs_editor.ui:45
 #, fuzzy, kde-format
 msgid "Set 'approved' status automatically when editing started"
 msgstr "កំណត់​​ 'បាន​អនុមតិ​' ស្ថានភាព​ដោយស្វ័យប្រវត្តិ​នៅពេល​ដែលបាន​ចាប់ផ្តើមការកែសម្រួល​​"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
-#: src/prefs/prefs_editor.ui:78
+#: src/prefs/prefs_editor.ui:65
 #, kde-format
 msgid "Visualize separators such as spaces, tabs and new lines in the editor"
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
-#: src/prefs/prefs_editor.ui:87 src/prefs/prefs_editor.ui:100
+#: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
 #, fuzzy, kde-format
 msgid "Set to 2 to disable word completion"
 msgstr "កំណត់ទៅ​ ២ ដើម្បី​បិទ​ការបំពេញពាក្យ​​"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
-#: src/prefs/prefs_editor.ui:90
+#: src/prefs/prefs_editor.ui:77
 #, fuzzy, kde-format
 msgid "Minimum word length for word completion"
 msgstr "ប្រវែងពាក្យ​អប្បបរមាសម្រាប់ការបំពេញ​ពាក្យ​"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_WordCompletionLength)
-#: src/prefs/prefs_editor.ui:103
+#: src/prefs/prefs_editor.ui:90
 #, fuzzy, kde-format
 msgid "Disable word completion"
 msgstr "បិទ​ការបំពេញ​ពាក្យ​"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConvertXMLChars)
-#: src/prefs/prefs_editor.ui:118
+#: src/prefs/prefs_editor.ui:105
 #, kde-format
 msgid "Automatically convert XML special characters in TS files"
 msgstr ""
@@ -4281,10 +4269,8 @@ msgstr "សតិបកប្រែ​"
 #, fuzzy, kde-format
 msgid ""
 "Search expression for source language part.\n"
-"                                            Press Enter to start the "
-"search.\n"
-"                                            Press Ctrl+L to go to this "
-"control."
+"Press Enter to start the search.\n"
+"Press Ctrl+L to go to this control."
 msgstr ""
 "ស្វែងរក​កន្សោម​សម្រាប់ចំណែកភាសាប្រភព ។\n"
 "ចុច​បញ្ចូល​ដើម្បីចាប់ផ្តើម​ស្វែងរក​ ។​"
@@ -4627,29 +4613,21 @@ msgid "Widget Text Capture"
 msgstr "ការចាប់​យក​អត្ថបទ​ធាតុ​ក្រា​ហ្វិក​"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: src/tools/widgettextcaptureconfig.ui:34
+#: src/tools/widgettextcaptureconfig.ui:26
 #, fuzzy, kde-format
 msgid ""
 "<html>\n"
-"                            <p align=\"justify\">To facilitate KDE "
-"translation,\n"
-"                            Lokalize can capture text from applications' "
-"user interfaces and search\n"
-"                            for translation files containing the text.</p>\n"
-"                            <p align=\"justify\">When enabled, the capture "
-"can be\n"
-"                            initiated by middle mouse clicking on any non-"
-"editable GUI element\n"
-"                            (widget). After that, switch to the Lokalize "
-"window and choose the entry\n"
-"                            with this text. Even if several files contain "
-"the same string, the right\n"
-"                            one will be chosen in most cases.</p>\n"
-"                            <p align=\"justify\">Remember that you need to "
-"have an\n"
-"                            up-to-date actual translation memory with all "
-"translation files indexed\n"
-"                            for this feature to work.</p></html>"
+"<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
+"text from applications' user interfaces and search for translation files "
+"containing the text.</p>\n"
+"<p align=\"justify\">When enabled, the capture can be initiated by middle "
+"mouse clicking on any non-editable GUI element (widget). After that, switch "
+"to the Lokalize window and choose the entry with this text. Even if several "
+"files contain the same string, the right one will be chosen in most cases.</"
+"p>\n"
+"<p align=\"justify\">Remember that you need to have an up-to-date actual "
+"translation memory with all translation files indexed for this feature to "
+"work.</p></html>"
 msgstr ""
 "<html>\n"
 "<p align=\"justify\">ដើម្បី​ជួយសម្រួល​ការបកប្រែ​​​ KDE ​ Lokalize អាច​ចាប់យកអត្ថបទ​ពី​​"
@@ -4662,25 +4640,25 @@ msgstr ""
 "ទាំងអស់​សម្រាប់​លក្ខណៈពិសេសដំណើរការ​ ។</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/tools/widgettextcaptureconfig.ui:50
+#: src/tools/widgettextcaptureconfig.ui:42
 #, fuzzy, kde-format
 msgid "Middle Mouse Button Click Reaction"
 msgstr "ប្រតិកម្ម​ចុច​ប៊ូតុងកណ្តុរកណ្តាល​​ "
 
 #. i18n: ectx: property (text), widget (QRadioButton, none)
-#: src/tools/widgettextcaptureconfig.ui:56
+#: src/tools/widgettextcaptureconfig.ui:48
 #, kde-format
 msgid "None"
 msgstr "គ្មាន​"
 
 #. i18n: ectx: property (text), widget (QRadioButton, search)
-#: src/tools/widgettextcaptureconfig.ui:66
+#: src/tools/widgettextcaptureconfig.ui:58
 #, fuzzy, kde-format
 msgid "Search GUI element text in translation memory"
 msgstr "ស្វែរ​រក​អត្ថបទធាតុ​ GUI ក្នុង​សតិ​ការបកប្រែ​"
 
 #. i18n: ectx: property (text), widget (QRadioButton, clipboard)
-#: src/tools/widgettextcaptureconfig.ui:73
+#: src/tools/widgettextcaptureconfig.ui:65
 #, fuzzy, kde-format
 msgid "Copy GUI element text to clipboard"
 msgstr "ចម្លង​អត្ថបទ​ធាតុ​ GUI ទៅក្តារតម្បៀតខ្ទាស់​"
