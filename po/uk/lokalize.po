@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-08 00:48+0000\n"
-"PO-Revision-Date: 2026-09-06 17:55+0300\n"
+"PO-Revision-Date: 2026-09-08 17:03+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1930,14 +1930,7 @@ msgstr "Розгорнути"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "                                            Press Ctrl+L to go to this "
-#| "control.\n"
-#| "                                            Press Enter to start the "
-#| "search.\n"
-#| "                                            Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Ctrl+L to go to this control.\n"
@@ -1966,11 +1959,7 @@ msgstr "Джерело:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "                                            Press Enter to start the "
-#| "search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "Press Enter to start the search."
@@ -3128,10 +3117,7 @@ msgstr "Підсвічувати пробіли на кінцях"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:32
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it\n"
-#| "                            scrolls text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
@@ -3140,28 +3126,7 @@ msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to\n"
-#| "                            go to the previous or next translation unit "
-#| "(without modifier keys).\n"
-#| "                            Modifier keys can be used to change this "
-#| "behavior.\n"
-#| "                            Use:<ul><li><b>Shift</b> to scroll within "
-#| "the\n"
-#| "                            text of the current\n"
-#| "                            unit,</li><li><b>Ctrl+Shift</b> to go to\n"
-#| "                            previous or next non-ready\n"
-#| "                            unit,</li><li><b>Ctrl</b> to go to previous "
-#| "or\n"
-#| "                            next non-ready not empty\n"
-#| "                            unit,</li><li><b>Alt</b> to go to previous "
-#| "or\n"
-#| "                            next untranslated unit.</li></ul>When the "
-#| "option is\n"
-#| "                            disabled, the mouse wheel scrolls within the "
-#| "text of the current\n"
-#| "                            translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to go to the "
 "previous or next translation unit (without modifier keys). Modifier keys can "
@@ -3182,7 +3147,7 @@ msgstr ""
 "неготового непорожнього модуля,</li><li><b>Alt</b> — перехід до попереднього "
 "або наступного неперекладеного модуля.</li></ul>Якщо пункт позначено не "
 "буде, прокручування коліщатка миші гортатиме текст поточного модуля "
-"перекладу.</html>     "
+"перекладу.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -4275,13 +4240,7 @@ msgstr "Пам’ять перекладів:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "                                            Press Enter to start the "
-#| "search.\n"
-#| "                                            Press Ctrl+L to go to this "
-#| "control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Enter to start the search.\n"
@@ -4620,29 +4579,7 @@ msgstr "Захоплення тексту віджетів"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "                            <p align=\"justify\">To facilitate KDE "
-#| "translation,\n"
-#| "                            Lokalize can capture text from applications' "
-#| "user interfaces and search\n"
-#| "                            for translation files containing the text.</"
-#| "p>\n"
-#| "                            <p align=\"justify\">When enabled, the "
-#| "capture can be\n"
-#| "                            initiated by middle mouse clicking on any non-"
-#| "editable GUI element\n"
-#| "                            (widget). After that, switch to the Lokalize "
-#| "window and choose the entry\n"
-#| "                            with this text. Even if several files contain "
-#| "the same string, the right\n"
-#| "                            one will be chosen in most cases.</p>\n"
-#| "                            <p align=\"justify\">Remember that you need "
-#| "to have an\n"
-#| "                            up-to-date actual translation memory with all "
-#| "translation files indexed\n"
-#| "                            for this feature to work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
