@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-08 00:48+0000\n"
-"PO-Revision-Date: 2026-04-18 21:32+0200\n"
-"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
+"PO-Revision-Date: 2026-09-08 11:34+0200\n"
+"Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1173,34 +1173,28 @@ msgid "Copy Source to Target"
 msgstr "Quelle nach Ziel kopieren"
 
 #: src/editortab.cpp:502
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "Quelle"
+msgstr "Quelle kopieren"
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgid "Copy source to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
-msgstr "Quelle in Zwischenablage kopieren"
+msgstr "Quelleintrag in die Zwischenablage kopieren"
 
 #: src/editortab.cpp:512
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "Ziel"
+msgstr "Ziel kopieren"
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgid "Copy target to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
-msgstr "Ziel in Zwischenablage kopieren"
+msgstr "Zieleintrag in die Zwischenablage kopieren"
 
 #: src/editortab.cpp:521
 #, kde-format
@@ -1944,12 +1938,7 @@ msgstr "Entwirren"
 # TODO: Element?
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Ctrl+L to go to this control.\n"
@@ -1978,10 +1967,7 @@ msgstr "Ausgangssprache:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "Press Enter to start the search."
@@ -3137,10 +3123,7 @@ msgstr "Leerzeichen am Ende hervorheben"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:32
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
@@ -3150,16 +3133,7 @@ msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to go to the "
-#| "previous or next translation unit (without modifier keys). Modifier keys "
-#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
-#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
-#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
-#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
-#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
-#| "wheel scrolls within the text of the current translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to go to the "
 "previous or next translation unit (without modifier keys). Modifier keys can "
@@ -3606,16 +3580,7 @@ msgstr "Hervorhebung:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3629,8 +3594,8 @@ msgstr ""
 "Der reguläre Ausdruck für Hervorhebungen. Dieser wird für die "
 "Übersetzungsdatenbank und die Funktion „Tag einfügen“ verwendet.\n"
 "\n"
-"Der Standardwert (geeignet für XML-Texte) ist:\n"
-"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"Der Standardwert (geeignet für XML-Texte) ist: (<[^>]+>)+|(&[A-Za-z_:][A-Za-"
+"z0-9_\\.:-]*;)+\n"
 "\n"
 "Dies wird nur für Gettext-PO-Dateien verwendet, da das XLIFF-Format anders "
 "bestimmt, wo die Textauszeichnung steht."
@@ -3670,14 +3635,7 @@ msgstr "Ordner der Vorlagendateien:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3685,12 +3643,11 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"Normalerweise ist Ihr Übersetzungsprojekt ein Unterprojekt in einem "
-"Projekt,\n"
+"Normalerweise ist Ihr Übersetzungsprojekt ein Unterprojekt in einem Projekt, "
 "das die Texte in verschiedene Sprachen übersetzt.\n"
 "\n"
-"Geben Sie hier den Pfad zu den Übersetzungsvorlagen an\n"
-"(d. h. den Dateien, die noch keine Übersetzungen enthalten)."
+"Geben Sie hier den Pfad zu den Übersetzungsvorlagen an (d. h. den Dateien, "
+"die noch keine Übersetzungen enthalten)."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3753,14 +3710,7 @@ msgstr "Zielsprache:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
@@ -3768,10 +3718,9 @@ msgid ""
 "use same ID for all of them."
 msgstr ""
 "Die Projekt-ID wird verwendet, um Übersetzungsdatenbanken von verschiedenen "
-"Projekten bzw. Sprachen zu unterscheiden.\n"
-"Wenn Sie z. B. verschiedene Projekte zur Übersetzung von KDE-Anwendungen "
-"(z. B. aus verschiedenen Archiven) haben, verwenden Sie die gleiche ID für "
-"alle."
+"Projekten bzw. Sprachen zu unterscheiden. Wenn Sie z. B. verschiedene "
+"Projekte zur Übersetzung von KDE-Anwendungen (z. B. aus verschiedenen "
+"Archiven) haben, verwenden Sie die gleiche ID für alle."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3795,18 +3744,14 @@ msgstr "ID:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
-"Dies sind die Haupteinstellungen. Stellen Sie hier den Pfad zum Ordner mit\n"
-"den Übersetzungsdateien für das Projekt (ggf. auch für das Unterprojekt\n"
-"wie beispielsweise [de_DE]) ein."
+"Dies sind die Haupteinstellungen. Geben Sie hier den Pfad zum Ordner mit den "
+"Übersetzungsdateien für das Projekt (ggf. auch für das Unterprojekt wie "
+"beispielsweise [de_DE]) an."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:137
@@ -4010,12 +3955,10 @@ msgid "Hide fully translated files and folders"
 msgstr "Vollständig übersetzte Dateien und Ordner ausblenden"
 
 #: src/project/projecttab.cpp:150
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Nächster nicht übersetzter"
+msgstr "Nicht übersetzte Ordner erweitern"
 
 #: src/project/projecttab.cpp:151
 #, fuzzy, kde-format
@@ -4306,11 +4249,7 @@ msgstr "Übersetzungsdatenbank:"
 # TODO: Element?
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Enter to start the search.\n"
@@ -4657,20 +4596,7 @@ msgstr "Text eines Bedienelements einlesen"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-#| "text from applications' user interfaces and search for translation files "
-#| "containing the text.</p>\n"
-#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
-#| "mouse clicking on any non-editable GUI element (widget). After that, "
-#| "switch to the Lokalize window and choose the entry with this text. Even "
-#| "if several files contain the same string, the right one will be chosen in "
-#| "most cases.</p>\n"
-#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
-#| "translation memory with all translation files indexed for this feature to "
-#| "work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
