@@ -1868,6 +1868,10 @@ msgid ""
 "Press Enter to start the search.\n"
 "Press Esc to stop the search."
 msgstr ""
+"在源语言中搜索的表达式。\n"
+"按下回车键开始搜索。\n"
+"按下 Ctrl+L 进入此控件。\n"
+"按下 Esc 停止搜索。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1891,6 +1895,8 @@ msgid ""
 "Search expression for target language part.\n"
 "Press Enter to start the search."
 msgstr ""
+"在目标语言中搜索的表达式。\n"
+"按下回车键开始搜索。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -3005,11 +3011,12 @@ msgstr "高亮显示字符串末尾的空格"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:32
-#, fuzzy, kde-format
-#| msgid "Mouse wheel goes to previous or next translation unit"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
-msgstr "滚动鼠标滑轮转到上个或下个翻译单元"
+msgstr ""
+"如果勾选此项，鼠标滚轮将用于跳转到上一条或者下一条字符串；如果不勾选，鼠标滚"
+"轮将滚动文本本身"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
@@ -3024,6 +3031,11 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
+"<html>启用此选项时，鼠标滚轮用于转到上一个或下一个翻译单元（无需修饰键）。修"
+"饰键可用于改变此行为。使用：<ul><li><b>Shift</b>在当前单元的文本内滚动，</"
+"li><li><b>Ctrl+Shift</b>转到上一个或下一个未就绪单元，</li><li><b>Ctrl</b>转"
+"到上一个或下一个未就绪非空单元，</li><li><b>Alt</b>转到上一个或下一个未翻译单"
+"元。</li></ul>禁用该选项时，鼠标滚轮在当前翻译单元的文本内滚动。</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -3764,12 +3776,10 @@ msgid "Hide Completed Items"
 msgstr ""
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide fully translated files and folders"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
-msgstr "隐藏已翻译完的文件和文件夹"
+msgstr ""
 
 #: src/project/projecttab.cpp:150
 #, kde-format
@@ -4066,6 +4076,9 @@ msgid ""
 "Press Enter to start the search.\n"
 "Press Ctrl+L to go to this control."
 msgstr ""
+"在源语言中搜索的表达式。\n"
+"按下回车键开始搜索。\n"
+"按下 Ctrl+L 进入此控件。"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4401,6 +4414,14 @@ msgid ""
 "translation memory with all translation files indexed for this feature to "
 "work.</p></html>"
 msgstr ""
+"<html>\n"
+"<p align=\"justify\">为了方便 KDE 的翻译，Lokalize 能够从应用程序界面中提取文"
+"本并搜索包含文本的翻译文件。</p>\n"
+"<p align=\"justify\">启用时，可以通过在不可编辑的 GUI 元素(部件)上点击鼠标中"
+"键进行提取。提取后将切换到 Lokalize 窗口并选择带有此文本的条目。即使有多个文"
+"件包含相同字符串，大多数情况下插件都能作出正确的选择。</p>\n"
+"<p align=\"justify\">请记住，要启用此功能，您需要拥有最新的翻译记忆并经索全部"
+"翻译文件。</p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:42

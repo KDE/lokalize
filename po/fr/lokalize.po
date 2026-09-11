@@ -1947,7 +1947,7 @@ msgid ""
 "<p>This part of the window shows the original message\n"
 "of the currently displayed entry.</p></qt>"
 msgstr ""
-"<qt><p><b>Chaîne originale</b></p>\n"
+"<qt><p><b>Chaine originale</b></p>\n"
 "<p>Cette partie de la fenêtre affiche le message original\n"
 "de l'élément actuellement affiché.</p></qt>"
 
