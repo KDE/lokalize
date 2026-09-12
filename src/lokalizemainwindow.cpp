@@ -772,6 +772,11 @@ void LokalizeMainWindow::setupActions()
     colorSelectionMenu->menu()->setTitle(i18n("&Window Color Scheme"));
     ac->addAction(QStringLiteral("colorscheme_menu"), colorSelectionMenu);
 
+    ADD_ACTION_SHORTCUT("toggle-menu", i18n("Toggle Menu Bar"), Qt::ControlModifier | Qt::Key_M)
+    connect(action, &QAction::triggered, this, [this]() {
+        menuBar()->setVisible(!menuBar()->isVisible());
+    });
+
     setupGUI(Default, QStringLiteral("lokalizemainwindowui.rc"));
 }
 
