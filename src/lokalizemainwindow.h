@@ -226,6 +226,7 @@ private:
     bool eventFilter(QObject *object, QEvent *event) override;
     bool menuHasVisibleAction(const QMenu *menu) const;
     void updateMenuAvailability();
+    void updateTabBarVisibility();
     QWidget *previousActiveTab;
     KXMLGUIClient *m_activeTabPageKeyboardShortcuts{};
     QActionGroup *m_editorActions{};

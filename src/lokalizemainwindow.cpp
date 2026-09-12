@@ -461,6 +461,7 @@ EditorTab *LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     if (newEditorTab) {
         m_mainTabs->addTab(newEditorTab, newEditorTab->m_tabIcon, newEditorTab->m_tabLabel);
         m_mainTabs->setTabToolTip(m_mainTabs->indexOf(newEditorTab), newEditorTab->m_tabToolTip);
+        updateTabBarVisibility();
         connect(newEditorTab->m_resizeWatcher, &SaveLayoutAfterResizeWatcher::signalEditorTabNeedsLayoutSaving, this, [this] {
             saveCurrentEditorState();
         });
@@ -1088,6 +1089,11 @@ void LokalizeMainWindow::busyCursor(bool busy)
     busy ? QApplication::setOverrideCursor(Qt::WaitCursor) : QApplication::restoreOverrideCursor();
 }
 
+void LokalizeMainWindow::updateTabBarVisibility()
+{
+    m_mainTabs->tabBar()->setVisible(m_mainTabs->count() > 1);
+}
+
 void LokalizeMainWindow::queryAndCloseCurrentTab()
 {
     const int index = m_mainTabs->currentIndex();
@@ -1253,6 +1259,7 @@ void LokalizeMainWindow::closeTabAtIndex(int index)
     }
 
     m_mainTabs->removeTab(index);
+    updateTabBarVisibility();
 
     if (m_mainTabs->count() == 0) {
         showWelcome();
