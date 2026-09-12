@@ -536,7 +536,7 @@ void EditorTab::setupActions()
     action->setText(i18nc("@action:inmenu", "Check this unit using LanguageTool"));
 
     action = edit->addAction(QStringLiteral("edit_tagimmediate"), m_view->viewPort(), &TranslationUnitTextEdit::tagImmediate);
-    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::Key_M));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::ControlModifier | Qt::AltModifier | Qt::Key_M));
     action->setText(i18nc("@action:inmenu", "Insert Next Tag"));
 
     action = edit->addAction(QStringLiteral("edit_skiptags"), m_view->viewPort(), &TranslationUnitTextEdit::skipTags);
