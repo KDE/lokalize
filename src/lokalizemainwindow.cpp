@@ -557,6 +557,7 @@ void LokalizeMainWindow::showProjectOverview()
     if (!m_projectTab) {
         m_projectTab = new ProjectTab(this);
         m_mainTabs->insertTab(0, m_projectTab, m_projectTab->m_tabIcon, m_projectTab->m_tabLabel);
+        updateTabBarVisibility();
         connect(m_projectTab, &ProjectTab::fileOpenRequested, this, &LokalizeMainWindow::fileOpen_);
         connect(m_projectTab, qOverload<>(&ProjectTab::projectOpenRequested), this, qOverload<>(&LokalizeMainWindow::openProject));
         connect(m_projectTab,
@@ -578,6 +579,7 @@ TM::TMTab *LokalizeMainWindow::showTM()
         m_translationMemoryTabIsVisible = true;
         m_translationMemoryTab = new TM::TMTab(this);
         m_mainTabs->addTab(m_translationMemoryTab, m_translationMemoryTab->m_tabIcon, m_translationMemoryTab->m_tabLabel);
+        updateTabBarVisibility();
         connect(m_translationMemoryTab,
                 qOverload<const QString &, const QString &, const QString &, const bool>(&TM::TMTab::fileOpenRequested),
                 this,
@@ -592,6 +594,7 @@ FileSearchTab *LokalizeMainWindow::showFileSearch(bool activate)
     if (!m_fileSearchTab) {
         m_fileSearchTab = new FileSearchTab(this);
         m_mainTabs->addTab(m_fileSearchTab, m_fileSearchTab->m_tabIcon, m_fileSearchTab->m_tabLabel);
+        updateTabBarVisibility();
         connect(m_fileSearchTab,
                 qOverload<const QString &, DocPosition, int, const bool>(&FileSearchTab::fileOpenRequested),
                 this,
@@ -619,6 +622,7 @@ GlossaryNS::GlossaryTab *LokalizeMainWindow::showGlossary()
     const bool glossaryIsATab = m_mainTabs->indexOf(m_glossaryTab) != -1;
     if (!glossaryIsATab) {
         m_mainTabs->addTab(m_glossaryTab, m_glossaryTab->m_tabIcon, m_glossaryTab->m_tabLabel);
+        updateTabBarVisibility();
         m_glossaryTabIsVisible = true;
     }
     activateTabByPageWidget(m_glossaryTab);
