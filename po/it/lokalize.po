@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-13 00:48+0000\n"
-"PO-Revision-Date: 2026-08-24 11:20+0200\n"
+"POT-Creation-Date: 2026-09-14 00:45+0000\n"
+"PO-Revision-Date: 2026-09-08 11:22+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -1011,7 +1011,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Modifica"
 
-#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:670
+#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:674
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1044,7 +1044,7 @@ msgstr "Sincronizzazione 2"
 msgid "Translation Memory"
 msgstr "Memoria di traduzione"
 
-#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:671
+#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:675
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1450,7 +1450,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr " (ripristinato)"
 
-#: src/editortab.cpp:835 src/lokalizemainwindow.cpp:1196
+#: src/editortab.cpp:835 src/lokalizemainwindow.cpp:1200
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1460,7 +1460,7 @@ msgstr ""
 "Il documento contiene modifiche non salvate.\n"
 "Vuoi salvare le modifiche o perderle?"
 
-#: src/editortab.cpp:837 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1198
+#: src/editortab.cpp:837 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1202
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -1937,14 +1937,7 @@ msgstr "Unione del Msgstr"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "                                            Press Ctrl+L to go to this "
-#| "control.\n"
-#| "                                            Press Enter to start the "
-#| "search.\n"
-#| "                                            Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Ctrl+L to go to this control.\n"
@@ -1952,11 +1945,9 @@ msgid ""
 "Press Esc to stop the search."
 msgstr ""
 "Espressione di ricerca per la lingua di origine.\n"
-"                                            Premi Ctrl+L per andare a questo "
-"controllo.\n"
-"                                            Premi Invio per iniziare la "
-"ricerca.\n"
-"                                            Premi Esc per fermare la ricerca."
+"Premi Ctrl+L per andare a questo controllo.\n"
+"Premi Invio per iniziare la ricerca.\n"
+"Premi Esc per fermare la ricerca."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1975,18 +1966,13 @@ msgstr "Origine:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "                                            Press Enter to start the "
-#| "search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "Press Enter to start the search."
 msgstr ""
 "Espressione di ricerca per la lingua di destinazione.\n"
-"                                            Premi Invio per iniziare la "
-"ricerca."
+"Premi Invio per iniziare la ricerca."
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -2328,7 +2314,7 @@ msgstr ""
 msgid "&Configure Lokalize…"
 msgstr "&Configura Lokalize…"
 
-#: src/lokalizemainwindow.cpp:115 src/lokalizemainwindow.cpp:738
+#: src/lokalizemainwindow.cpp:115 src/lokalizemainwindow.cpp:742
 #: src/project/projecttab.cpp:163
 #, kde-format
 msgctxt "@action:inmenu"
@@ -2354,131 +2340,131 @@ msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 "Nessun modulo di Qt Sql trovato. La memoria di traduzione non funzionerà."
 
-#: src/lokalizemainwindow.cpp:573 src/project/project.cpp:217
+#: src/lokalizemainwindow.cpp:574 src/project/project.cpp:217
 #, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "La memoria di traduzione richiede il modulo SQLite di Qt."
 
-#: src/lokalizemainwindow.cpp:573 src/project/project.cpp:217
+#: src/lokalizemainwindow.cpp:574 src/project/project.cpp:217
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Modulo SQLite non disponibile"
 
-#: src/lokalizemainwindow.cpp:672 src/tm/tmtab.cpp:487
+#: src/lokalizemainwindow.cpp:676 src/tm/tmtab.cpp:487
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Memoria di traduzione"
 
-#: src/lokalizemainwindow.cpp:673 src/project/projecttab.cpp:160
+#: src/lokalizemainwindow.cpp:677 src/project/projecttab.cpp:160
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Progetto"
 
-#: src/lokalizemainwindow.cpp:696
+#: src/lokalizemainwindow.cpp:700
 #, kde-format
 msgid "Next Tab"
 msgstr "Scheda successiva"
 
-#: src/lokalizemainwindow.cpp:699
+#: src/lokalizemainwindow.cpp:703
 #, kde-format
 msgid "Previous Tab"
 msgstr "Scheda precedente"
 
-#: src/lokalizemainwindow.cpp:702
+#: src/lokalizemainwindow.cpp:706
 #, kde-format
 msgid "Previously Active Tab"
 msgstr "Scheda precedentemente attiva"
 
-#: src/lokalizemainwindow.cpp:705
+#: src/lokalizemainwindow.cpp:709
 #, kde-format
 msgid "Close Current Tab"
 msgstr "Chiudi la scheda attuale"
 
-#: src/lokalizemainwindow.cpp:711
+#: src/lokalizemainwindow.cpp:715
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Glossario"
 
-#: src/lokalizemainwindow.cpp:717
+#: src/lokalizemainwindow.cpp:721
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Memoria di traduzione"
 
-#: src/lokalizemainwindow.cpp:721 src/tm/tmtab.cpp:490
+#: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "Gestisci le memorie di traduzione"
 
-#: src/lokalizemainwindow.cpp:725
+#: src/lokalizemainwindow.cpp:729
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "Vista globale del progetto"
 
-#: src/lokalizemainwindow.cpp:729
+#: src/lokalizemainwindow.cpp:733
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "Configura progetto…"
 
-#: src/lokalizemainwindow.cpp:732
+#: src/lokalizemainwindow.cpp:736
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "Crea progetto di traduzione di software…"
 
-#: src/lokalizemainwindow.cpp:735
+#: src/lokalizemainwindow.cpp:739
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "Crea progetto di traduzione di OpenDocument…"
 
-#: src/lokalizemainwindow.cpp:742
+#: src/lokalizemainwindow.cpp:746
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "Chiudi progetto"
 
-#: src/lokalizemainwindow.cpp:745
+#: src/lokalizemainwindow.cpp:749
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "Apre un progetto recente"
 
-#: src/lokalizemainwindow.cpp:755
+#: src/lokalizemainwindow.cpp:759
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "Cerca e sostituisci"
 
-#: src/lokalizemainwindow.cpp:758
+#: src/lokalizemainwindow.cpp:762
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr "Vai alla prossima ricerca e sostituisci voce"
 
-#: src/lokalizemainwindow.cpp:762
+#: src/lokalizemainwindow.cpp:766
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "Cattura del testo di elementi grafici"
 
-#: src/lokalizemainwindow.cpp:773
+#: src/lokalizemainwindow.cpp:777
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "Schema di colori delle &finestre"
 
-#: src/lokalizemainwindow.cpp:776
+#: src/lokalizemainwindow.cpp:780
 #, kde-format
 msgid "Toggle Menu Bar"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:969
+#: src/lokalizemainwindow.cpp:973
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -3142,40 +3128,16 @@ msgstr "Evidenzia spazi alla fine"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:32
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it\n"
-#| "                            scrolls text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
-"Se impostata, la rotellina del mouse va all'unità precedente o successiva,\n"
-"                            altrimenti fa scorrere il testo"
+"Se impostata, la rotellina del mouse va all'unità precedente o successiva, "
+"altrimenti fa scorrere il testo"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to\n"
-#| "                            go to the previous or next translation unit "
-#| "(without modifier keys).\n"
-#| "                            Modifier keys can be used to change this "
-#| "behavior.\n"
-#| "                            Use:<ul><li><b>Shift</b> to scroll within "
-#| "the\n"
-#| "                            text of the current\n"
-#| "                            unit,</li><li><b>Ctrl+Shift</b> to go to\n"
-#| "                            previous or next non-ready\n"
-#| "                            unit,</li><li><b>Ctrl</b> to go to previous "
-#| "or\n"
-#| "                            next non-ready not empty\n"
-#| "                            unit,</li><li><b>Alt</b> to go to previous "
-#| "or\n"
-#| "                            next untranslated unit.</li></ul>When the "
-#| "option is\n"
-#| "                            disabled, the mouse wheel scrolls within the "
-#| "text of the current\n"
-#| "                            translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to go to the "
 "previous or next translation unit (without modifier keys). Modifier keys can "
@@ -3186,24 +3148,16 @@ msgid ""
 "unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
 "the text of the current translation unit.</html>"
 msgstr ""
-"<html>Se questa opzione è abilitata, la rotellina del mouse è usata per\n"
-"                            andare all'unità di traduzione precedente o a "
-"quella successiva, (senza tasti modificatori).\n"
-"                            I tasti modificatori possono essere usati per "
-"modificare questo comportamento.\n"
-"                            Usa:<ul><li><b>Shift</b> per scorrere su e giù "
-"il\n"
-"                            testo dell'unità corrente</li><li><b>Ctrl+Shift</"
-"b> per andare\n"
-"                            all'unità non pronta precedente o successiva,\n"
-"                            </li><li><b>Ctrl</b> per andare all'unità non\n"
-"                            pronta e non vuota precedente o successiva,</"
-"li><li><b>Alt</b>\n"
-"                            per andare all'unità non tradotta precedente o "
-"successiva.</li>                            </ul>Se questa opzione è "
-"disabilitata, la rotellina del mouse\n"
-"                            scorre su e giù il testo dell'unità corrente di "
-"traduzione.</html>"
+"<html>Se questa opzione è abilitata, la rotellina del mouse è usata per "
+"andare all'unità di traduzione precedente o a quella successiva, senza tasti "
+"modificatori. I tasti modificatori possono essere usati per modificare "
+"questo comportamento. Usa:<ul><li><b>Shift</b> per scorrere su e giù il "
+"testo dell'unità corrente</li><li><b>Ctrl+Shift</b> per andare all'unità non "
+"pronta precedente o successiva,</li><li><b>Ctrl</b> per andare all'unità non "
+"pronta e non vuota precedente o successiva,</li><li><b>Alt</b> per andare "
+"all'unità non tradotta precedente o successiva</li></ul>Se questa opzione è "
+"disabilitata, la rotellina del mouse scorre su e giù il testo dell'unità "
+"corrente di traduzione.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -3997,12 +3951,10 @@ msgid "Hide Completed Items"
 msgstr "Nascondi elementi completi"
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide fully translated files and folders"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
-msgstr "Nascondi file e cartelle completamente tradotti"
+msgstr "Nascondi i file e le cartelle completamente tradotti"
 
 #: src/project/projecttab.cpp:150
 #, kde-format
@@ -4011,12 +3963,10 @@ msgid "Expand Untranslated Folders"
 msgstr "Espandi le cartelle non tradotte"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open the directory tree to untranslated files"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
-msgstr "Apri l'albero delle cartelle per visualizzare i file non tradotti"
+msgstr "Apri l'albero delle cartelle con i file non tradotti"
 
 #: src/project/projecttab.cpp:193
 #, kde-format
@@ -4298,23 +4248,15 @@ msgstr "Memoria di traduzione:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "                                            Press Enter to start the "
-#| "search.\n"
-#| "                                            Press Ctrl+L to go to this "
-#| "control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Enter to start the search.\n"
 "Press Ctrl+L to go to this control."
 msgstr ""
 "Espressione di ricerca per la lingua di origine.\n"
-"                                            Premi Invio per iniziare la "
-"ricerca.\n"
-"                                            Premi Ctrl+L per andare a questo "
-"controllo."
+"Premi Invio per iniziare la ricerca.\n"
+"Premi Ctrl+L per andare a questo controllo."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4643,29 +4585,7 @@ msgstr "Cattura del testo di elementi grafici"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "                            <p align=\"justify\">To facilitate KDE "
-#| "translation,\n"
-#| "                            Lokalize can capture text from applications' "
-#| "user interfaces and search\n"
-#| "                            for translation files containing the text.</"
-#| "p>\n"
-#| "                            <p align=\"justify\">When enabled, the "
-#| "capture can be\n"
-#| "                            initiated by middle mouse clicking on any non-"
-#| "editable GUI element\n"
-#| "                            (widget). After that, switch to the Lokalize "
-#| "window and choose the entry\n"
-#| "                            with this text. Even if several files contain "
-#| "the same string, the right\n"
-#| "                            one will be chosen in most cases.</p>\n"
-#| "                            <p align=\"justify\">Remember that you need "
-#| "to have an\n"
-#| "                            up-to-date actual translation memory with all "
-#| "translation files indexed\n"
-#| "                            for this feature to work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
@@ -4681,26 +4601,17 @@ msgid ""
 "work.</p></html>"
 msgstr ""
 "<html>\n"
-"                            <p align=\"justify\">Per semplificare la "
-"traduzione di KDE,\n"
-"                            Lokalize può catturare testo dall'interfaccia "
-"delle applicazione e cercare\n"
-"                            traduzioni che lo contengano.</p>\n"
-"                            <p align=\"justify\">Se abilitato, è possibile "
-"catturare testo\n"
-"                            premendo il pulsante centrale del mouse su un "
-"qualsiasi elemento grafico non\n"
-"                            modificabile (widget). Puoi quindi passare alla "
-"finestra di Lokalize e\n"
-"                            scegliere la voce con questo testo. Anche se "
-"diversi                             file contengono la stessa stringa, nella "
-"maggior\n"
-"                            parte dei casi sarà scelta quella giusta.</p>\n"
-"                            <p align=\"justify\">Affinché tutto ciò possa "
-"funzionare, è necessario\n"
-"                            avere una memoria di traduzione aggiornata con "
-"tutti le traduzioni\n"
-"                            indicizzate.</p></html>"
+"<p align=\"justify\">Per semplificare la traduzione di KDE, Lokalize può "
+"catturare testo dall'interfaccia delle applicazione e cercare traduzioni che "
+"lo contengano.</p>\n"
+"<p align=\"justify\">Se abilitato, è possibile catturare testo premendo il "
+"pulsante centrale del mouse su un qualsiasi elemento grafico non "
+"modificabile (widget). Puoi quindi passare alla finestra di Lokalize e "
+"scegliere la voce con questo testo. Anche se diversi file contengono la "
+"stessa stringa, nella maggior parte dei casi sarà scelta quella giusta.</p>\n"
+"<p align=\"justify\">Affinché tutto ciò possa funzionare, è necessario avere "
+"una memoria di traduzione aggiornata con tutti le traduzioni indicizzate.</"
+"p></html>"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tools/widgettextcaptureconfig.ui:42

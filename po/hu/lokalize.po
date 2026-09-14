@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-13 00:48+0000\n"
+"POT-Creation-Date: 2026-09-14 00:45+0000\n"
 "PO-Revision-Date: 2026-05-13 21:37+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1006,7 +1006,7 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:670
+#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:674
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1039,7 +1039,7 @@ msgstr "Szinkronizálás (2)"
 msgid "Translation Memory"
 msgstr "Fordítási memória"
 
-#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:671
+#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:675
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1452,7 +1452,7 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(helyreállítva)"
 
-#: src/editortab.cpp:835 src/lokalizemainwindow.cpp:1196
+#: src/editortab.cpp:835 src/lokalizemainwindow.cpp:1200
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1462,7 +1462,7 @@ msgstr ""
 "A dokumentum nem mentett változtatásokat tartalmaz.\n"
 "Szeretné elmenteni a változásokat vagy eldobja azokat?"
 
-#: src/editortab.cpp:837 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1198
+#: src/editortab.cpp:837 src/editortab.cpp:1611 src/lokalizemainwindow.cpp:1202
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
@@ -2325,7 +2325,7 @@ msgstr ""
 msgid "&Configure Lokalize…"
 msgstr "A Lokalize &beállítása…"
 
-#: src/lokalizemainwindow.cpp:115 src/lokalizemainwindow.cpp:738
+#: src/lokalizemainwindow.cpp:115 src/lokalizemainwindow.cpp:742
 #: src/project/projecttab.cpp:163
 #, kde-format
 msgctxt "@action:inmenu"
@@ -2350,131 +2350,131 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Nem találhatók Qt Sql modulok. A fordítási memória nem fog működni."
 
-#: src/lokalizemainwindow.cpp:573 src/project/project.cpp:217
+#: src/lokalizemainwindow.cpp:574 src/project/project.cpp:217
 #, kde-format
 msgid "Translation memory facility requires SQLite Qt module."
 msgstr "A fordítási memória szolgáltatás az SQLite Qt modult igényli."
 
-#: src/lokalizemainwindow.cpp:573 src/project/project.cpp:217
+#: src/lokalizemainwindow.cpp:574 src/project/project.cpp:217
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Nem érhető el SQLite modul"
 
-#: src/lokalizemainwindow.cpp:672 src/tm/tmtab.cpp:487
+#: src/lokalizemainwindow.cpp:676 src/tm/tmtab.cpp:487
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Fordítási memória"
 
-#: src/lokalizemainwindow.cpp:673 src/project/projecttab.cpp:160
+#: src/lokalizemainwindow.cpp:677 src/project/projecttab.cpp:160
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Projekt"
 
-#: src/lokalizemainwindow.cpp:696
+#: src/lokalizemainwindow.cpp:700
 #, kde-format
 msgid "Next Tab"
 msgstr "Következő lap"
 
-#: src/lokalizemainwindow.cpp:699
+#: src/lokalizemainwindow.cpp:703
 #, kde-format
 msgid "Previous Tab"
 msgstr "Előző lap"
 
-#: src/lokalizemainwindow.cpp:702
+#: src/lokalizemainwindow.cpp:706
 #, kde-format
 msgid "Previously Active Tab"
 msgstr "Előzőleg aktív lap"
 
-#: src/lokalizemainwindow.cpp:705
+#: src/lokalizemainwindow.cpp:709
 #, kde-format
 msgid "Close Current Tab"
 msgstr "Jelenlegi lap bezárása"
 
-#: src/lokalizemainwindow.cpp:711
+#: src/lokalizemainwindow.cpp:715
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Szójegyzék"
 
-#: src/lokalizemainwindow.cpp:717
+#: src/lokalizemainwindow.cpp:721
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation Memory"
 msgstr "Fordítási memória"
 
-#: src/lokalizemainwindow.cpp:721 src/tm/tmtab.cpp:490
+#: src/lokalizemainwindow.cpp:725 src/tm/tmtab.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage Translation Memories"
 msgstr "Fordítási memóriák kezelése"
 
-#: src/lokalizemainwindow.cpp:725
+#: src/lokalizemainwindow.cpp:729
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project Overview"
 msgstr "Projektáttekintő"
 
-#: src/lokalizemainwindow.cpp:729
+#: src/lokalizemainwindow.cpp:733
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure Project…"
 msgstr "Projekt beállítása…"
 
-#: src/lokalizemainwindow.cpp:732
+#: src/lokalizemainwindow.cpp:736
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create Software Translation Project…"
 msgstr "Szoftverfordítási projekt létrehozása…"
 
-#: src/lokalizemainwindow.cpp:735
+#: src/lokalizemainwindow.cpp:739
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument Translation Project…"
 msgstr "OpenDocument-fordítási projekt létrehozása…"
 
-#: src/lokalizemainwindow.cpp:742
+#: src/lokalizemainwindow.cpp:746
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Project"
 msgstr "Projekt bezárása"
 
-#: src/lokalizemainwindow.cpp:745
+#: src/lokalizemainwindow.cpp:749
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Recent Project"
 msgstr "Legutóbbi projekt megnyitása"
 
-#: src/lokalizemainwindow.cpp:755
+#: src/lokalizemainwindow.cpp:759
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search && Replace"
 msgstr "Keresés és csere"
 
-#: src/lokalizemainwindow.cpp:758
+#: src/lokalizemainwindow.cpp:762
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Go To Next Search && Replace Entry"
 msgstr "Ugrás a következő keresés és csere bejegyzésre"
 
-#: src/lokalizemainwindow.cpp:762
+#: src/lokalizemainwindow.cpp:766
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget Text Capture"
 msgstr "Felületi elem szövegének rögzítése"
 
-#: src/lokalizemainwindow.cpp:773
+#: src/lokalizemainwindow.cpp:777
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "&Ablak színsémája"
 
-#: src/lokalizemainwindow.cpp:776
+#: src/lokalizemainwindow.cpp:780
 #, kde-format
 msgid "Toggle Menu Bar"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:969
+#: src/lokalizemainwindow.cpp:973
 #, kde-format
 msgctxt "@info"
 msgid ""
