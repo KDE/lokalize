@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-14 00:45+0000\n"
-"PO-Revision-Date: 2026-09-09 18:06+0400\n"
+"PO-Revision-Date: 2026-09-14 21:42+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2424,7 +2424,7 @@ msgstr "&مخطّط ألوان النافذة"
 #: src/lokalizemainwindow.cpp:780
 #, kde-format
 msgid "Toggle Menu Bar"
-msgstr ""
+msgstr "بدل شريط القائمة"
 
 #: src/lokalizemainwindow.cpp:973
 #, kde-format
