@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-14 00:45+0000\n"
-"PO-Revision-Date: 2026-05-31 20:22-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -902,7 +902,7 @@ msgstr "ياق"
 #, kde-format
 msgctxt "%1 is a language name, e.g. Irish, %2 is language code, e.g. ga"
 msgid "%1 (%2)"
-msgstr "%1 (%2)"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/common/languagelistmodel.cpp:114 src/tm/dbparams.ui:146
@@ -1417,9 +1417,6 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
-"بۇ <filename>%1</filename> ھۆججەتنى باشقا پىروگرامما ئۆزگەرتكەن. ئەگەر ھازىر "
-"ساقلىسىڭىز، باشقا پىروگراممىدا ئۆزگەرتىلگىنى يوقاپ كېتىدۇ. راستتىنلا "
-"داۋاملاشتۇرامسىز؟"
 
 #: src/editortab.cpp:1021
 #, kde-format
@@ -2329,7 +2326,7 @@ msgstr "قۇرۇلۇش(&P)"
 #, kde-format
 msgctxt "@title"
 msgid "Lokalize"
-msgstr "Lokalize"
+msgstr ""
 
 #: src/main.cpp:74
 #, kde-format
@@ -2445,7 +2442,7 @@ msgstr ""
 #: src/main.cpp:94
 #, kde-format
 msgid "Albert Astals Cid"
-msgstr "Albert Astals Cid"
+msgstr ""
 
 #: src/main.cpp:94
 #, kde-format
@@ -2614,7 +2611,7 @@ msgstr ""
 #: src/noteeditor.cpp:60
 #, kde-format
 msgid "Esc"
-msgstr "Esc"
+msgstr ""
 
 #: src/noteeditor.cpp:113
 #, kde-format
@@ -4192,7 +4189,7 @@ msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
 msgid "%1%"
-msgstr "%1%"
+msgstr ""
 
 #: src/tm/tmview.cpp:506
 #, kde-format
