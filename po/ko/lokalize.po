@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-14 00:45+0000\n"
-"PO-Revision-Date: 2026-05-26 23:18+0200\n"
+"PO-Revision-Date: 2026-09-29 00:55+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -2392,7 +2392,7 @@ msgstr "창 색 구성표(&W)"
 #: src/lokalizemainwindow.cpp:780
 #, kde-format
 msgid "Toggle Menu Bar"
-msgstr ""
+msgstr "메뉴 표시줄 전환"
 
 #: src/lokalizemainwindow.cpp:973
 #, kde-format
@@ -3474,16 +3474,7 @@ msgstr "마크업:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3499,7 +3490,6 @@ msgstr ""
 "\n"
 "XML 기반 텍스트에 적합한 기본값은 다음과 같습니다.\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-"\n"
 "\n"
 "XLIFF 형식의 경우 마크업을 표현하는 방법이 정해져 있기 때문에 gettext PO 파일"
 "에만 사용됩니다."
@@ -3538,14 +3528,7 @@ msgstr "템플릿 파일 폴더:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3553,11 +3536,11 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"현재 번역 프로젝트는 같은 텍스트를 여러 언어로 번역하는 프로젝트의\n"
-"부 프로젝트일 수도 있습니다.\n"
+"현재 번역 프로젝트는 같은 텍스트를 여러 언어로 번역하는 프로젝트의 부 프로젝"
+"트일 수도 있습니다.\n"
 "\n"
-"모든 부 프로젝트 사이에 공유되는 빈 번역 파일이 들어 있는 폴더로\n"
-"설정하십시오."
+"모든 부 프로젝트 사이에 공유되는 빈 번역 파일이 들어 있는 폴더로 설정하십시"
+"오."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3620,14 +3603,7 @@ msgstr "대상 언어:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
@@ -3635,10 +3611,8 @@ msgid ""
 "use same ID for all of them."
 msgstr ""
 "서로 다른 프로젝트와 언어의 번역 메모리를 구분하는 데 사용되는 프로젝트 ID입"
-"니다.\n"
-"\n"
-"예를 들어 KDE 앱을 번역하는 여러 프로젝트가 있다면\n"
-"(서로 다른 저장소에 나뉘어 있는 경우) 모든 프로젝트에 같은 ID를 사용하십시오."
+"니다. 예를 들어 KDE 앱을 번역하는 여러 프로젝트가 있다면 (서로 다른 저장소에 "
+"나뉘어 있는 경우) 모든 프로젝트에 같은 ID를 사용하십시오."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3662,17 +3636,13 @@ msgstr "ID:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
-"주 설정입니다. 번역 파일이 들어 있거나, 대상 언어용\n"
-"부 프로젝트의 경로로 설정하십시오."
+"주 설정입니다. 번역 파일이 들어 있거나, 대상 언어용 부 프로젝트의 경로로 설정"
+"하십시오."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:137
@@ -3868,9 +3838,7 @@ msgid "Hide Completed Items"
 msgstr "완료된 항목 숨기기"
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide fully translated files and folders"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "완전히 번역된 파일과 폴더 숨기기"
@@ -3882,9 +3850,7 @@ msgid "Expand Untranslated Folders"
 msgstr "번역되지 않은 폴더 확장"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open the directory tree to untranslated files"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
 msgstr "번역되지 않은 파일이 있는 디렉터리 트리 열기"
