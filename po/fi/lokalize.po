@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-14 00:45+0000\n"
-"PO-Revision-Date: 2026-02-25 16:26+0200\n"
+"PO-Revision-Date: 2026-08-25 14:14+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -1053,11 +1053,10 @@ msgid "Insert alternate translation #%1"
 msgstr "Lisää vaihtoehtoinen käännös %1"
 
 #: src/editortab.cpp:216
-#, fuzzy, kde-format
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Attach Alternate Translation File…"
-msgstr "Vaihtoehtoiset käännökset"
+msgstr "Liitä vaihtoehtoisen käännöksen tiedosto…"
 
 #: src/editortab.cpp:282
 #, kde-format
@@ -1093,19 +1092,19 @@ msgstr "Määrittele uusi termi"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save All"
-msgstr ""
+msgstr "Tallenna kaikki"
 
 #: src/editortab.cpp:391
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Revert All"
-msgstr ""
+msgstr "Kumoa kaikki muutokset"
 
 #: src/editortab.cpp:399
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close All"
-msgstr ""
+msgstr "Sulje kaikki"
 
 #: src/editortab.cpp:414
 #, kde-format
@@ -1171,34 +1170,28 @@ msgid "Copy Source to Target"
 msgstr "Kopioi lähde kohteeseen"
 
 #: src/editortab.cpp:502
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Source"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Source"
-msgstr "Lähde"
+msgstr "Kopioi lähde"
 
 #: src/editortab.cpp:503
-#, fuzzy, kde-format
-#| msgid "Copy source to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
-msgstr "Kopioi lähde leikepöydälle"
+msgstr "Kopioi lähdeviesti leikepöydälle"
 
 #: src/editortab.cpp:512
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Target"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Target"
-msgstr "Kohde"
+msgstr "Kopioi kohde"
 
 #: src/editortab.cpp:513
-#, fuzzy, kde-format
-#| msgid "Copy target to clipboard"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
-msgstr "Kopioi kohde leikepöydälle"
+msgstr "Kopioi kohdeviesti leikepöydälle"
 
 #: src/editortab.cpp:521
 #, kde-format
@@ -1528,18 +1521,18 @@ msgid ""
 "you save now, any changes made in the other program will be lost. Are you "
 "sure you want to continue?"
 msgstr ""
+"Toinen ohjelma on muuttanut tiedostoa <filename>%1</filename>. Jos tallennat "
+"nyt, toisen ohjelman tekemät muutokset menetetään. Haluatko varmasti jatkaa?"
 
 #: src/editortab.cpp:1021
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Warning"
+#, kde-format
 msgid "Save - Warning"
-msgstr "Varoitus"
+msgstr "Tallennus – varoitus"
 
 #: src/editortab.cpp:1023
 #, kde-format
 msgid "Save a Copy Elsewhere"
-msgstr ""
+msgstr "Tallenna kopio toisaalle"
 
 #: src/editortab.cpp:1116
 #, kde-format
@@ -1599,34 +1592,31 @@ msgstr "Yksikkö on täysin kotoistettu (ts. lopullinen)"
 #, kde-format
 msgctxt "@info"
 msgid "There are no bookmarked entries."
-msgstr ""
+msgstr "Kirjanmerkittyjä yksikköjä ei ole."
 
 #: src/editortab.cpp:1491
-#, fuzzy, kde-format
-#| msgid "&Bookmarks"
+#, kde-format
 msgctxt "@title:window"
 msgid "Edit Bookmarks"
-msgstr "K&irjanmerkit"
+msgstr "Muokkaa kirjanmerkkejä"
 
 #: src/editortab.cpp:1498
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Uncheck to remove this bookmark."
-msgstr ""
+msgstr "Poista kirjanmerkki poistamalla tämä valinta."
 
 #: src/editortab.cpp:1514
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Entry %1: %2"
-msgstr ""
+msgstr "Yksikkö: %1: %2"
 
 #: src/editortab.cpp:1542
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Clear"
+#, kde-format
 msgctxt "@action:button"
 msgid "Clear All"
-msgstr "Tyhjennä"
+msgstr "Tyhjennä kaikki"
 
 #: src/editortab.cpp:1586 src/project/projecttab.cpp:289
 #, kde-format
@@ -1691,12 +1681,10 @@ msgid "Word Count"
 msgstr "Sanamäärä"
 
 #: src/editortab.cpp:1655
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Alternate Translations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Attach Alternate Translation File"
-msgstr "Vaihtoehtoiset käännökset"
+msgstr "Liitä vaihtoehtoisen käännöksen tiedosto"
 
 #: src/editortab.cpp:1753
 #, kde-format
@@ -1945,12 +1933,7 @@ msgstr "Poista rivitys"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/filesearch/filesearchoptions.ui:24
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Ctrl+L to go to this control.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Esc to stop the search."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Ctrl+L to go to this control.\n"
@@ -1979,10 +1962,7 @@ msgstr "Lähde:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for target language part.\n"
-#| "Press Enter to start the search."
+#, kde-format
 msgid ""
 "Search expression for target language part.\n"
 "Press Enter to start the search."
@@ -2131,6 +2111,9 @@ msgid ""
 "%1\n"
 "Details: %2"
 msgstr ""
+"Sanaston tallennus epäonnistui\n"
+"%1\n"
+"Yksityiskohdat: %2"
 
 #: src/glossary/glossary.cpp:653
 #, kde-format
@@ -2171,12 +2154,10 @@ msgid "Remove selected glossary entry"
 msgstr "Poista valittu sanastotietue"
 
 #: src/glossary/glossarytab.cpp:306
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Define New Term"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Term"
-msgstr "Määrittele uusi termi"
+msgstr "Lisää uusi termi"
 
 #: src/glossary/glossarytab.cpp:310
 #, kde-format
@@ -2185,17 +2166,19 @@ msgid ""
 "multiple meanings should have separate glossary entries, each corresponding "
 "to a specific definition."
 msgstr ""
+"Sanastotietueet edustavat sanan erillisiä merkityksiä. Monimerkityksisillä "
+"sanoilla tulisi olla useampia sanastotietueita, joista kukin vastaa tiettyä "
+"määritelmää."
 
 #: src/glossary/glossarytab.cpp:317
 #, kde-format
 msgid "English term:"
-msgstr ""
+msgstr "Termi englanniksi:"
 
 #: src/glossary/glossarytab.cpp:321
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgid "Target term:"
-msgstr "Kohde:"
+msgstr "Kohdetermi:"
 
 #: src/glossary/glossaryview.cpp:36 src/glossary/glossaryview.cpp:43
 #, kde-format
@@ -3137,10 +3120,7 @@ msgstr "Korosta rivinloppuiset välilyönnit"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:32
-#, fuzzy, kde-format
-#| msgid ""
-#| "If set, mouse wheel goes to previous or next unit, otherwise it scrolls "
-#| "text"
+#, kde-format
 msgid ""
 "If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
 msgstr ""
@@ -3149,16 +3129,7 @@ msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:35
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>When this option is enabled, the mouse wheel is used to go to the "
-#| "previous or next translation unit (without modifier keys). Modifier keys "
-#| "can be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll "
-#| "within the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to "
-#| "previous or next non-ready unit,</li><li><b>Ctrl</b> to go to previous or "
-#| "next non-ready not empty unit,</li><li><b>Alt</b> to go to previous or "
-#| "next untranslated unit.</li></ul>When the option is disabled, the mouse "
-#| "wheel scrolls within the text of the current translation unit.</html>"
+#, kde-format
 msgid ""
 "<html>When this option is enabled, the mouse wheel is used to go to the "
 "previous or next translation unit (without modifier keys). Modifier keys can "
@@ -3587,16 +3558,7 @@ msgstr "Merkkaus:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
 #: src/project/prefs_project_advanced.ui:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "Regular expression of markup. It is used for translation memory matching "
-#| "and for 'Insert tag' feature.\n"
-#| "\n"
-#| "A default value (suitable for XML-based texts) is:\n"
-#| "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
-#| "\n"
-#| "It is only used for gettext PO files, as XLIFF format has its own way of "
-#| "specifying where markup is."
+#, kde-format
 msgid ""
 "Regular expression of markup. It is used for translation memory matching and "
 "for 'Insert tag' feature.\n"
@@ -3650,14 +3612,7 @@ msgstr "Mallipohjien kansio:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Usually your translation project will be a subproject of a project\n"
-#| "for translating same texts into multiple languages.\n"
-#| "\n"
-#| "Set this to path of a folder containing empty translation files\n"
-#| "(i.e. files without translation into any language)\n"
-#| "shared among all subprojects."
+#, kde-format
 msgid ""
 "Usually your translation project will be a subproject of a project for "
 "translating same texts into multiple languages.\n"
@@ -3665,12 +3620,11 @@ msgid ""
 "Set this to path of a folder containing empty translation files (i.e. files "
 "without translation into any language) shared among all subprojects."
 msgstr ""
-"Käännösprojektisi on yleensä aliprojekti projektista, jossa samat\n"
-"tekstit käännetään useille kielille.\n"
+"Käännösprojekti on yleensä aliprojekti projektista, jossa samat tekstit "
+"käännetään useille kielille.\n"
 "\n"
-"Aseta tämä osoittamaan kansiota, jossa ovat tyhjät käännöstiedostot,\n"
-"ts. ne, joita ei ole käännetty millekään kielelle. Kaikki\n"
-"aliprojektit käyttävät samoja mallipohjia."
+"Aseta tämä osoittamaan aliprojektien yhteistä kansiota, jossa ovat tyhjät "
+"käännöstiedostot (ts. ne, joita ei ole käännetty millekään kielelle)."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:127
@@ -3733,14 +3687,7 @@ msgstr "Kohdekieli:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:43
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project ID is used to differentiate translation memories of absolutely "
-#| "different projects and languages.\n"
-#| "\n"
-#| "For example, if you have several projects for translating KDE "
-#| "applications\n"
-#| "(e.g. they are in different repositories), use same ID for all of them."
+#, kde-format
 msgid ""
 "Project ID is used to differentiate translation memories of absolutely "
 "different projects and languages. For example, if you have several projects "
@@ -3748,11 +3695,8 @@ msgid ""
 "use same ID for all of them."
 msgstr ""
 "Projektin tunnisteella erotetaan eri projektien ja kielten käännösmuistit "
-"toisistaan.\n"
-"\n"
-"Jos sinulla on esimerkiksi useita KDE-sovellusten käännösprojekteja "
-"(vaikkapa\n"
-"eri ohjelmalähteistä), käytä niille kaikille samaa tunnistetta."
+"toisistaan. Jos vaikka KDE-sovellusten käännösprojekteja (esim. eri "
+"ohjelmalähteistä) on useita, käytä kaikille samaa tunnistetta."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
 #: src/project/prefs_projectmain.ui:56
@@ -3776,18 +3720,13 @@ msgstr "Tunniste:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
 #: src/project/prefs_projectmain.ui:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is main setting. Set this to path of a folder with translation "
-#| "files\n"
-#| "for your project (or a subproject for your target language)."
+#, kde-format
 msgid ""
 "This is main setting. Set this to path of a folder with translation files "
 "for your project (or a subproject for your target language)."
 msgstr ""
 "Tämä on keskeinen asetus. Aseta tässä projektisi (tai kohdekielesi "
-"aliprojektin)\n"
-"käännöstiedostojen sijainti."
+"aliprojektin) käännöstiedostojen sijainti."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:137
@@ -3995,12 +3934,10 @@ msgid "Hide fully translated files and folders"
 msgstr "Piilota täysin käännetyt tiedostot ja kansiot"
 
 #: src/project/projecttab.cpp:150
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Next Untranslated"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Untranslated Folders"
-msgstr "Seuraava kääntämätön"
+msgstr "Laajenna kääntämättömät kansiot"
 
 #: src/project/projecttab.cpp:151
 #, fuzzy, kde-format
@@ -4290,11 +4227,7 @@ msgstr "Käännösmuisti:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
 #: src/tm/queryoptions.ui:70
-#, fuzzy, kde-format
-#| msgid ""
-#| "Search expression for source language part.\n"
-#| "Press Enter to start the search.\n"
-#| "Press Ctrl+L to go to this control."
+#, kde-format
 msgid ""
 "Search expression for source language part.\n"
 "Press Enter to start the search.\n"
@@ -4631,20 +4564,7 @@ msgstr "Tekstin kaappaus käyttöliittymästä"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tools/widgettextcaptureconfig.ui:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html>\n"
-#| "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
-#| "text from applications' user interfaces and search for translation files "
-#| "containing the text.</p>\n"
-#| "<p align=\"justify\">When enabled, the capture can be initiated by middle "
-#| "mouse clicking on any non-editable GUI element (widget). After that, "
-#| "switch to the Lokalize window and choose the entry with this text. Even "
-#| "if several files contain the same string, the right one will be chosen in "
-#| "most cases.</p>\n"
-#| "<p align=\"justify\">Remember that you need to have an up-to-date actual "
-#| "translation memory with all translation files indexed for this feature to "
-#| "work.</p></html>"
+#, kde-format
 msgid ""
 "<html>\n"
 "<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
