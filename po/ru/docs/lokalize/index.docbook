@@ -239,11 +239,11 @@
 <title
 >Панели инструментов</title>
 <para
->Возможно добавить или убрать действия с панели инструментов с помощью пункта главного меню <menuchoice
+>Добавить действия на панели инструментов или убрать их можно с помощью пункта главного меню <menuchoice
 ><guimenu
 >Настройка</guimenu
 ><guimenuitem
->Панели инструментов...</guimenuitem
+>Настроить панели инструментов...</guimenuitem
 ></menuchoice
 >. </para>
 <screenshot>
@@ -273,7 +273,7 @@
 ><guimenu
 >Настройка</guimenu
 ><guimenuitem
->Комбинации клавиш...</guimenuitem
+>Настроить комбинации клавиш...</guimenuitem
 ></menuchoice
 >. </para>
 <screenshot>
