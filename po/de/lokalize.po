@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-21 00:47+0000\n"
-"PO-Revision-Date: 2026-09-08 11:34+0200\n"
-"Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
+"PO-Revision-Date: 2026-09-24 21:54+0200\n"
+"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.11.70\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1182,7 +1182,7 @@ msgstr "Quelle kopieren"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy source message to clipboard"
-msgstr "Quelleintrag in die Zwischenablage kopieren"
+msgstr "Quelle in die Zwischenablage kopieren"
 
 #: src/editortab.cpp:513
 #, kde-format
@@ -1194,7 +1194,7 @@ msgstr "Ziel kopieren"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy target message to clipboard"
-msgstr "Zieleintrag in die Zwischenablage kopieren"
+msgstr "Ziel in die Zwischenablage kopieren"
 
 #: src/editortab.cpp:522
 #, kde-format
