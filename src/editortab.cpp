@@ -131,6 +131,8 @@ EditorTab::~EditorTab()
 
     ids.removeAll(m_dbusId);
 
+    delete m_transUnitsView;
+
     delete m_catalog;
 }
 
