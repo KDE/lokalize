@@ -126,6 +126,8 @@ void SettingsController::showSettingsDialog()
     w = new QWidget(dialog);
     Ui_prefs_languagetool ui_prefs_languagetool;
     ui_prefs_languagetool.setupUi(w);
+    connect(ui_prefs_languagetool.kcfg_LanguageToolCustom, &QCheckBox::toggled, ui_prefs_languagetool.kcfg_LanguageToolInstancePath, &QLineEdit::setEnabled);
+    ui_prefs_languagetool.kcfg_LanguageToolInstancePath->setEnabled(Settings::self()->languageToolCustom());
     dialog->addPage(w, i18nc("@title:tab", "LanguageTool"), QStringLiteral("lokalize"));
 
     connect(dialog, &KConfigDialog::settingsChanged, this, &SettingsController::generalSettingsChanged);
