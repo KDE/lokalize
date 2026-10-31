@@ -4561,7 +4561,7 @@ msgctxt ""
 "A perfect match between a Translation Memory source string and the source "
 "string being translated."
 msgid "100% (perfect match)"
-msgstr "100% (coincidència perfecta)"
+msgstr "100 % (coincidència perfecta)"
 
 #: src/tm/tmview.cpp:501
 #, kde-format
@@ -4569,7 +4569,7 @@ msgctxt ""
 "The similarity between a Translation Memory source string and the source "
 "string being translated, %1 is 0 to 99 (percent)."
 msgid "%1%"
-msgstr "%1%"
+msgstr "%1 %"
 
 #: src/tm/tmview.cpp:507
 #, kde-format
