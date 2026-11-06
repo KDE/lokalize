@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-03 00:57+0000\n"
-"PO-Revision-Date: 2026-08-25 14:14+0300\n"
+"PO-Revision-Date: 2026-10-05 13:08+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -573,9 +573,7 @@ msgid ""
 msgstr ""
 "Varastonpitoyksikkö: varastokohde, joka tunnistetaan "
 "varastonhallintajärjestelmässä siihen liitetystä ainutkertaisesta "
-"aakkosnumeerisesta jonostaVarastonpitoyksikkö: varastokohde, joka "
-"tunnistetaan varastonhallintajärjestelmässä siihen liitetystä "
-"ainutkertaisesta aakkosnumeerisesta jonosta"
+"aakkosnumeerisesta jonosta"
 
 #: src/catalog/catalogstring.cpp:160
 #, kde-format
@@ -2454,7 +2452,7 @@ msgstr "Ikkunan &väriteema"
 #: src/lokalizemainwindow.cpp:780
 #, kde-format
 msgid "Toggle Menu Bar"
-msgstr ""
+msgstr "Näytä tai piilota valikkorivi"
 
 #: src/lokalizemainwindow.cpp:973
 #, kde-format
@@ -3926,9 +3924,7 @@ msgid "Hide Completed Items"
 msgstr "Piilota valmiit yksiköt"
 
 #: src/project/projecttab.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide fully translated files and folders"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide fully translated files and folders"
 msgstr "Piilota täysin käännetyt tiedostot ja kansiot"
@@ -3940,11 +3936,10 @@ msgid "Expand Untranslated Folders"
 msgstr "Laajenna kääntämättömät kansiot"
 
 #: src/project/projecttab.cpp:151
-#, fuzzy, kde-format
-#| msgid "Prefetch for the next untranslated"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Open the directory tree to untranslated files"
-msgstr "Seuraavan kääntämättömän esihaku"
+msgstr "Avaa kansiopuu kääntämättömiin tiedostoihin"
 
 #: src/project/projecttab.cpp:193
 #, kde-format
