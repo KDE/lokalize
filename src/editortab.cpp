@@ -72,6 +72,7 @@
 #include <QStringBuilder>
 #include <QTime>
 #include <QUrl>
+#include <QUrlQuery>
 #include <QVBoxLayout>
 #include <qstringview.h>
 #include <qtmetamacros.h>
@@ -1703,9 +1704,13 @@ void EditorTab::reloadFile()
         mergeOpen(mergeFilePath);
 }
 
-static void openLxrSearch(const QString &srcFileRelPath)
+static void openOnlineFileSearch(const QString &srcFileRelPath)
 {
-    QDesktopServices::openUrl(QUrl(QStringLiteral("https://lxr.kde.org/search?_filestring=") + QString::fromLatin1(QUrl::toPercentEncoding(srcFileRelPath))));
+    QUrl url(QStringLiteral("https://codesearch.kde.org/search"));
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("q"), QStringLiteral("path:") + srcFileRelPath);
+    url.setQuery(query);
+    QDesktopServices::openUrl(url);
 }
 
 static void openLocalSource(const QString &file, int line)
@@ -1752,10 +1757,10 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString &srcFileRelPath, int li
     QString dir = Project::instance()->local()->sourceDir();
     if (dir.isEmpty()) {
         switch (KMessageBox::questionTwoActionsCancel(SettingsController::instance()->mainWindowPtr(),
-                                                      i18nc("@info", "Would you like to search for the source file locally or via lxr.kde.org?"),
+                                                      i18nc("@info", "Would you like to search for the source file locally or via codesearch.kde.org?"),
                                                       i18nc("@title", "Source file lookup"),
                                                       KGuiItem(i18nc("@action", "Search Locally")),
-                                                      KGuiItem(i18nc("@action", "Search on lxr.kde.org")),
+                                                      KGuiItem(i18nc("@action", "Search on codesearch.kde.org")),
                                                       KStandardGuiItem::cancel())) {
         case KMessageBox::PrimaryAction:
             dir = QFileDialog::getExistingDirectory(this, i18n("Select project's base folder for source file lookup"), QDir::homePath());
@@ -1763,7 +1768,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString &srcFileRelPath, int li
                 Project::instance()->local()->setSourceDir(dir);
             break;
         case KMessageBox::SecondaryAction:
-            openLxrSearch(srcFileRelPath);
+            openOnlineFileSearch(srcFileRelPath);
             return;
         case KMessageBox::Cancel:
         default:
@@ -1799,7 +1804,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString &srcFileRelPath, int li
                                                                    "Do you want to change source files folder?"),
                                                              i18nc("@title:window", "Source file lookup"),
                                                              KGuiItem(i18nc("@action", "Select Folder")),
-                                                             KGuiItem(i18nc("@action", "Search on lxr.kde.org")),
+                                                             KGuiItem(i18nc("@action", "Search on codesearch.kde.org")),
                                                              KStandardGuiItem::cancel())) {
                 case KMessageBox::PrimaryAction: {
                     QString dir = QFileDialog::getExistingDirectory(nullptr,
@@ -1814,7 +1819,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString &srcFileRelPath, int li
                 case KMessageBox::SecondaryAction:
                     Project::instance()->local()->setSourceDir(QString());
                     Project::instance()->resetSourceFilePaths();
-                    openLxrSearch(srcFileRelPath);
+                    openOnlineFileSearch(srcFileRelPath);
                     return;
                 case KMessageBox::Cancel:
                     return;
