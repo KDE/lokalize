@@ -17,7 +17,6 @@
 
 class QaModel : public QAbstractListModel
 {
-    // Q_OBJECT
 public:
     enum Columns {
         // ID = 0,

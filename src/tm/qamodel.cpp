@@ -220,5 +220,3 @@ bool QaModel::setData(const QModelIndex &item, const QVariant &value, int role)
     Q_EMIT dataChanged(item, item);
     return true;
 }
-
-#include "moc_qamodel.cpp"
