@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 03:00+0000\n"
+"POT-Creation-Date: 2026-11-16 01:10+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -2864,7 +2864,7 @@ msgstr ""
 "%1 - 源文件的路径\n"
 "%2 - 行号"
 
-#: src/prefs/prefs.cpp:99 src/prefs/prefs.cpp:204
+#: src/prefs/prefs.cpp:99 src/prefs/prefs.cpp:206
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2894,13 +2894,13 @@ msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:129
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:143
+#: src/prefs/prefs.cpp:145
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2909,47 +2909,47 @@ msgstr ""
 "您访问的功能需要加载项目之后才能使用。您想要新建一个项目，还是打开一个已有项"
 "目？"
 
-#: src/prefs/prefs.cpp:144
+#: src/prefs/prefs.cpp:146
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "需要加载项目"
 
-#: src/prefs/prefs.cpp:145
+#: src/prefs/prefs.cpp:147
 #, kde-format
 msgctxt "@action"
 msgid "Create Project…"
 msgstr ""
 
-#: src/prefs/prefs.cpp:146
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "Open Project…"
 msgstr ""
 
-#: src/prefs/prefs.cpp:158 src/prefs/prefs.cpp:175
+#: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Lokalize 翻译项目文件 (*.lokalize)"
 
-#: src/prefs/prefs.cpp:173
+#: src/prefs/prefs.cpp:175
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "选择要翻译的 Gettext .po 文件所在的目录"
 
-#: src/prefs/prefs.cpp:193
+#: src/prefs/prefs.cpp:195
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "请先创建软件或者 OpenDocument 翻译项目。"
 
-#: src/prefs/prefs.cpp:249
+#: src/prefs/prefs.cpp:251
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "高级"
 
-#: src/prefs/prefs.cpp:254
+#: src/prefs/prefs.cpp:256
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3234,32 +3234,32 @@ msgid "Default Language-Team:"
 msgstr "默认语言团队："
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
-#: src/prefs/prefs_languagetool.ui:21
+#: src/prefs/prefs_languagetool.ui:16
 #, kde-format
 msgid "Use custom LanguageTool server"
 msgstr "使用自定义 LanguageTool 服务器"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: src/prefs/prefs_languagetool.ui:31
+#: src/prefs/prefs_languagetool.ui:25
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Server Path:"
 msgstr "服务器路径："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
-#: src/prefs/prefs_languagetool.ui:44
+#: src/prefs/prefs_languagetool.ui:38
 #, kde-format
 msgid "The path of your custom Language Tool server"
 msgstr "您的自定义 Language Tool 服务器路径"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
-#: src/prefs/prefs_languagetool.ui:47
+#: src/prefs/prefs_languagetool.ui:41
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
 msgstr "请输入您的自定义 Language Tool 服务器路径（如有）"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
-#: src/prefs/prefs_languagetool.ui:58
+#: src/prefs/prefs_languagetool.ui:52
 #, kde-format
 msgid ""
 "Delay before automatic checking after you stop typing (in seconds, 0 to "
@@ -3268,7 +3268,7 @@ msgstr "停止输入后自动检查前的延迟（以秒为单位，设置为 0 
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
-#: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
+#: src/prefs/prefs_languagetool.ui:58 src/prefs/prefs_languagetool.ui:65
 #, kde-format
 msgid "Set to 0 to disable auto checking"
 msgstr "设置为 0 以禁用自动检查"

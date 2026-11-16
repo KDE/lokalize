@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 03:00+0000\n"
-"PO-Revision-Date: 2026-11-14 18:37+0300\n"
+"POT-Creation-Date: 2026-11-16 01:10+0000\n"
+"PO-Revision-Date: 2026-11-15 20:07+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2931,7 +2931,7 @@ msgstr ""
 #: src/prefs/lokalize.kcfg:73
 #, kde-format
 msgid "Font for Messages"
-msgstr "İleti Yazıtipi"
+msgstr "İleti yazı tipi"
 
 #: src/prefs/prefs.cpp:88
 #, kde-format
@@ -2950,7 +2950,7 @@ msgstr ""
 "%1 — Kaynak dosyanın yolu \n"
 "%2 — Satır numarası"
 
-#: src/prefs/prefs.cpp:99 src/prefs/prefs.cpp:204
+#: src/prefs/prefs.cpp:99 src/prefs/prefs.cpp:206
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2980,13 +2980,13 @@ msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:129
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "LanguageTool"
 
-#: src/prefs/prefs.cpp:143
+#: src/prefs/prefs.cpp:145
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2995,47 +2995,47 @@ msgstr ""
 "Bir projenin yüklenmesini gerektiren bir özelliğe eriştiniz. Bir proje "
 "oluşturmak veya var olan bir projeyi açmak istiyor musunuz?"
 
-#: src/prefs/prefs.cpp:144
+#: src/prefs/prefs.cpp:146
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "Proje Gerekli"
 
-#: src/prefs/prefs.cpp:145
+#: src/prefs/prefs.cpp:147
 #, kde-format
 msgctxt "@action"
 msgid "Create Project…"
 msgstr "Proje Oluştur…"
 
-#: src/prefs/prefs.cpp:146
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "Open Project…"
 msgstr "Proje Aç…"
 
-#: src/prefs/prefs.cpp:158 src/prefs/prefs.cpp:175
+#: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Lokalize çeviri projesi (*.lokalize)"
 
-#: src/prefs/prefs.cpp:173
+#: src/prefs/prefs.cpp:175
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr ".po Dosyaları Klasörünü Seç"
 
-#: src/prefs/prefs.cpp:193
+#: src/prefs/prefs.cpp:195
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "İlk olarak yazılım veya OpenDocument çeviri projesi oluşturun."
 
-#: src/prefs/prefs.cpp:249
+#: src/prefs/prefs.cpp:251
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Gelişmiş"
 
-#: src/prefs/prefs.cpp:254
+#: src/prefs/prefs.cpp:256
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3045,20 +3045,20 @@ msgstr "Kişisel"
 #: src/prefs/prefs_appearance.ui:34
 #, kde-format
 msgid "Editor font:"
-msgstr "Düzenleyici yazıtipi:"
+msgstr "Düzenleyici yazı tipi:"
 
 #. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_MsgFont)
 #: src/prefs/prefs_appearance.ui:44
 #, kde-format
 msgid "Change the font for the editor"
-msgstr "Düzenleyici yazıtipini değiştir"
+msgstr "Düzenleyici yazı tipini değiştir"
 
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_MsgFont)
 #: src/prefs/prefs_appearance.ui:47
 #, kde-format
 msgid "Choose a new font for the area where you write the translated message."
 msgstr ""
-"Çevrilmiş iletiyi yazacağınız alanda kullanmak için yeni bir yazıtipi seçin."
+"Çevrilmiş iletiyi yazacağınız alanda kullanmak için yeni bir yazı tipi seçin."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
 #: src/prefs/prefs_appearance.ui:54
@@ -3333,32 +3333,32 @@ msgid "Default Language-Team:"
 msgstr "Ö&ntanımlı dil:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
-#: src/prefs/prefs_languagetool.ui:21
+#: src/prefs/prefs_languagetool.ui:16
 #, kde-format
 msgid "Use custom LanguageTool server"
 msgstr "Özel LanguageTool sunucusu kullan"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: src/prefs/prefs_languagetool.ui:31
+#: src/prefs/prefs_languagetool.ui:25
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Server Path:"
 msgstr "Sunucu yolu:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
-#: src/prefs/prefs_languagetool.ui:44
+#: src/prefs/prefs_languagetool.ui:38
 #, kde-format
 msgid "The path of your custom Language Tool server"
 msgstr "Özel LanguageTool sunucunuzun yolu"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
-#: src/prefs/prefs_languagetool.ui:47
+#: src/prefs/prefs_languagetool.ui:41
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
 msgstr "Lütfen, varsa özel LanguageTool sunucunuzun yolunu girin"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
-#: src/prefs/prefs_languagetool.ui:58
+#: src/prefs/prefs_languagetool.ui:52
 #, kde-format
 msgid ""
 "Delay before automatic checking after you stop typing (in seconds, 0 to "
@@ -3369,7 +3369,7 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
-#: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
+#: src/prefs/prefs_languagetool.ui:58 src/prefs/prefs_languagetool.ui:65
 #, kde-format
 msgid "Set to 0 to disable auto checking"
 msgstr "Kendiliğinden denetimi devre dışı bırakmak için 0 olarak ayarlayın"

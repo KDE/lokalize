@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 03:00+0000\n"
+"POT-Creation-Date: 2026-11-16 01:10+0000\n"
 "PO-Revision-Date: 2026-09-14 21:42+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2927,7 +2927,7 @@ msgstr ""
 "‏%1 - مسار الملف المصدر\n"
 "‏%2 - رقم السطر"
 
-#: src/prefs/prefs.cpp:99 src/prefs/prefs.cpp:204
+#: src/prefs/prefs.cpp:99 src/prefs/prefs.cpp:206
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
@@ -2957,13 +2957,13 @@ msgctxt "@title:tab"
 msgid "Pology"
 msgstr "Pology"
 
-#: src/prefs/prefs.cpp:129
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "أداة اللغة LanguageTool"
 
-#: src/prefs/prefs.cpp:143
+#: src/prefs/prefs.cpp:145
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2972,47 +2972,47 @@ msgstr ""
 "لقد دخلت إلى ميزة تحتاج مشروعًا مُحمّلًا. أتريد إنشاء مشروع جديد أو فتح مشروع "
 "موجود؟"
 
-#: src/prefs/prefs.cpp:144
+#: src/prefs/prefs.cpp:146
 #, kde-format
 msgctxt "@title"
 msgid "Project Required"
 msgstr "المشروع المطلوب"
 
-#: src/prefs/prefs.cpp:145
+#: src/prefs/prefs.cpp:147
 #, kde-format
 msgctxt "@action"
 msgid "Create Project…"
 msgstr "أنشئ مشروعًا…"
 
-#: src/prefs/prefs.cpp:146
+#: src/prefs/prefs.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "Open Project…"
 msgstr "افتح مشروعًا…"
 
-#: src/prefs/prefs.cpp:158 src/prefs/prefs.cpp:175
+#: src/prefs/prefs.cpp:160 src/prefs/prefs.cpp:177
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "مشروع ترجمة للوكالايز (*.lokalize)"
 
-#: src/prefs/prefs.cpp:173
+#: src/prefs/prefs.cpp:175
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "اختر مجلّدًا فيه ملفّات «غَت‌تكست» ‎.po لترجمتها"
 
-#: src/prefs/prefs.cpp:193
+#: src/prefs/prefs.cpp:195
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr "أنشئ مشروع ترجمة برمجيّات أو «مستندمفتوح» أوّلًا."
 
-#: src/prefs/prefs.cpp:249
+#: src/prefs/prefs.cpp:251
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "متقدّم"
 
-#: src/prefs/prefs.cpp:254
+#: src/prefs/prefs.cpp:256
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3300,32 +3300,32 @@ msgid "Default Language-Team:"
 msgstr "فريق اللغة المبدئيّ:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
-#: src/prefs/prefs_languagetool.ui:21
+#: src/prefs/prefs_languagetool.ui:16
 #, kde-format
 msgid "Use custom LanguageTool server"
 msgstr "استخدم خادم أداة اللغة LanguageTool مخصوص"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: src/prefs/prefs_languagetool.ui:31
+#: src/prefs/prefs_languagetool.ui:25
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Server Path:"
 msgstr "مسار الخادم:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
-#: src/prefs/prefs_languagetool.ui:44
+#: src/prefs/prefs_languagetool.ui:38
 #, kde-format
 msgid "The path of your custom Language Tool server"
 msgstr "مسار خادم أداة اللغة Language Tool مخصوص"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
-#: src/prefs/prefs_languagetool.ui:47
+#: src/prefs/prefs_languagetool.ui:41
 #, kde-format
 msgid "Please enter the path of your custom Language Tool server, if any"
 msgstr "لطفًا أدخل مسار خادم أداة اللغة Language Tool المخصص، إن وُجد"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
-#: src/prefs/prefs_languagetool.ui:58
+#: src/prefs/prefs_languagetool.ui:52
 #, kde-format
 msgid ""
 "Delay before automatic checking after you stop typing (in seconds, 0 to "
@@ -3334,7 +3334,7 @@ msgstr "التأخير قبل الفحص الآليّ بعد أن تتوقف ع�
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l1)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
-#: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
+#: src/prefs/prefs_languagetool.ui:58 src/prefs/prefs_languagetool.ui:65
 #, kde-format
 msgid "Set to 0 to disable auto checking"
 msgstr "اضبط إلى 0 لتعطيل التدقيق الآليّ"
