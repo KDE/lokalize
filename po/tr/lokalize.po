@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-08 00:16+0000\n"
-"PO-Revision-Date: 2026-11-15 20:07+0300\n"
+"PO-Revision-Date: 2026-11-16 19:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2051,7 +2051,7 @@ msgstr "Şununla:"
 #: src/filesearch/massreplaceoptions.ui:37
 #, kde-format
 msgid "Preview"
-msgstr "Önizleme"
+msgstr "Ön İzle"
 
 #. i18n: ectx: property (text), widget (QPushButton, doReplace)
 #: src/filesearch/massreplaceoptions.ui:56
