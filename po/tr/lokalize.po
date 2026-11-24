@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-23 01:07+0000\n"
-"PO-Revision-Date: 2026-11-16 19:25+0300\n"
+"PO-Revision-Date: 2026-11-23 18:16+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #, kde-format
 msgid "default"
-msgstr "öntanımlı"
+msgstr "varsayılan"
 
 #: src/alttransview.cpp:38 src/alttransview.cpp:41
 #, kde-format
@@ -1677,16 +1677,13 @@ msgid "Attach Alternate Translation File"
 msgstr "Alternatif Çeviri Dosyası İliştir"
 
 #: src/editortab.cpp:1760
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Would you like to search for the source file locally or via lxr.kde.org?"
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via codesearch.kde."
 "org?"
 msgstr ""
-"Kaynak dosyasını yerel olarak mı yoksa lxr.kde.org kullanarak mı aramak "
+"Kaynak dosyasını yerel olarak mı yoksa codesearch.kde.org üzerinde mi aramak "
 "istersiniz?"
 
 #: src/editortab.cpp:1761
@@ -1702,12 +1699,10 @@ msgid "Search Locally"
 msgstr "Yerel Olarak Ara"
 
 #: src/editortab.cpp:1763 src/editortab.cpp:1807
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Search on lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on codesearch.kde.org"
-msgstr "lxr.kde.org Üzerinde Ara"
+msgstr "codesearch.kde.org Üzerinde Ara"
 
 #: src/editortab.cpp:1766 src/editortab.cpp:1811
 #, kde-format
@@ -2911,14 +2906,14 @@ msgstr "Çevirmenin e-posta adresi"
 #: src/prefs/lokalize.kcfg:47 src/prefs/lokalize.kcfg:48
 #, kde-format
 msgid "Default language code for new projects"
-msgstr "Yeni projeler için öntanımlı dil"
+msgstr "Yeni projeler için varsayılan dil"
 
 #. i18n: ectx: label, entry, group (Identity)
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:54 src/prefs/lokalize.kcfg:55
 #, kde-format
 msgid "Default mailing list for new projects"
-msgstr "Yeni projeler için öntanımlı e-posta listesi"
+msgstr "Yeni projeler için varsayılan e-posta listesi"
 
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
@@ -3238,7 +3233,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Default language:"
-msgstr "Öntanımlı dil:"
+msgstr "Varsayılan dil:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/prefs/prefs_identity.ui:48
@@ -3271,7 +3266,7 @@ msgstr "Lütfen adınızı İngilizce olarak buaraya girin"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "&Default mailing list:"
-msgstr "Ö&ntanımlı e-posta listesi:"
+msgstr "&Varsayılan e-posta listesi:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
 #: src/prefs/prefs_identity.ui:94
@@ -3295,7 +3290,7 @@ msgstr "Çeviri yapacağınız dil"
 #: src/prefs/prefs_identity.ui:107
 #, kde-format
 msgid "Set the default language you are going to translate to"
-msgstr "Dosyaların çevrileceği öntanımlı dili ayarla"
+msgstr "Dosyaların çevrileceği varsayılan dili ayarla"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorEmail)
 #: src/prefs/prefs_identity.ui:127
@@ -3336,7 +3331,7 @@ msgstr "Yerelleştirilmiş ad:"
 #: src/prefs/prefs_identity.ui:164
 #, kde-format
 msgid "Default Language-Team:"
-msgstr "Ö&ntanımlı dil:"
+msgstr "&Varsayılan dil:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
 #: src/prefs/prefs_languagetool.ui:16
@@ -3482,7 +3477,7 @@ msgstr "En fazla öneri sayısını ayarla"
 #, kde-format
 msgid "You can change the maximum number of suggestions, default is 7."
 msgstr ""
-"En çok kaç öneri yapılacağını değiştirebilirsiniz, öntanımlı değer 7’dir."
+"En çok kaç öneri yapılacağını değiştirebilirsiniz, varsayılan değer 7’dir."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_tm.ui:97
@@ -3503,7 +3498,7 @@ msgid ""
 "You can change the minimum score (0-100) required for suggestions, default "
 "is 0."
 msgstr ""
-"Öneriler için gerekli en düşük puanı (0–100) değiştirebilirsiniz, öntanımlı "
+"Öneriler için gerekli en düşük puanı (0–100) değiştirebilirsiniz, varsayılan "
 "değer 0’dır."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
@@ -3571,8 +3566,8 @@ msgstr ""
 "İmleme için düzenli ifade. Bu, çeviri belleğinde yapılacak arama eşleşmeleri "
 "ve “Künye Ekle” özelliği için kullanılır.\n"
 "\n"
-"Öntanımlı değer (XML-tabanlı metinler için) şöyledir: (<[^>]+>)+|(&[A-Za-z_:]"
-"[A-Za-z0-9_\\.:-]*;)+\n"
+"Varsayılan değer (XML-tabanlı metinler için) şöyledir: (<[^>]+>)+|(&[A-Za-"
+"z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
 "Bu, yalnızca gettext PO dosyaları için kullanılır, XLIFF biçimi imlemeler "
 "için kendine has bir yol kullanır."

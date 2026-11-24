@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-23 01:07+0000\n"
-"PO-Revision-Date: 2026-09-13 13:05+0300\n"
+"PO-Revision-Date: 2026-11-23 09:46+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1684,16 +1684,14 @@ msgid "Attach Alternate Translation File"
 msgstr "Долучення файла альтернативних перекладів"
 
 #: src/editortab.cpp:1760
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Would you like to search for the source file locally or via lxr.kde.org?"
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via codesearch.kde."
 "org?"
 msgstr ""
-"Хочете виконати пошук початкового файла локально чи за допомогою lxr.kde.org?"
+"Хочете виконати пошук початкового файла локально чи за допомогою codesearch."
+"kde.org?"
 
 #: src/editortab.cpp:1761
 #, kde-format
@@ -1708,12 +1706,10 @@ msgid "Search Locally"
 msgstr "Шукати локально"
 
 #: src/editortab.cpp:1763 src/editortab.cpp:1807
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Search on lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on codesearch.kde.org"
-msgstr "Шукати на lxr.kde.org"
+msgstr "Шукати на codesearch.kde.org"
 
 #: src/editortab.cpp:1766 src/editortab.cpp:1811
 #, kde-format
