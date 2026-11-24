@@ -116,17 +116,17 @@
 <title
 >Ana Pencere</title>
 <para
->Öntanımlı olarak, ana pencere altı bölümden oluştur. Sağ üst kutu saltokunurdur ve yalnızca açılmış PO/POT dosyasından alınan msgid’yi (kaynak metin) içerir. Bu kutunun altında bulunan düzenleme kutusu ise msgstr’yi (hedef metin) belirtir. Buraya metin girebilir veya girilen metni değiştirebilirsiniz. </para>
+>Varsayılan olarak, ana pencere altı bölümden oluştur. Sağ üst kutu saltokunurdur ve yalnızca açılmış PO/POT dosyasından alınan msgid’yi (kaynak metin) içerir. Bu kutunun altında bulunan düzenleme kutusu ise msgstr’yi (hedef metin) belirtir. Buraya metin girebilir veya girilen metni değiştirebilirsiniz. </para>
 <screenshot>
 <screeninfo
->Öntanımlı ana &lokalize; penceresi</screeninfo>
+>Varsayılan ana &lokalize; penceresi</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
     </imageobject>
     <textobject>
       <phrase
->Bu, bir dosya açıldığındaki öntanımlı pencereyi gösterir</phrase>
+>Bu, bir dosya açıldığındaki varsayılan pencereyi gösterir</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
@@ -320,7 +320,7 @@
 >gözden geçirme</emphasis
 >, <emphasis
 >onay</emphasis
->). Sizin için kullanılacak öntanımlı faza, projedeki <emphasis
+>). Sizin için kullanılacak varsayılan faza, projedeki <emphasis
 >rolünüze</emphasis
 > göre karar verilir (proje ayarlarından belirlenir). Her birim, genelde son değiştirilen fazı hakkında bilgi içerir ve her bir faz için onun sahibi dosyaya günlüklenir. </para>
 </sect1>
@@ -420,10 +420,10 @@
 >&Ctrl;<keycap
 >T</keycap
 ></keycombo
-> öntanımlı kısayoluyla gizleyebilirsiniz. </para>
+> varsayılan kısayoluyla gizleyebilirsiniz. </para>
 </note>
 <para
->&lokalize; uygulamasını bir sonraki başlatışınızda, öntanımlı olarak son açılan dosyayı gösterir. Bu davranışı, ayarlardan <guilabel
+>&lokalize; uygulamasını bir sonraki başlatışınızda, varsayılan olarak son açılan dosyayı gösterir. Bu davranışı, ayarlardan <guilabel
 >&lokalize;’yi başlatırken önceden açılan dosyaları geri yükle</guilabel
 > seçeneğiyle kapatabilirsiniz (<menuchoice
 ><guimenu
