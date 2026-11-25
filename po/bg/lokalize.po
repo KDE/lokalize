@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-23 01:07+0000\n"
-"PO-Revision-Date: 2026-11-19 20:46+0100\n"
+"PO-Revision-Date: 2026-11-24 22:01+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -1684,15 +1684,13 @@ msgid "Attach Alternate Translation File"
 msgstr "Добавяне на алтернативен преводен файл"
 
 #: src/editortab.cpp:1760
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Would you like to search for the source file locally or via lxr.kde.org?"
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via codesearch.kde."
 "org?"
-msgstr "Искате ли да търсите изходния файл локално или чрез lxr.kde.org?"
+msgstr ""
+"Искате ли да потърсите изходния файл локално или чрез codesearch.kde.org?"
 
 #: src/editortab.cpp:1761
 #, kde-format
@@ -1707,12 +1705,10 @@ msgid "Search Locally"
 msgstr "Локално търсене"
 
 #: src/editortab.cpp:1763 src/editortab.cpp:1807
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Search on lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on codesearch.kde.org"
-msgstr "Търсене на lxr.kde.org"
+msgstr "Търсене на codesearch.kde.org"
 
 #: src/editortab.cpp:1766 src/editortab.cpp:1811
 #, kde-format

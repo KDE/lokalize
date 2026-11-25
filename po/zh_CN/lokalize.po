@@ -1621,15 +1621,12 @@ msgid "Attach Alternate Translation File"
 msgstr ""
 
 #: src/editortab.cpp:1760
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "Would you like to search for the source file locally or via lxr.kde.org?"
+#, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via codesearch.kde."
 "org?"
-msgstr "您希望在本地搜索源文件还是通过 lxr.kde.org 搜索？"
+msgstr ""
 
 #: src/editortab.cpp:1761
 #, kde-format
@@ -1644,12 +1641,10 @@ msgid "Search Locally"
 msgstr "本地搜索"
 
 #: src/editortab.cpp:1763 src/editortab.cpp:1807
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Search on lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on codesearch.kde.org"
-msgstr "在 lxr.kde.org 上搜索"
+msgstr ""
 
 #: src/editortab.cpp:1766 src/editortab.cpp:1811
 #, kde-format
