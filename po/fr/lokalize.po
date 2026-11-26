@@ -2233,7 +2233,7 @@ msgstr ""
 "p><p>Veuillez ensuite utiliser le menu contextuel pour l'ajout d'une "
 "nouvelle entrée au glossaire (Astuce : sélectionnez les mots dans les champs "
 "« Source » et « Cible » avant d'appeler <interface>Définir un nouveau terme</"
-"interface>).</p>Vous pouvez spécifier l'emplacement du fichier de glossaire "
+"interface>). Vous pouvez spécifier l'emplacement du fichier de glossaire "
 "dans la configuration du projet. </p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
