@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-23 01:07+0000\n"
-"PO-Revision-Date: 2026-11-23 18:16+0300\n"
+"PO-Revision-Date: 2026-11-26 19:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -114,8 +114,8 @@ msgstr ""
 "Bazen metin değiştiğinde, çevirisi kullanılamaz olur ve gözden geçirme "
 "gerekli (onay durumunu kaybeder) veya (yalnızca XLIFF dosyası durumunda) "
 "birime yardım edebilmek için alternatif çeviriler bölümüne taşınır. Bu araç "
-"görünümü, ayrıca geçerli kaynak metni ile önceki kaynak metni arasındaki "
-"farkı gösterir. Böylece mevcut çeviriyi güncel tutmak için hangi "
+"görünümü, ayrıca geçerli kaynak dizge ile önceki kaynak dizge arasındaki "
+"farkı gösterir. Böylece var olan çeviriyi güncel tutmak için hangi "
 "değişikliğin uygulanması gerektiğini görebilirsiniz. Araç görünümündeki "
 "herhangi bir sözcüğe çift tıklamak, sözcüğü çeviriye ekler. Çeviri dosyasını "
 "bu araç görünümüne bırakarak alternatif çeviriler için bir kaynak olarak "
@@ -721,7 +721,7 @@ msgstr "İmlemeyle Metin Gir"
 #: src/catalog/gettext/gettextstorage.cpp:100
 #, kde-format
 msgid "separator for different-length string alternatives"
-msgstr "farklı uzunluktaki dizi alternatifleri için ayraç"
+msgstr "farklı uzunluktaki dizge alternatifleri için ayraç"
 
 #: src/catalog/gettext/gettextstorage.cpp:290
 #, kde-format
@@ -1904,7 +1904,7 @@ msgid ""
 "<p>This part of the window shows the original message\n"
 "of the currently displayed entry.</p></qt>"
 msgstr ""
-"<qt><p><b>İletinin Aslı</b></p>\n"
+"<qt><p><b>Özgün Dizge</b></p>\n"
 "<p>Pencerenin bu bölümü şimdi gösterilen girdiye ait iletinin aslını "
 "gösterir.</p></qt>"
 
@@ -3095,7 +3095,7 @@ msgid ""
 "displaying it in the user interface, or when it gets concatenated with "
 "others)."
 msgstr ""
-"Bir iletinin sonunda boşluk olup olmadığını görmek istiyorsanız işaretleyin "
+"Bir dizgenin sonunda boşluk olup olmadığını görmek istiyorsanız işaretleyin "
 "(bu, genellikle iletinin kullanıcı arayüzündeki görünümü için önemlidir, "
 "diğer sözcüklerle bitişik gösterilmesini engellemenizi sağlar)."
 
@@ -4333,7 +4333,7 @@ msgstr "Hedef: %1"
 #: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Substring"
-msgstr "Alt ifade"
+msgstr "Alt dizge"
 
 #: src/tm/tmtab.cpp:364
 #, kde-format
@@ -4575,7 +4575,7 @@ msgstr ""
 "kullanıcı arayüzü ögesi üzerinde (araç takımı) farenin orta düğmesi ile "
 "tıklanıldığında yakalama işlemi başlatılır. Ardından, Lokalize penceresine "
 "geçiş yapın ve bu metni içeren girişi seçin. Eğer birden fazla dosya aynı "
-"metni içeriyorsa çoğu durumda doğru olan seçilecektir.</p>\n"
+"dizgeyi içeriyorsa çoğu durumda doğru olan seçilecektir.</p>\n"
 "<p align=\"justify\">Unutmayın: Bu özellik için tüm çeviri dosyaları "
 "dizinlenmiş güncel bir çeviri belleğine sahip olmanız gerekir.</p></html>"
 
